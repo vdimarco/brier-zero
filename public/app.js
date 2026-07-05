@@ -102,12 +102,18 @@ function matchCard(match, state) {
   if (hasAny) {
     const withProbs = Object.values(preds).filter((p) => p.probs);
     const isOpen = expandedMatches.has(match.id);
+    let outcomeHead = '';
     let collapsed = '';
     if (withProbs.length) {
       // Consensus: the mean of every stored model forecast for this match.
       const consensus = { home: 0, draw: 0, away: 0 };
       for (const p of withProbs)
         for (const o of ['home', 'draw', 'away']) consensus[o] += p.probs[o] / withProbs.length;
+      outcomeHead = `<div class="outcome-head" title="Consensus of ${withProbs.length} model forecasts">
+        <span class="ol"><i class="swatch swatch-home"></i>${esc(home.name)} <b>${pct(consensus.home)}%</b></span>
+        <span class="ol"><i class="swatch swatch-draw"></i>Draw <b>${pct(consensus.draw)}%</b></span>
+        <span class="ol"><i class="swatch swatch-away"></i>${esc(away.name)} <b>${pct(consensus.away)}%</b></span>
+      </div>`;
       const consensusPred = {
         probs: consensus,
         rationale: `Average of ${withProbs.length} model forecasts`,
@@ -123,6 +129,7 @@ function matchCard(match, state) {
       collapsed = `<div class="fnote">All model calls failed for this match.</div>`;
     }
     body = `<div class="forecasts">
+      ${outcomeHead}
       ${isOpen
         ? state.models.map((m) => forecastRow(m, preds[m.id], match, bestBrier)).join('')
         : collapsed}
