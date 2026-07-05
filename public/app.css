@@ -153,6 +153,15 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
 .fnote { color: var(--ink-3); font-size: 12.5px; }
 .ferr { color: var(--away); font-size: 12px; grid-column: 2 / 4; }
 
+.toggle-models {
+  justify-self: start;
+  background: none; border: 0; padding: 2px 0;
+  color: var(--ink-3); font: 600 12.5px system-ui, sans-serif;
+  cursor: pointer;
+}
+.toggle-models:hover, .toggle-models:focus-visible { color: var(--ink); }
+.toggle-models:focus-visible { outline: 1px solid var(--gold); outline-offset: 3px; }
+
 .collect {
   margin-top: 12px;
   background: var(--gold); color: var(--gold-ink);
