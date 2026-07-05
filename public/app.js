@@ -393,6 +393,10 @@ async function refresh(force = false) {
     renderLeaderboard(state);
     renderMatches(state);
     renderDetail(state);
+    if (state.prompts) {
+      $('#prompt-locked').textContent = state.prompts.locked;
+      $('#prompt-live').textContent = state.prompts.live;
+    }
 
     const anyLive = state.matches.some((m) => m.status.state === 'in');
     schedule(anyLive ? 20000 : 60000);
