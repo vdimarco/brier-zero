@@ -9,6 +9,9 @@ const esc = (s) =>
 
 let timer = null;
 let collecting = false;
+let lastState = null;
+// Cards the user expanded stay expanded across the polling re-renders.
+const expandedMatches = new Set();
 
 const fmtKickoff = new Intl.DateTimeFormat(undefined, {
   weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit',
@@ -97,8 +100,35 @@ function matchCard(match, state) {
   const hasAny = Object.keys(preds).length > 0;
   let body;
   if (hasAny) {
+    const withProbs = Object.values(preds).filter((p) => p.probs);
+    const isOpen = expandedMatches.has(match.id);
+    let collapsed = '';
+    if (withProbs.length) {
+      // Consensus: the mean of every stored model forecast for this match.
+      const consensus = { home: 0, draw: 0, away: 0 };
+      for (const p of withProbs)
+        for (const o of ['home', 'draw', 'away']) consensus[o] += p.probs[o] / withProbs.length;
+      const consensusPred = {
+        probs: consensus,
+        rationale: `Average of ${withProbs.length} model forecasts`,
+        eligible: true,
+      };
+      if (match.outcome) {
+        consensusPred.brier = ['home', 'draw', 'away'].reduce(
+          (sum, o) => sum + (consensus[o] - (match.outcome === o ? 1 : 0)) ** 2, 0
+        );
+      }
+      collapsed = forecastRow({ label: 'Consensus' }, consensusPred, match, null);
+    } else {
+      collapsed = `<div class="fnote">All model calls failed for this match.</div>`;
+    }
     body = `<div class="forecasts">
-      ${state.models.map((m) => forecastRow(m, preds[m.id], match, bestBrier)).join('')}
+      ${isOpen
+        ? state.models.map((m) => forecastRow(m, preds[m.id], match, bestBrier)).join('')
+        : collapsed}
+      <button class="toggle-models" data-toggle="${esc(match.id)}" aria-expanded="${isOpen}">
+        ${isOpen ? 'Hide models' : `Compare ${Object.keys(preds).length} models`}
+      </button>
     </div>`;
   } else if (match.status.state === 'pre' && match.teamsTbd) {
     body = `<div class="forecasts"><div class="fnote">Forecasts open once both teams are decided.</div></div>`;
@@ -180,6 +210,14 @@ function renderMatches(state) {
   for (const btn of el.querySelectorAll('.collect')) {
     btn.addEventListener('click', () => collect(btn.dataset.match));
   }
+  for (const btn of el.querySelectorAll('.toggle-models')) {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.toggle;
+      if (expandedMatches.has(id)) expandedMatches.delete(id);
+      else expandedMatches.add(id);
+      if (lastState) renderMatches(lastState);
+    });
+  }
 }
 
 function renderBanner(state) {
@@ -225,6 +263,7 @@ async function refresh(force = false) {
         ? 'Live scores + locked forecasts'
         : 'Live scores only';
 
+    lastState = state;
     renderBanner(state);
     renderLeaderboard(state);
     renderMatches(state);
