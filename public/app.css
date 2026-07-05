@@ -216,6 +216,13 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
   min-width: 52px; text-align: right;
 }
 .fnote { color: var(--ink-3); font-size: 12.5px; }
+.retro-note {
+  justify-self: start;
+  font-size: 11px; font-weight: 650; letter-spacing: 0.02em;
+  color: var(--ink-3); border: 1px solid var(--hairline);
+  border-radius: var(--radius-el); padding: 1px 7px;
+  cursor: help;
+}
 .ferr { color: var(--away); font-size: 12px; grid-column: 2 / 4; }
 
 .toggle-models {
@@ -226,6 +233,7 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
 }
 .toggle-models:hover, .toggle-models:focus-visible { color: var(--pitch); }
 .toggle-models:focus-visible { outline: 1px solid var(--pitch); outline-offset: 3px; }
+.show-finished { margin-top: 14px; font-size: 13px; }
 
 .collect {
   margin-top: 12px;
