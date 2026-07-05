@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { fetchMatches } from './lib/espn.js';
 import { leaderboard } from './lib/scoring.js';
 import { getPredictions, getSnapshots } from './lib/store.js';
-import { loadModels, predictMatches, predictorReady } from './lib/predictor.js';
+import { loadModels, predictMatches, predictorReady, buildPrompt, buildLivePrompt } from './lib/predictor.js';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
@@ -12,6 +12,21 @@ app.use(express.json());
 app.use(express.static(path.join(root, 'public')));
 
 const models = loadModels();
+
+// Transparency: the exact prompt templates, rendered from the same code
+// that builds the real prompts, so the page can never drift from reality.
+const templateMatch = {
+  home: { name: '{HOME TEAM}', score: '{HOME GOALS}' },
+  away: { name: '{AWAY TEAM}', score: '{AWAY GOALS}' },
+  stage: '{STAGE}',
+  kickoff: '{KICKOFF UTC}',
+  venue: '{VENUE}',
+  status: { detail: '{MATCH CLOCK}' },
+};
+const promptTemplates = {
+  locked: buildPrompt(templateMatch),
+  live: buildLivePrompt(templateMatch),
+};
 
 // Everything the page needs in one call; the frontend polls this for
 // real-time updates (live scores re-fetch upstream at most every ~25s).
@@ -28,6 +43,7 @@ app.get('/api/state', async (req, res) => {
       hosted: Boolean(process.env.VERCEL),
       demoMode: process.env.DEMO_MODE === '1',
       models,
+      prompts: promptTemplates,
       matches: matches.map((m) => ({
         ...m,
         predictions: predictions[m.id] ?? {},

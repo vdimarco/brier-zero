@@ -38,6 +38,21 @@
 
   <div id="detail"></div>
 
+  <section class="prompt-section" aria-labelledby="prompt-title">
+    <div class="prompt-inner">
+      <h2 id="prompt-title">The prompt</h2>
+      <p class="explainer">Every model receives exactly the same words, with only the fixture filled in. No odds, no news, no hints. Rendered live from the same code that builds the real prompts.</p>
+      <details>
+        <summary>Before kickoff: the scored forecast</summary>
+        <pre id="prompt-locked">Loading</pre>
+      </details>
+      <details>
+        <summary>In-play updates: exhibition only</summary>
+        <pre id="prompt-live">Loading</pre>
+      </details>
+    </div>
+  </section>
+
   <footer class="foot">
     <p>Scores from ESPN's public World Cup feed. Forecasts collected through OpenRouter with the same prompt for every model. Only forecasts stored before kickoff count.</p>
   </footer>
