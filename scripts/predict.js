@@ -7,7 +7,7 @@ if (!predictorReady()) {
   console.error('Set OPENROUTER_API_KEY (or DEMO_MODE=1) first.');
   process.exit(1);
 }
-const matches = (await fetchMatches()).filter((m) => m.status.state === 'pre');
+const matches = (await fetchMatches()).filter((m) => m.status.state === 'pre' && !m.teamsTbd);
 if (!matches.length) {
   console.log('No upcoming matches in window.');
   process.exit(0);

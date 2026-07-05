@@ -173,5 +173,9 @@ keyed by slug, so changing a slug starts a fresh record for that entry.
 | `POST /api/predict` | Collect forecasts now (`{"matchId": "..."}` optional) |
 | `GET /api/health` | Liveness check |
 
-Predictions are stored in `data/store.json` (git-ignored). Delete it to reset
-the competition.
+Predictions are stored in `data/store.json` and committed to the repository:
+the git history is the audit trail proving every forecast predates its
+kickoff. Matches whose teams are still bracket placeholders ("Quarterfinal 1
+Winner") are held back until both teams are decided, and every forecast is
+stamped with the fixture it priced so it can never score against different
+teams.

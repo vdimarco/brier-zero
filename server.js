@@ -43,7 +43,7 @@ app.post('/api/predict', async (req, res) => {
   try {
     const matches = await fetchMatches();
     const { matchId } = req.body ?? {};
-    let targets = matches.filter((m) => m.status.state === 'pre');
+    let targets = matches.filter((m) => m.status.state === 'pre' && !m.teamsTbd);
     if (matchId) {
       targets = targets.filter((m) => m.id === String(matchId));
       if (!targets.length) {
@@ -70,6 +70,7 @@ async function autoPredict() {
     const pending = matches.filter(
       (m) =>
         m.status.state === 'pre' &&
+        !m.teamsTbd &&
         models.some((mod) => !predictions[m.id]?.[mod.id]?.probs)
     );
     if (pending.length) {

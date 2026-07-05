@@ -84,7 +84,8 @@ function matchCard(match, state) {
     const p = match.predictions[m.id];
     if (!p) continue;
     const copy = { ...p };
-    if (match.outcome && p.probs && p.eligible) {
+    const sameFixture = !p.fixture || p.fixture === `${match.home.name} vs ${match.away.name}`;
+    if (match.outcome && p.probs && p.eligible && sameFixture) {
       copy.brier = ['home', 'draw', 'away'].reduce(
         (sum, o) => sum + (p.probs[o] - (match.outcome === o ? 1 : 0)) ** 2, 0
       );
@@ -99,6 +100,8 @@ function matchCard(match, state) {
     body = `<div class="forecasts">
       ${state.models.map((m) => forecastRow(m, preds[m.id], match, bestBrier)).join('')}
     </div>`;
+  } else if (match.status.state === 'pre' && match.teamsTbd) {
+    body = `<div class="forecasts"><div class="fnote">Forecasts open once both teams are decided.</div></div>`;
   } else if (match.status.state === 'pre') {
     const disabled = !state.predictorReady || collecting;
     const hint = state.predictorReady

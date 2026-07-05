@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { brierScore, normalizeProbs, leaderboard } from '../lib/scoring.js';
+import { brierScore, normalizeProbs, leaderboard, fixtureMatches } from '../lib/scoring.js';
 import { regulationOutcome } from '../lib/espn.js';
-import { parsePrediction, buildPrompt } from '../lib/predictor.js';
+import { parsePrediction, buildPrompt, predictOne } from '../lib/predictor.js';
 
 test('brier: perfect forecast scores zero', () => {
   assert.equal(brierScore({ home: 1, draw: 0, away: 0 }, 'home'), 0);
@@ -63,6 +63,23 @@ test('prompt is identical in structure for every model (no model name inside)', 
   assert.match(p, /Brier score/);
   assert.match(p, /Brazil vs Norway/);
   assert.match(p, /sum to 1/);
+});
+
+test('placeholder fixtures are never forecast', async () => {
+  const match = {
+    id: 'tbd1', teamsTbd: true, kickoff: '2027-01-01T00:00Z',
+    home: { name: 'Quarterfinal 1 Winner' }, away: { name: 'Quarterfinal 2 Winner' },
+    stage: 'quarterfinal', venue: '',
+  };
+  const r = await predictOne({ id: 'any/model', label: 'Any' }, match);
+  assert.equal(r.status, 'skipped-tbd');
+});
+
+test('a forecast priced against different teams does not score', () => {
+  const match = { home: { name: 'France' }, away: { name: 'Morocco' } };
+  assert.equal(fixtureMatches({ fixture: 'France vs Morocco' }, match), true);
+  assert.equal(fixtureMatches({ fixture: 'RD16 W5 vs RD16 W6' }, match), false);
+  assert.equal(fixtureMatches({}, match), true); // legacy records without the stamp
 });
 
 test('leaderboard: sorts by average Brier, ignores ineligible predictions', () => {
