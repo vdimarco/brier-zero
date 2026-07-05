@@ -59,6 +59,8 @@ app.post('/api/predict', async (req, res) => {
 
 app.get('/api/health', (req, res) => res.json({ ok: true }));
 
+export default app;
+
 // Auto-collect: while the server runs, forecasts for upcoming matches are
 // gathered ahead of kickoff without anyone clicking anything.
 const AUTO_MS = 5 * 60 * 1000;
@@ -81,13 +83,17 @@ async function autoPredict() {
     console.error('[auto] failed:', err.message);
   }
 }
-if (process.env.AUTO_PREDICT !== '0') {
-  setInterval(autoPredict, AUTO_MS);
-  setTimeout(autoPredict, 5000);
-}
+// On Vercel the app is a serverless function: no listener, no background
+// interval (collection happens via the button, a cron, or a local run).
+if (!process.env.VERCEL) {
+  if (process.env.AUTO_PREDICT !== '0') {
+    setInterval(autoPredict, AUTO_MS);
+    setTimeout(autoPredict, 5000);
+  }
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`brier-zero listening on http://localhost:${PORT}`);
-  console.log(`predictor: ${predictorReady() ? (process.env.DEMO_MODE === '1' ? 'DEMO MODE' : 'OpenRouter') : 'NOT CONFIGURED (set OPENROUTER_API_KEY)'}`);
-});
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => {
+    console.log(`brier-zero listening on http://localhost:${PORT}`);
+    console.log(`predictor: ${predictorReady() ? (process.env.DEMO_MODE === '1' ? 'DEMO MODE' : 'OpenRouter') : 'NOT CONFIGURED (set OPENROUTER_API_KEY)'}`);
+  });
+}
