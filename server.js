@@ -22,6 +22,9 @@ app.get('/api/state', async (req, res) => {
     res.json({
       now: new Date().toISOString(),
       predictorReady: predictorReady(),
+      // Hosted read-only mode: forecasts arrive via ledger commits, so the
+      // page should not ask visitors to configure a key.
+      hosted: Boolean(process.env.VERCEL),
       demoMode: process.env.DEMO_MODE === '1',
       models,
       matches: matches.map((m) => ({ ...m, predictions: predictions[m.id] ?? {} })),

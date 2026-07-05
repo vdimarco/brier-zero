@@ -102,6 +102,8 @@ function matchCard(match, state) {
     </div>`;
   } else if (match.status.state === 'pre' && match.teamsTbd) {
     body = `<div class="forecasts"><div class="fnote">Forecasts open once both teams are decided.</div></div>`;
+  } else if (match.status.state === 'pre' && state.hosted && !state.predictorReady) {
+    body = `<div class="forecasts"><div class="fnote">Forecasts are collected automatically before kickoff.</div></div>`;
   } else if (match.status.state === 'pre') {
     const disabled = !state.predictorReady || collecting;
     const hint = state.predictorReady
@@ -184,7 +186,7 @@ function renderBanner(state) {
   const el = $('#banner');
   if (state.demoMode) {
     el.innerHTML = `<div class="banner">Demo mode is on: forecasts below are deterministic placeholders, not real model calls. Unset <code>DEMO_MODE</code> and set <code>OPENROUTER_API_KEY</code> for the real competition.</div>`;
-  } else if (!state.predictorReady) {
+  } else if (!state.predictorReady && !state.hosted) {
     el.innerHTML = `<div class="banner">Live scores are flowing, but no forecaster is configured. Set <code>OPENROUTER_API_KEY</code> (one key covers all seven models via OpenRouter) and restart the server. Upcoming matches are forecast automatically from then on.</div>`;
   } else {
     el.innerHTML = '';
@@ -219,8 +221,8 @@ async function refresh(force = false) {
 
     $('#source-status').textContent = state.demoMode
       ? 'Demo mode'
-      : state.predictorReady
-        ? 'Live: ESPN scores + OpenRouter forecasts'
+      : state.predictorReady || state.hosted
+        ? 'Live scores + locked forecasts'
         : 'Live scores only';
 
     renderBanner(state);
