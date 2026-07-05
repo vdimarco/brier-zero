@@ -355,7 +355,7 @@
         "createdAt": "2026-07-05T15:34:00.773Z",
         "latencyMs": 1647,
         "eligible": true,
-        "fixture": "Argentina vs Egypt"
+        "fixture": "Switzerland vs Colombia"
       },
       "anthropic/claude-sonnet-4.5": {
         "probs": {
@@ -367,7 +367,7 @@
         "createdAt": "2026-07-05T15:34:01.530Z",
         "latencyMs": 2405,
         "eligible": true,
-        "fixture": "Argentina vs Egypt"
+        "fixture": "Switzerland vs Colombia"
       },
       "qwen/qwen3-max": {
         "probs": {
@@ -379,7 +379,7 @@
         "createdAt": "2026-07-05T15:34:02.036Z",
         "latencyMs": 2909,
         "eligible": true,
-        "fixture": "Argentina vs Egypt"
+        "fixture": "Switzerland vs Colombia"
       },
       "moonshotai/kimi-k2-0905": {
         "probs": {
@@ -391,7 +391,7 @@
         "createdAt": "2026-07-05T15:34:02.209Z",
         "latencyMs": 3083,
         "eligible": true,
-        "fixture": "Argentina vs Egypt"
+        "fixture": "Switzerland vs Colombia"
       },
       "deepseek/deepseek-chat-v3.1": {
         "probs": {
@@ -403,7 +403,7 @@
         "createdAt": "2026-07-05T15:34:11.691Z",
         "latencyMs": 12565,
         "eligible": true,
-        "fixture": "Argentina vs Egypt"
+        "fixture": "Switzerland vs Colombia"
       },
       "z-ai/glm-4.6": {
         "probs": {
@@ -415,7 +415,7 @@
         "createdAt": "2026-07-05T15:34:12.887Z",
         "latencyMs": 13761,
         "eligible": true,
-        "fixture": "Argentina vs Egypt"
+        "fixture": "Switzerland vs Colombia"
       },
       "minimax/minimax-m2": {
         "probs": {
@@ -427,7 +427,7 @@
         "createdAt": "2026-07-05T15:34:15.892Z",
         "latencyMs": 16765,
         "eligible": true,
-        "fixture": "Argentina vs Egypt"
+        "fixture": "Switzerland vs Colombia"
       }
     },
     "760509": {
@@ -441,7 +441,7 @@
         "createdAt": "2026-07-05T15:33:13.397Z",
         "latencyMs": 1280,
         "eligible": true,
-        "fixture": "Switzerland vs Colombia"
+        "fixture": "Argentina vs Egypt"
       },
       "moonshotai/kimi-k2-0905": {
         "probs": {
@@ -453,7 +453,7 @@
         "createdAt": "2026-07-05T15:33:14.566Z",
         "latencyMs": 2449,
         "eligible": true,
-        "fixture": "Switzerland vs Colombia"
+        "fixture": "Argentina vs Egypt"
       },
       "qwen/qwen3-max": {
         "probs": {
@@ -465,7 +465,7 @@
         "createdAt": "2026-07-05T15:33:14.745Z",
         "latencyMs": 2628,
         "eligible": true,
-        "fixture": "Switzerland vs Colombia"
+        "fixture": "Argentina vs Egypt"
       },
       "anthropic/claude-sonnet-4.5": {
         "probs": {
@@ -477,7 +477,7 @@
         "createdAt": "2026-07-05T15:33:15.165Z",
         "latencyMs": 3049,
         "eligible": true,
-        "fixture": "Switzerland vs Colombia"
+        "fixture": "Argentina vs Egypt"
       },
       "deepseek/deepseek-chat-v3.1": {
         "probs": {
@@ -489,7 +489,7 @@
         "createdAt": "2026-07-05T15:33:15.614Z",
         "latencyMs": 3497,
         "eligible": true,
-        "fixture": "Switzerland vs Colombia"
+        "fixture": "Argentina vs Egypt"
       },
       "minimax/minimax-m2": {
         "probs": {
@@ -501,7 +501,7 @@
         "createdAt": "2026-07-05T15:33:15.703Z",
         "latencyMs": 3586,
         "eligible": true,
-        "fixture": "Switzerland vs Colombia"
+        "fixture": "Argentina vs Egypt"
       },
       "z-ai/glm-4.6": {
         "probs": {
@@ -513,7 +513,7 @@
         "createdAt": "2026-07-05T15:33:59.124Z",
         "latencyMs": 47007,
         "eligible": true,
-        "fixture": "Switzerland vs Colombia"
+        "fixture": "Argentina vs Egypt"
       }
     },
     "760510": {
