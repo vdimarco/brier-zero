@@ -100,9 +100,11 @@ test('leaderboard: sorts by average Brier, ignores ineligible predictions', () =
     },
     m2: { a: { probs: { home: 0.5, draw: 0.3, away: 0.2 }, eligible: true } },
   };
+  predictions.m1.a.retro = true;
   const rows = leaderboard(matches, predictions, models);
   assert.equal(rows[0].model, 'a');
   assert.equal(rows[0].scored, 1);
+  assert.equal(rows[0].retroScored, 1, 'retro forecasts score and are counted separately');
   assert.equal(rows[0].predicted, 2);
   assert.ok(rows[0].avgBrier < rows[1].avgBrier);
   assert.equal(rows[1].model, 'b');

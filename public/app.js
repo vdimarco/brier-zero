@@ -12,6 +12,8 @@ let collecting = false;
 let lastState = null;
 // Cards the user expanded stay expanded across the polling re-renders.
 const expandedMatches = new Set();
+let showAllFinished = false;
+const FINISHED_PREVIEW = 8;
 
 const fmtKickoff = new Intl.DateTimeFormat(undefined, {
   weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit',
@@ -106,6 +108,7 @@ function matchCard(match, state) {
   }
 
   const hasAny = Object.keys(preds).length > 0;
+  const isRetro = Object.values(preds).some((p) => p.retro);
   let body;
   if (hasAny) {
     const withProbs = Object.values(preds).filter((p) => p.probs);
@@ -142,6 +145,7 @@ function matchCard(match, state) {
       <button class="toggle-models" data-toggle="${esc(match.id)}" aria-expanded="${isOpen}">
         ${isOpen ? 'Hide models' : `Compare ${Object.keys(preds).length} models`}
       </button>
+      ${isRetro ? '<div class="retro-note" title="Forecast after the match with the standard pre-kickoff prompt. Model training data predates this tournament, so results were unknowable, but these lack the pre-kickoff timestamp proof.">backfilled forecast</div>' : ''}
     </div>`;
   } else if (match.status.state === 'pre' && match.teamsTbd) {
     body = `<div class="forecasts"><div class="fnote">Forecasts open once both teams are decided.</div></div>`;
@@ -195,7 +199,7 @@ function renderLeaderboard(state) {
         <div><span class="lb-name">${esc(r.label)}</span><span class="lb-slug">${esc(r.model)}</span></div>
         <div class="lb-score">
           <div class="lb-brier">${r.avgBrier == null ? '-' : r.avgBrier.toFixed(3)}</div>
-          <div class="lb-meta">${r.scored} scored / ${r.predicted} forecast${r.predicted === 1 ? '' : 's'}</div>
+          <div class="lb-meta">${r.scored} scored${r.retroScored ? ` (${r.retroScored} backfilled)` : ''} / ${r.predicted} forecast${r.predicted === 1 ? '' : 's'}</div>
         </div>
       </div>`;
     })
@@ -215,11 +219,25 @@ function renderMatches(state) {
          <div class="match-grid">${list.map((m) => matchCard(m, state)).join('')}</div>`
       : '';
 
+  const doneShown = showAllFinished ? done : done.slice(0, FINISHED_PREVIEW);
+  const moreBtn =
+    done.length > FINISHED_PREVIEW
+      ? `<button class="toggle-models show-finished" id="toggle-finished">${
+          showAllFinished ? 'Show fewer' : `Show all ${done.length} finished matches`
+        }</button>`
+      : '';
+
   el.innerHTML =
     group('LIVE NOW', live, true) +
     group('UPCOMING', pre) +
-    group('FINISHED', done) ||
+    group('FINISHED', doneShown) + moreBtn ||
     '<div class="empty">No matches in the current window.</div>';
+
+  const fbtn = el.querySelector('#toggle-finished');
+  if (fbtn) fbtn.addEventListener('click', () => {
+    showAllFinished = !showAllFinished;
+    renderMatches(lastState ?? state);
+  });
 
   for (const btn of el.querySelectorAll('.collect')) {
     btn.addEventListener('click', () => collect(btn.dataset.match));

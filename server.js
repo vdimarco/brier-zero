@@ -22,6 +22,7 @@ const templateMatch = {
   kickoff: '{KICKOFF UTC}',
   venue: '{VENUE}',
   status: { detail: '{MATCH CLOCK}' },
+  keyEvents: ['{GOALS AND RED CARDS SO FAR}'],
 };
 const promptTemplates = {
   locked: buildPrompt(templateMatch),
@@ -32,9 +33,15 @@ const promptTemplates = {
 // real-time updates (live scores re-fetch upstream at most every ~25s).
 app.get('/api/state', async (req, res) => {
   try {
-    const matches = await fetchMatches();
+    const all = await fetchMatches();
     const predictions = getPredictions();
     const snapshots = getSnapshots();
+    // Display: recent and upcoming matches, plus anything ever forecast.
+    // Scoring: every match in the tournament, so the leaderboard is stable.
+    const weekAgo = Date.now() - 7 * 24 * 3600 * 1000;
+    const matches = all.filter(
+      (m) => new Date(m.kickoff).getTime() >= weekAgo || predictions[m.id]
+    );
     res.json({
       now: new Date().toISOString(),
       predictorReady: predictorReady(),
@@ -49,7 +56,7 @@ app.get('/api/state', async (req, res) => {
         predictions: predictions[m.id] ?? {},
         snapshots: snapshots[m.id] ?? [],
       })),
-      leaderboard: leaderboard(matches, predictions, models),
+      leaderboard: leaderboard(all, predictions, models),
     });
   } catch (err) {
     res.status(502).json({ error: `Could not load fixtures: ${err.message}` });
