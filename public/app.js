@@ -37,6 +37,14 @@ function seg(kind, p, label) {
   return `<div class="seg seg-${kind}" style="flex:${Math.max(w, 0.5)}" title="${esc(label)}: ${w}%">${text}</div>`;
 }
 
+function consensusOf(modelsMap) {
+  const list = Object.values(modelsMap ?? {}).filter((p) => p.probs);
+  if (!list.length) return null;
+  const c = { home: 0, draw: 0, away: 0 };
+  for (const p of list) for (const o of ['home', 'draw', 'away']) c[o] += p.probs[o] / list.length;
+  return c;
+}
+
 function forecastRow(model, pred, match, bestBrier) {
   const name = esc(model.label);
   if (!pred || (!pred.probs && !pred.error)) {
@@ -106,9 +114,7 @@ function matchCard(match, state) {
     let collapsed = '';
     if (withProbs.length) {
       // Consensus: the mean of every stored model forecast for this match.
-      const consensus = { home: 0, draw: 0, away: 0 };
-      for (const p of withProbs)
-        for (const o of ['home', 'draw', 'away']) consensus[o] += p.probs[o] / withProbs.length;
+      const consensus = consensusOf(preds);
       outcomeHead = `<div class="outcome-head" title="Consensus of ${withProbs.length} model forecasts">
         <span class="ol"><i class="swatch swatch-home"></i>${esc(home.name)} <b>${pct(consensus.home)}%</b></span>
         <span class="ol"><i class="swatch swatch-draw"></i>Draw <b>${pct(consensus.draw)}%</b></span>
@@ -155,7 +161,8 @@ function matchCard(match, state) {
   }
 
   return `<article class="match${isLive ? ' live' : ''}">
-    <div class="match-head">
+    <div class="match-head" data-detail="${esc(match.id)}" role="button" tabindex="0"
+         title="Open match detail: forecasts over time" aria-label="Open detail for ${esc(home.name)} vs ${esc(away.name)}">
       <div class="fixture">
         <img class="flag" src="${esc(home.logo)}" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
         <span class="team team-h">${esc(home.name)}</span>
@@ -225,7 +232,118 @@ function renderMatches(state) {
       if (lastState) renderMatches(lastState);
     });
   }
+  for (const head of el.querySelectorAll('[data-detail]')) {
+    const open = () => { location.hash = `m/${head.dataset.detail}`; };
+    head.addEventListener('click', open);
+    head.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+    });
+  }
 }
+
+/* Match detail: forecasts over time. Points are the locked pre-kickoff
+   consensus, each in-play snapshot, and (when finished) the actual result. */
+function detailPoints(match) {
+  const points = [];
+  const locked = consensusOf(match.predictions);
+  if (locked) points.push({ label: 'Locked', sub: 'pre-kickoff', probs: locked });
+  for (const snap of match.snapshots ?? []) {
+    const c = consensusOf(snap.models);
+    if (c) points.push({ label: snap.detail, sub: `${snap.score[0]}:${snap.score[1]}`, probs: c, snap });
+  }
+  if (match.outcome) {
+    points.push({
+      label: 'FT', sub: `${match.home.score}:${match.away.score}`,
+      probs: { home: 0, draw: 0, away: 0, [match.outcome]: 1 },
+      final: true,
+    });
+  }
+  return points;
+}
+
+function evolutionChart(match, points) {
+  const W = 660, H = 240, padL = 36, padR = 30, padT = 12, padB = 34;
+  const n = points.length;
+  const x = (i) => (n === 1 ? W / 2 : padL + (i * (W - padL - padR)) / (n - 1));
+  const y = (p) => padT + (1 - p) * (H - padT - padB);
+  const series = [
+    { key: 'home', color: 'var(--home)', name: match.home.name },
+    { key: 'draw', color: 'var(--draw)', name: 'Draw' },
+    { key: 'away', color: 'var(--away)', name: match.away.name },
+  ];
+  let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="How the consensus win probabilities moved over time">`;
+  for (const g of [0, 0.5, 1]) {
+    svg += `<line x1="${padL}" y1="${y(g)}" x2="${W - padR}" y2="${y(g)}" stroke="var(--hairline)" stroke-width="1"/>`;
+    svg += `<text x="${padL - 6}" y="${y(g) + 4}" text-anchor="end" font-size="10" fill="var(--ink-3)">${g * 100}</text>`;
+  }
+  for (const s of series) {
+    if (n > 1) {
+      const path = points.map((p, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(p.probs[s.key]).toFixed(1)}`).join('');
+      svg += `<path d="${path}" fill="none" stroke="${s.color}" stroke-width="2" stroke-linejoin="round"/>`;
+    }
+    points.forEach((p, i) => {
+      svg += `<circle cx="${x(i).toFixed(1)}" cy="${y(p.probs[s.key]).toFixed(1)}" r="4" fill="${s.color}">` +
+        `<title>${esc(s.name)}: ${pct(p.probs[s.key])}% at ${esc(p.label)}${p.sub ? ` (${esc(p.sub)})` : ''}</title></circle>`;
+    });
+  }
+  points.forEach((p, i) => {
+    svg += `<text x="${x(i).toFixed(1)}" y="${H - 18}" text-anchor="middle" font-size="10.5" font-weight="600" fill="var(--ink-2)">${esc(p.label)}</text>`;
+    if (p.sub) svg += `<text x="${x(i).toFixed(1)}" y="${H - 6}" text-anchor="middle" font-size="10" fill="var(--ink-3)">${esc(p.sub)}</text>`;
+  });
+  svg += '</svg>';
+  return svg;
+}
+
+function renderDetail(state) {
+  const el = $('#detail');
+  const m = location.hash.match(/^#m\/(\d+)/);
+  if (!m) { el.innerHTML = ''; document.body.style.overflow = ''; return; }
+  const match = state.matches.find((x) => x.id === m[1]);
+  if (!match) { el.innerHTML = ''; return; }
+  const points = detailPoints(match);
+  const isLive = match.status.state === 'in';
+
+  const snapRows = (match.snapshots ?? []).slice().reverse().map((snap) => {
+    const c = consensusOf(snap.models);
+    if (!c) return '';
+    return `<div class="snap-row">
+      <span class="snap-when">${esc(snap.detail)} <span class="snap-score">${snap.score[0]}:${snap.score[1]}</span></span>
+      <span class="snap-probs">${esc(match.home.name)} <b>${pct(c.home)}%</b> · Draw <b>${pct(c.draw)}%</b> · ${esc(match.away.name)} <b>${pct(c.away)}%</b></span>
+    </div>`;
+  }).join('');
+
+  const lockedRows = Object.keys(match.predictions).length
+    ? state.models.map((mod) => forecastRow(mod, match.predictions[mod.id], match, null)).join('')
+    : '<div class="fnote">No locked forecasts for this match.</div>';
+
+  el.innerHTML = `<div class="detail-scrim" data-close></div>
+  <section class="detail-panel" role="dialog" aria-modal="true" aria-label="Match detail">
+    <div class="detail-head">
+      <div>
+        <div class="detail-title">${esc(match.home.name)} <span class="scoreline${isLive ? '' : ''}">${
+          match.status.state === 'pre' ? 'vs' : `${match.home.score ?? 0} : ${match.away.score ?? 0}`
+        }</span> ${esc(match.away.name)}</div>
+        <div class="fnote">${esc(match.status.state === 'pre' ? fmtKickoff.format(new Date(match.kickoff)) : match.status.detail)} · ${esc(match.stage)}${isLive ? ' · live' : ''}</div>
+      </div>
+      <button class="detail-close" data-close aria-label="Close">✕</button>
+    </div>
+    <h3>Consensus over time</h3>
+    ${points.length ? `<div class="chart">${evolutionChart(match, points)}</div>` : '<div class="fnote">No forecasts yet.</div>'}
+    <p class="fnote">Only the locked pre-kickoff forecast counts for the leaderboard. In-play points are fresh forecasts given the score at that moment; FT is the actual result.</p>
+    ${snapRows ? `<h3>In-play updates</h3><div class="snap-list">${snapRows}</div>` : (isLive ? '<p class="fnote">In-play updates are collected every ~20 minutes while the match runs.</p>' : '')}
+    <h3>Locked forecasts</h3>
+    <div class="forecasts">${lockedRows}</div>
+  </section>`;
+  document.body.style.overflow = 'hidden';
+  for (const c of el.querySelectorAll('[data-close]')) {
+    c.addEventListener('click', () => { location.hash = ''; });
+  }
+}
+
+window.addEventListener('hashchange', () => { if (lastState) renderDetail(lastState); });
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && location.hash.startsWith('#m/')) location.hash = '';
+});
 
 function renderBanner(state) {
   const el = $('#banner');
@@ -274,6 +392,7 @@ async function refresh(force = false) {
     renderBanner(state);
     renderLeaderboard(state);
     renderMatches(state);
+    renderDetail(state);
 
     const anyLive = state.matches.some((m) => m.status.state === 'in');
     schedule(anyLive ? 20000 : 60000);
