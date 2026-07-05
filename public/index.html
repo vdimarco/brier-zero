@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Brier Zero. Which model calls the World Cup best?</title>
+  <meta name="description" content="Seven AI models forecast every World Cup match with one identical prompt. Forecasts lock at kickoff and are Brier-scored against real results." />
+  <link rel="stylesheet" href="app.css" />
+</head>
+<body>
+  <header class="topbar">
+    <span class="wordmark">BRIER<em>ZERO</em></span>
+    <span class="topbar-status" id="source-status">Loading fixtures</span>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Which model calls the <span class="gold">World Cup</span> best?</h1>
+      <p class="hero-sub">Seven models get one identical prompt before each match. Forecasts lock at kickoff and are Brier-scored as results arrive.</p>
+    </section>
+
+    <div id="banner"></div>
+
+    <section id="leaderboard-section" aria-labelledby="lb-title">
+      <h2 id="lb-title">Leaderboard</h2>
+      <p class="explainer">Brier score over the three 90-minute outcomes: 0 is a perfect forecast, 0.667 is a know-nothing coin flip, 2 is maximally wrong. Lower is better.</p>
+      <div id="leaderboard" class="skeleton-block" aria-live="polite"></div>
+    </section>
+
+    <section id="matches-section" aria-labelledby="matches-title">
+      <h2 id="matches-title">Matches</h2>
+      <div class="legend" role="img" aria-label="Bar colors: blue is a first-team win, gray is a draw after 90 minutes including extra time and penalties, red is a second-team win.">
+        <span class="legend-item"><i class="swatch swatch-home"></i>First team wins</span>
+        <span class="legend-item"><i class="swatch swatch-draw"></i>Draw at 90'</span>
+        <span class="legend-item"><i class="swatch swatch-away"></i>Second team wins</span>
+      </div>
+      <div id="matches" class="skeleton-block"></div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p>Scores from ESPN's public World Cup feed. Forecasts collected through OpenRouter with the same prompt for every model. Only forecasts stored before kickoff count.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
