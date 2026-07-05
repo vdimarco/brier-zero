@@ -602,5 +602,75 @@
         "fixture": "France vs Morocco"
       }
     }
+  },
+  "snapshots": {
+    "760504": [
+      {
+        "at": "2026-07-05T22:04:55.653Z",
+        "detail": "90'+10'",
+        "score": [
+          1,
+          2
+        ],
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0,
+              "draw": 0,
+              "away": 1
+            },
+            "rationale": "The match is at 90'+10' with Norway leading 2-1, meaning regulation time has ended and Norway has won."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0,
+              "draw": 0.03,
+              "away": 0.97
+            },
+            "rationale": "Deep in stoppage time with Norway leading by one, only a last-gasp Brazil equalizer is plausible while a Brazil win in regulation is effectively impossible."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.01,
+              "draw": 0.04,
+              "away": 0.95
+            },
+            "rationale": "Norway is leading 2-1 deep into stoppage time, making a comeback or equalizer extremely unlikely."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.02,
+              "draw": 0.08,
+              "away": 0.9
+            },
+            "rationale": "With 10 minutes of added time already played and Norway leading 2-1, Brazil has virtually no time to mount a comeback, making a Norwegian victory overwhelmingly likely."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.05,
+              "draw": 0.15,
+              "away": 0.8
+            },
+            "rationale": "With only 10 minutes of stoppage time left, Norway's lead is highly likely to hold despite Brazil's attacking prowess."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.02,
+              "draw": 0.18,
+              "away": 0.8
+            },
+            "rationale": "With Norway leading 2-1 in the 90th+10th minute, Brazil has minimal time to equalize or win, making a Norway victory highly likely."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.35,
+              "draw": 0.1,
+              "away": 0.55
+            },
+            "rationale": "With 10 minutes left, Norway is likely to hold on, but Brazil has enough time to equalize."
+          }
+        }
+      }
+    ]
   }
 }

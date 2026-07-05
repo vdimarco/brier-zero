@@ -251,6 +251,45 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
 }
 @keyframes shimmer { to { background-position: -200% 0; } }
 
+/* Match detail */
+.match-head[data-detail] { cursor: pointer; border-radius: var(--radius-el); }
+.match-head[data-detail]:hover .team { color: var(--pitch); }
+.match-head[data-detail]:focus-visible { outline: 2px solid var(--pitch); outline-offset: 4px; }
+
+.detail-scrim {
+  position: fixed; inset: 0; z-index: 40;
+  background: rgba(12, 26, 14, 0.45);
+}
+.detail-panel {
+  position: fixed; z-index: 41;
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: min(720px, calc(100vw - 24px));
+  max-height: min(86vh, 900px); overflow-y: auto;
+  background: var(--surface); border-radius: var(--radius-card);
+  border: 1px solid var(--hairline);
+  box-shadow: 0 12px 40px rgba(12, 26, 14, 0.25);
+  padding: 20px;
+}
+.detail-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.detail-title { font-size: 18px; font-weight: 750; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.detail-close {
+  background: none; border: 1px solid var(--hairline); border-radius: var(--radius-btn);
+  width: 32px; height: 32px; font-size: 14px; color: var(--ink-2); cursor: pointer; flex: none;
+}
+.detail-close:hover { color: var(--ink); border-color: var(--ink-3); }
+.detail-panel h3 { font-size: 14px; margin: 22px 0 8px; }
+.chart svg { width: 100%; height: auto; display: block; }
+.snap-list { display: grid; gap: 6px; }
+.snap-row {
+  display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  font-size: 13px; color: var(--ink-2);
+  border-bottom: 1px solid var(--hairline); padding-bottom: 6px;
+}
+.snap-row:last-child { border-bottom: 0; }
+.snap-when { font-weight: 650; color: var(--ink); white-space: nowrap; }
+.snap-score { color: var(--ink-3); font-variant-numeric: tabular-nums; margin-left: 4px; }
+.snap-probs b { font-variant-numeric: tabular-nums; color: var(--ink); }
+
 .foot { border-top: 1px solid var(--hairline); }
 .foot p { max-width: 1080px; margin: 0 auto; padding: 18px 20px 28px; color: var(--ink-3); font-size: 12.5px; }
 

@@ -3,7 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { fetchMatches } from './lib/espn.js';
 import { leaderboard } from './lib/scoring.js';
-import { getPredictions } from './lib/store.js';
+import { getPredictions, getSnapshots } from './lib/store.js';
 import { loadModels, predictMatches, predictorReady } from './lib/predictor.js';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
@@ -19,6 +19,7 @@ app.get('/api/state', async (req, res) => {
   try {
     const matches = await fetchMatches();
     const predictions = getPredictions();
+    const snapshots = getSnapshots();
     res.json({
       now: new Date().toISOString(),
       predictorReady: predictorReady(),
@@ -27,7 +28,11 @@ app.get('/api/state', async (req, res) => {
       hosted: Boolean(process.env.VERCEL),
       demoMode: process.env.DEMO_MODE === '1',
       models,
-      matches: matches.map((m) => ({ ...m, predictions: predictions[m.id] ?? {} })),
+      matches: matches.map((m) => ({
+        ...m,
+        predictions: predictions[m.id] ?? {},
+        snapshots: snapshots[m.id] ?? [],
+      })),
       leaderboard: leaderboard(matches, predictions, models),
     });
   } catch (err) {
