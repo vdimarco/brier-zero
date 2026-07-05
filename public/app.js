@@ -66,7 +66,7 @@ function forecastRow(model, pred, match, bestBrier) {
     brierCell = '<div class="fbrier" title="Collected after kickoff, excluded from scoring">late</div>';
   }
   return `<div class="frow${best}" title="${tip}">
-    <div class="fmodel">${name}${pred.demo ? ' (demo)' : ''}</div>
+    <div class="fmodel">${name}${pred.retro ? '*' : ''}${pred.demo ? ' (demo)' : ''}</div>
     <div class="bar" role="img" aria-label="${name}: ${esc(match.home.name)} win ${pct(home)}%, draw ${pct(draw)}%, ${esc(match.away.name)} win ${pct(away)}%">
       ${seg('home', home, `${match.home.name} win`)}${seg('draw', draw, 'Draw')}${seg('away', away, `${match.away.name} win`)}
     </div>
@@ -133,7 +133,7 @@ function matchCard(match, state) {
           (sum, o) => sum + (consensus[o] - (match.outcome === o ? 1 : 0)) ** 2, 0
         );
       }
-      collapsed = forecastRow({ label: 'Consensus' }, consensusPred, match, null);
+      collapsed = forecastRow({ label: `Consensus${isRetro ? '*' : ''}` }, consensusPred, match, null);
     } else {
       collapsed = `<div class="fnote">All model calls failed for this match.</div>`;
     }
@@ -145,7 +145,6 @@ function matchCard(match, state) {
       <button class="toggle-models" data-toggle="${esc(match.id)}" aria-expanded="${isOpen}">
         ${isOpen ? 'Hide models' : `Compare ${Object.keys(preds).length} models`}
       </button>
-      ${isRetro ? '<div class="retro-note" title="Forecast after the match with the standard pre-kickoff prompt. Model training data predates this tournament, so results were unknowable, but these lack the pre-kickoff timestamp proof.">backfilled forecast</div>' : ''}
     </div>`;
   } else if (match.status.state === 'pre' && match.teamsTbd) {
     body = `<div class="forecasts"><div class="fnote">Forecasts open once both teams are decided.</div></div>`;
@@ -198,12 +197,16 @@ function renderLeaderboard(state) {
         <div class="lb-rank">${r.avgBrier == null ? '-' : i + 1}</div>
         <div><span class="lb-name">${esc(r.label)}</span><span class="lb-slug">${esc(r.model)}</span></div>
         <div class="lb-score">
-          <div class="lb-brier">${r.avgBrier == null ? '-' : r.avgBrier.toFixed(3)}</div>
-          <div class="lb-meta">${r.scored} scored${r.retroScored ? ` (${r.retroScored} backfilled)` : ''} / ${r.predicted} forecast${r.predicted === 1 ? '' : 's'}</div>
+          <div class="lb-brier">${r.avgBrier == null ? '-' : r.avgBrier.toFixed(3) + (r.retroScored ? '*' : '')}</div>
+          <div class="lb-meta">${r.scored} scored / ${r.predicted} forecast${r.predicted === 1 ? '' : 's'}</div>
         </div>
       </div>`;
     })
-    .join('')}</div>`;
+    .join('')}</div>${
+    state.leaderboard.some((r) => r.retroScored)
+      ? `<p class="footnote">* Includes backfilled matches: forecast after the fact with the same prompt. Every model's training data predates this tournament, so the results were unknowable to them, but these forecasts lack the pre-kickoff lock.</p>`
+      : ''
+  }`;
 }
 
 function renderMatches(state) {
