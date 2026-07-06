@@ -198,9 +198,23 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
 
 .forecasts { margin-top: 14px; display: grid; gap: 8px; }
 .frow {
-  display: grid; grid-template-columns: 84px 1fr auto; align-items: center; gap: 10px;
+  display: grid; grid-template-columns: 106px 1fr auto; align-items: center; gap: 10px;
 }
-.frow .fmodel { font-size: 13px; color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.frow .fmodel {
+  font-size: 13px; color: var(--ink-2);
+  display: inline-flex; align-items: center; gap: 6px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0;
+}
+
+/* Model crests: brand marks in a kit-badge circle, league-table style */
+.crest {
+  width: 20px; height: 20px; flex: none;
+  background: #ffffff; border: 1px solid var(--hairline); border-radius: 50%;
+  padding: 3px; object-fit: contain; box-sizing: border-box;
+}
+.crest-lg { width: 30px; height: 30px; padding: 5px; }
+.lb-id { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.lb-id > div { min-width: 0; }
 .frow.best .fmodel, .frow.best .fbrier { color: var(--trophy); font-weight: 650; }
 
 .bar { display: flex; height: 16px; border-radius: var(--radius-el); overflow: hidden; gap: 2px; }
@@ -336,8 +350,10 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
   .team { font-size: 14px; }
   .scoreline { font-size: 14px; }
 
-  .frow { grid-template-columns: 76px 1fr auto; gap: 8px; }
-  .frow .fmodel { font-size: 12px; }
+  .frow { grid-template-columns: 96px 1fr auto; gap: 8px; }
+  .frow .fmodel { font-size: 12px; gap: 5px; }
+  .crest { width: 18px; height: 18px; padding: 2.5px; }
+  .crest-lg { width: 26px; height: 26px; padding: 4px; }
   .fbrier { min-width: 44px; font-size: 12.5px; }
 
   .lb-row { grid-template-columns: 30px minmax(0, 1fr) auto; padding: 12px 14px; gap: 10px; }
