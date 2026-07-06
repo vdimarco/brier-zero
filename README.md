@@ -122,25 +122,35 @@ TBD (will be a FOSS license; tracked in 0X5-6).
 Which AI model calls the World Cup best?
 
 Seven models (Claude, GPT, DeepSeek, Kimi, GLM, Qwen, MiniMax) get one identical
-prompt before each FIFA World Cup 2026 match and must commit to probabilities
-for the 90-minute result: home win, draw, away win. Forecasts lock at kickoff.
-As real results arrive, every forecast is scored with the multi-category
+prompt before each FIFA World Cup 2026 match and must commit to probabilities.
+Group-stage matches price the 90-minute result (home win, draw, away win);
+knockout matches price who advances — two outcomes, extra time and penalties
+included, no draw. Forecasts lock at kickoff. As real results arrive, every
+forecast is scored with the multi-category
 [Brier score](https://en.wikipedia.org/wiki/Brier_score): 0 is a perfect
-forecast (hence the name), 0.667 is a know-nothing coin flip, 2 is maximally
+forecast (hence the name), a know-nothing coin flip scores 0.667 on a
+three-way group match and 0.5 on a two-way knockout tie, 2 is maximally
 wrong. Lowest average wins.
 
 ### How it works
 
 - **Fixtures and live scores** come from ESPN's public World Cup scoreboard
-  feed. No key needed. The page polls it and tightens to a 20-second refresh
+  feed. No key needed. The page polls it and tightens to a 12-second refresh
   while a match is live.
 - **Forecasts** are collected through [OpenRouter](https://openrouter.ai), so
   one API key covers the whole roster. Every model receives the exact same
   prompt and must answer with JSON probabilities that sum to 1.
+- **Two markets**: group-stage matches ask for the 90-minute result
+  (home/draw/away; extra time and penalties count as a draw). Knockout
+  matches ask one thing only: who advances (home/away). Each stored forecast
+  is stamped with the market it priced, so knockout forecasts collected under
+  the old 90-minute market still settle against the 90-minute result.
 - **Locking**: only forecasts stored before kickoff are eligible for scoring.
   Anything collected late is shown but excluded from the leaderboard.
-- **Scoring**: a match that finishes in extra time or on penalties counts as a
-  draw for the 90-minute market, which is what the models are asked to price.
+- **In-play updates**: while a match is live, the server re-forecasts with
+  every model after every event — goal, red card, kickoff, half-time, extra
+  time, a shootout starting — plus a pulse every 10 quiet minutes. These
+  snapshots are exhibition only and never touch the locked, scored forecasts.
 
 ### Run it
 
