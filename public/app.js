@@ -49,11 +49,14 @@ function consensusOf(modelsMap) {
 
 function forecastRow(model, pred, match, bestBrier) {
   const name = esc(model.label);
+  const crest = model.icon
+    ? `<img class="crest" src="${esc(model.icon)}" alt="" onerror="this.style.visibility='hidden'">`
+    : '';
   if (!pred || (!pred.probs && !pred.error)) {
-    return `<div class="frow"><div class="fmodel">${name}</div><div class="fnote">no forecast yet</div><div></div></div>`;
+    return `<div class="frow"><div class="fmodel">${crest}${name}</div><div class="fnote">no forecast yet</div><div></div></div>`;
   }
   if (!pred.probs) {
-    return `<div class="frow"><div class="fmodel">${name}</div><div class="ferr" title="${esc(pred.error)}">failed: ${esc(pred.error.slice(0, 60))}</div></div>`;
+    return `<div class="frow"><div class="fmodel">${crest}${name}</div><div class="ferr" title="${esc(pred.error)}">failed: ${esc(pred.error.slice(0, 60))}</div></div>`;
   }
   const { home, draw, away } = pred.probs;
   const tip = `${esc(pred.rationale || '')}${pred.demo ? ' [demo forecast]' : ''}`;
@@ -66,7 +69,7 @@ function forecastRow(model, pred, match, bestBrier) {
     brierCell = '<div class="fbrier" title="Collected after kickoff, excluded from scoring">late</div>';
   }
   return `<div class="frow${best}" title="${tip}">
-    <div class="fmodel">${name}${pred.retro ? '*' : ''}${pred.demo ? ' (demo)' : ''}</div>
+    <div class="fmodel">${crest}${name}${pred.retro ? '*' : ''}${pred.demo ? ' (demo)' : ''}</div>
     <div class="bar" role="img" aria-label="${name}: ${esc(match.home.name)} win ${pct(home)}%, draw ${pct(draw)}%, ${esc(match.away.name)} win ${pct(away)}%">
       ${seg('home', home, `${match.home.name} win`)}${seg('draw', draw, 'Draw')}${seg('away', away, `${match.away.name} win`)}
     </div>
@@ -195,7 +198,11 @@ function renderLeaderboard(state) {
     .map((r, i) => {
       return `<div class="lb-row${i === 0 && r.avgBrier != null ? ' leader' : ''}">
         <div class="lb-rank">${r.avgBrier == null ? '-' : i + 1}</div>
-        <div><span class="lb-name">${esc(r.label)}</span><span class="lb-slug">${esc(r.model)}</span></div>
+        <div class="lb-id">${
+          (state.models.find((m) => m.id === r.model)?.icon)
+            ? `<img class="crest crest-lg" src="${esc(state.models.find((m) => m.id === r.model).icon)}" alt="" onerror="this.style.visibility='hidden'">`
+            : ''
+        }<div><span class="lb-name">${esc(r.label)}</span><span class="lb-slug">${esc(r.model)}</span></div></div>
         <div class="lb-score">
           <div class="lb-brier">${r.avgBrier == null ? '-' : r.avgBrier.toFixed(3) + (r.retroScored ? '*' : '')}</div>
           <div class="lb-meta">${r.scored} scored / ${r.predicted} forecast${r.predicted === 1 ? '' : 's'}</div>
