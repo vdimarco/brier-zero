@@ -8506,516 +8506,516 @@
     "760506": {
       "deepseek/deepseek-chat-v3.1": {
         "probs": {
-          "home": 0.32,
-          "draw": 0.35,
-          "away": 0.33
+          "home": 0.48,
+          "away": 0.52
         },
-        "rationale": "These two historically evenly-matched teams are likely to produce a tight, low-scoring affair in a high-pressure knockout match.",
-        "createdAt": "2026-07-05T15:32:22.080Z",
-        "latencyMs": 1013,
-        "eligible": true,
-        "fixture": "Portugal vs Spain"
+        "rationale": "Spain holds a slight edge due to historical tournament success and a marginally deeper squad, but Portugal's individual brilliance makes this an extremely tight contest.",
+        "market": "advance",
+        "fixture": "Portugal vs Spain",
+        "createdAt": "2026-07-06T08:18:18.667Z",
+        "latencyMs": 3878,
+        "eligible": true
       },
       "openai/gpt-5.1": {
         "probs": {
-          "home": 0.33,
-          "draw": 0.29,
-          "away": 0.38
+          "home": 0.47,
+          "away": 0.53
         },
-        "rationale": "Spain projects as slightly stronger on underlying talent and depth, but Portugal’s quality and the high variance of knockout football keep all three outcomes relatively close.",
-        "createdAt": "2026-07-05T15:32:22.547Z",
-        "latencyMs": 1480,
-        "eligible": true,
-        "fixture": "Portugal vs Spain"
+        "rationale": "Spain are marginal favorites on underlying squad depth and recent tournament performance, but the matchup is close to a coin flip.",
+        "market": "advance",
+        "fixture": "Portugal vs Spain",
+        "createdAt": "2026-07-06T08:18:17.133Z",
+        "latencyMs": 2344,
+        "eligible": true
       },
       "qwen/qwen3-max": {
         "probs": {
-          "home": 0.35000000000000003,
-          "draw": 0.30000000000000004,
-          "away": 0.35000000000000003
+          "home": 0.48,
+          "away": 0.52
         },
-        "rationale": "Portugal and Spain are evenly matched with strong squads, leading to nearly equal win probabilities and a substantial chance of a draw in regulation time.",
-        "createdAt": "2026-07-05T15:32:23.467Z",
-        "latencyMs": 2399,
-        "eligible": true,
-        "fixture": "Portugal vs Spain"
+        "rationale": "Spain has a slight edge due to recent form and deeper squad depth, but Portugal's individual quality makes the tie nearly even.",
+        "market": "advance",
+        "fixture": "Portugal vs Spain",
+        "createdAt": "2026-07-06T08:18:17.408Z",
+        "latencyMs": 2617,
+        "eligible": true
       },
       "anthropic/claude-sonnet-4.5": {
         "probs": {
-          "home": 0.3,
-          "draw": 0.32,
-          "away": 0.38
+          "home": 0.48,
+          "away": 0.52
         },
-        "rationale": "Spain has a slight edge given their recent tournament success and strong youth development, though Portugal's quality and these teams' historical competitiveness make this a closely matched knockout game likely to be decided by fine margins.",
-        "createdAt": "2026-07-05T15:32:23.805Z",
-        "latencyMs": 2739,
-        "eligible": true,
-        "fixture": "Portugal vs Spain"
+        "rationale": "Spain holds a slight edge given their recent tournament success and strong youth development, though Portugal's quality and Iberian rivalry history make this essentially a toss-up match.",
+        "market": "advance",
+        "fixture": "Portugal vs Spain",
+        "createdAt": "2026-07-06T08:18:17.912Z",
+        "latencyMs": 3125,
+        "eligible": true
       },
       "minimax/minimax-m2": {
         "probs": {
-          "home": 0.33,
-          "draw": 0.27,
-          "away": 0.4
+          "home": 0.48,
+          "away": 0.52
         },
-        "rationale": "Spain slightly favored due to deeper squad and recent edge in H2H, but Portugal's star power keeps it close.",
-        "createdAt": "2026-07-05T15:32:25.056Z",
-        "latencyMs": 3988,
-        "eligible": true,
-        "fixture": "Portugal vs Spain"
+        "rationale": "Both teams are closely matched in quality and experience, with Spain holding a slight tactical edge in knockout football.",
+        "market": "advance",
+        "fixture": "Portugal vs Spain",
+        "createdAt": "2026-07-06T08:18:26.996Z",
+        "latencyMs": 12205,
+        "eligible": true
       },
       "moonshotai/kimi-k2-0905": {
         "probs": {
-          "home": 0.32,
-          "draw": 0.3,
-          "away": 0.38
+          "home": 0.42,
+          "away": 0.58
         },
-        "rationale": "Spain’s slightly deeper squad and recent tournament edge give them a narrow advantage, but Portugal’s individual match-winners and knockout pragmatism keep all three outcomes very close.",
-        "createdAt": "2026-07-05T15:32:26.780Z",
-        "latencyMs": 5713,
-        "eligible": true,
-        "fixture": "Portugal vs Spain"
+        "rationale": "Spain's superior depth, tactical cohesion under a likely evolved system, and recent tournament consistency give them the edge over Portugal's aging core despite Ronaldo's potential final tournament motivation.",
+        "market": "advance",
+        "fixture": "Portugal vs Spain",
+        "createdAt": "2026-07-06T08:18:17.602Z",
+        "latencyMs": 2812,
+        "eligible": true
       },
       "z-ai/glm-4.6": {
         "probs": {
-          "home": 0.35,
-          "draw": 0.35,
-          "away": 0.3
+          "home": 0.48,
+          "away": 0.52
         },
-        "rationale": "Portugal's slight edge in attacking talent gives them an advantage in what should be a tightly contested match between two European powerhouses.",
-        "createdAt": "2026-07-05T15:32:45.936Z",
-        "latencyMs": 24869,
-        "eligible": true,
-        "fixture": "Portugal vs Spain"
+        "rationale": "Spain's slightly stronger recent form and tactical consistency give them a narrow edge over Portugal's talented but less cohesive squad.",
+        "market": "advance",
+        "fixture": "Portugal vs Spain",
+        "createdAt": "2026-07-06T08:19:02.828Z",
+        "latencyMs": 48038,
+        "eligible": true
       }
     },
     "760507": {
       "openai/gpt-5.1": {
         "probs": {
-          "home": 0.34,
-          "draw": 0.29,
-          "away": 0.37
+          "home": 0.47,
+          "away": 0.53
         },
-        "rationale": "Belgium projects as a slightly stronger side on neutral-ish ground, but home advantage for the US in a knockout match keeps the probabilities fairly balanced.",
-        "createdAt": "2026-07-05T15:32:47.296Z",
-        "latencyMs": 1358,
-        "eligible": true,
-        "fixture": "United States vs Belgium"
+        "rationale": "Belgium’s slightly stronger overall squad and experience edge a competitive US team buoyed by home advantage in a roughly even matchup.",
+        "market": "advance",
+        "fixture": "United States vs Belgium",
+        "createdAt": "2026-07-06T08:19:04.340Z",
+        "latencyMs": 1507,
+        "eligible": true
       },
       "moonshotai/kimi-k2-0905": {
         "probs": {
-          "home": 0.28,
-          "draw": 0.28,
-          "away": 0.44
+          "home": 0.38,
+          "away": 0.62
         },
-        "rationale": "Belgium has superior individual talent and tournament experience, but the US home advantage at Lumen Field and expected crowd support narrows the gap significantly.",
-        "createdAt": "2026-07-05T15:32:48.347Z",
-        "latencyMs": 2409,
-        "eligible": true,
-        "fixture": "United States vs Belgium"
+        "rationale": "Belgium's superior talent depth and tournament experience outweighs US home advantage at Lumen Field, though the narrow gap reflects American improvement and crowd support.",
+        "market": "advance",
+        "fixture": "United States vs Belgium",
+        "createdAt": "2026-07-06T08:19:06.249Z",
+        "latencyMs": 3414,
+        "eligible": true
       },
       "qwen/qwen3-max": {
         "probs": {
-          "home": 0.35000000000000003,
-          "draw": 0.30000000000000004,
-          "away": 0.35000000000000003
+          "home": 0.45,
+          "away": 0.55
         },
-        "rationale": "Both teams are closely matched in current form and historical performance, with home advantage slightly favoring the United States but Belgium's tournament experience balancing the odds.",
-        "createdAt": "2026-07-05T15:32:48.373Z",
-        "latencyMs": 2434,
-        "eligible": true,
-        "fixture": "United States vs Belgium"
+        "rationale": "Belgium has a stronger recent tournament record and deeper squad, but the United States benefits from home advantage and improving talent, making the match close but slightly favoring Belgium.",
+        "market": "advance",
+        "fixture": "United States vs Belgium",
+        "createdAt": "2026-07-06T08:19:05.398Z",
+        "latencyMs": 2562,
+        "eligible": true
       },
       "anthropic/claude-sonnet-4.5": {
         "probs": {
-          "home": 0.35000000000000003,
-          "draw": 0.30000000000000004,
-          "away": 0.35000000000000003
+          "home": 0.42,
+          "away": 0.58
         },
-        "rationale": "United States gets home advantage at a knockout stage venue but Belgium's higher FIFA ranking and tournament experience roughly balance this out, making it essentially a toss-up with draw slightly less likely than either side winning in regulation.",
-        "createdAt": "2026-07-05T15:32:49.079Z",
-        "latencyMs": 3142,
-        "eligible": true,
-        "fixture": "United States vs Belgium"
+        "rationale": "Belgium's higher FIFA ranking and stronger recent tournament performances outweigh the United States' home advantage, though the gap narrows in a knockout format where the US has shown resilience.",
+        "market": "advance",
+        "fixture": "United States vs Belgium",
+        "createdAt": "2026-07-06T08:19:07.390Z",
+        "latencyMs": 4559,
+        "eligible": true
       },
       "deepseek/deepseek-chat-v3.1": {
         "probs": {
-          "home": 0.32,
-          "draw": 0.3,
-          "away": 0.38
+          "home": 0.42,
+          "away": 0.58
         },
-        "rationale": "Belgium's superior talent gives them a slight edge, but the US playing at home in a high-stakes knockout match makes a close game or draw very plausible.",
-        "createdAt": "2026-07-05T15:32:50.188Z",
-        "latencyMs": 4250,
-        "eligible": true,
-        "fixture": "United States vs Belgium"
+        "rationale": "Belgium's superior tournament experience and individual quality give them a slight edge over a US team playing with home advantage.",
+        "market": "advance",
+        "fixture": "United States vs Belgium",
+        "createdAt": "2026-07-06T08:19:07.026Z",
+        "latencyMs": 4192,
+        "eligible": true
       },
       "minimax/minimax-m2": {
         "probs": {
-          "home": 0.35,
-          "draw": 0.28,
-          "away": 0.37
+          "home": 0.42,
+          "away": 0.58
         },
-        "rationale": "Belgium is historically stronger, but the USA has home advantage, making this a close match.",
-        "createdAt": "2026-07-05T15:32:50.207Z",
-        "latencyMs": 4268,
-        "eligible": true,
-        "fixture": "United States vs Belgium"
+        "rationale": "Belgium holds a slight edge due to superior tournament experience and player quality, but the USA benefits from significant home advantage at Lumen Field making this a competitive knockout tie.",
+        "market": "advance",
+        "fixture": "United States vs Belgium",
+        "createdAt": "2026-07-06T08:19:17.679Z",
+        "latencyMs": 14843,
+        "eligible": true
       },
       "z-ai/glm-4.6": {
         "probs": {
-          "home": 0.45,
-          "draw": 0.3,
-          "away": 0.25
+          "home": 0.57,
+          "away": 0.43
         },
-        "rationale": "The United States benefits from home advantage and a rising talent pool, while Belgium's golden generation has aged, making this a closely contested knockout match.",
-        "createdAt": "2026-07-05T15:33:12.116Z",
-        "latencyMs": 26178,
-        "eligible": true,
-        "fixture": "United States vs Belgium"
+        "rationale": "The United States benefits from a passionate home crowd at Lumen Field and a roster entering its prime, facing a Belgian team navigating a post-Golden Generation transition.",
+        "market": "advance",
+        "fixture": "United States vs Belgium",
+        "createdAt": "2026-07-06T08:19:54.284Z",
+        "latencyMs": 51448,
+        "eligible": true
       }
     },
     "760508": {
       "openai/gpt-5.1": {
         "probs": {
-          "home": 0.37,
-          "draw": 0.28,
-          "away": 0.35
+          "home": 0.47,
+          "away": 0.53
         },
-        "rationale": "Switzerland and Colombia project as fairly evenly matched knockout opponents on neutral turf, with Switzerland slightly favored by underlying strength but Colombia’s attacking upside keeping the matchup close.",
-        "createdAt": "2026-07-05T15:34:00.773Z",
-        "latencyMs": 1647,
-        "eligible": true,
-        "fixture": "Switzerland vs Colombia"
+        "rationale": "Switzerland’s structure and experience make this close to even, but Colombia’s attacking talent and recent trajectory slightly tilt advancement odds in their favor.",
+        "market": "advance",
+        "fixture": "Switzerland vs Colombia",
+        "createdAt": "2026-07-06T08:20:15.005Z",
+        "latencyMs": 1449,
+        "eligible": true
       },
       "anthropic/claude-sonnet-4.5": {
         "probs": {
-          "home": 0.32,
-          "draw": 0.3,
-          "away": 0.38
+          "home": 0.48,
+          "away": 0.52
         },
-        "rationale": "Colombia has shown stronger recent form and attacking prowess, but Switzerland's defensive organization and tournament experience make this a closely contested knockout match where Colombia holds a slight edge.",
-        "createdAt": "2026-07-05T15:34:01.530Z",
-        "latencyMs": 2405,
-        "eligible": true,
-        "fixture": "Switzerland vs Colombia"
+        "rationale": "Colombia has a slight edge due to their strong recent form and attacking talent, though Switzerland's defensive organization and tournament experience make this a closely matched knockout tie.",
+        "market": "advance",
+        "fixture": "Switzerland vs Colombia",
+        "createdAt": "2026-07-06T08:20:15.931Z",
+        "latencyMs": 2376,
+        "eligible": true
       },
       "qwen/qwen3-max": {
         "probs": {
-          "home": 0.42,
-          "draw": 0.28,
-          "away": 0.3
+          "home": 0.48,
+          "away": 0.52
         },
-        "rationale": "Switzerland has a slight edge due to stronger recent form and defensive solidity, but Colombia's attacking talent makes them competitive, leading to a relatively balanced match with a modest home advantage.",
-        "createdAt": "2026-07-05T15:34:02.036Z",
-        "latencyMs": 2909,
-        "eligible": true,
-        "fixture": "Switzerland vs Colombia"
+        "rationale": "Colombia has a slight edge due to stronger recent form and home-continent advantage, though Switzerland's defensive solidity makes the match nearly even.",
+        "market": "advance",
+        "fixture": "Switzerland vs Colombia",
+        "createdAt": "2026-07-06T08:20:15.838Z",
+        "latencyMs": 2282,
+        "eligible": true
       },
       "moonshotai/kimi-k2-0905": {
         "probs": {
-          "home": 0.32,
-          "draw": 0.28,
-          "away": 0.4
+          "home": 0.42,
+          "away": 0.58
         },
-        "rationale": "Colombia has shown stronger recent form in major tournaments and possesses more attacking firepower, while Switzerland's defensive solidity keeps them competitive in knockout matches.",
-        "createdAt": "2026-07-05T15:34:02.209Z",
-        "latencyMs": 3083,
-        "eligible": true,
-        "fixture": "Switzerland vs Colombia"
+        "rationale": "Colombia’s superior recent form and deeper attacking talent outweigh Switzerland’s disciplined defense and neutral-site familiarity.",
+        "market": "advance",
+        "fixture": "Switzerland vs Colombia",
+        "createdAt": "2026-07-06T08:20:13.907Z",
+        "latencyMs": 351,
+        "eligible": true
       },
       "deepseek/deepseek-chat-v3.1": {
         "probs": {
-          "home": 0.35,
-          "draw": 0.35,
-          "away": 0.3
+          "home": 0.42,
+          "away": 0.58
         },
-        "rationale": "Switzerland is a slight favorite due to their consistent tournament performances, but Colombia's attacking talent makes this a very even match likely to be decided by fine margins.",
-        "createdAt": "2026-07-05T15:34:11.691Z",
-        "latencyMs": 12565,
-        "eligible": true,
-        "fixture": "Switzerland vs Colombia"
+        "rationale": "Colombia's superior attacking talent and historical tournament resilience give them a slight edge over a well-organized but less creative Switzerland side.",
+        "market": "advance",
+        "fixture": "Switzerland vs Colombia",
+        "createdAt": "2026-07-06T08:20:17.249Z",
+        "latencyMs": 3693,
+        "eligible": true
       },
       "z-ai/glm-4.6": {
         "probs": {
-          "home": 0.38,
-          "draw": 0.32,
-          "away": 0.3
+          "home": 0.52,
+          "away": 0.48
         },
-        "rationale": "Switzerland's tournament consistency gives them a slight edge, but the knockout stage nature increases the likelihood of a draw after 90 minutes.",
-        "createdAt": "2026-07-05T15:34:12.887Z",
-        "latencyMs": 13761,
-        "eligible": true,
-        "fixture": "Switzerland vs Colombia"
+        "rationale": "Switzerland's tournament consistency and defensive organization gives them a slight edge over Colombia's talented but sometimes inconsistent attack in what should be a tightly contested knockout match.",
+        "market": "advance",
+        "fixture": "Switzerland vs Colombia",
+        "createdAt": "2026-07-06T08:20:26.101Z",
+        "latencyMs": 12545,
+        "eligible": true
       },
       "minimax/minimax-m2": {
         "probs": {
-          "home": 0.38,
-          "draw": 0.28,
-          "away": 0.34
+          "home": 0.53,
+          "away": 0.47
         },
-        "rationale": "Switzerland's solid defense may counter Colombia's attack, making a close match likely.",
-        "createdAt": "2026-07-05T15:34:15.892Z",
-        "latencyMs": 16765,
-        "eligible": true,
-        "fixture": "Switzerland vs Colombia"
+        "rationale": "Switzerland's slightly higher FIFA ranking and defensive solidity give them a modest edge over Colombia's attacking prowess in a neutral knockout match.",
+        "market": "advance",
+        "fixture": "Switzerland vs Colombia",
+        "createdAt": "2026-07-06T08:20:41.311Z",
+        "latencyMs": 27755,
+        "eligible": true
       }
     },
     "760509": {
       "openai/gpt-5.1": {
         "probs": {
-          "home": 0.7300000000000001,
-          "draw": 0.18000000000000002,
-          "away": 0.09000000000000001
+          "home": 0.86,
+          "away": 0.14
         },
-        "rationale": "Argentina are an elite side with vastly superior squad quality and tournament pedigree, making them strong favorites over Egypt on a neutral World Cup knockout stage.",
-        "createdAt": "2026-07-05T15:33:13.397Z",
-        "latencyMs": 1280,
-        "eligible": true,
-        "fixture": "Argentina vs Egypt"
+        "rationale": "Argentina are an elite side and strong tournament performers, while Egypt are solid but clearly inferior on overall quality and depth.",
+        "market": "advance",
+        "fixture": "Argentina vs Egypt",
+        "createdAt": "2026-07-06T08:19:55.580Z",
+        "latencyMs": 1292,
+        "eligible": true
       },
       "moonshotai/kimi-k2-0905": {
         "probs": {
-          "home": 0.62,
-          "draw": 0.22,
-          "away": 0.16
+          "home": 0.78,
+          "away": 0.22
         },
-        "rationale": "Argentina are defending champions with superior talent and cohesion, while Egypt's defensive solidity and Mohamed Salah's threat keep them competitive but underdogs against elite opposition.",
-        "createdAt": "2026-07-05T15:33:14.566Z",
-        "latencyMs": 2449,
-        "eligible": true,
-        "fixture": "Argentina vs Egypt"
+        "rationale": "Argentina's star-laden squad and recent tournament pedigree make them heavy favorites, but Egypt's organized defense and counter-attacking threat give them a realistic upset chance.",
+        "market": "advance",
+        "fixture": "Argentina vs Egypt",
+        "createdAt": "2026-07-06T08:19:54.764Z",
+        "latencyMs": 476,
+        "eligible": true
       },
       "qwen/qwen3-max": {
         "probs": {
-          "home": 0.7200000000000001,
-          "draw": 0.18000000000000002,
-          "away": 0.10000000000000002
+          "home": 0.82,
+          "away": 0.18
         },
-        "rationale": "Argentina is significantly stronger on paper with a deeper squad and recent World Cup pedigree, while Egypt lacks consistent top-tier results and faces a tough knockout-stage opponent.",
-        "createdAt": "2026-07-05T15:33:14.745Z",
-        "latencyMs": 2628,
-        "eligible": true,
-        "fixture": "Argentina vs Egypt"
+        "rationale": "Argentina is significantly stronger based on recent form, squad depth, and World Cup pedigree, while Egypt lacks comparable top-level experience and offensive firepower.",
+        "market": "advance",
+        "fixture": "Argentina vs Egypt",
+        "createdAt": "2026-07-06T08:19:56.739Z",
+        "latencyMs": 2450,
+        "eligible": true
       },
       "anthropic/claude-sonnet-4.5": {
         "probs": {
-          "home": 0.62,
-          "draw": 0.25,
-          "away": 0.13
+          "home": 0.78,
+          "away": 0.22
         },
-        "rationale": "Argentina as reigning champions with superior FIFA ranking and recent tournament performance holds a significant advantage over Egypt in a knockout match, though Egypt's defensive organization and knockout football's inherent uncertainty warrant meaningful draw and upset probabilities.",
-        "createdAt": "2026-07-05T15:33:15.165Z",
-        "latencyMs": 3049,
-        "eligible": true,
-        "fixture": "Argentina vs Egypt"
+        "rationale": "Argentina as reigning champions with superior FIFA ranking, recent tournament experience, and stronger squad depth should be heavily favored against Egypt, though knockout football always carries upset potential.",
+        "market": "advance",
+        "fixture": "Argentina vs Egypt",
+        "createdAt": "2026-07-06T08:19:56.967Z",
+        "latencyMs": 2680,
+        "eligible": true
       },
       "deepseek/deepseek-chat-v3.1": {
         "probs": {
-          "home": 0.65,
-          "draw": 0.25,
-          "away": 0.1
+          "home": 0.72,
+          "away": 0.28
         },
-        "rationale": "Argentina is a stronger team historically and in current form, making them favorites, but Egypt's defensive resilience and the knockout pressure increase the chance of a draw.",
-        "createdAt": "2026-07-05T15:33:15.614Z",
-        "latencyMs": 3497,
-        "eligible": true,
-        "fixture": "Argentina vs Egypt"
+        "rationale": "Argentina is a historically dominant football nation with recent World Cup success and superior squad depth, while Egypt, though talented, is less proven at this stage against top-tier opposition.",
+        "market": "advance",
+        "fixture": "Argentina vs Egypt",
+        "createdAt": "2026-07-06T08:19:59.154Z",
+        "latencyMs": 4866,
+        "eligible": true
       },
       "minimax/minimax-m2": {
         "probs": {
-          "home": 0.62,
-          "draw": 0.25,
-          "away": 0.13
+          "home": 0.8,
+          "away": 0.2
         },
-        "rationale": "Argentina's superior squad depth and recent major tournament success outweigh Egypt's defensive resilience and Salah's individual quality.",
-        "createdAt": "2026-07-05T15:33:15.703Z",
-        "latencyMs": 3586,
-        "eligible": true,
-        "fixture": "Argentina vs Egypt"
+        "rationale": "Argentina's status as a perennial powerhouse and stronger squad compared to Egypt makes them the clear favorite.",
+        "market": "advance",
+        "fixture": "Argentina vs Egypt",
+        "createdAt": "2026-07-06T08:20:12.548Z",
+        "latencyMs": 18259,
+        "eligible": true
       },
       "z-ai/glm-4.6": {
         "probs": {
-          "home": 0.76,
-          "draw": 0.16,
-          "away": 0.08
+          "home": 0.78,
+          "away": 0.22
         },
-        "rationale": "Defending champions Argentina possess overwhelming quality and a de facto home advantage in Atlanta, making them strong favorites to advance, though the knockout stage's cautious nature leaves room for a draw.",
-        "createdAt": "2026-07-05T15:33:59.124Z",
-        "latencyMs": 47007,
-        "eligible": true,
-        "fixture": "Argentina vs Egypt"
+        "rationale": "Argentina's superior World Cup pedigree and likely stronger squad makes them favorites despite the unpredictable nature of knockout matches.",
+        "market": "advance",
+        "fixture": "Argentina vs Egypt",
+        "createdAt": "2026-07-06T08:20:13.552Z",
+        "latencyMs": 19264,
+        "eligible": true
       }
     },
     "760510": {
       "openai/gpt-5.1": {
         "probs": {
-          "home": 0.63,
-          "draw": 0.22,
-          "away": 0.15
+          "home": 0.79,
+          "away": 0.21
         },
-        "rationale": "France should be clear favorites given their squad depth, historical performance, and likely talent advantage, though Morocco’s strong defensive organization and tournament pedigree preserve non-trivial chances of an upset or stalemate in regulation.",
-        "createdAt": "2026-07-05T15:34:17.159Z",
-        "latencyMs": 1266,
-        "eligible": true,
-        "fixture": "France vs Morocco"
+        "rationale": "France’s superior squad depth, historical knockout performance, and tactical versatility make them clear favorites, though Morocco’s strong defense and proven upset potential keep an upset meaningfully live.",
+        "market": "advance",
+        "fixture": "France vs Morocco",
+        "createdAt": "2026-07-06T08:20:43.729Z",
+        "latencyMs": 2414,
+        "eligible": true
       },
       "qwen/qwen3-max": {
         "probs": {
-          "home": 0.55,
-          "draw": 0.25,
-          "away": 0.2
+          "home": 0.65,
+          "away": 0.35
         },
-        "rationale": "France has superior squad depth and recent tournament pedigree, but Morocco's strong defense and 2022 semifinal run make them dangerous, leading to a moderate chance of an upset or draw.",
-        "createdAt": "2026-07-05T15:34:18.517Z",
-        "latencyMs": 2623,
-        "eligible": true,
-        "fixture": "France vs Morocco"
+        "rationale": "France has superior squad depth and recent tournament pedigree, but Morocco's strong defense and 2022 semifinal run make them a credible threat.",
+        "market": "advance",
+        "fixture": "France vs Morocco",
+        "createdAt": "2026-07-06T08:20:44.202Z",
+        "latencyMs": 2886,
+        "eligible": true
       },
       "anthropic/claude-sonnet-4.5": {
         "probs": {
-          "home": 0.58,
-          "draw": 0.25,
-          "away": 0.17
+          "home": 0.72,
+          "away": 0.28
         },
-        "rationale": "France's superior FIFA ranking, deeper talent pool, and historical dominance over Morocco (including their 2-0 World Cup 2022 semifinal victory) make them strong favorites, though Morocco's improved competitiveness and potential home continent advantage in North America warrant meaningful upset probability.",
-        "createdAt": "2026-07-05T15:34:19.081Z",
-        "latencyMs": 3188,
-        "eligible": true,
-        "fixture": "France vs Morocco"
+        "rationale": "France's superior FIFA ranking, deeper talent pool, and recent World Cup pedigree (2022 runners-up, 2018 champions) give them a significant advantage over Morocco despite the latter's impressive 2022 semifinal run.",
+        "market": "advance",
+        "fixture": "France vs Morocco",
+        "createdAt": "2026-07-06T08:20:44.122Z",
+        "latencyMs": 2807,
+        "eligible": true
       },
       "moonshotai/kimi-k2-0905": {
         "probs": {
-          "home": 0.58,
-          "draw": 0.24,
-          "away": 0.18
+          "home": 0.72,
+          "away": 0.28
         },
-        "rationale": "France's superior talent depth and 2022 semifinal experience against Morocco, though Morocco's organized defense and 2022 upset pedigree keep them competitive.",
-        "createdAt": "2026-07-05T15:34:19.666Z",
-        "latencyMs": 3772,
-        "eligible": true,
-        "fixture": "France vs Morocco"
+        "rationale": "France's superior talent depth and 2022 semifinal experience against Morocco, combined with Morocco's potential squad aging and defensive reliance, favors the French despite Morocco's proven knockout resilience.",
+        "market": "advance",
+        "fixture": "France vs Morocco",
+        "createdAt": "2026-07-06T08:20:45.481Z",
+        "latencyMs": 4166,
+        "eligible": true
       },
       "deepseek/deepseek-chat-v3.1": {
         "probs": {
-          "home": 0.65,
-          "draw": 0.25,
-          "away": 0.1
+          "home": 0.72,
+          "away": 0.28
         },
-        "rationale": "France's superior squad depth and tournament experience make them strong favorites, but Morocco's disciplined defense and recent World Cup success suggest they can force a draw.",
-        "createdAt": "2026-07-05T15:34:20.514Z",
-        "latencyMs": 4620,
-        "eligible": true,
-        "fixture": "France vs Morocco"
+        "rationale": "France's superior squad depth and experience in high-stakes knockout matches give them a significant edge over a resilient but less proven Moroccan side.",
+        "market": "advance",
+        "fixture": "France vs Morocco",
+        "createdAt": "2026-07-06T08:20:45.122Z",
+        "latencyMs": 3807,
+        "eligible": true
       },
       "minimax/minimax-m2": {
         "probs": {
           "home": 0.65,
-          "draw": 0.18,
-          "away": 0.17
+          "away": 0.35
         },
-        "rationale": "France possesses superior individual talent and knockout stage experience compared to Morocco, though Morocco's historic 2022 semifinal run demonstrates they are capable of causing an upset.",
-        "createdAt": "2026-07-05T15:34:24.479Z",
-        "latencyMs": 8585,
-        "eligible": true,
-        "fixture": "France vs Morocco"
+        "rationale": "France's depth and experience in high-stakes matches make them marginally favored over a resilient Morocco side.",
+        "market": "advance",
+        "fixture": "France vs Morocco",
+        "createdAt": "2026-07-06T08:21:16.471Z",
+        "latencyMs": 35155,
+        "eligible": true
       },
       "z-ai/glm-4.6": {
         "probs": {
-          "home": 0.45,
-          "draw": 0.35,
-          "away": 0.2
+          "home": 0.68,
+          "away": 0.32
         },
-        "rationale": "France's historical World Cup dominance gives them an edge, but Morocco's recent semifinal run and defensive prowess make them a formidable opponent.",
-        "createdAt": "2026-07-05T15:34:35.679Z",
-        "latencyMs": 19785,
-        "eligible": true,
-        "fixture": "France vs Morocco"
+        "rationale": "France's superior World Cup pedigree and squad depth makes them favorites, but Morocco's proven ability to compete with elite teams keeps this matchup competitive.",
+        "market": "advance",
+        "fixture": "France vs Morocco",
+        "createdAt": "2026-07-06T08:21:03.488Z",
+        "latencyMs": 22173,
+        "eligible": true
       }
     },
     "760512": {
       "openai/gpt-5.1": {
         "probs": {
-          "home": 0.21,
-          "draw": 0.25,
-          "away": 0.54
+          "home": 0.29,
+          "away": 0.71
         },
-        "rationale": "England projects as a clearly stronger side but knockout-stage uncertainty, Norway’s improvement, and neutral conditions justify meaningful chances for both a draw and a Norway upset.",
+        "rationale": "England project as a materially stronger side with greater depth and knockout experience, making them clear but not overwhelming favorites over a capable Norway team.",
+        "market": "advance",
         "fixture": "Norway vs England",
-        "createdAt": "2026-07-06T03:16:21.831Z",
-        "latencyMs": 1592,
+        "createdAt": "2026-07-06T08:21:17.938Z",
+        "latencyMs": 1463,
         "eligible": true
       },
       "qwen/qwen3-max": {
         "probs": {
-          "home": 0.15,
-          "draw": 0.25,
-          "away": 0.6
+          "home": 0.35,
+          "away": 0.65
         },
-        "rationale": "England has a stronger squad depth, recent form, and historical advantage over Norway, making them clear favorites despite Norway's individual talent.",
+        "rationale": "England has a stronger recent tournament record, deeper squad depth, and higher FIFA ranking, giving them a clear edge over Norway despite the neutral venue.",
+        "market": "advance",
         "fixture": "Norway vs England",
-        "createdAt": "2026-07-06T03:16:23.054Z",
-        "latencyMs": 2812,
+        "createdAt": "2026-07-06T08:21:18.847Z",
+        "latencyMs": 2371,
         "eligible": true
       },
       "moonshotai/kimi-k2-0905": {
         "probs": {
           "home": 0.28,
-          "draw": 0.28,
-          "away": 0.44
+          "away": 0.72
         },
-        "rationale": "England has stronger historical pedigree and squad depth but Norway's home-adjacent venue in Miami with significant fan support and recent improvement under Solskjær makes this competitive.",
+        "rationale": "England’s deeper squad and tournament experience outweigh Norway’s rising generation led by Haaland.",
+        "market": "advance",
         "fixture": "Norway vs England",
-        "createdAt": "2026-07-06T03:16:23.346Z",
-        "latencyMs": 3105,
+        "createdAt": "2026-07-06T08:21:17.120Z",
+        "latencyMs": 645,
         "eligible": true
       },
       "anthropic/claude-sonnet-4.5": {
         "probs": {
-          "home": 0.15,
-          "draw": 0.28,
-          "away": 0.57
+          "home": 0.22,
+          "away": 0.78
         },
-        "rationale": "England's superior FIFA ranking, deeper talent pool, and recent tournament performances make them clear favorites against Norway, though knockout stage matches often see increased defensive caution leading to draws.",
+        "rationale": "England's superior FIFA ranking, deeper talent pool, and recent tournament experience (Euro 2020 finals, World Cup 2022 semifinals) make them strong favorites against Norway, who have not qualified for a major tournament since Euro 2021.",
+        "market": "advance",
         "fixture": "Norway vs England",
-        "createdAt": "2026-07-06T03:16:23.490Z",
-        "latencyMs": 3254,
+        "createdAt": "2026-07-06T08:21:19.858Z",
+        "latencyMs": 3383,
         "eligible": true
       },
       "deepseek/deepseek-chat-v3.1": {
         "probs": {
-          "home": 0.22,
-          "draw": 0.28,
-          "away": 0.5
+          "home": 0.28,
+          "away": 0.72
         },
-        "rationale": "England is a historically strong football nation with a deeper squad and more tournament experience, making them favorites, but Norway's potential for a disciplined defensive performance makes a draw a significant possibility.",
+        "rationale": "England's superior squad depth, tournament experience, and historical pedigree make them strong favorites against a talented but less proven Norway team.",
+        "market": "advance",
         "fixture": "Norway vs England",
-        "createdAt": "2026-07-06T03:16:24.280Z",
-        "latencyMs": 4040,
+        "createdAt": "2026-07-06T08:21:20.421Z",
+        "latencyMs": 3946,
         "eligible": true
       },
       "minimax/minimax-m2": {
         "probs": {
-          "home": 0.15,
-          "draw": 0.25,
-          "away": 0.6
+          "home": 0.3,
+          "away": 0.7
         },
-        "rationale": "England's stronger tournament pedigree and deeper squad make them slight favorites, but Norway's attacking threat, especially Haaland, keeps a draw or upset plausible.",
+        "rationale": "England's superior squad depth and tournament experience make them clear favorites over Norway.",
+        "market": "advance",
         "fixture": "Norway vs England",
-        "createdAt": "2026-07-06T03:16:41.284Z",
-        "latencyMs": 21041,
+        "createdAt": "2026-07-06T08:21:48.942Z",
+        "latencyMs": 32466,
         "eligible": true
       },
       "z-ai/glm-4.6": {
         "probs": {
-          "home": 0.25,
-          "draw": 0.3,
-          "away": 0.45
+          "home": 0.28,
+          "away": 0.72
         },
-        "rationale": "England's tournament experience and squad depth gives them an edge, but Norway's attacking talent makes them capable of causing an upset in a tightly contested quarterfinal.",
+        "rationale": "England's superior squad depth and recent tournament experience make them clear favorites against Norway, who would need an exceptional performance to advance.",
+        "market": "advance",
         "fixture": "Norway vs England",
-        "createdAt": "2026-07-06T03:16:52.504Z",
-        "latencyMs": 32263,
+        "createdAt": "2026-07-06T08:21:37.961Z",
+        "latencyMs": 21485,
         "eligible": true
       }
     }
