@@ -10441,6 +10441,68 @@
             "rationale": "Halftime deadlock in an even matchup between two evenly-matched Iberian rivals with no decisive moments to separate them."
           }
         }
+      },
+      {
+        "at": "2026-07-06T20:09:31.907Z",
+        "detail": "46'",
+        "score": [
+          0,
+          0
+        ],
+        "events": 0,
+        "period": "STATUS_SECOND_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "With the match still level at halftime and no significant events, Spain holds a slight edge based on their marginally superior recent tournament form and possession-based style, though this remains essentially a coin flip between two elite teams."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.49,
+              "away": 0.51
+            },
+            "rationale": "With the match level early in the second half between two closely matched sides, Spain is given a very slight edge based on underlying squad and stylistic factors but the tie remains essentially 50–50."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "The match is tied at halftime with no key events, so both teams have an equal chance to advance."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.45,
+              "away": 0.55
+            },
+            "rationale": "Spain's superior midfield control and recent tournament consistency gives them a slight edge despite the scoreless first half, though Portugal's counterattacking threat keeps it close."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.45,
+              "away": 0.55
+            },
+            "rationale": "Spain's possession-based style gives them a slight edge in a knockout match that remains goalless at halftime."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "Spain has a slight edge due to recent head-to-head form and marginally stronger midfield control, but the match remains evenly poised at halftime of a goalless draw."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.49,
+              "away": 0.51
+            },
+            "rationale": "Spain has a slight edge due to their possession-based style and recent form, but Portugal's quality keeps it close."
+          }
+        }
       }
     ]
   },
