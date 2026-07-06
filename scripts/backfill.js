@@ -10,7 +10,7 @@ if (!predictorReady()) {
   console.error('Set OPENROUTER_API_KEY (or DEMO_MODE=1) first.');
   process.exit(1);
 }
-const preds = getPredictions();
+const preds = await getPredictions();
 const models = loadModels();
 // Any finished match where at least one model has no stored forecast.
 const targets = (await fetchMatches()).filter(

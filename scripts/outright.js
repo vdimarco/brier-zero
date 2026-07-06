@@ -21,7 +21,7 @@ if (alive.length < 2) {
   console.log('Tournament decided; nothing to collect.');
   process.exit(0);
 }
-const history = getOutright();
+const history = await getOutright();
 const last = history[history.length - 1];
 const sameTeams = last && JSON.stringify([...last.teams].sort()) === JSON.stringify([...alive].sort());
 const fresh = last && Date.now() - new Date(last.at).getTime() < 20 * 3600 * 1000;
