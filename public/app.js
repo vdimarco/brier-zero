@@ -331,7 +331,7 @@ function renderMatches(state) {
 function detailPoints(match, market) {
   const points = [];
   const locked = consensusOf(match.predictions, market);
-  if (locked) points.push({ label: 'Locked', sub: 'pre-kickoff', probs: locked });
+  if (locked) points.push({ label: 'Locked', probs: locked });
   for (const snap of match.snapshots ?? []) {
     if ((snap.market === 'advance' ? 'advance' : 'regulation') !== market) continue;
     const c = consensusOf(snap.models, market);
@@ -342,7 +342,8 @@ function detailPoints(match, market) {
     const probs = {};
     for (const o of MARKET_OUTCOMES[market]) probs[o] = o === outcome ? 1 : 0;
     points.push({
-      label: 'FT', sub: `${match.home.score}:${match.away.score}`,
+      label: market === 'advance' ? 'Result' : 'FT',
+      sub: `${match.home.score}:${match.away.score}`,
       probs,
       final: true,
     });
@@ -350,37 +351,20 @@ function detailPoints(match, market) {
   return points;
 }
 
-function evolutionChart(match, points, market) {
-  const W = 660, H = 240, padL = 36, padR = 30, padT = 12, padB = 34;
-  const n = points.length;
-  const x = (i) => (n === 1 ? W / 2 : padL + (i * (W - padL - padR)) / (n - 1));
-  const y = (p) => padT + (1 - p) * (H - padT - padB);
-  const series = [
-    { key: 'home', color: 'var(--home)', name: match.home.name },
-    { key: 'draw', color: 'var(--draw)', name: 'Draw' },
-    { key: 'away', color: 'var(--away)', name: match.away.name },
-  ].filter((s) => MARKET_OUTCOMES[market].includes(s.key));
-  let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="How the consensus win probabilities moved over time">`;
-  for (const g of [0, 0.5, 1]) {
-    svg += `<line x1="${padL}" y1="${y(g)}" x2="${W - padR}" y2="${y(g)}" stroke="var(--hairline)" stroke-width="1"/>`;
-    svg += `<text x="${padL - 6}" y="${y(g) + 4}" text-anchor="end" font-size="10" fill="var(--ink-3)">${g * 100}</text>`;
-  }
-  for (const s of series) {
-    if (n > 1) {
-      const path = points.map((p, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(p.probs[s.key]).toFixed(1)}`).join('');
-      svg += `<path d="${path}" fill="none" stroke="${s.color}" stroke-width="2" stroke-linejoin="round"/>`;
-    }
-    points.forEach((p, i) => {
-      svg += `<circle cx="${x(i).toFixed(1)}" cy="${y(p.probs[s.key]).toFixed(1)}" r="4" fill="${s.color}">` +
-        `<title>${esc(s.name)}: ${pct(p.probs[s.key])}% at ${esc(p.label)}${p.sub ? ` (${esc(p.sub)})` : ''}</title></circle>`;
-    });
-  }
-  points.forEach((p, i) => {
-    svg += `<text x="${x(i).toFixed(1)}" y="${H - 18}" text-anchor="middle" font-size="10.5" font-weight="600" fill="var(--ink-2)">${esc(p.label)}</text>`;
-    if (p.sub) svg += `<text x="${x(i).toFixed(1)}" y="${H - 6}" text-anchor="middle" font-size="10" fill="var(--ink-3)">${esc(p.sub)}</text>`;
-  });
-  svg += '</svg>';
-  return svg;
+/* The timeline is rendered as one bar row per moment, in the same visual
+   language as the forecast rows: locked consensus, then each in-play
+   consensus, then the result as a one-hot bar. */
+function timelineRows(match, points, market) {
+  const outs = MARKET_OUTCOMES[market];
+  return `<div class="forecasts">${points.map((p) => `
+    <div class="frow trow${p.final ? ' trow-final' : ''}">
+      <div class="fmodel twhen">${esc(p.label)}${p.sub ? `<span class="tsub">${esc(p.sub)}</span>` : ''}</div>
+      <div class="bar" role="img" aria-label="${esc(p.label)}: ${outs.map((o) => `${outcomeLabel(match, o, market)} ${pct(p.probs[o] ?? 0)}%`).join(', ')}">
+        ${outs.map((o) => seg(o, p.probs[o] ?? 0, outcomeLabel(match, o, market))).join('')}
+      </div>
+      <div></div>
+    </div>`).join('')}
+  </div>`;
 }
 
 /* Model detail: performance over time. Running-average Brier vs the
@@ -496,19 +480,6 @@ function renderDetail(state) {
   const points = detailPoints(match, market);
   const isLive = match.status.state === 'in';
 
-  const snapRows = (match.snapshots ?? []).slice().reverse().map((snap) => {
-    const snapMarket = snap.market === 'advance' ? 'advance' : 'regulation';
-    const c = consensusOf(snap.models, snapMarket);
-    if (!c) return '';
-    const probs = snapMarket === 'advance'
-      ? `${esc(match.home.name)} <b>${pct(c.home)}%</b> · ${esc(match.away.name)} <b>${pct(c.away)}%</b> to advance`
-      : `${esc(match.home.name)} <b>${pct(c.home)}%</b> · Draw <b>${pct(c.draw)}%</b> · ${esc(match.away.name)} <b>${pct(c.away)}%</b>`;
-    return `<div class="snap-row">
-      <span class="snap-when">${esc(snap.detail)} <span class="snap-score">${snap.score[0]}:${snap.score[1]}</span></span>
-      <span class="snap-probs">${probs}</span>
-    </div>`;
-  }).join('');
-
   const lockedRows = Object.keys(match.predictions).length
     ? state.models.map((mod) => forecastRow(mod, match.predictions[mod.id], match, null)).join('')
     : '<div class="fnote">No locked forecasts for this match.</div>';
@@ -524,10 +495,10 @@ function renderDetail(state) {
       </div>
       <button class="detail-close" data-close aria-label="Close">✕</button>
     </div>
-    <h3>Consensus over time</h3>
-    ${points.length ? `<div class="chart">${evolutionChart(match, points, market)}</div>` : '<div class="fnote">No forecasts yet.</div>'}
-    <p class="fnote">${market === 'advance' ? 'Knockout market: probability of advancing, extra time and penalties included. ' : ''}Only the locked pre-kickoff forecast counts for the leaderboard. In-play points are fresh forecasts given the score at that moment; FT is the actual result.</p>
-    ${snapRows ? `<h3>In-play updates</h3><div class="snap-list">${snapRows}</div>` : (isLive ? '<p class="fnote">In-play updates are collected after every goal, red card, and period change, plus every ~10 quiet minutes.</p>' : '')}
+    ${points.length > 1 ? `<h3>How the forecast moved</h3>
+    ${timelineRows(match, points, market)}
+    <p class="fnote">${market === 'advance' ? 'Knockout market: probability of advancing, extra time and penalties included. ' : ''}Consensus at each moment: the locked pre-kickoff forecast is the only one that scores; in-play rows are fresh forecasts after every goal, card, and period change; the last row is the actual result.</p>` :
+    (isLive ? '<p class="fnote">In-play updates land here after every goal, red card, and period change, plus every ~10 quiet minutes.</p>' : '')}
     <h3>Locked forecasts</h3>
     <div class="forecasts">${lockedRows}</div>
   </section>`;
