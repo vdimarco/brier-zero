@@ -117,7 +117,7 @@ tests/            unittest suite (no external deps)
 
 TBD (will be a FOSS license; tracked in 0X5-6).
 
-## World Cup Live: which model calls it best? (Node app)
+## The Brier Cup: which model calls the World Cup best? (Node app)
 
 Which AI model calls the World Cup best?
 
