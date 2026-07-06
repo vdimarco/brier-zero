@@ -9119,6 +9119,72 @@
             "rationale": "England enters as the stronger team on paper with deeper squad quality, but Mexico's home-continent advantage and solid defense keep the match competitive early on."
           }
         }
+      },
+      {
+        "at": "2026-07-06T01:38:17.063Z",
+        "detail": "37'",
+        "score": [
+          0,
+          1
+        ],
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.15,
+              "draw": 0.25,
+              "away": 0.6
+            },
+            "rationale": "England holds a one-goal lead approaching halftime with significant quality advantage, but Mexico has over 50 minutes to equalize and knockout stage tension typically tightens matches."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.19,
+              "draw": 0.25,
+              "away": 0.56
+            },
+            "rationale": "England are a goal up with over half the match left, making them clear favorites but still leaving substantial chances for a Mexico comeback or an eventual draw."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.15,
+              "draw": 0.25,
+              "away": 0.6
+            },
+            "rationale": "England leads and is the stronger side, but Mexico has time to push for an equalizer in a knockout match."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.18,
+              "draw": 0.28,
+              "away": 0.54
+            },
+            "rationale": "England leading early with a quality goal, but Mexico at home in 2026 with over 50 minutes remaining keeps this competitive; England slight favorites but draw still very possible."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.07,
+              "draw": 0.27,
+              "away": 0.66
+            },
+            "rationale": "England's late goal provides a significant psychological and tactical advantage, making it difficult for Mexico to overturn the deficit against a superior side."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.25,
+              "draw": 0.35,
+              "away": 0.4
+            },
+            "rationale": "England leads early with a strong performance, but Mexico has ample time to equalize or win, making a draw plausible while still favoring England slightly."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.1,
+              "draw": 0.22,
+              "away": 0.68
+            },
+            "rationale": "England leads 1-0 with ~53 minutes left and are the stronger side, so they are favored to hold the lead, though Mexico has a reasonable chance to equalize."
+          }
+        }
       }
     ]
   },
