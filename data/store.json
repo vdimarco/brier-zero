@@ -10682,6 +10682,68 @@
             "rationale": "Spain has a slight edge due to their possession-based control, but Portugal’s quality in transition and set pieces keeps the contest close."
           }
         }
+      },
+      {
+        "at": "2026-07-06T20:46:24.881Z",
+        "detail": "83'",
+        "score": [
+          0,
+          0
+        ],
+        "events": 0,
+        "period": "STATUS_SECOND_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.42,
+              "away": 0.58
+            },
+            "rationale": "With only 7 minutes remaining in a 0-0 knockout match, Spain's superior possession-based style and recent tournament form gives them an edge in extra time and penalties, though Portugal's counter-attacking threat keeps this relatively balanced."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "With the match still goalless at 83' and teams of roughly equal quality, Spain is given a slight edge due to marginally better recent performance and stylistic control, but the tie remains close to 50-50."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "With the score level late in a tight knockout match and no major events, the outcome is essentially a coin flip heading into the final minutes and potential extra time/penalties."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.42,
+              "away": 0.58
+            },
+            "rationale": "Spain has been the stronger team throughout the tournament and with only 7 minutes plus stoppage time remaining, Portugal has limited opportunity to find a breakthrough while Spain's superior depth and control make them slight favorites to advance even if it goes to extra time or penalties."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "With the match 0-0 in the 83rd minute, Spain's possession-based style gives them a slight edge if the game goes to extra time, though both teams are evenly matched."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "Spain has shown slightly better control and efficiency in recent tournaments, giving them a marginal edge in a tight, scoreless match late in regular time."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.45,
+              "away": 0.55
+            },
+            "rationale": "Spain slightly favored due to stronger recent knockout record and possession control, but it's essentially a coin flip."
+          }
+        }
       }
     ]
   },
