@@ -8932,6 +8932,92 @@
         "eligible": true,
         "fixture": "France vs Morocco"
       }
+    },
+    "760512": {
+      "openai/gpt-5.1": {
+        "probs": {
+          "home": 0.21,
+          "draw": 0.25,
+          "away": 0.54
+        },
+        "rationale": "England projects as a clearly stronger side but knockout-stage uncertainty, Norway’s improvement, and neutral conditions justify meaningful chances for both a draw and a Norway upset.",
+        "fixture": "Norway vs England",
+        "createdAt": "2026-07-06T03:16:21.831Z",
+        "latencyMs": 1592,
+        "eligible": true
+      },
+      "qwen/qwen3-max": {
+        "probs": {
+          "home": 0.15,
+          "draw": 0.25,
+          "away": 0.6
+        },
+        "rationale": "England has a stronger squad depth, recent form, and historical advantage over Norway, making them clear favorites despite Norway's individual talent.",
+        "fixture": "Norway vs England",
+        "createdAt": "2026-07-06T03:16:23.054Z",
+        "latencyMs": 2812,
+        "eligible": true
+      },
+      "moonshotai/kimi-k2-0905": {
+        "probs": {
+          "home": 0.28,
+          "draw": 0.28,
+          "away": 0.44
+        },
+        "rationale": "England has stronger historical pedigree and squad depth but Norway's home-adjacent venue in Miami with significant fan support and recent improvement under Solskjær makes this competitive.",
+        "fixture": "Norway vs England",
+        "createdAt": "2026-07-06T03:16:23.346Z",
+        "latencyMs": 3105,
+        "eligible": true
+      },
+      "anthropic/claude-sonnet-4.5": {
+        "probs": {
+          "home": 0.15,
+          "draw": 0.28,
+          "away": 0.57
+        },
+        "rationale": "England's superior FIFA ranking, deeper talent pool, and recent tournament performances make them clear favorites against Norway, though knockout stage matches often see increased defensive caution leading to draws.",
+        "fixture": "Norway vs England",
+        "createdAt": "2026-07-06T03:16:23.490Z",
+        "latencyMs": 3254,
+        "eligible": true
+      },
+      "deepseek/deepseek-chat-v3.1": {
+        "probs": {
+          "home": 0.22,
+          "draw": 0.28,
+          "away": 0.5
+        },
+        "rationale": "England is a historically strong football nation with a deeper squad and more tournament experience, making them favorites, but Norway's potential for a disciplined defensive performance makes a draw a significant possibility.",
+        "fixture": "Norway vs England",
+        "createdAt": "2026-07-06T03:16:24.280Z",
+        "latencyMs": 4040,
+        "eligible": true
+      },
+      "minimax/minimax-m2": {
+        "probs": {
+          "home": 0.15,
+          "draw": 0.25,
+          "away": 0.6
+        },
+        "rationale": "England's stronger tournament pedigree and deeper squad make them slight favorites, but Norway's attacking threat, especially Haaland, keeps a draw or upset plausible.",
+        "fixture": "Norway vs England",
+        "createdAt": "2026-07-06T03:16:41.284Z",
+        "latencyMs": 21041,
+        "eligible": true
+      },
+      "z-ai/glm-4.6": {
+        "probs": {
+          "home": 0.25,
+          "draw": 0.3,
+          "away": 0.45
+        },
+        "rationale": "England's tournament experience and squad depth gives them an edge, but Norway's attacking talent makes them capable of causing an upset in a tightly contested quarterfinal.",
+        "fixture": "Norway vs England",
+        "createdAt": "2026-07-06T03:16:52.504Z",
+        "latencyMs": 32263,
+        "eligible": true
+      }
     }
   },
   "snapshots": {
@@ -9711,6 +9797,144 @@
             "Norway": 0.03
           },
           "rationale": "Probabilities reflect current squad strength, recent form, historical performance, and tournament context, with Argentina, France, England, and Spain as top contenders."
+        }
+      }
+    },
+    {
+      "at": "2026-07-06T03:17:39.480Z",
+      "teams": [
+        "Portugal",
+        "Spain",
+        "United States",
+        "Belgium",
+        "Argentina",
+        "Egypt",
+        "Switzerland",
+        "Colombia",
+        "France",
+        "Morocco",
+        "Norway",
+        "England"
+      ],
+      "models": {
+        "anthropic/claude-sonnet-4.5": {
+          "probs": {
+            "Portugal": 0.08999999999999998,
+            "Spain": 0.12999999999999998,
+            "United States": 0.039999999999999994,
+            "Belgium": 0.06999999999999999,
+            "Argentina": 0.14999999999999997,
+            "Egypt": 0.029999999999999992,
+            "Switzerland": 0.04999999999999999,
+            "Colombia": 0.059999999999999984,
+            "France": 0.17999999999999997,
+            "Morocco": 0.04999999999999999,
+            "Norway": 0.059999999999999984,
+            "England": 0.08999999999999998
+          },
+          "rationale": "Probabilities based on current FIFA rankings, recent tournament performance, squad strength, and historical World Cup success, with France and Argentina as favorites given their recent dominance and deep squads."
+        },
+        "openai/gpt-5.1": {
+          "probs": {
+            "Portugal": 0.10999999999999997,
+            "Spain": 0.12999999999999998,
+            "United States": 0.059999999999999984,
+            "Belgium": 0.059999999999999984,
+            "Argentina": 0.16999999999999998,
+            "Egypt": 0.019999999999999997,
+            "Switzerland": 0.04999999999999999,
+            "Colombia": 0.06999999999999999,
+            "France": 0.17999999999999997,
+            "Morocco": 0.04999999999999999,
+            "Norway": 0.009999999999999998,
+            "England": 0.08999999999999998
+          },
+          "rationale": "Probabilities reflect a blend of historical strength, likely 2026 squad quality, and depth, with France and Argentina as slight favorites among a relatively balanced top tier."
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "probs": {
+            "Portugal": 0.11999999999999997,
+            "Spain": 0.10999999999999997,
+            "United States": 0.04999999999999999,
+            "Belgium": 0.059999999999999984,
+            "Argentina": 0.17999999999999997,
+            "Egypt": 0.029999999999999992,
+            "Switzerland": 0.039999999999999994,
+            "Colombia": 0.04999999999999999,
+            "France": 0.15999999999999998,
+            "Morocco": 0.039999999999999994,
+            "Norway": 0.019999999999999997,
+            "England": 0.13999999999999999
+          },
+          "rationale": "Argentina and France are slight favorites based on recent strength and depth, with Portugal, Spain, and England as top contenders, while others are given lower but non-zero chances reflecting the tournament's uncertainty."
+        },
+        "moonshotai/kimi-k2-0905": {
+          "probs": {
+            "Portugal": 0.08,
+            "Spain": 0.13,
+            "United States": 0.06,
+            "Belgium": 0.05,
+            "Argentina": 0.18,
+            "Egypt": 0.02,
+            "Switzerland": 0.03,
+            "Colombia": 0.04,
+            "France": 0.22,
+            "Morocco": 0.03,
+            "Norway": 0.04,
+            "England": 0.12
+          },
+          "rationale": "France and Argentina are the strongest sides historically and recently, Spain and England are close contenders, Portugal and the USA sit in the next tier, while the rest are long shots."
+        },
+        "z-ai/glm-4.6": {
+          "probs": {
+            "Portugal": 0.09,
+            "Spain": 0.1,
+            "United States": 0.07,
+            "Belgium": 0.08,
+            "Argentina": 0.15,
+            "Egypt": 0.03,
+            "Switzerland": 0.06,
+            "Colombia": 0.05,
+            "France": 0.18,
+            "Morocco": 0.04,
+            "Norway": 0.03,
+            "England": 0.12
+          },
+          "rationale": "Probabilities based on France's defending champion status, Argentina's 2022 final appearance, England's recent tournament success, and the relative strength of the remaining teams."
+        },
+        "qwen/qwen3-max": {
+          "probs": {
+            "Portugal": 0.11999999999999997,
+            "Spain": 0.12999999999999998,
+            "United States": 0.039999999999999994,
+            "Belgium": 0.07999999999999999,
+            "Argentina": 0.14999999999999997,
+            "Egypt": 0.019999999999999997,
+            "Switzerland": 0.04999999999999999,
+            "Colombia": 0.06999999999999999,
+            "France": 0.13999999999999999,
+            "Morocco": 0.059999999999999984,
+            "Norway": 0.029999999999999992,
+            "England": 0.10999999999999997
+          },
+          "rationale": "Probabilities reflect current squad strength, recent form, historical performance, and tournament context, with Argentina, France, and Spain favored slightly over deep but less consistent contenders."
+        },
+        "minimax/minimax-m2": {
+          "probs": {
+            "Portugal": 0.08,
+            "Spain": 0.12,
+            "United States": 0.05,
+            "Belgium": 0.07,
+            "Argentina": 0.2,
+            "Egypt": 0.02,
+            "Switzerland": 0.04,
+            "Colombia": 0.03,
+            "France": 0.2,
+            "Morocco": 0.03,
+            "Norway": 0.01,
+            "England": 0.15
+          },
+          "rationale": "I base these probabilities on each team's historical performance, current squad strength, and recent form."
         }
       }
     }
