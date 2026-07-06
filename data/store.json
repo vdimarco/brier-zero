@@ -9911,6 +9911,68 @@
             "rationale": "It’s very early with no key events, and Spain is slightly favored based on historical performance and possession style."
           }
         }
+      },
+      {
+        "at": "2026-07-06T19:08:27.538Z",
+        "detail": "8'",
+        "score": [
+          0,
+          0
+        ],
+        "events": 0,
+        "period": "STATUS_FIRST_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "At 8 minutes with no score, Portugal retains a slight edge as the home team in what projects as an evenly-matched encounter between two elite European sides."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.51,
+              "away": 0.49
+            },
+            "rationale": "Early at 0-0 between two closely matched sides, Portugal has a very slight edge due to marginally stronger recent form and attacking depth but the tie is essentially balanced."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "Portugal has a slight edge due to their potent attack, but the match is extremely balanced and early, making a draw and penalties a likely outcome."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.45,
+              "away": 0.55
+            },
+            "rationale": "Spain are slight favorites overall, but with 82 minutes left and no score yet, Portugal’s home-continent crowd and star power keep it close."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.45,
+              "away": 0.55
+            },
+            "rationale": "Spain's possession-based style gives them a slight edge, but Portugal's attacking talent makes them dangerous in knockout matches."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "Spain has a slight edge based on recent form and squad depth, but the match is evenly poised early in the first half."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "Evenly matched teams with no events yet; neutral prior."
+          }
+        }
       }
     ]
   },
