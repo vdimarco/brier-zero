@@ -7,7 +7,8 @@
   ],
   "functions": {
     "api/index.js": {
-      "includeFiles": "{data/**,models.config.json}"
+      "includeFiles": "{data/**,models.config.json}",
+      "maxDuration": 60
     }
   }
 }
