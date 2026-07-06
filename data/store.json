@@ -9061,6 +9061,64 @@
             "rationale": "England are historically stronger and likely to press for a win, while Mexico's home advantage may keep the game competitive."
           }
         }
+      },
+      {
+        "at": "2026-07-06T01:34:09.881Z",
+        "detail": "33'",
+        "score": [
+          0,
+          0
+        ],
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.22,
+              "draw": 0.28,
+              "away": 0.5
+            },
+            "rationale": "England is the stronger side and slightly favored at 0-0 after 33 minutes, though knockout matches often remain tight with elevated draw probability given the stakes and Mexico's home continent advantage."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.26,
+              "draw": 0.32,
+              "away": 0.42
+            },
+            "rationale": "With no goals after a fairly even opening third, England remain slight favorites on overall strength but a low-scoring, tight match keeps both Mexico and the draw very live outcomes."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.25,
+              "draw": 0.35,
+              "away": 0.4
+            },
+            "rationale": "England is the stronger team on paper but the score is level and Mexico is holding firm, making an away win slightly more likely than a draw, with a home win the least probable outcome."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.22,
+              "draw": 0.45,
+              "away": 0.33
+            },
+            "rationale": "England's superior talent and depth give them an edge, but Mexico's home advantage in 2026 and cagey knockout tactics make a draw the most likely outcome at this early stage."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.18,
+              "draw": 0.3,
+              "away": 0.52
+            },
+            "rationale": "England's superior quality gives them an edge, but Mexico's defensive organization and the knockout stage context make a draw or upset possible."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.25,
+              "draw": 0.3,
+              "away": 0.45
+            },
+            "rationale": "England enters as the stronger team on paper with deeper squad quality, but Mexico's home-continent advantage and solid defense keep the match competitive early on."
+          }
+        }
       }
     ]
   },
