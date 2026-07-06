@@ -10207,6 +10207,61 @@
             "rationale": "The match is early in the first half with no goals or key events, and both teams are evenly matched historically."
           }
         }
+      },
+      {
+        "at": "2026-07-06T19:37:36.971Z",
+        "detail": "35'",
+        "score": [
+          0,
+          0
+        ],
+        "events": 0,
+        "period": "STATUS_FIRST_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "With the match scoreless at 35 minutes and no significant events, Spain holds a slight edge based on their marginally superior recent tournament form and possession-based style, though Portugal's quality keeps this essentially even."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.47,
+              "away": 0.53
+            },
+            "rationale": "In an even 0-0 match around 35 minutes between two closely matched sides, Spain’s slightly stronger underlying quality and ball-dominance tendency give them a small edge to advance overall."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "Portugal has a slight edge due to their potent attack, but Spain's possession-based control makes this extremely even."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.46,
+              "away": 0.54
+            },
+            "rationale": "Still goalless and even after 35', Spain’s slightly stronger squad and recent form nudge them the narrow edge."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "Spain holds a slight edge due to recent head-to-head form and squad depth, but the match remains evenly poised early in the first half."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "Very early in a tightly contested 0-0 knockout match between two evenly matched teams, with a slight edge to Portugal as the home-side listing."
+          }
+        }
       }
     ]
   },
