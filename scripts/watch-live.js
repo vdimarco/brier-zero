@@ -12,11 +12,48 @@ const POLL_MS = 30 * 1000;
 const PULSE_MS = 10 * 60 * 1000;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-const fingerprints = new Map();
+const tracked = new Map(); // matchId -> { score, events, period }
 let lastSignal = Date.now();
 let consecutiveErrors = 0;
 
-const fingerprint = (m) => `${m.home.score}-${m.away.score}|${(m.keyEvents ?? []).length}|${m.status.name}`;
+// New information means the score changed, the event log GREW past its
+// previous high-water mark, or the match moved FORWARD into a later
+// period. The feed sometimes flaps (events momentarily missing, status
+// name reverting between edge servers); monotonic comparisons keep a
+// flap from re-triggering a full model round every poll.
+const PERIOD_RANK = {
+  STATUS_FIRST_HALF: 1,
+  STATUS_HALFTIME: 2,
+  STATUS_SECOND_HALF: 3,
+  STATUS_END_OF_REGULATION: 4,
+  STATUS_OVERTIME: 5,
+  STATUS_HALFTIME_ET: 6,
+  STATUS_SHOOTOUT: 7,
+};
+const MIN_SNAPSHOT_GAP_MS = 90 * 1000; // score changes ignore this
+
+function newInformation(m) {
+  const prev = tracked.get(m.id);
+  const score = `${m.home.score ?? 0}-${m.away.score ?? 0}`;
+  const events = (m.keyEvents ?? []).length;
+  const period = PERIOD_RANK[m.status.name] ?? prev?.period ?? 0;
+  if (!prev) {
+    tracked.set(m.id, { score, events, period, lastSnap: Date.now() });
+    return 'kickoff';
+  }
+  const reasons = [];
+  if (score !== prev.score) reasons.push(`score ${prev.score} -> ${score}`);
+  if (events > prev.events) reasons.push(`events ${prev.events} -> ${events}`);
+  if (period > prev.period) reasons.push(`period ${prev.period} -> ${period}`);
+  prev.score = score;
+  prev.events = Math.max(prev.events, events);
+  prev.period = Math.max(prev.period, period);
+  if (!reasons.length) return null;
+  const scoreChanged = reasons[0].startsWith('score');
+  if (!scoreChanged && Date.now() - prev.lastSnap < MIN_SNAPSHOT_GAP_MS) return null;
+  prev.lastSnap = Date.now();
+  return reasons.join(', ');
+}
 
 async function collect(matches) {
   if (!matches.length) return;
@@ -48,30 +85,29 @@ for (;;) {
   const soon = matches.filter(
     (m) => m.status.state === 'pre' && !m.teamsTbd && new Date(m.kickoff) - Date.now() < 25 * 60 * 1000
   );
-  if (!live.length && !soon.length && !fingerprints.size) {
+  if (!live.length && !soon.length && !tracked.size) {
     console.log('IDLE no live matches and none within 25 minutes; watcher exiting');
     process.exit(0);
   }
 
   const changed = [];
   for (const m of live) {
-    const fp = fingerprint(m);
-    if (fingerprints.get(m.id) !== fp) {
+    const reason = newInformation(m);
+    if (reason) {
       const last = (m.keyEvents ?? []).slice(-1)[0];
       console.log(
-        fingerprints.has(m.id)
-          ? `CHANGE ${m.shortName} ${m.home.score}-${m.away.score} at ${m.status.detail}${last ? ` | ${last}` : ''}`
-          : `KICKOFF ${m.shortName} is live`
+        reason === 'kickoff'
+          ? `KICKOFF ${m.shortName} is live`
+          : `CHANGE ${m.shortName} ${m.home.score}-${m.away.score} at ${m.status.detail} (${reason})${last ? ` | ${last}` : ''}`
       );
-      fingerprints.set(m.id, fp);
       changed.push(m);
     }
   }
-  for (const id of [...fingerprints.keys()]) {
+  for (const id of [...tracked.keys()]) {
     const m = matches.find((x) => x.id === id);
     if (m && m.status.state === 'post') {
       console.log(`FT ${m.shortName} ${m.home.score}-${m.away.score}`);
-      fingerprints.delete(id);
+      tracked.delete(id);
     }
   }
   if (!changed.length && live.length && Date.now() - lastSignal > PULSE_MS) {
