@@ -90,6 +90,35 @@ main { max-width: 1080px; margin: 0 auto; padding: 0 20px 64px; }
 h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
 .explainer { color: var(--ink-2); font-size: 13.5px; max-width: 70ch; margin: 0 0 16px; }
 
+/* Live ticker: one broadcast strip under the pitch */
+.ticker {
+  background: var(--ink); color: #f2f1ea;
+  overflow: hidden; white-space: nowrap;
+  font-size: 13px; font-variant-numeric: tabular-nums;
+}
+.ticker:empty { display: none; }
+.ticker-track {
+  display: inline-flex; align-items: center;
+  padding: 8px 0; will-change: transform;
+  animation: ticker-scroll linear infinite;
+}
+.tick-half { display: inline-flex; align-items: center; }
+.ticker:hover .ticker-track { animation-play-state: paused; }
+@keyframes ticker-scroll { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track { animation: none; }
+}
+.tick-sep { color: var(--kit-gold); font-size: 8px; margin: 0 16px; }
+.tick-live {
+  background: var(--pitch); color: #fff; font-weight: 750; font-size: 10.5px;
+  letter-spacing: 0.04em; border-radius: 3px; padding: 1px 6px; margin-right: 7px;
+}
+.tick-ft {
+  background: #3a3a35; color: #fff; font-weight: 750; font-size: 10.5px;
+  letter-spacing: 0.04em; border-radius: 3px; padding: 1px 6px; margin-right: 7px;
+}
+.tick-gold { color: var(--kit-gold); font-weight: 700; margin-right: 6px; }
+
 /* Banners */
 .banner {
   border: 1px solid var(--hairline); border-left: 3px solid var(--pitch);

@@ -373,6 +373,62 @@ window.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && location.hash.startsWith('#m/')) location.hash = '';
 });
 
+/* Ticker: one broadcast strip of live updates, built from state. Only
+   re-rendered when its content changes, so the scroll never jumps. */
+let tickerContent = '';
+function renderTicker(state) {
+  const items = [];
+  const live = state.matches.filter((m) => m.status.state === 'in');
+  for (const m of live) {
+    items.push(`<span class="tick-live">LIVE</span> ${esc(m.status.detail)} ${esc(m.home.name)} ${m.home.score ?? 0}-${m.away.score ?? 0} ${esc(m.away.name)}`);
+    const lastEvent = (m.keyEvents ?? [])[m.keyEvents.length - 1];
+    if (lastEvent) items.push(esc(lastEvent));
+    const lastSnap = (m.snapshots ?? [])[m.snapshots.length - 1];
+    const c = lastSnap && consensusOf(lastSnap.models);
+    if (c) {
+      const fav = c.home >= c.away ? m.home.name : m.away.name;
+      items.push(`Models now: ${esc(fav)} ${pct(Math.max(c.home, c.away))}% to win`);
+    }
+  }
+  const dayAgo = Date.now() - 24 * 3600 * 1000;
+  for (const m of state.matches.filter((x) => x.status.state === 'post' && x.outcome && new Date(x.kickoff) > dayAgo)) {
+    let call = '';
+    let best = null;
+    for (const [id, p] of Object.entries(m.predictions)) {
+      if (!p.probs || !p.eligible) continue;
+      const b = ['home', 'draw', 'away'].reduce((s, o) => s + (p.probs[o] - (m.outcome === o ? 1 : 0)) ** 2, 0);
+      if (best == null || b < best) {
+        best = b;
+        const mod = state.models.find((x) => x.id === id);
+        call = mod ? ` best call ${esc(mod.label)} ${b.toFixed(2)}` : '';
+      }
+    }
+    items.push(`<span class="tick-ft">FT</span> ${esc(m.home.name)} ${m.home.score}-${m.away.score} ${esc(m.away.name)}${call}`);
+  }
+  for (const m of state.matches.filter((x) => x.status.state === 'pre' && !x.teamsTbd).slice(0, 3)) {
+    const c = consensusOf(m.predictions);
+    items.push(`Next: ${esc(m.home.name)} v ${esc(m.away.name)} ${countdown(m.kickoff)}${
+      c ? `, models say ${esc(c.home >= c.away ? m.home.name : m.away.name)} ${pct(Math.max(c.home, c.away))}%` : ''
+    }`);
+  }
+  const leader = state.leaderboard.find((r) => r.avgBrier != null);
+  if (leader) items.push(`<span class="tick-gold">Brier Cup leader</span> ${esc(leader.label)} ${leader.avgBrier.toFixed(3)}${leader.retroScored ? '*' : ''}`);
+
+  const content = items.join('<span class="tick-sep" aria-hidden="true">&#9670;</span>');
+  if (content === tickerContent) return;
+  tickerContent = content;
+  const el = $('#ticker');
+  if (!items.length) { el.innerHTML = ''; return; }
+  // Two copies of the content; the animation slides one full copy for a
+  // seamless loop. Duration scales with length for a steady speed.
+  el.innerHTML = `<div class="ticker-track">
+    <span class="tick-half">${content}<span class="tick-sep" aria-hidden="true">&#9670;</span></span>
+    <span class="tick-half" aria-hidden="true">${content}<span class="tick-sep" aria-hidden="true">&#9670;</span></span>
+  </div>`;
+  const track = el.querySelector('.ticker-track');
+  track.style.animationDuration = `${Math.max(20, Math.round(track.scrollWidth / 2 / 55))}s`;
+}
+
 function renderBanner(state) {
   const el = $('#banner');
   if (state.demoMode) {
@@ -417,6 +473,7 @@ async function refresh(force = false) {
         : 'Live scores only';
 
     lastState = state;
+    renderTicker(state);
     renderBanner(state);
     renderLeaderboard(state);
     renderMatches(state);
