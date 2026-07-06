@@ -9185,6 +9185,65 @@
             "rationale": "England leads 1-0 with ~53 minutes left and are the stronger side, so they are favored to hold the lead, though Mexico has a reasonable chance to equalize."
           }
         }
+      },
+      {
+        "at": "2026-07-06T01:40:17.380Z",
+        "detail": "39'",
+        "score": [
+          0,
+          2
+        ],
+        "events": 2,
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.08,
+              "draw": 0.12,
+              "away": 0.8
+            },
+            "rationale": "England holds a commanding 2-0 lead just before halftime with momentum firmly on their side, and historically teams protecting such leads at this stage win approximately 80% of the time, especially given England's quality advantage over Mexico."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.05,
+              "draw": 0.14,
+              "away": 0.81
+            },
+            "rationale": "England are two goals up with a strong talent edge and limited time before halftime, making a Mexico comeback unlikely though an eventual draw is still somewhat plausible."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.05,
+              "draw": 0.15,
+              "away": 0.8
+            },
+            "rationale": "England is dominating with a 2-0 lead and momentum from two quick goals, making a comeback very difficult for Mexico."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.08,
+              "draw": 0.22,
+              "away": 0.7
+            },
+            "rationale": "England are two goals up with Bellingham in dominant form, and Mexico need a significant shift in momentum with limited time remaining."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.08,
+              "draw": 0.2,
+              "away": 0.72
+            },
+            "rationale": "England's two-goal advantage and momentum make them strong favorites, though Mexico could potentially mount a comeback with over 50 minutes remaining."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.12,
+              "draw": 0.23,
+              "away": 0.65
+            },
+            "rationale": "England's strong early lead with Bellingham's brace and superior momentum makes them clear favorites, though Mexico still has time to mount a comeback or equalize."
+          }
+        }
       }
     ]
   },
