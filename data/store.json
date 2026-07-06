@@ -10503,6 +10503,68 @@
             "rationale": "Spain has a slight edge due to their possession-based style and recent form, but Portugal's quality keeps it close."
           }
         }
+      },
+      {
+        "at": "2026-07-06T20:17:11.972Z",
+        "detail": "54'",
+        "score": [
+          0,
+          0
+        ],
+        "events": 0,
+        "period": "STATUS_SECOND_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "With no goals at 54 minutes in a tight knockout match between two evenly-matched elite teams, Spain holds a slight edge due to their superior possession-based style and recent tournament form, but the match remains highly competitive."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "With the match still goalless early in the second half on neutral ground, Spain’s slightly stronger underlying quality and ball-dominant style give them a marginal edge in a largely even tie."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "Spain has a slight edge due to their marginally superior possession-based style, but the match is essentially a coin flip with no goals scored yet."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.45,
+              "away": 0.55
+            },
+            "rationale": "Spain have looked the more coherent side through the first hour, but with 36 minutes plus possible extra time left and no goals yet, Portugal’s individual match-winners keep the tie very much in the balance."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "With the match evenly poised at 0-0, Spain's possession-based style gives them a slight edge in a tight contest between two evenly matched teams."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "Spain has shown slightly stronger recent form and squad depth, giving them a marginal edge in a tight, evenly matched knockout game with no goals or major incidents yet."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.51,
+              "away": 0.49
+            },
+            "rationale": "Evenly matched teams with Spain slightly favored historically, but Portugal's finishing gives them a slight edge."
+          }
+        }
       }
     ]
   },
