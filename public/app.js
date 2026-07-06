@@ -482,6 +482,87 @@ window.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && (location.hash.startsWith('#m/') || location.hash.startsWith('#p/'))) location.hash = '';
 });
 
+/* Trophy race: consensus tournament-winner probability per team, over
+   time. Ranked list of the current favorites plus an evolution chart
+   once there is more than one collection round. */
+const TROPHY_COLORS = ['#2a78d6', '#1baf7a', '#eda100', '#008300', '#4a3aa7', '#e34948'];
+
+function outrightConsensus(entry) {
+  const lists = Object.values(entry.models).filter((m) => m.probs);
+  if (!lists.length) return null;
+  const c = {};
+  for (const t of entry.teams) c[t] = lists.reduce((s, m) => s + (m.probs[t] ?? 0), 0) / lists.length;
+  return c;
+}
+
+function trophyChart(history, topTeams) {
+  const W = 660, H = 250, padL = 40, padR = 26, padT = 14, padB = 26;
+  const n = history.length;
+  const series = topTeams.map((t, i) => ({ team: t, color: TROPHY_COLORS[i % TROPHY_COLORS.length] }));
+  const yMax = Math.max(0.3, ...history.flatMap((h) => topTeams.map((t) => h.consensus[t] ?? 0))) * 1.15;
+  const x = (i) => padL + (i * (W - padL - padR)) / (n - 1);
+  const y = (v) => padT + (1 - v / yMax) * (H - padT - padB);
+  const fmtDay = new Intl.DateTimeFormat(undefined, { month: 'short', day: 'numeric' });
+  let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Consensus probability of winning the tournament, per team over time">`;
+  for (const g of [0, Math.round(yMax * 50) / 100]) {
+    svg += `<line x1="${padL}" y1="${y(g)}" x2="${W - padR}" y2="${y(g)}" stroke="var(--hairline)" stroke-width="1"/>`;
+    svg += `<text x="${padL - 6}" y="${y(g) + 4}" text-anchor="end" font-size="10" fill="var(--ink-3)">${Math.round(g * 100)}%</text>`;
+  }
+  for (const s of series) {
+    const path = history.map((h, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(h.consensus[s.team] ?? 0).toFixed(1)}`).join('');
+    svg += `<path d="${path}" fill="none" stroke="${s.color}" stroke-width="2" stroke-linejoin="round"/>`;
+    history.forEach((h, i) => {
+      svg += `<circle cx="${x(i).toFixed(1)}" cy="${y(h.consensus[s.team] ?? 0).toFixed(1)}" r="3.5" fill="${s.color}">` +
+        `<title>${esc(s.team)}: ${pct(h.consensus[s.team] ?? 0)}% on ${esc(fmtDay.format(new Date(h.at)))}</title></circle>`;
+    });
+  }
+  history.forEach((h, i) => {
+    svg += `<text x="${x(i).toFixed(1)}" y="${H - 8}" text-anchor="middle" font-size="10" fill="var(--ink-3)">${esc(fmtDay.format(new Date(h.at)))}</text>`;
+  });
+  svg += '</svg>';
+  return svg;
+}
+
+function renderTrophy(state) {
+  const section = $('#trophy-section');
+  const el = $('#trophy');
+  const history = (state.outright ?? [])
+    .map((e) => ({ at: e.at, teams: e.teams, consensus: outrightConsensus(e), models: e.models }))
+    .filter((e) => e.consensus);
+  if (!history.length) { section.hidden = true; return; }
+  section.hidden = false;
+  const latest = history[history.length - 1];
+  const ranked = latest.teams
+    .map((t) => ({ team: t, p: latest.consensus[t] ?? 0 }))
+    .sort((a, b) => b.p - a.p);
+  const logos = {};
+  for (const m of state.matches) for (const s of [m.home, m.away]) if (s.logo) logos[s.name] = s.logo;
+  const top = ranked.slice(0, 6);
+  const spread = (t) => {
+    const ps = Object.values(latest.models).filter((m) => m.probs).map((m) => m.probs[t] ?? 0);
+    return `${esc(t)}: models range ${pct(Math.min(...ps))}% to ${pct(Math.max(...ps))}%`;
+  };
+  el.innerHTML = `<div class="trophy-card">
+    <div class="trophy-list">
+      ${ranked.slice(0, 8).map((r, i) => `
+        <div class="trophy-row" title="${spread(r.team)}">
+          <span class="trophy-rank${i === 0 ? ' gold' : ''}">${i + 1}</span>
+          ${logos[r.team] ? `<img class="flag" src="${esc(logos[r.team])}" alt="" onerror="this.style.visibility='hidden'">` : ''}
+          <span class="trophy-team">${esc(r.team)}</span>
+          <span class="trophy-bar"><i style="width:${Math.max(2, Math.round((r.p / (top[0].p || 1)) * 100))}%"></i></span>
+          <span class="trophy-p">${pct(r.p)}%</span>
+        </div>`).join('')}
+      ${ranked.length > 8 ? `<div class="fnote">${ranked.slice(8).map((r) => `${esc(r.team)} ${pct(r.p)}%`).join(', ')}</div>` : ''}
+    </div>
+    ${history.length > 1
+      ? `<div class="trophy-chart">
+          <div class="trophy-legend">${top.map((r, i) => `<span class="legend-chip"><i style="background:${TROPHY_COLORS[i % TROPHY_COLORS.length]}"></i>${esc(r.team)}</span>`).join('')}</div>
+          <div class="chart">${trophyChart(history, top.map((r) => r.team))}</div>
+        </div>`
+      : `<p class="fnote">Collected ${esc(new Intl.DateTimeFormat(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }).format(new Date(latest.at)))}. The over-time chart appears after the next collection round.</p>`}
+  </div>`;
+}
+
 /* Ticker: one broadcast strip of live updates, built from state. Only
    re-rendered when its content changes, so the scroll never jumps. */
 let tickerContent = '';
@@ -583,6 +664,7 @@ async function refresh(force = false) {
 
     lastState = state;
     renderTicker(state);
+    renderTrophy(state);
     renderBanner(state);
     renderLeaderboard(state);
     renderMatches(state);

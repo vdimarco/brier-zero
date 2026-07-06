@@ -131,6 +131,35 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
   font-size: 12.5px; color: var(--ink);
 }
 
+/* Trophy race */
+.trophy-card {
+  background: var(--surface); border: 1px solid var(--hairline);
+  border-radius: var(--radius-card); box-shadow: 0 1px 2px rgba(23, 46, 22, 0.05);
+  padding: 16px; display: grid; gap: 20px;
+}
+@media (min-width: 900px) {
+  .trophy-card { grid-template-columns: minmax(300px, 5fr) 7fr; align-items: start; }
+}
+.trophy-list { display: grid; gap: 8px; min-width: 0; }
+.trophy-row {
+  display: grid; grid-template-columns: 22px 24px minmax(72px, auto) 1fr 48px;
+  align-items: center; gap: 8px; font-size: 14px;
+}
+.trophy-rank { color: var(--ink-3); font-weight: 700; font-variant-numeric: tabular-nums; }
+.trophy-rank.gold { color: var(--trophy); }
+.trophy-team { font-weight: 650; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.trophy-bar { height: 10px; background: none; }
+.trophy-bar i {
+  display: block; height: 100%; border-radius: var(--radius-el);
+  background: var(--pitch); min-width: 3px;
+}
+.trophy-row:first-child .trophy-bar i { background: var(--trophy-fill); }
+.trophy-p { text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; }
+.trophy-legend { display: flex; flex-wrap: wrap; gap: 8px 14px; margin-bottom: 6px; }
+.legend-chip { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--ink-2); }
+.legend-chip i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+.trophy-chart { min-width: 0; }
+
 /* Leaderboard */
 .lb-wrap {
   background: var(--surface); border-radius: var(--radius-card);

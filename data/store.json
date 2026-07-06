@@ -9003,5 +9003,135 @@
         }
       }
     ]
-  }
+  },
+  "outright": [
+    {
+      "at": "2026-07-06T00:37:52.027Z",
+      "teams": [
+        "Mexico",
+        "England",
+        "Portugal",
+        "Spain",
+        "United States",
+        "Belgium",
+        "Argentina",
+        "Egypt",
+        "Switzerland",
+        "Colombia",
+        "France",
+        "Morocco",
+        "Norway"
+      ],
+      "models": {
+        "anthropic/claude-sonnet-4.5": {
+          "probs": {
+            "Mexico": 0.039999999999999994,
+            "England": 0.12999999999999998,
+            "Portugal": 0.09999999999999998,
+            "Spain": 0.13999999999999999,
+            "United States": 0.029999999999999992,
+            "Belgium": 0.06999999999999999,
+            "Argentina": 0.15999999999999998,
+            "Egypt": 0.019999999999999997,
+            "Switzerland": 0.039999999999999994,
+            "Colombia": 0.04999999999999999,
+            "France": 0.14999999999999997,
+            "Morocco": 0.039999999999999994,
+            "Norway": 0.029999999999999992
+          },
+          "rationale": "Probabilities based on current FIFA rankings, recent tournament performance, and squad strength, with France, Argentina, and Spain as favorites followed by England and Portugal as strong contenders."
+        },
+        "openai/gpt-5.1": {
+          "probs": {
+            "Mexico": 0.07,
+            "England": 0.14,
+            "Portugal": 0.11,
+            "Spain": 0.13,
+            "United States": 0.05,
+            "Belgium": 0.06,
+            "Argentina": 0.16,
+            "Egypt": 0.02,
+            "Switzerland": 0.06,
+            "Colombia": 0.05,
+            "France": 0.12,
+            "Morocco": 0.02,
+            "Norway": 0.01
+          },
+          "rationale": "Probabilities reflect recent international performance, overall squad strength, and typical upset rates, normalized to sum to 1 among the remaining teams."
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "probs": {
+            "Mexico": 0.02222222222222222,
+            "England": 0.1333333333333333,
+            "Portugal": 0.1111111111111111,
+            "Spain": 0.1222222222222222,
+            "United States": 0.033333333333333326,
+            "Belgium": 0.05555555555555555,
+            "Argentina": 0.19999999999999996,
+            "Egypt": 0.01111111111111111,
+            "Switzerland": 0.02222222222222222,
+            "Colombia": 0.033333333333333326,
+            "France": 0.2222222222222222,
+            "Morocco": 0.01111111111111111,
+            "Norway": 0.02222222222222222
+          },
+          "rationale": "Probabilities are based on a subjective assessment of recent team performance, historical strength, and squad depth, with France and Argentina as the strongest contenders."
+        },
+        "moonshotai/kimi-k2-0905": {
+          "probs": {
+            "Mexico": 0.03,
+            "England": 0.12,
+            "Portugal": 0.08,
+            "Spain": 0.15,
+            "United States": 0.04,
+            "Belgium": 0.05,
+            "Argentina": 0.22,
+            "Egypt": 0.02,
+            "Switzerland": 0.03,
+            "Colombia": 0.05,
+            "France": 0.14,
+            "Morocco": 0.04,
+            "Norway": 0.03
+          },
+          "rationale": "Argentina and Spain are the strongest contenders based on recent World Cup and tournament performance, with France and England close behind; the remaining teams face longer odds due to historical performance, squad depth, or knockout stage experience."
+        },
+        "z-ai/glm-4.6": {
+          "probs": {
+            "Mexico": 0.06,
+            "England": 0.12,
+            "Portugal": 0.08,
+            "Spain": 0.1,
+            "United States": 0.05,
+            "Belgium": 0.06,
+            "Argentina": 0.18,
+            "Egypt": 0.03,
+            "Switzerland": 0.05,
+            "Colombia": 0.05,
+            "France": 0.17,
+            "Morocco": 0.03,
+            "Norway": 0.02
+          },
+          "rationale": "Probabilities based on historical performance, current FIFA rankings, and team talent, with Argentina and France as favorites due to their recent World Cup success and strong squads."
+        },
+        "qwen/qwen3-max": {
+          "probs": {
+            "Mexico": 0.06,
+            "England": 0.12,
+            "Portugal": 0.1,
+            "Spain": 0.11,
+            "United States": 0.05,
+            "Belgium": 0.07,
+            "Argentina": 0.15,
+            "Egypt": 0.02,
+            "Switzerland": 0.04,
+            "Colombia": 0.06,
+            "France": 0.14,
+            "Morocco": 0.05,
+            "Norway": 0.03
+          },
+          "rationale": "Probabilities reflect current squad strength, recent form, historical performance, and tournament context, with Argentina, France, England, and Spain as top contenders."
+        }
+      }
+    }
+  ]
 }
