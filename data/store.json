@@ -9472,6 +9472,57 @@
             "rationale": "England leads by two goals with a man disadvantage after 62 minutes, making a comeback difficult for Mexico but a draw plausible due to England's reduced numbers."
           }
         }
+      },
+      {
+        "at": "2026-07-06T02:33:35.912Z",
+        "detail": "69'",
+        "score": [
+          2,
+          3
+        ],
+        "events": 6,
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.35000000000000003,
+              "draw": 0.30000000000000004,
+              "away": 0.35000000000000003
+            },
+            "rationale": "England holds a narrow one-goal lead with 21 minutes remaining but is down to 10 men after Quansah's red card, making them vulnerable to Mexico's pressure while still having the quality to hold on or potentially score on the counter."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.33,
+              "draw": 0.37,
+              "away": 0.3
+            },
+            "rationale": "With England down to 10 men, Mexico trailing by one at home with over 20 minutes plus stoppage time left, both a Mexican comeback win and an equalizer are quite plausible, while England still retains a significant chance to hang on or add another on the break."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.15,
+              "draw": 0.25,
+              "away": 0.6
+            },
+            "rationale": "England is still favored as they lead and have looked dangerous, but Mexico has momentum from a recent penalty and England's red card makes a comeback or draw more likely."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.22,
+              "draw": 0.18,
+              "away": 0.6
+            },
+            "rationale": "England leads 3-2 with a man advantage for 21+ minutes, making them strong favorites despite Mexico's momentum from the penalty."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.35000000000000003,
+              "draw": 0.30000000000000004,
+              "away": 0.35000000000000003
+            },
+            "rationale": "England leads but is down to 10 men, making them vulnerable to a Mexican equalizer or winner, while Mexico’s momentum and home-region support balance the odds despite trailing."
+          }
+        }
       }
     ]
   },
