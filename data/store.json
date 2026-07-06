@@ -10262,6 +10262,68 @@
             "rationale": "Very early in a tightly contested 0-0 knockout match between two evenly matched teams, with a slight edge to Portugal as the home-side listing."
           }
         }
+      },
+      {
+        "at": "2026-07-06T19:46:16.893Z",
+        "detail": "45'",
+        "score": [
+          0,
+          0
+        ],
+        "events": 0,
+        "period": "STATUS_FIRST_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "At halftime in a scoreless match between two evenly-matched European powers, Spain holds a slight edge due to their superior possession-based style and recent tournament pedigree, but Portugal's counter-attacking threat and individual quality keep this essentially a coin flip."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "With the match level at 0-0 at halftime and two closely matched elite teams, the tie is essentially a coin flip at this stage."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "The match is tied at halftime with no key events, so both teams have equal chance to advance from this point."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.42,
+              "away": 0.58
+            },
+            "rationale": "Spain have been the stronger team in recent tournaments and possess greater squad depth, but Portugal's defensive organization and counter-attacking threat keep this competitive at 0-0 midway through."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.45,
+              "away": 0.55
+            },
+            "rationale": "With the score 0-0 at halftime between two evenly matched teams, Spain has a slight edge based on historical tournament performance."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "Spain has a slight edge due to recent form and head-to-head balance, but the match is evenly poised at halftime with no goals or major incidents."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "Two evenly matched teams at halftime in a knockout with no goals gives slight edge to Portugal as home side, but it's essentially a coin-flip."
+          }
+        }
       }
     ]
   },
