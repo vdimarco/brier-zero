@@ -2,7 +2,7 @@ import express from 'express';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { fetchMatches } from './lib/espn.js';
-import { leaderboard } from './lib/scoring.js';
+import { leaderboard, predictionMarket } from './lib/scoring.js';
 import { getPredictions, getSnapshots, getOutright } from './lib/store.js';
 import { dbEnabled, dbTryLock } from './lib/db.js';
 import {
@@ -31,6 +31,8 @@ const templateMatch = {
 const promptTemplates = {
   locked: buildPrompt(templateMatch),
   live: buildLivePrompt(templateMatch),
+  lockedKnockout: buildPrompt({ ...templateMatch, market: 'advance' }),
+  liveKnockout: buildLivePrompt({ ...templateMatch, market: 'advance' }),
 };
 
 // Everything the page needs in one call; the frontend polls this for
@@ -94,18 +96,24 @@ const SNAPSHOT_STALE_MS = 12 * 60 * 1000;
 const OUTRIGHT_STALE_MS = 20 * 3600 * 1000;
 
 async function maybeCollect(all, predictions, snapshots, outright) {
-  // Locked pre-kickoff forecasts for any upcoming fixture missing some.
+  // Locked pre-kickoff forecasts for any upcoming fixture missing some, or
+  // whose forecast priced a different market (knockout fixture forecast
+  // before the switch to the who-advances market).
   const pending = all.filter(
     (m) => m.status.state === 'pre' && !m.teamsTbd &&
-      models.some((mod) => !predictions[m.id]?.[mod.id]?.probs)
+      models.some((mod) => {
+        const p = predictions[m.id]?.[mod.id];
+        return !p?.probs || predictionMarket(p) !== (m.market ?? 'regulation');
+      })
   );
   if (pending.length && (await dbTryLock('predict', 240))) {
     console.log(`[collect] pre-kickoff forecasts: ${pending.map((m) => m.shortName).join(', ')}`);
     await predictMatches(pending, models);
   }
 
-  // In-play: a new snapshot whenever the score or event count changed,
-  // or the last one is older than 12 minutes.
+  // In-play: a new snapshot on every event — score change, new key event
+  // (goal, red card), or period change (kickoff, half-time, extra time, a
+  // shootout starting) — or when the last one is older than 12 minutes.
   for (const m of all.filter((x) => x.status.state === 'in')) {
     const snaps = snapshots[m.id] ?? [];
     const last = snaps[snaps.length - 1];
@@ -115,6 +123,7 @@ async function maybeCollect(all, predictions, snapshots, outright) {
       !last ||
       last.score?.[0] !== score[0] || last.score?.[1] !== score[1] ||
       (last.events ?? 0) !== events ||
+      (last.period ?? m.status.name) !== m.status.name ||
       Date.now() - new Date(last.at).getTime() > SNAPSHOT_STALE_MS;
     if (stale && (await dbTryLock(`snap:${m.id}`, 90))) {
       console.log(`[collect] in-play snapshot: ${m.shortName} ${score.join('-')} (${m.status.detail})`);
@@ -174,11 +183,16 @@ async function autoPredict() {
   try {
     const matches = await fetchMatches();
     const predictions = await getPredictions();
+    // Pending: a model has no forecast yet, or its forecast priced a
+    // different market (knockout fixture forecast before the market switch).
     const pending = matches.filter(
       (m) =>
         m.status.state === 'pre' &&
         !m.teamsTbd &&
-        models.some((mod) => !predictions[m.id]?.[mod.id]?.probs)
+        models.some((mod) => {
+          const p = predictions[m.id]?.[mod.id];
+          return !p?.probs || predictionMarket(p) !== (m.market ?? 'regulation');
+        })
     );
     if (pending.length) {
       console.log(`[auto] collecting forecasts for ${pending.map((m) => m.shortName).join(', ')}`);
@@ -188,12 +202,53 @@ async function autoPredict() {
     console.error('[auto] failed:', err.message);
   }
 }
+// In-play snapshots on every event: while a match is live, any new piece of
+// information (goal, red card, score change, period change like kickoff,
+// half-time, extra time, or a shootout starting) triggers a fresh in-play
+// forecast from every model, plus a pulse during long quiet spells. Penalty
+// kicks inside a shootout are deliberately NOT individual triggers.
+const SNAP_POLL_MS = 25 * 1000;
+const SNAP_PULSE_MS = 10 * 60 * 1000;
+const liveSeen = new Map(); // matchId -> { fp, snappedAt }
+let snapshotting = false;
+
+function liveFingerprint(m) {
+  return `${m.home.score}-${m.away.score}|${(m.keyEvents ?? []).length}|${m.status.name}`;
+}
+
+async function autoSnapshot() {
+  if (!predictorReady() || snapshotting) return;
+  try {
+    const live = (await fetchMatches()).filter((m) => m.status.state === 'in');
+    for (const id of [...liveSeen.keys()]) {
+      if (!live.some((m) => m.id === id)) liveSeen.delete(id);
+    }
+    const now = Date.now();
+    const due = live.filter((m) => {
+      const seen = liveSeen.get(m.id);
+      return !seen || seen.fp !== liveFingerprint(m) || now - seen.snappedAt > SNAP_PULSE_MS;
+    });
+    if (!due.length) return;
+    snapshotting = true;
+    console.log(`[live] snapshotting ${due.map((m) => `${m.shortName} (${m.status.detail})`).join(', ')}`);
+    for (const m of due) liveSeen.set(m.id, { fp: liveFingerprint(m), snappedAt: now });
+    await snapshotMatches(due, models);
+  } catch (err) {
+    console.error('[live] snapshot failed:', err.message);
+  } finally {
+    snapshotting = false;
+  }
+}
+
 // On Vercel the app is a serverless function: no listener, no background
 // interval (collection happens via the button, a cron, or a local run).
 if (!process.env.VERCEL) {
   if (process.env.AUTO_PREDICT !== '0') {
     setInterval(autoPredict, AUTO_MS);
     setTimeout(autoPredict, 5000);
+  }
+  if (process.env.AUTO_SNAPSHOT !== '0') {
+    setInterval(autoSnapshot, SNAP_POLL_MS);
   }
 
   const PORT = process.env.PORT || 3000;
