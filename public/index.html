@@ -25,6 +25,8 @@
       <h1>Who does AI think will win the <span class="gold">World Cup</span>?</h1>
       <p class="hero-sub">Seven models get one identical prompt before each match. Forecasts lock at kickoff and are Brier-scored as results arrive.</p>
     </section>
+
+    <div id="featured"></div>
   </div>
 
   <div class="ticker" id="ticker" role="marquee" aria-label="Live updates"></div>
@@ -38,16 +40,16 @@
       <div id="trophy"></div>
     </section>
 
-    <section id="leaderboard-section" aria-labelledby="lb-title">
-      <h2 id="lb-title">Leaderboard</h2>
-      <p class="explainer">Brier score over the three 90-minute outcomes: 0 is a perfect forecast, 0.667 is a know-nothing coin flip, 2 is maximally wrong. Lower is better.</p>
-      <div id="leaderboard" class="skeleton-block" aria-live="polite"></div>
-    </section>
-
     <section id="matches-section" aria-labelledby="matches-title">
       <h2 id="matches-title">Matches</h2>
       <p class="explainer">Probabilities are for the 90-minute result; extra time and penalties count as a draw. Each card shows the consensus of all models, with team-by-team numbers above the bar.</p>
       <div id="matches" class="skeleton-block"></div>
+    </section>
+
+    <section id="leaderboard-section" aria-labelledby="lb-title">
+      <h2 id="lb-title">Model leaderboard</h2>
+      <p class="explainer">Brier score over the three 90-minute outcomes: 0 is a perfect forecast, 0.667 is a know-nothing coin flip, 2 is maximally wrong. Lower is better. Click a model for its performance over time.</p>
+      <div id="leaderboard" class="skeleton-block" aria-live="polite"></div>
     </section>
   </main>
 
