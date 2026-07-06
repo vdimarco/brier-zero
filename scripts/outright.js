@@ -10,13 +10,29 @@ if (!predictorReady()) {
   process.exit(1);
 }
 const matches = await fetchMatches();
-const alive = [...new Set(
+const aliveSet = new Set(
   matches
     .filter((m) => m.status.state !== 'post')
     .flatMap((m) => [m.home, m.away])
     .filter((s) => s.logo)
     .map((s) => s.name)
-)];
+);
+// A knockout winner briefly appears in no upcoming fixture: their match
+// just went post and ESPN has not stamped them into the next round yet.
+// They are still alive; without this the round after every knockout FT
+// asks the models to pick a champion from a universe missing the team
+// that just advanced.
+for (const m of matches) {
+  if (m.status.state !== 'post' || m.market !== 'advance') continue;
+  const w = m.outcome === 'home' ? m.home.name : m.outcome === 'away' ? m.away.name : null;
+  if (!w || aliveSet.has(w)) continue;
+  const kickoff = new Date(m.kickoff);
+  const playsLater = matches.some(
+    (x) => new Date(x.kickoff) > kickoff && (x.home.name === w || x.away.name === w)
+  );
+  if (!playsLater) aliveSet.add(w);
+}
+const alive = [...aliveSet];
 if (alive.length < 2) {
   console.log('Tournament decided; nothing to collect.');
   process.exit(0);
