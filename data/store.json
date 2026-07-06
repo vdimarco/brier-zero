@@ -10627,6 +10627,61 @@
             "rationale": "Both teams are level and even, but Spain's slightly stronger recent form gives them a marginal edge."
           }
         }
+      },
+      {
+        "at": "2026-07-06T20:38:19.476Z",
+        "detail": "74'",
+        "score": [
+          0,
+          0
+        ],
+        "events": 0,
+        "period": "STATUS_SECOND_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "With 16 minutes remaining in a scoreless match between two evenly-matched teams, Spain holds a slight edge due to their superior possession-based style that typically performs better in tight knockout scenarios, though Portugal's counter-attacking threat keeps this essentially a toss-up."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.49,
+              "away": 0.51
+            },
+            "rationale": "In a balanced, goalless Iberian derby this late, Spain’s slightly stronger recent underlying metrics and depth give them a very small edge, but the tie remains close to 50-50."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "Portugal has a slight edge due to their slightly deeper squad and experience in tight knockout matches, but with 16 minutes plus stoppage time remaining, it's essentially a coin flip."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.42,
+              "away": 0.58
+            },
+            "rationale": "Spain's superior depth and tournament experience gives them slight edge as match enters final stages with fatigue favoring their bench strength."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "Spain has shown slightly better control and efficiency in recent tournaments, giving them a marginal edge in a tight, scoreless match late in regular time."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "Spain has a slight edge due to their possession-based control, but Portugal’s quality in transition and set pieces keeps the contest close."
+          }
+        }
       }
     ]
   },
