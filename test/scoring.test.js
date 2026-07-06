@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { brierScore, normalizeProbs, leaderboard, fixtureMatches } from '../lib/scoring.js';
-import { regulationOutcome } from '../lib/espn.js';
-import { parsePrediction, buildPrompt, predictOne } from '../lib/predictor.js';
+import { brierScore, normalizeProbs, leaderboard, fixtureMatches, coinFlipBrier, predictionMarket } from '../lib/scoring.js';
+import { regulationOutcome, advanceOutcome, marketOf } from '../lib/espn.js';
+import { parsePrediction, buildPrompt, buildLivePrompt, predictOne } from '../lib/predictor.js';
 
 test('brier: perfect forecast scores zero', () => {
   assert.equal(brierScore({ home: 1, draw: 0, away: 0 }, 'home'), 0);
@@ -25,6 +25,83 @@ test('normalizeProbs: accepts small drift, rejects nonsense', () => {
   assert.equal(normalizeProbs({ home: 0.9, draw: 0.9, away: 0.9 }), null);
   assert.equal(normalizeProbs({ home: -0.1, draw: 0.6, away: 0.5 }), null);
   assert.equal(normalizeProbs({ home: 0.5, draw: 0.5 }), null);
+});
+
+test('advance market: two-way brier and normalization', () => {
+  assert.equal(brierScore({ home: 1, away: 0 }, 'home', 'advance'), 0);
+  assert.equal(brierScore({ home: 1, away: 0 }, 'away', 'advance'), 2);
+  assert.ok(Math.abs(brierScore({ home: 0.5, away: 0.5 }, 'home', 'advance') - 0.5) < 1e-9);
+  assert.equal(coinFlipBrier('advance'), 0.5);
+  assert.ok(Math.abs(coinFlipBrier('regulation') - 2 / 3) < 1e-9);
+  const ok = normalizeProbs({ home: 0.62, away: 0.4 }, 'advance');
+  assert.ok(ok && Math.abs(ok.home + ok.away - 1) < 1e-9);
+  // A three-way answer to a two-way question does not sum to 1 over the
+  // two outcomes and is rejected.
+  assert.equal(normalizeProbs({ home: 0.4, draw: 0.25, away: 0.35 }, 'advance'), null);
+});
+
+test('marketOf: knockout stages price advancement, group stage the 90-minute result', () => {
+  assert.equal(marketOf({ stage: 'group stage' }), 'regulation');
+  assert.equal(marketOf({ stage: '' }), 'regulation');
+  for (const s of ['round of 32', 'round of 16', 'quarterfinals', 'semifinals', 'final']) {
+    assert.equal(marketOf({ stage: s }), 'advance', s);
+  }
+});
+
+test('advanceOutcome: winner flag, then shootout, then score', () => {
+  const base = (over = {}) => ({
+    status: { state: 'post', name: 'STATUS_FULL_TIME' },
+    home: { score: 1, shootoutScore: null, winner: false },
+    away: { score: 1, shootoutScore: null, winner: false },
+    ...over,
+  });
+  assert.equal(advanceOutcome(base({ home: { score: 1, shootoutScore: 4, winner: true }, away: { score: 1, shootoutScore: 3, winner: false } })), 'home');
+  assert.equal(advanceOutcome(base({ home: { score: 1, shootoutScore: 2, winner: false }, away: { score: 1, shootoutScore: 3, winner: false } })), 'away');
+  assert.equal(advanceOutcome(base({ home: { score: 2, shootoutScore: null, winner: false }, away: { score: 0, shootoutScore: null, winner: false } })), 'home');
+  assert.equal(advanceOutcome(base({ status: { state: 'in', name: '' } })), null);
+  assert.equal(advanceOutcome(base()), null);
+});
+
+test('knockout prompts ask who advances, with no draw outcome', () => {
+  const match = {
+    home: { name: 'France', score: 1 }, away: { name: 'Morocco', score: 1 },
+    stage: 'quarterfinals', kickoff: '2026-07-10T20:00Z', venue: 'Estadio Azteca',
+    market: 'advance', status: { detail: "HT" }, keyEvents: [],
+  };
+  for (const p of [buildPrompt(match), buildLivePrompt(match)]) {
+    assert.match(p, /advances/);
+    assert.match(p, /two probabilities must sum to 1/);
+    assert.ok(!p.includes('"draw"'), 'no draw key in the requested shape');
+  }
+  const parsed = parsePrediction('{"home":0.6,"away":0.4,"rationale":"form"}', 'advance');
+  assert.ok(parsed);
+  assert.ok(Math.abs(parsed.probs.home - 0.6) < 1e-9);
+  assert.equal(parsed.probs.draw, undefined);
+});
+
+test('legacy knockout forecasts settle under the market they priced', () => {
+  const models = [{ id: 'old', label: 'Old' }, { id: 'new', label: 'New' }];
+  // Knockout tie: 1-1 after 90, home advanced on penalties.
+  const match = {
+    id: 'ko1', shortName: 'A @ B', market: 'advance',
+    outcomes: { regulation: 'draw', advance: 'home' },
+    outcome: 'home',
+  };
+  const predictions = {
+    ko1: {
+      old: { probs: { home: 0.4, draw: 0.3, away: 0.3 }, eligible: true }, // pre-switch, no market stamp
+      new: { probs: { home: 0.7, away: 0.3 }, market: 'advance', eligible: true },
+    },
+  };
+  assert.equal(predictionMarket(predictions.ko1.old), 'regulation');
+  const rows = leaderboard([match], predictions, models);
+  const byId = Object.fromEntries(rows.map((r) => [r.model, r]));
+  // old scored against the 90-minute draw: .4²+.7²+.3² = 0.74
+  assert.ok(Math.abs(byId.old.avgBrier - 0.74) < 1e-9);
+  assert.equal(byId.old.perMatch[0].baseline, 2 / 3);
+  // new scored against home advancing: .3²+.3² = 0.18
+  assert.ok(Math.abs(byId.new.avgBrier - 0.18) < 1e-9);
+  assert.equal(byId.new.perMatch[0].baseline, 0.5);
 });
 
 test('regulationOutcome: AET and penalties count as a 90-minute draw', () => {

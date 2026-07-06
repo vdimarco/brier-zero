@@ -42,13 +42,13 @@
 
     <section id="matches-section" aria-labelledby="matches-title">
       <h2 id="matches-title">Matches</h2>
-      <p class="explainer">Probabilities are for the 90-minute result; extra time and penalties count as a draw. Each card shows the consensus of all models, with team-by-team numbers above the bar.</p>
+      <p class="explainer">Group-stage probabilities are for the 90-minute result (extra time and penalties count as a draw). Knockout probabilities are simply who advances — no draw. Each card shows the consensus of all models, with team-by-team numbers above the bar.</p>
       <div id="matches" class="skeleton-block"></div>
     </section>
 
     <section id="leaderboard-section" aria-labelledby="lb-title">
       <h2 id="lb-title">Model leaderboard</h2>
-      <p class="explainer">Brier score over the three 90-minute outcomes: 0 is a perfect forecast, 0.667 is a know-nothing coin flip, 2 is maximally wrong. Lower is better. Click a model for its performance over time.</p>
+      <p class="explainer">Brier score over each match's outcomes: 0 is a perfect forecast, a know-nothing coin flip scores 0.667 on a three-way group match and 0.5 on a two-way knockout tie, 2 is maximally wrong. Lower is better. Click a model for its performance over time.</p>
       <div id="leaderboard" class="skeleton-block" aria-live="polite"></div>
     </section>
   </main>
@@ -60,12 +60,20 @@
       <h2 id="prompt-title">The prompt</h2>
       <p class="explainer">Every model receives exactly the same words, with only the fixture filled in. No odds, no news, no hints. Rendered live from the same code that builds the real prompts.</p>
       <details>
-        <summary>Before kickoff: the scored forecast</summary>
+        <summary>Before kickoff, group stage: the scored forecast</summary>
         <pre id="prompt-locked">Loading</pre>
       </details>
       <details>
-        <summary>In-play updates: exhibition only</summary>
+        <summary>Before kickoff, knockout: who advances</summary>
+        <pre id="prompt-locked-ko">Loading</pre>
+      </details>
+      <details>
+        <summary>In-play updates, group stage: exhibition only</summary>
         <pre id="prompt-live">Loading</pre>
+      </details>
+      <details>
+        <summary>In-play updates, knockout: exhibition only</summary>
+        <pre id="prompt-live-ko">Loading</pre>
       </details>
     </div>
   </section>

@@ -1,5 +1,5 @@
 /* Brier Zero frontend: polls /api/state and renders leaderboard + matches.
-   Poll cadence tightens to 20s while a match is live. */
+   Poll cadence tightens to 12s while a match is live. */
 
 const $ = (sel) => document.querySelector(sel);
 const esc = (s) =>
@@ -39,11 +39,38 @@ function seg(kind, p, label) {
   return `<div class="seg seg-${kind}" style="flex:${Math.max(w, 0.5)}" title="${esc(label)}: ${w}%">${text}</div>`;
 }
 
-function consensusOf(modelsMap) {
+/* Markets: group-stage matches price the 90-minute result (home/draw/away);
+   knockout matches price who advances (home/away, no draw). Forecasts are
+   stamped with the market they priced, so a legacy 90-minute forecast on a
+   knockout match keeps rendering (and scoring) as a three-way bar. */
+const MARKET_OUTCOMES = { regulation: ['home', 'draw', 'away'], advance: ['home', 'away'] };
+// Per-model snapshot entries carry no market stamp; a prob set without a
+// draw key can only be the two-way advancement market.
+const predMarket = (p) =>
+  p?.market === 'advance' || (p?.market == null && p?.probs && p.probs.draw == null)
+    ? 'advance'
+    : 'regulation';
+const matchMarket = (m) => (m?.market === 'advance' ? 'advance' : 'regulation');
+const outcomeLabel = (match, o, market) =>
+  o === 'draw' ? 'Draw' : market === 'advance' ? `${match[o].name} advances` : `${match[o].name} win`;
+
+// The market a match's consensus is shown in: the match's own market when
+// any stored forecast priced it, otherwise whatever the forecasts priced
+// (knockout matches forecast before the market switch).
+function displayMarketOf(modelsMap, match) {
+  const want = matchMarket(match);
   const list = Object.values(modelsMap ?? {}).filter((p) => p.probs);
+  if (!list.length || list.some((p) => predMarket(p) === want)) return want;
+  return predMarket(list[0]);
+}
+
+function consensusOf(modelsMap, market = 'regulation') {
+  const outs = MARKET_OUTCOMES[market];
+  const list = Object.values(modelsMap ?? {}).filter((p) => p.probs && predMarket(p) === market);
   if (!list.length) return null;
-  const c = { home: 0, draw: 0, away: 0 };
-  for (const p of list) for (const o of ['home', 'draw', 'away']) c[o] += p.probs[o] / list.length;
+  const c = {};
+  for (const o of outs) c[o] = 0;
+  for (const p of list) for (const o of outs) c[o] += p.probs[o] / list.length;
   return c;
 }
 
@@ -58,20 +85,22 @@ function forecastRow(model, pred, match, bestBrier) {
   if (!pred.probs) {
     return `<div class="frow"><div class="fmodel">${crest}${name}</div><div class="ferr" title="${esc(pred.error)}">failed: ${esc(pred.error.slice(0, 60))}</div></div>`;
   }
-  const { home, draw, away } = pred.probs;
+  const market = predMarket(pred);
+  const outs = MARKET_OUTCOMES[market];
   const tip = `${esc(pred.rationale || '')}${pred.demo ? ' [demo forecast]' : ''}`;
   let brierCell = '<div></div>';
   let best = '';
-  if (match.outcome && pred.brier != null) {
+  if (pred.brier != null) {
     best = pred.brier === bestBrier ? ' best' : '';
     brierCell = `<div class="fbrier">${pred.brier.toFixed(3)}</div>`;
   } else if (!pred.eligible && match.status.state !== 'pre') {
     brierCell = '<div class="fbrier" title="Collected after kickoff, excluded from scoring">late</div>';
   }
+  const aria = outs.map((o) => `${outcomeLabel(match, o, market)} ${pct(pred.probs[o])}%`).join(', ');
   return `<div class="frow${best}" title="${tip}">
     <div class="fmodel">${crest}${name}${pred.retro ? '*' : ''}${pred.demo ? ' (demo)' : ''}</div>
-    <div class="bar" role="img" aria-label="${name}: ${esc(match.home.name)} win ${pct(home)}%, draw ${pct(draw)}%, ${esc(match.away.name)} win ${pct(away)}%">
-      ${seg('home', home, `${match.home.name} win`)}${seg('draw', draw, 'Draw')}${seg('away', away, `${match.away.name} win`)}
+    <div class="bar" role="img" aria-label="${name}: ${esc(aria)}">
+      ${outs.map((o) => seg(o, pred.probs[o], outcomeLabel(match, o, market))).join('')}
     </div>
     ${brierCell}
   </div>`;
@@ -94,6 +123,8 @@ function matchCard(match, state) {
   }
 
   // Attach Brier scores for finished matches so rows can rank themselves.
+  // Each forecast settles under the market it priced: a legacy 90-minute
+  // forecast on a knockout match scores against the regulation outcome.
   const preds = {};
   let bestBrier = null;
   for (const m of state.models) {
@@ -101,9 +132,11 @@ function matchCard(match, state) {
     if (!p) continue;
     const copy = { ...p };
     const sameFixture = !p.fixture || p.fixture === `${match.home.name} vs ${match.away.name}`;
-    if (match.outcome && p.probs && p.eligible && sameFixture) {
-      copy.brier = ['home', 'draw', 'away'].reduce(
-        (sum, o) => sum + (p.probs[o] - (match.outcome === o ? 1 : 0)) ** 2, 0
+    const market = predMarket(p);
+    const outcome = match.outcomes ? match.outcomes[market] : match.outcome;
+    if (outcome && p.probs && p.eligible && sameFixture) {
+      copy.brier = MARKET_OUTCOMES[market].reduce(
+        (sum, o) => sum + (p.probs[o] - (outcome === o ? 1 : 0)) ** 2, 0
       );
       bestBrier = bestBrier == null ? copy.brier : Math.min(bestBrier, copy.brier);
     }
@@ -119,21 +152,28 @@ function matchCard(match, state) {
     let outcomeHead = '';
     let collapsed = '';
     if (withProbs.length) {
-      // Consensus: the mean of every stored model forecast for this match.
-      const consensus = consensusOf(preds);
-      outcomeHead = `<div class="outcome-head" title="Consensus of ${withProbs.length} model forecasts">
-        <span class="ol"><i class="swatch swatch-home"></i>${esc(home.name)} <b>${pct(consensus.home)}%</b></span>
-        <span class="ol"><i class="swatch swatch-draw"></i>Draw <b>${pct(consensus.draw)}%</b></span>
-        <span class="ol"><i class="swatch swatch-away"></i>${esc(away.name)} <b>${pct(consensus.away)}%</b></span>
+      // Consensus: the mean of every stored forecast priced in the market
+      // this match is displayed in (knockout: who advances).
+      const market = displayMarketOf(preds, match);
+      const outs = MARKET_OUTCOMES[market];
+      const consensus = consensusOf(preds, market);
+      const inMarket = withProbs.filter((p) => predMarket(p) === market).length;
+      const advTag = market === 'advance' ? ' to advance' : '';
+      outcomeHead = `<div class="outcome-head" title="Consensus of ${inMarket} model forecasts">
+        ${outs.map((o) => `<span class="ol"><i class="swatch swatch-${o}"></i>${
+          o === 'draw' ? 'Draw' : `${esc(match[o].name)}${advTag}`
+        } <b>${pct(consensus[o])}%</b></span>`).join('\n        ')}
       </div>`;
       const consensusPred = {
         probs: consensus,
-        rationale: `Average of ${withProbs.length} model forecasts`,
+        market,
+        rationale: `Average of ${inMarket} model forecasts`,
         eligible: true,
       };
-      if (match.outcome) {
-        consensusPred.brier = ['home', 'draw', 'away'].reduce(
-          (sum, o) => sum + (consensus[o] - (match.outcome === o ? 1 : 0)) ** 2, 0
+      const outcome = match.outcomes ? match.outcomes[market] : match.outcome;
+      if (outcome) {
+        consensusPred.brier = outs.reduce(
+          (sum, o) => sum + (consensus[o] - (outcome === o ? 1 : 0)) ** 2, 0
         );
       }
       collapsed = forecastRow({ label: `Consensus${isRetro ? '*' : ''}` }, consensusPred, match, null);
@@ -178,9 +218,17 @@ function matchCard(match, state) {
       </div>
       <div class="match-meta">${meta}</div>
     </div>
-    ${isDone && match.outcome ? `<div class="fnote" style="margin-top:6px">90-minute result: ${
-      match.outcome === 'draw' ? 'draw' : esc(match[match.outcome].name) + ' win'
-    }${match.outcome === 'draw' && (home.shootoutScore != null || match.status.name !== 'STATUS_FULL_TIME') ? ' (decided after regulation)' : ''}</div>` : ''}
+    ${isDone && match.outcome ? `<div class="fnote" style="margin-top:6px">${
+      matchMarket(match) === 'advance'
+        ? `Advanced: ${esc(match[match.outcome].name)}${
+            home.shootoutScore != null || away.shootoutScore != null
+              ? ' (on penalties)'
+              : match.outcomes?.regulation === 'draw' ? ' (in extra time)' : ''
+          }`
+        : `90-minute result: ${match.outcome === 'draw' ? 'draw' : esc(match[match.outcome].name) + ' win'}${
+            match.outcome === 'draw' && (home.shootoutScore != null || match.status.name !== 'STATUS_FULL_TIME') ? ' (decided after regulation)' : ''
+          }`
+    }</div>` : ''}
     ${body}
   </article>`;
 }
@@ -277,26 +325,32 @@ function renderMatches(state) {
 }
 
 /* Match detail: forecasts over time. Points are the locked pre-kickoff
-   consensus, each in-play snapshot, and (when finished) the actual result. */
-function detailPoints(match) {
+   consensus, each in-play snapshot, and (when finished) the actual result.
+   Everything is shown in one market, so mixed-market history (a knockout
+   match forecast before the market switch) filters to the display market. */
+function detailPoints(match, market) {
   const points = [];
-  const locked = consensusOf(match.predictions);
+  const locked = consensusOf(match.predictions, market);
   if (locked) points.push({ label: 'Locked', sub: 'pre-kickoff', probs: locked });
   for (const snap of match.snapshots ?? []) {
-    const c = consensusOf(snap.models);
+    if ((snap.market === 'advance' ? 'advance' : 'regulation') !== market) continue;
+    const c = consensusOf(snap.models, market);
     if (c) points.push({ label: snap.detail, sub: `${snap.score[0]}:${snap.score[1]}`, probs: c, snap });
   }
-  if (match.outcome) {
+  const outcome = match.outcomes ? match.outcomes[market] : match.outcome;
+  if (outcome) {
+    const probs = {};
+    for (const o of MARKET_OUTCOMES[market]) probs[o] = o === outcome ? 1 : 0;
     points.push({
       label: 'FT', sub: `${match.home.score}:${match.away.score}`,
-      probs: { home: 0, draw: 0, away: 0, [match.outcome]: 1 },
+      probs,
       final: true,
     });
   }
   return points;
 }
 
-function evolutionChart(match, points) {
+function evolutionChart(match, points, market) {
   const W = 660, H = 240, padL = 36, padR = 30, padT = 12, padB = 34;
   const n = points.length;
   const x = (i) => (n === 1 ? W / 2 : padL + (i * (W - padL - padR)) / (n - 1));
@@ -305,7 +359,7 @@ function evolutionChart(match, points) {
     { key: 'home', color: 'var(--home)', name: match.home.name },
     { key: 'draw', color: 'var(--draw)', name: 'Draw' },
     { key: 'away', color: 'var(--away)', name: match.away.name },
-  ];
+  ].filter((s) => MARKET_OUTCOMES[market].includes(s.key));
   let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="How the consensus win probabilities moved over time">`;
   for (const g of [0, 0.5, 1]) {
     svg += `<line x1="${padL}" y1="${y(g)}" x2="${W - padR}" y2="${y(g)}" stroke="var(--hairline)" stroke-width="1"/>`;
@@ -393,8 +447,9 @@ function renderModelDetail(state, modelId) {
 
   const best = points.length ? points.reduce((a, b) => (b.brier < a.brier ? b : a)) : null;
   const worst = points.length ? points.reduce((a, b) => (b.brier > a.brier ? b : a)) : null;
+  const beats = (p) => p.brier < (p.baseline ?? 2 / 3);
   const form = points.slice(-10).map((p) =>
-    `<span class="form-chip ${p.brier < 2 / 3 ? 'form-good' : 'form-poor'}" title="${esc(p.shortName)}: ${p.brier.toFixed(3)}">${p.brier < 2 / 3 ? 'W' : 'L'}</span>`
+    `<span class="form-chip ${beats(p) ? 'form-good' : 'form-poor'}" title="${esc(p.shortName)}: ${p.brier.toFixed(3)}">${beats(p) ? 'W' : 'L'}</span>`
   ).join('');
 
   el.innerHTML = `<div class="detail-scrim" data-close></div>
@@ -412,14 +467,14 @@ function renderModelDetail(state, modelId) {
     <div class="stat-row">
       <div class="stat"><div class="stat-v">${row.avgBrier == null ? '-' : row.avgBrier.toFixed(3) + (row.retroScored ? '*' : '')}</div><div class="stat-l">avg Brier</div></div>
       <div class="stat"><div class="stat-v">${row.scored}</div><div class="stat-l">scored</div></div>
-      <div class="stat"><div class="stat-v">${points.filter((p) => p.brier < 2 / 3).length}</div><div class="stat-l">beat the coin flip</div></div>
+      <div class="stat"><div class="stat-v">${points.filter(beats).length}</div><div class="stat-l">beat the coin flip</div></div>
     </div>
     ${points.length ? `
     <h3>Average over the tournament</h3>
     <div class="chart">${modelChart(points, fieldPoints)}</div>
     <h3>Form, last ${Math.min(10, points.length)}</h3>
     <div class="form-strip">${form}</div>
-    <p class="fnote">W beats the 0.667 coin-flip baseline, L does not.</p>
+    <p class="fnote">W beats the know-nothing baseline for its market (0.667 three-way group match, 0.5 two-way knockout), L does not.</p>
     ${best ? `<p class="fnote">Best call: ${esc(best.shortName)} at ${best.brier.toFixed(3)}. Roughest: ${esc(worst.shortName)} at ${worst.brier.toFixed(3)}.</p>` : ''}
     ` : '<p class="fnote">No scored forecasts yet.</p>'}
   </section>`;
@@ -437,15 +492,20 @@ function renderDetail(state) {
   if (!m) { el.innerHTML = ''; document.body.style.overflow = ''; return; }
   const match = state.matches.find((x) => x.id === m[1]);
   if (!match) { el.innerHTML = ''; return; }
-  const points = detailPoints(match);
+  const market = displayMarketOf(match.predictions, match);
+  const points = detailPoints(match, market);
   const isLive = match.status.state === 'in';
 
   const snapRows = (match.snapshots ?? []).slice().reverse().map((snap) => {
-    const c = consensusOf(snap.models);
+    const snapMarket = snap.market === 'advance' ? 'advance' : 'regulation';
+    const c = consensusOf(snap.models, snapMarket);
     if (!c) return '';
+    const probs = snapMarket === 'advance'
+      ? `${esc(match.home.name)} <b>${pct(c.home)}%</b> · ${esc(match.away.name)} <b>${pct(c.away)}%</b> to advance`
+      : `${esc(match.home.name)} <b>${pct(c.home)}%</b> · Draw <b>${pct(c.draw)}%</b> · ${esc(match.away.name)} <b>${pct(c.away)}%</b>`;
     return `<div class="snap-row">
       <span class="snap-when">${esc(snap.detail)} <span class="snap-score">${snap.score[0]}:${snap.score[1]}</span></span>
-      <span class="snap-probs">${esc(match.home.name)} <b>${pct(c.home)}%</b> · Draw <b>${pct(c.draw)}%</b> · ${esc(match.away.name)} <b>${pct(c.away)}%</b></span>
+      <span class="snap-probs">${probs}</span>
     </div>`;
   }).join('');
 
@@ -465,9 +525,9 @@ function renderDetail(state) {
       <button class="detail-close" data-close aria-label="Close">✕</button>
     </div>
     <h3>Consensus over time</h3>
-    ${points.length ? `<div class="chart">${evolutionChart(match, points)}</div>` : '<div class="fnote">No forecasts yet.</div>'}
-    <p class="fnote">Only the locked pre-kickoff forecast counts for the leaderboard. In-play points are fresh forecasts given the score at that moment; FT is the actual result.</p>
-    ${snapRows ? `<h3>In-play updates</h3><div class="snap-list">${snapRows}</div>` : (isLive ? '<p class="fnote">In-play updates are collected every ~20 minutes while the match runs.</p>' : '')}
+    ${points.length ? `<div class="chart">${evolutionChart(match, points, market)}</div>` : '<div class="fnote">No forecasts yet.</div>'}
+    <p class="fnote">${market === 'advance' ? 'Knockout market: probability of advancing, extra time and penalties included. ' : ''}Only the locked pre-kickoff forecast counts for the leaderboard. In-play points are fresh forecasts given the score at that moment; FT is the actual result.</p>
+    ${snapRows ? `<h3>In-play updates</h3><div class="snap-list">${snapRows}</div>` : (isLive ? '<p class="fnote">In-play updates are collected after every goal, red card, and period change, plus every ~10 quiet minutes.</p>' : '')}
     <h3>Locked forecasts</h3>
     <div class="forecasts">${lockedRows}</div>
   </section>`;
@@ -572,9 +632,10 @@ function renderFeatured(state) {
     .sort((a, b) => new Date(a.kickoff) - new Date(b.kickoff))[0];
   const m = live ?? next;
   if (!m) { el.innerHTML = ''; return; }
-  const c = consensusOf(m.predictions);
+  const market = displayMarketOf(m.predictions, m);
+  const c = consensusOf(m.predictions, market);
   const pick = c
-    ? `models say ${esc(c.home >= c.away ? m.home.name : m.away.name)} ${pct(Math.max(c.home, c.away))}%`
+    ? `models say ${esc(c.home >= c.away ? m.home.name : m.away.name)} ${pct(Math.max(c.home, c.away))}%${market === 'advance' ? ' to advance' : ''}`
     : '';
   el.innerHTML = live
     ? `<button class="feat" data-go="m/${esc(m.id)}">
@@ -603,10 +664,12 @@ function renderTicker(state) {
     const events = m.keyEvents ?? [];
     if (events.length) items.push({ go, html: esc(events[events.length - 1]) });
     const snaps = m.snapshots ?? [];
-    const c = snaps.length && consensusOf(snaps[snaps.length - 1].models);
+    const last = snaps[snaps.length - 1];
+    const snapMarket = last?.market === 'advance' ? 'advance' : 'regulation';
+    const c = last && consensusOf(last.models, snapMarket);
     if (c) {
       const fav = c.home >= c.away ? m.home.name : m.away.name;
-      items.push({ go, html: `Models now: ${esc(fav)} ${pct(Math.max(c.home, c.away))}% to win` });
+      items.push({ go, html: `Models now: ${esc(fav)} ${pct(Math.max(c.home, c.away))}% to ${snapMarket === 'advance' ? 'advance' : 'win'}` });
     }
   }
   const dayAgo = Date.now() - 24 * 3600 * 1000;
@@ -615,7 +678,10 @@ function renderTicker(state) {
     let best = null;
     for (const [id, p] of Object.entries(m.predictions ?? {})) {
       if (!p.probs || !p.eligible) continue;
-      const b = ['home', 'draw', 'away'].reduce((s, o) => s + (p.probs[o] - (m.outcome === o ? 1 : 0)) ** 2, 0);
+      const market = predMarket(p);
+      const outcome = m.outcomes ? m.outcomes[market] : m.outcome;
+      if (!outcome) continue;
+      const b = MARKET_OUTCOMES[market].reduce((s, o) => s + (p.probs[o] - (outcome === o ? 1 : 0)) ** 2, 0);
       if (best == null || b < best) {
         best = b;
         const mod = state.models.find((x) => x.id === id);
@@ -625,7 +691,7 @@ function renderTicker(state) {
     items.push({ go: `m/${m.id}`, html: `<span class="tick-ft">FT</span> ${esc(m.home.name)} ${m.home.score}-${m.away.score} ${esc(m.away.name)}${call}` });
   }
   for (const m of state.matches.filter((x) => x.status.state === 'pre' && !x.teamsTbd).slice(0, 3)) {
-    const c = consensusOf(m.predictions);
+    const c = consensusOf(m.predictions, displayMarketOf(m.predictions, m));
     items.push({ go: `m/${m.id}`, html: `Next: ${esc(m.home.name)} v ${esc(m.away.name)} ${countdown(m.kickoff)}${
       c ? `, models say ${esc(c.home >= c.away ? m.home.name : m.away.name)} ${pct(Math.max(c.home, c.away))}%` : ''
     }` });
@@ -724,10 +790,12 @@ async function refresh(force = false) {
     if (state.prompts) {
       $('#prompt-locked').textContent = state.prompts.locked;
       $('#prompt-live').textContent = state.prompts.live;
+      if (state.prompts.lockedKnockout) $('#prompt-locked-ko').textContent = state.prompts.lockedKnockout;
+      if (state.prompts.liveKnockout) $('#prompt-live-ko').textContent = state.prompts.liveKnockout;
     }
 
     const anyLive = state.matches.some((m) => m.status.state === 'in');
-    schedule(anyLive ? 20000 : 60000);
+    schedule(anyLive ? 12000 : 60000);
   } catch (err) {
     $('#source-status').textContent = 'Connection problem';
     const banner = $('#banner');
