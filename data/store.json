@@ -9849,6 +9849,68 @@
             "rationale": "Spain has a slight edge based on recent form and head-to-head balance, but the match is evenly poised early in the game."
           }
         }
+      },
+      {
+        "at": "2026-07-06T19:07:15.855Z",
+        "detail": "7'",
+        "score": [
+          0,
+          0
+        ],
+        "events": 0,
+        "period": "STATUS_IN_PROGRESS",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "At 7 minutes with no score, Portugal retains a slight edge as the home team in what projects as an evenly-matched encounter between two elite European sides."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "Early at 0-0 with no key events, Portugal has a slight edge mainly from marginally higher pre-match strength and potential small crowd/region effects, but the tie remains very balanced."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "Portugal has a slight edge due to their recent tournament pedigree and individual attacking talent, but the match is essentially even this early in a goalless, high-stakes derby."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.42,
+              "away": 0.58
+            },
+            "rationale": "Spain are slight favorites as defending European champions with a deeper, more cohesive squad, though Portugal's individual brilliance and home-continent advantage in North America keeps it competitive."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "Spain has a slight historical edge in major tournaments despite Portugal's recent strong form."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "Both teams are evenly matched with strong squads, but Spain has a slight edge based on recent form and head-to-head dynamics."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "It’s very early with no key events, and Spain is slightly favored based on historical performance and possession style."
+          }
+        }
       }
     ]
   },
