@@ -3,7 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { fetchMatches } from './lib/espn.js';
 import { leaderboard } from './lib/scoring.js';
-import { getPredictions, getSnapshots } from './lib/store.js';
+import { getPredictions, getSnapshots, getOutright } from './lib/store.js';
 import { loadModels, predictMatches, predictorReady, buildPrompt, buildLivePrompt } from './lib/predictor.js';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
@@ -51,6 +51,7 @@ app.get('/api/state', async (req, res) => {
       demoMode: process.env.DEMO_MODE === '1',
       models,
       prompts: promptTemplates,
+      outright: getOutright(),
       matches: matches.map((m) => ({
         ...m,
         predictions: predictions[m.id] ?? {},
