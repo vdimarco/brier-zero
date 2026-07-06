@@ -196,7 +196,7 @@ function renderLeaderboard(state) {
   el.classList.remove('skeleton-block');
   el.innerHTML = `<div class="lb-wrap">${state.leaderboard
     .map((r, i) => {
-      return `<div class="lb-row${i === 0 && r.avgBrier != null ? ' leader' : ''}">
+      return `<div class="lb-row${i === 0 && r.avgBrier != null ? ' leader' : ''}" data-model="${esc(r.model)}" role="button" tabindex="0" title="Open ${esc(r.label)}: performance over time" aria-label="Open performance detail for ${esc(r.label)}">
         <div class="lb-rank">${r.avgBrier == null ? '-' : i + 1}</div>
         <div class="lb-id">${
           (state.models.find((m) => m.id === r.model)?.icon)
@@ -214,6 +214,13 @@ function renderLeaderboard(state) {
       ? `<p class="footnote">* Includes backfilled matches: forecast after the fact with the same prompt. Every model's training data predates this tournament, so the results were unknowable to them, but these forecasts lack the pre-kickoff lock.</p>`
       : ''
   }`;
+  for (const row of el.querySelectorAll('[data-model]')) {
+    const open = () => { location.hash = `p/${encodeURIComponent(row.dataset.model)}`; };
+    row.addEventListener('click', open);
+    row.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+    });
+  }
 }
 
 function renderMatches(state) {
@@ -322,8 +329,110 @@ function evolutionChart(match, points) {
   return svg;
 }
 
+/* Model detail: performance over time. Running-average Brier vs the
+   field, per-match dots, the coin-flip baseline, and a form strip. */
+function modelChart(points, fieldPoints) {
+  const W = 660, H = 240, padL = 40, padR = 20, padT = 12, padB = 26;
+  const n = points.length;
+  const yMax = Math.max(1, Math.ceil(Math.max(...points.map((p) => p.brier), 0.7) * 4) / 4);
+  const x = (i) => (n === 1 ? W / 2 : padL + (i * (W - padL - padR)) / (n - 1));
+  const y = (v) => padT + (1 - Math.min(v, yMax) / yMax) * (H - padT - padB);
+  let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Running average Brier score over the tournament">`;
+  for (const g of [0, 0.5, 1].filter((v) => v <= yMax)) {
+    svg += `<line x1="${padL}" y1="${y(g)}" x2="${W - padR}" y2="${y(g)}" stroke="var(--hairline)" stroke-width="1"/>`;
+    svg += `<text x="${padL - 6}" y="${y(g) + 4}" text-anchor="end" font-size="10" fill="var(--ink-3)">${g}</text>`;
+  }
+  svg += `<line x1="${padL}" y1="${y(2 / 3)}" x2="${W - padR}" y2="${y(2 / 3)}" stroke="var(--ink-3)" stroke-width="1" stroke-dasharray="4 4"/>`;
+  svg += `<text x="${W - padR}" y="${y(2 / 3) - 5}" text-anchor="end" font-size="10" fill="var(--ink-3)">coin flip 0.667</text>`;
+  if (n > 1 && fieldPoints) {
+    const fpath = fieldPoints.map((v, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join('');
+    svg += `<path d="${fpath}" fill="none" stroke="var(--draw)" stroke-width="2"/>`;
+    svg += `<text x="${x(n - 1) - 8}" y="${y(fieldPoints[n - 1]) - 7}" text-anchor="end" font-size="10.5" font-weight="650" fill="var(--ink-3)">field</text>`;
+  }
+  points.forEach((p, i) => {
+    svg += `<circle cx="${x(i).toFixed(1)}" cy="${y(p.brier).toFixed(1)}" r="3" fill="var(--hairline)">` +
+      `<title>${esc(p.shortName)}: ${p.brier.toFixed(3)}</title></circle>`;
+  });
+  if (n > 1) {
+    const path = points.map((p, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(p.cum).toFixed(1)}`).join('');
+    svg += `<path d="${path}" fill="none" stroke="var(--pitch)" stroke-width="2.5" stroke-linejoin="round"/>`;
+  }
+  points.forEach((p, i) => {
+    svg += `<circle cx="${x(i).toFixed(1)}" cy="${y(p.cum).toFixed(1)}" r="3.5" fill="var(--pitch)">` +
+      `<title>After ${esc(p.shortName)}: average ${p.cum.toFixed(3)}</title></circle>`;
+  });
+  svg += `<text x="${x(n - 1) - 8}" y="${y(points[n - 1].cum) + 16}" text-anchor="end" font-size="10.5" font-weight="700" fill="var(--pitch)">running avg</text>`;
+  svg += `<text x="${padL}" y="${H - 6}" font-size="10" fill="var(--ink-3)">matches in kickoff order, dots are single-match scores</text>`;
+  svg += '</svg>';
+  return svg;
+}
+
+function renderModelDetail(state, modelId) {
+  const el = $('#detail');
+  const row = state.leaderboard.find((r) => r.model === modelId);
+  const meta = state.models.find((m) => m.id === modelId);
+  if (!row || !meta) { el.innerHTML = ''; return; }
+  const rank = state.leaderboard.filter((r) => r.avgBrier != null).findIndex((r) => r.model === modelId) + 1;
+
+  let cum = 0;
+  const points = row.perMatch.map((p, i) => {
+    cum += p.brier;
+    return { ...p, cum: cum / (i + 1) };
+  });
+  // Field: mean per-match Brier across all models, accumulated in the
+  // same match order this model was scored in.
+  const fieldByMatch = {};
+  for (const r of state.leaderboard)
+    for (const p of r.perMatch) (fieldByMatch[p.matchId] ??= []).push(p.brier);
+  let fcum = 0;
+  const fieldPoints = points.map((p, i) => {
+    const list = fieldByMatch[p.matchId] ?? [p.brier];
+    fcum += list.reduce((a, b) => a + b, 0) / list.length;
+    return fcum / (i + 1);
+  });
+
+  const best = points.length ? points.reduce((a, b) => (b.brier < a.brier ? b : a)) : null;
+  const worst = points.length ? points.reduce((a, b) => (b.brier > a.brier ? b : a)) : null;
+  const form = points.slice(-10).map((p) =>
+    `<span class="form-chip ${p.brier < 2 / 3 ? 'form-good' : 'form-poor'}" title="${esc(p.shortName)}: ${p.brier.toFixed(3)}">${p.brier < 2 / 3 ? 'W' : 'L'}</span>`
+  ).join('');
+
+  el.innerHTML = `<div class="detail-scrim" data-close></div>
+  <section class="detail-panel" role="dialog" aria-modal="true" aria-label="Model performance">
+    <div class="detail-head">
+      <div class="lb-id">
+        ${meta.icon ? `<img class="crest crest-lg" src="${esc(meta.icon)}" alt="">` : ''}
+        <div>
+          <div class="detail-title">${esc(row.label)}</div>
+          <div class="fnote">${esc(row.model)}${rank ? ` · rank ${rank} of ${state.leaderboard.length}` : ''}</div>
+        </div>
+      </div>
+      <button class="detail-close" data-close aria-label="Close">✕</button>
+    </div>
+    <div class="stat-row">
+      <div class="stat"><div class="stat-v">${row.avgBrier == null ? '-' : row.avgBrier.toFixed(3) + (row.retroScored ? '*' : '')}</div><div class="stat-l">avg Brier</div></div>
+      <div class="stat"><div class="stat-v">${row.scored}</div><div class="stat-l">scored</div></div>
+      <div class="stat"><div class="stat-v">${points.filter((p) => p.brier < 2 / 3).length}</div><div class="stat-l">beat the coin flip</div></div>
+    </div>
+    ${points.length ? `
+    <h3>Average over the tournament</h3>
+    <div class="chart">${modelChart(points, fieldPoints)}</div>
+    <h3>Form, last ${Math.min(10, points.length)}</h3>
+    <div class="form-strip">${form}</div>
+    <p class="fnote">W beats the 0.667 coin-flip baseline, L does not.</p>
+    ${best ? `<p class="fnote">Best call: ${esc(best.shortName)} at ${best.brier.toFixed(3)}. Roughest: ${esc(worst.shortName)} at ${worst.brier.toFixed(3)}.</p>` : ''}
+    ` : '<p class="fnote">No scored forecasts yet.</p>'}
+  </section>`;
+  document.body.style.overflow = 'hidden';
+  for (const c of el.querySelectorAll('[data-close]')) {
+    c.addEventListener('click', () => { location.hash = ''; });
+  }
+}
+
 function renderDetail(state) {
   const el = $('#detail');
+  const pm = location.hash.match(/^#p\/(.+)/);
+  if (pm) { renderModelDetail(state, decodeURIComponent(pm[1])); return; }
   const m = location.hash.match(/^#m\/(\d+)/);
   if (!m) { el.innerHTML = ''; document.body.style.overflow = ''; return; }
   const match = state.matches.find((x) => x.id === m[1]);
@@ -370,7 +479,7 @@ function renderDetail(state) {
 
 window.addEventListener('hashchange', () => { if (lastState) renderDetail(lastState); });
 window.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && location.hash.startsWith('#m/')) location.hash = '';
+  if (e.key === 'Escape' && (location.hash.startsWith('#m/') || location.hash.startsWith('#p/'))) location.hash = '';
 });
 
 /* Ticker: one broadcast strip of live updates, built from state. Only
