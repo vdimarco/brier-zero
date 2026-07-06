@@ -9523,6 +9523,65 @@
             "rationale": "England leads but is down to 10 men, making them vulnerable to a Mexican equalizer or winner, while Mexico’s momentum and home-region support balance the odds despite trailing."
           }
         }
+      },
+      {
+        "at": "2026-07-06T02:47:23.645Z",
+        "detail": "84'",
+        "score": [
+          2,
+          3
+        ],
+        "events": 6,
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.25,
+              "draw": 0.2,
+              "away": 0.55
+            },
+            "rationale": "England holds a one-goal lead with six minutes remaining, but playing with ten men against Mexico creates significant vulnerability to a late equalizer, though holding on for the win remains most likely."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.27,
+              "draw": 0.49,
+              "away": 0.24
+            },
+            "rationale": "With England down to 10 men but still leading 3-2 late, Mexico’s pressure and likelihood of a late equaliser are high while a full comeback win is less likely than either a draw or England holding on."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.15,
+              "draw": 0.25,
+              "away": 0.6
+            },
+            "rationale": "England leads and has looked strong offensively, but playing with 10 men for the final 30+ minutes gives Mexico a late chance to equalize, though a full comeback is unlikely."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.05,
+              "draw": 0.15,
+              "away": 0.8
+            },
+            "rationale": "England still lead by one, Mexico are down to ten men and have only six minutes plus stoppage time to find an equaliser."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.07,
+              "draw": 0.28,
+              "away": 0.65
+            },
+            "rationale": "England leads by one goal but is playing with ten men, giving Mexico a good chance to equalize in the final minutes."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.35,
+              "draw": 0.25,
+              "away": 0.4
+            },
+            "rationale": "England leads but is down to 10 men, giving Mexico a strong chance to equalize or win in the final minutes, though England still holds a narrow edge."
+          }
+        }
       }
     ]
   },
