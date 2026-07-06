@@ -9973,6 +9973,130 @@
             "rationale": "Evenly matched teams with no events yet; neutral prior."
           }
         }
+      },
+      {
+        "at": "2026-07-06T19:10:01.143Z",
+        "detail": "9'",
+        "score": [
+          0,
+          0
+        ],
+        "events": 0,
+        "period": "STATUS_IN_PROGRESS",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "At 9 minutes with no score, Portugal retains a slight edge as the home team in what appears to be an evenly matched knockout tie between two elite European sides."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.49,
+              "away": 0.51
+            },
+            "rationale": "Two evenly matched sides with Spain as a very slight favorite and an early 0-0 scoreline not shifting pre-match expectations much."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "Portugal has a slight edge due to their recent form and squad depth, but it's extremely close in this early, scoreless stage."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.42,
+              "away": 0.58
+            },
+            "rationale": "Spain enters as slight favorites due to superior recent form and deeper squad, though Portugal's tournament experience and Ronaldo factor keep it competitive early in this Iberian derby."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.45,
+              "away": 0.55
+            },
+            "rationale": "Spain holds a slight edge due to their recent form and historical pedigree, though Portugal remains a formidable opponent in knockout football."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "Both teams are evenly matched with strong squads, but Spain has a slight edge based on recent form and head-to-head balance."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "Even though it's early, both teams are evenly matched, with Spain slightly favored based on recent form and deeper squad depth."
+          }
+        }
+      },
+      {
+        "at": "2026-07-06T19:10:54.260Z",
+        "detail": "10'",
+        "score": [
+          0,
+          0
+        ],
+        "events": 0,
+        "period": "STATUS_FIRST_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "At 10 minutes with no score in a knockout match between two evenly-matched European powers, Portugal holds a marginal edge due to home advantage in this hypothetical scenario, but the match remains essentially a toss-up."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.51,
+              "away": 0.49
+            },
+            "rationale": "With the match level and very early, Portugal have only the slightest edge based on being the designated home side and marginal pre-match factors, but it’s essentially a coin flip."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "Spain has a slight historical and recent form edge, but the match is very early and evenly poised."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.42,
+              "away": 0.58
+            },
+            "rationale": "Spain enter as slight favorites given their stronger recent tournament pedigree and deeper squad, though Portugal's individual quality keeps this competitive early on."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.49,
+              "away": 0.51
+            },
+            "rationale": "With the score deadlocked early in this tightly contested Iberian derby, both teams remain near-even favorites to advance given their comparable quality and the ample time remaining to decide the tie."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "Spain holds a slight edge based on recent form and head-to-head balance, but the match is evenly poised early in the first half."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "Both teams are closely matched in ranking and recent form, giving Portugal a slight edge as the nominal home side."
+          }
+        }
       }
     ]
   },
