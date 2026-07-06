@@ -10744,6 +10744,61 @@
             "rationale": "Spain slightly favored due to stronger recent knockout record and possession control, but it's essentially a coin flip."
           }
         }
+      },
+      {
+        "at": "2026-07-06T20:54:35.627Z",
+        "detail": "90'+1'",
+        "score": [
+          0,
+          1
+        ],
+        "events": 1,
+        "period": "STATUS_SECOND_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.02,
+              "away": 0.98
+            },
+            "rationale": "Spain scored in the first minute of stoppage time and with only 1-2 minutes remaining, Portugal has virtually no time to equalize and force extra time."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.03,
+              "away": 0.97
+            },
+            "rationale": "Spain has just taken the lead in stoppage time, leaving Portugal with almost no time to respond, making Spain overwhelming favorites to advance."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.05,
+              "away": 0.95
+            },
+            "rationale": "Spain has just scored a 91st-minute winner, leaving Portugal with virtually no time to equalize."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.08,
+              "away": 0.92
+            },
+            "rationale": "Spain leads 1-0 deep in stoppage time with Portugal needing a goal immediately to force extra time, making Spanish advancement highly probable."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.15,
+              "away": 0.85
+            },
+            "rationale": "Spain just scored a dramatic stoppage-time winner, giving them a strong advantage with virtually no time left for Portugal to respond."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.14,
+              "away": 0.86
+            },
+            "rationale": "Spain are likely to hold their narrow lead through the remaining stoppage time."
+          }
+        }
       }
     ]
   },
