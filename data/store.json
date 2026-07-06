@@ -9303,6 +9303,65 @@
             "rationale": "England leads but Mexico just scored to narrow the gap, making a comeback or draw plausible, though England's early dominance still gives them the edge."
           }
         }
+      },
+      {
+        "at": "2026-07-06T02:17:46.913Z",
+        "detail": "54'",
+        "score": [
+          1,
+          2
+        ],
+        "events": 4,
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.48,
+              "draw": 0.29,
+              "away": 0.23
+            },
+            "rationale": "England's one-goal lead is significantly compromised by the red card at 54 minutes, leaving them to defend with ten men for over 35 minutes against a Mexico side that will have strong momentum and numerical advantage in a knockout match."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.34,
+              "draw": 0.33,
+              "away": 0.33
+            },
+            "rationale": "England lead 2-1 but must play almost an entire half with 10 men, which should give Mexico sustained pressure and makes all three outcomes roughly equally likely with a slight edge to a Mexico comeback at home-ish conditions."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.25,
+              "draw": 0.35,
+              "away": 0.4
+            },
+            "rationale": "England is leading and has momentum from two quick goals, but Mexico has momentum from a quick reply and a significant advantage from England's red card, making a comeback or a draw more likely than it was."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.28,
+              "draw": 0.32,
+              "away": 0.4
+            },
+            "rationale": "England's red card at 54' levels the playing field despite their lead, with Mexico having 36+ minutes to exploit the man advantage against a depleted defense."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.35,
+              "draw": 0.25,
+              "away": 0.4
+            },
+            "rationale": "England's lead is fragile with a red card, but Mexico's momentum and numerical advantage boost their chances."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.45,
+              "draw": 0.3,
+              "away": 0.25
+            },
+            "rationale": "England leads but is down to 10 men after a red card, giving Mexico a strong numerical advantage for the remaining 36 minutes, increasing their chance to equalize or win."
+          }
+        }
       }
     ]
   },
