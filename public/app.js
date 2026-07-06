@@ -563,28 +563,57 @@ function renderTrophy(state) {
   </div>`;
 }
 
-/* Ticker: one broadcast strip of live updates, built from state. Only
-   re-rendered when its content changes, so the scroll never jumps. */
+/* Featured match: the live game, or the next kickoff, big and up front. */
+function renderFeatured(state) {
+  const el = $('#featured');
+  const live = state.matches.find((m) => m.status.state === 'in');
+  const next = state.matches
+    .filter((m) => m.status.state === 'pre' && !m.teamsTbd)
+    .sort((a, b) => new Date(a.kickoff) - new Date(b.kickoff))[0];
+  const m = live ?? next;
+  if (!m) { el.innerHTML = ''; return; }
+  const c = consensusOf(m.predictions);
+  const pick = c
+    ? `models say ${esc(c.home >= c.away ? m.home.name : m.away.name)} ${pct(Math.max(c.home, c.away))}%`
+    : '';
+  el.innerHTML = live
+    ? `<button class="feat" data-go="m/${esc(m.id)}">
+        <span class="feat-tag feat-live">LIVE ${esc(m.status.detail)}</span>
+        <span class="feat-fixture">${esc(m.home.name)} <b>${m.home.score ?? 0} : ${m.away.score ?? 0}</b> ${esc(m.away.name)}</span>
+        ${pick ? `<span class="feat-note">${pick}</span>` : ''}
+      </button>`
+    : `<button class="feat" data-go="m/${esc(m.id)}">
+        <span class="feat-tag">NEXT</span>
+        <span class="feat-fixture">${esc(m.home.name)} <b>v</b> ${esc(m.away.name)}</span>
+        <span class="feat-note">${esc(countdown(m.kickoff))}${pick ? `, ${pick}` : ''}</span>
+      </button>`;
+  el.querySelector('.feat').addEventListener('click', () => { location.hash = `m/${m.id}`; });
+}
+
+/* Ticker: one broadcast strip of live updates, built from state. Items
+   click through to the relevant panel. Only re-rendered when content
+   changes, so the scroll never jumps. */
 let tickerContent = '';
 function renderTicker(state) {
-  const items = [];
+  const items = []; // { html, go }
   const live = state.matches.filter((m) => m.status.state === 'in');
   for (const m of live) {
-    items.push(`<span class="tick-live">LIVE</span> ${esc(m.status.detail)} ${esc(m.home.name)} ${m.home.score ?? 0}-${m.away.score ?? 0} ${esc(m.away.name)}`);
-    const lastEvent = (m.keyEvents ?? [])[m.keyEvents.length - 1];
-    if (lastEvent) items.push(esc(lastEvent));
-    const lastSnap = (m.snapshots ?? [])[m.snapshots.length - 1];
-    const c = lastSnap && consensusOf(lastSnap.models);
+    const go = `m/${m.id}`;
+    items.push({ go, html: `<span class="tick-live">LIVE</span> ${esc(m.status.detail)} ${esc(m.home.name)} ${m.home.score ?? 0}-${m.away.score ?? 0} ${esc(m.away.name)}` });
+    const events = m.keyEvents ?? [];
+    if (events.length) items.push({ go, html: esc(events[events.length - 1]) });
+    const snaps = m.snapshots ?? [];
+    const c = snaps.length && consensusOf(snaps[snaps.length - 1].models);
     if (c) {
       const fav = c.home >= c.away ? m.home.name : m.away.name;
-      items.push(`Models now: ${esc(fav)} ${pct(Math.max(c.home, c.away))}% to win`);
+      items.push({ go, html: `Models now: ${esc(fav)} ${pct(Math.max(c.home, c.away))}% to win` });
     }
   }
   const dayAgo = Date.now() - 24 * 3600 * 1000;
   for (const m of state.matches.filter((x) => x.status.state === 'post' && x.outcome && new Date(x.kickoff) > dayAgo)) {
     let call = '';
     let best = null;
-    for (const [id, p] of Object.entries(m.predictions)) {
+    for (const [id, p] of Object.entries(m.predictions ?? {})) {
       if (!p.probs || !p.eligible) continue;
       const b = ['home', 'draw', 'away'].reduce((s, o) => s + (p.probs[o] - (m.outcome === o ? 1 : 0)) ** 2, 0);
       if (best == null || b < best) {
@@ -593,30 +622,52 @@ function renderTicker(state) {
         call = mod ? ` best call ${esc(mod.label)} ${b.toFixed(2)}` : '';
       }
     }
-    items.push(`<span class="tick-ft">FT</span> ${esc(m.home.name)} ${m.home.score}-${m.away.score} ${esc(m.away.name)}${call}`);
+    items.push({ go: `m/${m.id}`, html: `<span class="tick-ft">FT</span> ${esc(m.home.name)} ${m.home.score}-${m.away.score} ${esc(m.away.name)}${call}` });
   }
   for (const m of state.matches.filter((x) => x.status.state === 'pre' && !x.teamsTbd).slice(0, 3)) {
     const c = consensusOf(m.predictions);
-    items.push(`Next: ${esc(m.home.name)} v ${esc(m.away.name)} ${countdown(m.kickoff)}${
+    items.push({ go: `m/${m.id}`, html: `Next: ${esc(m.home.name)} v ${esc(m.away.name)} ${countdown(m.kickoff)}${
       c ? `, models say ${esc(c.home >= c.away ? m.home.name : m.away.name)} ${pct(Math.max(c.home, c.away))}%` : ''
-    }`);
+    }` });
   }
   const leader = state.leaderboard.find((r) => r.avgBrier != null);
-  if (leader) items.push(`<span class="tick-gold">Brier Cup leader</span> ${esc(leader.label)} ${leader.avgBrier.toFixed(3)}${leader.retroScored ? '*' : ''}`);
+  if (leader) items.push({ go: `p/${encodeURIComponent(leader.model)}`, html: `<span class="tick-gold">Brier Cup leader</span> ${esc(leader.label)} ${leader.avgBrier.toFixed(3)}${leader.retroScored ? '*' : ''}` });
 
-  const content = items.join('<span class="tick-sep" aria-hidden="true">&#9670;</span>');
-  if (content === tickerContent) return;
-  tickerContent = content;
+  const sep = '<span class="tick-sep" aria-hidden="true">&#9670;</span>';
+  const half = items
+    .map((it) => `<button class="tick-item" data-go="${esc(it.go)}">${it.html}</button>`)
+    .join(sep) + sep;
+  if (half === tickerContent) return;
+  tickerContent = half;
   const el = $('#ticker');
   if (!items.length) { el.innerHTML = ''; return; }
   // Two copies of the content; the animation slides one full copy for a
-  // seamless loop. Duration scales with length for a steady speed.
-  el.innerHTML = `<div class="ticker-track">
-    <span class="tick-half">${content}<span class="tick-sep" aria-hidden="true">&#9670;</span></span>
-    <span class="tick-half" aria-hidden="true">${content}<span class="tick-sep" aria-hidden="true">&#9670;</span></span>
-  </div>`;
-  const track = el.querySelector('.ticker-track');
+  // seamless loop. On updates the halves are swapped in place so the
+  // running animation (and scroll position) is preserved.
+  let track = el.querySelector('.ticker-track');
+  if (!track) {
+    el.innerHTML = `<div class="ticker-track">
+      <span class="tick-half"></span>
+      <span class="tick-half" aria-hidden="true"></span>
+    </div>`;
+    track = el.querySelector('.ticker-track');
+  }
+  for (const h of track.querySelectorAll('.tick-half')) h.innerHTML = half;
   track.style.animationDuration = `${Math.max(20, Math.round(track.scrollWidth / 2 / 55))}s`;
+}
+
+// One delegated handler; ticker items survive in-place content swaps.
+// Pointer or touch contact pauses the scroll so the target holds still.
+$('#ticker').addEventListener('click', (e) => {
+  const item = e.target.closest('.tick-item');
+  if (item) location.hash = item.dataset.go;
+});
+for (const evt of ['pointerdown', 'touchstart']) {
+  $('#ticker').addEventListener(evt, () => {
+    const el = $('#ticker');
+    el.classList.add('paused');
+    setTimeout(() => el.classList.remove('paused'), 4000);
+  }, { passive: true });
 }
 
 function renderBanner(state) {
@@ -663,6 +714,7 @@ async function refresh(force = false) {
         : 'Live scores only';
 
     lastState = state;
+    renderFeatured(state);
     renderTicker(state);
     renderTrophy(state);
     renderBanner(state);

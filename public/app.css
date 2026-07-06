@@ -90,6 +90,34 @@ main { max-width: 1080px; margin: 0 auto; padding: 0 20px 64px; }
 h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
 .explainer { color: var(--ink-2); font-size: 13.5px; max-width: 70ch; margin: 0 0 16px; }
 
+/* Featured match: big and up front, inside the pitch band */
+#featured { max-width: 1080px; margin: 0 auto; padding: 0 20px 34px; }
+.feat {
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  width: 100%; text-align: left; cursor: pointer;
+  background: rgba(8, 28, 12, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: var(--radius-card);
+  padding: 14px 18px; color: #ffffff;
+  font-family: inherit;
+}
+.feat:hover { background: rgba(8, 28, 12, 0.5); border-color: rgba(255, 255, 255, 0.4); }
+.feat:focus-visible { outline: 2px solid var(--kit-gold); outline-offset: 2px; }
+.feat-tag {
+  background: var(--kit-gold); color: #241a02;
+  font-weight: 800; font-size: 12px; letter-spacing: 0.06em;
+  border-radius: var(--radius-el); padding: 3px 9px; flex: none;
+}
+.feat-tag.feat-live { background: #ff5252; color: #ffffff; animation: pulse 1.6s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .feat-tag.feat-live { animation: none; } }
+.feat-fixture { font-size: clamp(18px, 3vw, 26px); font-weight: 780; letter-spacing: -0.01em; }
+.feat-fixture b { color: var(--kit-gold); font-variant-numeric: tabular-nums; }
+.feat-note { color: rgba(255, 255, 255, 0.85); font-size: 14px; }
+@media (max-width: 560px) {
+  #featured { padding: 0 16px 26px; }
+  .feat { gap: 10px; padding: 12px 14px; }
+}
+
 /* Live ticker: one broadcast strip under the pitch */
 .ticker {
   background: var(--ink); color: #f2f1ea;
@@ -103,7 +131,15 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
   animation: ticker-scroll linear infinite;
 }
 .tick-half { display: inline-flex; align-items: center; }
-.ticker:hover .ticker-track { animation-play-state: paused; }
+.tick-item {
+  background: none; border: 0; padding: 0; cursor: pointer;
+  color: inherit; font: inherit; font-variant-numeric: tabular-nums;
+  display: inline-flex; align-items: center; white-space: nowrap;
+}
+.tick-item:hover { color: var(--kit-gold); }
+.tick-item:focus-visible { outline: 1px solid var(--kit-gold); outline-offset: 2px; }
+.ticker:hover .ticker-track,
+.ticker.paused .ticker-track { animation-play-state: paused; }
 @keyframes ticker-scroll { to { transform: translateX(-50%); } }
 @media (prefers-reduced-motion: reduce) {
   .ticker-track { animation: none; }
