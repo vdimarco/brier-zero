@@ -9794,6 +9794,68 @@
             "rationale": "Given the evenly matched squads and Spain's slight edge in recent form, Spain are marginally favored."
           }
         }
+      },
+      {
+        "at": "2026-07-06T19:03:17.884Z",
+        "detail": "3'",
+        "score": [
+          0,
+          0
+        ],
+        "events": 0,
+        "period": "STATUS_IN_PROGRESS",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "At 3 minutes in a scoreless match, Portugal holds a marginal edge as the home team with both sides essentially at their pre-match strength, where Portugal was slightly favored."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "With the match just starting at 0-0 between two near-elite, evenly matched sides, advancement chances are roughly equal."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "Portugal gets a slight edge due to their slightly stronger recent form and squad depth, but it's essentially a coin flip this early in a tight derby."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.45,
+              "away": 0.55
+            },
+            "rationale": "Spain's superior squad depth and recent tournament consistency give them a slight edge despite Portugal's individual brilliance, with the match still wide open at 0-0."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "With the match just underway, the teams remain evenly matched, though Spain holds a slight theoretical edge in midfield control typical of their historical profile."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "Spain has a slight edge based on recent form and head-to-head balance, but the match is evenly poised early in the first half."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "With no significant events yet and both sides roughly evenly matched, Spain holds a marginal historical edge."
+          }
+        }
       }
     ]
   },
