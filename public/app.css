@@ -206,13 +206,13 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0;
 }
 
-/* Model crests: brand marks in a kit-badge circle, league-table style */
+/* Model crests: brand marks on shield badges, league-table style.
+   The shield shape, fill, and stroke live inside each SVG. */
 .crest {
-  width: 20px; height: 20px; flex: none;
-  background: #ffffff; border: 1px solid var(--hairline); border-radius: 50%;
-  padding: 3px; object-fit: contain; box-sizing: border-box;
+  width: 19px; height: 22px; flex: none;
+  object-fit: contain;
 }
-.crest-lg { width: 30px; height: 30px; padding: 5px; }
+.crest-lg { width: 28px; height: 33px; }
 .lb-id { display: flex; align-items: center; gap: 10px; min-width: 0; }
 .lb-id > div { min-width: 0; }
 .frow.best .fmodel, .frow.best .fbrier { color: var(--trophy); font-weight: 650; }
@@ -352,8 +352,8 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
 
   .frow { grid-template-columns: 96px 1fr auto; gap: 8px; }
   .frow .fmodel { font-size: 12px; gap: 5px; }
-  .crest { width: 18px; height: 18px; padding: 2.5px; }
-  .crest-lg { width: 26px; height: 26px; padding: 4px; }
+  .crest { width: 17px; height: 20px; }
+  .crest-lg { width: 24px; height: 28px; }
   .fbrier { min-width: 44px; font-size: 12.5px; }
 
   .lb-row { grid-template-columns: 30px minmax(0, 1fr) auto; padding: 12px 14px; gap: 10px; }
