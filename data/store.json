@@ -12133,6 +12133,54 @@
             "rationale": "With the match goalless deep into extra time, a penalty shootout is the most likely decider, making the outcome essentially a coin flip."
           }
         }
+      },
+      {
+        "at": "2026-07-07T22:43:23.749Z",
+        "detail": "AET-pens",
+        "score": [
+          0,
+          0
+        ],
+        "events": 1,
+        "period": "STATUS_END_OF_EXTRATIME",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.02,
+              "away": 0.98
+            },
+            "rationale": "Colombia has just scored in the penalty shootout while Switzerland has not, giving them an overwhelming advantage to advance."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0,
+              "away": 1
+            },
+            "rationale": "A goal in the penalty shootout at 120' AET-pens means Colombia has won the tie and Switzerland can no longer advance."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0,
+              "away": 1
+            },
+            "rationale": "Colombia has just scored a penalty in the final minute of extra time, making the score 0-1 with no time remaining for Switzerland to equalize."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.05,
+              "away": 0.95
+            },
+            "rationale": "Colombia lead by a goal with the penalty shootout about to start, giving them overwhelming odds to finish the job."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.15,
+              "away": 0.85
+            },
+            "rationale": "Colombia just scored a penalty in the 120th minute to lead 1-0, giving them a strong advantage heading into the final moments of extra time or potential penalties."
+          }
+        }
       }
     ],
     "760509": [
