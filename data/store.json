@@ -11678,6 +11678,61 @@
             "rationale": "Egypt's 2-goal lead with under 25 minutes remaining is commanding, though Argentina's quality could still spark a comeback."
           }
         }
+      },
+      {
+        "at": "2026-07-07T17:35:41.528Z",
+        "detail": "69'",
+        "score": [
+          0,
+          2
+        ],
+        "events": 2,
+        "period": "STATUS_SECOND_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.15,
+              "away": 0.85
+            },
+            "rationale": "With only 21 minutes remaining and Egypt leading 2-0, Argentina faces an extremely difficult task requiring two goals while preventing any Egyptian response, though their quality as a top team keeps a small comeback possibility alive."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.18,
+              "away": 0.82
+            },
+            "rationale": "Argentina are strong favourites on paper but trailing by two with only about 20 minutes plus stoppage remaining makes Egypt a clear favourite to advance."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.15,
+              "away": 0.85
+            },
+            "rationale": "Argentina faces a very difficult task to overcome a two-goal deficit with only 20 minutes left in regulation against a defensively strong Egypt."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.12,
+              "away": 0.88
+            },
+            "rationale": "Egypt's two-goal cushion with 21 minutes remaining, combined with Argentina's need to chase the game, makes Egyptian advancement highly probable despite Argentina's quality."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.15,
+              "away": 0.85
+            },
+            "rationale": "Egypt leads 2-0 with just over 20 minutes remaining, putting Argentina in a difficult position to overturn the deficit despite their historical strength."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.12,
+              "away": 0.88
+            },
+            "rationale": "Egypt leads 2-0 with ~21 minutes remaining, giving them a commanding position though Argentina's quality makes a comeback possible."
+          }
+        }
       }
     ]
   },
