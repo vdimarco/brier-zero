@@ -11561,6 +11561,68 @@
             "rationale": "Argentina are strong but down 0-2 with ~30 minutes left, so a comeback is unlikely."
           }
         }
+      },
+      {
+        "at": "2026-07-07T17:27:31.433Z",
+        "detail": "61'",
+        "score": [
+          0,
+          1
+        ],
+        "events": 1,
+        "period": "STATUS_SECOND_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.72,
+              "away": 0.28
+            },
+            "rationale": "Despite trailing by one goal with 29 minutes plus stoppage remaining, Argentina's superior quality and attacking depth make them strong favorites to equalize and progress, though Egypt's defensive organization and lead cannot be dismissed."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.58,
+              "away": 0.42
+            },
+            "rationale": "Despite trailing 0-1 on 61 minutes, Argentina’s superior quality and attacking strength make them slight favorites to come back and advance, but Egypt’s lead and game state keep the matchup fairly balanced."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.35,
+              "away": 0.65
+            },
+            "rationale": "Egypt leads and has a solid defense, making them favorites, but Argentina's attacking quality means a comeback is still very possible."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.35,
+              "away": 0.65
+            },
+            "rationale": "Egypt still up a goal past the hour, Argentina need two and time is shrinking, so Egypt are clear but not safe favorites."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.57,
+              "away": 0.43
+            },
+            "rationale": "Despite trailing, Argentina's superior quality and the remaining 30 minutes plus potential extra time give them a slight edge to overturn Egypt's lead."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.65,
+              "away": 0.35
+            },
+            "rationale": "Despite trailing, Argentina's superior squad depth and historical resilience in knockout stages make them more likely to equalize and eventually win, especially with nearly 30 minutes plus stoppage time remaining."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.45,
+              "away": 0.55
+            },
+            "rationale": "Egypt leads 1-0 with ~29 minutes remaining, giving them a meaningful advantage, but Argentina's quality and time remaining still make them competitive."
+          }
+        }
       }
     ]
   },
