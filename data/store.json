@@ -11162,6 +11162,61 @@
             "rationale": "Argentina is the stronger side with over 60 minutes remaining to equalize and complete a comeback."
           }
         }
+      },
+      {
+        "at": "2026-07-07T16:44:46.854Z",
+        "detail": "42'",
+        "score": [
+          0,
+          1
+        ],
+        "events": 1,
+        "period": "STATUS_FIRST_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.72,
+              "away": 0.28
+            },
+            "rationale": "Despite trailing by one goal near halftime, Argentina's significant quality advantage and 48+ minutes remaining (including potential extra time) make them strong favorites to overturn the deficit against Egypt."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.58,
+              "away": 0.42
+            },
+            "rationale": "Despite trailing late in the first half, Argentina’s overall strength and time remaining still make them slight favorites to come back and advance."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.45,
+              "away": 0.55
+            },
+            "rationale": "Egypt has the lead and momentum, but Argentina is a strong team with plenty of time to equalize."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "Egypt's early goal and Argentina's uncharacteristic struggles against a compact defense give the underdogs a slight edge, though Argentina's quality keeps it nearly even."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.45,
+              "away": 0.55
+            },
+            "rationale": "Egypt leads early through a set-piece goal and has shown solid defensive organization, but Argentina's superior squad depth and historical resilience in knockout games keep them competitive."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.68,
+              "away": 0.32
+            },
+            "rationale": "Despite trailing 1-0, Argentina has nearly a full half to equalize and possesses significantly higher quality than Egypt, making them the favorites to advance."
+          }
+        }
       }
     ]
   },
