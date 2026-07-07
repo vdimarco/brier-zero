@@ -792,12 +792,13 @@ window.addEventListener('keydown', (e) => {
    rest of the field pools into a muted band on top. Colors deliberately
    avoid green (the page chrome is pitch-green) and are CVD-validated. */
 const TROPHY_COLORS = [
-  '#2563eb', '#f59e0b', '#7c3aed', '#dc2626', '#0891b2', '#db2777',
-  '#a3550a', '#4338ca', '#ea580c', '#0369a1', '#9f1239',
+  '#2563eb', '#f59e0b', '#dc2626', '#7c3aed', '#0891b2', '#db2777',
+  '#a3550a', '#4338ca', '#ea580c', '#0369a1', '#9f1239', '#c026d3',
+  '#ca8a04', '#be123c', '#6d28d9',
 ];
 const TROPHY_FIELD = '#c7c6bd';
-const FIELD_KEY = '__eliminated__';
-const FIELD_LABEL = 'Eliminated';
+const FIELD_KEY = '__others__';
+const FIELD_LABEL = 'Others';
 
 function outrightConsensus(entry) {
   const lists = Object.values(entry.models).filter((m) => m.probs);
@@ -980,19 +981,20 @@ function renderTrophy(state) {
   const logos = {};
   for (const m of state.matches) for (const s of [m.home, m.away]) if (s.logo) logos[s.name] = s.logo;
   const top = ranked.slice(0, 6);
-  // Chart bands are every team still in the tournament, plus any team that
-  // was alive in the previous round but is out now, so a just-knocked-out
-  // side still shows its band pinching to zero over that last interval
-  // before it drops into the Eliminated residual. Ordered by current
-  // share, strongest at the baseline; the residual keeps every column at
-  // 100% (it holds the belief once placed on teams eliminated earlier).
-  const prev = history[history.length - 2];
+  // A team gets its own band if it is still alive OR it was ever a real
+  // contender (peak consensus >= 5%). That keeps every remaining team on
+  // the chart AND lets a knocked-out favourite - Brazil, Portugal - keep
+  // its band and visibly collapse to zero at the round it went out,
+  // rather than vanishing straight into the residual. Only the true
+  // minnows, who never had a band, pool into Others so each column still
+  // fills to 100%. Ordered by peak, strongest at the baseline.
+  const PEAK_BAND = 0.05;
+  const peak = {};
+  for (const h of history) for (const t of h.teams) peak[t] = Math.max(peak[t] ?? 0, h.consensus[t] ?? 0);
   const aliveNow = new Set(latest.teams.filter((t) => (latest.consensus[t] ?? 0) > 0));
-  const shownSet = new Set(aliveNow);
-  if (prev) for (const t of prev.teams) if ((prev.consensus[t] ?? 0) > 0) shownSet.add(t);
-  const contenders = [...shownSet].sort(
-    (a, b) => (latest.consensus[b] ?? 0) - (latest.consensus[a] ?? 0)
-  );
+  const contenders = Object.keys(peak)
+    .filter((t) => aliveNow.has(t) || peak[t] >= PEAK_BAND)
+    .sort((a, b) => peak[b] - peak[a]);
   const spread = (t) => {
     const ps = Object.values(latest.models).filter((m) => m.probs).map((m) => m.probs[t] ?? 0);
     return `${esc(t)}: models range ${pct(Math.min(...ps))}% to ${pct(Math.max(...ps))}%`;
@@ -1012,7 +1014,7 @@ function renderTrophy(state) {
     ${history.length > 1
       ? `<div class="trophy-chart">
           <div class="chart">${trophyChart(history, contenders)}</div>
-          <p class="fnote">Every remaining team is a band; each round fills to 100%, so a band's height is that team's share of the models' championship belief. Bands widen as the field narrows, a just-eliminated team's band pinches to zero, and the grey Eliminated area holds the belief once placed on teams already out. Hover or tap any round for the full breakdown.</p>
+          <p class="fnote">Every remaining team, and every fallen favourite, is a band; each round fills to 100%, so a band's height is that team's share of the models' championship belief. Bands widen as the field narrows, and a team's band pinches to zero and disappears the round it is knocked out. The grey Others area is the long tail of teams that never held a real chance. Hover or tap any round for the full breakdown.</p>
         </div>`
       : `<p class="fnote">Collected ${esc(new Intl.DateTimeFormat(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }).format(new Date(latest.at)))}. The over-time chart appears after the next collection round.</p>`}
   </div>`;
