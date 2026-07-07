@@ -12284,6 +12284,54 @@
             "rationale": "After each team scored their first penalty, the shootout is tied and both sides have equal chances."
           }
         }
+      },
+      {
+        "at": "2026-07-07T22:48:21.873Z",
+        "detail": "Pens",
+        "score": [
+          0,
+          0
+        ],
+        "events": 4,
+        "period": "STATUS_SHOOTOUT",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "With the penalty shootout tied 2-2 after four kicks and no information about which team shoots next or any missed penalties, both teams have equal probability of advancing."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.53,
+              "away": 0.47
+            },
+            "rationale": "With penalties level after two converted kicks each and no clear shootout edge visible, advancement chances are close to even with a slight tilt toward Switzerland."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "The match is currently in a penalty shootout with the score 0-0 after extra time, making both teams equally likely to advance."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "With the penalty shootout tied 2-2 and no information about remaining kickers, both teams have equal probability to advance from this symmetric situation."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "Both teams have scored two penalties each in the shootout, making the outcome equally uncertain with no clear advantage."
+          }
+        }
       }
     ],
     "760509": [
