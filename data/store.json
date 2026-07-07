@@ -12015,6 +12015,61 @@
             "rationale": "Argentina has completely dominated the final 15 minutes with three unanswered goals and is seconds away from victory."
           }
         }
+      },
+      {
+        "at": "2026-07-07T18:05:02.626Z",
+        "detail": "90'+10'",
+        "score": [
+          3,
+          2
+        ],
+        "events": 5,
+        "period": "STATUS_SECOND_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.98,
+              "away": 0.02
+            },
+            "rationale": "With Argentina leading 3-2 in the 10th minute of stoppage time, there are likely only seconds remaining and Egypt would need to score immediately from the restart, making an Argentina victory almost certain."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.99,
+              "away": 0.01
+            },
+            "rationale": "Argentina leads by one deep into stoppage time with momentum after three late goals, making an Egypt comeback extremely unlikely but not impossible."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.99,
+              "away": 0.01
+            },
+            "rationale": "Argentina has just scored in second-half stoppage time to take a 3-2 lead, and the match is essentially over with the final whistle imminent."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.98,
+              "away": 0.02
+            },
+            "rationale": "Argentina leads 3-2 with only stoppage time remaining and Egypt showing no signs of mounting a comeback after conceding three goals in 11 minutes."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.98,
+              "away": 0.02
+            },
+            "rationale": "Argentina leads 3-2 deep into stoppage time with momentum from three unanswered goals, making an Egyptian equalizer or comeback extremely unlikely."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.99,
+              "away": 0.01
+            },
+            "rationale": "Argentina has completed a comeback from 2-0 down to lead 3-2 in the 92nd minute with just seconds remaining in stoppage time, making advancement virtually certain."
+          }
+        }
       }
     ]
   },
