@@ -12071,6 +12071,68 @@
             "rationale": "With the match still tied deep into extra time and no clear dominance from either side, Colombia has a slight edge due to marginally stronger recent form and squad depth."
           }
         }
+      },
+      {
+        "at": "2026-07-07T22:35:48.502Z",
+        "detail": "119'",
+        "score": [
+          0,
+          0
+        ],
+        "events": 0,
+        "period": "STATUS_OVERTIME",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "With the match at 119 minutes still tied 0-0 and no key events, the game is going to penalties where both teams have essentially equal chances of advancing."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.47,
+              "away": 0.53
+            },
+            "rationale": "With the match seconds from full time and no major events, it is effectively a coin flip slightly tilted toward Colombia based on marginally higher perceived overall quality and penalty-edge assumptions."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "The match is in the 119th minute at 0-0, meaning it is effectively over and will be decided by a penalty shootout, which is a 50-50 proposition."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "With only minutes remaining in extra time and no goals scored, this is essentially a coin flip heading to penalties where Switzerland's historical edge in shootouts and slightly more composed defensive structure gives them a narrow advantage."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "With the score level at 0-0 in the 119th minute, the match is effectively heading to a penalty shootout, which is statistically a coin toss."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "With the match tied 0-0 deep into extra time and no key events altering momentum, both teams have equal chances of advancing via penalties or a last-minute goal."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "With the match goalless deep into extra time, a penalty shootout is the most likely decider, making the outcome essentially a coin flip."
+          }
+        }
       }
     ],
     "760509": [
