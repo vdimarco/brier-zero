@@ -193,31 +193,47 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
 .trophy-row:first-child .trophy-bar i { background: var(--trophy-fill); }
 .trophy-p { text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; }
 .trophy-chart { min-width: 0; position: relative; }
-.trophy-svg { cursor: crosshair; }
-.trophy-tip {
+.trophy-svg, .lb-svg { cursor: crosshair; }
+.chart-tip {
   position: absolute; top: 6px; z-index: 5; pointer-events: none;
   background: var(--surface); border: 1px solid var(--hairline);
   border-radius: 10px; box-shadow: 0 4px 16px rgba(23, 46, 22, 0.14);
-  padding: 8px 10px; min-width: 132px; max-width: 200px;
+  padding: 8px 10px; min-width: 132px; max-width: 220px;
 }
-.trophy-tip .tt-head {
+.chart-tip .tt-head {
   font-size: 11.5px; font-weight: 700; color: var(--ink);
   margin-bottom: 5px; padding-bottom: 5px; border-bottom: 1px solid var(--hairline);
 }
-.trophy-tip .tt-row {
+.chart-tip .tt-row {
   display: flex; align-items: center; gap: 6px;
   font-size: 12px; color: var(--ink-2); line-height: 1.7;
 }
-.trophy-tip .tt-team { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.trophy-tip .tt-row b { color: var(--ink); font-variant-numeric: tabular-nums; }
-.trophy-tip .tt-sw { width: 9px; height: 9px; border-radius: 2px; flex: none; }
+.chart-tip .tt-team { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.chart-tip .tt-row b { color: var(--ink); font-variant-numeric: tabular-nums; }
+.chart-tip .tt-sw { width: 9px; height: 9px; border-radius: 2px; flex: none; }
+
+/* "Nobody saw it coming" callout: the match every model got wrong. */
+.lb-miss {
+  display: block; width: 100%; text-align: left; cursor: pointer;
+  background: var(--surface); border: 1px solid var(--hairline);
+  border-left: 3px solid var(--away); border-radius: var(--radius-card);
+  box-shadow: 0 1px 2px rgba(23, 46, 22, 0.05);
+  padding: 12px 16px; margin-bottom: 14px; font: inherit; color: var(--ink-2);
+}
+.lb-miss:hover { border-color: var(--away); }
+.lb-miss-tag {
+  display: block; font-size: 11px; font-weight: 800; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--away); margin-bottom: 4px;
+}
+.lb-miss-body { font-size: 13.5px; line-height: 1.5; }
+.lb-miss-body b { color: var(--ink); }
 
 /* Leaderboard */
 .lb-chart-card {
   background: var(--surface); border-radius: var(--radius-card);
   border: 1px solid var(--hairline);
   box-shadow: 0 1px 2px rgba(23, 46, 22, 0.05);
-  padding: 16px; margin-bottom: 14px;
+  padding: 16px; margin-bottom: 14px; position: relative;
 }
 .lb-chart-title { font-size: 14px; margin: 0 0 4px; }
 .lb-wrap {
