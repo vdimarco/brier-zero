@@ -19,6 +19,17 @@ const fmtKickoff = new Intl.DateTimeFormat(undefined, {
   weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit',
 });
 
+// Closing a detail panel clears the #m/... or #p/... hash. Setting
+// location.hash = '' leaves an empty fragment, and browsers treat "no
+// fragment" as "scroll to top of document" - so every close snapped the
+// page back to the header. replaceState drops the hash without touching
+// scroll position; it does not fire hashchange, so the re-render is
+// triggered by hand.
+function closeDetail() {
+  history.replaceState(null, '', location.pathname + location.search);
+  if (lastState) renderDetail(lastState);
+}
+
 function pct(p) {
   return Math.round(p * 100);
 }
@@ -233,6 +244,39 @@ function matchCard(match, state) {
   </article>`;
 }
 
+/* Leaderboard trend: has the model's second half of matches scored
+   better or worse than its first half? Needs a few matches either side
+   to say anything meaningful. */
+function trendOf(perMatch) {
+  if (!perMatch || perMatch.length < 6) return null;
+  const mid = Math.ceil(perMatch.length / 2);
+  const avg = (list) => list.reduce((a, p) => a + p.brier, 0) / list.length;
+  const diff = avg(perMatch.slice(0, mid)) - avg(perMatch.slice(mid));
+  if (Math.abs(diff) < 0.01) return 'flat';
+  return diff > 0 ? 'up' : 'down';
+}
+
+/* Small inline chart of the running-average Brier score, match by match,
+   so the leaderboard shows how each model has tracked over time without
+   opening its detail page. Auto-scaled to the model's own range since it
+   is read for shape, not absolute value. */
+function sparkline(perMatch) {
+  if (!perMatch || perMatch.length < 2) return '';
+  const n = perMatch.length;
+  let cum = 0;
+  const cums = perMatch.map((p, i) => { cum += p.brier; return cum / (i + 1); });
+  const W = 108, H = 28, pad = 3;
+  const yMin = Math.min(...cums), yMax = Math.max(...cums);
+  const span = Math.max(yMax - yMin, 0.015);
+  const x = (i) => pad + (i * (W - 2 * pad)) / (n - 1);
+  const y = (v) => pad + (1 - (v - yMin) / span) * (H - 2 * pad);
+  const path = cums.map((v, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join('');
+  return `<svg class="spark-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="Running average Brier score over ${n} matches, from ${cums[0].toFixed(3)} to ${cums[n - 1].toFixed(3)}">
+    <path d="${path}" fill="none" stroke="var(--pitch)" stroke-width="1.6" stroke-linejoin="round"/>
+    <circle cx="${x(n - 1).toFixed(1)}" cy="${y(cums[n - 1]).toFixed(1)}" r="2.2" fill="var(--pitch)"/>
+  </svg>`;
+}
+
 function renderLeaderboard(state) {
   const el = $('#leaderboard');
   const scored = state.leaderboard.filter((r) => r.scored > 0);
@@ -244,22 +288,30 @@ function renderLeaderboard(state) {
   el.classList.remove('skeleton-block');
   el.innerHTML = `<div class="lb-wrap">${state.leaderboard
     .map((r, i) => {
+      const trend = trendOf(r.perMatch);
+      const trendBadge = trend === 'up'
+        ? '<span class="lb-trend lb-trend-up" title="Scored better in its second half of matches than its first">▲ improving</span>'
+        : trend === 'down'
+        ? '<span class="lb-trend lb-trend-down" title="Scored worse in its second half of matches than its first">▼ cooling</span>'
+        : '';
       return `<div class="lb-row${i === 0 && r.avgBrier != null ? ' leader' : ''}" data-model="${esc(r.model)}" role="button" tabindex="0" title="Open ${esc(r.label)}: performance over time" aria-label="Open performance detail for ${esc(r.label)}">
         <div class="lb-rank">${r.avgBrier == null ? '-' : i + 1}</div>
         <div class="lb-id">${
           (state.models.find((m) => m.id === r.model)?.icon)
             ? `<img class="crest crest-lg" src="${esc(state.models.find((m) => m.id === r.model).icon)}" alt="" onerror="this.style.visibility='hidden'">`
             : ''
-        }<div><span class="lb-name">${esc(r.label)}</span><span class="lb-slug">${esc(r.model)}</span></div></div>
+        }<div><span class="lb-name">${esc(r.label)}</span><span class="lb-slug">${esc(r.model)}</span>${
+          sparkline(r.perMatch) ? `<div class="lb-spark">${sparkline(r.perMatch)}${trendBadge}</div>` : ''
+        }</div></div>
         <div class="lb-score">
-          <div class="lb-brier">${r.avgBrier == null ? '-' : r.avgBrier.toFixed(3) + (r.retroScored ? '*' : '')}</div>
+          <div class="lb-brier">${r.avgBrier == null ? '-' : r.avgBrier.toFixed(3)}</div>
           <div class="lb-meta">${r.scored} scored / ${r.predicted} forecast${r.predicted === 1 ? '' : 's'}</div>
         </div>
       </div>`;
     })
     .join('')}</div>${
     state.leaderboard.some((r) => r.retroScored)
-      ? `<p class="footnote">* Includes backfilled matches: forecast after the fact with the same prompt. Every model's training data predates this tournament, so the results were unknowable to them, but these forecasts lack the pre-kickoff lock.</p>`
+      ? `<p class="footnote">Includes backfilled matches: forecast after the fact with the same prompt. Every model's training data predates this tournament, so the results were unknowable to them, but these forecasts lack the pre-kickoff lock.</p>`
       : ''
   }`;
   for (const row of el.querySelectorAll('[data-model]')) {
@@ -449,7 +501,7 @@ function renderModelDetail(state, modelId) {
       <button class="detail-close" data-close aria-label="Close">✕</button>
     </div>
     <div class="stat-row">
-      <div class="stat"><div class="stat-v">${row.avgBrier == null ? '-' : row.avgBrier.toFixed(3) + (row.retroScored ? '*' : '')}</div><div class="stat-l">avg Brier</div></div>
+      <div class="stat"><div class="stat-v">${row.avgBrier == null ? '-' : row.avgBrier.toFixed(3)}</div><div class="stat-l">avg Brier</div></div>
       <div class="stat"><div class="stat-v">${row.scored}</div><div class="stat-l">scored</div></div>
       <div class="stat"><div class="stat-v">${points.filter(beats).length}</div><div class="stat-l">beat the coin flip</div></div>
     </div>
@@ -464,7 +516,7 @@ function renderModelDetail(state, modelId) {
   </section>`;
   document.body.style.overflow = 'hidden';
   for (const c of el.querySelectorAll('[data-close]')) {
-    c.addEventListener('click', () => { location.hash = ''; });
+    c.addEventListener('click', closeDetail);
   }
 }
 
@@ -504,19 +556,21 @@ function renderDetail(state) {
   </section>`;
   document.body.style.overflow = 'hidden';
   for (const c of el.querySelectorAll('[data-close]')) {
-    c.addEventListener('click', () => { location.hash = ''; });
+    c.addEventListener('click', closeDetail);
   }
 }
 
 window.addEventListener('hashchange', () => { if (lastState) renderDetail(lastState); });
 window.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && (location.hash.startsWith('#m/') || location.hash.startsWith('#p/'))) location.hash = '';
+  if (e.key === 'Escape' && (location.hash.startsWith('#m/') || location.hash.startsWith('#p/'))) closeDetail();
 });
 
 /* Trophy race: consensus tournament-winner probability per team, over
    time. Ranked list of the current favorites plus an evolution chart
-   once there is more than one collection round. */
-const TROPHY_COLORS = ['#2a78d6', '#1baf7a', '#eda100', '#008300', '#4a3aa7', '#e34948'];
+   once there is more than one collection round. Colors deliberately
+   avoid green: the page chrome is pitch-green throughout, and a green
+   series line disappeared into it. */
+const TROPHY_COLORS = ['#2563eb', '#f59e0b', '#7c3aed', '#dc2626', '#0891b2', '#a3550a'];
 
 function outrightConsensus(entry) {
   const lists = Object.values(entry.models).filter((m) => m.probs);
@@ -526,29 +580,62 @@ function outrightConsensus(entry) {
   return c;
 }
 
+const fmtTrophyTick = new Intl.DateTimeFormat(undefined, {
+  month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit',
+});
+const fmtTrophyFull = new Intl.DateTimeFormat(undefined, {
+  weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit',
+});
+// A retro round-boundary anchor gets its own label ("Round of 16 start");
+// a live collection round is identified by date and time, since several
+// can land on the same day and a bare date can't tell them apart.
+const tickLabel = (h) => h.label ?? fmtTrophyTick.format(new Date(h.at));
+
+/* Points are spaced by index, not by elapsed time: the two retro anchors
+   sit weeks before the live collection rounds, and scaling the x-axis to
+   real time would crush every recent point into a sliver on the right. */
 function trophyChart(history, topTeams) {
-  const W = 660, H = 250, padL = 40, padR = 26, padT = 14, padB = 26;
+  const W = 700, H = 320, padL = 58, padR = 108, padT = 18, padB = 56;
   const n = history.length;
   const series = topTeams.map((t, i) => ({ team: t, color: TROPHY_COLORS[i % TROPHY_COLORS.length] }));
   const yMax = Math.max(0.3, ...history.flatMap((h) => topTeams.map((t) => h.consensus[t] ?? 0))) * 1.15;
-  const x = (i) => padL + (i * (W - padL - padR)) / (n - 1);
+  const x = (i) => (n === 1 ? padL : padL + (i * (W - padL - padR)) / (n - 1));
   const y = (v) => padT + (1 - v / yMax) * (H - padT - padB);
-  const fmtDay = new Intl.DateTimeFormat(undefined, { month: 'short', day: 'numeric' });
+  const rotateTicks = n > 5;
+
   let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Consensus probability of winning the tournament, per team over time">`;
-  for (const g of [0, Math.round(yMax * 50) / 100]) {
-    svg += `<line x1="${padL}" y1="${y(g)}" x2="${W - padR}" y2="${y(g)}" stroke="var(--hairline)" stroke-width="1"/>`;
-    svg += `<text x="${padL - 6}" y="${y(g) + 4}" text-anchor="end" font-size="10" fill="var(--ink-3)">${Math.round(g * 100)}%</text>`;
+  for (const g of [0, yMax / 2, yMax]) {
+    svg += `<line x1="${padL}" y1="${y(g).toFixed(1)}" x2="${W - padR}" y2="${y(g).toFixed(1)}" stroke="var(--hairline)" stroke-width="1" stroke-dasharray="${g === 0 ? '0' : '3 4'}"/>`;
+    svg += `<text x="${padL - 8}" y="${y(g).toFixed(1)}" dy="3.5" text-anchor="end" font-size="10.5" fill="var(--ink-3)">${Math.round(g * 100)}%</text>`;
   }
+
   for (const s of series) {
     const path = history.map((h, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(h.consensus[s.team] ?? 0).toFixed(1)}`).join('');
-    svg += `<path d="${path}" fill="none" stroke="${s.color}" stroke-width="2" stroke-linejoin="round"/>`;
+    svg += `<path d="${path}" fill="none" stroke="${s.color}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>`;
     history.forEach((h, i) => {
-      svg += `<circle cx="${x(i).toFixed(1)}" cy="${y(h.consensus[s.team] ?? 0).toFixed(1)}" r="3.5" fill="${s.color}">` +
-        `<title>${esc(s.team)}: ${pct(h.consensus[s.team] ?? 0)}% on ${esc(fmtDay.format(new Date(h.at)))}</title></circle>`;
+      svg += `<circle cx="${x(i).toFixed(1)}" cy="${y(h.consensus[s.team] ?? 0).toFixed(1)}" r="3.5" fill="${s.color}" stroke="var(--surface)" stroke-width="1.5">` +
+        `<title>${esc(s.team)}: ${pct(h.consensus[s.team] ?? 0)}% at ${esc(h.label ?? fmtTrophyFull.format(new Date(h.at)))}</title></circle>`;
     });
   }
+
+  // End-of-line labels replace a separate color legend; nudge apart any
+  // that land within 15px of each other so close final values don't
+  // overlap into an unreadable stack.
+  const ends = series
+    .map((s) => ({ ...s, y: y(history[n - 1].consensus[s.team] ?? 0) }))
+    .sort((a, b) => a.y - b.y);
+  for (let i = 1; i < ends.length; i++) {
+    if (ends[i].y - ends[i - 1].y < 15) ends[i].y = ends[i - 1].y + 15;
+  }
+  for (const s of ends) {
+    svg += `<text x="${x(n - 1) + 8}" y="${s.y.toFixed(1)}" dy="3.5" font-size="11.5" font-weight="700" fill="${s.color}">${esc(s.team)}</text>`;
+  }
+
   history.forEach((h, i) => {
-    svg += `<text x="${x(i).toFixed(1)}" y="${H - 8}" text-anchor="middle" font-size="10" fill="var(--ink-3)">${esc(fmtDay.format(new Date(h.at)))}</text>`;
+    const label = esc(tickLabel(h));
+    svg += rotateTicks
+      ? `<text x="${x(i).toFixed(1)}" y="${H - padB + 10}" text-anchor="end" font-size="10" fill="var(--ink-3)" transform="rotate(-32 ${x(i).toFixed(1)} ${H - padB + 10})">${label}</text>`
+      : `<text x="${x(i).toFixed(1)}" y="${H - padB + 18}" text-anchor="middle" font-size="10" fill="var(--ink-3)">${label}</text>`;
   });
   svg += '</svg>';
   return svg;
@@ -558,8 +645,9 @@ function renderTrophy(state) {
   const section = $('#trophy-section');
   const el = $('#trophy');
   const history = (state.outright ?? [])
-    .map((e) => ({ at: e.at, teams: e.teams, consensus: outrightConsensus(e), models: e.models }))
-    .filter((e) => e.consensus);
+    .map((e) => ({ at: e.at, label: e.label, teams: e.teams, consensus: outrightConsensus(e), models: e.models }))
+    .filter((e) => e.consensus)
+    .sort((a, b) => new Date(a.at) - new Date(b.at));
   if (!history.length) { section.hidden = true; return; }
   section.hidden = false;
   const latest = history[history.length - 1];
@@ -587,7 +675,6 @@ function renderTrophy(state) {
     </div>
     ${history.length > 1
       ? `<div class="trophy-chart">
-          <div class="trophy-legend">${top.map((r, i) => `<span class="legend-chip"><i style="background:${TROPHY_COLORS[i % TROPHY_COLORS.length]}"></i>${esc(r.team)}</span>`).join('')}</div>
           <div class="chart">${trophyChart(history, top.map((r) => r.team))}</div>
         </div>`
       : `<p class="fnote">Collected ${esc(new Intl.DateTimeFormat(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }).format(new Date(latest.at)))}. The over-time chart appears after the next collection round.</p>`}
@@ -668,7 +755,7 @@ function renderTicker(state) {
     }` });
   }
   const leader = state.leaderboard.find((r) => r.avgBrier != null);
-  if (leader) items.push({ go: `p/${encodeURIComponent(leader.model)}`, html: `<span class="tick-gold">Brier Cup leader</span> ${esc(leader.label)} ${leader.avgBrier.toFixed(3)}${leader.retroScored ? '*' : ''}` });
+  if (leader) items.push({ go: `p/${encodeURIComponent(leader.model)}`, html: `<span class="tick-gold">Brier Cup leader</span> ${esc(leader.label)} ${leader.avgBrier.toFixed(3)}` });
 
   const sep = '<span class="tick-sep" aria-hidden="true">&#9670;</span>';
   const half = items
