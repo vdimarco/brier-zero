@@ -11617,6 +11617,61 @@
             "rationale": "With 16 minutes left in a tight 0-0 match, Colombia's attacking style gives them a slight edge, though Switzerland's defensive organization makes them capable of forcing extra time."
           }
         }
+      },
+      {
+        "at": "2026-07-07T21:45:03.269Z",
+        "detail": "85'",
+        "score": [
+          0,
+          0
+        ],
+        "events": 0,
+        "period": "STATUS_SECOND_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.42,
+              "away": 0.58
+            },
+            "rationale": "With only 5 minutes remaining at 0-0, Colombia has a slight edge due to their stronger FIFA ranking and recent tournament performances, though Switzerland's defensive solidity keeps this relatively close with extra time and penalties likely."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.53,
+              "away": 0.47
+            },
+            "rationale": "With the match level at 85' and teams relatively even, Switzerland get a slight edge from marginally higher pre-match strength and current game state but it remains close to a coin flip."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "With five minutes left in a scoreless match, the game is extremely likely to go to extra time and penalties, making it a toss-up."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "With only 5 minutes plus stoppage time remaining in a scoreless match, the game is very likely headed to extra time where Switzerland's organized defensive structure and experience in tight knockout games gives them a slight edge, though Colombia's attacking talent keeps it nearly even."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "With no goals or major incidents by the 85th minute, Colombia holds a slight edge due to marginally stronger recent form and tournament momentum."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "With five minutes left in regulation and a tight, goalless match, Switzerland's defensive solidity and knockout experience give them a slight edge, though Colombia's attacking quality makes this essentially a coin-flip heading toward extra time or penalties."
+          }
+        }
       }
     ],
     "760509": [
