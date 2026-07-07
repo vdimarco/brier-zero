@@ -671,11 +671,15 @@ window.addEventListener('keydown', (e) => {
 });
 
 /* Trophy race: consensus tournament-winner probability per team, over
-   time. Ranked list of the current favorites plus an evolution chart
-   once there is more than one collection round. Colors deliberately
-   avoid green: the page chrome is pitch-green throughout, and a green
-   series line disappeared into it. */
-const TROPHY_COLORS = ['#2563eb', '#f59e0b', '#7c3aed', '#dc2626', '#0891b2', '#a3550a'];
+   time, drawn as a normalized stacked area. Each collection round is a
+   column that fills the full height (the field's probability sums to
+   100%), so the chart shows how belief consolidates around the favorites
+   as rounds are played. The ever-contenders each get a color band; the
+   rest of the field pools into a muted band on top. Colors deliberately
+   avoid green (the page chrome is pitch-green) and are CVD-validated. */
+const TROPHY_COLORS = ['#2563eb', '#f59e0b', '#7c3aed', '#dc2626', '#0891b2', '#a3550a', '#db2777'];
+const TROPHY_FIELD = '#c7c6bd';
+const FIELD_KEY = ' field';
 
 function outrightConsensus(entry) {
   const lists = Object.values(entry.models).filter((m) => m.probs);
@@ -685,62 +689,79 @@ function outrightConsensus(entry) {
   return c;
 }
 
-const fmtTrophyTick = new Intl.DateTimeFormat(undefined, {
-  month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit',
-});
-const fmtTrophyFull = new Intl.DateTimeFormat(undefined, {
-  weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit',
-});
-// A retro round-boundary anchor gets its own label ("Round of 16 start");
-// a live collection round is identified by date and time, since several
-// can land on the same day and a bare date can't tell them apart.
-const tickLabel = (h) => h.label ?? fmtTrophyTick.format(new Date(h.at));
+const fmtTrophyDay = new Intl.DateTimeFormat(undefined, { month: 'short', day: 'numeric' });
 
-/* Points are spaced by index, not by elapsed time: the two retro anchors
-   sit weeks before the live collection rounds, and scaling the x-axis to
-   real time would crush every recent point into a sliver on the right. */
-function trophyChart(history, topTeams) {
-  const W = 700, H = 320, padL = 58, padR = 108, padT = 18, padB = 56;
+/* Rounds are spaced by index, not elapsed time: the two retro anchors sit
+   weeks before the live rounds, and a real-time x-axis would crush every
+   recent point into a sliver. Bands are given bottom-to-top in `contenders`
+   order (strongest at the baseline); everything else is the Field. */
+function trophyChart(history, contenders) {
   const n = history.length;
-  const series = topTeams.map((t, i) => ({ team: t, color: TROPHY_COLORS[i % TROPHY_COLORS.length] }));
-  const yMax = Math.max(0.3, ...history.flatMap((h) => topTeams.map((t) => h.consensus[t] ?? 0))) * 1.15;
-  const x = (i) => (n === 1 ? padL : padL + (i * (W - padL - padR)) / (n - 1));
-  const y = (v) => padT + (1 - v / yMax) * (H - padT - padB);
-  const rotateTicks = n > 5;
+  const W = 720, H = 300, padL = 8, padR = 132, padT = 10, padB = 24;
+  const plotW = W - padL - padR, plotH = H - padT - padB;
+  const x = (i) => (n === 1 ? padL + plotW / 2 : padL + (i * plotW) / (n - 1));
+  const y = (v) => padT + (1 - v) * plotH; // v is a cumulative share in [0,1]
 
-  let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Consensus probability of winning the tournament, per team over time">`;
-  for (const g of [0, yMax / 2, yMax]) {
-    svg += `<line x1="${padL}" y1="${y(g).toFixed(1)}" x2="${W - padR}" y2="${y(g).toFixed(1)}" stroke="var(--hairline)" stroke-width="1" stroke-dasharray="${g === 0 ? '0' : '3 4'}"/>`;
-    svg += `<text x="${padL - 8}" y="${y(g).toFixed(1)}" dy="3.5" text-anchor="end" font-size="10.5" fill="var(--ink-3)">${Math.round(g * 100)}%</text>`;
-  }
+  const bands = contenders.map((t, i) => ({ key: t, label: t, color: TROPHY_COLORS[i % TROPHY_COLORS.length] }));
+  bands.push({ key: FIELD_KEY, label: 'Field', color: TROPHY_FIELD, muted: true });
 
-  for (const s of series) {
-    const path = history.map((h, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(h.consensus[s.team] ?? 0).toFixed(1)}`).join('');
-    svg += `<path d="${path}" fill="none" stroke="${s.color}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>`;
-    history.forEach((h, i) => {
-      svg += `<circle cx="${x(i).toFixed(1)}" cy="${y(h.consensus[s.team] ?? 0).toFixed(1)}" r="3.5" fill="${s.color}" stroke="var(--surface)" stroke-width="1.5">` +
-        `<title>${esc(s.team)}: ${pct(h.consensus[s.team] ?? 0)}% at ${esc(h.label ?? fmtTrophyFull.format(new Date(h.at)))}</title></circle>`;
-    });
-  }
+  const valAt = (key, i) => {
+    const c = history[i].consensus;
+    if (key === FIELD_KEY) return Math.max(0, 1 - contenders.reduce((s, t) => s + (c[t] ?? 0), 0));
+    return c[key] ?? 0;
+  };
+  // Cumulative bottom offset of each band at each round.
+  const bottoms = history.map((_, i) => {
+    let cum = 0;
+    return bands.map((b) => { const bot = cum; cum += valAt(b.key, i); return bot; });
+  });
 
-  // End-of-line labels replace a separate color legend; nudge apart any
-  // that land within 15px of each other so close final values don't
-  // overlap into an unreadable stack.
-  const ends = series
-    .map((s) => ({ ...s, y: y(history[n - 1].consensus[s.team] ?? 0) }))
+  let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Consensus probability of winning the tournament, per team, as a share of the field over time">`;
+
+  bands.forEach((band, bi) => {
+    const topEdge = history.map((_, i) => `${x(i).toFixed(1)},${y(bottoms[i][bi] + valAt(band.key, i)).toFixed(1)}`);
+    const botEdge = history.map((_, i) => `${x(i).toFixed(1)},${y(bottoms[i][bi]).toFixed(1)}`).reverse();
+    const first = pct(valAt(band.key, 0)), last = pct(valAt(band.key, n - 1));
+    svg += `<polygon points="${[...topEdge, ...botEdge].join(' ')}" fill="${band.color}" opacity="${band.muted ? 0.5 : 0.92}">` +
+      `<title>${esc(band.label)}: ${first}% then ${last}%</title></polygon>`;
+  });
+  // Thin surface separators between bands read as a gap without eating area.
+  bands.forEach((band, bi) => {
+    if (bi === bands.length - 1) return;
+    const edge = history.map((_, i) => `${x(i).toFixed(1)},${y(bottoms[i][bi] + valAt(band.key, i)).toFixed(1)}`).join(' ');
+    svg += `<polyline points="${edge}" fill="none" stroke="var(--surface)" stroke-width="1.4" stroke-linejoin="round"/>`;
+  });
+
+  // Direct labels at the right edge: a color swatch plus the team and its
+  // current share, vertically centred on each band and nudged apart so
+  // neighbours never overlap. Eliminated bands (0% now) carry no label.
+  const labels = bands
+    .map((band, bi) => ({
+      band,
+      v: valAt(band.key, n - 1),
+      y: y(bottoms[n - 1][bi] + valAt(band.key, n - 1) / 2),
+    }))
+    .filter((L) => L.v >= 0.012)
     .sort((a, b) => a.y - b.y);
-  for (let i = 1; i < ends.length; i++) {
-    if (ends[i].y - ends[i - 1].y < 15) ends[i].y = ends[i - 1].y + 15;
+  for (let i = 1; i < labels.length; i++) {
+    if (labels[i].y - labels[i - 1].y < 15) labels[i].y = labels[i - 1].y + 15;
   }
-  for (const s of ends) {
-    svg += `<text x="${x(n - 1) + 8}" y="${s.y.toFixed(1)}" dy="3.5" font-size="11.5" font-weight="700" fill="${s.color}">${esc(s.team)}</text>`;
+  const lx = W - padR + 8;
+  for (const L of labels) {
+    const ty = Math.min(Math.max(L.y, padT + 6), H - padB - 2);
+    svg += `<rect x="${lx}" y="${(ty - 4.5).toFixed(1)}" width="9" height="9" rx="2" fill="${L.band.color}"${L.band.muted ? ' opacity="0.6"' : ''}/>`;
+    svg += `<text x="${lx + 14}" y="${ty.toFixed(1)}" dy="3.5" font-size="11.5" fill="var(--ink-2)">` +
+      `<tspan font-weight="700" fill="${L.band.muted ? 'var(--ink-3)' : 'var(--ink)'}">${esc(L.band.label)}</tspan> ${pct(L.v)}%</text>`;
   }
 
+  // X axis: a short date under each column, shown only when the day changes
+  // so a cluster of same-day rounds reads as one clean label.
+  let lastDay = '';
   history.forEach((h, i) => {
-    const label = esc(tickLabel(h));
-    svg += rotateTicks
-      ? `<text x="${x(i).toFixed(1)}" y="${H - padB + 10}" text-anchor="end" font-size="10" fill="var(--ink-3)" transform="rotate(-32 ${x(i).toFixed(1)} ${H - padB + 10})">${label}</text>`
-      : `<text x="${x(i).toFixed(1)}" y="${H - padB + 18}" text-anchor="middle" font-size="10" fill="var(--ink-3)">${label}</text>`;
+    const d = fmtTrophyDay.format(new Date(h.at));
+    if (d === lastDay) return;
+    lastDay = d;
+    svg += `<text x="${x(i).toFixed(1)}" y="${H - 8}" text-anchor="${i === 0 ? 'start' : 'middle'}" font-size="10.5" fill="var(--ink-3)">${esc(d)}</text>`;
   });
   svg += '</svg>';
   return svg;
@@ -762,6 +783,13 @@ function renderTrophy(state) {
   const logos = {};
   for (const m of state.matches) for (const s of [m.home, m.away]) if (s.logo) logos[s.name] = s.logo;
   const top = ranked.slice(0, 6);
+  // Chart bands are the seven teams that were ever the strongest favorites
+  // (by peak consensus across the whole history), so a former favorite who
+  // has since been knocked out still shows its rise and collapse. Ordered
+  // strongest-first: they stack from the baseline up, field on top.
+  const peak = {};
+  for (const h of history) for (const t of h.teams) peak[t] = Math.max(peak[t] ?? 0, h.consensus[t] ?? 0);
+  const contenders = Object.keys(peak).sort((a, b) => peak[b] - peak[a]).slice(0, 7);
   const spread = (t) => {
     const ps = Object.values(latest.models).filter((m) => m.probs).map((m) => m.probs[t] ?? 0);
     return `${esc(t)}: models range ${pct(Math.min(...ps))}% to ${pct(Math.max(...ps))}%`;
@@ -780,7 +808,8 @@ function renderTrophy(state) {
     </div>
     ${history.length > 1
       ? `<div class="trophy-chart">
-          <div class="chart">${trophyChart(history, top.map((r) => r.team))}</div>
+          <div class="chart">${trophyChart(history, contenders)}</div>
+          <p class="fnote">Each round fills to 100%: the height of a team's band is its share of the models' championship belief. Watch the favorites' bands widen as the field narrows, and a knocked-out contender's band pinch to nothing.</p>
         </div>`
       : `<p class="fnote">Collected ${esc(new Intl.DateTimeFormat(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }).format(new Date(latest.at)))}. The over-time chart appears after the next collection round.</p>`}
   </div>`;
