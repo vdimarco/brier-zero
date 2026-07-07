@@ -13128,6 +13128,120 @@
           "rationale": "Probabilities reflect current squad strength, recent form, historical performance, and tournament context, with Argentina and France as top contenders and Egypt and Norway as longshots."
         }
       }
+    },
+    {
+      "at": "2026-07-07T18:07:03.963Z",
+      "teams": [
+        "Switzerland",
+        "Colombia",
+        "France",
+        "Morocco",
+        "Spain",
+        "Belgium",
+        "Norway",
+        "England",
+        "Argentina"
+      ],
+      "models": {
+        "anthropic/claude-sonnet-4.5": {
+          "probs": {
+            "Switzerland": 0.04,
+            "Colombia": 0.06,
+            "France": 0.22,
+            "Morocco": 0.07,
+            "Spain": 0.2,
+            "Belgium": 0.08,
+            "Norway": 0.03,
+            "England": 0.15,
+            "Argentina": 0.15
+          },
+          "rationale": "Probabilities based on historical performance, current FIFA rankings, squad strength, and recent tournament results, with France and Spain as favorites given their depth and consistency, followed by defending champions Argentina and perennial contenders England."
+        },
+        "openai/gpt-5.1": {
+          "probs": {
+            "Switzerland": 0.06,
+            "Colombia": 0.08,
+            "France": 0.2,
+            "Morocco": 0.05,
+            "Spain": 0.18,
+            "Belgium": 0.08,
+            "Norway": 0.03,
+            "England": 0.18,
+            "Argentina": 0.14
+          },
+          "rationale": "Based on historical strength, depth, and typical knockout variance, I expect France, Spain, and England to be slight co-favorites with Argentina close behind and the rest as longer shots."
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "probs": {
+            "Switzerland": 0.03,
+            "Colombia": 0.04,
+            "France": 0.22,
+            "Morocco": 0.02,
+            "Spain": 0.18,
+            "Belgium": 0.05,
+            "Norway": 0.01,
+            "England": 0.2,
+            "Argentina": 0.25
+          },
+          "rationale": "Based on current team strength, historical performance, and squad depth, France, Argentina, and England are the strongest contenders, while Norway and Morocco are considered the weakest remaining teams."
+        },
+        "moonshotai/kimi-k2-0905": {
+          "probs": {
+            "Switzerland": 0.03,
+            "Colombia": 0.04,
+            "France": 0.18,
+            "Morocco": 0.05,
+            "Spain": 0.22,
+            "Belgium": 0.06,
+            "Norway": 0.02,
+            "England": 0.15,
+            "Argentina": 0.25
+          },
+          "rationale": "Argentina and Spain are the strongest favorites based on recent form and squad depth, with France and England as secondary contenders, while Norway and Switzerland face the longest odds."
+        },
+        "z-ai/glm-4.6": {
+          "probs": {
+            "Switzerland": 0.08,
+            "Colombia": 0.07,
+            "France": 0.17,
+            "Morocco": 0.06,
+            "Spain": 0.14,
+            "Belgium": 0.1,
+            "Norway": 0.05,
+            "England": 0.15,
+            "Argentina": 0.18
+          },
+          "rationale": "Probabilities based on historical World Cup performance, current squad strength, and recent tournament results with traditional powerhouses given higher likelihood of winning."
+        },
+        "qwen/qwen3-max": {
+          "probs": {
+            "Switzerland": 0.05,
+            "Colombia": 0.06,
+            "France": 0.18,
+            "Morocco": 0.07,
+            "Spain": 0.12,
+            "Belgium": 0.08,
+            "Norway": 0.02,
+            "England": 0.15,
+            "Argentina": 0.27
+          },
+          "rationale": "Argentina and France are top contenders based on recent form and squad depth, Spain and England have strong teams but less recent tournament success, Belgium and Morocco are solid but aging or inconsistent, Colombia and Switzerland are dark horses, and Norway lacks World Cup pedigree despite individual talent."
+        },
+        "minimax/minimax-m2": {
+          "probs": {
+            "Switzerland": 0.04,
+            "Colombia": 0.06,
+            "France": 0.2,
+            "Morocco": 0.03,
+            "Spain": 0.15,
+            "Belgium": 0.1,
+            "Norway": 0.02,
+            "England": 0.18,
+            "Argentina": 0.22
+          },
+          "rationale": "Argentina, France, and England are the strongest contenders, with Spain and Belgium also competitive, while the remaining teams have lower but non-negligible chances."
+        }
+      }
     }
   ]
 }
