@@ -11052,6 +11052,68 @@
             "rationale": "Egypt leads 1-0 early but Argentina has 75+ minutes and superior firepower to mount a comeback in this knockout tie."
           }
         }
+      },
+      {
+        "at": "2026-07-07T16:28:26.888Z",
+        "detail": "25'",
+        "score": [
+          0,
+          1
+        ],
+        "events": 1,
+        "period": "STATUS_FIRST_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.72,
+              "away": 0.28
+            },
+            "rationale": "Despite trailing by one goal, Argentina's significant quality advantage and 65+ minutes remaining make them strong favorites to overturn the deficit against Egypt."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.63,
+              "away": 0.37
+            },
+            "rationale": "Despite trailing early, Argentina’s overall strength and remaining time make them more likely to come back and advance, but Egypt’s lead gives them a substantial chance."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.45,
+              "away": 0.55
+            },
+            "rationale": "Egypt has an early lead and a strong defensive setup, but Argentina's superior overall quality and attacking talent give them a good chance to mount a comeback."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.62,
+              "away": 0.38
+            },
+            "rationale": "Early goal gives Egypt a real edge, but Argentina still have 65+ minutes of elite pressure and firepower to turn it around."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.45,
+              "away": 0.55
+            },
+            "rationale": "Egypt's early goal gives them the advantage despite Argentina's superior quality, with knockout matches favoring the team that scores first."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.65,
+              "away": 0.35
+            },
+            "rationale": "Despite Egypt's early lead, Argentina's superior squad depth and historical tournament pedigree make them more likely to equalize and ultimately win the tie."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.62,
+              "away": 0.38
+            },
+            "rationale": "Argentina is the stronger side with ample time to overturn a single-goal deficit, though Egypt's early lead and defensive setup keep them very much in contention."
+          }
+        }
       }
     ]
   },
