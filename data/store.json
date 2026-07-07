@@ -12229,6 +12229,61 @@
             "rationale": "Colombia just scored a penalty in the 120th minute to lead 1-0, giving them a strong advantage heading into the final moments of extra time or potentially penalties if Switzerland equalizes."
           }
         }
+      },
+      {
+        "at": "2026-07-07T22:47:24.312Z",
+        "detail": "Pens",
+        "score": [
+          0,
+          0
+        ],
+        "events": 2,
+        "period": "STATUS_SHOOTOUT",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "With the penalty shootout tied 1-1 after two kicks each and no information about subsequent penalties, both teams have equal probability of advancing."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "With the shootout level after both teams scored their first penalties, the outcome is essentially a coin flip between Switzerland and Colombia."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "The match is currently in a penalty shootout after a 1-1 draw following extra time, making both teams equally likely to advance."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "With the penalty shootout tied 1-1 and no information about remaining kickers or momentum, both teams have equal probability to advance from this symmetric situation."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "Both teams have just scored penalties in the 120th minute, tying the match and sending it to a penalty shootout, where each team has roughly equal chance of advancing."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "After each team scored their first penalty, the shootout is tied and both sides have equal chances."
+          }
+        }
       }
     ],
     "760509": [
