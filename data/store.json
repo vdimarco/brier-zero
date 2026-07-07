@@ -11960,6 +11960,61 @@
             "rationale": "Argentina have the momentum after equalizing late and are slightly stronger overall, so they’re favored to win in regulation or extra time, with penalties still plausible."
           }
         }
+      },
+      {
+        "at": "2026-07-07T17:58:35.116Z",
+        "detail": "90'+2'",
+        "score": [
+          3,
+          2
+        ],
+        "events": 5,
+        "period": "STATUS_SECOND_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.97,
+              "away": 0.03
+            },
+            "rationale": "Argentina leads 3-2 in stoppage time with likely less than a minute remaining, making an Egypt equalizer extremely unlikely."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.997,
+              "away": 0.003
+            },
+            "rationale": "Argentina leads by one goal in the 92nd minute of normal time with almost no time left for Egypt to equalize."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.99,
+              "away": 0.01
+            },
+            "rationale": "Argentina has just scored a stoppage-time winner to lead 3-2, leaving Egypt with virtually no time to equalize."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.98,
+              "away": 0.02
+            },
+            "rationale": "Argentina leads 3-2 with only stoppage time remaining and Egypt showing no signs of mounting a comeback after conceding three goals in the final 15 minutes."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.98,
+              "away": 0.02
+            },
+            "rationale": "Argentina just took a 3-2 lead in second-half stoppage time, leaving Egypt virtually no time to respond, making an Argentine advancement overwhelmingly likely."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.98,
+              "away": 0.02
+            },
+            "rationale": "Argentina has completely dominated the final 15 minutes with three unanswered goals and is seconds away from victory."
+          }
+        }
       }
     ]
   },
