@@ -11011,6 +11011,47 @@
             "rationale": "Argentina is favored due to stronger squad depth and historical performance, but Egypt's defensive resilience keeps it competitive."
           }
         }
+      },
+      {
+        "at": "2026-07-07T16:17:33.713Z",
+        "detail": "15'",
+        "score": [
+          0,
+          1
+        ],
+        "events": 1,
+        "period": "STATUS_FIRST_HALF",
+        "market": "advance",
+        "models": {
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.63,
+              "away": 0.37
+            },
+            "rationale": "Despite Egypt’s early lead, Argentina’s superior quality, long time remaining, and knockout experience still make them clear but not overwhelming favorites to advance."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.62,
+              "away": 0.38
+            },
+            "rationale": "Argentina still favored despite early deficit due to superior talent and depth, but Egypt's early goal and defensive organization gives them meaningful upset chance."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.45,
+              "away": 0.55
+            },
+            "rationale": "Egypt's early lead gives them a slight edge, but Argentina's superior squad depth and tournament pedigree make the tie nearly even."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.55,
+              "away": 0.45
+            },
+            "rationale": "Egypt leads 1-0 early but Argentina has 75+ minutes and superior firepower to mount a comeback in this knockout tie."
+          }
+        }
       }
     ]
   },
