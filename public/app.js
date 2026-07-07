@@ -690,6 +690,15 @@ function outrightConsensus(entry) {
 }
 
 const fmtTrophyDay = new Intl.DateTimeFormat(undefined, { month: 'short', day: 'numeric' });
+const fmtTrophyFull = new Intl.DateTimeFormat(undefined, {
+  month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit',
+});
+// A round's tooltip header: the retro anchor's own name, else its date+time.
+const trophyRoundLabel = (h) => h.label ?? fmtTrophyFull.format(new Date(h.at));
+// One geometry, shared by the renderer and the hover handler so the
+// crosshair lands exactly on the columns the SVG drew.
+const TROPHY_GEO = { W: 720, H: 300, padL: 8, padR: 132, padT: 10, padB: 24 };
+let trophyDismiss = null; // the current dismiss-on-outside-tap listener
 
 /* Rounds are spaced by index, not elapsed time: the two retro anchors sit
    weeks before the live rounds, and a real-time x-axis would crush every
@@ -697,7 +706,7 @@ const fmtTrophyDay = new Intl.DateTimeFormat(undefined, { month: 'short', day: '
    order (strongest at the baseline); everything else is the Field. */
 function trophyChart(history, contenders) {
   const n = history.length;
-  const W = 720, H = 300, padL = 8, padR = 132, padT = 10, padB = 24;
+  const { W, H, padL, padR, padT, padB } = TROPHY_GEO;
   const plotW = W - padL - padR, plotH = H - padT - padB;
   const x = (i) => (n === 1 ? padL + plotW / 2 : padL + (i * plotW) / (n - 1));
   const y = (v) => padT + (1 - v) * plotH; // v is a cumulative share in [0,1]
@@ -716,14 +725,12 @@ function trophyChart(history, contenders) {
     return bands.map((b) => { const bot = cum; cum += valAt(b.key, i); return bot; });
   });
 
-  let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Consensus probability of winning the tournament, per team, as a share of the field over time">`;
+  let svg = `<svg class="trophy-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Consensus probability of winning the tournament, per team, as a share of the field over time">`;
 
   bands.forEach((band, bi) => {
     const topEdge = history.map((_, i) => `${x(i).toFixed(1)},${y(bottoms[i][bi] + valAt(band.key, i)).toFixed(1)}`);
     const botEdge = history.map((_, i) => `${x(i).toFixed(1)},${y(bottoms[i][bi]).toFixed(1)}`).reverse();
-    const first = pct(valAt(band.key, 0)), last = pct(valAt(band.key, n - 1));
-    svg += `<polygon points="${[...topEdge, ...botEdge].join(' ')}" fill="${band.color}" opacity="${band.muted ? 0.5 : 0.92}">` +
-      `<title>${esc(band.label)}: ${first}% then ${last}%</title></polygon>`;
+    svg += `<polygon points="${[...topEdge, ...botEdge].join(' ')}" fill="${band.color}" opacity="${band.muted ? 0.5 : 0.92}"/>`;
   });
   // Thin surface separators between bands read as a gap without eating area.
   bands.forEach((band, bi) => {
@@ -763,8 +770,80 @@ function trophyChart(history, contenders) {
     lastDay = d;
     svg += `<text x="${x(i).toFixed(1)}" y="${H - 8}" text-anchor="${i === 0 ? 'start' : 'middle'}" font-size="10.5" fill="var(--ink-3)">${esc(d)}</text>`;
   });
+  // Crosshair the hover handler moves and reveals; hidden until then.
+  svg += `<line class="trophy-cross" x1="0" y1="${padT}" x2="0" y2="${H - padB}" stroke="var(--ink)" stroke-width="1" stroke-dasharray="3 3" opacity="0"/>`;
   svg += '</svg>';
   return svg;
+}
+
+/* Hover/tap interaction for the stacked area: a crosshair snaps to the
+   nearest round and an HTML tooltip lists every team's share that round,
+   country names spelled out. Pointer events cover mouse and touch alike;
+   the SVG keeps vertical page scroll (touch-action: pan-y) so a tap reads
+   the column while a vertical swipe still scrolls. */
+function attachTrophyHover(wrap, history, contenders) {
+  const svg = wrap.querySelector('.trophy-svg');
+  const cross = svg && svg.querySelector('.trophy-cross');
+  const n = history.length;
+  if (!svg || !cross || n < 2) return;
+  const { W, padL, padR } = TROPHY_GEO;
+  const plotW = W - padL - padR;
+  const xAt = (i) => padL + (i * plotW) / (n - 1);
+
+  const cols = history.map((h) => {
+    const field = Math.max(0, 1 - contenders.reduce((s, t) => s + (h.consensus[t] ?? 0), 0));
+    const rows = [
+      ...contenders.map((t, k) => ({ team: t, color: TROPHY_COLORS[k % TROPHY_COLORS.length], v: h.consensus[t] ?? 0 })),
+      { team: 'Field', color: TROPHY_FIELD, v: field, muted: true },
+    ].filter((r) => r.v >= 0.005).sort((a, b) => b.v - a.v);
+    return { label: trophyRoundLabel(h), rows };
+  });
+
+  const tip = document.createElement('div');
+  tip.className = 'trophy-tip';
+  tip.hidden = true;
+  wrap.appendChild(tip);
+
+  const indexFromClientX = (clientX) => {
+    const pt = svg.createSVGPoint();
+    pt.x = clientX; pt.y = 0;
+    const sx = pt.matrixTransform(svg.getScreenCTM().inverse()).x;
+    return Math.max(0, Math.min(n - 1, Math.round((sx - padL) / (plotW / (n - 1)))));
+  };
+
+  const show = (clientX) => {
+    const i = indexFromClientX(clientX);
+    const col = cols[i];
+    const gx = xAt(i);
+    cross.setAttribute('x1', gx);
+    cross.setAttribute('x2', gx);
+    cross.setAttribute('opacity', '1');
+    tip.innerHTML = `<div class="tt-head">${esc(col.label)}</div>` +
+      col.rows.map((r) => `<div class="tt-row"><span class="tt-sw" style="background:${r.color}${r.muted ? ';opacity:.6' : ''}"></span><span class="tt-team">${esc(r.team)}</span><b>${pct(r.v)}%</b></div>`).join('');
+    tip.hidden = false;
+    const wrapRect = wrap.getBoundingClientRect();
+    const svgRect = svg.getBoundingClientRect();
+    const colX = svgRect.left - wrapRect.left + (gx / W) * svgRect.width;
+    let left = colX + 14;
+    if (left + tip.offsetWidth > wrapRect.width - 4) left = colX - tip.offsetWidth - 14;
+    tip.style.left = `${Math.max(4, Math.min(left, wrapRect.width - tip.offsetWidth - 4))}px`;
+  };
+  const hide = () => { tip.hidden = true; cross.setAttribute('opacity', '0'); };
+
+  // Vertical page scroll still works over the chart (pan-y); horizontal
+  // drags and taps read a column. Touch handlers are explicit because
+  // synthesized pointer events from touch are unreliable across engines.
+  svg.style.touchAction = 'pan-y';
+  svg.addEventListener('mousemove', (e) => show(e.clientX));
+  svg.addEventListener('mouseleave', hide);
+  svg.addEventListener('touchstart', (e) => { if (e.touches[0]) show(e.touches[0].clientX); }, { passive: true });
+  svg.addEventListener('touchmove', (e) => { if (e.touches[0]) show(e.touches[0].clientX); }, { passive: true });
+
+  // A single dismiss-on-outside-tap listener, replaced (not stacked) each
+  // time the trophy card re-renders on a poll.
+  if (trophyDismiss) document.removeEventListener('pointerdown', trophyDismiss);
+  trophyDismiss = (e) => { if (!wrap.contains(e.target)) hide(); };
+  document.addEventListener('pointerdown', trophyDismiss);
 }
 
 function renderTrophy(state) {
@@ -813,6 +892,8 @@ function renderTrophy(state) {
         </div>`
       : `<p class="fnote">Collected ${esc(new Intl.DateTimeFormat(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }).format(new Date(latest.at)))}. The over-time chart appears after the next collection round.</p>`}
   </div>`;
+  const chartWrap = el.querySelector('.trophy-chart');
+  if (chartWrap) attachTrophyHover(chartWrap, history, contenders);
 }
 
 /* Featured match: the live game, or the next kickoff, big and up front. */
