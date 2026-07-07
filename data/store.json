@@ -11128,6 +11128,68 @@
             "rationale": "Early in the match with no scoreboard pressure, Switzerland's defensive solidity and knockout experience give them a slight edge over Colombia's attacking threat."
           }
         }
+      },
+      {
+        "at": "2026-07-07T20:44:47.680Z",
+        "detail": "43'",
+        "score": [
+          0,
+          0
+        ],
+        "events": 0,
+        "period": "STATUS_FIRST_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.42,
+              "away": 0.58
+            },
+            "rationale": "Colombia enters as the slight favorite based on FIFA rankings and recent form, with the scoreless first half maintaining their pre-match edge in a knockout tie where the teams appear evenly matched."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.53,
+              "away": 0.47
+            },
+            "rationale": "With the match still goalless late in the first half and teams relatively even, Switzerland’s slightly higher pre-match strength and stability give them a small edge to advance overall."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "Switzerland has a slight edge due to their historically strong tournament organization, but the match is essentially even with no score and halftime approaching."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "Switzerland's organized defensive structure and tournament experience give them a slight edge, but Colombia's attacking talent keeps this nearly even with most of the first half still to play."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.47,
+              "away": 0.53
+            },
+            "rationale": "The scoreless draw at halftime drastically increases the likelihood of extra time and penalties, resulting in a near-even matchup with a slight edge to Colombia due to their superior attacking talent."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "Both teams are evenly matched with no goals or key incidents yet, but Colombia has a slight edge based on recent form and tournament momentum."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.53,
+              "away": 0.47
+            },
+            "rationale": "Given similar team strengths and Switzerland's slightly higher FIFA ranking, they have a modest advantage in this early-stage tie."
+          }
+        }
       }
     ],
     "760509": [
