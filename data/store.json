@@ -11252,6 +11252,68 @@
             "rationale": "With a 0-0 halftime score and no key events, this round-of-16 knockout match between two evenly matched teams is essentially a coin-flip."
           }
         }
+      },
+      {
+        "at": "2026-07-07T21:00:50.686Z",
+        "detail": "HT",
+        "score": [
+          0,
+          0
+        ],
+        "events": 0,
+        "period": "STATUS_HALFTIME",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.42,
+              "away": 0.58
+            },
+            "rationale": "Colombia's superior FIFA ranking, stronger recent form, and more talented attacking options give them a meaningful edge despite the scoreless draw at halftime."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.58,
+              "away": 0.42
+            },
+            "rationale": "With the match level at halftime, Switzerland’s slightly higher underlying strength and more favorable pre-match odds still give them a modest edge to advance despite Colombia’s threat."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "The match is tied at halftime with no key events, so the teams are effectively even."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "Switzerland's organized defensive structure and tournament experience give them a slight edge in a tight knockout match, though Colombia's attacking talent keeps it nearly even at halftime with no goals."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "Colombia's attacking quality gives them a slight edge in a tight knockout match that remains goalless at halftime."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "Both teams are evenly matched at halftime with no goals or major incidents, but Colombia has a slight edge based on recent form and attacking momentum."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "At halftime 0-0 in a knockout match with no key events, both teams are evenly matched though Switzerland's defensive organization gives them a slight edge."
+          }
+        }
       }
     ],
     "760509": [
