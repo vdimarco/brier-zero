@@ -11011,6 +11011,61 @@
             "rationale": "Given Switzerland's defensive organization and the early stage of the match, they are slightly favored to advance."
           }
         }
+      },
+      {
+        "at": "2026-07-07T20:25:20.506Z",
+        "detail": "23'",
+        "score": [
+          0,
+          0
+        ],
+        "events": 0,
+        "period": "STATUS_FIRST_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.42,
+              "away": 0.58
+            },
+            "rationale": "Colombia enters as the slight favorite based on FIFA rankings and recent form, but with the match still scoreless and early, Switzerland's defensive solidity and tournament experience keeps this relatively close."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.53,
+              "away": 0.47
+            },
+            "rationale": "With the match still goalless early and Switzerland slightly stronger on paper, they hold a small advantage but it remains close to 50-50."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "Switzerland has a slight edge due to their tournament experience and defensive organization, but the match is essentially even this early in a goalless game."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "Switzerland's organized defensive structure and tournament experience slightly favor them against Colombia's attacking flair in a tight early-stage knockout match still scoreless."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "Both teams are evenly matched early in the game with no goals or key incidents, but Colombia has a slight edge based on recent form and squad depth."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.51,
+              "away": 0.49
+            },
+            "rationale": "Switzerland is slightly favored due to defensive solidity and tournament experience, though Colombia's attacking threat keeps the tie close."
+          }
+        }
       }
     ],
     "760509": [
