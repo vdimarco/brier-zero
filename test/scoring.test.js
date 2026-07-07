@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { brierScore, normalizeProbs, leaderboard, fixtureMatches, coinFlipBrier, predictionMarket } from '../lib/scoring.js';
-import { regulationOutcome, advanceOutcome, marketOf, periodRank } from '../lib/espn.js';
+import { regulationOutcome, advanceOutcome, marketOf, periodRank, fetchMatches } from '../lib/espn.js';
 import { parsePrediction, buildPrompt, buildLivePrompt, predictOne } from '../lib/predictor.js';
 
 test('brier: perfect forecast scores zero', () => {
@@ -198,4 +198,33 @@ test('leaderboard: sorts by average Brier, ignores ineligible predictions', () =
   assert.equal(rows[2].model, 'c');
   assert.equal(rows[2].scored, 0);
   assert.equal(rows[2].avgBrier, null);
+});
+
+test('fetchMatches retries a transient ESPN failure then succeeds', async () => {
+  const realFetch = globalThis.fetch;
+  let calls = 0;
+  globalThis.fetch = async () => {
+    calls += 1;
+    if (calls < 2) return { ok: false, status: 503 };
+    return { ok: true, json: async () => ({ events: [] }) };
+  };
+  try {
+    const matches = await fetchMatches({ force: true });
+    assert.equal(calls, 2, 'retried once after the 503');
+    assert.deepEqual(matches, []);
+  } finally {
+    globalThis.fetch = realFetch;
+  }
+});
+
+test('fetchMatches does not retry a non-retriable status', async () => {
+  const realFetch = globalThis.fetch;
+  let calls = 0;
+  globalThis.fetch = async () => { calls += 1; return { ok: false, status: 404 }; };
+  try {
+    await assert.rejects(fetchMatches({ force: true }), /HTTP 404/);
+    assert.equal(calls, 1, 'a 404 fails immediately, no retry');
+  } finally {
+    globalThis.fetch = realFetch;
+  }
 });
