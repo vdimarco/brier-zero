@@ -12332,6 +12332,61 @@
             "rationale": "Both teams have scored two penalties each in the shootout, making the outcome equally uncertain with no clear advantage."
           }
         }
+      },
+      {
+        "at": "2026-07-07T22:50:49.079Z",
+        "detail": "Pens",
+        "score": [
+          0,
+          0
+        ],
+        "events": 6,
+        "period": "STATUS_SHOOTOUT",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "With both teams having converted all three penalties so far in the shootout (3-3), Colombia has a slight historical edge in penalty shootouts and marginally better recent shootout performance."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "With both teams perfect after three penalties each and no further shootout context provided, the tie is effectively equal and each side has about a 50% chance to advance."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "The penalty shootout is tied 3-3 after three kicks each, with all penalties scored so far, making it a completely even contest."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "With the shootout tied 3-3 and no further information, each remaining penalty is essentially a coin flip, so the chances are even."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "The shootout is perfectly balanced at 3-3 after three rounds with 100% conversion from both teams, leaving the outcome as a statistical coin toss."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "The penalty shootout is currently tied 3-3 after three kicks each, giving both teams equal chance to win from this point."
+          }
+        }
       }
     ],
     "760509": [
