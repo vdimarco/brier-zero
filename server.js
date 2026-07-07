@@ -1,7 +1,7 @@
 import express from 'express';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { fetchMatches } from './lib/espn.js';
+import { fetchMatches, periodRank } from './lib/espn.js';
 import { leaderboard, predictionMarket } from './lib/scoring.js';
 import { getPredictions, getSnapshots, getOutright } from './lib/store.js';
 import { dbEnabled, dbTryLock } from './lib/db.js';
@@ -114,16 +114,20 @@ async function maybeCollect(all, predictions, snapshots, outright) {
   // In-play: a new snapshot on every event — score change, new key event
   // (goal, red card), or period change (kickoff, half-time, extra time, a
   // shootout starting) — or when the last one is older than 12 minutes.
+  // Serverless invocations share no memory, so the stored snapshots are
+  // the state: events and period compare against high-water marks across
+  // all of them, never the flapping feed value of one poll ago.
   for (const m of all.filter((x) => x.status.state === 'in')) {
     const snaps = snapshots[m.id] ?? [];
     const last = snaps[snaps.length - 1];
     const score = [m.home.score ?? 0, m.away.score ?? 0];
-    const events = (m.keyEvents ?? []).length;
+    const seenEvents = Math.max(0, ...snaps.map((sn) => sn.events ?? 0));
+    const seenPeriod = Math.max(0, ...snaps.map((sn) => periodRank(sn.period)));
     const stale =
       !last ||
       last.score?.[0] !== score[0] || last.score?.[1] !== score[1] ||
-      (last.events ?? 0) !== events ||
-      (last.period ?? m.status.name) !== m.status.name ||
+      (m.keyEvents ?? []).length > seenEvents ||
+      periodRank(m.status.name) > seenPeriod ||
       Date.now() - new Date(last.at).getTime() > SNAPSHOT_STALE_MS;
     if (stale && (await dbTryLock(`snap:${m.id}`, 90))) {
       console.log(`[collect] in-play snapshot: ${m.shortName} ${score.join('-')} (${m.status.detail})`);
@@ -209,11 +213,31 @@ async function autoPredict() {
 // kicks inside a shootout are deliberately NOT individual triggers.
 const SNAP_POLL_MS = 25 * 1000;
 const SNAP_PULSE_MS = 10 * 60 * 1000;
-const liveSeen = new Map(); // matchId -> { fp, snappedAt }
+const liveSeen = new Map(); // matchId -> { score, events, period, snappedAt }
 let snapshotting = false;
 
-function liveFingerprint(m) {
-  return `${m.home.score}-${m.away.score}|${(m.keyEvents ?? []).length}|${m.status.name}`;
+// New information is monotonic: a changed score, an event log that grew
+// past its high-water mark, or the match moving forward into a later
+// period. Feed flaps (status names alternating, events momentarily
+// missing) never re-trigger a model round.
+function newLiveInfo(m, now) {
+  const prev = liveSeen.get(m.id);
+  const score = `${m.home.score ?? 0}-${m.away.score ?? 0}`;
+  const events = (m.keyEvents ?? []).length;
+  const period = Math.max(periodRank(m.status.name), prev?.period ?? 0);
+  if (!prev) {
+    liveSeen.set(m.id, { score, events, period, snappedAt: 0 });
+    return true; // just went live
+  }
+  const fresh =
+    score !== prev.score ||
+    events > prev.events ||
+    period > prev.period ||
+    now - prev.snappedAt > SNAP_PULSE_MS;
+  prev.score = score;
+  prev.events = Math.max(prev.events, events);
+  prev.period = period;
+  return fresh;
 }
 
 async function autoSnapshot() {
@@ -224,14 +248,11 @@ async function autoSnapshot() {
       if (!live.some((m) => m.id === id)) liveSeen.delete(id);
     }
     const now = Date.now();
-    const due = live.filter((m) => {
-      const seen = liveSeen.get(m.id);
-      return !seen || seen.fp !== liveFingerprint(m) || now - seen.snappedAt > SNAP_PULSE_MS;
-    });
+    const due = live.filter((m) => newLiveInfo(m, now));
     if (!due.length) return;
     snapshotting = true;
     console.log(`[live] snapshotting ${due.map((m) => `${m.shortName} (${m.status.detail})`).join(', ')}`);
-    for (const m of due) liveSeen.set(m.id, { fp: liveFingerprint(m), snappedAt: now });
+    for (const m of due) liveSeen.get(m.id).snappedAt = now;
     await snapshotMatches(due, models);
   } catch (err) {
     console.error('[live] snapshot failed:', err.message);
