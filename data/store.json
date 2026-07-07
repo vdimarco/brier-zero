@@ -11851,6 +11851,61 @@
             "rationale": "Switzerland slightly favored for defensive solidity and experience; Colombia has attacking edge."
           }
         }
+      },
+      {
+        "at": "2026-07-07T22:05:52.840Z",
+        "detail": "94'",
+        "score": [
+          0,
+          0
+        ],
+        "events": 0,
+        "period": "STATUS_OVERTIME",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "With the match at 0-0 in stoppage time and heading to extra time where momentum and fitness become crucial, Colombia holds a slight edge given their typically stronger depth and recent tournament performances, though it remains nearly even."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.51,
+              "away": 0.49
+            },
+            "rationale": "With the match goalless deep into stoppage time, it is effectively a coin flip slightly tilted toward Switzerland as the marginally stronger and tactically more conservative side in a knockout setting."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "The match is effectively over and headed to a penalty shootout, where both teams have an equal chance to advance."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "With the match entering extra time at 0-0, Switzerland's historically stronger penalty shootout record and more disciplined defensive structure gives them a slight edge, though Colombia's attacking quality keeps it nearly even."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "With the match tied 0-0 deep into stoppage time and no key events altering momentum, both teams have equal chances of advancing through extra time or penalties."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "Switzerland has a slight home advantage but Colombia is strong, making this a close contest likely to go to extra time or penalties."
+          }
+        }
       }
     ],
     "760509": [
