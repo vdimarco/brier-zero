@@ -11114,6 +11114,54 @@
             "rationale": "Argentina is the stronger side with ample time to overturn a single-goal deficit, though Egypt's early lead and defensive setup keep them very much in contention."
           }
         }
+      },
+      {
+        "at": "2026-07-07T16:34:47.100Z",
+        "detail": "31'",
+        "score": [
+          0,
+          1
+        ],
+        "events": 1,
+        "period": "STATUS_FIRST_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.72,
+              "away": 0.28
+            },
+            "rationale": "Despite trailing by one goal, Argentina's significant quality advantage and 59+ minutes remaining make them strong favorites to overturn the deficit against Egypt."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.62,
+              "away": 0.38
+            },
+            "rationale": "Despite trailing early, Argentina’s superior quality and time remaining make them more likely to come back and advance, but Egypt’s lead and defensive posture still give them a substantial chance."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.62,
+              "away": 0.38
+            },
+            "rationale": "Argentina remains strong favorites despite trailing early due to superior talent and depth, though Egypt's early goal and defensive organization keeps their upset hopes alive."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.65,
+              "away": 0.35
+            },
+            "rationale": "Despite trailing early, Argentina's superior squad depth and historical resilience in knockout matches make them more likely to overturn the deficit over the remaining 60+ minutes."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.62,
+              "away": 0.38
+            },
+            "rationale": "Argentina is the stronger side with over 60 minutes remaining to equalize and complete a comeback."
+          }
+        }
       }
     ]
   },
