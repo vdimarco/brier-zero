@@ -12181,6 +12181,54 @@
             "rationale": "Colombia just scored a penalty in the 120th minute to lead 1-0, giving them a strong advantage heading into the final moments of extra time or potential penalties."
           }
         }
+      },
+      {
+        "at": "2026-07-07T22:45:24.038Z",
+        "detail": "Pens",
+        "score": [
+          0,
+          0
+        ],
+        "events": 1,
+        "period": "STATUS_SHOOTOUT",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.02,
+              "away": 0.98
+            },
+            "rationale": "Colombia has scored their penalty in the shootout while Switzerland has not yet taken theirs, giving Colombia an overwhelming advantage in the penalty shootout that is currently underway."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0,
+              "away": 1
+            },
+            "rationale": "A successful Colombian penalty at this stage of the shootout implies Switzerland can no longer catch up, so Colombia has already advanced."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0,
+              "away": 1
+            },
+            "rationale": "The match is in a penalty shootout and Colombia has just scored their penalty, meaning they have won the shootout and advanced."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0,
+              "away": 1
+            },
+            "rationale": "Colombia has already scored the winning penalty at 120' in the shootout, making their advancement certain."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.15,
+              "away": 0.85
+            },
+            "rationale": "Colombia just scored a penalty in the 120th minute to lead 1-0, giving them a strong advantage heading into the final moments of extra time or potentially penalties if Switzerland equalizes."
+          }
+        }
       }
     ],
     "760509": [
