@@ -9104,6 +9104,86 @@
         "latencyMs": 21485,
         "eligible": true
       }
+    },
+    "760513": {
+      "z-ai/glm-4.6": {
+        "probs": null,
+        "error": "OpenRouter HTTP 503",
+        "createdAt": "2026-07-07T23:02:39.495Z",
+        "eligible": false
+      },
+      "openai/gpt-5.1": {
+        "probs": {
+          "home": 0.77,
+          "away": 0.23
+        },
+        "rationale": "Argentina projects as a significantly stronger side with greater knockout experience and depth, though Switzerland’s defensive solidity and upset potential keep their chances non-negligible.",
+        "market": "advance",
+        "fixture": "Argentina vs Switzerland",
+        "createdAt": "2026-07-07T23:02:40.973Z",
+        "latencyMs": 1516,
+        "eligible": true
+      },
+      "moonshotai/kimi-k2-0905": {
+        "probs": {
+          "home": 0.72,
+          "away": 0.28
+        },
+        "rationale": "Argentina remain reigning world champions with superior individual talent and tournament experience, though Switzerland's organized defensive structure and upset history make them a credible threat in knockout football.",
+        "market": "advance",
+        "fixture": "Argentina vs Switzerland",
+        "createdAt": "2026-07-07T23:02:41.555Z",
+        "latencyMs": 2096,
+        "eligible": true
+      },
+      "qwen/qwen3-max": {
+        "probs": {
+          "home": 0.65,
+          "away": 0.35
+        },
+        "rationale": "Argentina has superior recent form, deeper talent, and stronger tournament pedigree, though Switzerland is a disciplined and capable side capable of an upset.",
+        "market": "advance",
+        "fixture": "Argentina vs Switzerland",
+        "createdAt": "2026-07-07T23:02:41.666Z",
+        "latencyMs": 2206,
+        "eligible": true
+      },
+      "anthropic/claude-sonnet-4.5": {
+        "probs": {
+          "home": 0.72,
+          "away": 0.28
+        },
+        "rationale": "Argentina as reigning champions with superior FIFA ranking, recent tournament experience, and home continent advantage significantly outweighs Switzerland's solid but less decorated record, though Switzerland's defensive organization and knockout stage competence prevents this from being more lopsided.",
+        "market": "advance",
+        "fixture": "Argentina vs Switzerland",
+        "createdAt": "2026-07-07T23:02:42.361Z",
+        "latencyMs": 2906,
+        "eligible": true
+      },
+      "deepseek/deepseek-chat-v3.1": {
+        "probs": {
+          "home": 0.75,
+          "away": 0.25
+        },
+        "rationale": "Argentina is a historically dominant football nation with superior talent and recent World Cup success, while Switzerland is a well-organized but less threatening opponent.",
+        "market": "advance",
+        "fixture": "Argentina vs Switzerland",
+        "createdAt": "2026-07-07T23:02:45.676Z",
+        "latencyMs": 6218,
+        "eligible": true
+      },
+      "minimax/minimax-m2": {
+        "probs": {
+          "home": 0.68,
+          "away": 0.32
+        },
+        "rationale": "Argentina's superior squad depth and attacking talent make them slightly favored against a defensively organized but less potent Swiss side.",
+        "market": "advance",
+        "fixture": "Argentina vs Switzerland",
+        "createdAt": "2026-07-07T23:02:50.507Z",
+        "latencyMs": 11047,
+        "eligible": true
+      }
     }
   },
   "snapshots": {
