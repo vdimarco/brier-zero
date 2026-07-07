@@ -11327,6 +11327,61 @@
             "rationale": "Argentina trails by one goal at halftime but has 45 minutes plus potential extra time to equalize against Egypt, and their superior knockout-stage experience gives them a slight edge despite the deficit."
           }
         }
+      },
+      {
+        "at": "2026-07-07T17:12:30.934Z",
+        "detail": "47'",
+        "score": [
+          0,
+          1
+        ],
+        "events": 1,
+        "period": "STATUS_SECOND_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.72,
+              "away": 0.28
+            },
+            "rationale": "Despite trailing by one goal early in the second half, Argentina's superior quality, depth, and historical ability to respond in knockout matches makes them strong favorites to overturn the deficit with 45+ minutes remaining."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.62,
+              "away": 0.38
+            },
+            "rationale": "Despite trailing early, Argentina remain clear favorites given their superior quality, depth, and time left to recover, but Egypt’s lead and defensive posture give them a substantial chance to hold on or nick a second."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "Egypt's early lead and defensive strength slightly favor them, but Argentina's superior quality and experience provide a strong chance to equalize and win."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.58,
+              "away": 0.42
+            },
+            "rationale": "Argentina still favored by talent and depth despite trailing at halftime, but Egypt’s lead and defensive shape give them a real shot."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.45,
+              "away": 0.55
+            },
+            "rationale": "Egypt's early goal and defensive resilience give them a solid advantage, but Argentina's superior quality and the remaining time provide a reasonable chance to equalize and prevail in extra time or penalties."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.55,
+              "away": 0.45
+            },
+            "rationale": "Despite trailing early, Argentina's superior squad depth and historical resilience in knockout stages give them a slight edge to overturn the deficit over the remaining 43 minutes plus potential extra time and penalties."
+          }
+        }
       }
     ]
   },
