@@ -194,6 +194,13 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
 .trophy-chart { min-width: 0; }
 
 /* Leaderboard */
+.lb-chart-card {
+  background: var(--surface); border-radius: var(--radius-card);
+  border: 1px solid var(--hairline);
+  box-shadow: 0 1px 2px rgba(23, 46, 22, 0.05);
+  padding: 16px; margin-bottom: 14px;
+}
+.lb-chart-title { font-size: 14px; margin: 0 0 4px; }
 .lb-wrap {
   background: var(--surface); border-radius: var(--radius-card);
   border: 1px solid var(--hairline);
