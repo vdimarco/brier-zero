@@ -11789,6 +11789,68 @@
             "rationale": "It's essentially a coin flip with Switzerland having a slight edge."
           }
         }
+      },
+      {
+        "at": "2026-07-07T22:02:01.880Z",
+        "detail": "91'",
+        "score": [
+          0,
+          0
+        ],
+        "events": 0,
+        "period": "STATUS_OVERTIME",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "With the match at 0-0 in stoppage time and heading to extra time where momentum and fitness become crucial, Colombia holds a slight edge given their typically stronger depth and recent tournament performances, though it remains nearly even."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "With the match level late and teams relatively even, Switzerland gets a slight edge due to marginally stronger defensive structure and slightly better shootout prospects, but it remains close to a coin flip."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "The match is in stoppage time at 0-0, meaning it will almost certainly go to extra time and potentially penalties, making both teams equally likely to advance from this point."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "With no goals in 90+ minutes and no key events, this is essentially a coin flip heading into extra time where fatigue and penalty luck dominate."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.45,
+              "away": 0.55
+            },
+            "rationale": "Colombia's slight edge in possession and attacking intent gives them a marginal advantage as the match heads into extra time."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "With the match tied 0-0 at 91' and no key events, both teams have equal chances to advance through extra time or penalties."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "Switzerland slightly favored for defensive solidity and experience; Colombia has attacking edge."
+          }
+        }
       }
     ],
     "760509": [
