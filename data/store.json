@@ -11905,6 +11905,61 @@
             "rationale": "Argentina has the momentum and quality to push for a winner late, but Egypt remain dangerous on the break and could force extra time or penalties."
           }
         }
+      },
+      {
+        "at": "2026-07-07T17:51:02.470Z",
+        "detail": "84'",
+        "score": [
+          2,
+          2
+        ],
+        "events": 4,
+        "period": "STATUS_SECOND_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.78,
+              "away": 0.22
+            },
+            "rationale": "Argentina has strong momentum with two goals in the last five minutes, faces a significantly weaker opponent, and has six minutes plus stoppage time to find a winner while also being heavily favored in extra time and penalties if needed."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.78,
+              "away": 0.22
+            },
+            "rationale": "Argentina have pulled level very late with strong momentum and superior quality, making them clear but not overwhelming favorites to advance despite Egypt’s earlier lead."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.65,
+              "away": 0.35
+            },
+            "rationale": "Argentina has massive momentum from two late goals and superior squad depth, making them favorites to win in extra time or penalties."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.55,
+              "away": 0.45
+            },
+            "rationale": "Momentum favors Argentina after two late goals, but Egypt still has a solid chance to hold or strike back in the final minutes."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.65,
+              "away": 0.35
+            },
+            "rationale": "Argentina has strong momentum after scoring twice in five minutes to level the match, and their superior squad depth and experience in high-stakes games give them a higher chance of prevailing in the final minutes or beyond."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.6,
+              "away": 0.4
+            },
+            "rationale": "Argentina have the momentum after equalizing late and are slightly stronger overall, so they’re favored to win in regulation or extra time, with penalties still plausible."
+          }
+        }
       }
     ]
   },
