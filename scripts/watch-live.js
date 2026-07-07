@@ -5,7 +5,7 @@
 // a shootout do not trigger. Exits when nothing is live and no kickoff is
 // within 25 minutes. Set OPENROUTER_API_KEY (or DEMO_MODE=1) to collect;
 // without it the watcher only prints the signals.
-import { fetchMatches } from '../lib/espn.js';
+import { fetchMatches, periodRank } from '../lib/espn.js';
 import { snapshotMatches, predictorReady } from '../lib/predictor.js';
 
 const POLL_MS = 30 * 1000;
@@ -21,22 +21,13 @@ let consecutiveErrors = 0;
 // period. The feed sometimes flaps (events momentarily missing, status
 // name reverting between edge servers); monotonic comparisons keep a
 // flap from re-triggering a full model round every poll.
-const PERIOD_RANK = {
-  STATUS_FIRST_HALF: 1,
-  STATUS_HALFTIME: 2,
-  STATUS_SECOND_HALF: 3,
-  STATUS_END_OF_REGULATION: 4,
-  STATUS_OVERTIME: 5,
-  STATUS_HALFTIME_ET: 6,
-  STATUS_SHOOTOUT: 7,
-};
 const MIN_SNAPSHOT_GAP_MS = 90 * 1000; // score changes ignore this
 
 function newInformation(m) {
   const prev = tracked.get(m.id);
   const score = `${m.home.score ?? 0}-${m.away.score ?? 0}`;
   const events = (m.keyEvents ?? []).length;
-  const period = PERIOD_RANK[m.status.name] ?? prev?.period ?? 0;
+  const period = Math.max(periodRank(m.status.name), prev?.period ?? 0);
   if (!prev) {
     tracked.set(m.id, { score, events, period, lastSnap: Date.now() });
     return 'kickoff';

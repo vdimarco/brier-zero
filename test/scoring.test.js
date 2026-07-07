@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { brierScore, normalizeProbs, leaderboard, fixtureMatches, coinFlipBrier, predictionMarket } from '../lib/scoring.js';
-import { regulationOutcome, advanceOutcome, marketOf } from '../lib/espn.js';
+import { regulationOutcome, advanceOutcome, marketOf, periodRank } from '../lib/espn.js';
 import { parsePrediction, buildPrompt, buildLivePrompt, predictOne } from '../lib/predictor.js';
 
 test('brier: perfect forecast scores zero', () => {
@@ -102,6 +102,16 @@ test('legacy knockout forecasts settle under the market they priced', () => {
   // new scored against home advancing: .3²+.3² = 0.18
   assert.ok(Math.abs(byId.new.avgBrier - 0.18) < 1e-9);
   assert.equal(byId.new.perMatch[0].baseline, 0.5);
+});
+
+test('periodRank: periods rank forward, flappy generic statuses rank 0', () => {
+  assert.ok(periodRank('STATUS_HALFTIME') > periodRank('STATUS_FIRST_HALF'));
+  assert.ok(periodRank('STATUS_SECOND_HALF') > periodRank('STATUS_HALFTIME'));
+  assert.ok(periodRank('STATUS_SHOOTOUT') > periodRank('STATUS_OVERTIME'));
+  // The feed alternates STATUS_IN_PROGRESS with the specific half marker;
+  // unranked names must never read as a period change.
+  assert.equal(periodRank('STATUS_IN_PROGRESS'), 0);
+  assert.equal(periodRank(undefined), 0);
 });
 
 test('regulationOutcome: AET and penalties count as a 90-minute draw', () => {
