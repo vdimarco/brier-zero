@@ -10949,6 +10949,68 @@
             "rationale": "Argentina is historically stronger and higher-ranked, giving them a higher chance to advance."
           }
         }
+      },
+      {
+        "at": "2026-07-07T16:13:46.323Z",
+        "detail": "11'",
+        "score": [
+          0,
+          0
+        ],
+        "events": 0,
+        "period": "STATUS_FIRST_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.78,
+              "away": 0.22
+            },
+            "rationale": "Argentina's significant quality advantage as a top-tier team against Egypt remains largely intact despite the early scoreless draw, with minimal match time elapsed to suggest an upset is materializing."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.86,
+              "away": 0.14
+            },
+            "rationale": "With the match still 0-0 at 11' and no major events, pre-match strength and depth heavily favor Argentina to advance over the full tie."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.75,
+              "away": 0.25
+            },
+            "rationale": "Argentina is a far stronger team on paper and the match is still early, but the 0-0 score and Egypt's defensive resilience keep a minor upset possibility alive."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.72,
+              "away": 0.28
+            },
+            "rationale": "Argentina are reigning world champions with superior talent and depth, while Egypt are dangerous but early in the match Argentina's quality should prevail over 120+ minutes."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.78,
+              "away": 0.22
+            },
+            "rationale": "Argentina's superior quality and World Cup experience gives them a strong advantage despite the early deadlock."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.72,
+              "away": 0.28
+            },
+            "rationale": "Argentina is significantly stronger on paper with superior squad depth and recent World Cup pedigree, while Egypt lacks comparable attacking quality and is unlikely to contain Argentina over 90+ minutes."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.62,
+              "away": 0.38
+            },
+            "rationale": "Argentina is favored due to stronger squad depth and historical performance, but Egypt's defensive resilience keeps it competitive."
+          }
+        }
       }
     ]
   },
