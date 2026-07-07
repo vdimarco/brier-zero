@@ -278,34 +278,27 @@ function sparkline(perMatch) {
 }
 
 const MODEL_COLORS = ['#2563eb', '#dc2626', '#f59e0b', '#7c3aed', '#0891b2', '#a3550a', '#db2777'];
+const LB_GEO = { W: 720, H: 320, padL: 42, padR: 96, padT: 18, padB: 56 };
+let lbDismiss = null; // the current dismiss-on-outside-tap listener
 
-/* Combined view of every model's knockout-phase form: running average
-   Brier score, match by match, on the two-way advance market only. The
-   group stage is over, so this is deliberately scoped to what's live
-   right now rather than the full-tournament average shown per row.
-   Points are placed at the match's true chronological slot even when a
-   model is missing one (an API failure, say), so lines stay comparable
-   instead of drifting out of alignment with each other. */
-function leaderboardChart(state) {
+/* The knockout-phase series shared by the chart renderer and its hover
+   handler: each model's running-average Brier match by match, plus the
+   per-match coin-flip baseline. Points sit at a match's true
+   chronological slot even when a model is missing one, so lines stay
+   comparable instead of drifting out of alignment. */
+function leaderboardSeries(state) {
   const koMatches = state.matches
     .filter((m) => m.market === 'advance' && m.status.state === 'post')
     .sort((a, b) => new Date(a.kickoff) - new Date(b.kickoff));
   if (koMatches.length < 2) return null;
   const n = koMatches.length;
   const indexOf = new Map(koMatches.map((m, i) => [m.id, i]));
-
-  // The baseline a match was scored against depends on which market its
-  // forecast priced, not the match's current classification: matches
-  // locked before the market switch shipped scored 0.667 (three-way),
-  // later ones score 0.5 (two-way). Same value for every model on a
-  // given match, so the first one seen fills each slot.
+  // The baseline a match scored against depends on which market its
+  // forecast priced (0.667 three-way before the switch, 0.5 two-way
+  // after); same for every model, so the first seen fills each slot.
   const baselineAt = new Array(n).fill(null);
   const series = state.models.map((m, i) => {
     const row = state.leaderboard.find((r) => r.model === m.id);
-    // Keyed on every scored match regardless of which market the forecast
-    // itself priced: matches locked before the market switch shipped
-    // still show p.market === 'regulation' even though the match is a
-    // knockout tie, and this chart is scoped by the match, not the price.
     const byMatch = new Map((row?.perMatch ?? []).map((p) => [p.matchId, p]));
     let cum = 0, count = 0;
     const points = [];
@@ -316,20 +309,29 @@ function leaderboardChart(state) {
       if (baselineAt[idx] == null && p.baseline != null) baselineAt[idx] = p.baseline;
       cum += p.brier;
       count++;
-      points.push({ idx, cum: cum / count, shortName: km.shortName });
+      points.push({ idx, cum: cum / count, brier: p.brier, shortName: km.shortName });
     }
     if (points.length < 2) return null;
-    return { label: m.label, color: MODEL_COLORS[i % MODEL_COLORS.length], points };
+    return { model: m.id, label: m.label, color: MODEL_COLORS[i % MODEL_COLORS.length], points };
   }).filter(Boolean);
   if (!series.length) return null;
-
-  const W = 720, H = 320, padL = 42, padR = 96, padT = 18, padB = 56;
   const yMax = Math.max(0.6, ...series.flatMap((s) => s.points.map((p) => p.cum))) * 1.1;
+  return { koMatches, n, series, baselineAt, yMax };
+}
+
+/* Combined view of every model's knockout-phase form. The group stage is
+   over, so this is deliberately scoped to the knockouts rather than the
+   full-tournament average shown per row. */
+function leaderboardChart(state) {
+  const data = leaderboardSeries(state);
+  if (!data) return null;
+  const { koMatches, n, series, baselineAt, yMax } = data;
+  const { W, H, padL, padR, padT, padB } = LB_GEO;
   const x = (i) => (n === 1 ? padL : padL + (i * (W - padL - padR)) / (n - 1));
   const y = (v) => padT + (1 - v / yMax) * (H - padT - padB);
   const step = n > 14 ? Math.ceil(n / 10) : 1;
 
-  let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Running average Brier score for every model over the knockout phase">`;
+  let svg = `<svg class="lb-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Running average Brier score for every model over the knockout phase">`;
   for (const g of [0, yMax / 2, yMax]) {
     svg += `<line x1="${padL}" y1="${y(g).toFixed(1)}" x2="${W - padR}" y2="${y(g).toFixed(1)}" stroke="var(--hairline)" stroke-width="1" stroke-dasharray="${g === 0 ? '0' : '3 4'}"/>`;
     svg += `<text x="${padL - 8}" y="${y(g).toFixed(1)}" dy="3.5" text-anchor="end" font-size="10.5" fill="var(--ink-3)">${g.toFixed(2)}</text>`;
@@ -373,8 +375,112 @@ function leaderboardChart(state) {
     if (i % step !== 0 && i !== n - 1) return;
     svg += `<text x="${x(i).toFixed(1)}" y="${H - padB + 10}" text-anchor="end" font-size="9.5" fill="var(--ink-3)" transform="rotate(-32 ${x(i).toFixed(1)} ${H - padB + 10})">${esc(km.shortName)}</text>`;
   });
+  svg += `<line class="lb-cross" x1="0" y1="${padT}" x2="0" y2="${H - padB}" stroke="var(--ink)" stroke-width="1" stroke-dasharray="3 3" opacity="0"/>`;
   svg += '</svg>';
   return svg;
+}
+
+/* Hover/tap for the knockout chart: a crosshair snaps to the nearest
+   match and the tooltip lists every model's running-average Brier as of
+   that match, best first, so the reader can name each line. Mirrors the
+   trophy chart's interaction. */
+function attachLeaderboardHover(wrap, state) {
+  const svg = wrap.querySelector('.lb-svg');
+  const cross = svg && svg.querySelector('.lb-cross');
+  const data = leaderboardSeries(state);
+  if (!svg || !cross || !data) return;
+  const { koMatches, n, series } = data;
+  const { W, padL, padR } = LB_GEO;
+  const plotW = W - padL - padR;
+  const xAt = (i) => (n === 1 ? padL : padL + (i * plotW) / (n - 1));
+
+  // Each model's running average carried forward to every column, so a
+  // model missing a later match still reads at its last known value.
+  const cols = koMatches.map((km, i) => {
+    const rows = series.map((s) => {
+      let cur = null;
+      for (const p of s.points) { if (p.idx <= i) cur = p; else break; }
+      return cur ? { label: s.label, color: s.color, v: cur.cum } : null;
+    }).filter(Boolean).sort((a, b) => a.v - b.v);
+    return { label: km.shortName, rows };
+  });
+
+  const tip = document.createElement('div');
+  tip.className = 'chart-tip';
+  tip.hidden = true;
+  wrap.appendChild(tip);
+
+  const indexFromClientX = (clientX) => {
+    const pt = svg.createSVGPoint();
+    pt.x = clientX; pt.y = 0;
+    const sx = pt.matrixTransform(svg.getScreenCTM().inverse()).x;
+    return Math.max(0, Math.min(n - 1, Math.round((sx - padL) / (plotW / (n - 1)))));
+  };
+  const show = (clientX) => {
+    const i = indexFromClientX(clientX);
+    const col = cols[i];
+    const gx = xAt(i);
+    cross.setAttribute('x1', gx); cross.setAttribute('x2', gx); cross.setAttribute('opacity', '1');
+    tip.innerHTML = `<div class="tt-head">After ${esc(col.label)}</div>` +
+      col.rows.map((r) => `<div class="tt-row"><span class="tt-sw" style="background:${r.color}"></span><span class="tt-team">${esc(r.label)}</span><b>${r.v.toFixed(3)}</b></div>`).join('');
+    tip.hidden = false;
+    const wrapRect = wrap.getBoundingClientRect();
+    const svgRect = svg.getBoundingClientRect();
+    const colX = svgRect.left - wrapRect.left + (gx / W) * svgRect.width;
+    let left = colX + 14;
+    if (left + tip.offsetWidth > wrapRect.width - 4) left = colX - tip.offsetWidth - 14;
+    tip.style.left = `${Math.max(4, Math.min(left, wrapRect.width - tip.offsetWidth - 4))}px`;
+  };
+  const hide = () => { tip.hidden = true; cross.setAttribute('opacity', '0'); };
+
+  svg.style.touchAction = 'pan-y';
+  svg.addEventListener('mousemove', (e) => show(e.clientX));
+  svg.addEventListener('mouseleave', hide);
+  svg.addEventListener('touchstart', (e) => { if (e.touches[0]) show(e.touches[0].clientX); }, { passive: true });
+  svg.addEventListener('touchmove', (e) => { if (e.touches[0]) show(e.touches[0].clientX); }, { passive: true });
+  if (lbDismiss) document.removeEventListener('pointerdown', lbDismiss);
+  lbDismiss = (e) => { if (!wrap.contains(e.target)) hide(); };
+  document.addEventListener('pointerdown', lbDismiss);
+}
+
+// The probability a forecast assigned to a team ADVANCING: a two-way
+// forecast states it directly; a legacy three-way forecast (priced
+// before the market switch) splits its draw mass, since a 90-minute
+// draw is settled by a near-coin-flip shootout.
+function advancerProb(pred, outcome) {
+  if (!pred?.probs) return null;
+  if (pred.probs.draw == null) return pred.probs[outcome] ?? 0;
+  return (pred.probs[outcome] ?? 0) + (pred.probs.draw ?? 0) / 2;
+}
+
+/* The event where every model got it wrong: the finished knockout tie
+   where not one model gave the team that actually advanced better than
+   an even chance. Ranked by how low the field's average was on the
+   advancer, so the single most collective miss surfaces. */
+function collectiveMiss(state) {
+  let best = null;
+  for (const m of state.matches) {
+    if (m.market !== 'advance' || m.status.state !== 'post') continue;
+    const outcome = m.outcomes ? m.outcomes.advance : m.outcome;
+    if (outcome !== 'home' && outcome !== 'away') continue;
+    const eligible = Object.values(m.predictions ?? {}).filter((p) => p.eligible && p.probs);
+    if (eligible.length < 5) continue;
+    const aps = eligible.map((p) => advancerProb(p, outcome));
+    if (!aps.every((v) => v < 0.5)) continue; // not a unanimous miss
+    const avg = aps.reduce((s, v) => s + v, 0) / aps.length;
+    if (!best || avg < best.avg) best = { m, outcome, avg, count: eligible.length };
+  }
+  if (!best) return null;
+  const { m, outcome, avg, count } = best;
+  return {
+    id: m.id,
+    advanced: m[outcome].name,
+    favored: (outcome === 'home' ? m.away : m.home).name,
+    avgPct: avg,
+    count,
+    score: `${m.home.score ?? 0}-${m.away.score ?? 0}`,
+    stage: m.stage,
+  };
 }
 
 function renderLeaderboard(state) {
@@ -387,9 +493,13 @@ function renderLeaderboard(state) {
   }
   el.classList.remove('skeleton-block');
   const koChart = leaderboardChart(state);
-  el.innerHTML = `${koChart ? `<div class="lb-chart-card">
+  const miss = collectiveMiss(state);
+  el.innerHTML = `${miss ? `<button class="lb-miss" data-go="m/${esc(miss.id)}" aria-label="Open ${esc(miss.advanced)} versus ${esc(miss.favored)} detail">
+    <span class="lb-miss-tag">Nobody saw it coming</span>
+    <span class="lb-miss-body">All ${miss.count} models backed <b>${esc(miss.favored)}</b>, but <b>${esc(miss.advanced)}</b> went through ${esc(miss.score)} in the ${esc(miss.stage)}. The field gave ${esc(miss.advanced)} an average of just <b>${pct(miss.avgPct)}%</b> to advance.</span>
+  </button>` : ''}${koChart ? `<div class="lb-chart-card">
     <h3 class="lb-chart-title">Knockout phase: running average Brier score</h3>
-    <p class="fnote">One line per model, averaged match by match over every knockout tie since the round of 32 began. The dashed line is the know-nothing baseline, which itself drops from 0.667 to 0.5 partway through when the market switched from three-way to two-way. Group-stage history is excluded here; see a model's own page for its full-tournament average.</p>
+    <p class="fnote">One line per model, averaged match by match over every knockout tie since the round of 32 began. The dashed line is the know-nothing baseline, which itself drops from 0.667 to 0.5 partway through when the market switched from three-way to two-way. Group-stage history is excluded here; see a model's own page for its full-tournament average. Hover or tap a match for every model's standing at that point.</p>
     <div class="chart">${koChart}</div>
   </div>` : ''}<div class="lb-wrap">${state.leaderboard
     .map((r, i) => {
@@ -426,6 +536,10 @@ function renderLeaderboard(state) {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
     });
   }
+  const missBtn = el.querySelector('.lb-miss');
+  if (missBtn) missBtn.addEventListener('click', () => { location.hash = missBtn.dataset.go; });
+  const chartWrap = el.querySelector('.lb-chart-card');
+  if (chartWrap) attachLeaderboardHover(chartWrap, state);
 }
 
 function renderMatches(state) {
@@ -804,7 +918,7 @@ function attachTrophyHover(wrap, history, contenders) {
   });
 
   const tip = document.createElement('div');
-  tip.className = 'trophy-tip';
+  tip.className = 'chart-tip';
   tip.hidden = true;
   wrap.appendChild(tip);
 
