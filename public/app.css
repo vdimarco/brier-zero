@@ -191,7 +191,25 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
 }
 .trophy-row:first-child .trophy-bar i { background: var(--trophy-fill); }
 .trophy-p { text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; }
-.trophy-chart { min-width: 0; }
+.trophy-chart { min-width: 0; position: relative; }
+.trophy-svg { cursor: crosshair; }
+.trophy-tip {
+  position: absolute; top: 6px; z-index: 5; pointer-events: none;
+  background: var(--surface); border: 1px solid var(--hairline);
+  border-radius: 10px; box-shadow: 0 4px 16px rgba(23, 46, 22, 0.14);
+  padding: 8px 10px; min-width: 132px; max-width: 200px;
+}
+.trophy-tip .tt-head {
+  font-size: 11.5px; font-weight: 700; color: var(--ink);
+  margin-bottom: 5px; padding-bottom: 5px; border-bottom: 1px solid var(--hairline);
+}
+.trophy-tip .tt-row {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 12px; color: var(--ink-2); line-height: 1.7;
+}
+.trophy-tip .tt-team { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.trophy-tip .tt-row b { color: var(--ink); font-variant-numeric: tabular-nums; }
+.trophy-tip .tt-sw { width: 9px; height: 9px; border-radius: 2px; flex: none; }
 
 /* Leaderboard */
 .lb-chart-card {
