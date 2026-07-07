@@ -8933,6 +8933,92 @@
         "eligible": true
       }
     },
+    "760511": {
+      "qwen/qwen3-max": {
+        "probs": {
+          "home": 0.55,
+          "away": 0.45
+        },
+        "rationale": "Spain has a slight edge due to stronger recent form and deeper squad depth, though Belgium's experienced core remains dangerous.",
+        "market": "advance",
+        "fixture": "Spain vs Belgium",
+        "createdAt": "2026-07-07T02:18:06.499Z",
+        "latencyMs": 1861,
+        "eligible": true
+      },
+      "openai/gpt-5.1": {
+        "probs": {
+          "home": 0.69,
+          "away": 0.31
+        },
+        "rationale": "Spain projects as a stronger and deeper side than Belgium in 2026, making them clear but not overwhelming favorites to advance.",
+        "market": "advance",
+        "fixture": "Spain vs Belgium",
+        "createdAt": "2026-07-07T02:18:06.520Z",
+        "latencyMs": 1886,
+        "eligible": true
+      },
+      "anthropic/claude-sonnet-4.5": {
+        "probs": {
+          "home": 0.68,
+          "away": 0.32
+        },
+        "rationale": "Spain's superior recent tournament performances, younger squad depth, and technical quality give them a significant advantage over an aging Belgian generation that has underperformed in recent major tournaments.",
+        "market": "advance",
+        "fixture": "Spain vs Belgium",
+        "createdAt": "2026-07-07T02:18:06.897Z",
+        "latencyMs": 2266,
+        "eligible": true
+      },
+      "moonshotai/kimi-k2-0905": {
+        "probs": {
+          "home": 0.62,
+          "away": 0.38
+        },
+        "rationale": "Spain's superior midfield control and recent tournament success give them an edge against Belgium's aging golden generation in a likely tight quarterfinal.",
+        "market": "advance",
+        "fixture": "Spain vs Belgium",
+        "createdAt": "2026-07-07T02:18:06.992Z",
+        "latencyMs": 2356,
+        "eligible": true
+      },
+      "deepseek/deepseek-chat-v3.1": {
+        "probs": {
+          "home": 0.62,
+          "away": 0.38
+        },
+        "rationale": "Spain's superior technical midfield and possession-based style is favored to control the game against a talented but aging Belgian squad.",
+        "market": "advance",
+        "fixture": "Spain vs Belgium",
+        "createdAt": "2026-07-07T02:18:07.543Z",
+        "latencyMs": 2908,
+        "eligible": true
+      },
+      "minimax/minimax-m2": {
+        "probs": {
+          "home": 0.55,
+          "away": 0.45
+        },
+        "rationale": "Spain enters as slight favorites given their superior tournament pedigree and squad depth, though Belgium's golden generation makes this a tightly contested quarterfinal.",
+        "market": "advance",
+        "fixture": "Spain vs Belgium",
+        "createdAt": "2026-07-07T02:18:12.796Z",
+        "latencyMs": 8157,
+        "eligible": true
+      },
+      "z-ai/glm-4.6": {
+        "probs": {
+          "home": 0.58,
+          "away": 0.42
+        },
+        "rationale": "Spain is favored due to their recent Euro 2024 triumph and a younger, more cohesive squad compared to a Belgian team in transition.",
+        "market": "advance",
+        "fixture": "Spain vs Belgium",
+        "createdAt": "2026-07-07T02:18:43.046Z",
+        "latencyMs": 38409,
+        "eligible": true
+      }
+    },
     "760512": {
       "openai/gpt-5.1": {
         "probs": {
@@ -11196,6 +11282,128 @@
             "England": 0.12
           },
           "rationale": "These probabilities reflect a synthesis of recent form, FIFA rankings, and tournament history, with Argentina and France as the strongest contenders, followed by Spain and England, and other teams having lower but non‑zero chances."
+        }
+      }
+    },
+    {
+      "at": "2026-07-07T02:19:09.186Z",
+      "teams": [
+        "Argentina",
+        "Egypt",
+        "Switzerland",
+        "Colombia",
+        "France",
+        "Morocco",
+        "Spain",
+        "Belgium",
+        "Norway",
+        "England"
+      ],
+      "models": {
+        "anthropic/claude-sonnet-4.5": {
+          "probs": {
+            "Argentina": 0.17999999999999997,
+            "Egypt": 0.039999999999999994,
+            "Switzerland": 0.059999999999999984,
+            "Colombia": 0.07999999999999999,
+            "France": 0.19999999999999996,
+            "Morocco": 0.06999999999999999,
+            "Spain": 0.15999999999999998,
+            "Belgium": 0.08999999999999998,
+            "Norway": 0.04999999999999999,
+            "England": 0.06999999999999999
+          },
+          "rationale": "Probabilities based on current FIFA rankings, recent tournament performance, squad strength, and historical World Cup success, with France and Argentina as favorites given their depth and recent form."
+        },
+        "openai/gpt-5.1": {
+          "probs": {
+            "Argentina": 0.18,
+            "Egypt": 0.04,
+            "Switzerland": 0.06,
+            "Colombia": 0.07,
+            "France": 0.19,
+            "Morocco": 0.06,
+            "Spain": 0.16,
+            "Belgium": 0.08,
+            "Norway": 0.03,
+            "England": 0.13
+          },
+          "rationale": "Probabilities allocate higher chances to historically stronger, in-form teams while preserving some uncertainty for upsets among the others, normalized to sum to 1."
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "probs": {
+            "Argentina": 0.21999999999999995,
+            "Egypt": 0.009999999999999998,
+            "Switzerland": 0.029999999999999992,
+            "Colombia": 0.039999999999999994,
+            "France": 0.24999999999999994,
+            "Morocco": 0.019999999999999997,
+            "Spain": 0.14999999999999997,
+            "Belgium": 0.04999999999999999,
+            "Norway": 0.009999999999999998,
+            "England": 0.21999999999999995
+          },
+          "rationale": "Based on recent team performance, historical strength, and squad depth, France and Argentina are the strongest contenders, followed closely by England and Spain, with the other teams having significantly lower chances."
+        },
+        "moonshotai/kimi-k2-0905": {
+          "probs": {
+            "Argentina": 0.22,
+            "Egypt": 0.03,
+            "Switzerland": 0.04,
+            "Colombia": 0.06,
+            "France": 0.18,
+            "Morocco": 0.05,
+            "Spain": 0.2,
+            "Belgium": 0.05,
+            "Norway": 0.04,
+            "England": 0.13
+          },
+          "rationale": "Argentina and Spain are co-favorites based on recent major tournament success, France and England follow with strong squads, while the remaining teams face longer odds due to weaker historical performance or tougher projected paths."
+        },
+        "z-ai/glm-4.6": {
+          "probs": {
+            "Argentina": 0.2,
+            "Egypt": 0.03,
+            "Switzerland": 0.06,
+            "Colombia": 0.08,
+            "France": 0.18,
+            "Morocco": 0.05,
+            "Spain": 0.12,
+            "Belgium": 0.08,
+            "Norway": 0.05,
+            "England": 0.15
+          },
+          "rationale": "Probabilities based on historical performance, current form, and general football knowledge."
+        },
+        "qwen/qwen3-max": {
+          "probs": {
+            "Argentina": 0.2,
+            "Egypt": 0.02,
+            "Switzerland": 0.05,
+            "Colombia": 0.08,
+            "France": 0.18,
+            "Morocco": 0.07,
+            "Spain": 0.12,
+            "Belgium": 0.1,
+            "Norway": 0.03,
+            "England": 0.15
+          },
+          "rationale": "Probabilities reflect current squad strength, recent form, historical performance, and tournament draw expectations, with Argentina and France as top contenders and Egypt/Norway as longshots."
+        },
+        "minimax/minimax-m2": {
+          "probs": {
+            "Argentina": 0.25,
+            "Egypt": 0.01,
+            "Switzerland": 0.03,
+            "Colombia": 0.05,
+            "France": 0.25,
+            "Morocco": 0.04,
+            "Spain": 0.12,
+            "Belgium": 0.08,
+            "Norway": 0.02,
+            "England": 0.15
+          },
+          "rationale": "Given the current strength of squads, recent performance, and historical success, I consider Argentina, France, England, Spain, and Belgium the strongest contenders, while the remaining teams have lower but non‑zero chances of winning."
         }
       }
     }
