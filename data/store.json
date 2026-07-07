@@ -11968,6 +11968,61 @@
             "rationale": "Switzerland is slightly favored due to stronger defensive organization and historical knockout performance."
           }
         }
+      },
+      {
+        "at": "2026-07-07T22:17:55.324Z",
+        "detail": "ET-HT",
+        "score": [
+          0,
+          0
+        ],
+        "events": 0,
+        "period": "STATUS_HALFTIME_ET",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "With the match scoreless at extra time halftime and no decisive events, Colombia holds a slight edge due to their stronger FIFA ranking and recent tournament performances, though the tie remains highly uncertain and could easily go to penalties."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "With the match still goalless at half-time in extra time, it is effectively a near-coin flip, with Switzerland given a slight edge based on marginally stronger underlying quality and stability in knockout scenarios."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "The match is tied at halftime of extra time with no significant events, making it essentially a coin flip that will likely be decided by penalties."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "Colombia's superior technical quality and attacking talent gives them a slight edge in a tight knockout match still level at halftime of extra time, though Switzerland's defensive organization keeps it nearly even."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.47,
+              "away": 0.53
+            },
+            "rationale": "The scoreless draw at half-time suggests a tight tactical battle where Colombia retains a slight edge due to their superior attacking potential, though the match remains evenly poised."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "Both teams are evenly matched with no goals or key incidents yet, but Colombia has a slight edge based on recent form and squad depth heading into extra time."
+          }
+        }
       }
     ],
     "760509": [
