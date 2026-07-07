@@ -38,7 +38,14 @@ if (alive.length < 2) {
   process.exit(0);
 }
 const history = await getOutright();
-const last = history[history.length - 1];
+// The most recent live round by timestamp, not array position: retro
+// backfill entries (round-boundary anchors dated weeks ago) are appended
+// to the end of the array, so history[length-1] can be a stale-dated
+// backfill and its old timestamp would defeat the freshness check,
+// re-collecting a full round every pass.
+const last = history
+  .filter((e) => !e.retro)
+  .reduce((a, e) => (a && new Date(a.at) >= new Date(e.at) ? a : e), null);
 const sameTeams = last && JSON.stringify([...last.teams].sort()) === JSON.stringify([...alive].sort());
 const fresh = last && Date.now() - new Date(last.at).getTime() < 20 * 3600 * 1000;
 if (sameTeams && fresh) {
