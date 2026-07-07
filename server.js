@@ -123,10 +123,14 @@ async function maybeCollect(all, predictions, snapshots, outright) {
     const score = [m.home.score ?? 0, m.away.score ?? 0];
     const seenEvents = Math.max(0, ...snaps.map((sn) => sn.events ?? 0));
     const seenPeriod = Math.max(0, ...snaps.map((sn) => periodRank(sn.period)));
+    // Shootout kicks each grow keyEvents, but the shootout is one event:
+    // the period transition into it already snapshots, so event growth
+    // during the shootout does not.
+    const inShootout = periodRank(m.status.name) >= periodRank('STATUS_SHOOTOUT');
     const stale =
       !last ||
       last.score?.[0] !== score[0] || last.score?.[1] !== score[1] ||
-      (m.keyEvents ?? []).length > seenEvents ||
+      (!inShootout && (m.keyEvents ?? []).length > seenEvents) ||
       periodRank(m.status.name) > seenPeriod ||
       Date.now() - new Date(last.at).getTime() > SNAPSHOT_STALE_MS;
     if (stale && (await dbTryLock(`snap:${m.id}`, 90))) {
@@ -229,9 +233,10 @@ function newLiveInfo(m, now) {
     liveSeen.set(m.id, { score, events, period, snappedAt: 0 });
     return true; // just went live
   }
+  const inShootout = periodRank(m.status.name) >= periodRank('STATUS_SHOOTOUT');
   const fresh =
     score !== prev.score ||
-    events > prev.events ||
+    (events > prev.events && !inShootout) ||
     period > prev.period ||
     now - prev.snappedAt > SNAP_PULSE_MS;
   prev.score = score;

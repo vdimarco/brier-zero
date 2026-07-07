@@ -23,18 +23,24 @@ let consecutiveErrors = 0;
 // flap from re-triggering a full model round every poll.
 const MIN_SNAPSHOT_GAP_MS = 90 * 1000; // score changes ignore this
 
+const SHOOTOUT_RANK = periodRank('STATUS_SHOOTOUT');
+
 function newInformation(m) {
   const prev = tracked.get(m.id);
   const score = `${m.home.score ?? 0}-${m.away.score ?? 0}`;
   const events = (m.keyEvents ?? []).length;
   const period = Math.max(periodRank(m.status.name), prev?.period ?? 0);
+  // Every shootout kick is a keyEvent, but the shootout is one piece of
+  // information, not a dozen: the period transition into it already fires
+  // a snapshot, so a growing event count during the shootout is ignored.
+  const inShootout = periodRank(m.status.name) >= SHOOTOUT_RANK;
   if (!prev) {
     tracked.set(m.id, { score, events, period, lastSnap: Date.now() });
     return 'kickoff';
   }
   const reasons = [];
   if (score !== prev.score) reasons.push(`score ${prev.score} -> ${score}`);
-  if (events > prev.events) reasons.push(`events ${prev.events} -> ${events}`);
+  if (events > prev.events && !inShootout) reasons.push(`events ${prev.events} -> ${events}`);
   if (period > prev.period) reasons.push(`period ${prev.period} -> ${period}`);
   prev.score = score;
   prev.events = Math.max(prev.events, events);
