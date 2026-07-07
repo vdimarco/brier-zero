@@ -10949,6 +10949,68 @@
             "rationale": "Switzerland's defensive solidity and home advantage give them a slight edge over Colombia's attacking flair."
           }
         }
+      },
+      {
+        "at": "2026-07-07T20:14:16.489Z",
+        "detail": "13'",
+        "score": [
+          0,
+          0
+        ],
+        "events": 0,
+        "period": "STATUS_FIRST_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.42,
+              "away": 0.58
+            },
+            "rationale": "Colombia enters as the slight favorite based on FIFA rankings and recent form, but with the match still scoreless and very early, Switzerland's defensive solidity and tournament experience keeps this relatively close."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.54,
+              "away": 0.46
+            },
+            "rationale": "With a goalless start and Switzerland rated slightly stronger on pre-match odds and squad depth, they retain a small edge but the tie remains very close to 50-50."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "Switzerland holds a slight edge due to their historically strong tournament organization and defensive solidity, but Colombia's attacking talent makes this a very close match."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "Colombia's superior attacking talent and recent Copa América success give them a slight edge, but Switzerland's organized defensive structure keeps this nearly even early on."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.47,
+              "away": 0.53
+            },
+            "rationale": "Colombia's slight edge in attacking quality gives them a marginal advantage despite Switzerland's organized defensive approach."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "Both teams are evenly matched early in the game, but Colombia has a slight edge based on recent form and attacking momentum in the group stage."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.53,
+              "away": 0.47
+            },
+            "rationale": "Given Switzerland's defensive organization and the early stage of the match, they are slightly favored to advance."
+          }
+        }
       }
     ],
     "760509": [
