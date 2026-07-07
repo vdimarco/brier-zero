@@ -11788,6 +11788,68 @@
             "rationale": "Egypt leads 2-1 with only 11 minutes plus stoppage time remaining, giving them a strong advantage despite Argentina's recent goal and historical pedigree."
           }
         }
+      },
+      {
+        "at": "2026-07-07T17:45:41.112Z",
+        "detail": "80'",
+        "score": [
+          1,
+          2
+        ],
+        "events": 3,
+        "period": "STATUS_SECOND_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.62,
+              "away": 0.38
+            },
+            "rationale": "With 10 minutes plus stoppage time remaining and Argentina needing only one goal to force extra time where they would be heavily favored, their superior quality and momentum from the recent goal make them more likely to advance despite currently trailing."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.32,
+              "away": 0.68
+            },
+            "rationale": "Egypt lead by one with 10 minutes plus stoppage remaining, so Argentina have a reasonable chance to equalize but Egypt are still clear favourites to advance."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.3,
+              "away": 0.7
+            },
+            "rationale": "Egypt leads 2-1 late, but Argentina's recent goal and attacking pressure increase their chance of an equalizer."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.28,
+              "away": 0.72
+            },
+            "rationale": "Egypt leads 2-1 with 10 minutes left and Argentina needs a goal, but Egypt has shown defensive resilience and can park the bus; Argentina's late goal shows fight but time is against them."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.35,
+              "away": 0.65
+            },
+            "rationale": "Egypt leads 2-1 with 10 minutes left, but Argentina's late goal gives them momentum and a chance to equalize or force extra time."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.45,
+              "away": 0.55
+            },
+            "rationale": "Egypt leads with 10 minutes left and has defended well, but Argentina's late goal and superior squad depth give them a fighting chance to equalize and potentially win in extra time or penalties."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.38,
+              "away": 0.62
+            },
+            "rationale": "Egypt holds a 2-1 lead with 10 minutes left, but Argentina has momentum after scoring in the 79th minute and is historically capable of scoring late in knockout matches."
+          }
+        }
       }
     ]
   },
