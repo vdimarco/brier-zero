@@ -9107,10 +9107,16 @@
     },
     "760513": {
       "z-ai/glm-4.6": {
-        "probs": null,
-        "error": "OpenRouter HTTP 503",
-        "createdAt": "2026-07-07T23:02:39.495Z",
-        "eligible": false
+        "probs": {
+          "home": 0.65,
+          "away": 0.35
+        },
+        "rationale": "Argentina's superior squad quality and World Cup-winning pedigree make them favorites, but Switzerland's tactical organization and recent tournament success give them a realistic chance of an upset.",
+        "market": "advance",
+        "fixture": "Argentina vs Switzerland",
+        "createdAt": "2026-07-08T00:05:33.287Z",
+        "latencyMs": 21612,
+        "eligible": true
       },
       "openai/gpt-5.1": {
         "probs": {
