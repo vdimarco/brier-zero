@@ -14923,6 +14923,112 @@
           "rationale": "Probabilities reflect current squad strength, recent form, historical performance, and tournament context, with top contenders like France, Argentina, and Spain favored over less experienced or lower-ranked sides like Norway."
         }
       }
+    },
+    {
+      "at": "2026-07-08T19:03:17.605Z",
+      "teams": [
+        "France",
+        "Morocco",
+        "Spain",
+        "Belgium",
+        "Norway",
+        "England",
+        "Argentina",
+        "Switzerland"
+      ],
+      "models": {
+        "anthropic/claude-sonnet-4.5": {
+          "probs": {
+            "France": 0.24,
+            "Morocco": 0.08,
+            "Spain": 0.2,
+            "Belgium": 0.1,
+            "Norway": 0.06,
+            "England": 0.16,
+            "Argentina": 0.12,
+            "Switzerland": 0.04
+          },
+          "rationale": "Probabilities based on historical performance, current FIFA rankings, squad strength, and recent tournament results, with France and Spain as favorites given their depth and consistency."
+        },
+        "openai/gpt-5.1": {
+          "probs": {
+            "France": 0.2,
+            "Morocco": 0.04,
+            "Spain": 0.19,
+            "Belgium": 0.08,
+            "Norway": 0.03,
+            "England": 0.17,
+            "Argentina": 0.24,
+            "Switzerland": 0.05
+          },
+          "rationale": "Argentina, France, Spain and England are top contenders based on squad strength and historical performance, with Belgium, Switzerland, Morocco and Norway as outside chances."
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "probs": {
+            "France": 0.22,
+            "Morocco": 0.04,
+            "Spain": 0.18,
+            "Belgium": 0.08,
+            "Norway": 0.02,
+            "England": 0.2,
+            "Argentina": 0.21,
+            "Switzerland": 0.05
+          },
+          "rationale": "Based on current FIFA rankings, recent tournament performance, and squad strength, France, Argentina, and England are the strongest contenders, while Norway is the clear underdog."
+        },
+        "moonshotai/kimi-k2-0905": {
+          "probs": {
+            "France": 0.22,
+            "Morocco": 0.08,
+            "Spain": 0.2,
+            "Belgium": 0.06,
+            "Norway": 0.03,
+            "England": 0.18,
+            "Argentina": 0.18,
+            "Switzerland": 0.05
+          },
+          "rationale": "France and Spain are the strongest teams with deep squads, Argentina has Messi's final tournament factor, England is consistently strong but underperforms, Morocco surprised in 2022, while Belgium is aging, Norway lacks depth, and Switzerland overachieves to reach this stage but faces uphill battle."
+        },
+        "z-ai/glm-4.6": {
+          "probs": {
+            "France": 0.2,
+            "Morocco": 0.08,
+            "Spain": 0.14,
+            "Belgium": 0.1,
+            "Norway": 0.08,
+            "England": 0.15,
+            "Argentina": 0.18,
+            "Switzerland": 0.07
+          },
+          "rationale": "Probabilities based on recent World Cup performance, squad talent, historical success, and football infrastructure."
+        },
+        "qwen/qwen3-max": {
+          "probs": {
+            "France": 0.25,
+            "Morocco": 0.05,
+            "Spain": 0.15,
+            "Belgium": 0.1,
+            "Norway": 0.02,
+            "England": 0.18,
+            "Argentina": 0.2,
+            "Switzerland": 0.05
+          },
+          "rationale": "Probabilities reflect recent form, squad depth, historical performance, and expert consensus, with France, Argentina, and England as top contenders, Spain and Belgium as strong but slightly less favored, and Morocco, Switzerland, and especially Norway as long shots."
+        },
+        "minimax/minimax-m2": {
+          "probs": {
+            "France": 0.2,
+            "Morocco": 0.1,
+            "Spain": 0.15,
+            "Belgium": 0.08,
+            "Norway": 0.02,
+            "England": 0.15,
+            "Argentina": 0.25,
+            "Switzerland": 0.05
+          },
+          "rationale": "Argentina and France are the strongest teams, followed by England and Spain, with Morocco, Belgium, Switzerland, and Norway having lower chances based on current form and talent."
+        }
+      }
     }
   ]
 }
