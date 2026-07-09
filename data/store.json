@@ -14204,6 +14204,68 @@
             "rationale": "Despite a scoreless halftime, France's stronger squad and attacking options give them a modest advantage in this quarterfinal against a defensively organized Morocco."
           }
         }
+      },
+      {
+        "at": "2026-07-09T21:21:26.948Z",
+        "detail": "56'",
+        "score": [
+          0,
+          0
+        ],
+        "events": 0,
+        "period": "STATUS_SECOND_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.72,
+              "away": 0.28
+            },
+            "rationale": "France remains strong favorites despite the scoreless draw, given their superior squad quality, tournament pedigree, and having over 30 minutes plus potential extra time to break down Morocco's defense."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.71,
+              "away": 0.29
+            },
+            "rationale": "With the match still level just after halftime, France’s superior overall quality and depth make them clear but not overwhelming favorites to eventually advance."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.65,
+              "away": 0.35
+            },
+            "rationale": "France's superior talent and experience gives them a slight edge in a tight match, but Morocco's strong defense and tournament form make them a dangerous underdog."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.68,
+              "away": 0.32
+            },
+            "rationale": "France’s deeper talent and Morocco’s underdog history still tilt the tie, but with the game still goalless after an hour the gap has narrowed."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.55,
+              "away": 0.45
+            },
+            "rationale": "France remains the favorite due to their superior historical performance and squad depth, but Morocco's defensive organization and the current deadlock give them a realistic chance of advancing."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.65,
+              "away": 0.35
+            },
+            "rationale": "France has stronger squad depth and historical tournament pedigree, but Morocco's disciplined defense and counter-attacking threat keep them competitive in a tight 0-0 match past halftime."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.58,
+              "away": 0.42
+            },
+            "rationale": "Given the even score and early second half with no events, France's stronger squad gives them a modest advantage."
+          }
+        }
       }
     ]
   },
