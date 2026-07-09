@@ -13839,6 +13839,68 @@
             "rationale": "Given the early stage and balanced play, France retain a modest edge over Morocco based on overall squad depth and tournament experience."
           }
         }
+      },
+      {
+        "at": "2026-07-09T20:26:14.499Z",
+        "detail": "24'",
+        "score": [
+          0,
+          0
+        ],
+        "events": 0,
+        "period": "STATUS_FIRST_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.78,
+              "away": 0.22
+            },
+            "rationale": "France remains heavily favored due to superior squad quality and tournament pedigree despite the scoreless draw, though Morocco's defensive organization and counter-attacking threat keep them competitive in the early stages."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.78,
+              "away": 0.22
+            },
+            "rationale": "With the match still goalless early on, France’s higher underlying strength and depth make them clear but not overwhelming favorites to advance."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.72,
+              "away": 0.28
+            },
+            "rationale": "France is a stronger side on paper and the match is still early, but Morocco's organized defense and tournament resilience keep them with a credible chance."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.72,
+              "away": 0.28
+            },
+            "rationale": "France are heavy favorites as defending champions with superior talent and depth, though Morocco's 2022 semifinal run showed they can frustrate elite opponents; early deadlock still favors France's quality over 90+ minutes."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.62,
+              "away": 0.38
+            },
+            "rationale": "France retains a significant advantage due to their superior squad depth and attacking quality, though the scoreless opening 24 minutes slightly improves Morocco's prospects of forcing extra time or penalties."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.65,
+              "away": 0.35
+            },
+            "rationale": "France is favored due to superior squad depth and historical performance, but Morocco's strong defense and counter-attacking threat keep the match competitive early on."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.62,
+              "away": 0.38
+            },
+            "rationale": "France are stronger overall but Morocco are defensively resilient, so France are slight favorites."
+          }
+        }
       }
     ]
   },
