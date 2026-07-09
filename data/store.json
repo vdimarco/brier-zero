@@ -14266,6 +14266,61 @@
             "rationale": "Given the even score and early second half with no events, France's stronger squad gives them a modest advantage."
           }
         }
+      },
+      {
+        "at": "2026-07-09T21:25:50.817Z",
+        "detail": "61'",
+        "score": [
+          1,
+          0
+        ],
+        "events": 1,
+        "period": "STATUS_SECOND_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.82,
+              "away": 0.18
+            },
+            "rationale": "France's one-goal lead with 29 minutes remaining, combined with their superior quality and Mbappé's match-winning ability, gives them a strong advantage despite Morocco's defensive resilience."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.82,
+              "away": 0.18
+            },
+            "rationale": "France leads 1-0 with under 30 minutes left, and their superior squad depth and experience in knockout matches make them strong favorites to see out the win, though Morocco's resilience means a comeback is possible."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.78,
+              "away": 0.22
+            },
+            "rationale": "France leading 1-0 with 30 minutes left, Mbappé already scored, and Morocco must chase against a superior team with tournament experience and defensive depth."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.84,
+              "away": 0.16
+            },
+            "rationale": "France is heavily favored to hold their lead given the momentum from Mbappé's recent goal and Morocco's need to open up defensively to equalize."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.72,
+              "away": 0.28
+            },
+            "rationale": "France leads 1-0 with a strong squad and momentum after Mbappé's goal, but Morocco remains dangerous on the counter and resilient defensively, giving them a non-negligible chance to equalize and force extra time or penalties."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.82,
+              "away": 0.18
+            },
+            "rationale": "France leads 1-0 with ~29 minutes left and Mbappé’s threat, so they’re strong favorites, though Morocco’s defensive resilience keeps a modest chance of an equalizer leading to extra time or penalties."
+          }
+        }
       }
     ]
   },
