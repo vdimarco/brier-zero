@@ -13715,6 +13715,68 @@
             "rationale": "France holds a slight edge based on overall squad depth and World Cup experience, though Morocco's defensive strength makes this a closely contested quarterfinal."
           }
         }
+      },
+      {
+        "at": "2026-07-09T20:06:09.512Z",
+        "detail": "4'",
+        "score": [
+          0,
+          0
+        ],
+        "events": 0,
+        "period": "STATUS_FIRST_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.78,
+              "away": 0.22
+            },
+            "rationale": "France's superior FIFA ranking, squad depth, and historical dominance over Morocco make them strong favorites, though Morocco's defensive organization and recent World Cup pedigree provide them a realistic chance in a knockout tie."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.81,
+              "away": 0.19
+            },
+            "rationale": "With the match just starting and no key events yet, France’s superior overall strength and depth make them clear favorites, though knockout variance still leaves Morocco a meaningful chance."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.75,
+              "away": 0.25
+            },
+            "rationale": "France is the stronger team on paper and a tournament favorite, but Morocco's resilient defense and underdog spirit make an upset possible."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.68,
+              "away": 0.32
+            },
+            "rationale": "France are heavy favorites on paper as defending champions with superior talent depth, though Morocco's 2022 semifinal run showed they can frustrate elite opponents; early 0-0 state still leaves France ~2:1 expected to advance."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.6,
+              "away": 0.4
+            },
+            "rationale": "France's superior talent and World Cup experience give them a significant advantage, though Morocco's defensive organization and counter-attacking threat keeps them in contention."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.65,
+              "away": 0.35
+            },
+            "rationale": "France is the stronger team on paper with deeper talent, but Morocco has shown resilience and defensive solidity in this tournament, making them a credible underdog early in a tight knockout match."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.58,
+              "away": 0.42
+            },
+            "rationale": "Given France's greater experience and attacking talent, they are slightly favored to win despite Morocco's strong defensive record."
+          }
+        }
       }
     ]
   },
