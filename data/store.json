@@ -15970,6 +15970,104 @@
           "rationale": "Based on recent performance and squad strength, Argentina and France are top contenders, followed by England, Spain, Belgium, Morocco, Switzerland, and Norway."
         }
       }
+    },
+    {
+      "at": "2026-07-09T22:03:11.532Z",
+      "teams": [
+        "Spain",
+        "Belgium",
+        "Norway",
+        "England",
+        "Argentina",
+        "Switzerland",
+        "France"
+      ],
+      "models": {
+        "anthropic/claude-sonnet-4.5": {
+          "probs": {
+            "Spain": 0.2,
+            "Belgium": 0.1,
+            "Norway": 0.05,
+            "England": 0.18,
+            "Argentina": 0.22,
+            "Switzerland": 0.05,
+            "France": 0.2
+          },
+          "rationale": "Probabilities based on recent form, historical tournament performance, squad strength, and FIFA rankings, with Argentina, France, and Spain as favorites, England close behind, Belgium as a dark horse, and Norway and Switzerland as underdogs."
+        },
+        "openai/gpt-5.1": {
+          "probs": {
+            "Spain": 0.22,
+            "Belgium": 0.09,
+            "Norway": 0.05,
+            "England": 0.18,
+            "Argentina": 0.23,
+            "Switzerland": 0.07,
+            "France": 0.16
+          },
+          "rationale": "Argentina and Spain are slight favorites, followed by England and France, with Belgium, Switzerland, and Norway as longer shots given typical relative team strengths."
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "probs": {
+            "Spain": 0.18,
+            "Belgium": 0.12,
+            "Norway": 0.08,
+            "England": 0.2,
+            "Argentina": 0.15,
+            "Switzerland": 0.07,
+            "France": 0.2
+          },
+          "rationale": "Based on current FIFA rankings, recent team form, and historical tournament performance, England and France are slight favorites, followed closely by Spain and Argentina, with Belgium, Norway, and Switzerland as longer shots."
+        },
+        "moonshotai/kimi-k2-0905": {
+          "probs": {
+            "Spain": 0.22,
+            "Belgium": 0.08,
+            "Norway": 0.05,
+            "England": 0.18,
+            "Argentina": 0.28,
+            "Switzerland": 0.06,
+            "France": 0.13
+          },
+          "rationale": "Argentina and Spain are favorites based on recent form and talent depth, with England close behind; France has quality but internal turmoil, while Norway and Switzerland are significant underdogs."
+        },
+        "z-ai/glm-4.6": {
+          "probs": {
+            "Spain": 0.16,
+            "Belgium": 0.09,
+            "Norway": 0.11,
+            "England": 0.19,
+            "Argentina": 0.16,
+            "Switzerland": 0.06,
+            "France": 0.23
+          },
+          "rationale": "France and England lead the field due to superior squad depth, followed closely by Argentina and Spain, while Norway, Belgium, and Switzerland offer varying degrees of upside as dark horses."
+        },
+        "qwen/qwen3-max": {
+          "probs": {
+            "Spain": 0.15,
+            "Belgium": 0.1,
+            "Norway": 0.02,
+            "England": 0.18,
+            "Argentina": 0.25,
+            "Switzerland": 0.05,
+            "France": 0.25
+          },
+          "rationale": "Argentina and France are joint favorites based on recent form and squad depth, England and Spain are strong contenders, Belgium has talent but inconsistency, Switzerland is solid but less likely, and Norway's chances are slim despite Haaland."
+        },
+        "minimax/minimax-m2": {
+          "probs": {
+            "Spain": 0.12,
+            "Belgium": 0.1,
+            "Norway": 0.03,
+            "England": 0.15,
+            "Argentina": 0.3,
+            "Switzerland": 0.05,
+            "France": 0.25
+          },
+          "rationale": "These probabilities reflect the relative historical strength and recent performance of each team, with Argentina and France being the strongest contenders."
+        }
+      }
     }
   ]
 }
