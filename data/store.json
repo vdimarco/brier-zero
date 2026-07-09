@@ -14383,6 +14383,61 @@
             "rationale": "France leads 2-0 with 23 minutes left, a strong position."
           }
         }
+      },
+      {
+        "at": "2026-07-09T21:45:38.576Z",
+        "detail": "81'",
+        "score": [
+          2,
+          0
+        ],
+        "events": 2,
+        "period": "STATUS_SECOND_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.97,
+              "away": 0.03
+            },
+            "rationale": "With France leading 2-0 in the 81st minute and only 9 minutes plus stoppage time remaining, Morocco would need to score twice in a very short timeframe, which is highly unlikely against a strong French defense."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.97,
+              "away": 0.03
+            },
+            "rationale": "France are two goals up with less than 10 minutes plus stoppage time remaining, making a Morocco comeback to at least penalties very unlikely."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.98,
+              "away": 0.02
+            },
+            "rationale": "France leads 2-0 with under 10 minutes left, making a Moroccan comeback extremely unlikely."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.995,
+              "away": 0.005
+            },
+            "rationale": "With France leading 2-0 at 81', Morocco would need two goals in ~9 minutes plus extra time, a feat with roughly 1-in-200 historical probability for teams of comparable quality."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.96,
+              "away": 0.04
+            },
+            "rationale": "France leads 2-0 with only 9 minutes plus stoppage time remaining, making a Moroccan comeback highly unlikely given the high stakes and France's strong squad depth."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.97,
+              "away": 0.03
+            },
+            "rationale": "France leads 2-0 with 9 minutes left, so they are heavily favored to advance."
+          }
+        }
       }
     ]
   },
