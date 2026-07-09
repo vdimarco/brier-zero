@@ -14321,6 +14321,68 @@
             "rationale": "France leads 1-0 with ~29 minutes left and Mbappé’s threat, so they’re strong favorites, though Morocco’s defensive resilience keeps a modest chance of an equalizer leading to extra time or penalties."
           }
         }
+      },
+      {
+        "at": "2026-07-09T21:31:52.667Z",
+        "detail": "67'",
+        "score": [
+          2,
+          0
+        ],
+        "events": 2,
+        "period": "STATUS_SECOND_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.95,
+              "away": 0.05
+            },
+            "rationale": "France holds a commanding two-goal lead with only 23 minutes remaining, and Morocco would need an unlikely three-goal comeback to advance given France's strong defensive capabilities and ability to control games."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.97,
+              "away": 0.03
+            },
+            "rationale": "France lead by two goals with only about 25 minutes plus stoppage time left, making a Moroccan comeback to win in regulation, extra time, or penalties very unlikely."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.96,
+              "away": 0.04
+            },
+            "rationale": "France leads 2-0 with only about 25 minutes left, making a Moroccan comeback extremely unlikely given the stage and scoreline."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.97,
+              "away": 0.03
+            },
+            "rationale": "France leads 2-0 with 23 minutes remaining, making a Morocco comeback extremely unlikely given their need for at least two goals plus potential extra time or penalties."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.94,
+              "away": 0.06
+            },
+            "rationale": "France's 2-0 lead with only 23 minutes remaining gives them a commanding advantage, as Morocco would need a remarkable comeback to force extra time or win in regulation."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.96,
+              "away": 0.04
+            },
+            "rationale": "France leads 2-0 with strong momentum and only 23 minutes remaining, making a Moroccan comeback highly unlikely."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.9,
+              "away": 0.1
+            },
+            "rationale": "France leads 2-0 with 23 minutes left, a strong position."
+          }
+        }
       }
     ]
   },
