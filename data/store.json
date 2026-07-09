@@ -13659,6 +13659,63 @@
           }
         }
       }
+    ],
+    "760510": [
+      {
+        "at": "2026-07-09T20:05:01.712Z",
+        "detail": "2'",
+        "score": [
+          0,
+          0
+        ],
+        "events": 0,
+        "period": "STATUS_FIRST_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.78,
+              "away": 0.22
+            },
+            "rationale": "France is heavily favored as a top-tier team with superior depth and talent against Morocco in a knockout match that has barely begun, though Morocco has proven capable of upsets."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.81,
+              "away": 0.19
+            },
+            "rationale": "At 0-0 in the 2nd minute with no events, pre-match strength and depth heavily favor France while still allowing for some knockout volatility."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.75,
+              "away": 0.25
+            },
+            "rationale": "France is a historically dominant footballing nation with superior squad depth and talent, making them heavy favorites to eventually break down a resilient but offensively limited Morocco side over the course of a full match."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.68,
+              "away": 0.32
+            },
+            "rationale": "France are heavy favorites as defending champions with superior talent depth, though Morocco's 2022 semifinal run and defensive organization make them credible underdogs at this early stage."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.65,
+              "away": 0.35
+            },
+            "rationale": "France is favored due to stronger squad depth and historical performance, though Morocco's disciplined defense makes them a credible threat."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.6,
+              "away": 0.4
+            },
+            "rationale": "France holds a slight edge based on overall squad depth and World Cup experience, though Morocco's defensive strength makes this a closely contested quarterfinal."
+          }
+        }
+      }
     ]
   },
   "outright": [
