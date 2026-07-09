@@ -14025,6 +14025,68 @@
             "rationale": "France holds a slight edge as the traditionally stronger side, though Morocco's recent World Cup victory over France and the still-early 0-0 state keep the contest highly competitive."
           }
         }
+      },
+      {
+        "at": "2026-07-09T20:52:44.404Z",
+        "detail": "HT",
+        "score": [
+          0,
+          0
+        ],
+        "events": 0,
+        "period": "STATUS_HALFTIME",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.72,
+              "away": 0.28
+            },
+            "rationale": "France remains heavily favored due to superior squad depth and quality despite the scoreless first half, though Morocco's defensive organization and tournament momentum provide a realistic path to an upset."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.81,
+              "away": 0.19
+            },
+            "rationale": "In a goalless quarterfinal at halftime, France’s superior overall quality, depth, and attacking strength still make them clear favorites despite the balanced scoreline."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.75,
+              "away": 0.25
+            },
+            "rationale": "France is a stronger side on paper and the match is still level at halftime, giving them the full second half and potential extra time to leverage their superior squad depth and talent."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.68,
+              "away": 0.32
+            },
+            "rationale": "France's superior talent and depth should prevail against Morocco's resilient but limited squad, though the Atlas Lions' defensive organization and 2022 semifinal experience keeps them competitive."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.65,
+              "away": 0.35
+            },
+            "rationale": "France is favored to break the deadlock in the second half or extra time due to their superior attacking talent and depth, despite Morocco's resilient defensive performance."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.65,
+              "away": 0.35
+            },
+            "rationale": "France has superior squad depth and historical tournament pedigree, but Morocco's disciplined defense and counterattacking threat keep them competitive."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.55,
+              "away": 0.45
+            },
+            "rationale": "At halftime of a tight 0-0 knockout quarterfinal, France's superior tournament experience and depth give them a slight edge over a defensively organized Morocco side."
+          }
+        }
       }
     ]
   },
