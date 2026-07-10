@@ -14915,6 +14915,61 @@
             "rationale": "A tight knockout match at halftime with momentum swinging to Belgium after their late equalizer, though Spain's quality makes this essentially a coin-flip for the final 45 minutes."
           }
         }
+      },
+      {
+        "at": "2026-07-10T20:19:18.591Z",
+        "detail": "56'",
+        "score": [
+          1,
+          1
+        ],
+        "events": 2,
+        "period": "STATUS_SECOND_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.68,
+              "away": 0.32
+            },
+            "rationale": "Spain's superior possession-based style and deeper squad quality give them a significant advantage with 34 minutes plus potential extra time remaining, despite the current level scoreline."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.64,
+              "away": 0.36
+            },
+            "rationale": "With the match level shortly into the second half, Spain’s slightly higher underlying quality and depth make them modest favorites to advance despite the current draw."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.58,
+              "away": 0.42
+            },
+            "rationale": "Spain has a slight edge due to their superior possession-based style and tournament experience, but the match is finely balanced with over 30 minutes plus potential extra time remaining."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.58,
+              "away": 0.42
+            },
+            "rationale": "Spain's superior tournament pedigree and midfield control through players like Fabián Ruiz give them a slight edge despite the level scoreline with 34 minutes remaining."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.54,
+              "away": 0.46
+            },
+            "rationale": "Spain retains a slight edge due to superior squad depth and possession control, but Belgium's momentum from the late equalizer makes this a tightly contested affair likely heading towards extra time."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.55,
+              "away": 0.45
+            },
+            "rationale": "Spain has a slight edge due to stronger recent tournament form and deeper squad quality, though the tied score at 56' keeps the match finely balanced."
+          }
+        }
       }
     ]
   },
