@@ -15032,6 +15032,68 @@
             "rationale": "The match is evenly poised at 1-1 with 23 minutes remaining, giving Spain a slight edge based on their historical tournament pedigree and the momentum of having scored first."
           }
         }
+      },
+      {
+        "at": "2026-07-10T20:46:40.433Z",
+        "detail": "84'",
+        "score": [
+          1,
+          1
+        ],
+        "events": 2,
+        "period": "STATUS_SECOND_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.62,
+              "away": 0.38
+            },
+            "rationale": "With only 6 minutes remaining at 1-1, Spain's superior possession style and depth make them favorites to find a winner in remaining regulation or control extra time, though Belgium's counterattacking threat keeps this relatively open."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.61,
+              "away": 0.39
+            },
+            "rationale": "With the match level late and Spain slightly stronger on underlying quality and depth, they are modest favorites to find a winner in regulation, extra time, or on penalties."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.58,
+              "away": 0.42
+            },
+            "rationale": "Spain has a slight edge due to their superior possession and control in the match, but with only 6 minutes plus stoppage time remaining, a draw leading to extra time and penalties is highly likely, where the teams are nearly even."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "Spain's superior tournament pedigree and possession-based style give them a slight edge despite the late equalizer, with Belgium having shown resilience but facing fatigue concerns."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.53,
+              "away": 0.47
+            },
+            "rationale": "With only minutes remaining in regulation, the match is likely headed to extra time where Spain's historical tournament pedigree gives them a slight edge over Belgium."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "Spain has a slight edge due to stronger recent tournament form and home-continent advantage, but the match is finely balanced after a 1-1 draw late in regulation."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "With only 6 minutes plus stoppage time remaining in a tightly contested 1-1 quarterfinal, both teams have similar chances though Spain's greater knockout stage experience and slightly higher possession gives them a marginal edge."
+          }
+        }
       }
     ]
   },
