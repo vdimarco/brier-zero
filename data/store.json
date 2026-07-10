@@ -14674,6 +14674,61 @@
             "rationale": "Spain slightly favored due to stronger squad and home advantage."
           }
         }
+      },
+      {
+        "at": "2026-07-10T19:32:04.232Z",
+        "detail": "30'",
+        "score": [
+          0,
+          0
+        ],
+        "events": 1,
+        "period": "STATUS_IN_PROGRESS",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.72,
+              "away": 0.28
+            },
+            "rationale": "Spain's goal at 30 minutes gives them a significant advantage with 60+ minutes remaining, though Belgium has quality to equalize and knockout matches remain unpredictable."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.68,
+              "away": 0.32
+            },
+            "rationale": "Spain are a stronger side on paper and now lead 1–0 relatively early, significantly boosting their chances though Belgium still have ample time to respond."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.72,
+              "away": 0.28
+            },
+            "rationale": "Spain's early goal gives them a significant advantage, making them strong favorites to control the match and advance."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.68,
+              "away": 0.32
+            },
+            "rationale": "Spain leading 1-0 at 30' with strong midfield control via Fabián Ruiz's goal gives them clear advantage, though Belgium's counter-attacking threat keeps them competitive."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.65,
+              "away": 0.35
+            },
+            "rationale": "Spain just scored to lead 1-0 in the 30th minute, giving them a strong advantage in a knockout match, though Belgium remains dangerous on the counter."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.7,
+              "away": 0.3
+            },
+            "rationale": "Spain's early lead and stronger attacking options give them a higher likelihood of holding on or adding to their advantage."
+          }
+        }
       }
     ]
   },
