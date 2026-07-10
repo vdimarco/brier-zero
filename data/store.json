@@ -14729,6 +14729,68 @@
             "rationale": "Spain's early lead and stronger attacking options give them a higher likelihood of holding on or adding to their advantage."
           }
         }
+      },
+      {
+        "at": "2026-07-10T19:43:18.703Z",
+        "detail": "41'",
+        "score": [
+          1,
+          1
+        ],
+        "events": 2,
+        "period": "STATUS_IN_PROGRESS",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.62,
+              "away": 0.38
+            },
+            "rationale": "Spain remains favored despite the equalizer due to their superior overall quality, depth, and tournament pedigree, though Belgium's recent goal provides momentum and the match is evenly poised at halftime."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.58,
+              "away": 0.42
+            },
+            "rationale": "With the match level late in the first half, Spain’s slightly stronger overall quality and depth give them a modest edge, but the tie remains very close to balanced."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.62,
+              "away": 0.38
+            },
+            "rationale": "Spain's superior possession-based system gives them a slight edge to control the remainder of the match and potentially win in extra time."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.58,
+              "away": 0.42
+            },
+            "rationale": "Spain's superior midfield control and tournament pedigree give them a slight edge despite the equalizer, with nearly half the match remaining for their quality to tell."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.54,
+              "away": 0.46
+            },
+            "rationale": "Spain's possession-based style and ability to control tempo give them a slight edge despite Belgium's quick equalizer, with the match likely to be decided by second-half tactical adjustments."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "Both teams are evenly matched with one goal each early in the game, but Spain has a slight historical and tactical edge in knockout scenarios."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.55,
+              "away": 0.45
+            },
+            "rationale": "Given the early stage and comparable team strength, Spain holds a slight advantage."
+          }
+        }
       }
     ]
   },
