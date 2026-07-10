@@ -16068,6 +16068,104 @@
           "rationale": "These probabilities reflect the relative historical strength and recent performance of each team, with Argentina and France being the strongest contenders."
         }
       }
+    },
+    {
+      "at": "2026-07-10T19:04:51.510Z",
+      "teams": [
+        "Spain",
+        "Belgium",
+        "Norway",
+        "England",
+        "Argentina",
+        "Switzerland",
+        "France"
+      ],
+      "models": {
+        "anthropic/claude-sonnet-4.5": {
+          "probs": {
+            "Spain": 0.22,
+            "Belgium": 0.1,
+            "Norway": 0.08,
+            "England": 0.18,
+            "Argentina": 0.2,
+            "Switzerland": 0.07,
+            "France": 0.15
+          },
+          "rationale": "Probabilities based on recent tournament performance, FIFA rankings, squad strength, and historical World Cup success, with Spain, Argentina, and England as favorites given their talent depth and form."
+        },
+        "openai/gpt-5.1": {
+          "probs": {
+            "Spain": 0.2,
+            "Belgium": 0.08,
+            "Norway": 0.04,
+            "England": 0.18,
+            "Argentina": 0.22,
+            "Switzerland": 0.08,
+            "France": 0.2
+          },
+          "rationale": "Argentina, France, Spain, and England are the strongest contenders given recent squad quality and tournament performance, with Belgium and Switzerland as outside threats and Norway a longer shot."
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "probs": {
+            "Spain": 0.2,
+            "Belgium": 0.1,
+            "Norway": 0.05,
+            "England": 0.2,
+            "Argentina": 0.15,
+            "Switzerland": 0.05,
+            "France": 0.25
+          },
+          "rationale": "Based on current FIFA rankings, recent form, and historical World Cup performance, France and Spain are the strongest contenders, followed by England and Argentina."
+        },
+        "moonshotai/kimi-k2-0905": {
+          "probs": {
+            "Spain": 0.22,
+            "Belgium": 0.08,
+            "Norway": 0.03,
+            "England": 0.18,
+            "Argentina": 0.21,
+            "Switzerland": 0.03,
+            "France": 0.25
+          },
+          "rationale": "France and Spain have the deepest squads, Argentina has Messi’s last dance momentum, England are strong but underachievers, Belgium are aging, Norway depend heavily on Haaland, and Switzerland are solid but not contenders."
+        },
+        "z-ai/glm-4.6": {
+          "probs": {
+            "Spain": 0.15,
+            "Belgium": 0.1,
+            "Norway": 0.05,
+            "England": 0.18,
+            "Argentina": 0.2,
+            "Switzerland": 0.07,
+            "France": 0.25
+          },
+          "rationale": "Probabilities reflect recent World Cup performances, historical success, and current squad strength with France and Argentina as favorites due to their 2018-2022 achievements."
+        },
+        "qwen/qwen3-max": {
+          "probs": {
+            "Spain": 0.18,
+            "Belgium": 0.12,
+            "Norway": 0.02,
+            "England": 0.15,
+            "Argentina": 0.25,
+            "Switzerland": 0.08,
+            "France": 0.2
+          },
+          "rationale": "Argentina and France are top contenders based on recent form and squad depth, Spain and England have strong teams but less recent tournament success, Belgium is talented but aging, Switzerland is solid but less likely to win it all, and Norway lacks World Cup pedigree despite individual talent."
+        },
+        "minimax/minimax-m2": {
+          "probs": {
+            "Spain": 0.12,
+            "Belgium": 0.08,
+            "Norway": 0.04,
+            "England": 0.18,
+            "Argentina": 0.3,
+            "Switzerland": 0.03,
+            "France": 0.25
+          },
+          "rationale": "Based on recent form, squad strength, and historical performance, Argentina and France are the strongest contenders, followed by England, Spain, Belgium, with Norway and Switzerland as underdogs."
+        }
+      }
     }
   ]
 }
