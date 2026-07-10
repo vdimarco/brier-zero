@@ -14619,6 +14619,61 @@
             "rationale": "Early in the tie with no events, Spain is marginally favored based on historical strength."
           }
         }
+      },
+      {
+        "at": "2026-07-10T19:25:55.879Z",
+        "detail": "24'",
+        "score": [
+          0,
+          0
+        ],
+        "events": 0,
+        "period": "STATUS_FIRST_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.68,
+              "away": 0.32
+            },
+            "rationale": "Spain is significantly stronger based on recent form and FIFA rankings, and with 66+ minutes remaining in a scoreless match, pre-match quality differentials dominate the forecast."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.62,
+              "away": 0.38
+            },
+            "rationale": "With the match still goalless early, Spain’s slightly higher underlying strength and marginally better tournament profile give them a modest edge but far from decisive."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.62,
+              "away": 0.38
+            },
+            "rationale": "Spain's superior possession and technical control in the early stages gives them a slight edge in a tight match."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.62,
+              "away": 0.38
+            },
+            "rationale": "Spain's superior possession-based style and tournament pedigree give them an edge, but Belgium's counter-attacking threat keeps this competitive at 0-0 early on."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.55,
+              "away": 0.45
+            },
+            "rationale": "Spain holds a slight edge due to stronger recent tournament form and deeper squad depth, though Belgium's experienced core keeps them competitive in a tight, scoreless early match."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.58,
+              "away": 0.42
+            },
+            "rationale": "Spain slightly favored due to stronger squad and home advantage."
+          }
+        }
       }
     ]
   },
