@@ -14791,6 +14791,68 @@
             "rationale": "Given the early stage and comparable team strength, Spain holds a slight advantage."
           }
         }
+      },
+      {
+        "at": "2026-07-10T19:52:24.420Z",
+        "detail": "HT",
+        "score": [
+          1,
+          1
+        ],
+        "events": 2,
+        "period": "STATUS_HALFTIME",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.68,
+              "away": 0.32
+            },
+            "rationale": "Spain's superior squad depth, tactical flexibility, and recent tournament pedigree give them a significant advantage despite the level scoreline at halftime."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.6,
+              "away": 0.4
+            },
+            "rationale": "Spain are slightly more likely to advance given their overall strength and depth, with the match still level at halftime."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.55,
+              "away": 0.45
+            },
+            "rationale": "Spain has a slight edge due to their strong tournament pedigree and control of possession, but the match is finely balanced after a first-half draw."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.58,
+              "away": 0.42
+            },
+            "rationale": "Spain's superior tournament pedigree and midfield control through Fabián Ruiz give them slight edge despite Belgium's equalizer, with match evenly poised at halftime."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "Spain's technical quality gives them a slight edge in a tightly balanced quarterfinal tied at halftime."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.55,
+              "away": 0.45
+            },
+            "rationale": "Spain has a slight edge due to stronger recent tournament form and deeper squad depth, though the even first-half scoreline reflects closely matched teams."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.57,
+              "away": 0.43
+            },
+            "rationale": "Spain is slightly favored due to stronger recent tournament form and deeper squad quality, but Belgium remains competitive."
+          }
+        }
       }
     ]
   },
