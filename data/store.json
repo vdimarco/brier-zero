@@ -14970,6 +14970,68 @@
             "rationale": "Spain has a slight edge due to stronger recent tournament form and deeper squad quality, though the tied score at 56' keeps the match finely balanced."
           }
         }
+      },
+      {
+        "at": "2026-07-10T20:29:08.840Z",
+        "detail": "67'",
+        "score": [
+          1,
+          1
+        ],
+        "events": 2,
+        "period": "STATUS_SECOND_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.68,
+              "away": 0.32
+            },
+            "rationale": "Spain's superior possession-based style and deeper squad quality give them a significant edge with 23 minutes remaining at 1-1, though Belgium's defensive organization and counter-attacking threat keep them in contention."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.6,
+              "away": 0.4
+            },
+            "rationale": "With the match level late on a neutral field, Spain’s slightly stronger underlying quality and depth give them a modest edge to advance overall."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.62,
+              "away": 0.38
+            },
+            "rationale": "Spain's superior possession and control in midfield gives them a slight edge to create a winning chance in the final 25 minutes plus potential extra time."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.55,
+              "away": 0.45
+            },
+            "rationale": "Spain have looked the more coherent side since equalising, but with 23 minutes left plus possible extra time and penalties the tie is still very much in the balance."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "With the score level and significant time remaining, Spain's slight technical edge gives them a marginal advantage in what remains a very balanced contest."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.55,
+              "away": 0.45
+            },
+            "rationale": "Spain has slightly better underlying performance metrics and squad depth, giving them a modest edge despite the level scoreline at 67 minutes."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.55,
+              "away": 0.45
+            },
+            "rationale": "The match is evenly poised at 1-1 with 23 minutes remaining, giving Spain a slight edge based on their historical tournament pedigree and the momentum of having scored first."
+          }
+        }
       }
     ]
   },
