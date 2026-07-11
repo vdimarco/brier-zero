@@ -16912,6 +16912,96 @@
           "rationale": "Based on recent form and historical performance, Argentina is the most likely winner, followed by France, England, Spain, with Switzerland and Norway as underdogs."
         }
       }
+    },
+    {
+      "at": "2026-07-11T17:03:30.250Z",
+      "teams": [
+        "Norway",
+        "England",
+        "Argentina",
+        "Switzerland",
+        "France",
+        "Spain"
+      ],
+      "models": {
+        "anthropic/claude-sonnet-4.5": {
+          "probs": {
+            "Norway": 0.05,
+            "England": 0.2,
+            "Argentina": 0.25,
+            "Switzerland": 0.08,
+            "France": 0.24,
+            "Spain": 0.18
+          },
+          "rationale": "Probabilities reflect recent form, historical tournament performance, and squad strength, with Argentina, France, and England as favorites, Spain as a strong contender, and Norway and Switzerland as underdogs."
+        },
+        "openai/gpt-5.1": {
+          "probs": {
+            "Norway": 0.06,
+            "England": 0.2,
+            "Argentina": 0.22,
+            "Switzerland": 0.07,
+            "France": 0.24,
+            "Spain": 0.21
+          },
+          "rationale": "France, Argentina, Spain, and England form a top tier with roughly similar chances while Norway and Switzerland are clear underdogs but not negligible, leading to this normalized distribution."
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "probs": {
+            "Norway": 0.01,
+            "England": 0.23,
+            "Argentina": 0.28,
+            "Switzerland": 0.03,
+            "France": 0.22,
+            "Spain": 0.23
+          },
+          "rationale": "Argentina is the slight favorite as defending champion with a strong squad, while England, France, and Spain are nearly co-favorites as elite contenders, Norway is a long shot, and Switzerland is a dark horse with lower odds."
+        },
+        "moonshotai/kimi-k2-0905": {
+          "probs": {
+            "Norway": 0.05,
+            "England": 0.18,
+            "Argentina": 0.22,
+            "Switzerland": 0.05,
+            "France": 0.25,
+            "Spain": 0.25
+          },
+          "rationale": "France and Spain are the strongest and deepest squads, Argentina’s Messi-led momentum keeps them close, England’s talent balances against historical underachievement, while Norway and Switzerland are clear outsiders."
+        },
+        "z-ai/glm-4.6": {
+          "probs": {
+            "Norway": 0.07,
+            "England": 0.24,
+            "Argentina": 0.2,
+            "Switzerland": 0.05,
+            "France": 0.24,
+            "Spain": 0.2
+          },
+          "rationale": "France and England lead with superior squad depth, followed closely by the defending champions Argentina and a revitalized Spain, while Norway and Switzerland face long odds despite Norway's individual talent."
+        },
+        "qwen/qwen3-max": {
+          "probs": {
+            "Norway": 0.05,
+            "England": 0.15,
+            "Argentina": 0.25,
+            "Switzerland": 0.1,
+            "France": 0.25,
+            "Spain": 0.2
+          },
+          "rationale": "Argentina and France are joint favorites based on recent form and squad depth, England and Spain are strong contenders, Switzerland is solid but less likely, and Norway is a long shot despite Haaland's presence."
+        },
+        "minimax/minimax-m2": {
+          "probs": {
+            "Norway": 0.03,
+            "England": 0.2,
+            "Argentina": 0.3,
+            "Switzerland": 0.07,
+            "France": 0.25,
+            "Spain": 0.15
+          },
+          "rationale": "Based on current team strength, recent form, and historical World Cup performance, these are my estimated probabilities."
+        }
+      }
     }
   ]
 }
