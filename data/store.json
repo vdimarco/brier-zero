@@ -15695,6 +15695,61 @@
             "rationale": "England has superior squad depth and tournament experience, giving them a higher likelihood of prevailing in a tight knockout match despite the current draw."
           }
         }
+      },
+      {
+        "at": "2026-07-11T22:31:31.138Z",
+        "detail": "68'",
+        "score": [
+          1,
+          1
+        ],
+        "events": 2,
+        "period": "STATUS_IN_PROGRESS",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.28,
+              "away": 0.72
+            },
+            "rationale": "England's superior squad depth, quality, and historical tournament performance give them a significant advantage with 22 minutes remaining in a level knockout match, though Norway's home crowd and current momentum keep their chances viable."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.41,
+              "away": 0.59
+            },
+            "rationale": "With the match level on 68 minutes but England generally stronger on paper and deeper off the bench, they remain modest favorites to edge the tie over the remaining time or on penalties."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.35,
+              "away": 0.65
+            },
+            "rationale": "England has superior squad depth and experience in high-pressure knockout matches, making them slight favorites to find a winner in the remaining time or extra time."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.38,
+              "away": 0.62
+            },
+            "rationale": "England has superior squad depth and tournament experience, plus momentum from the late first-half equalizer, making them favorites despite Norway's home-continent advantage in North America."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.35,
+              "away": 0.65
+            },
+            "rationale": "England's stronger squad depth and historical tournament experience give them an edge despite the current draw, especially with over 20 minutes of regulation time remaining."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.44,
+              "away": 0.56
+            },
+            "rationale": "With the match tied and about 22 minutes plus extra time remaining, England's superior quality gives them a slight advantage."
+          }
+        }
       }
     ]
   },
