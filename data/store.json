@@ -15516,6 +15516,68 @@
             "rationale": "England's late equalizing goal just before halftime gives them momentum and quality edge, though Norway showed threat and it's still very much even at 1-1."
           }
         }
+      },
+      {
+        "at": "2026-07-11T22:09:30.477Z",
+        "detail": "46'",
+        "score": [
+          1,
+          1
+        ],
+        "events": 2,
+        "period": "STATUS_SECOND_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.28,
+              "away": 0.72
+            },
+            "rationale": "England's superior squad depth, quality, and historical tournament performance give them a significant advantage despite the level scoreline, with momentum from Bellingham's late first-half equalizer."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.37,
+              "away": 0.63
+            },
+            "rationale": "With the score level but England’s superior overall quality and depth, they remain modest favorites despite Norway’s early lead and competitive first half."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.42,
+              "away": 0.58
+            },
+            "rationale": "England's superior squad depth and tournament experience slightly favor them in a tight second half and potential extra time, but Norway's momentum from a strong first half makes this very close."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.35,
+              "away": 0.65
+            },
+            "rationale": "England’s deeper bench and tournament pedigree tilt the odds despite the deadlock, but Norway’s counter threat keeps it alive."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.33,
+              "away": 0.67
+            },
+            "rationale": "England's superior squad depth and the significant momentum shift from Jude Bellingham's stoppage-time equalizer make them clear favorites to win the tie in regulation or extra time."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.42,
+              "away": 0.58
+            },
+            "rationale": "England's deeper squad and historical tournament experience give them a slight edge despite the level score at halftime."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.42,
+              "away": 0.58
+            },
+            "rationale": "England's late first-half equalizer gives them momentum, and their superior tournament pedigree tips the balance despite Norway's home advantage and demonstrated attacking threat."
+          }
+        }
       }
     ]
   },
