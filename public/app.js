@@ -85,6 +85,78 @@ function consensusOf(modelsMap, market = 'regulation') {
   return c;
 }
 
+// A single forecast's Brier score against the finished match, settled in
+// the market it priced. Null while unknowable (no result, ineligible, or a
+// forecast made for a different fixture). Shared by the card and detail so
+// scoring never drifts between them.
+function predBrier(p, match) {
+  if (!p?.probs || !p.eligible) return null;
+  const sameFixture = !p.fixture || p.fixture === `${match.home.name} vs ${match.away.name}`;
+  if (!sameFixture) return null;
+  const market = predMarket(p);
+  const outcome = match.outcomes ? match.outcomes[market] : match.outcome;
+  if (!outcome) return null;
+  return MARKET_OUTCOMES[market].reduce(
+    (sum, o) => sum + (p.probs[o] - (outcome === o ? 1 : 0)) ** 2, 0
+  );
+}
+
+// The order models are listed for a match, best first. A finished match
+// ranks by Brier (who called it right); a live or upcoming one ranks by
+// how much probability each model puts on the current favourite (most
+// confident first). Models with no forecast sink to the bottom. Every
+// per-match list uses this, so ranking reads the same everywhere.
+function rankModels(models, preds, match, market) {
+  const consensus = consensusOf(preds, market);
+  const outs = MARKET_OUTCOMES[market];
+  const fav = consensus
+    ? outs.reduce((a, o) => ((consensus[o] ?? 0) > (consensus[a] ?? 0) ? o : a), outs[0])
+    : outs[0];
+  const finished = match.status.state === 'post';
+  const rankVal = (m) => {
+    const p = preds[m.id];
+    if (!p || !p.probs) return -Infinity;
+    if (finished) { const b = predBrier(p, match); if (b != null) return 100 - b; }
+    return p.probs[fav] ?? 0;
+  };
+  return [...models].sort((a, b) => rankVal(b) - rankVal(a));
+}
+
+// Deep link to a panel (a match or a model), shareable and reopenable: on
+// load renderDetail reads the same hash and reopens the panel.
+function shareLink(hash) {
+  return `${location.origin}${location.pathname}#${hash}`;
+}
+
+let toastTimer = null;
+function toast(msg) {
+  let t = document.getElementById('toast');
+  if (!t) {
+    t = document.createElement('div');
+    t.id = 'toast';
+    t.className = 'toast';
+    t.setAttribute('role', 'status');
+    document.body.appendChild(t);
+  }
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+// Share a match: the native sheet on phones, a copied link elsewhere.
+async function shareMatch(match) {
+  const url = shareLink(`m/${match.id}`);
+  const title = `${match.home.name} vs ${match.away.name} · The Brier Cup`;
+  const text = `${match.home.name} vs ${match.away.name} — watch seven AI models forecast this ${match.stage} match, live.`;
+  if (navigator.share) {
+    try { await navigator.share({ title, text, url }); return; }
+    catch (e) { if (e.name === 'AbortError') return; }
+  }
+  try { await navigator.clipboard.writeText(url); toast('Link copied'); }
+  catch { window.prompt('Copy this link', url); }
+}
+
 function forecastRow(model, pred, match, bestBrier) {
   const name = esc(model.label);
   const crest = model.icon
@@ -142,14 +214,10 @@ function matchCard(match, state) {
     const p = match.predictions[m.id];
     if (!p) continue;
     const copy = { ...p };
-    const sameFixture = !p.fixture || p.fixture === `${match.home.name} vs ${match.away.name}`;
-    const market = predMarket(p);
-    const outcome = match.outcomes ? match.outcomes[market] : match.outcome;
-    if (outcome && p.probs && p.eligible && sameFixture) {
-      copy.brier = MARKET_OUTCOMES[market].reduce(
-        (sum, o) => sum + (p.probs[o] - (outcome === o ? 1 : 0)) ** 2, 0
-      );
-      bestBrier = bestBrier == null ? copy.brier : Math.min(bestBrier, copy.brier);
+    const b = predBrier(p, match);
+    if (b != null) {
+      copy.brier = b;
+      bestBrier = bestBrier == null ? b : Math.min(bestBrier, b);
     }
     preds[m.id] = copy;
   }
@@ -160,12 +228,12 @@ function matchCard(match, state) {
   if (hasAny) {
     const withProbs = Object.values(preds).filter((p) => p.probs);
     const isOpen = expandedMatches.has(match.id);
+    const market = displayMarketOf(preds, match);
     let outcomeHead = '';
     let collapsed = '';
     if (withProbs.length) {
       // Consensus: the mean of every stored forecast priced in the market
       // this match is displayed in (knockout: who advances).
-      const market = displayMarketOf(preds, match);
       const outs = MARKET_OUTCOMES[market];
       const consensus = consensusOf(preds, market);
       const inMarket = withProbs.filter((p) => predMarket(p) === market).length;
@@ -194,7 +262,7 @@ function matchCard(match, state) {
     body = `<div class="forecasts">
       ${outcomeHead}
       ${isOpen
-        ? state.models.map((m) => forecastRow(m, preds[m.id], match, bestBrier)).join('')
+        ? rankModels(state.models, preds, match, market).map((m) => forecastRow(m, preds[m.id], match, bestBrier)).join('')
         : collapsed}
       <button class="toggle-models" data-toggle="${esc(match.id)}" aria-expanded="${isOpen}">
         ${isOpen ? 'Hide models' : `Compare ${Object.keys(preds).length} models`}
@@ -750,33 +818,85 @@ function renderDetail(state) {
   const market = displayMarketOf(match.predictions, match);
   const points = detailPoints(match, market);
   const isLive = match.status.state === 'in';
+  const isDone = match.status.state === 'post';
+
+  // Attach each model's Brier so finished games can rank best-first and
+  // show the score; ranking falls back to confidence before a result.
+  const detailPreds = {};
+  let bestBrier = null;
+  for (const mod of state.models) {
+    const p = match.predictions[mod.id];
+    if (!p) continue;
+    const copy = { ...p };
+    const b = predBrier(p, match);
+    if (b != null) { copy.brier = b; bestBrier = bestBrier == null ? b : Math.min(bestBrier, b); }
+    detailPreds[mod.id] = copy;
+  }
+
+  // A plain-language read of where the models stand: who they favour, how
+  // strongly, and how far apart they are — the heart of a follow-along page.
+  const consensus = consensusOf(match.predictions, market);
+  let pickHtml = '';
+  if (consensus) {
+    const outs = MARKET_OUTCOMES[market];
+    const fav = outs.reduce((a, o) => ((consensus[o] ?? 0) > (consensus[a] ?? 0) ? o : a), outs[0]);
+    const favName = fav === 'draw' ? 'a draw' : esc(match[fav].name);
+    const verb = market === 'advance' ? 'to advance' : fav === 'draw' ? '' : 'to win';
+    const modelProbs = Object.values(match.predictions)
+      .filter((p) => p.probs && predMarket(p) === market)
+      .map((p) => p.probs[fav] ?? 0);
+    const lo = modelProbs.length ? pct(Math.min(...modelProbs)) : null;
+    const hi = modelProbs.length ? pct(Math.max(...modelProbs)) : null;
+    const spread = lo != null && hi > lo ? ` <span class="gp-range">(models range ${lo}–${hi}%)</span>` : '';
+    const lead = isDone ? 'The models favoured' : isLive ? 'The models now favour' : 'The models favour';
+    pickHtml = `<div class="game-pick">${lead} <b>${favName}</b> ${verb} — <b>${pct(consensus[fav])}%</b> consensus${spread}</div>`;
+  }
 
   const lockedRows = Object.keys(match.predictions).length
-    ? state.models.map((mod) => forecastRow(mod, match.predictions[mod.id], match, null)).join('')
+    ? rankModels(state.models, detailPreds, match, market)
+        .map((mod) => forecastRow(mod, detailPreds[mod.id], match, bestBrier)).join('')
     : '<div class="fnote">No locked forecasts for this match.</div>';
+  const rankNote = isDone
+    ? 'Ranked best call first — lowest Brier is the sharpest forecast.'
+    : 'Ranked by confidence in the favourite, most sure first.';
 
   el.innerHTML = `<div class="detail-scrim" data-close></div>
-  <section class="detail-panel" role="dialog" aria-modal="true" aria-label="Match detail">
+  <section class="detail-panel game-panel" role="dialog" aria-modal="true" aria-label="Match detail">
     <div class="detail-head">
-      <div>
-        <div class="detail-title">${esc(match.home.name)} <span class="scoreline${isLive ? '' : ''}">${
-          match.status.state === 'pre' ? 'vs' : `${match.home.score ?? 0} : ${match.away.score ?? 0}`
-        }</span> ${esc(match.away.name)}</div>
-        <div class="fnote">${esc(match.status.state === 'pre' ? fmtKickoff.format(new Date(match.kickoff)) : match.status.detail)} · ${esc(match.stage)}${isLive ? ' · live' : ''}</div>
+      <div class="game-head">
+        <div class="game-teams">
+          <img class="flag" src="${esc(match.home.logo)}" alt="" onerror="this.style.visibility='hidden'">
+          <span class="game-team">${esc(match.home.name)}</span>
+          <span class="game-score${isLive ? ' live' : ''}">${
+            match.status.state === 'pre' ? 'vs' : `${match.home.score ?? 0} : ${match.away.score ?? 0}`
+          }</span>
+          <span class="game-team game-team-a">${esc(match.away.name)}</span>
+          <img class="flag" src="${esc(match.away.logo)}" alt="" onerror="this.style.visibility='hidden'">
+        </div>
+        <div class="game-sub">${isLive ? '<span class="game-livedot" aria-hidden="true"></span>' : ''}${
+          esc(match.status.state === 'pre' ? fmtKickoff.format(new Date(match.kickoff)) : match.status.detail)
+        } · ${esc(match.stage)}</div>
       </div>
-      <button class="detail-close" data-close aria-label="Close">✕</button>
+      <div class="detail-actions">
+        <button class="detail-share" aria-label="Share this match">Share</button>
+        <button class="detail-close" data-close aria-label="Close">✕</button>
+      </div>
     </div>
+    ${pickHtml}
     ${points.length > 1 ? `<h3>How the forecast moved</h3>
     ${timelineRows(match, points, market)}
     <p class="fnote">${market === 'advance' ? 'Knockout market: probability of advancing, extra time and penalties included. ' : ''}Consensus at each moment: the locked pre-kickoff forecast is the only one that scores; in-play rows are fresh forecasts after every goal, card, and period change; the last row is the actual result.</p>` :
     (isLive ? '<p class="fnote">In-play updates land here after every goal, red card, and period change, plus every ~10 quiet minutes.</p>' : '')}
-    <h3>Locked forecasts</h3>
+    <h3>${isDone ? 'How each model called it' : 'Model predictions'}</h3>
     <div class="forecasts">${lockedRows}</div>
+    <p class="fnote">${rankNote}</p>
   </section>`;
   document.body.style.overflow = 'hidden';
   for (const c of el.querySelectorAll('[data-close]')) {
     c.addEventListener('click', closeDetail);
   }
+  const shareBtn = el.querySelector('.detail-share');
+  if (shareBtn) shareBtn.addEventListener('click', () => shareMatch(match));
 }
 
 window.addEventListener('hashchange', () => { if (lastState) renderDetail(lastState); });
