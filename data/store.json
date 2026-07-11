@@ -18009,6 +18009,88 @@
           "rationale": "Based on current team strength, recent form, and historical World Cup performance, these are my estimated probabilities."
         }
       }
+    },
+    {
+      "at": "2026-07-11T23:49:13.132Z",
+      "teams": [
+        "Argentina",
+        "Switzerland",
+        "France",
+        "Spain",
+        "England"
+      ],
+      "models": {
+        "anthropic/claude-sonnet-4.5": {
+          "probs": {
+            "Argentina": 0.3,
+            "Switzerland": 0.08,
+            "France": 0.28,
+            "Spain": 0.22,
+            "England": 0.12
+          },
+          "rationale": "Probabilities reflect current FIFA rankings, recent tournament performance, and squad strength, with Argentina and France as favorites given their World Cup pedigree and talent depth, Spain as a strong contender with their resurgent form, England as a solid but historically underperforming side, and Switzerland as the clear underdog among these five teams."
+        },
+        "openai/gpt-5.1": {
+          "probs": {
+            "Argentina": 0.29,
+            "Switzerland": 0.08,
+            "France": 0.25,
+            "Spain": 0.21,
+            "England": 0.17
+          },
+          "rationale": "Argentina and France are slight co-favorites with Spain and England close behind and Switzerland as a clear underdog, reflecting recent strength, depth, and historical performance."
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "probs": {
+            "Argentina": 0.28,
+            "Switzerland": 0.07,
+            "France": 0.25,
+            "Spain": 0.2,
+            "England": 0.2
+          },
+          "rationale": "Argentina and France are the strongest recent champions, Spain and England are elite contenders, and Switzerland is a clear underdog."
+        },
+        "moonshotai/kimi-k2-0905": {
+          "probs": {
+            "Argentina": 0.28,
+            "Switzerland": 0.08,
+            "France": 0.22,
+            "Spain": 0.25,
+            "England": 0.17
+          },
+          "rationale": "Argentina and Spain are co-favorites as defending champions and recent Euro winners respectively, France has elite talent but questions, England consistently underperforms, and Switzerland is the clear underdog."
+        },
+        "z-ai/glm-4.6": {
+          "probs": {
+            "Argentina": 0.24,
+            "Switzerland": 0.1,
+            "France": 0.28,
+            "Spain": 0.16,
+            "England": 0.22
+          },
+          "rationale": "France has the strongest squad depth and recent tournament success, Argentina are defending champions, England and Spain have strong young talent, while Switzerland remains the underdog."
+        },
+        "qwen/qwen3-max": {
+          "probs": {
+            "Argentina": 0.3,
+            "Switzerland": 0.05,
+            "France": 0.25,
+            "Spain": 0.2,
+            "England": 0.2
+          },
+          "rationale": "Argentina and France are the strongest contenders based on recent form and squad depth, while Spain and England have strong teams but less consistency, and Switzerland is a clear underdog."
+        },
+        "minimax/minimax-m2": {
+          "probs": {
+            "Argentina": 0.28,
+            "Switzerland": 0.1,
+            "France": 0.28,
+            "Spain": 0.14,
+            "England": 0.2
+          },
+          "rationale": "Given their recent success, strong squads, and historical performance, Argentina and France are the most likely winners, while England, Spain, and Switzerland are less probable."
+        }
+      }
     }
   ]
 }
