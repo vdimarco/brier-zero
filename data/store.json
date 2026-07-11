@@ -15337,6 +15337,68 @@
             "rationale": "England is stronger and favored to win, but Norway is defensively solid and can threaten on set pieces."
           }
         }
+      },
+      {
+        "at": "2026-07-11T21:32:28.950Z",
+        "detail": "31'",
+        "score": [
+          0,
+          0
+        ],
+        "events": 0,
+        "period": "STATUS_IN_PROGRESS",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.23,
+              "away": 0.77
+            },
+            "rationale": "England are strong favorites given their superior FIFA ranking, squad depth, and tournament pedigree, though Norway's home crowd and defensive organization keep them with a reasonable chance in a still-scoreless match."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.33,
+              "away": 0.67
+            },
+            "rationale": "Match is level early but England are the stronger side on paper, so they are modest favorites to advance from this position."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.35,
+              "away": 0.65
+            },
+            "rationale": "England is the stronger team on paper and will likely control possession, but the 0-0 score at 31 minutes gives Norway a solid chance to hold on and win in extra time or penalties."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.32,
+              "away": 0.68
+            },
+            "rationale": "England are the stronger side on paper and tournament favorites, but Norway have been resilient and the score is level with most of the match remaining, keeping this competitive."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.32,
+              "away": 0.68
+            },
+            "rationale": "England remains the favorite due to their superior squad depth and tournament experience, though the scoreless first half keeps Norway's hopes alive."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.35,
+              "away": 0.65
+            },
+            "rationale": "England is the stronger team on paper with greater tournament experience and depth, giving them a clear edge despite the scoreless first half."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.33,
+              "away": 0.67
+            },
+            "rationale": "England have historically stronger pedigree and a more experienced squad, making them slight favorites at this early stage."
+          }
+        }
       }
     ]
   },
