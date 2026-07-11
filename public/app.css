@@ -459,6 +459,65 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
 .trow .tsub { color: var(--ink-3); font-weight: 400; font-size: 11.5px; font-variant-numeric: tabular-nums; }
 .trow-final .twhen { color: var(--pitch); }
 .trow-final .bar { outline: 1px solid var(--pitch); outline-offset: 1px; }
+
+/* Game page: the match detail as a fuller, follow-along panel */
+.detail-actions { display: flex; align-items: center; gap: 8px; flex: none; }
+.detail-share {
+  background: var(--pitch); color: #fff; border: 0;
+  border-radius: var(--radius-btn); font: 650 13px system-ui, sans-serif;
+  padding: 7px 15px; cursor: pointer;
+}
+.detail-share:hover { background: var(--pitch-deep); }
+.detail-share:active { transform: translateY(1px); }
+.detail-share:focus-visible { outline: 2px solid var(--pitch); outline-offset: 2px; }
+.game-head { min-width: 0; flex: 1; }
+.game-teams {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto minmax(0, 1fr) auto;
+  align-items: center; gap: 10px;
+}
+.game-teams .flag { width: 30px; height: 30px; }
+.game-team {
+  font-size: clamp(16px, 3.4vw, 21px); font-weight: 750; letter-spacing: -0.01em;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.game-team-a { text-align: right; }
+.game-score {
+  font-weight: 800; font-size: clamp(15px, 3.4vw, 21px); font-variant-numeric: tabular-nums;
+  background: var(--ink); color: #fff; padding: 3px 12px; border-radius: var(--radius-el);
+  white-space: nowrap;
+}
+.game-score.live { background: var(--pitch); }
+.game-sub {
+  margin-top: 9px; color: var(--ink-3); font-size: 13px;
+  display: flex; align-items: center; gap: 7px;
+}
+.game-livedot {
+  width: 8px; height: 8px; border-radius: 50%; background: var(--live); flex: none;
+  animation: pulse 1.6s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) { .game-livedot { animation: none; } }
+.game-pick {
+  margin-top: 16px; padding: 12px 15px;
+  background: var(--pitch-wash); border: 1px solid var(--hairline);
+  border-left: 3px solid var(--pitch); border-radius: var(--radius-card);
+  font-size: 14.5px; color: var(--ink-2);
+}
+.game-pick b { color: var(--ink); font-weight: 700; }
+.game-pick .gp-range { color: var(--ink-3); font-size: 12.5px; }
+
+/* Toast: transient confirmation (e.g. link copied) */
+.toast {
+  position: fixed; left: 50%; bottom: 26px;
+  transform: translateX(-50%) translateY(12px);
+  z-index: 60; background: var(--ink); color: #fff;
+  padding: 10px 18px; border-radius: 999px;
+  font-size: 13.5px; font-weight: 600;
+  box-shadow: 0 6px 20px rgba(12, 26, 14, 0.3);
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+@media (prefers-reduced-motion: reduce) { .toast { transition: opacity 0.18s ease; } }
 /* Prompt transparency */
 .prompt-section { border-top: 1px solid var(--hairline); background: var(--surface-2); }
 .prompt-inner { max-width: 1080px; margin: 0 auto; padding: 8px 20px 36px; }
@@ -519,4 +578,13 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
   .lb-trend { display: none; }
 
   .outcome-head { font-size: 11.5px; gap: 6px; }
+
+  .detail-panel { padding: 16px; }
+  /* Flags are decorative; drop them on phones so team names keep full width. */
+  .game-teams { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 8px; }
+  .game-teams .flag { display: none; }
+  .game-team { font-size: 15px; }
+  .game-score { font-size: 15px; padding: 2px 9px; }
+  .game-pick { font-size: 13.5px; padding: 11px 13px; }
+  .detail-share { padding: 6px 12px; font-size: 12.5px; }
 }
