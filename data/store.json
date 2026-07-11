@@ -15867,6 +15867,68 @@
             "rationale": "With only minutes remaining in stoppage time, the match is essentially a coin flip, though England holds a slight edge due to their greater knockout experience and quality going into extra time or penalties."
           }
         }
+      },
+      {
+        "at": "2026-07-11T23:02:50.195Z",
+        "detail": "ET",
+        "score": [
+          1,
+          1
+        ],
+        "events": 2,
+        "period": "STATUS_END_OF_REGULATION",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.28,
+              "away": 0.72
+            },
+            "rationale": "England's superior squad depth, quality, and historical tournament experience give them a significant advantage in extra time and potential penalties despite the current level scoreline."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.43,
+              "away": 0.57
+            },
+            "rationale": "England are slightly more likely to advance given overall squad strength and depth, but at 1–1 in extra time it remains close to a coin flip."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.45,
+              "away": 0.55
+            },
+            "rationale": "England has a slight edge due to superior squad depth and penalty shootout experience, but the match is extremely even heading into extra time."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.42,
+              "away": 0.58
+            },
+            "rationale": "England's deeper squad and tournament experience give them a slight edge in extra time and potential penalties despite Norway's resilient performance."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.42,
+              "away": 0.58
+            },
+            "rationale": "England remains the favorite to advance due to superior squad depth and quality to break the deadlock in extra time, despite the match being level after regulation."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.42,
+              "away": 0.58
+            },
+            "rationale": "England's deeper squad and historical composure in high-stakes matches give them a slight edge despite the level score in extra time."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.44,
+              "away": 0.56
+            },
+            "rationale": "The match is level after 90 minutes, but England's greater knockout experience gives them a modest advantage in extra time."
+          }
+        }
       }
     ]
   },
