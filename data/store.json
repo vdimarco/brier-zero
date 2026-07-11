@@ -16101,6 +16101,61 @@
             "rationale": "England leads 2-1 late in extra time with momentum and a strong finishing record."
           }
         }
+      },
+      {
+        "at": "2026-07-11T23:37:48.739Z",
+        "detail": "112'",
+        "score": [
+          1,
+          2
+        ],
+        "events": 3,
+        "period": "STATUS_OVERTIME",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.08,
+              "away": 0.92
+            },
+            "rationale": "England leads by one goal deep into extra time with only 8 minutes remaining, making a Norwegian comeback highly unlikely barring a dramatic late equalizer and subsequent penalty shootout."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.09,
+              "away": 0.91
+            },
+            "rationale": "With England leading by one goal deep into extra time and limited time for Norway to equalize, England is a strong favorite but not completely safe from a late twist."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.15,
+              "away": 0.85
+            },
+            "rationale": "England leads 2-1 deep in extra time, making a Norwegian comeback very difficult with limited time remaining."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.04,
+              "away": 0.96
+            },
+            "rationale": "England lead deep into extra time and Norway need two goals in the final minutes to avoid penalties, making an English advance overwhelmingly likely."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.05,
+              "away": 0.95
+            },
+            "rationale": "England leads 2-1 in extra time and is heavily favored to hold on and advance."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.15,
+              "away": 0.85
+            },
+            "rationale": "England leads 2-1 with only minutes remaining in extra time, having scored the go-ahead goal early in the first extra period, giving them a strong advantage to close out the match."
+          }
+        }
       }
     ]
   },
