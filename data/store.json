@@ -15399,6 +15399,68 @@
             "rationale": "England have historically stronger pedigree and a more experienced squad, making them slight favorites at this early stage."
           }
         }
+      },
+      {
+        "at": "2026-07-11T21:38:56.917Z",
+        "detail": "36'",
+        "score": [
+          1,
+          0
+        ],
+        "events": 1,
+        "period": "STATUS_FIRST_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.35,
+              "away": 0.65
+            },
+            "rationale": "Despite Norway's early lead, England remains the stronger team with significant time remaining to equalize and their superior overall quality makes them more likely to advance over the full match."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.63,
+              "away": 0.37
+            },
+            "rationale": "Norway has an early 1-0 lead but there is plenty of time left and England is strong enough to retain a substantial chance of coming back."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.65,
+              "away": 0.35
+            },
+            "rationale": "Norway has a significant advantage with an early lead and momentum, but England's superior squad depth and experience mean they are still very much in the match."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.58,
+              "away": 0.42
+            },
+            "rationale": "Norway leads early but England's superior talent and depth give them strong comeback chances over 54+ minutes plus potential extra time."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.55,
+              "away": 0.45
+            },
+            "rationale": "Norway's early lead forces England to chase the game, increasing the threat of counter-attacks, though England's superior squad depth keeps their comeback chances realistic."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.42,
+              "away": 0.58
+            },
+            "rationale": "Despite Norway's early lead, England's superior squad depth and historical tournament resilience make them slight favorites to overturn the deficit over the full match."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.58,
+              "away": 0.42
+            },
+            "rationale": "Norway holds a narrow lead with over 50 minutes to play, giving them a slight edge, but England's quality and need to push for an equalizer keeps the match finely balanced."
+          }
+        }
       }
     ]
   },
