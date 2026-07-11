@@ -15213,6 +15213,68 @@
             "rationale": "England is favored due to stronger recent form and squad depth, but Norway remains competitive in a knockout match."
           }
         }
+      },
+      {
+        "at": "2026-07-11T21:12:15.023Z",
+        "detail": "10'",
+        "score": [
+          0,
+          0
+        ],
+        "events": 0,
+        "period": "STATUS_FIRST_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.23,
+              "away": 0.77
+            },
+            "rationale": "England are strong favorites given their superior FIFA ranking, squad depth, and tournament pedigree, though Norway's home crowd and defensive organization keep them competitive in this early stage."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.34,
+              "away": 0.66
+            },
+            "rationale": "With the match just starting at 0-0, England’s stronger squad and depth make them clear but not overwhelming favorites to advance over Norway."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.42,
+              "away": 0.58
+            },
+            "rationale": "England is the stronger team on paper but the match is still very early and scoreless, giving Norway a solid chance."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.32,
+              "away": 0.68
+            },
+            "rationale": "England are pre-tournament favorites with superior squad depth and tournament experience, though Norway's defensive organization at home in North America keeps them competitive early."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.32,
+              "away": 0.68
+            },
+            "rationale": "England's superior squad quality and historical tournament performance gives them the advantage despite the early stage of the match."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.35,
+              "away": 0.65
+            },
+            "rationale": "England is the stronger team on paper with greater tournament experience and depth, giving them a clear edge despite the early stage of the match."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.3,
+              "away": 0.7
+            },
+            "rationale": "At only 10 minutes with no events, I'm relying on pre-match strength estimates where England is historically the stronger side."
+          }
+        }
       }
     ]
   },
