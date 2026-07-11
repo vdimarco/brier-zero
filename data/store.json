@@ -15640,6 +15640,61 @@
             "rationale": "England slightly favored due to stronger squad and late first-half momentum, though Norway's home edge keeps it close."
           }
         }
+      },
+      {
+        "at": "2026-07-11T22:21:14.981Z",
+        "detail": "58'",
+        "score": [
+          1,
+          1
+        ],
+        "events": 2,
+        "period": "STATUS_SECOND_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.28,
+              "away": 0.72
+            },
+            "rationale": "England's superior squad depth, quality, and historical tournament experience give them a significant advantage despite the level scoreline, with over 30 minutes plus potential extra time remaining to find a winner."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.37,
+              "away": 0.63
+            },
+            "rationale": "Level at 58' but with England’s stronger overall quality, depth, and historical edge in knockout ties, they are modest favorites to advance from this position."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.35,
+              "away": 0.65
+            },
+            "rationale": "England has superior squad depth and tournament pedigree, and the match is level with over 30 minutes plus potential extra time to play, favoring their ability to control the game and create chances."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.38,
+              "away": 0.62
+            },
+            "rationale": "England have deeper bench quality and more tournament experience, so even at 1-1 after the hour they’re still slight favourites to find a winner or prevail in extras/penalties."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.42,
+              "away": 0.58
+            },
+            "rationale": "England's slight edge in quality and momentum offsets Norway's early lead, making them favorites to advance."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.35,
+              "away": 0.65
+            },
+            "rationale": "England has superior squad depth and tournament experience, giving them a higher likelihood of prevailing in a tight knockout match despite the current draw."
+          }
+        }
       }
     ]
   },
