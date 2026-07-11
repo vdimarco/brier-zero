@@ -15929,6 +15929,68 @@
             "rationale": "The match is level after 90 minutes, but England's greater knockout experience gives them a modest advantage in extra time."
           }
         }
+      },
+      {
+        "at": "2026-07-11T23:09:39.273Z",
+        "detail": "91'",
+        "score": [
+          1,
+          1
+        ],
+        "events": 2,
+        "period": "STATUS_OVERTIME",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.28,
+              "away": 0.72
+            },
+            "rationale": "With the match heading to extra time at 1-1, England's superior depth, quality, and tournament experience make them strong favorites to advance over the next 30 minutes or potentially on penalties."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.36,
+              "away": 0.64
+            },
+            "rationale": "With the match level deep into stoppage time and England generally stronger on paper and slightly more favored in extra time and penalties, they have a modest edge to advance."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.45,
+              "away": 0.55
+            },
+            "rationale": "England has superior squad depth and experience in high-pressure knockout matches, making them slight favorites heading into extra time."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.42,
+              "away": 0.58
+            },
+            "rationale": "England's superior depth and tournament experience gives them a slight edge in extra time and potential penalties despite Norway's resilient performance."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.38,
+              "away": 0.62
+            },
+            "rationale": "England's superior quality and knockout experience gives them an edge in extra time and potential penalties despite Norway's strong performance."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.45,
+              "away": 0.55
+            },
+            "rationale": "England's deeper squad and historical composure in high-stakes matches give them a slight edge despite the even scoreline heading into stoppage time."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.45,
+              "away": 0.55
+            },
+            "rationale": "Extra time and penalties are essentially coin flips, though England's greater knockout experience and traditional strength give them a slight edge over Norway."
+          }
+        }
       }
     ]
   },
