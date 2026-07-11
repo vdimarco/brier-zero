@@ -15150,6 +15150,70 @@
           }
         }
       }
+    ],
+    "760512": [
+      {
+        "at": "2026-07-11T21:02:57.406Z",
+        "detail": "1'",
+        "score": [
+          0,
+          0
+        ],
+        "events": 0,
+        "period": "STATUS_FIRST_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.23,
+              "away": 0.77
+            },
+            "rationale": "England enters as strong favorites given their superior FIFA ranking, squad depth, and recent tournament performance, though Norway's home advantage and defensive organization provide a reasonable chance of an upset."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.32,
+              "away": 0.68
+            },
+            "rationale": "England are the stronger side on paper and the match is effectively starting from 0-0, so pre-match quality and depth largely drive the probabilities."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.35,
+              "away": 0.65
+            },
+            "rationale": "England is the stronger team on paper and a tournament favorite, but the match is just starting so the initial deadlock gives Norway a reasonable chance."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.32,
+              "away": 0.68
+            },
+            "rationale": "England's superior squad depth and tournament experience give them a clear edge despite Norway's home-continent advantage in North America, though the early stage leaves substantial uncertainty."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.32,
+              "away": 0.68
+            },
+            "rationale": "England enters as the favorite with superior squad depth and tournament experience, but Norway poses a threat in a knockout format."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.35,
+              "away": 0.65
+            },
+            "rationale": "England enters as the stronger team on paper with greater tournament experience and depth, giving them a higher likelihood of advancing despite the early stage of the match."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.35,
+              "away": 0.65
+            },
+            "rationale": "England is favored due to stronger recent form and squad depth, but Norway remains competitive in a knockout match."
+          }
+        }
+      }
     ]
   },
   "outright": [
