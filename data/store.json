@@ -16039,6 +16039,68 @@
             "rationale": "England leads 2-1 deep into stoppage time with momentum from Bellingham's brace, making a Norwegian comeback highly unlikely."
           }
         }
+      },
+      {
+        "at": "2026-07-11T23:24:20.196Z",
+        "detail": "105'+1'",
+        "score": [
+          1,
+          2
+        ],
+        "events": 3,
+        "period": "STATUS_OVERTIME",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.08,
+              "away": 0.92
+            },
+            "rationale": "England leads 2-1 deep into extra time with only minutes remaining, making a Norway comeback extremely unlikely barring immediate equalization and subsequent penalty shootout success."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.14,
+              "away": 0.86
+            },
+            "rationale": "England lead by one goal early in extra time with more quality and game state in their favor, but Norway still has some chance to equalize in the remaining period and force penalties."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.15,
+              "away": 0.85
+            },
+            "rationale": "England leads 2-1 deep in extra time and has momentum from a late goal, making them heavy favorites to see out the match."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.08,
+              "away": 0.92
+            },
+            "rationale": "England leads 2-1 deep in extra time with only ~15 minutes remaining, making Norwegian comeback highly improbable."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.16,
+              "away": 0.84
+            },
+            "rationale": "England leads 2-1 in extra time with about 14 minutes remaining, giving them a strong advantage to advance, though Norway could still equalize and force penalties."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.15,
+              "away": 0.85
+            },
+            "rationale": "England leads 2-1 late in extra time with momentum from Bellingham's brace, making a Norwegian comeback unlikely."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.27,
+              "away": 0.73
+            },
+            "rationale": "England leads 2-1 late in extra time with momentum and a strong finishing record."
+          }
+        }
       }
     ]
   },
