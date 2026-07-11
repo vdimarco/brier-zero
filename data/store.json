@@ -15750,6 +15750,61 @@
             "rationale": "With the match tied and about 22 minutes plus extra time remaining, England's superior quality gives them a slight advantage."
           }
         }
+      },
+      {
+        "at": "2026-07-11T22:42:34.053Z",
+        "detail": "79'",
+        "score": [
+          1,
+          1
+        ],
+        "events": 2,
+        "period": "STATUS_SECOND_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.28,
+              "away": 0.72
+            },
+            "rationale": "With 11 minutes remaining at 1-1, England's superior squad depth, quality, and tournament experience make them substantial favorites to find a winner in regulation or prevail through extra time and penalties if needed."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.39,
+              "away": 0.61
+            },
+            "rationale": "With the match level late on a neutral World Cup stage, England’s slightly higher overall quality and deeper squad give them a modest edge to advance despite Norway’s early lead."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.45,
+              "away": 0.55
+            },
+            "rationale": "England has slightly better squad depth and tournament experience, making them marginal favorites to win in extra time or penalties after a tightly contested final 10 minutes."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.42,
+              "away": 0.58
+            },
+            "rationale": "England's superior depth and tournament experience gives them a slight edge despite the late equalizer, with limited time remaining for Norway to find a winner."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.42,
+              "away": 0.58
+            },
+            "rationale": "England has shown greater tournament pedigree and squad depth, giving them a slight edge despite the level score late in the match."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.45,
+              "away": 0.55
+            },
+            "rationale": "With 11 minutes left in regulation and a tied score, England has a slight edge due to superior squad depth and knockout experience, but Norway has shown they can score and compete at this level."
+          }
+        }
       }
     ]
   },
