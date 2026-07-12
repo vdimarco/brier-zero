@@ -16454,6 +16454,61 @@
             "rationale": "Argentina leads 1-0 at 42', with stronger attack and control, so they have a higher chance to advance."
           }
         }
+      },
+      {
+        "at": "2026-07-12T02:04:33.617Z",
+        "detail": "HT",
+        "score": [
+          1,
+          0
+        ],
+        "events": 1,
+        "period": "STATUS_HALFTIME",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.72,
+              "away": 0.28
+            },
+            "rationale": "Argentina's one-goal lead at halftime, combined with their superior squad quality and tournament pedigree, gives them a strong advantage, though Switzerland's defensive resilience and ability to stay within one goal keeps their chances meaningful."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.79,
+              "away": 0.21
+            },
+            "rationale": "Argentina lead 1–0 at halftime as the stronger side on paper, so they are clear favorites but Switzerland still have substantial time to respond in the second half and potentially extra time."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.75,
+              "away": 0.25
+            },
+            "rationale": "Argentina leads 1-0 at halftime and their strong defense makes a Swiss comeback unlikely."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.72,
+              "away": 0.28
+            },
+            "rationale": "Argentina leads at halftime with a home-continent advantage and superior tournament pedigree, though Switzerland's organized defense keeps them within reach."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.77,
+              "away": 0.23
+            },
+            "rationale": "Argentina's 1-0 halftime lead gives them a significant advantage, but Switzerland still has a full half plus potential extra time to equalize."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.68,
+              "away": 0.32
+            },
+            "rationale": "Argentina leads at halftime with a solid defensive record and historical edge in knockout games, but Switzerland remains dangerous on counters and has shown resilience in this tournament."
+          }
+        }
       }
     ]
   },
