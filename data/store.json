@@ -16330,6 +16330,68 @@
             "rationale": "Argentina leads 1-0 at 21 minutes and has the stronger attack, so they are favored to hold on."
           }
         }
+      },
+      {
+        "at": "2026-07-12T01:32:49.169Z",
+        "detail": "31'",
+        "score": [
+          1,
+          0
+        ],
+        "events": 1,
+        "period": "STATUS_FIRST_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.72,
+              "away": 0.28
+            },
+            "rationale": "Argentina's early goal gives them a significant advantage, but with nearly 60 minutes plus potential extra time remaining, Switzerland has ample opportunity to equalize and the match remains open."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.79,
+              "away": 0.21
+            },
+            "rationale": "Argentina are a strong favorite generally and already lead 1–0 before halftime, giving them a substantial but not decisive edge to advance."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.78,
+              "away": 0.22
+            },
+            "rationale": "Argentina leads 1-0 early, and their superior quality and tournament experience make them strong favorites to hold or extend the lead over Switzerland."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.72,
+              "away": 0.28
+            },
+            "rationale": "Argentina leads early with home-continent advantage and superior talent, but Switzerland's defensive organization keeps them within reach at 1-0 with most of the match remaining."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.86,
+              "away": 0.14
+            },
+            "rationale": "Argentina's early goal allows them to dictate the tempo against a disciplined Swiss side, making a comeback increasingly unlikely given the remaining time and quality gap."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.72,
+              "away": 0.28
+            },
+            "rationale": "Argentina leads early with a solid goal and strong historical performance, but Switzerland remains dangerous and the match is still in its early stages."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.73,
+              "away": 0.27
+            },
+            "rationale": "Argentina holds a valuable 1-0 lead at the half-hour mark of a quarterfinal against a solid but lesser Swiss side, giving them strong advancement odds though not yet decisive."
+          }
+        }
       }
     ]
   },
