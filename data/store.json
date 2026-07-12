@@ -16626,6 +16626,61 @@
             "rationale": "Argentina leads 1-0 at 66', which historically gives them a strong advantage, so I estimate an 82% chance of advancing."
           }
         }
+      },
+      {
+        "at": "2026-07-12T02:30:34.515Z",
+        "detail": "69'",
+        "score": [
+          1,
+          1
+        ],
+        "events": 2,
+        "period": "STATUS_SECOND_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.68,
+              "away": 0.32
+            },
+            "rationale": "Despite Switzerland's recent equalizer, Argentina's superior quality, tournament experience, and home continent advantage make them significant favorites to advance with 21 minutes plus potential extra time remaining."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.66,
+              "away": 0.34
+            },
+            "rationale": "With the match level on 69 minutes, Argentina’s superior overall quality, attacking depth, and likely edge in extra time and penalties give them a roughly two-thirds chance to advance despite Switzerland’s equalizer."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.65,
+              "away": 0.35
+            },
+            "rationale": "Argentina's superior overall quality and experience in high-pressure knockout matches gives them a slight edge in the final 20+ minutes and potential extra time."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.62,
+              "away": 0.38
+            },
+            "rationale": "Argentina retains higher advancement probability despite the late equalizer due to superior tournament pedigree, deeper attacking talent, and Switzerland's historical struggles against elite opposition in knockout stages, though momentum has shifted significantly."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.58,
+              "away": 0.42
+            },
+            "rationale": "Argentina's greater experience in high-pressure knockout matches and overall quality advantage outweigh Switzerland's recent momentum."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.55,
+              "away": 0.45
+            },
+            "rationale": "Argentina has slightly higher quality and tournament pedigree, but Switzerland's equalizer late in the second half shows resilience, making the tie nearly even with 20+ minutes plus potential extra time remaining."
+          }
+        }
       }
     ]
   },
