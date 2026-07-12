@@ -16743,6 +16743,68 @@
             "rationale": "Argentina has a significant advantage playing against 10 men with approximately 8 minutes left in regulation plus extra time if needed."
           }
         }
+      },
+      {
+        "at": "2026-07-12T02:54:40.424Z",
+        "detail": "90'+2'",
+        "score": [
+          1,
+          1
+        ],
+        "events": 3,
+        "period": "STATUS_SECOND_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.72,
+              "away": 0.28
+            },
+            "rationale": "With Switzerland down to 10 men since the 72nd minute and extra time imminent, Argentina's numerical advantage significantly favors them to break through in the additional 30 minutes or prevail in penalties if needed."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.8,
+              "away": 0.2
+            },
+            "rationale": "With the match level but Switzerland down to 10 men and Argentina likely to dominate extra time if it comes, Argentina are clear favorites to advance."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.65,
+              "away": 0.35
+            },
+            "rationale": "Argentina has a man advantage for the final 30 minutes of extra time, making them the clear favorites to create chances and win."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.72,
+              "away": 0.28
+            },
+            "rationale": "Argentina are heavy favorites with Switzerland down to 10 men and the match heading to extra time where Argentina's superior depth and fitness should prevail."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.68,
+              "away": 0.32
+            },
+            "rationale": "Argentina's superior quality and man advantage give them a clear edge in extra time, though Switzerland has shown resilience despite being a man down."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.75,
+              "away": 0.25
+            },
+            "rationale": "Argentina has a strong advantage due to Switzerland playing with 10 men for the final 20+ minutes of regulation and any potential extra time, significantly reducing Switzerland's ability to sustain pressure or defend effectively over an extended period."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.72,
+              "away": 0.28
+            },
+            "rationale": "Argentina are favored to advance due to their man advantage and superior quality, especially with Switzerland down a player."
+          }
+        }
       }
     ]
   },
