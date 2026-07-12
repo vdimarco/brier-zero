@@ -16681,6 +16681,68 @@
             "rationale": "Argentina has slightly higher quality and tournament pedigree, but Switzerland's equalizer late in the second half shows resilience, making the tie nearly even with 20+ minutes plus potential extra time remaining."
           }
         }
+      },
+      {
+        "at": "2026-07-12T02:44:31.127Z",
+        "detail": "82'",
+        "score": [
+          1,
+          1
+        ],
+        "events": 3,
+        "period": "STATUS_SECOND_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.78,
+              "away": 0.22
+            },
+            "rationale": "Argentina has significant advantage with a man up since the 72nd minute and 8+ minutes plus stoppage time remaining, though Switzerland's equalizer and defensive resilience keep their chances alive."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.81,
+              "away": 0.19
+            },
+            "rationale": "Argentina are level late in normal time and playing 11 vs 10, so they are strong favorites to create better chances and also hold an edge in extra time and penalties."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.72,
+              "away": 0.28
+            },
+            "rationale": "Argentina has a man advantage for the final minutes and potential extra time, increasing their chances to create a winner or win on penalties."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.72,
+              "away": 0.28
+            },
+            "rationale": "Argentina are man-up with ~10 minutes left plus stoppage time, giving them strong advantage to find a winner or dominate extra time if needed."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.836,
+              "away": 0.164
+            },
+            "rationale": "Argentina has a significant advantage with Switzerland down to 10 men for the final 18 minutes plus potential extra time in a knockout match."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.75,
+              "away": 0.25
+            },
+            "rationale": "Argentina has a numerical advantage after Switzerland's red card at 72', significantly increasing their chances to score again in the remaining time or dominate in extra time."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.68,
+              "away": 0.32
+            },
+            "rationale": "Argentina has a significant advantage playing against 10 men with approximately 8 minutes left in regulation plus extra time if needed."
+          }
+        }
       }
     ]
   },
