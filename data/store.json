@@ -16157,6 +16157,63 @@
           }
         }
       }
+    ],
+    "760513": [
+      {
+        "at": "2026-07-12T01:04:12.679Z",
+        "detail": "2'",
+        "score": [
+          0,
+          0
+        ],
+        "events": 0,
+        "period": "STATUS_FIRST_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.78,
+              "away": 0.22
+            },
+            "rationale": "At 2 minutes in a scoreless match, Argentina's superior squad quality, recent World Cup winning pedigree, and historical dominance over Switzerland heavily favor them to advance despite the early stage."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.78,
+              "away": 0.22
+            },
+            "rationale": "With the match just started and no notable events, Argentina’s higher underlying strength and knockout experience make them clear but not overwhelming favorites to advance."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.75,
+              "away": 0.25
+            },
+            "rationale": "Argentina is a far stronger team on paper and the match is still in its very early stages."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.73,
+              "away": 0.27
+            },
+            "rationale": "Argentina are still heavy favorites over Switzerland from kickoff, but with 88 minutes left a single Swiss goal or penalty shoot-out could flip the tie, so the edge is strong but not overwhelming."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.65,
+              "away": 0.35
+            },
+            "rationale": "Argentina is the stronger team on paper with superior talent and recent tournament pedigree, giving them a clear edge despite the early stage of the match."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.66,
+              "away": 0.34
+            },
+            "rationale": "Argentina are historically a stronger side with more big‑game experience, but it's still early and the match could go either way."
+          }
+        }
+      }
     ]
   },
   "outright": [
