@@ -16922,6 +16922,68 @@
             "rationale": "Switzerland playing a man down in extra time significantly disadvantages them despite their resilience in equalizing."
           }
         }
+      },
+      {
+        "at": "2026-07-12T03:17:31.730Z",
+        "detail": "102'",
+        "score": [
+          1,
+          1
+        ],
+        "events": 3,
+        "period": "STATUS_OVERTIME",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.78,
+              "away": 0.22
+            },
+            "rationale": "Argentina holds significant advantage playing 11v10 for the final 18 minutes of extra time plus potential penalties, though Switzerland's defensive resilience after the red card has forced extra time."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.8,
+              "away": 0.2
+            },
+            "rationale": "With Argentina level, a man up deep into extra time, and generally stronger on paper and in penalties, they are clear favorites to progress despite knockout variance."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.72,
+              "away": 0.28
+            },
+            "rationale": "Argentina has a significant advantage due to Switzerland playing with 10 men for 30+ minutes, but the match is deep in extra time where penalties are a real possibility."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.72,
+              "away": 0.28
+            },
+            "rationale": "Argentina has a man advantage for the final ~18 minutes of extra time and is the stronger team with momentum, though Switzerland has shown resilience and could survive to penalties."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.75,
+              "away": 0.25
+            },
+            "rationale": "Argentina's superior quality combined with Switzerland playing with 10 men for over 30 minutes gives Argentina a significant advantage in the remaining extra time and potential penalty shootout."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.75,
+              "away": 0.25
+            },
+            "rationale": "Argentina has a significant advantage playing against 10-man Switzerland for the remainder of extra time and potentially penalties, given their superior squad depth and experience in high-stakes matches."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.72,
+              "away": 0.28
+            },
+            "rationale": "Argentina has a significant man advantage (11v10), is the stronger team historically, and controls the match despite the scoreline being level."
+          }
+        }
       }
     ]
   },
