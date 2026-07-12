@@ -16213,6 +16213,68 @@
             "rationale": "Argentina are historically a stronger side with more big‑game experience, but it's still early and the match could go either way."
           }
         }
+      },
+      {
+        "at": "2026-07-12T01:13:35.893Z",
+        "detail": "12'",
+        "score": [
+          1,
+          0
+        ],
+        "events": 1,
+        "period": "STATUS_FIRST_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.78,
+              "away": 0.22
+            },
+            "rationale": "Argentina's early goal provides a significant advantage, but with 78 minutes remaining and Switzerland's defensive resilience, there's still substantial uncertainty in this knockout tie."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.78,
+              "away": 0.22
+            },
+            "rationale": "Argentina are strong favorites overall and already lead early, giving them a significant but not decisive advantage with plenty of time left."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.72,
+              "away": 0.28
+            },
+            "rationale": "Argentina has an early lead and superior quality, but there is plenty of time for Switzerland to equalize."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.72,
+              "away": 0.28
+            },
+            "rationale": "Argentina's early goal and superior tournament pedigree give them a solid advantage, though Switzerland's defensive organization keeps them competitive in a knockout setting."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.77,
+              "away": 0.23
+            },
+            "rationale": "Argentina's early goal and superior quality give them a significant advantage, but with 78+ minutes remaining, Switzerland still has a reasonable chance to equalize and potentially advance."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.65,
+              "away": 0.35
+            },
+            "rationale": "Argentina has an early lead and strong momentum, but Switzerland remains dangerous and the match is still in its early stages with plenty of time for a comeback."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.73,
+              "away": 0.27
+            },
+            "rationale": "Argentina's early goal gives them a solid edge, but with over 75 minutes left Switzerland still has a realistic chance to equalise and force extra time."
+          }
+        }
       }
     ]
   },
