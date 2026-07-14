@@ -10,9 +10,14 @@ if (!predictorReady()) {
   process.exit(1);
 }
 const matches = await fetchMatches();
+// Title contenders only: a team whose sole remaining fixture is the
+// third-place playoff has been knocked out of the final and cannot lift
+// the trophy, so it must not appear in the who-wins-it-all round. Exclude
+// the third-place match from the alive computation.
+const CONSOLATION = /3rd place|third place/i;
 const aliveSet = new Set(
   matches
-    .filter((m) => m.status.state !== 'post')
+    .filter((m) => m.status.state !== 'post' && !CONSOLATION.test(m.stage ?? ''))
     .flatMap((m) => [m.home, m.away])
     .filter((s) => s.logo)
     .map((s) => s.name)
