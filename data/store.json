@@ -19258,6 +19258,80 @@
           "rationale": "Based on recent form and squad depth, France and Argentina appear slightly stronger than Spain and England."
         }
       }
+    },
+    {
+      "at": "2026-07-14T18:03:19.577Z",
+      "teams": [
+        "France",
+        "Spain",
+        "England",
+        "Argentina"
+      ],
+      "models": {
+        "anthropic/claude-sonnet-4.5": {
+          "probs": {
+            "France": 0.3,
+            "Spain": 0.28,
+            "England": 0.22,
+            "Argentina": 0.2
+          },
+          "rationale": "France and Spain have slight edges due to recent tournament success and squad depth, while England has strong talent but underperforms in finals, and Argentina faces questions about squad renewal after their 2022 victory."
+        },
+        "openai/gpt-5.1": {
+          "probs": {
+            "France": 0.27,
+            "Spain": 0.26,
+            "England": 0.23,
+            "Argentina": 0.24
+          },
+          "rationale": "All four are elite and fairly close in strength, with a slight edge to France and Spain and a small downgrade to England for historical underperformance relative to talent."
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "probs": {
+            "France": 0.28,
+            "Spain": 0.27,
+            "England": 0.25,
+            "Argentina": 0.2
+          },
+          "rationale": "France and Spain are currently the strongest and deepest squads, England is a consistent contender, and Argentina, while still excellent, may face a slight decline by 2026."
+        },
+        "moonshotai/kimi-k2-0905": {
+          "probs": {
+            "France": 0.28,
+            "Spain": 0.3,
+            "England": 0.22,
+            "Argentina": 0.2
+          },
+          "rationale": "Spain and France are the strongest teams on paper with deep squads and recent success, while England and Argentina have slightly more questions around form and squad depth despite their talent."
+        },
+        "z-ai/glm-4.6": {
+          "probs": {
+            "France": 0.3,
+            "Spain": 0.2,
+            "England": 0.22,
+            "Argentina": 0.28
+          },
+          "rationale": "France has the strongest overall squad and recent World Cup pedigree, while Argentina benefits from being defending champions with Messi, England has a talented young squad, and Spain possesses technical quality but has been less consistent in recent tournaments."
+        },
+        "qwen/qwen3-max": {
+          "probs": {
+            "France": 0.3,
+            "Spain": 0.25,
+            "England": 0.2,
+            "Argentina": 0.25
+          },
+          "rationale": "France has strong squad depth and recent tournament success, Spain and Argentina balance talent and experience, while England has high potential but less consistent results."
+        },
+        "minimax/minimax-m2": {
+          "probs": {
+            "France": 0.35,
+            "Spain": 0.25,
+            "England": 0.2,
+            "Argentina": 0.2
+          },
+          "rationale": "Based on recent form and historical success, France is marginally ahead, while Spain, England, and Argentina are closely matched."
+        }
+      }
     }
   ]
 }
