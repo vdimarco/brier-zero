@@ -140,8 +140,12 @@ async function maybeCollect(all, predictions, snapshots, outright) {
   }
 
   // Trophy round: when a team was eliminated or the last round is old.
+  // Title contenders only: a team whose sole remaining fixture is the
+  // third-place playoff is out of the final and cannot win the tournament,
+  // so it must not appear in the who-wins-it-all round.
+  const consolation = /3rd place|third place/i;
   const alive = [...new Set(
-    all.filter((m) => m.status.state !== 'post')
+    all.filter((m) => m.status.state !== 'post' && !consolation.test(m.stage ?? ''))
       .flatMap((m) => [m.home, m.away]).filter((s) => s.logo).map((s) => s.name)
   )];
   const lastRound = outright[outright.length - 1];
