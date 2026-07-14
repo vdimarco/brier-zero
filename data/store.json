@@ -17244,6 +17244,68 @@
             "rationale": "Spain's 2-0 lead at the 71st minute leaves France with a difficult task, making Spain the strong favorite to advance."
           }
         }
+      },
+      {
+        "at": "2026-07-14T20:46:00.021Z",
+        "detail": "84'",
+        "score": [
+          0,
+          2
+        ],
+        "events": 2,
+        "period": "STATUS_IN_PROGRESS",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.02,
+              "away": 0.98
+            },
+            "rationale": "With only 6 minutes remaining plus stoppage time and Spain leading 2-0, France would need to score twice and then win in extra time or penalties, which is extremely unlikely at this stage of a World Cup semifinal."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.03,
+              "away": 0.97
+            },
+            "rationale": "With Spain leading by two goals in the 84th minute of a high-level semifinal, France has very little time left to mount the multiple-goal comeback needed to advance."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.03,
+              "away": 0.97
+            },
+            "rationale": "Spain leads 2-0 with only about 6 minutes plus stoppage time remaining, making a French comeback extremely unlikely."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.02,
+              "away": 0.98
+            },
+            "rationale": "Down two goals with six minutes left, France need a miracle Spain won't deliver."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.05,
+              "away": 0.95
+            },
+            "rationale": "Trailing by two goals with only six minutes left in regulation, France faces a statistically near-insurmountable deficit against a top-tier Spanish defense."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.12,
+              "away": 0.88
+            },
+            "rationale": "Spain leads 2-0 with only 6 minutes plus stoppage time remaining, making a French comeback highly unlikely given the high stakes and limited time."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.02,
+              "away": 0.98
+            },
+            "rationale": "France faces a two-goal deficit with only six minutes remaining, making a comeback extraordinarily unlikely against a well-organized Spanish side."
+          }
+        }
       }
     ]
   },
