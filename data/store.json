@@ -9190,6 +9190,92 @@
         "latencyMs": 11047,
         "eligible": true
       }
+    },
+    "760515": {
+      "moonshotai/kimi-k2-0905": {
+        "probs": {
+          "home": 0.54,
+          "away": 0.46
+        },
+        "rationale": "England’s deeper squad and recent tournament pedigree give them a slight edge, but Argentina’s Messi-led clutch knockout record keeps it almost a coin-flip.",
+        "market": "advance",
+        "fixture": "England vs Argentina",
+        "createdAt": "2026-07-14T20:30:53.261Z",
+        "latencyMs": 574,
+        "eligible": true
+      },
+      "openai/gpt-5.1": {
+        "probs": {
+          "home": 0.47,
+          "away": 0.53
+        },
+        "rationale": "Argentina should be a marginal favorite given recent tournament pedigree and big-game experience, but the matchup is close to even given England’s talent level and depth.",
+        "market": "advance",
+        "fixture": "England vs Argentina",
+        "createdAt": "2026-07-14T20:30:53.859Z",
+        "latencyMs": 1173,
+        "eligible": true
+      },
+      "anthropic/claude-sonnet-4.5": {
+        "probs": {
+          "home": 0.48,
+          "away": 0.52
+        },
+        "rationale": "Argentina holds a slight edge as reigning champions with proven tournament experience, though England's strong squad and home continent advantage in a neutral US venue makes this essentially a coin flip with Argentina marginally favored.",
+        "market": "advance",
+        "fixture": "England vs Argentina",
+        "createdAt": "2026-07-14T20:30:55.982Z",
+        "latencyMs": 3298,
+        "eligible": true
+      },
+      "qwen/qwen3-max": {
+        "probs": {
+          "home": 0.45,
+          "away": 0.55
+        },
+        "rationale": "Argentina's recent tournament pedigree, strong squad depth, and slight edge in big-match experience give them a modest advantage over England despite the neutral venue.",
+        "market": "advance",
+        "fixture": "England vs Argentina",
+        "createdAt": "2026-07-14T20:30:57.153Z",
+        "latencyMs": 4465,
+        "eligible": true
+      },
+      "deepseek/deepseek-chat-v3.1": {
+        "probs": {
+          "home": 0.45,
+          "away": 0.55
+        },
+        "rationale": "Argentina's recent tournament pedigree and elite individual talent give them a slight edge over a strong but historically less clinical England side.",
+        "market": "advance",
+        "fixture": "England vs Argentina",
+        "createdAt": "2026-07-14T20:31:01.288Z",
+        "latencyMs": 8601,
+        "eligible": true
+      },
+      "minimax/minimax-m2": {
+        "probs": {
+          "home": 0.45,
+          "away": 0.55
+        },
+        "rationale": "Argentina's status as defending champions and recent success in knockout stages give them a slight advantage over England.",
+        "market": "advance",
+        "fixture": "England vs Argentina",
+        "createdAt": "2026-07-14T20:31:15.459Z",
+        "latencyMs": 22770,
+        "eligible": true
+      },
+      "z-ai/glm-4.6": {
+        "probs": {
+          "home": 0.45,
+          "away": 0.55
+        },
+        "rationale": "Argentina's experience as defending champions gives them a slight edge, though England's maturing young talent makes this a closely contested semifinal.",
+        "market": "advance",
+        "fixture": "England vs Argentina",
+        "createdAt": "2026-07-14T20:33:35.222Z",
+        "latencyMs": 21568,
+        "eligible": true
+      }
     }
   },
   "snapshots": {
@@ -17099,6 +17185,63 @@
               "away": 0
             },
             "rationale": "Argentina leads 3-1 with only seconds remaining in extra time and Switzerland is down to 10 men, making a comeback virtually impossible."
+          }
+        }
+      }
+    ],
+    "760514": [
+      {
+        "at": "2026-07-14T20:35:05.566Z",
+        "detail": "71'",
+        "score": [
+          0,
+          2
+        ],
+        "events": 2,
+        "period": "STATUS_SECOND_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.12,
+              "away": 0.88
+            },
+            "rationale": "With Spain leading 2-0 and only 19 minutes plus stoppage time remaining, France would need to score at least twice just to force extra time, which is highly unlikely even for a strong team."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.12,
+              "away": 0.88
+            },
+            "rationale": "At 71' with France two goals down to a strong Spain side in a high-level semifinal, the chance of a comeback to advance is quite low but not negligible given remaining time and possible extra time/penalties."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.12,
+              "away": 0.88
+            },
+            "rationale": "Spain has a commanding 2-0 lead late in the match, making a French comeback extremely difficult."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.08,
+              "away": 0.92
+            },
+            "rationale": "Spain leads 2-0 with 19 minutes remaining and France has shown little attacking threat, making a comeback highly improbable."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.15,
+              "away": 0.85
+            },
+            "rationale": "Spain leads 2-0 with under 20 minutes left in regulation, giving them a strong advantage to close out the match and advance."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.1,
+              "away": 0.9
+            },
+            "rationale": "Spain's 2-0 lead at the 71st minute leaves France with a difficult task, making Spain the strong favorite to advance."
           }
         }
       }
