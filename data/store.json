@@ -9191,6 +9191,99 @@
         "eligible": true
       }
     },
+    "760514": {
+      "openai/gpt-5.1": {
+        "probs": {
+          "home": 0.52,
+          "away": 0.48
+        },
+        "rationale": "France very slightly favored due to depth, knockout experience, and stylistic matchup, but Spain’s quality and recent form make this close to a coin flip.",
+        "market": "advance",
+        "fixture": "France vs Spain",
+        "createdAt": "2026-07-15T07:35:26.765Z",
+        "latencyMs": 1575,
+        "eligible": true,
+        "retro": true
+      },
+      "qwen/qwen3-max": {
+        "probs": {
+          "home": 0.55,
+          "away": 0.45
+        },
+        "rationale": "France has a slight edge due to recent tournament pedigree and individual talent, but Spain's cohesive style and strong youth development make it a close contest.",
+        "market": "advance",
+        "fixture": "France vs Spain",
+        "createdAt": "2026-07-15T07:35:27.698Z",
+        "latencyMs": 2505,
+        "eligible": true,
+        "retro": true
+      },
+      "anthropic/claude-sonnet-4.5": {
+        "probs": {
+          "home": 0.48,
+          "away": 0.52
+        },
+        "rationale": "Spain's recent tournament success and young core slightly edges France's talent advantage, though both teams are closely matched elite sides making this essentially a toss-up with a marginal edge to Spain's current form and momentum.",
+        "market": "advance",
+        "fixture": "France vs Spain",
+        "createdAt": "2026-07-15T07:35:28.447Z",
+        "latencyMs": 3260,
+        "eligible": true,
+        "retro": true
+      },
+      "moonshotai/kimi-k2-0905": {
+        "probs": {
+          "home": 0.52,
+          "away": 0.48
+        },
+        "rationale": "France's tournament experience and slightly deeper squad give them a narrow edge, but Spain's technical quality and recent success make this nearly even.",
+        "market": "advance",
+        "fixture": "France vs Spain",
+        "createdAt": "2026-07-15T07:35:29.094Z",
+        "latencyMs": 3902,
+        "eligible": true,
+        "retro": true
+      },
+      "deepseek/deepseek-chat-v3.1": {
+        "probs": {
+          "home": 0.52,
+          "away": 0.48
+        },
+        "rationale": "France's tournament experience and defensive solidity give them a slight edge over a talented but sometimes inconsistent Spain in a tight semifinal.",
+        "market": "advance",
+        "fixture": "France vs Spain",
+        "createdAt": "2026-07-15T07:35:30.208Z",
+        "latencyMs": 5017,
+        "eligible": true,
+        "retro": true
+      },
+      "minimax/minimax-m2": {
+        "probs": {
+          "home": 0.55,
+          "away": 0.45
+        },
+        "rationale": "Both teams are among the world's best with comparable pedigree, but France's deeper squad and recent edge in major tournament knockout stages give them a slight advantage in this semifinal matchup.",
+        "market": "advance",
+        "fixture": "France vs Spain",
+        "createdAt": "2026-07-15T07:35:31.135Z",
+        "latencyMs": 5941,
+        "eligible": true,
+        "retro": true
+      },
+      "z-ai/glm-4.6": {
+        "probs": {
+          "home": 0.52,
+          "away": 0.48
+        },
+        "rationale": "France's strong recent form and balanced squad give them a slight edge over Spain's possession-based style in a high-stakes semifinal.",
+        "market": "advance",
+        "fixture": "France vs Spain",
+        "createdAt": "2026-07-15T07:36:59.341Z",
+        "latencyMs": 49287,
+        "eligible": true,
+        "retro": true
+      }
+    },
     "760515": {
       "moonshotai/kimi-k2-0905": {
         "probs": {
