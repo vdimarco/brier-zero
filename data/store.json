@@ -17988,6 +17988,68 @@
             "rationale": "England leads 1-0 with ~24 minutes plus stoppage time, and historically teams up by one at this stage are favored to hold on, though Argentina’s quality keeps it competitive."
           }
         }
+      },
+      {
+        "at": "2026-07-15T20:44:47.509Z",
+        "detail": "84'",
+        "score": [
+          1,
+          0
+        ],
+        "events": 1,
+        "period": "STATUS_SECOND_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.88,
+              "away": 0.12
+            },
+            "rationale": "With England leading 1-0 in the 84th minute, they have a strong advantage with only 6 minutes plus stoppage time remaining, though Argentina's quality means they retain a small chance to equalize and force extra time."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.84,
+              "away": 0.16
+            },
+            "rationale": "England lead by one with six minutes plus stoppage time left and have been defensively solid, making them strong favorites to see out the tie despite Argentina’s attacking threat."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.82,
+              "away": 0.18
+            },
+            "rationale": "England leads 1-0 late in the match, making a comeback difficult for Argentina given the limited time remaining."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.82,
+              "away": 0.18
+            },
+            "rationale": "With England leading 1-0 at 84', they need only survive ~6 minutes plus stoppage time; Argentina must score while risking counters, and England's game management and defensive depth make late equalizers unlikely."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.86,
+              "away": 0.14
+            },
+            "rationale": "England is heavily favored to hold their late lead against a desperate Argentina side, though the single-goal margin leaves a small window for a dramatic late equalizer."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.72,
+              "away": 0.28
+            },
+            "rationale": "England leads late in a semifinal with solid defensive structure, but Argentina has high-quality attackers and penalty shootout prowess if they equalize."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.78,
+              "away": 0.22
+            },
+            "rationale": "England holds a narrow 1-0 lead with roughly 10 minutes remaining, giving them a solid but not insurmountable advantage as Argentina must now push forward aggressively, increasing their vulnerability to counters."
+          }
+        }
       }
     ]
   },
