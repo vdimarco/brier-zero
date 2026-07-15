@@ -17933,6 +17933,61 @@
             "rationale": "England leads 1-0 with 34 minutes plus stoppage time remaining, giving them a solid but not insurmountable advantage against a strong Argentina side capable of equalizing or winning in regulation, extra time, or penalties."
           }
         }
+      },
+      {
+        "at": "2026-07-15T20:27:43.742Z",
+        "detail": "66'",
+        "score": [
+          1,
+          0
+        ],
+        "events": 1,
+        "period": "STATUS_IN_PROGRESS",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.72,
+              "away": 0.28
+            },
+            "rationale": "England's one-goal lead with 24 minutes remaining plus potential extra time gives them a strong advantage, though Argentina's quality and tournament pedigree means they retain a meaningful chance to equalize and force extra time or win."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.7,
+              "away": 0.3
+            },
+            "rationale": "England lead by one with about 25 minutes plus stoppage remaining, giving them a solid but far from decisive advantage given Argentina’s attacking quality."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.75,
+              "away": 0.25
+            },
+            "rationale": "England has a significant advantage with a 1-0 lead late in the match, but Argentina's attacking quality means a comeback is still possible."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.68,
+              "away": 0.32
+            },
+            "rationale": "England lead 1-0 with 24 minutes remaining and have looked solid since Gordon's goal, but Argentina's attacking quality and late-game desperation keeps them dangerous."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.65,
+              "away": 0.35
+            },
+            "rationale": "England leads with 24 minutes plus stoppage time remaining, but Argentina has strong attacking quality and historical resilience in knockout matches, giving them a non-negligible chance to equalize and potentially win."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.68,
+              "away": 0.32
+            },
+            "rationale": "England leads 1-0 with ~24 minutes plus stoppage time, and historically teams up by one at this stage are favored to hold on, though Argentina’s quality keeps it competitive."
+          }
+        }
       }
     ]
   },
