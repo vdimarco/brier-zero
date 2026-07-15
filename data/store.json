@@ -19877,6 +19877,72 @@
           "rationale": "Argentina, as the defending champion with strong recent form, is given a slightly higher probability, while England and Spain are considered nearly equally competitive but marginally less likely."
         }
       }
+    },
+    {
+      "at": "2026-07-15T17:03:11.078Z",
+      "teams": [
+        "England",
+        "Argentina",
+        "Spain"
+      ],
+      "models": {
+        "anthropic/claude-sonnet-4.5": {
+          "probs": {
+            "England": 0.3,
+            "Argentina": 0.4,
+            "Spain": 0.3
+          },
+          "rationale": "Argentina gets a slight edge as defending champions with proven tournament experience, while England and Spain are rated similarly based on their strong squads and recent competitive performances."
+        },
+        "openai/gpt-5.1": {
+          "probs": {
+            "England": 0.34,
+            "Argentina": 0.36,
+            "Spain": 0.3
+          },
+          "rationale": "Argentina and England look slightly more likely than Spain, but all three are close in overall strength and path uncertainty."
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "probs": {
+            "England": 0.4,
+            "Argentina": 0.35,
+            "Spain": 0.25
+          },
+          "rationale": "England is the slight favorite based on squad depth and recent form, Argentina remains a formidable force with proven tournament pedigree, and Spain, while talented, is considered the underdog in this final three."
+        },
+        "moonshotai/kimi-k2-0905": {
+          "probs": {
+            "England": 0.35,
+            "Argentina": 0.4,
+            "Spain": 0.25
+          },
+          "rationale": "Argentina edges slightly ahead due to recent form and squad depth, England has home-continent advantage and strong squad, Spain is talented but slightly less balanced."
+        },
+        "z-ai/glm-4.6": {
+          "probs": {
+            "England": 0.3,
+            "Argentina": 0.34,
+            "Spain": 0.36
+          },
+          "rationale": "Spain is favored due to their recent Euro 2024 victory and cohesive squad dynamics, while Argentina's defending champion status and England's deep talent pool keep them in close contention."
+        },
+        "qwen/qwen3-max": {
+          "probs": {
+            "England": 0.35,
+            "Argentina": 0.4,
+            "Spain": 0.25
+          },
+          "rationale": "Argentina is slightly favored due to recent form and Messi's potential final World Cup, England has strong squad depth, and Spain is talented but less consistent in knockout stages."
+        },
+        "minimax/minimax-m2": {
+          "probs": {
+            "England": 0.3,
+            "Argentina": 0.45,
+            "Spain": 0.25
+          },
+          "rationale": "Argentina, as the defending champion and top-ranked team, is slightly more likely to win, with England and Spain having moderate chances."
+        }
+      }
     }
   ]
 }
