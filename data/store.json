@@ -17706,6 +17706,68 @@
             "rationale": "Argentina are slightly favored due to their attacking edge and historical knockout-stage nous, with England’s strong defense keeping the contest close."
           }
         }
+      },
+      {
+        "at": "2026-07-15T19:24:00.170Z",
+        "detail": "23'",
+        "score": [
+          0,
+          0
+        ],
+        "events": 0,
+        "period": "STATUS_FIRST_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.58,
+              "away": 0.42
+            },
+            "rationale": "England holds a modest advantage as the home team in a scoreless semifinal still in the first half, but Argentina's quality and tournament experience keep this relatively close to even odds."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.54,
+              "away": 0.46
+            },
+            "rationale": "England are very slight favorites on overall team strength and pre-match odds, with an even start and no major events yet keeping the tie close to 50-50."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "England has a slight edge due to their marginally stronger squad depth and historical performance in penalty shootouts."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "Scoreless after 23 minutes, England’s marginal home-continent edge and slightly deeper bench nudge them just ahead of a stacked Argentina side that’s still very much in the balance."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "With the match still in the early stages and the scoreline level, the outcome remains highly uncertain with a slight edge to Argentina reflecting their pre-match favorite status."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.45,
+              "away": 0.55
+            },
+            "rationale": "Argentina has a slight edge based on recent form and historical knockout performance, though the match is evenly poised early on."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "The match is early with no scoring or key events, making it essentially a toss-up, though Argentina holds a slight historical edge in knockout matches."
+          }
+        }
       }
     ]
   },
