@@ -455,6 +455,8 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
 .detail-close:hover { color: var(--ink); border-color: var(--ink-3); }
 .detail-panel h3 { font-size: 14px; margin: 22px 0 8px; }
 .chart svg { width: 100%; height: auto; display: block; }
+.tl-chart { margin-bottom: 10px; }
+.tl-svg { overflow: visible; }
 .trow .twhen { font-weight: 650; color: var(--ink); display: inline-flex; align-items: baseline; gap: 7px; }
 .trow .tsub { color: var(--ink-3); font-weight: 400; font-size: 11.5px; font-variant-numeric: tabular-nums; }
 .trow-final .twhen { color: var(--pitch); }
