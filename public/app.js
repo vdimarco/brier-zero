@@ -690,6 +690,92 @@ function detailPoints(match, market) {
   return points;
 }
 
+// The match minute a timeline point sits at, for the time axis. Kickoff is
+// 0; a clock like 90'+3' is 93; half-time/extra-time/shootout map to the
+// stage they belong to; the result has no clock and is placed by the caller.
+function pointMinute(label) {
+  const s = String(label);
+  if (/^lock/i.test(s)) return 0;
+  const m = s.match(/(\d+)(?:'?\+(\d+))?/);
+  if (m) return Math.min(135, +m[1] + (m[2] ? +m[2] : 0));
+  if (/half|ht/i.test(s)) return 45;
+  if (/shoot|pen/i.test(s)) return 122;
+  if (/et|overtime|extra/i.test(s)) return 105;
+  return null;
+}
+
+/* Horizontal time chart: match minute on the x-axis, the consensus split as
+   stacked bands that fill 100% (the knockout market's two teams, or
+   home/draw/away in the group stage). The boundary between bands shifts as
+   the forecast moves through the game; goals are marked where the score
+   changed. It reads for momentum at a glance; the bar rows below carry the
+   exact per-moment numbers. */
+function timelineChart(match, points, market) {
+  const outs = MARKET_OUTCOMES[market];
+  const fill = { home: 'var(--home)', draw: 'var(--draw)', away: 'var(--away)' };
+  const W = 680, H = 208, padL = 12, padR = 96, padT = 24, padB = 30;
+  const plotW = W - padL - padR, plotH = H - padT - padB;
+  const n = points.length;
+  const subOf = (p) => p.sub || '0:0';
+
+  // Minute per point, made strictly increasing so points never collide; the
+  // result (no clock) lands just past the last timed point.
+  const mins = points.map((p) => (p.final ? null : pointMinute(p.label)));
+  let lastTimed = 0;
+  for (const m of mins) if (m != null) lastTimed = Math.max(lastTimed, m);
+  for (let i = 0; i < n; i++) if (mins[i] == null) mins[i] = lastTimed + 4;
+  for (let i = 1; i < n; i++) if (mins[i] <= mins[i - 1]) mins[i] = mins[i - 1] + 1;
+  const maxMin = mins[n - 1] || 90;
+  const x = (mi) => padL + (mi / maxMin) * plotW;
+  const y = (v) => padT + (1 - v) * plotH;
+
+  const bottoms = points.map((p) => {
+    let cum = 0; const b = {};
+    for (const o of outs) { b[o] = cum; cum += (p.probs[o] ?? 0); }
+    return b;
+  });
+
+  let svg = `<svg class="tl-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Consensus forecast over match time, ${esc(match.home.name)} versus ${esc(match.away.name)}">`;
+  for (const o of outs) {
+    const top = points.map((p, i) => `${x(mins[i]).toFixed(1)},${y(bottoms[i][o] + (p.probs[o] ?? 0)).toFixed(1)}`);
+    const bot = points.map((p, i) => `${x(mins[i]).toFixed(1)},${y(bottoms[i][o]).toFixed(1)}`).reverse();
+    svg += `<polygon points="${[...top, ...bot].join(' ')}" fill="${fill[o]}" opacity="0.9"/>`;
+  }
+  for (let k = 0; k < outs.length - 1; k++) {
+    const o = outs[k];
+    const edge = points.map((p, i) => `${x(mins[i]).toFixed(1)},${y(bottoms[i][o] + (p.probs[o] ?? 0)).toFixed(1)}`).join(' ');
+    svg += `<polyline points="${edge}" fill="none" stroke="var(--surface)" stroke-width="1.3" stroke-linejoin="round"/>`;
+  }
+
+  // Goal markers: a dashed line and the new scoreline wherever it changed.
+  const xTicks = [{ m: 0, t: "0'" }];
+  for (let i = 1; i < n; i++) {
+    if (subOf(points[i]) === subOf(points[i - 1])) continue;
+    const gx = x(mins[i]);
+    svg += `<line x1="${gx.toFixed(1)}" y1="${padT}" x2="${gx.toFixed(1)}" y2="${H - padB}" stroke="var(--ink)" stroke-width="1" stroke-dasharray="2 3" opacity="0.45"/>`;
+    svg += `<text x="${gx.toFixed(1)}" y="${(padT - 7).toFixed(1)}" text-anchor="middle" font-size="10" font-weight="700" fill="var(--ink)">${esc(subOf(points[i]).replace(':', '-'))}</text>`;
+    if (!points[i].final) xTicks.push({ m: mins[i], t: `${Math.round(mins[i])}'` });
+  }
+  xTicks.push({ m: maxMin, t: market === 'advance' ? 'FT' : 'FT' });
+
+  // Right-edge direct labels: each outcome's final share, nudged apart.
+  const last = points[n - 1];
+  let labels = outs.map((o) => ({ o, v: last.probs[o] ?? 0, y: y(bottoms[n - 1][o] + (last.probs[o] ?? 0) / 2) }))
+    .filter((l) => l.v >= 0.06).sort((a, b) => a.y - b.y);
+  for (let i = 1; i < labels.length; i++) if (labels[i].y - labels[i - 1].y < 13) labels[i].y = labels[i - 1].y + 13;
+  for (const l of labels) {
+    const name = l.o === 'draw' ? 'Draw' : esc(match[l.o].name);
+    const ty = Math.min(Math.max(l.y, padT + 4), H - padB);
+    svg += `<text x="${W - padR + 7}" y="${ty.toFixed(1)}" dy="3.5" font-size="11" fill="var(--ink-2)"><tspan font-weight="700" fill="var(--ink)">${name}</tspan> ${pct(l.v)}%</text>`;
+  }
+
+  for (const t of xTicks) {
+    svg += `<text x="${x(t.m).toFixed(1)}" y="${H - 9}" text-anchor="middle" font-size="9.5" fill="var(--ink-3)">${esc(t.t)}</text>`;
+  }
+  svg += '</svg>';
+  return svg;
+}
+
 /* The timeline is rendered as one bar row per moment, in the same visual
    language as the forecast rows: locked consensus, then each in-play
    consensus, then the result as a one-hot bar. */
@@ -697,7 +783,7 @@ function timelineRows(match, points, market) {
   const outs = MARKET_OUTCOMES[market];
   return `<div class="forecasts">${points.map((p) => `
     <div class="frow trow${p.final ? ' trow-final' : ''}">
-      <div class="fmodel twhen">${esc(p.label)}${p.sub ? `<span class="tsub">${esc(p.sub)}</span>` : ''}</div>
+      <div class="fmodel twhen">${esc(p.label)}${p.snap?.retro ? '*' : ''}${p.sub ? `<span class="tsub">${esc(p.sub)}</span>` : ''}</div>
       <div class="bar" role="img" aria-label="${esc(p.label)}: ${outs.map((o) => `${outcomeLabel(match, o, market)} ${pct(p.probs[o] ?? 0)}%`).join(', ')}">
         ${outs.map((o) => seg(o, p.probs[o] ?? 0, outcomeLabel(match, o, market))).join('')}
       </div>
@@ -884,8 +970,11 @@ function renderDetail(state) {
     </div>
     ${pickHtml}
     ${points.length > 1 ? `<h3>How the forecast moved</h3>
+    <div class="chart tl-chart">${timelineChart(match, points, market)}</div>
     ${timelineRows(match, points, market)}
-    <p class="fnote">${market === 'advance' ? 'Knockout market: probability of advancing, extra time and penalties included. ' : ''}Consensus at each moment: the locked pre-kickoff forecast is the only one that scores; in-play rows are fresh forecasts after every goal, card, and period change; the last row is the actual result.</p>` :
+    <p class="fnote">${market === 'advance' ? 'Knockout market: probability of advancing, extra time and penalties included. ' : ''}Consensus at each moment across the match clock: the locked pre-kickoff forecast is the only one that scores; in-play points are fresh forecasts after every goal, card, and period change; the last point is the actual result.${
+      points.some((p) => p.snap?.retro) ? ' Points marked * were reconstructed after the fact with the same result-free prompt.' : ''
+    }</p>` :
     (isLive ? '<p class="fnote">In-play updates land here after every goal, red card, and period change, plus every ~10 quiet minutes.</p>' : '')}
     <h3>${isDone ? 'How each model called it' : 'Model predictions'}</h3>
     <div class="forecasts">${lockedRows}</div>
