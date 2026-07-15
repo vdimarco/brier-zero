@@ -20530,6 +20530,64 @@
           "rationale": "Argentina, as the defending champion and top-ranked team, is slightly more likely to win, with England and Spain having moderate chances."
         }
       }
+    },
+    {
+      "at": "2026-07-15T21:05:42.387Z",
+      "teams": [
+        "Spain",
+        "Argentina"
+      ],
+      "models": {
+        "anthropic/claude-sonnet-4.5": {
+          "probs": {
+            "Spain": 0.48,
+            "Argentina": 0.52
+          },
+          "rationale": "Argentina holds a slight edge due to their recent World Cup victory and experienced squad, though Spain's young talented team makes this essentially a toss-up."
+        },
+        "openai/gpt-5.1": {
+          "probs": {
+            "Spain": 0.5,
+            "Argentina": 0.5
+          },
+          "rationale": "With two roughly evenly matched elite teams remaining and no further context (form, injuries, bracket position), an even split is the most defensible estimate."
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "probs": {
+            "Spain": 0.55,
+            "Argentina": 0.45
+          },
+          "rationale": "Spain's exceptional young talent and recent international success give them a slight edge over the defending champions Argentina in a single final match."
+        },
+        "moonshotai/kimi-k2-0905": {
+          "probs": {
+            "Spain": 0.55,
+            "Argentina": 0.45
+          },
+          "rationale": "Spain's dominant Euro 2024 victory and deep young talent give them a slight edge over aging but still formidable Argentina with Messi's likely final tournament."
+        },
+        "z-ai/glm-4.6": {
+          "probs": {
+            "Spain": 0.45,
+            "Argentina": 0.55
+          },
+          "rationale": "Argentina has the edge as defending champions with Messi, while Spain's strong football tradition keeps them competitive."
+        },
+        "qwen/qwen3-max": {
+          "probs": {
+            "Spain": 0.45,
+            "Argentina": 0.55
+          },
+          "rationale": "Argentina has a slight edge due to recent form and Messi's potential final World Cup, though Spain's strong squad makes them a close second."
+        },
+        "minimax/minimax-m2": {
+          "probs": {
+            "Spain": 0.45,
+            "Argentina": 0.55
+          },
+          "rationale": "Argentina has a slightly stronger recent record and a more experienced squad, giving them a modest edge over Spain."
+        }
+      }
     }
   ]
 }
