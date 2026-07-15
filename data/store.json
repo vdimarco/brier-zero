@@ -18050,6 +18050,61 @@
             "rationale": "England holds a narrow 1-0 lead with roughly 10 minutes remaining, giving them a solid but not insurmountable advantage as Argentina must now push forward aggressively, increasing their vulnerability to counters."
           }
         }
+      },
+      {
+        "at": "2026-07-15T20:47:49.705Z",
+        "detail": "86'",
+        "score": [
+          1,
+          1
+        ],
+        "events": 2,
+        "period": "STATUS_SECOND_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.42,
+              "away": 0.58
+            },
+            "rationale": "Argentina's late equalizer at 85' gives them significant momentum heading into extra time and potential penalties, where they historically perform well, while England's psychological blow of conceding so late reduces their chances despite home advantage."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.53,
+              "away": 0.47
+            },
+            "rationale": "With the match level at 86' between two closely matched sides, England retain a slight edge due to marginally better overall squad depth and a bit more time to respond mentally to the late equalizer, but penalties loom as a very live possibility."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.45,
+              "away": 0.55
+            },
+            "rationale": "Argentina has strong momentum from the late equalizer and the match is likely headed to extra time where the outcome is nearly a coin flip, but they hold a slight psychological edge."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "Level with 4+ minutes left, England have slight momentum from scoring first and home-continent advantage, but Argentina's late equalizer and tournament pedigree keeps it nearly even."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.42,
+              "away": 0.58
+            },
+            "rationale": "Argentina's dramatic late equalizer shifts the momentum heavily in their favor, making them more likely to score in stoppage time or carry superior energy into extra time and penalties."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "Argentina has momentum from a late equalizer and historically strong penalty shootout performance, slightly favoring them despite England's solid tournament form."
+          }
+        }
       }
     ]
   },
