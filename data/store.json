@@ -17878,6 +17878,61 @@
             "rationale": "Argentina slightly favored due to clutch experience and Messi, but England is strong."
           }
         }
+      },
+      {
+        "at": "2026-07-15T20:17:43.923Z",
+        "detail": "56'",
+        "score": [
+          1,
+          0
+        ],
+        "events": 1,
+        "period": "STATUS_SECOND_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.78,
+              "away": 0.22
+            },
+            "rationale": "England's one-goal lead with 34 minutes remaining plus potential extra time gives them a strong advantage, though Argentina's quality and tournament experience keep them dangerous enough to equalize and potentially win."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.72,
+              "away": 0.28
+            },
+            "rationale": "England lead by one just after halftime, and given their defensive strength and game state, they are solid but not overwhelming favorites to advance despite Argentina’s attacking quality."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.75,
+              "away": 0.25
+            },
+            "rationale": "England has a significant advantage with a 1-0 lead and control of the match, but Argentina's attacking quality means a comeback is still a real possibility."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.62,
+              "away": 0.38
+            },
+            "rationale": "England lead 1-0 with 34 minutes remaining and momentum from a recent goal, but Argentina's quality and desperation create meaningful comeback probability."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.7,
+              "away": 0.3
+            },
+            "rationale": "England's late goal gives them a significant advantage as Argentina must now push forward and risk counterattacks."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.65,
+              "away": 0.35
+            },
+            "rationale": "England leads 1-0 with 34 minutes plus stoppage time remaining, giving them a solid but not insurmountable advantage against a strong Argentina side capable of equalizing or winning in regulation, extra time, or penalties."
+          }
+        }
       }
     ]
   },
