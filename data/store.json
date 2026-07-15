@@ -17644,6 +17644,68 @@
             "rationale": "Argentina slightly favored due to overall quality and recent form, with England’s home advantage keeping the tie close."
           }
         }
+      },
+      {
+        "at": "2026-07-15T19:13:39.479Z",
+        "detail": "13'",
+        "score": [
+          0,
+          0
+        ],
+        "events": 0,
+        "period": "STATUS_FIRST_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-sonnet-4.5": {
+            "probs": {
+              "home": 0.58,
+              "away": 0.42
+            },
+            "rationale": "England holds a modest home advantage in a neutral-site semifinal between two elite teams in a scoreless early stage, with historical knockout pedigree slightly favoring Argentina but current FIFA rankings and recent form favoring England."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.57,
+              "away": 0.43
+            },
+            "rationale": "With the match still goalless and very early, pre-game strength and slight stylistic/roster edges give England a modestly higher chance to advance overall."
+          },
+          "deepseek/deepseek-chat-v3.1": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "England has a slight edge due to a marginally stronger squad depth and historical resilience in knockout games, but the match is essentially even this early."
+          },
+          "moonshotai/kimi-k2-0905": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "Argentina's tournament pedigree and slightly stronger recent form give them a narrow edge, but England's home-continent advantage in 2026 keeps this nearly even early on."
+          },
+          "z-ai/glm-4.6": {
+            "probs": {
+              "home": 0.45,
+              "away": 0.55
+            },
+            "rationale": "Early in the match with no events, probabilities remain close to pre-match expectations with Argentina having a slight edge due to World Cup pedigree."
+          },
+          "qwen/qwen3-max": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "Argentina holds a slight edge based on recent form and tournament pedigree, but the match is evenly poised early in the first half."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.45,
+              "away": 0.55
+            },
+            "rationale": "Argentina are slightly favored due to their attacking edge and historical knockout-stage nous, with England’s strong defense keeping the contest close."
+          }
+        }
       }
     ]
   },
