@@ -7,6 +7,7 @@
     { "id": "moonshotai/kimi-k2-0905", "label": "Kimi", "icon": "/icons/kimi.svg" },
     { "id": "z-ai/glm-4.6", "label": "GLM", "icon": "/icons/glm.svg" },
     { "id": "qwen/qwen3-max", "label": "Qwen", "icon": "/icons/qwen.svg" },
-    { "id": "minimax/minimax-m2", "label": "MiniMax", "icon": "/icons/minimax.svg" }
+    { "id": "minimax/minimax-m2", "label": "MiniMax", "icon": "/icons/minimax.svg" },
+    { "id": "google/gemini-3.1-pro-preview", "label": "Gemini", "icon": "/icons/gemini.svg" }
   ]
 }

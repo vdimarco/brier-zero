@@ -148,7 +148,7 @@ function toast(msg) {
 async function shareMatch(match) {
   const url = shareLink(`m/${match.id}`);
   const title = `${match.home.name} vs ${match.away.name} · The Brier Cup`;
-  const text = `${match.home.name} vs ${match.away.name} — watch seven AI models forecast this ${match.stage} match, live.`;
+  const text = `${match.home.name} vs ${match.away.name} — watch eight AI models forecast this ${match.stage} match, live.`;
   if (navigator.share) {
     try { await navigator.share({ title, text, url }); return; }
     catch (e) { if (e.name === 'AbortError') return; }
@@ -275,7 +275,7 @@ function matchCard(match, state) {
   } else if (match.status.state === 'pre') {
     const disabled = !state.predictorReady || collecting;
     const hint = state.predictorReady
-      ? 'Ask all seven models for their probabilities now.'
+      ? 'Ask all eight models for their probabilities now.'
       : 'Set OPENROUTER_API_KEY on the server to enable forecasting.';
     body = `<div class="forecasts"><div class="fnote">No forecasts collected yet.</div>
       <button class="collect" data-match="${esc(match.id)}" ${disabled ? 'disabled' : ''} title="${esc(hint)}">
@@ -345,7 +345,7 @@ function sparkline(perMatch) {
   </svg>`;
 }
 
-const MODEL_COLORS = ['#2563eb', '#dc2626', '#f59e0b', '#7c3aed', '#0891b2', '#a3550a', '#db2777'];
+const MODEL_COLORS = ['#2563eb', '#dc2626', '#f59e0b', '#7c3aed', '#0891b2', '#a3550a', '#db2777', '#4f46e5'];
 const LB_GEO = { W: 720, H: 320, padL: 42, padR: 96, padT: 18, padB: 56 };
 let lbDismiss = null; // the current dismiss-on-outside-tap listener
 
@@ -1349,7 +1349,7 @@ function renderBanner(state) {
   if (state.demoMode) {
     el.innerHTML = `<div class="banner">Demo mode is on: forecasts below are deterministic placeholders, not real model calls. Unset <code>DEMO_MODE</code> and set <code>OPENROUTER_API_KEY</code> for the real competition.</div>`;
   } else if (!state.predictorReady && !state.hosted) {
-    el.innerHTML = `<div class="banner">Live scores are flowing, but no forecaster is configured. Set <code>OPENROUTER_API_KEY</code> (one key covers all seven models via OpenRouter) and restart the server. Upcoming matches are forecast automatically from then on.</div>`;
+    el.innerHTML = `<div class="banner">Live scores are flowing, but no forecaster is configured. Set <code>OPENROUTER_API_KEY</code> (one key covers all eight models via OpenRouter) and restart the server. Upcoming matches are forecast automatically from then on.</div>`;
   } else {
     el.innerHTML = '';
   }
