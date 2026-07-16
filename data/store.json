@@ -9461,6 +9461,19 @@
         "createdAt": "2026-07-15T22:04:23.181Z",
         "latencyMs": 3806,
         "eligible": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.39,
+          "draw": 0.25,
+          "away": 0.36
+        },
+        "rationale": "France is given a slight edge due to their superior recent World Cup pedigree, but the typically open and rotated nature of third-place matches reduces the likelihood of a draw between these two evenly matched elite squads.",
+        "market": "regulation",
+        "fixture": "France vs England",
+        "createdAt": "2026-07-16T05:02:54.563Z",
+        "latencyMs": 7588,
+        "eligible": true
       }
     },
     "760517": {
@@ -9546,6 +9559,18 @@
         "fixture": "Spain vs Argentina",
         "createdAt": "2026-07-15T22:04:01.128Z",
         "latencyMs": 32270,
+        "eligible": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.53,
+          "away": 0.47
+        },
+        "rationale": "Spain's emerging golden generation, fresh off a Euro 2024 victory, gives them a slight edge over an aging but deeply experienced Argentine side defending their title.",
+        "market": "advance",
+        "fixture": "Spain vs Argentina",
+        "createdAt": "2026-07-16T05:03:01.141Z",
+        "latencyMs": 6555,
         "eligible": true
       }
     }
