@@ -609,3 +609,22 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
 }
 .hero-read .arrow { color: var(--kit-gold); font-weight: 800; }
 @media (max-width: 640px) { .hero-read { font-size: 13px; } }
+
+
+/* Latest analysis card (links to /research breakdown) */
+.analysis-card {
+  display: block; background: var(--surface); border: 1px solid var(--hairline);
+  border-radius: var(--radius-card); padding: 22px 24px; text-decoration: none; color: inherit;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.analysis-card:hover { border-color: var(--pitch); box-shadow: 0 6px 22px rgba(10, 122, 51, 0.08); }
+.analysis-kicker {
+  font: 700 11px/1 ui-monospace, Menlo, Consolas, monospace; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--pitch);
+}
+.analysis-card h3 {
+  font-size: 20px; letter-spacing: -0.01em; margin: 8px 0 6px; color: var(--ink);
+  font-weight: 750; text-wrap: balance;
+}
+.analysis-card p { color: var(--ink-2); font-size: 14px; margin: 0 0 12px; max-width: 66ch; }
+.analysis-cta { font-weight: 700; color: var(--pitch); }
