@@ -628,3 +628,13 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
 }
 .analysis-card p { color: var(--ink-2); font-size: 14px; margin: 0 0 12px; max-width: 66ch; }
 .analysis-cta { font-weight: 700; color: var(--pitch); }
+
+
+/* Competitors roster strip (config-driven; all models incl. Gemini) */
+.roster { display: flex; flex-wrap: wrap; gap: 10px; }
+.roster-chip {
+  display: inline-flex; align-items: center; gap: 8px; background: var(--surface);
+  border: 1px solid var(--hairline); border-radius: 999px; padding: 7px 14px 7px 9px;
+  font-weight: 650; font-size: 14px; color: var(--ink);
+}
+.roster-chip .crest { width: 20px; height: 20px; border-radius: 5px; }

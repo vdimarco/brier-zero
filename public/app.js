@@ -551,6 +551,17 @@ function collectiveMiss(state) {
   };
 }
 
+function renderRoster(state) {
+  const el = $('#roster');
+  if (!el || !Array.isArray(state.models)) return;
+  el.innerHTML = state.models.map((m) => {
+    const crest = m.icon
+      ? `<img class="crest" src="${esc(m.icon)}" alt="" onerror="this.style.visibility='hidden'">`
+      : '';
+    return `<span class="roster-chip">${crest}<span>${esc(m.label)}</span></span>`;
+  }).join('');
+}
+
 function renderLeaderboard(state) {
   const el = $('#leaderboard');
   const scored = state.leaderboard.filter((r) => r.scored > 0);
@@ -1392,6 +1403,7 @@ async function refresh(force = false) {
     renderTicker(state);
     renderTrophy(state);
     renderBanner(state);
+    renderRoster(state);
     renderLeaderboard(state);
     renderMatches(state);
     renderDetail(state);
