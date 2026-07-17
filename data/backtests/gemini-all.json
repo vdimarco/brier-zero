@@ -1,0 +1,5936 @@
+{
+  "method": "retro-backtest",
+  "note": "Same locked pre-kickoff prompt, run after full time. No result information in the prompt; no pre-kickoff timestamp proof. Not eligible for the live leaderboard.",
+  "model": "google/gemini-3.1-pro-preview",
+  "label": "Gemini",
+  "at": "2026-07-17T15:22:26.244Z",
+  "stored": false,
+  "matches": [
+    {
+      "matchId": "760414",
+      "shortName": "CZE @ KOR",
+      "fixture": "South Korea vs Czechia",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "home",
+      "score": "2-1",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.36000000000000004,
+        "draw": 0.29000000000000004,
+        "away": 0.35000000000000003
+      },
+      "rationale": "Both teams possess similar overall quality and international experience, making a tightly contested match on neutral ground highly likely.",
+      "latencyMs": 6711,
+      "brier": 0.6161999999999999,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.40640000000000004,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.5798,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.6937999999999999,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.635,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.5966,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.635,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.4538000000000001,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.5714857142857143,
+      "rankVsField": 5,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760415",
+      "shortName": "RSA @ MEX",
+      "fixture": "Mexico vs South Africa",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "home",
+      "score": "2-0",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.68,
+        "draw": 0.21,
+        "away": 0.11
+      },
+      "rationale": "Mexico benefits from a massive home-field advantage and possesses a stronger, more experienced squad compared to South Africa, making them clear favorites to win in regulation.",
+      "latencyMs": 5520,
+      "brier": 0.15859999999999996,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.27180000000000004,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.2094,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.2238,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.2664,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.13819999999999996,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.195,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.24080000000000001,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.22077142857142856,
+      "rankVsField": 2,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760416",
+      "shortName": "BIH @ CAN",
+      "fixture": "Canada vs Bosnia-Herzegovina",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "draw",
+      "score": "1-1",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.48,
+        "draw": 0.28,
+        "away": 0.24
+      },
+      "rationale": "Canada benefits from a strong generation of attacking talent and significant home-field advantage in Toronto, making them favorites against a transitioning Bosnia-Herzegovina side.",
+      "latencyMs": 6017,
+      "brier": 0.8063999999999999,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.8288,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.7674,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.665,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.7549999999999999,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.8917999999999999,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.7549999999999999,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.7784,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.7773428571428571,
+      "rankVsField": 6,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760417",
+      "shortName": "PAR @ USA",
+      "fixture": "United States vs Paraguay",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "home",
+      "score": "4-1",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.58,
+        "draw": 0.24,
+        "away": 0.18
+      },
+      "rationale": "The United States benefits from a strong home-field advantage in Los Angeles and possesses a deeper, more talented squad than Paraguay, making them clear favorites in this group stage encounter.",
+      "latencyMs": 6569,
+      "brier": 0.2664,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.3488,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.2922,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.25999999999999995,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.3464,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.30499999999999994,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.45500000000000007,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.2664,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.3248285714285714,
+      "rankVsField": 2,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760418",
+      "shortName": "SCO @ HAI",
+      "fixture": "Haiti vs Scotland",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "away",
+      "score": "0-1",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.16,
+        "draw": 0.26,
+        "away": 0.58
+      },
+      "rationale": "Scotland possesses a stronger squad with more experience in top-flight European leagues, making them the clear favorites against a resilient but lower-ranked Haiti side.",
+      "latencyMs": 6404,
+      "brier": 0.26960000000000006,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.24500000000000002,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.3464,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.5449999999999999,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.3768,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.40580000000000005,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.24500000000000002,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.4538000000000001,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.3739714285714286,
+      "rankVsField": 3,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760419",
+      "shortName": "MAR @ BRA",
+      "fixture": "Brazil vs Morocco",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "draw",
+      "score": "1-1",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.58,
+        "draw": 0.25,
+        "away": 0.17
+      },
+      "rationale": "Brazil's superior attacking depth and historical pedigree make them favorites, but Morocco's organized defense and recent World Cup success ensure a highly competitive match.",
+      "latencyMs": 5075,
+      "brier": 0.9278000000000001,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.9815999999999999,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 1.0478,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.9950000000000001,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 1.0184000000000002,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 1.0808000000000002,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 1.0850000000000002,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.9463999999999999,
+          "retro": true
+        }
+      },
+      "fieldMean": 1.022142857142857,
+      "rankVsField": 1,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760420",
+      "shortName": "SUI @ QAT",
+      "fixture": "Qatar vs Switzerland",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "draw",
+      "score": "1-1",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.11,
+        "draw": 0.21,
+        "away": 0.68
+      },
+      "rationale": "Switzerland's superior squad depth, European pedigree, and consistent performance in major tournaments make them strong favorites against a Qatar side that struggled against non-Asian opposition at the 2022 World Cup.",
+      "latencyMs": 6367,
+      "brier": 1.0986000000000002,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.945,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.9632,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.945,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.8018,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 1.0766000000000002,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.755,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.7447999999999999,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.8902,
+      "rankVsField": 8,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760421",
+      "shortName": "TUR @ AUS",
+      "fixture": "Australia vs Türkiye",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "home",
+      "score": "2-0",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.27,
+        "draw": 0.28,
+        "away": 0.45
+      },
+      "rationale": "Türkiye's superior squad depth and recent strong performances in major tournaments give them a slight edge over a resilient but less star-studded Australian side on neutral soil.",
+      "latencyMs": 6049,
+      "brier": 0.8138,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.5046,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.6378,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.635,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.635,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.8018,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.635,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.4538000000000001,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.6147142857142857,
+      "rankVsField": 8,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760422",
+      "shortName": "CUW @ GER",
+      "fixture": "Germany vs Curaçao",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "home",
+      "score": "7-1",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.91,
+        "draw": 0.07,
+        "away": 0.02
+      },
+      "rationale": "Germany's overwhelming superiority in squad quality, international experience, and tactical depth makes them massive favorites against a much lower-ranked Curaçao side.",
+      "latencyMs": 6067,
+      "brier": 0.013399999999999994,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.0015500000000000017,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.041600000000000005,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.011399999999999993,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.010399999999999993,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.015799999999999998,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.0378,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.009799999999999994,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.018335714285714285,
+      "rankVsField": 5,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760423",
+      "shortName": "ECU @ CIV",
+      "fixture": "Ivory Coast vs Ecuador",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "home",
+      "score": "1-0",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.28,
+        "draw": 0.3,
+        "away": 0.42
+      },
+      "rationale": "Ecuador's strong CONMEBOL qualifying form and tactical discipline give them a slight edge over the reigning African champions in a closely contested neutral-site match.",
+      "latencyMs": 5708,
+      "brier": 0.7847999999999999,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.635,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.6565999999999999,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.635,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.6565999999999999,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.635,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.5048000000000001,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.6378,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.6229714285714286,
+      "rankVsField": 8,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760424",
+      "shortName": "TUN @ SWE",
+      "fixture": "Sweden vs Tunisia",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "home",
+      "score": "5-1",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.54,
+        "draw": 0.26,
+        "away": 0.2
+      },
+      "rationale": "Sweden possesses superior squad depth and European pedigree compared to Tunisia, making them the favorites on neutral ground despite the potential for a tight, low-scoring group stage match.",
+      "latencyMs": 6367,
+      "brier": 0.31919999999999993,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.26960000000000006,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.3906,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.195,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.40640000000000004,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.30979999999999996,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.45500000000000007,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.3768,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.34331428571428574,
+      "rankVsField": 4,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760425",
+      "shortName": "JPN @ NED",
+      "fixture": "Netherlands vs Japan",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "draw",
+      "score": "2-2",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.54,
+        "draw": 0.26,
+        "away": 0.2
+      },
+      "rationale": "The Netherlands boast superior squad depth and historical pedigree, making them favorites, but Japan's tactical discipline and counter-attacking threat make a draw or upset plausible.",
+      "latencyMs": 5531,
+      "brier": 0.8792,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.9095999999999999,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.905,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.9950000000000001,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.8664000000000001,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.7549999999999999,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.905,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.7549999999999999,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.8701428571428572,
+      "rankVsField": 4,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760426",
+      "shortName": "EGY @ BEL",
+      "fixture": "Belgium vs Egypt",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "draw",
+      "score": "1-1",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.62,
+        "draw": 0.23,
+        "away": 0.15
+      },
+      "rationale": "Belgium possesses superior squad depth and overall quality compared to Egypt, making them clear favorites despite the aging of their golden generation.",
+      "latencyMs": 5325,
+      "brier": 0.9998,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.9815999999999999,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.8726,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.815,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.8288,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.8833999999999999,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.9950000000000001,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.8498,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.889457142857143,
+      "rankVsField": 8,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760427",
+      "shortName": "NZL @ IRN",
+      "fixture": "Iran vs New Zealand",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "draw",
+      "score": "2-2",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.62,
+        "draw": 0.24,
+        "away": 0.14
+      },
+      "rationale": "Iran possesses superior tactical discipline and attacking quality compared to New Zealand, making them clear favorites in this neutral-venue group stage encounter.",
+      "latencyMs": 6017,
+      "brier": 0.9815999999999999,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.8288,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 1.0376,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.9950000000000001,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.8063999999999999,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.8833999999999999,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.9950000000000001,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.8917999999999999,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.9197142857142857,
+      "rankVsField": 5,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760428",
+      "shortName": "CPV @ ESP",
+      "fixture": "Spain vs Cape Verde",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "draw",
+      "score": "0-0",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.85,
+        "draw": 0.11,
+        "away": 0.04
+      },
+      "rationale": "Spain's elite squad depth, tactical mastery, and pedigree in major tournaments make them overwhelming favorites against a developing Cape Verde team.",
+      "latencyMs": 7219,
+      "brier": 1.5162,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 1.4977999999999998,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 1.5677999999999999,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 1.4977999999999998,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 1.4136,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 1.2398,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 1.3176,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 1.365,
+          "retro": true
+        }
+      },
+      "fieldMean": 1.4142,
+      "rankVsField": 7,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760429",
+      "shortName": "URU @ KSA",
+      "fixture": "Saudi Arabia vs Uruguay",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "draw",
+      "score": "1-1",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.08,
+        "draw": 0.18,
+        "away": 0.74
+      },
+      "rationale": "Uruguay possesses significantly more top-level talent and international pedigree compared to Saudi Arabia, making them heavy favorites in a neutral venue.",
+      "latencyMs": 5275,
+      "brier": 1.2264,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 1.0298,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.8664000000000001,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.945,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.945,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.8677999999999999,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.755,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.7799999999999999,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.8841428571428571,
+      "rankVsField": 8,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760430",
+      "shortName": "NOR @ IRQ",
+      "fixture": "Iraq vs Norway",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "away",
+      "score": "1-4",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.16,
+        "draw": 0.25,
+        "away": 0.59
+      },
+      "rationale": "Norway possesses significant top-level European experience and world-class attacking talent, giving them a distinct advantage over Iraq in this neutral-site matchup.",
+      "latencyMs": 7586,
+      "brier": 0.25620000000000004,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.45500000000000007,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.3464,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.24500000000000002,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.32239999999999996,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.31499999999999995,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.45500000000000007,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.3488,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.3553714285714286,
+      "rankVsField": 2,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760431",
+      "shortName": "JOR @ AUT",
+      "fixture": "Austria vs Jordan",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "home",
+      "score": "3-1",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.7000000000000001,
+        "draw": 0.20000000000000004,
+        "away": 0.10000000000000002
+      },
+      "rationale": "Austria's superior squad depth and experience in top European leagues make them strong favorites against a Jordan side that, despite recent Asian Cup success, lacks comparable international pedigree.",
+      "latencyMs": 5922,
+      "brier": 0.13999999999999999,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.16079999999999997,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.13019999999999998,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.055800000000000016,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.12079999999999996,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.16079999999999997,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.12079999999999996,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.2664,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.14508571428571426,
+      "rankVsField": 5,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760432",
+      "shortName": "SEN @ FRA",
+      "fixture": "France vs Senegal",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "home",
+      "score": "3-1",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.7000000000000001,
+        "draw": 0.20000000000000004,
+        "away": 0.10000000000000002
+      },
+      "rationale": "France's superior squad depth and world-class talent make them heavy favorites against a capable but outmatched Senegal side.",
+      "latencyMs": 5192,
+      "brier": 0.13999999999999999,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.26780000000000004,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.1976,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.13040000000000002,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.2184,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.2198,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.30499999999999994,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.15679999999999997,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.2136857142857143,
+      "rankVsField": 2,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760433",
+      "shortName": "ALG @ ARG",
+      "fixture": "Argentina vs Algeria",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "home",
+      "score": "3-0",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.7200000000000001,
+        "draw": 0.20000000000000004,
+        "away": 0.08000000000000002
+      },
+      "rationale": "Argentina's superior squad depth, recent international dominance, and tactical cohesion make them heavy favorites against a capable but less consistent Algerian side.",
+      "latencyMs": 4814,
+      "brier": 0.12479999999999998,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.16079999999999997,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.10639999999999995,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.195,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.16079999999999997,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.12479999999999998,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.12079999999999996,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.2198,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.15548571428571425,
+      "rankVsField": 3,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760434",
+      "shortName": "PAN @ GHA",
+      "fixture": "Ghana vs Panama",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "home",
+      "score": "1-0",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.46,
+        "draw": 0.29,
+        "away": 0.25
+      },
+      "rationale": "Ghana possesses superior individual talent playing in top European leagues, making them moderate favorites over a well-organized Panama side on neutral ground.",
+      "latencyMs": 6762,
+      "brier": 0.43820000000000003,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.40740000000000004,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.2664,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.315,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.5046,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.38,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.45500000000000007,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.4538000000000001,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.3974571428571429,
+      "rankVsField": 5,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760435",
+      "shortName": "COD @ POR",
+      "fixture": "Portugal vs Congo DR",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "draw",
+      "score": "1-1",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.76,
+        "draw": 0.17,
+        "away": 0.07
+      },
+      "rationale": "Portugal's vastly superior squad depth, tactical experience, and historical performance in major tournaments make them heavy favorites against a lower-ranked Congo DR side.",
+      "latencyMs": 5438,
+      "brier": 1.2713999999999999,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 1.2398,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 1.2007999999999999,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 1.4977999999999998,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 1.2007999999999999,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 1.1702000000000001,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 1.4318,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 1.1544000000000003,
+          "retro": true
+        }
+      },
+      "fieldMean": 1.2708,
+      "rankVsField": 6,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760436",
+      "shortName": "COL @ UZB",
+      "fixture": "Uzbekistan vs Colombia",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "away",
+      "score": "1-3",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.13,
+        "draw": 0.22,
+        "away": 0.65
+      },
+      "rationale": "Colombia possesses superior squad depth, international experience, and individual talent compared to Uzbekistan, making them strong favorites despite Uzbekistan's solid defensive organization.",
+      "latencyMs": 5246,
+      "brier": 0.18779999999999997,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.31499999999999995,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.25460000000000005,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.30779999999999996,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.30779999999999996,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.2328,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.24500000000000002,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.13680000000000003,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.25711428571428574,
+      "rankVsField": 2,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760437",
+      "shortName": "CRO @ ENG",
+      "fixture": "England vs Croatia",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "home",
+      "score": "4-2",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.52,
+        "draw": 0.27,
+        "away": 0.21
+      },
+      "rationale": "England possesses a deeper and younger squad with higher overall quality, giving them the edge over a transitioning Croatian side, though Croatia's tactical discipline makes a draw a strong possibility.",
+      "latencyMs": 4645,
+      "brier": 0.3474,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.3488,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.23060000000000003,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.4650000000000001,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.40640000000000004,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.2922,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.45500000000000007,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.5408,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.3912571428571429,
+      "rankVsField": 3,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760438",
+      "shortName": "RSA @ CZE",
+      "fixture": "Czechia vs South Africa",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "draw",
+      "score": "1-1",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.52,
+        "draw": 0.27,
+        "away": 0.21
+      },
+      "rationale": "Czechia's tactical discipline and higher level of European competition experience give them a moderate edge over South Africa, though a tight group stage match is expected.",
+      "latencyMs": 5271,
+      "brier": 0.8473999999999999,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.8917999999999999,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.9722,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.815,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.8664000000000001,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.7674,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.9950000000000001,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.7135999999999999,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.8602,
+      "rankVsField": 4,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760439",
+      "shortName": "BIH @ SUI",
+      "fixture": "Switzerland vs Bosnia-Herzegovina",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "home",
+      "score": "4-1",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.62,
+        "draw": 0.23,
+        "away": 0.15
+      },
+      "rationale": "Switzerland's consistent tournament pedigree and significantly higher international ranking give them a clear advantage over a Bosnian side that has struggled in recent qualifying campaigns.",
+      "latencyMs": 5168,
+      "brier": 0.2198,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.3488,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.3614,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.3528,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.40640000000000004,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.315,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.30499999999999994,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.26480000000000004,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.33631428571428573,
+      "rankVsField": 1,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760440",
+      "shortName": "QAT @ CAN",
+      "fixture": "Canada vs Qatar",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "home",
+      "score": "6-0",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.58,
+        "draw": 0.24,
+        "away": 0.18
+      },
+      "rationale": "Canada benefits from a significant home-field advantage at BC Place and possesses superior top-end talent playing in major European leagues compared to Qatar's domestically based squad.",
+      "latencyMs": 6702,
+      "brier": 0.2664,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.30979999999999996,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.3181999999999999,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.195,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.3488,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.30499999999999994,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.30499999999999994,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.5399999999999999,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.33168571428571425,
+      "rankVsField": 2,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760441",
+      "shortName": "KOR @ MEX",
+      "fixture": "Mexico vs South Korea",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "home",
+      "score": "1-0",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.58,
+        "draw": 0.25,
+        "away": 0.17
+      },
+      "rationale": "Mexico benefits from a significant home-field advantage playing in Guadalajara, making them clear favorites over a solid South Korean side.",
+      "latencyMs": 6450,
+      "brier": 0.26780000000000004,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.3488,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.43740000000000007,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.45500000000000007,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.40640000000000004,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.40580000000000005,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.45500000000000007,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.3488,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.4081714285714287,
+      "rankVsField": 1,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760442",
+      "shortName": "AUS @ USA",
+      "fixture": "United States vs Australia",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "home",
+      "score": "2-0",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.58,
+        "draw": 0.24,
+        "away": 0.18
+      },
+      "rationale": "The United States boasts a more talented squad with players in top European leagues and will benefit significantly from strong home-field advantage in Seattle, making them clear favorites over a resilient but less star-studded Australian side.",
+      "latencyMs": 5785,
+      "brier": 0.2664,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.40740000000000004,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.3758,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.195,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.30499999999999994,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.45500000000000007,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.45500000000000007,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.43760000000000004,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.37582857142857146,
+      "rankVsField": 2,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760443",
+      "shortName": "PAR @ TUR",
+      "fixture": "Türkiye vs Paraguay",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "away",
+      "score": "0-1",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.42,
+        "draw": 0.31,
+        "away": 0.27
+      },
+      "rationale": "Türkiye's recent strong performances in European competitions give them a slight edge over a defensively resilient but offensively limited Paraguay side.",
+      "latencyMs": 4875,
+      "brier": 0.8053999999999999,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.9074,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.8906000000000001,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.855,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.7447999999999999,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.74,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.855,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.7008,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.8133714285714287,
+      "rankVsField": 4,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760444",
+      "shortName": "HAI @ BRA",
+      "fixture": "Brazil vs Haiti",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "home",
+      "score": "3-0",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.88,
+        "draw": 0.1,
+        "away": 0.02
+      },
+      "rationale": "Brazil's overwhelming superiority in talent, experience, and historical performance makes them heavy favorites against a much lower-ranked Haitian side.",
+      "latencyMs": 5285,
+      "brier": 0.024800000000000003,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.010399999999999993,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.0234,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.0378,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.020599999999999997,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.05180000000000003,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.006200000000000007,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.016799999999999995,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.02385714285714286,
+      "rankVsField": 6,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760445",
+      "shortName": "MAR @ SCO",
+      "fixture": "Scotland vs Morocco",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "away",
+      "score": "0-1",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.25,
+        "draw": 0.27,
+        "away": 0.48
+      },
+      "rationale": "Morocco's recent World Cup pedigree and higher FIFA ranking make them the favorites against a Scotland side that often struggles in major tournaments, though a tight match is expected.",
+      "latencyMs": 5210,
+      "brier": 0.40580000000000005,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.48740000000000006,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.40640000000000004,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.5978,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.5048000000000001,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.465,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.6349999999999999,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.30499999999999994,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.4859142857142857,
+      "rankVsField": 2,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760446",
+      "shortName": "CUW @ ECU",
+      "fixture": "Ecuador vs Curaçao",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "draw",
+      "score": "0-0",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.78,
+        "draw": 0.15,
+        "away": 0.07
+      },
+      "rationale": "Ecuador possesses significantly higher squad quality and international tournament experience compared to Curaçao, making them heavy favorites in this neutral-venue group stage encounter.",
+      "latencyMs": 4550,
+      "brier": 1.3357999999999999,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 1.3957999999999997,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 1.2264000000000002,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 1.0298,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 1.2007999999999999,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.9950000000000001,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.9950000000000001,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 1.0808000000000002,
+          "retro": true
+        }
+      },
+      "fieldMean": 1.1319428571428571,
+      "rankVsField": 7,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760447",
+      "shortName": "SWE @ NED",
+      "fixture": "Netherlands vs Sweden",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "home",
+      "score": "5-1",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.6,
+        "draw": 0.23,
+        "away": 0.17
+      },
+      "rationale": "The Netherlands possess a significantly stronger squad and higher international pedigree than Sweden, making them clear favorites to win in regulation.",
+      "latencyMs": 5391,
+      "brier": 0.24180000000000004,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.3474,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.2922,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.30499999999999994,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.3464,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.28140000000000004,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.30499999999999994,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.45500000000000007,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.3332,
+      "rankVsField": 1,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760448",
+      "shortName": "CIV @ GER",
+      "fixture": "Germany vs Ivory Coast",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "home",
+      "score": "2-1",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.63,
+        "draw": 0.22,
+        "away": 0.15
+      },
+      "rationale": "Germany's superior squad depth and tactical organization make them clear favorites, though Ivory Coast's recent AFCON success and athletic quality present a credible threat for a draw or upset.",
+      "latencyMs": 6252,
+      "brier": 0.20779999999999998,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.15859999999999996,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.14659999999999998,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.195,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.2184,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.1878,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.30499999999999994,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.13679999999999995,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.19259999999999997,
+      "rankVsField": 6,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760449",
+      "shortName": "JPN @ TUN",
+      "fixture": "Tunisia vs Japan",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "away",
+      "score": "0-4",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.2,
+        "draw": 0.25,
+        "away": 0.55
+      },
+      "rationale": "Japan possesses a stronger squad with more players in top European leagues and a higher international ranking, making them the favorites against a defensively solid but less potent Tunisian side.",
+      "latencyMs": 5757,
+      "brier": 0.30499999999999994,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.45500000000000007,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.3758,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.5449999999999999,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.30779999999999996,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.41280000000000006,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.45500000000000007,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.54,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.4416285714285714,
+      "rankVsField": 1,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760450",
+      "shortName": "CPV @ URU",
+      "fixture": "Uruguay vs Cape Verde",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "draw",
+      "score": "2-2",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.7400000000000001,
+        "draw": 0.18000000000000002,
+        "away": 0.08000000000000002
+      },
+      "rationale": "Uruguay's elite talent, tactical discipline, and extensive World Cup experience make them heavy favorites over a spirited but overmatched Cape Verde side.",
+      "latencyMs": 6124,
+      "brier": 1.2264000000000002,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 1.1647999999999998,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 1.3176,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 1.205,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 1.1647999999999998,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 1.2713999999999999,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.9950000000000001,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 1.2007999999999999,
+          "retro": true
+        }
+      },
+      "fieldMean": 1.1884857142857144,
+      "rankVsField": 6,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760451",
+      "shortName": "IRN @ BEL",
+      "fixture": "Belgium vs Iran",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "draw",
+      "score": "0-0",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.68,
+        "draw": 0.21,
+        "away": 0.11
+      },
+      "rationale": "Belgium possesses superior squad depth and individual quality compared to Iran, making them strong favorites despite Iran's typically resilient defensive organization.",
+      "latencyMs": 5703,
+      "brier": 1.0986000000000002,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 1.1647999999999998,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 1.0376,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 1.1304,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.9278000000000001,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 1.0808000000000002,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 1.2007999999999999,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 1.1767999999999998,
+          "retro": true
+        }
+      },
+      "fieldMean": 1.1027142857142858,
+      "rankVsField": 4,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760452",
+      "shortName": "EGY @ NZL",
+      "fixture": "New Zealand vs Egypt",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "away",
+      "score": "1-3",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.15,
+        "draw": 0.25,
+        "away": 0.6
+      },
+      "rationale": "Egypt possesses superior squad depth and higher-level international experience compared to New Zealand, making them clear favorites despite the neutral venue.",
+      "latencyMs": 6956,
+      "brier": 0.24500000000000002,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.5048000000000001,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.2534,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.5449999999999999,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.3768,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.2294,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.6349999999999999,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.16379999999999997,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.38688571428571433,
+      "rankVsField": 3,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760453",
+      "shortName": "KSA @ ESP",
+      "fixture": "Spain vs Saudi Arabia",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "home",
+      "score": "4-0",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.82,
+        "draw": 0.13,
+        "away": 0.05
+      },
+      "rationale": "Spain's overwhelming superiority in squad depth, tactical quality, and recent international success makes them heavy favorites against a Saudi Arabian side that typically struggles against elite European opposition.",
+      "latencyMs": 5295,
+      "brier": 0.05180000000000003,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.0998,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.06319999999999999,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.10500000000000001,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.0998,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.09780000000000001,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.05180000000000003,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.07339999999999999,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.08440000000000002,
+      "rankVsField": 1,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760454",
+      "shortName": "SEN @ NOR",
+      "fixture": "Norway vs Senegal",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "home",
+      "score": "3-2",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.38,
+        "draw": 0.28,
+        "away": 0.34
+      },
+      "rationale": "Norway possesses elite attacking stars like Haaland and Ødegaard, but Senegal's recent World Cup experience and cohesive squad make this a tightly contested matchup.",
+      "latencyMs": 6594,
+      "brier": 0.5784,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.635,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.7202,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.5078,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.6378,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.6758,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.635,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.7447999999999999,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.6509142857142856,
+      "rankVsField": 2,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760455",
+      "shortName": "ALG @ JOR",
+      "fixture": "Jordan vs Algeria",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "away",
+      "score": "1-2",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.18,
+        "draw": 0.26,
+        "away": 0.56
+      },
+      "rationale": "Algeria possesses superior squad depth and top-flight European experience, making them the favorites against a resilient but less experienced Jordanian side on neutral soil.",
+      "latencyMs": 5072,
+      "brier": 0.29359999999999997,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.3768,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.33540000000000003,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.5449999999999999,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.3768,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.45500000000000007,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.45500000000000007,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.30499999999999994,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.40700000000000003,
+      "rankVsField": 1,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760456",
+      "shortName": "AUT @ ARG",
+      "fixture": "Argentina vs Austria",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "home",
+      "score": "2-0",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.65,
+        "draw": 0.22,
+        "away": 0.13
+      },
+      "rationale": "Argentina enters as the defending champions and heavy favorites with superior squad depth and talent, though Austria's organized pressing under Ralf Rangnick makes them a competitive side capable of keeping the match tight.",
+      "latencyMs": 5793,
+      "brier": 0.1878,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.22160000000000002,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.14819999999999997,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.10500000000000001,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.2184,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.195,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.195,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.1898,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.18185714285714288,
+      "rankVsField": 3,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760457",
+      "shortName": "IRQ @ FRA",
+      "fixture": "France vs Iraq",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "home",
+      "score": "3-0",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.85,
+        "draw": 0.11,
+        "away": 0.04
+      },
+      "rationale": "France boasts a vastly superior squad with world-class talent across all positions, making them overwhelming favorites against a much lower-ranked Iraqi side.",
+      "latencyMs": 7047,
+      "brier": 0.0362,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.0378,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.045800000000000014,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.0378,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.0234,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.0998,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.024800000000000003,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.025400000000000002,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.042114285714285715,
+      "rankVsField": 4,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760458",
+      "shortName": "GHA @ ENG",
+      "fixture": "England vs Ghana",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "draw",
+      "score": "0-0",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.7000000000000001,
+        "draw": 0.20000000000000004,
+        "away": 0.10000000000000002
+      },
+      "rationale": "England possesses a significantly stronger squad and higher international ranking than Ghana, making them heavy favorites in a neutral-venue group stage match.",
+      "latencyMs": 5517,
+      "brier": 1.14,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 1.0986000000000002,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 1.1466,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.9950000000000001,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 1.1168000000000002,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.9638000000000001,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.9950000000000001,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 1.1767999999999998,
+          "retro": true
+        }
+      },
+      "fieldMean": 1.0703714285714288,
+      "rankVsField": 6,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760459",
+      "shortName": "COD @ COL",
+      "fixture": "Colombia vs Congo DR",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "home",
+      "score": "1-0",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.68,
+        "draw": 0.21,
+        "away": 0.11
+      },
+      "rationale": "Colombia's superior squad depth, strong recent form in CONMEBOL, and significant advantage in FIFA rankings make them clear favorites against Congo DR.",
+      "latencyMs": 5821,
+      "brier": 0.15859999999999996,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.16079999999999997,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.15679999999999997,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.195,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.16079999999999997,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.195,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.195,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.38,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.2062,
+      "rankVsField": 2,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760460",
+      "shortName": "CRO @ PAN",
+      "fixture": "Panama vs Croatia",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "away",
+      "score": "0-1",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.13,
+        "draw": 0.22,
+        "away": 0.65
+      },
+      "rationale": "Croatia's significant advantage in international experience, tactical discipline, and overall squad quality makes them strong favorites against a developing Panama side.",
+      "latencyMs": 4656,
+      "brier": 0.18779999999999997,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.31499999999999995,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.25460000000000005,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.24500000000000002,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.14480000000000004,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.24500000000000002,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.14000000000000004,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.22406666666666672,
+      "rankVsField": 3,
+      "fieldSize": 6
+    },
+    {
+      "matchId": "760461",
+      "shortName": "UZB @ POR",
+      "fixture": "Portugal vs Uzbekistan",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "home",
+      "score": "5-0",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.82,
+        "draw": 0.13,
+        "away": 0.05
+      },
+      "rationale": "Portugal possesses a vastly superior squad with world-class talent across all positions, making them heavy favorites against an Uzbekistan side that lacks comparable top-level international experience.",
+      "latencyMs": 4854,
+      "brier": 0.05180000000000003,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.0998,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.0702,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.0378,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.0998,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.10500000000000001,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.0378,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.11940000000000002,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.0814,
+      "rankVsField": 3,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760462",
+      "shortName": "QAT @ BIH",
+      "fixture": "Bosnia-Herzegovina vs Qatar",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "home",
+      "score": "3-1",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.45,
+        "draw": 0.28,
+        "away": 0.27
+      },
+      "rationale": "Although Qatar has dominated recent Asian Cups, Bosnia-Herzegovina's experience in competitive European qualifiers gives them a slight edge in a neutral venue.",
+      "latencyMs": 7692,
+      "brier": 0.4538000000000001,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.3768,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.2094,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.27180000000000004,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.3464,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.43760000000000004,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.45500000000000007,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.45500000000000007,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.36457142857142866,
+      "rankVsField": 6,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760463",
+      "shortName": "CAN @ SUI",
+      "fixture": "Switzerland vs Canada",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "home",
+      "score": "2-1",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.41,
+        "draw": 0.28,
+        "away": 0.31
+      },
+      "rationale": "Although Switzerland possesses greater international pedigree and a stronger overall squad, Canada's significant home-field advantage in Vancouver and their emerging attacking talent make this a closely contested matchup.",
+      "latencyMs": 8091,
+      "brier": 0.5226000000000001,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.40640000000000004,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.4538000000000001,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.315,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.5046,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.5408,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.30499999999999994,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.5408000000000001,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.4380571428571428,
+      "rankVsField": 6,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760464",
+      "shortName": "HAI @ MAR",
+      "fixture": "Morocco vs Haiti",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "home",
+      "score": "4-2",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.82,
+        "draw": 0.13,
+        "away": 0.05
+      },
+      "rationale": "Morocco's significantly superior squad quality, international experience, and recent World Cup pedigree make them heavy favorites against a Haitian side that rarely competes at this level.",
+      "latencyMs": 4516,
+      "brier": 0.05180000000000003,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.0998,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.13019999999999998,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.195,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.1878,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.195,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.0378,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.095,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.13437142857142859,
+      "rankVsField": 2,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760465",
+      "shortName": "BRA @ SCO",
+      "fixture": "Scotland vs Brazil",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "away",
+      "score": "0-3",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.08,
+        "draw": 0.17,
+        "away": 0.75
+      },
+      "rationale": "Brazil's vastly superior squad depth, technical ability, and historical dominance in World Cup group stages make them heavy favorites over a hard-working but less talented Scotland side.",
+      "latencyMs": 5310,
+      "brier": 0.0978,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.14480000000000004,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.21839999999999998,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.14480000000000004,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.17839999999999998,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.12260000000000001,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.18979999999999997,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.07339999999999999,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.15317142857142857,
+      "rankVsField": 2,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760466",
+      "shortName": "KOR @ RSA",
+      "fixture": "South Africa vs South Korea",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "home",
+      "score": "1-0",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.22,
+        "draw": 0.27,
+        "away": 0.51
+      },
+      "rationale": "South Korea possesses a stronger squad with more top-level European experience and a higher historical Elo rating, making them the favorites against a South African side that has struggled to consistently qualify for recent World Cups.",
+      "latencyMs": 5717,
+      "brier": 0.9414,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.9368000000000001,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 1.0262000000000002,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.7794,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.7808,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.8864000000000001,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.855,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.7847999999999999,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.8642000000000002,
+      "rankVsField": 7,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760467",
+      "shortName": "MEX @ CZE",
+      "fixture": "Czechia vs Mexico",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "away",
+      "score": "0-3",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.26,
+        "draw": 0.28,
+        "away": 0.46
+      },
+      "rationale": "Although officially listed as the away team, Mexico will enjoy a massive home-country advantage and favorable climate conditions, giving them a distinct edge over a capable Czech squad.",
+      "latencyMs": 8243,
+      "brier": 0.43760000000000004,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.48740000000000006,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.5408,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.6349999999999999,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.47040000000000004,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.40580000000000005,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.6943999999999999,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.30379999999999996,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.5053714285714286,
+      "rankVsField": 3,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760468",
+      "shortName": "GER @ ECU",
+      "fixture": "Ecuador vs Germany",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "home",
+      "score": "2-1",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.18,
+        "draw": 0.24,
+        "away": 0.58
+      },
+      "rationale": "Germany possesses superior squad depth and tactical experience on the global stage, making them favorites, though Ecuador's physicality and defensive resilience could make it a competitive match.",
+      "latencyMs": 5401,
+      "brier": 1.0664,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 1.145,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 1.0386000000000002,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 1.0478,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 1.0808,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 1.0877999999999999,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.855,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.8618,
+          "retro": true
+        }
+      },
+      "fieldMean": 1.0166857142857144,
+      "rankVsField": 5,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760469",
+      "shortName": "AUS @ PAR",
+      "fixture": "Paraguay vs Australia",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "draw",
+      "score": "0-0",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.38,
+        "draw": 0.31,
+        "away": 0.31
+      },
+      "rationale": "Paraguay and Australia are closely matched in international rankings and overall squad quality, making a tightly contested match with a high probability of a draw or a narrow victory for either side likely.",
+      "latencyMs": 5018,
+      "brier": 0.7165999999999999,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.7447999999999999,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.7621999999999999,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.7549999999999999,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.7847999999999999,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.6967999999999999,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.7549999999999999,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.7497666666666665,
+      "rankVsField": 2,
+      "fieldSize": 6
+    },
+    {
+      "matchId": "760470",
+      "shortName": "USA @ TUR",
+      "fixture": "Türkiye vs United States",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "home",
+      "score": "3-2",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.28,
+        "draw": 0.27,
+        "away": 0.45
+      },
+      "rationale": "Although Türkiye boasts an emerging golden generation and strong recent tournament experience, the United States benefits from a massive home-field advantage at SoFi Stadium and a talented core, making them slight favorites in a closely contested matchup.",
+      "latencyMs": 17743,
+      "brier": 0.7938,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.7873999999999999,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.6176,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.635,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.6551999999999998,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.8657999999999999,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.635,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.5048000000000001,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.6715428571428571,
+      "rankVsField": 7,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760471",
+      "shortName": "SWE @ JPN",
+      "fixture": "Japan vs Sweden",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "draw",
+      "score": "1-1",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.39,
+        "draw": 0.28,
+        "away": 0.33
+      },
+      "rationale": "Japan's recent consistent international performances and higher current global ranking give them a slight edge over a physically strong but transitioning Swedish side on neutral US soil.",
+      "latencyMs": 5687,
+      "brier": 0.7794,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.7367999999999999,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.7993999999999999,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.735,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.7847999999999999,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.7997999999999998,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.7549999999999999,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.7549999999999999,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.7665428571428571,
+      "rankVsField": 5,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760472",
+      "shortName": "NED @ TUN",
+      "fixture": "Tunisia vs Netherlands",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "away",
+      "score": "1-3",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.1,
+        "draw": 0.2,
+        "away": 0.7
+      },
+      "rationale": "The Netherlands possess significantly more top-level European club experience and overall squad quality compared to Tunisia, making them strong favorites in this group stage encounter.",
+      "latencyMs": 4482,
+      "brier": 0.14000000000000004,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.24500000000000002,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.24320000000000003,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.24500000000000002,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.17839999999999998,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.24080000000000001,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.24500000000000002,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.18979999999999997,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.22674285714285716,
+      "rankVsField": 1,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760473",
+      "shortName": "CIV @ CUW",
+      "fixture": "Curaçao vs Ivory Coast",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "away",
+      "score": "0-2",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.08,
+        "draw": 0.18,
+        "away": 0.74
+      },
+      "rationale": "Ivory Coast possesses significantly more top-flight international experience and squad depth compared to Curaçao, making them heavy favorites to win this group stage encounter.",
+      "latencyMs": 4953,
+      "brier": 0.10640000000000001,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.10500000000000001,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.0998,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.24500000000000002,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.14480000000000004,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.195,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.18979999999999997,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.15679999999999997,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.16231428571428572,
+      "rankVsField": 3,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760474",
+      "shortName": "IRQ @ SEN",
+      "fixture": "Senegal vs Iraq",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "home",
+      "score": "5-0",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.62,
+        "draw": 0.24,
+        "away": 0.14
+      },
+      "rationale": "Senegal possesses a significantly stronger squad with top-level European experience compared to Iraq, making them clear favorites in this group stage encounter.",
+      "latencyMs": 5566,
+      "brier": 0.22160000000000002,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.2238,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.1976,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.195,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.16079999999999997,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.26960000000000006,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.195,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.15679999999999997,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.19980000000000003,
+      "rankVsField": 6,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760475",
+      "shortName": "FRA @ NOR",
+      "fixture": "Norway vs France",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "away",
+      "score": "1-4",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.15,
+        "draw": 0.23,
+        "away": 0.62
+      },
+      "rationale": "France's superior squad depth, defensive solidity, and extensive tournament pedigree make them clear favorites against a Norway side that relies heavily on a few star attackers.",
+      "latencyMs": 15089,
+      "brier": 0.2198,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.18979999999999997,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.24320000000000003,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.24500000000000002,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.27980000000000005,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.185,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.24500000000000002,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.13680000000000003,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.21780000000000002,
+      "rankVsField": 4,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760476",
+      "shortName": "IRN @ EGY",
+      "fixture": "Egypt vs Iran",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "draw",
+      "score": "1-1",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.28,
+        "draw": 0.31,
+        "away": 0.41
+      },
+      "rationale": "Iran's consistently higher Elo rating and strong performances in Asian qualifying give them a slight edge over an aging Egyptian squad, though a tight, low-scoring match is highly likely.",
+      "latencyMs": 6771,
+      "brier": 0.7225999999999999,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.7549999999999999,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.7646,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.665,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.7784,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.6738,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.735,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.7549999999999999,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.7323999999999999,
+      "rankVsField": 3,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760477",
+      "shortName": "BEL @ NZL",
+      "fixture": "New Zealand vs Belgium",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "away",
+      "score": "1-5",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.05,
+        "draw": 0.15,
+        "away": 0.8
+      },
+      "rationale": "Belgium possesses significantly superior squad depth and individual talent compared to New Zealand, making them heavy favorites to secure a victory in regulation time.",
+      "latencyMs": 5676,
+      "brier": 0.06499999999999997,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.14480000000000004,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.10640000000000001,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.06499999999999997,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.17839999999999998,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.06499999999999997,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.24500000000000002,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.06179999999999998,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.12377142857142856,
+      "rankVsField": 2,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760478",
+      "shortName": "KSA @ CPV",
+      "fixture": "Cape Verde vs Saudi Arabia",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "draw",
+      "score": "0-0",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.34,
+        "draw": 0.31,
+        "away": 0.35
+      },
+      "rationale": "While Saudi Arabia possesses greater World Cup experience, Cape Verde's squad of European-based professionals makes this a highly competitive and evenly matched fixture.",
+      "latencyMs": 6471,
+      "brier": 0.7141999999999998,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.735,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.7586,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.5449999999999999,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.7674,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.7367999999999999,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.735,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.7447999999999999,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.7175142857142857,
+      "rankVsField": 2,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760479",
+      "shortName": "ESP @ URU",
+      "fixture": "Uruguay vs Spain",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "away",
+      "score": "0-1",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.27,
+        "draw": 0.28,
+        "away": 0.45
+      },
+      "rationale": "Spain enters as the slight favorite due to their recent Euro 2024 triumph and deep squad, but Uruguay's high-intensity pressing under Marcelo Bielsa and the match being played in Mexico make a tight contest likely.",
+      "latencyMs": 6328,
+      "brier": 0.4538000000000001,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.42180000000000006,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.3752,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.6338,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.47040000000000004,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.4374,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.6349999999999999,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.5048000000000001,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.4969142857142858,
+      "rankVsField": 4,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760480",
+      "shortName": "GHA @ CRO",
+      "fixture": "Croatia vs Ghana",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "home",
+      "score": "2-1",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.55,
+        "draw": 0.25,
+        "away": 0.2
+      },
+      "rationale": "Croatia's tactical discipline and superior midfield quality give them the edge over Ghana, though Croatia's aging squad and Ghana's athletic counter-attacks make a draw or upset plausible.",
+      "latencyMs": 5519,
+      "brier": 0.30499999999999994,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.3488,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.2922,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.45500000000000007,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.40640000000000004,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.30499999999999994,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.30499999999999994,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.30499999999999994,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.3453428571428571,
+      "rankVsField": 2,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760481",
+      "shortName": "POR @ COL",
+      "fixture": "Colombia vs Portugal",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "draw",
+      "score": "0-0",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.31,
+        "draw": 0.28,
+        "away": 0.41
+      },
+      "rationale": "While Portugal boasts a deeper squad with elite European talent, Colombia's recent excellent form and the heavy South American crowd advantage in Miami make this a closely contested matchup.",
+      "latencyMs": 6276,
+      "brier": 0.7826,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.7447999999999999,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.8138,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.7367999999999999,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.7904,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.7784,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.755,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.6936,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.7589714285714286,
+      "rankVsField": 6,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760482",
+      "shortName": "UZB @ COD",
+      "fixture": "Congo DR vs Uzbekistan",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "home",
+      "score": "3-1",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.37,
+        "draw": 0.31,
+        "away": 0.32
+      },
+      "rationale": "Congo DR's slight edge in top-level European experience gives them a marginal advantage over a disciplined and rapidly improving Uzbekistan side in what should be a tightly contested neutral-venue match.",
+      "latencyMs": 5428,
+      "brier": 0.5954,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.5408,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.42140000000000005,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.4650000000000001,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.7847999999999999,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.5449999999999999,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.635,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.47120000000000006,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.5518857142857142,
+      "rankVsField": 6,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760483",
+      "shortName": "ARG @ JOR",
+      "fixture": "Jordan vs Argentina",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "away",
+      "score": "1-3",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.03,
+        "draw": 0.1,
+        "away": 0.87
+      },
+      "rationale": "Argentina's overwhelming superiority in talent, experience, and tactical depth makes them heavy favorites against a much lower-ranked Jordan side.",
+      "latencyMs": 8014,
+      "brier": 0.027800000000000005,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.10500000000000001,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.043400000000000015,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.016799999999999995,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.06499999999999997,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.06499999999999997,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.06499999999999997,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.0798,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.06285714285714285,
+      "rankVsField": 2,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760484",
+      "shortName": "AUT @ ALG",
+      "fixture": "Algeria vs Austria",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "draw",
+      "score": "3-3",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.23,
+        "draw": 0.26,
+        "away": 0.51
+      },
+      "rationale": "Austria's high-intensity pressing system under Ralf Rangnick and superior recent form against top European opposition give them a clear edge over an Algerian side that has struggled for consistency in recent major tournaments.",
+      "latencyMs": 6233,
+      "brier": 0.8606,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.7447999999999999,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.7826,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.635,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.7904,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.7477999999999999,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.735,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.7358,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.7387714285714286,
+      "rankVsField": 8,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760485",
+      "shortName": "ENG @ PAN",
+      "fixture": "Panama vs England",
+      "stage": "group stage",
+      "market": "regulation",
+      "outcome": "away",
+      "score": "0-2",
+      "baseline": 0.6666666666666666,
+      "probs": {
+        "home": 0.05,
+        "draw": 0.15,
+        "away": 0.8
+      },
+      "rationale": "England's overwhelming advantage in squad depth and world-class talent makes them heavy favorites against a much lower-ranked Panama side.",
+      "latencyMs": 6574,
+      "brier": 0.06499999999999997,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.14480000000000004,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.12260000000000001,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.06499999999999997,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.0978,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.09140000000000001,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.0978,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.06079999999999998,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.09717142857142858,
+      "rankVsField": 2,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760486",
+      "shortName": "CAN @ RSA",
+      "fixture": "South Africa vs Canada",
+      "stage": "round of 32",
+      "market": "advance",
+      "outcome": "away",
+      "score": "0-1",
+      "baseline": 0.5,
+      "probs": {
+        "home": 0.36,
+        "away": 0.64
+      },
+      "rationale": "Canada possesses a stronger squad with elite European-based talent and benefits from playing in North America, giving them a clear edge over a resilient South African side.",
+      "latencyMs": 7195,
+      "brier": 0.2592,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.5048000000000001,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.42140000000000005,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.7349999999999999,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.47040000000000004,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.38,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.6349999999999999,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.5408,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.5267714285714286,
+      "rankVsField": 1,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760487",
+      "shortName": "JPN @ BRA",
+      "fixture": "Brazil vs Japan",
+      "stage": "round of 32",
+      "market": "advance",
+      "outcome": "home",
+      "score": "2-1",
+      "baseline": 0.5,
+      "probs": {
+        "home": 0.78,
+        "away": 0.22
+      },
+      "rationale": "Brazil possesses superior overall squad depth and historical pedigree in World Cup knockout stages, making them strong favorites despite Japan's tactical discipline and recent giant-killing capabilities.",
+      "latencyMs": 6630,
+      "brier": 0.0968,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.16079999999999997,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.14659999999999998,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.195,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.1878,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.315,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.30499999999999994,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.1838,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.21342857142857138,
+      "rankVsField": 1,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760488",
+      "shortName": "MAR @ NED",
+      "fixture": "Netherlands vs Morocco",
+      "stage": "round of 32",
+      "market": "advance",
+      "outcome": "away",
+      "score": "1-1",
+      "baseline": 0.5,
+      "probs": {
+        "home": 0.62,
+        "away": 0.38
+      },
+      "rationale": "While Morocco proved their knockout pedigree in 2022 and possesses a solid defensive structure, the Netherlands' superior squad depth and attacking quality make them the favorites to advance.",
+      "latencyMs": 6001,
+      "brier": 0.7688,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.8288,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.9905999999999999,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.9950000000000001,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.7976,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.8792,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.7549999999999999,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.7549999999999999,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.8573142857142857,
+      "rankVsField": 3,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760489",
+      "shortName": "PAR @ GER",
+      "fixture": "Germany vs Paraguay",
+      "stage": "round of 32",
+      "market": "advance",
+      "outcome": "away",
+      "score": "1-1",
+      "baseline": 0.5,
+      "probs": {
+        "home": 0.78,
+        "away": 0.22
+      },
+      "rationale": "Germany possesses a significantly stronger squad and higher international pedigree than Paraguay, making them clear favorites to advance despite Paraguay's traditional defensive resilience.",
+      "latencyMs": 5175,
+      "brier": 1.2168,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 1.0808000000000002,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 1.1354000000000002,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.9950000000000001,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 1.0184000000000002,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 1.14,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.9950000000000001,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 1.1354000000000002,
+          "retro": true
+        }
+      },
+      "fieldMean": 1.0714285714285716,
+      "rankVsField": 8,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760490",
+      "shortName": "NOR @ CIV",
+      "fixture": "Ivory Coast vs Norway",
+      "stage": "round of 32",
+      "market": "advance",
+      "outcome": "away",
+      "score": "1-2",
+      "baseline": 0.5,
+      "probs": {
+        "home": 0.46,
+        "away": 0.54
+      },
+      "rationale": "Norway's elite attacking talent in Haaland and Ødegaard gives them a slight edge over the reigning African champions in a tightly contested matchup.",
+      "latencyMs": 6863,
+      "brier": 0.42319999999999997,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.6967999999999999,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.6794,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.5408,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.6349999999999999,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.8376,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.7447999999999999,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.38,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.6449142857142857,
+      "rankVsField": 2,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760491",
+      "shortName": "ECU @ MEX",
+      "fixture": "Mexico vs Ecuador",
+      "stage": "round of 32",
+      "market": "advance",
+      "outcome": "home",
+      "score": "2-0",
+      "baseline": 0.5,
+      "probs": {
+        "home": 0.62,
+        "away": 0.38
+      },
+      "rationale": "Mexico benefits from a significant home-field advantage playing in Monterrey, which tips the scales in their favor against a similarly matched Ecuadorian side.",
+      "latencyMs": 6523,
+      "brier": 0.2888,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.40640000000000004,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.43740000000000007,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.4650000000000001,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.4538000000000001,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.48980000000000007,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.45500000000000007,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.3464,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.43625714285714295,
+      "rankVsField": 1,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760492",
+      "shortName": "SWE @ FRA",
+      "fixture": "France vs Sweden",
+      "stage": "round of 32",
+      "market": "advance",
+      "outcome": "home",
+      "score": "3-0",
+      "baseline": 0.5,
+      "probs": {
+        "home": 0.82,
+        "away": 0.18
+      },
+      "rationale": "France possesses a vastly superior squad with world-class depth and recent tournament pedigree, making them heavy favorites against a Swedish side that has struggled to qualify for recent major tournaments despite possessing potent attacking talent.",
+      "latencyMs": 6253,
+      "brier": 0.06480000000000002,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.22160000000000002,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.12859999999999996,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.195,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.2184,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.24180000000000004,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.2198,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.22160000000000002,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.2066857142857143,
+      "rankVsField": 1,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760493",
+      "shortName": "SEN @ BEL",
+      "fixture": "Belgium vs Senegal",
+      "stage": "round of 32",
+      "market": "advance",
+      "outcome": "home",
+      "score": "3-2",
+      "baseline": 0.5,
+      "probs": {
+        "home": 0.62,
+        "away": 0.38
+      },
+      "rationale": "Belgium possesses superior squad depth and tactical experience on the global stage, though Senegal's physicality and defensive resilience make them a formidable threat to cause an upset.",
+      "latencyMs": 5375,
+      "brier": 0.2888,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.8288,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.8802,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.815,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.7706,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.905,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.7549999999999999,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.8522,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.8295428571428571,
+      "rankVsField": 1,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760494",
+      "shortName": "BIH @ USA",
+      "fixture": "United States vs Bosnia-Herzegovina",
+      "stage": "round of 32",
+      "market": "advance",
+      "outcome": "home",
+      "score": "2-0",
+      "baseline": 0.5,
+      "probs": {
+        "home": 0.78,
+        "away": 0.22
+      },
+      "rationale": "The United States benefits from a stronger current squad and significant home-field advantage at Levi's Stadium, making them clear favorites to advance over a lower-ranked Bosnia-Herzegovina side.",
+      "latencyMs": 6456,
+      "brier": 0.0968,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.27180000000000004,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.2664,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.4650000000000001,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.3488,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.16079999999999997,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.30499999999999994,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.30499999999999994,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.30325714285714284,
+      "rankVsField": 1,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760495",
+      "shortName": "COD @ ENG",
+      "fixture": "England vs Congo DR",
+      "stage": "round of 32",
+      "market": "advance",
+      "outcome": "home",
+      "score": "2-1",
+      "baseline": 0.5,
+      "probs": {
+        "home": 0.88,
+        "away": 0.12
+      },
+      "rationale": "England possesses a vastly superior squad in terms of talent, depth, and international tournament experience compared to Congo DR, making them heavy favorites to advance.",
+      "latencyMs": 4777,
+      "brier": 0.0288,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.0798,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.12079999999999996,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.10500000000000001,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.05180000000000003,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.07579999999999999,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.05180000000000003,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.11780000000000002,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.08611428571428571,
+      "rankVsField": 1,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760496",
+      "shortName": "CRO @ POR",
+      "fixture": "Portugal vs Croatia",
+      "stage": "round of 32",
+      "market": "advance",
+      "outcome": "home",
+      "score": "2-1",
+      "baseline": 0.5,
+      "probs": {
+        "home": 0.7,
+        "away": 0.3
+      },
+      "rationale": "Portugal's deep pool of prime-age elite talent gives them a clear edge over a Croatian side likely in transition following the phasing out of their golden generation.",
+      "latencyMs": 5138,
+      "brier": 0.18000000000000002,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.40740000000000004,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.3906,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.315,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.4538000000000001,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.45500000000000007,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.45500000000000007,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.5096,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.4266285714285715,
+      "rankVsField": 1,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760497",
+      "shortName": "AUT @ ESP",
+      "fixture": "Spain vs Austria",
+      "stage": "round of 32",
+      "market": "advance",
+      "outcome": "home",
+      "score": "3-0",
+      "baseline": 0.5,
+      "probs": {
+        "home": 0.78,
+        "away": 0.22
+      },
+      "rationale": "Spain's superior squad depth, recent major tournament success, and higher international ranking give them a significant edge over a well-organized but less talented Austrian side.",
+      "latencyMs": 7596,
+      "brier": 0.0968,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.22160000000000002,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.13999999999999999,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.195,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.2184,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.16079999999999997,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.30499999999999994,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.11940000000000002,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.1943142857142857,
+      "rankVsField": 1,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760498",
+      "shortName": "ALG @ SUI",
+      "fixture": "Switzerland vs Algeria",
+      "stage": "round of 32",
+      "market": "advance",
+      "outcome": "home",
+      "score": "2-0",
+      "baseline": 0.5,
+      "probs": {
+        "home": 0.63,
+        "away": 0.37
+      },
+      "rationale": "Switzerland's consistent track record of advancing in recent major tournaments gives them a solid edge over an Algerian side that has struggled for consistency on the global stage since their 2019 AFCON victory.",
+      "latencyMs": 5526,
+      "brier": 0.2738,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.3488,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.2664,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.2238,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.3488,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.30499999999999994,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.30499999999999994,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.30499999999999994,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.30039999999999994,
+      "rankVsField": 3,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760499",
+      "shortName": "EGY @ AUS",
+      "fixture": "Australia vs Egypt",
+      "stage": "round of 32",
+      "market": "advance",
+      "outcome": "away",
+      "score": "1-1",
+      "baseline": 0.5,
+      "probs": {
+        "home": 0.53,
+        "away": 0.47
+      },
+      "rationale": "Australia's slightly higher international ratings and recent World Cup knockout stage experience give them a narrow edge over Egypt in a closely contested neutral-venue matchup.",
+      "latencyMs": 4710,
+      "brier": 0.5618000000000001,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.7447999999999999,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.7674,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.635,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.7847999999999999,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.7063999999999999,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.7847999999999999,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.665,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.7268857142857142,
+      "rankVsField": 1,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760500",
+      "shortName": "CPV @ ARG",
+      "fixture": "Argentina vs Cape Verde",
+      "stage": "round of 32",
+      "market": "advance",
+      "outcome": "home",
+      "score": "3-2",
+      "baseline": 0.5,
+      "probs": {
+        "home": 0.92,
+        "away": 0.08
+      },
+      "rationale": "Argentina's vastly superior squad depth, international experience, and reigning World Cup champion status make them overwhelming favorites to advance against a much lower-ranked Cape Verde side.",
+      "latencyMs": 4464,
+      "brier": 0.012799999999999994,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 1.2997999999999998,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 1.5002,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 1.4977999999999998,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 1.3357999999999999,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 1.205,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 1.4318,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 1.3357999999999999,
+          "retro": true
+        }
+      },
+      "fieldMean": 1.3723142857142854,
+      "rankVsField": 1,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760501",
+      "shortName": "GHA @ COL",
+      "fixture": "Colombia vs Ghana",
+      "stage": "round of 32",
+      "market": "advance",
+      "outcome": "home",
+      "score": "1-0",
+      "baseline": 0.5,
+      "probs": {
+        "home": 0.72,
+        "away": 0.28
+      },
+      "rationale": "Colombia's impressive recent form and tactical cohesion under Néstor Lorenzo make them strong favorites to advance past a Ghanaian side that has struggled with consistency in recent major tournaments.",
+      "latencyMs": 6077,
+      "brier": 0.15680000000000002,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.3488,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.3206,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.30499999999999994,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.3474,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.45500000000000007,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.30499999999999994,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.3768,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.3512285714285714,
+      "rankVsField": 1,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760502",
+      "shortName": "MAR @ CAN",
+      "fixture": "Canada vs Morocco",
+      "stage": "round of 16",
+      "market": "advance",
+      "outcome": "away",
+      "score": "0-3",
+      "baseline": 0.5,
+      "probs": {
+        "home": 0.35,
+        "away": 0.65
+      },
+      "rationale": "Morocco possesses superior squad depth and recent tournament pedigree, making them the favorites despite Canada's regional advantage and top-end attacking talent.",
+      "latencyMs": 8504,
+      "brier": 0.24499999999999997,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.5768,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.5594,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.7349999999999999,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.5408,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.6349999999999999,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.6349999999999999,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.43760000000000004,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.5885142857142857,
+      "rankVsField": 1,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760503",
+      "shortName": "FRA @ PAR",
+      "fixture": "Paraguay vs France",
+      "stage": "round of 16",
+      "market": "advance",
+      "outcome": "away",
+      "score": "0-1",
+      "baseline": 0.5,
+      "probs": {
+        "home": 0.18,
+        "away": 0.82
+      },
+      "rationale": "France possesses a vastly superior squad with world-class talent across all positions, making them heavy favorites to overcome a defensively resilient but offensively limited Paraguay side.",
+      "latencyMs": 5104,
+      "brier": 0.06480000000000002,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.18979999999999997,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.18779999999999997,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.24500000000000002,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.17839999999999998,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.0882,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.18979999999999997,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.17983333333333332,
+      "rankVsField": 1,
+      "fieldSize": 6
+    },
+    {
+      "matchId": "760504",
+      "shortName": "NOR @ BRA",
+      "fixture": "Brazil vs Norway",
+      "stage": "round of 16",
+      "market": "advance",
+      "outcome": "away",
+      "score": "1-2",
+      "baseline": 0.5,
+      "probs": {
+        "home": 0.82,
+        "away": 0.18
+      },
+      "rationale": "Brazil's superior squad depth, historical tournament pedigree, and overall quality make them heavy favorites to advance against a Norway side that relies heavily on a few star players.",
+      "latencyMs": 6449,
+      "brier": 1.3448,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 1.3208000000000002,
+          "retro": false
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 1.3934000000000002,
+          "retro": false
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 1.2950000000000002,
+          "retro": false
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 1.3608000000000002,
+          "retro": false
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 1.3208000000000002,
+          "retro": false
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 1.185,
+          "retro": false
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 1.2344,
+          "retro": false
+        }
+      },
+      "fieldMean": 1.3014571428571433,
+      "rankVsField": 6,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760505",
+      "shortName": "ENG @ MEX",
+      "fixture": "Mexico vs England",
+      "stage": "round of 16",
+      "market": "advance",
+      "outcome": "away",
+      "score": "2-3",
+      "baseline": 0.5,
+      "probs": {
+        "home": 0.32,
+        "away": 0.68
+      },
+      "rationale": "England possesses a significantly stronger squad and superior recent tournament pedigree, but Mexico's home advantage in Monterrey narrows the gap considerably.",
+      "latencyMs": 6775,
+      "brier": 0.20479999999999998,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.3488,
+          "retro": false
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.3906,
+          "retro": false
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.5449999999999999,
+          "retro": false
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.4538000000000001,
+          "retro": false
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.5432,
+          "retro": false
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.375,
+          "retro": false
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.47540000000000004,
+          "retro": false
+        }
+      },
+      "fieldMean": 0.4474,
+      "rankVsField": 1,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760506",
+      "shortName": "ESP @ POR",
+      "fixture": "Portugal vs Spain",
+      "stage": "round of 16",
+      "market": "advance",
+      "outcome": "away",
+      "score": "0-1",
+      "baseline": 0.5,
+      "probs": {
+        "home": 0.45,
+        "away": 0.55
+      },
+      "rationale": "Spain's recent success at Euro 2024 and cohesive tactical system give them a slight edge over a highly talented but potentially transitioning Portuguese squad.",
+      "latencyMs": 4778,
+      "brier": 0.40499999999999997,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.4608,
+          "retro": false
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.44179999999999997,
+          "retro": false
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.4608,
+          "retro": false
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.3528,
+          "retro": false
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.4608,
+          "retro": false
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.4608,
+          "retro": false
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.4608,
+          "retro": false
+        }
+      },
+      "fieldMean": 0.4426571428571428,
+      "rankVsField": 2,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760507",
+      "shortName": "BEL @ USA",
+      "fixture": "United States vs Belgium",
+      "stage": "round of 16",
+      "market": "advance",
+      "outcome": "away",
+      "score": "1-4",
+      "baseline": 0.5,
+      "probs": {
+        "home": 0.48,
+        "away": 0.52
+      },
+      "rationale": "While Belgium possesses superior squad depth and higher international rankings, the United States benefits from a significant home-field advantage at Lumen Field, making this a tightly contested matchup.",
+      "latencyMs": 8174,
+      "brier": 0.4608,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.3528,
+          "retro": false
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.44179999999999997,
+          "retro": false
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.3528,
+          "retro": false
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.2888,
+          "retro": false
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.6498,
+          "retro": false
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.40499999999999997,
+          "retro": false
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.3528,
+          "retro": false
+        }
+      },
+      "fieldMean": 0.4062571428571428,
+      "rankVsField": 7,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760508",
+      "shortName": "COL @ SUI",
+      "fixture": "Switzerland vs Colombia",
+      "stage": "round of 16",
+      "market": "advance",
+      "outcome": "home",
+      "score": "0-0",
+      "baseline": 0.5,
+      "probs": {
+        "home": 0.42,
+        "away": 0.58
+      },
+      "rationale": "Colombia's recent strong form in CONMEBOL and higher Elo rating give them a slight edge over a consistently resilient Swiss side.",
+      "latencyMs": 5766,
+      "brier": 0.6728000000000001,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.5408000000000001,
+          "retro": false
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.5618000000000001,
+          "retro": false
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.6728000000000001,
+          "retro": false
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.6728000000000001,
+          "retro": false
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.4608,
+          "retro": false
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.5408000000000001,
+          "retro": false
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.44179999999999997,
+          "retro": false
+        }
+      },
+      "fieldMean": 0.5559428571428572,
+      "rankVsField": 6,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760509",
+      "shortName": "EGY @ ARG",
+      "fixture": "Argentina vs Egypt",
+      "stage": "round of 16",
+      "market": "advance",
+      "outcome": "home",
+      "score": "3-2",
+      "baseline": 0.5,
+      "probs": {
+        "home": 0.86,
+        "away": 0.14
+      },
+      "rationale": "Argentina's superior squad depth, tactical experience, and status as defending champions make them heavy favorites to advance over a resilient but less formidable Egyptian side.",
+      "latencyMs": 6197,
+      "brier": 0.039200000000000006,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.0968,
+          "retro": false
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.039200000000000006,
+          "retro": false
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.15680000000000002,
+          "retro": false
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.0968,
+          "retro": false
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.0968,
+          "retro": false
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.06480000000000002,
+          "retro": false
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.07999999999999999,
+          "retro": false
+        }
+      },
+      "fieldMean": 0.09017142857142858,
+      "rankVsField": 1,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760510",
+      "shortName": "MAR @ FRA",
+      "fixture": "France vs Morocco",
+      "stage": "quarterfinals",
+      "market": "advance",
+      "outcome": "home",
+      "score": "2-0",
+      "baseline": 0.5,
+      "probs": {
+        "home": 0.72,
+        "away": 0.28
+      },
+      "rationale": "France's superior squad depth, elite attacking talent, and historical pedigree make them clear favorites, though Morocco's organized defense and recent tournament experience give them a solid chance of an upset.",
+      "latencyMs": 5506,
+      "brier": 0.15680000000000002,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.15680000000000002,
+          "retro": false
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.08819999999999997,
+          "retro": false
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.15680000000000002,
+          "retro": false
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.15680000000000002,
+          "retro": false
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.20479999999999998,
+          "retro": false
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.24499999999999997,
+          "retro": false
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.24499999999999997,
+          "retro": false
+        }
+      },
+      "fieldMean": 0.17905714285714283,
+      "rankVsField": 2,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760511",
+      "shortName": "BEL @ ESP",
+      "fixture": "Spain vs Belgium",
+      "stage": "quarterfinals",
+      "market": "advance",
+      "outcome": "home",
+      "score": "2-1",
+      "baseline": 0.5,
+      "probs": {
+        "home": 0.68,
+        "away": 0.32
+      },
+      "rationale": "Spain's recent international success, including winning Euro 2024, and their cohesive tactical system make them clear favorites over a Belgian side that is currently in transition with an aging core.",
+      "latencyMs": 4963,
+      "brier": 0.20479999999999998,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.20479999999999998,
+          "retro": false
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.19220000000000004,
+          "retro": false
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.2888,
+          "retro": false
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.2888,
+          "retro": false
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.3528,
+          "retro": false
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.40499999999999997,
+          "retro": false
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.40499999999999997,
+          "retro": false
+        }
+      },
+      "fieldMean": 0.30534285714285714,
+      "rankVsField": 2,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760512",
+      "shortName": "ENG @ NOR",
+      "fixture": "Norway vs England",
+      "stage": "quarterfinals",
+      "market": "advance",
+      "outcome": "away",
+      "score": "1-2",
+      "baseline": 0.5,
+      "probs": {
+        "home": 0.22,
+        "away": 0.78
+      },
+      "rationale": "While Norway boasts world-class attacking talent in Haaland and Ødegaard, England's superior squad depth, tournament experience, and defensive solidity make them strong favorites to advance.",
+      "latencyMs": 5426,
+      "brier": 0.0968,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.0968,
+          "retro": false
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.16820000000000002,
+          "retro": false
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.15680000000000002,
+          "retro": false
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.15680000000000002,
+          "retro": false
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.15680000000000002,
+          "retro": false
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.24499999999999997,
+          "retro": false
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.18000000000000002,
+          "retro": false
+        }
+      },
+      "fieldMean": 0.1657714285714286,
+      "rankVsField": 1,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760513",
+      "shortName": "SUI @ ARG",
+      "fixture": "Argentina vs Switzerland",
+      "stage": "quarterfinals",
+      "market": "advance",
+      "outcome": "home",
+      "score": "3-1",
+      "baseline": 0.5,
+      "probs": {
+        "home": 0.72,
+        "away": 0.28
+      },
+      "rationale": "Argentina's superior squad depth, recent tournament pedigree as defending champions, and elite attacking talent make them strong favorites, though Switzerland's tactical discipline and resilience in knockout matches give them a realistic chance of an upset.",
+      "latencyMs": 5427,
+      "brier": 0.15680000000000002,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.15680000000000002,
+          "retro": false
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.10579999999999999,
+          "retro": false
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.125,
+          "retro": false
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.15680000000000002,
+          "retro": false
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.24499999999999997,
+          "retro": false
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.24499999999999997,
+          "retro": false
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.20479999999999998,
+          "retro": false
+        }
+      },
+      "fieldMean": 0.1770285714285714,
+      "rankVsField": 3,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760514",
+      "shortName": "ESP @ FRA",
+      "fixture": "France vs Spain",
+      "stage": "semifinals",
+      "market": "advance",
+      "outcome": "away",
+      "score": "0-2",
+      "baseline": 0.5,
+      "probs": {
+        "home": 0.52,
+        "away": 0.48
+      },
+      "rationale": "While France boasts incredible squad depth and recent World Cup pedigree, Spain's tactical cohesion and recent Euro 2024 victory make this a nearly even matchup.",
+      "latencyMs": 6626,
+      "brier": 0.5408000000000001,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.4608,
+          "retro": true
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.5408000000000001,
+          "retro": true
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.5408000000000001,
+          "retro": true
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.5408000000000001,
+          "retro": true
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.5408000000000001,
+          "retro": true
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.6050000000000001,
+          "retro": true
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.6050000000000001,
+          "retro": true
+        }
+      },
+      "fieldMean": 0.5477142857142857,
+      "rankVsField": 2,
+      "fieldSize": 7
+    },
+    {
+      "matchId": "760515",
+      "shortName": "ARG @ ENG",
+      "fixture": "England vs Argentina",
+      "stage": "semifinals",
+      "market": "advance",
+      "outcome": "away",
+      "score": "1-2",
+      "baseline": 0.5,
+      "probs": {
+        "home": 0.51,
+        "away": 0.49
+      },
+      "rationale": "England is given a razor-thin edge as their elite core of young talent will be in their absolute prime, while Argentina may be navigating a transitional phase as their veteran leaders age out.",
+      "latencyMs": 11366,
+      "brier": 0.5202,
+      "field": {
+        "anthropic/claude-sonnet-4.5": {
+          "label": "Claude",
+          "brier": 0.4608,
+          "retro": false
+        },
+        "openai/gpt-5.1": {
+          "label": "GPT",
+          "brier": 0.44179999999999997,
+          "retro": false
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "label": "DeepSeek",
+          "brier": 0.40499999999999997,
+          "retro": false
+        },
+        "moonshotai/kimi-k2-0905": {
+          "label": "Kimi",
+          "brier": 0.5832,
+          "retro": false
+        },
+        "z-ai/glm-4.6": {
+          "label": "GLM",
+          "brier": 0.40499999999999997,
+          "retro": false
+        },
+        "qwen/qwen3-max": {
+          "label": "Qwen",
+          "brier": 0.40499999999999997,
+          "retro": false
+        },
+        "minimax/minimax-m2": {
+          "label": "MiniMax",
+          "brier": 0.40499999999999997,
+          "retro": false
+        }
+      },
+      "fieldMean": 0.4436857142857142,
+      "rankVsField": 7,
+      "fieldSize": 7
+    }
+  ],
+  "summary": {
+    "requested": 102,
+    "scored": 102,
+    "failed": 0,
+    "avgBrier": 0.4519921568627449,
+    "avgBaseline": 0.6176470588235291,
+    "fieldAvgSameMatches": 0.49784288048552755,
+    "beatFieldMean": 68,
+    "rosterAvgSameMatches": [
+      {
+        "model": "minimax/minimax-m2",
+        "label": "MiniMax",
+        "scored": 100,
+        "avgBrier": 0.476222
+      },
+      {
+        "model": "openai/gpt-5.1",
+        "label": "GPT",
+        "scored": 102,
+        "avgBrier": 0.495070588235294
+      },
+      {
+        "model": "moonshotai/kimi-k2-0905",
+        "label": "Kimi",
+        "scored": 102,
+        "avgBrier": 0.4997235294117645
+      },
+      {
+        "model": "deepseek/deepseek-chat-v3.1",
+        "label": "DeepSeek",
+        "scored": 102,
+        "avgBrier": 0.5003490196078432
+      },
+      {
+        "model": "anthropic/claude-sonnet-4.5",
+        "label": "Claude",
+        "scored": 102,
+        "avgBrier": 0.5017681372549017
+      },
+      {
+        "model": "z-ai/glm-4.6",
+        "label": "GLM",
+        "scored": 101,
+        "avgBrier": 0.5027742574257423
+      },
+      {
+        "model": "qwen/qwen3-max",
+        "label": "Qwen",
+        "scored": 102,
+        "avgBrier": 0.5119490196078429
+      }
+    ],
+    "wouldRank": 1,
+    "rosterSize": 7
+  }
+}

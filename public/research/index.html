@@ -108,6 +108,23 @@ p{max-width:64ch}
 .tag{font:700 9.5px/1 var(--mono);letter-spacing:.04em;text-transform:uppercase;padding:3px 6px;border-radius:5px;vertical-align:middle}
 .tag.gold{background:var(--gold);color:#3d2f05}
 .tag.red{background:var(--away);color:#fff}
+.tag.bt{background:#edf0fb;color:#5b4c8b}
+
+.row.backtest{background:repeating-linear-gradient(135deg,rgba(66,133,244,.05),rgba(66,133,244,.05) 9px,rgba(155,114,203,.055) 9px,rgba(155,114,203,.055) 18px);border:1px dashed #bcbbb2;margin-top:3px}
+.row.backtest .who span{color:var(--muted)}
+.chip.bt{background:#edf0fb;color:#5b4c8b}
+.bt-note{grid-column:1 / -1;font:500 11.5px/1.5 var(--mono);color:var(--faint);margin:3px 2px 0;padding-left:2px}
+
+.stand{width:100%;border-collapse:collapse;margin:14px 0 6px;background:var(--surface);border:1px solid var(--hairline);border-radius:12px;overflow:hidden}
+.stand th{font:600 11px/1.2 var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--faint);text-align:left;padding:11px 12px;border-bottom:1px solid var(--hairline)}
+.stand th:last-child{text-align:right}
+.stand td{padding:9px 12px;border-bottom:1px solid var(--hairline);font:600 13px var(--mono)}
+.stand td:last-child{text-align:right;font-variant-numeric:tabular-nums}
+.stand tr:last-child td{border-bottom:none}
+.stand .lead td{background:linear-gradient(0deg,rgba(66,133,244,.09),rgba(66,133,244,.09))}
+.stand .rank{color:var(--faint);width:30px}
+.stand .mdl{display:flex;align-items:center;gap:8px;white-space:nowrap}
+.stand .mdl img{border-radius:4px}
 
 .kicker{background:var(--ink);color:#f1f1ec;border-radius:14px;padding:26px 24px;margin:44px 0 0}
 .kicker h2{margin:0 0 8px;color:#fff}
@@ -230,6 +247,18 @@ p{max-width:64ch}
         <div class="verdict"><span class="chip miss">✗ miss</span></div>
         <p class="quote">“France&#x27;s deeper squad and recent edge in major tournament knockout stages”</p>
       </div>
+      <div class="row backtest">
+        <div class="who"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTE3IiByb2xlPSJpbWciPgo8cGF0aCBkPSJNNTAgNSBMOTUgMTkgVjYwIEM5NSA5MCA3NSAxMDUgNTAgMTEyIEMyNSAxMDUgNSA5MCA1IDYwIFYxOSBaIiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiNkOGQ3Y2UiIHN0cm9rZS13aWR0aD0iNCIvPgo8c3ZnIHg9IjI3IiB5PSIzMCIgd2lkdGg9IjQ2IiBoZWlnaHQ9IjQ2IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHRpdGxlPkdlbWluaTwvdGl0bGU+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnZW0iIHgxPSIyIiB5MT0iMyIgeDI9IjIyIiB5Mj0iMjEiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiM0Mjg1RjQiLz48c3RvcCBvZmZzZXQ9Ii41MiIgc3RvcC1jb2xvcj0iIzlCNzJDQiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI0Q5NjU3MCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxwYXRoIGZpbGw9InVybCgjZ2VtKSIgZD0iTTEyIDEgTDE0LjkgOS4xIEwyMyAxMiBMMTQuOSAxNC45IEwxMiAyMyBMOS4xIDE0LjkgTDEgMTIgTDkuMSA5LjEgWiIvPjwvc3ZnPgo8L3N2Zz4K" alt="" width="22" height="22"><span>Gemini 3.1 Pro</span></div>
+        <div class="bar" role="img" aria-label="France 52% versus Spain 48%">
+          <div class="seg home" style="width:52%"><em>52</em></div>
+          <div class="seg away" style="width:48%"><em>48</em></div>
+          <div class="mid"></div>
+        </div>
+        <div class="brier"><b>0.541</b></div>
+        <div class="verdict"><span class="chip bt">★ backtest</span></div>
+        <p class="quote">“France boasts incredible squad depth and recent World Cup pedigree, [but] Spain&#x27;s tactical cohesion and recent Euro 2024 victory make this a nearly even matchup”</p>
+        <p class="bt-note">Gemini joined the roster after this match, so it never locked a forecast here. This is a <b>backtest</b> — the identical pre-kickoff prompt, run after full time, no result in the prompt — so it is not in the field mean above. It leaned France by a single point; Spain went through.</p>
+      </div>
   </div>
 
   <h2>England 1–2 Argentina — the call they nailed (mostly)</h2>
@@ -315,6 +344,18 @@ p{max-width:64ch}
         <div class="verdict"><span class="chip miss">✗ miss</span></div>
         <p class="quote">“England&#x27;s deeper squad … give them a slight edge, but Argentina&#x27;s Messi-led clutch knockout record keeps it almost a coin-flip”</p>
       </div>
+      <div class="row backtest">
+        <div class="who"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTE3IiByb2xlPSJpbWciPgo8cGF0aCBkPSJNNTAgNSBMOTUgMTkgVjYwIEM5NSA5MCA3NSAxMDUgNTAgMTEyIEMyNSAxMDUgNSA5MCA1IDYwIFYxOSBaIiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiNkOGQ3Y2UiIHN0cm9rZS13aWR0aD0iNCIvPgo8c3ZnIHg9IjI3IiB5PSIzMCIgd2lkdGg9IjQ2IiBoZWlnaHQ9IjQ2IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHRpdGxlPkdlbWluaTwvdGl0bGU+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnZW0iIHgxPSIyIiB5MT0iMyIgeDI9IjIyIiB5Mj0iMjEiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiM0Mjg1RjQiLz48c3RvcCBvZmZzZXQ9Ii41MiIgc3RvcC1jb2xvcj0iIzlCNzJDQiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI0Q5NjU3MCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxwYXRoIGZpbGw9InVybCgjZ2VtKSIgZD0iTTEyIDEgTDE0LjkgOS4xIEwyMyAxMiBMMTQuOSAxNC45IEwxMiAyMyBMOS4xIDE0LjkgTDEgMTIgTDkuMSA5LjEgWiIvPjwvc3ZnPgo8L3N2Zz4K" alt="" width="22" height="22"><span>Gemini 3.1 Pro</span></div>
+        <div class="bar" role="img" aria-label="England 51% versus Argentina 49%">
+          <div class="seg home" style="width:51%"><em>51</em></div>
+          <div class="seg away" style="width:49%"><em>49</em></div>
+          <div class="mid"></div>
+        </div>
+        <div class="brier"><b>0.520</b></div>
+        <div class="verdict"><span class="chip bt">★ backtest</span></div>
+        <p class="quote">“England is given a razor-thin edge as their elite core will be in its prime, while Argentina may be navigating a transition as its veteran leaders age out”</p>
+        <p class="bt-note">Same story: a <b>backtest</b>, not a locked forecast, so it is outside the field mean above. Gemini shaded England by a point — and Argentina broke through in stoppage time. On both these coin-flips it landed on the losing side.</p>
+      </div>
   </div>
 
   <h2>The mirror</h2>
@@ -350,18 +391,43 @@ p{max-width:64ch}
       <td class="tt-model"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTE3IiByb2xlPSJpbWciPgo8cGF0aCBkPSJNNTAgNSBMOTUgMTkgVjYwIEM5NSA5MCA3NSAxMDUgNTAgMTEyIEMyNSAxMDUgNSA5MCA1IDYwIFYxOSBaIiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiNkOGQ3Y2UiIHN0cm9rZS13aWR0aD0iNCIvPgo8c3ZnIHg9IjI3IiB5PSIzMCIgd2lkdGg9IjQ2IiBoZWlnaHQ9IjQ2IiBmaWxsPSIjMDAwMDAwIiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+TW9vbnNob3QgQUk8L3RpdGxlPjxwYXRoIGQ9Im0xLjA1MyAxNi45MSA5LjUzOCAyLjU1YTIxIDIwLjk4MSAwIDAgMCAuMDYgMi4wMzFsNS45NTYgMS41OTJhMTIgMTEuOTkgMCAwIDEtMTUuNTU0LTYuMTcybS0xLjAyLTUuNzkgMTEuMzUyIDMuMDM1YTIxIDIwLjk4MSAwIDAgMC0uNDY5IDIuMDFsMTAuODE3IDIuODlhMTIgMTEuOTkgMCAwIDEtMS44NDUgMi4wMDRMLjY1OCAxNS45MThhMTIgMTEuOTkgMCAwIDEtLjYyNS00Ljc5Nm0xLjU5My01LjE0NkwxMy41NzMgOS4xN2EyMSAyMC45ODEgMCAwIDAtMS4wMSAxLjg3NGwxMS4yOTcgMy4wMmEyMSAyMC45ODEgMCAwIDEtLjY3IDIuMzYybC0xMS41NS0zLjA4N0wuMTI1IDEwLjI2YTEyIDExLjk5IDAgMCAxIDEuNDk5LTQuMjg1Wk02LjA2NyAxLjU4bDExLjI4NSAzLjAxNmEyMSAyMC45ODEgMCAwIDAtMS42ODggMS43MTlsNy44MjQgMi4wOTFhMjEgMjAuOTgxIDAgMCAxIC41MTMgMi42NjRMMi4xMDcgNS4yMThhMTIgMTEuOTkgMCAwIDEgMy45Ni0zLjYzOE0yMS42OCA0Ljg2NiA3LjIyMiAxLjAwM0ExMiAxMS45OSAwIDAgMSAyMS42OCA0Ljg2NiIvPjwvc3ZnPgo8L3N2Zz4=" alt="" width="20" height="20"><span>Kimi K2</span> <span class="tag red">both wrong</span></td>
       <td class="tt-miss"><span>France</span></td>
       <td class="tt-miss"><span>England</span></td>
+    </tr><tr>
+      <td class="tt-model"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTE3IiByb2xlPSJpbWciPgo8cGF0aCBkPSJNNTAgNSBMOTUgMTkgVjYwIEM5NSA5MCA3NSAxMDUgNTAgMTEyIEMyNSAxMDUgNSA5MCA1IDYwIFYxOSBaIiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiNkOGQ3Y2UiIHN0cm9rZS13aWR0aD0iNCIvPgo8c3ZnIHg9IjI3IiB5PSIzMCIgd2lkdGg9IjQ2IiBoZWlnaHQ9IjQ2IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHRpdGxlPkdlbWluaTwvdGl0bGU+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnZW0iIHgxPSIyIiB5MT0iMyIgeDI9IjIyIiB5Mj0iMjEiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiM0Mjg1RjQiLz48c3RvcCBvZmZzZXQ9Ii41MiIgc3RvcC1jb2xvcj0iIzlCNzJDQiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI0Q5NjU3MCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxwYXRoIGZpbGw9InVybCgjZ2VtKSIgZD0iTTEyIDEgTDE0LjkgOS4xIEwyMyAxMiBMMTQuOSAxNC45IEwxMiAyMyBMOS4xIDE0LjkgTDEgMTIgTDkuMSA5LjEgWiIvPjwvc3ZnPgo8L3N2Zz4K" alt="" width="20" height="20"><span>Gemini 3.1 Pro</span> <span class="tag bt">backtest</span></td>
+      <td class="tt-miss"><span>France</span></td>
+      <td class="tt-miss"><span>England</span></td>
     </tr></tbody>
   </table>
   </div>
-  <p style="font:500 12.5px/1.5 var(--mono);color:var(--faint);margin-top:10px">Cell shows the side each model favoured. Struck-through = eliminated.</p>
+  <p style="font:500 12.5px/1.5 var(--mono);color:var(--faint);margin-top:10px">Cell shows the side each model favoured. Struck-through = eliminated. Gemini&#x27;s row is a backtest — see below.</p>
+
+  <h2>The eighth model, scored after the whistle</h2>
+  <p class="section-note">Gemini 3.1 Pro joined the Brier Cup <em>after</em> these two quarter-finals, so on the boards above it has no locked forecast — only a <b>backtest</b>: the exact pre-kickoff prompt, replayed after full time, with no result anywhere in it. On these two coin-flips it looks ordinary. It shaded France, then England, and lost both by a single point — the same both-wrong corner as Kimi. Two matches decide nothing.</p>
+  <p class="section-note">So we replayed that prompt across <b>every one of the 102 matches already played</b> this tournament and scored each against the real result. Over a full season the picture inverts:</p>
+  <div style="overflow-x:auto">
+  <table class="stand">
+    <thead><tr><th>#</th><th>Mean Brier · 102 played matches</th><th>Brier</th></tr></thead>
+    <tbody>
+      <tr class="lead"><td class="rank">1</td><td><div class="mdl"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTE3IiByb2xlPSJpbWciPgo8cGF0aCBkPSJNNTAgNSBMOTUgMTkgVjYwIEM5NSA5MCA3NSAxMDUgNTAgMTEyIEMyNSAxMDUgNSA5MCA1IDYwIFYxOSBaIiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiNkOGQ3Y2UiIHN0cm9rZS13aWR0aD0iNCIvPgo8c3ZnIHg9IjI3IiB5PSIzMCIgd2lkdGg9IjQ2IiBoZWlnaHQ9IjQ2IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHRpdGxlPkdlbWluaTwvdGl0bGU+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnZW0iIHgxPSIyIiB5MT0iMyIgeDI9IjIyIiB5Mj0iMjEiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiM0Mjg1RjQiLz48c3RvcCBvZmZzZXQ9Ii41MiIgc3RvcC1jb2xvcj0iIzlCNzJDQiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI0Q5NjU3MCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxwYXRoIGZpbGw9InVybCgjZ2VtKSIgZD0iTTEyIDEgTDE0LjkgOS4xIEwyMyAxMiBMMTQuOSAxNC45IEwxMiAyMyBMOS4xIDE0LjkgTDEgMTIgTDkuMSA5LjEgWiIvPjwvc3ZnPgo8L3N2Zz4K" alt="" width="18" height="18"><span>Gemini 3.1 Pro</span> <span class="tag bt">backtest</span></div></td><td>0.452</td></tr>
+      <tr><td class="rank">2</td><td>MiniMax M2</td><td>0.476</td></tr>
+      <tr><td class="rank">3</td><td>GPT-5.1</td><td>0.495</td></tr>
+      <tr><td class="rank">4</td><td>Kimi K2</td><td>0.500</td></tr>
+      <tr><td class="rank">5</td><td>DeepSeek V3.1</td><td>0.500</td></tr>
+      <tr><td class="rank">6</td><td>Claude Sonnet 4.5</td><td>0.502</td></tr>
+      <tr><td class="rank">7</td><td>GLM-4.6</td><td>0.503</td></tr>
+      <tr><td class="rank">8</td><td>Qwen3-Max</td><td>0.512</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="section-note">Lower is sharper; a two-way coin-flip is 0.500 and the seven locked models averaged <b>0.498</b> across the same matches. Backtested over the whole tournament, Gemini&#x27;s <b>0.452</b> would sit on top — the calibration those two ties were too small to show. The lesson cuts both ways: one match crowns nobody, and it clears nobody either. <b>That&#x27;s</b> why the Brier Cup scores every match, not the highlight.</p>
+  <p class="section-note" style="color:var(--faint);font-size:14px">Fine print, because it matters: a backtest is not a locked forecast. The prompt holds no result and these models were trained before a ball was kicked — but a backtest lacks the pre-kickoff timestamp the live board requires, so Gemini&#x27;s numbers are labelled backtest and never enter the live leaderboard. The other seven figures are the models&#x27; real, pre-kickoff forecasts.</p>
 
   <div class="kicker">
     <h2>The quiet lesson</h2>
     <p>On the tie the field misread, the contrarian won — Claude's one-point lean toward Spain was worth more than any amount of conviction pointed the wrong way. On the tie the field read right, <b>conviction</b> paid: DeepSeek, GLM, Qwen and MiniMax pushed to 55% on Argentina and banked the sharpest scores of the night. Being right is table stakes. Being right with the correct amount of confidence is the whole game — which is exactly what a Brier score measures.</p>
-    <p class="rule">Seven models · one identical prompt per match · forecasts locked at kickoff · scored against real results. That's the Brier Cup.</p>
+    <p class="rule">Seven models locked before kickoff · an eighth backtested after the whistle · one identical prompt per match · scored against real results. That's the Brier Cup.</p>
   </div>
 
-  <p class="foot">Data: model forecasts collected via OpenRouter, results via ESPN. Scored with the two-outcome Brier score.</p>
+  <p class="foot">Data: model forecasts collected via OpenRouter, results via ESPN. Scored with the two-outcome Brier score. Gemini rows are retro-backtests (same locked prompt, run after full time) — labelled throughout and excluded from the live leaderboard.</p>
 </div>
 
 </body>
