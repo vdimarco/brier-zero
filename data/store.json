@@ -23783,6 +23783,83 @@
             "rationale": "England's early 2-0 lead after 19 minutes makes them strong favorites to hold on for the win in regulation, though France's quality gives them a realistic shot at a comeback or forcing a draw."
           }
         }
+      },
+      {
+        "at": "2026-07-18T21:30:50.124Z",
+        "detail": "30'",
+        "score": [
+          0,
+          2
+        ],
+        "events": 2,
+        "period": "STATUS_FIRST_HALF",
+        "market": "regulation",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.05,
+              "draw": 0.17,
+              "away": 0.78
+            },
+            "rationale": "England leads 2-0 with 60 minutes left against a strong France side, making a comeback possible but an England win most likely."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.13,
+              "draw": 0.19,
+              "away": 0.68
+            },
+            "rationale": "England are two goals up after 30 minutes with no red cards or anomalies, making them strong favorites while still allowing for a meaningful chance of a French comeback or draw."
+          },
+          "deepseek/deepseek-v4-pro": {
+            "probs": {
+              "home": 0.06,
+              "draw": 0.16,
+              "away": 0.78
+            },
+            "rationale": "France down 0-2 at 30 minutes face a steep uphill battle; England are strong favorites to hold on, but a draw is possible if France push hard in this 3rd place match."
+          },
+          "moonshotai/kimi-k3": {
+            "probs": {
+              "home": 0.08,
+              "draw": 0.12,
+              "away": 0.8
+            },
+            "rationale": "France trail 0-2 with ~60 minutes left; they're talented enough to make it interesting in an open 3rd-place game, but two-goal comebacks against elite defenses like England's are rare (roughly 1-in-12 to win, 1-in-8 to force a draw)."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0.04,
+              "draw": 0.08,
+              "away": 0.88
+            },
+            "rationale": "England's two-goal cushion at 30' is commanding, though France's attacking quality keeps a slim comeback and draw possibility alive."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.09,
+              "draw": 0.16,
+              "away": 0.75
+            },
+            "rationale": "England's commanding 2-0 lead at the 30-minute mark in a low-stakes third-place match makes a French comeback highly unlikely despite their elite attacking talent."
+          },
+          "google/gemini-3.1-pro-preview": {
+            "probs": {
+              "home": 0.08,
+              "draw": 0.16,
+              "away": 0.76
+            },
+            "rationale": "With a two-goal lead early in the first half, England is heavily favored to hold on, though France's attacking quality leaves room for a comeback in an often open third-place fixture."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0.08,
+              "draw": 0.17,
+              "away": 0.75
+            },
+            "rationale": "England lead 2-0 after 30 minutes so are strong favorites to hold on, though France remain capable of a comeback or forcing a draw over the remaining hour."
+          }
+        }
       }
     ]
   },
