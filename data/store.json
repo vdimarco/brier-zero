@@ -23621,6 +23621,83 @@
             "rationale": "England's 1-0 lead at just 3' confers a solid edge in a 3rd-place match between evenly matched sides, yet France's quality and 87+ minutes remaining keep a comeback or draw quite plausible."
           }
         }
+      },
+      {
+        "at": "2026-07-18T21:15:55.456Z",
+        "detail": "14'",
+        "score": [
+          0,
+          1
+        ],
+        "events": 1,
+        "period": "STATUS_FIRST_HALF",
+        "market": "regulation",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.24,
+              "draw": 0.28,
+              "away": 0.48
+            },
+            "rationale": "England's early goal gives them a significant lead with plenty of time left, but France's attacking quality keeps a comeback or equalizer plausible."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.33,
+              "draw": 0.23,
+              "away": 0.44
+            },
+            "rationale": "England’s early lead shifts things in their favor, but with over 75 minutes left France still has plenty of time to come back in what should be an open third-place match."
+          },
+          "deepseek/deepseek-v4-pro": {
+            "probs": {
+              "home": 0.18,
+              "draw": 0.27,
+              "away": 0.55
+            },
+            "rationale": "An early 1-0 lead gives England a clear advantage but France's quality and 76 minutes remaining make a draw or comeback very possible."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0.21,
+              "draw": 0.28,
+              "away": 0.51
+            },
+            "rationale": "England's early goal provides a strong advantage, but with 76 minutes remaining and extra time counting as a draw, France retains a realistic chance to level the score."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.3,
+              "draw": 0.27,
+              "away": 0.43
+            },
+            "rationale": "England's early goal gives them a meaningful advantage, but with 76 minutes remaining France's elite attacking talent makes an equalizer or comeback very plausible in what is often an open, lower-intensity 3rd place match."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.38,
+              "draw": 0.2,
+              "away": 0.42
+            },
+            "rationale": "England leads early but France has 76 minutes to equalize and both sides are capable of scoring, making this still very open despite the early deficit."
+          },
+          "google/gemini-3.1-pro-preview": {
+            "probs": {
+              "home": 0.18,
+              "draw": 0.24,
+              "away": 0.58
+            },
+            "rationale": "England's early goal gives them a strong advantage, but with over 75 minutes remaining, France's elite attacking talent keeps their chances of equalizing or mounting a comeback very much alive."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0.29,
+              "draw": 0.26,
+              "away": 0.45
+            },
+            "rationale": "England lead early via Rice but 76 minutes remain for strong France side to equalise or win, though hosts of momentum favour the away win most."
+          }
+        }
       }
     ]
   },
