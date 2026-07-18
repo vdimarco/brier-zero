@@ -23700,7 +23700,7 @@
         }
       },
       {
-        "at": "2026-07-18T21:20:19.067Z",
+        "at": "2026-07-18T21:20:21.990Z",
         "detail": "19'",
         "score": [
           0,
@@ -23713,74 +23713,74 @@
           "anthropic/claude-opus-4.7": {
             "probs": {
               "home": 0.05,
-              "draw": 0.15,
-              "away": 0.8
+              "draw": 0.17,
+              "away": 0.78
             },
-            "rationale": "England lead 2-0 with over 70 minutes remaining; France has time to respond but overturning a two-goal deficit against a strong England side is unlikely."
+            "rationale": "England leads 2-0 with 71+ minutes remaining, giving them a strong likelihood of holding on, though France has enough time to mount a comeback for a draw or unlikely win."
           },
           "openai/gpt-5.1": {
             "probs": {
-              "home": 0.17,
-              "draw": 0.22,
-              "away": 0.61
+              "home": 0.13,
+              "draw": 0.18,
+              "away": 0.69
             },
-            "rationale": "England are two goals up inside 20 minutes, giving them a strong but not insurmountable advantage against a high-quality France side with plenty of time left."
+            "rationale": "England are two goals up inside 20 minutes and look strongly favored, though France still have ample time to recover some or all of the deficit."
           },
           "deepseek/deepseek-v4-pro": {
             "probs": {
-              "home": 0.05,
-              "draw": 0.1,
-              "away": 0.85
+              "home": 0.07,
+              "draw": 0.13,
+              "away": 0.8
             },
-            "rationale": "England's early 2-0 lead after 19 minutes gives them a commanding position, with historical data suggesting a very high win probability for the leading team at this stage."
+            "rationale": "England's early 2-0 lead gives them a dominant position, but France still has time to mount a comeback in this third-place match."
           },
           "moonshotai/kimi-k3": {
             "probs": {
-              "home": 0.05,
-              "draw": 0.1,
-              "away": 0.85
+              "home": 0.09,
+              "draw": 0.13,
+              "away": 0.78
             },
-            "rationale": "A 2-0 lead after 19 minutes is historically converted ~85% of the time, and while a 3rd-place match can be more open, France would need at least two goals in 70 minutes against a strong England side already in rhythm."
+            "rationale": "England's two-goal cushion at 19' makes them heavy favorites historically (~75-80% win rate from this position), though France's elite attack and the typically open, high-scoring nature of 3rd-place matches leave a modest chance of a comeback or leveling with 70+ minutes remaining."
           },
           "z-ai/glm-5.2": {
             "probs": {
               "home": 0.04,
-              "draw": 0.08,
-              "away": 0.88
+              "draw": 0.09,
+              "away": 0.87
             },
-            "rationale": "England's early two-goal cushion at 19 minutes gives them a commanding position, and while France has the quality to mount a comeback, the probability of overturning a 2-0 deficit in a third-place match is low."
+            "rationale": "England holds a commanding 2-0 lead early in the match, making a France comeback unlikely despite plenty of time remaining."
           },
           "qwen/qwen3.7-max": {
             "probs": {
-              "home": 0.14,
-              "draw": 0.18,
-              "away": 0.68
+              "home": 0.15,
+              "draw": 0.22,
+              "away": 0.63
             },
-            "rationale": "England's commanding 2-0 lead just 19 minutes in gives them a strong advantage with ~71 minutes remaining, but France's elite attacking quality means a comeback or equalization is far from impossible, keeping England's win probability elevated but not overwhelming."
+            "rationale": "England's commanding 2-0 lead within the opening 18 minutes gives them a strong advantage, though France's elite attacking talent and 71 remaining minutes keep comeback and draw possibilities meaningfully alive."
           },
           "minimax/minimax-m2": {
             "probs": {
-              "home": 0.14,
-              "draw": 0.11,
-              "away": 0.75
+              "home": 0.12,
+              "draw": 0.18,
+              "away": 0.7
             },
-            "rationale": "England's early 2-0 lead and attacking momentum make them strong favorites, but France has 70+ minutes and significant quality to mount a comeback in this consolation match."
+            "rationale": "England's early 2-0 lead after 19 minutes puts them in a commanding position, though France's quality means they're not completely out of it."
           },
           "google/gemini-3.1-pro-preview": {
             "probs": {
-              "home": 0.08,
+              "home": 0.09,
               "draw": 0.16,
-              "away": 0.76
+              "away": 0.75
             },
-            "rationale": "Despite France's attacking quality and the typically open nature of third-place matches, England's early two-goal advantage gives them a highly dominant position with 71 minutes of regulation remaining."
+            "rationale": "Although third-place matches are often open and high-scoring, overcoming a two-goal deficit with 70 minutes left against a defensively solid England side is highly improbable for France."
           },
           "x-ai/grok-4.5": {
             "probs": {
-              "home": 0.13,
-              "draw": 0.19,
-              "away": 0.68
+              "home": 0.12,
+              "draw": 0.18,
+              "away": 0.7
             },
-            "rationale": "England's early 2-0 lead at the 19th minute makes them strong favorites to hold on for the win in regulation, though France's quality leaves a realistic path to a draw or unlikely comeback."
+            "rationale": "England's early 2-0 lead after 19 minutes makes them strong favorites to hold on for the win in regulation, though France's quality gives them a realistic shot at a comeback or forcing a draw."
           }
         }
       }
