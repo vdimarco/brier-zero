@@ -3,7 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { fetchMatches, periodRank, txoddsStatus } from './lib/feed.js';
 import { leaderboard, predictionMarket } from './lib/scoring.js';
-import { getPredictions, getSnapshots, getOutright } from './lib/store.js';
+import { getPredictions, getSnapshots, getOutright, getProofs } from './lib/store.js';
 import { dbEnabled, dbTryLock } from './lib/db.js';
 import {
   loadModels, predictMatches, predictorReady, buildPrompt, buildLivePrompt,
@@ -43,6 +43,7 @@ app.get('/api/state', async (req, res) => {
     const predictions = await getPredictions();
     const snapshots = await getSnapshots();
     const outright = await getOutright();
+    const proofs = await getProofs();
     // Display: recent and upcoming matches, plus anything ever forecast.
     // Scoring: every match in the tournament, so the leaderboard is stable.
     const weekAgo = Date.now() - 7 * 24 * 3600 * 1000;
@@ -60,6 +61,7 @@ app.get('/api/state', async (req, res) => {
       models,
       prompts: promptTemplates,
       outright,
+      proofs,
       matches: matches.map((m) => ({
         ...m,
         predictions: predictions[m.id] ?? {},
