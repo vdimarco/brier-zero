@@ -1304,14 +1304,19 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
 .analysis-cta { font-weight: 700; color: var(--pitch); }
 
 
-/* Competitors roster strip (config-driven; all models incl. Gemini) */
+/* Competitors roster strip: one chip per competitor in the active view,
+   each clicking through to that competitor's performance detail. */
 .roster { display: flex; flex-wrap: wrap; gap: 10px; }
 .roster-chip {
   display: inline-flex; align-items: center; gap: 8px; background: var(--surface);
   border: 1px solid var(--hairline); border-radius: 999px; padding: 7px 14px 7px 9px;
   font-weight: 650; font-size: 14px; color: var(--ink);
+  font-family: inherit; cursor: pointer;
 }
+.roster-chip:hover { border-color: var(--pitch); box-shadow: 0 1px 4px rgba(10, 122, 51, 0.14); }
+.roster-chip:focus-visible { outline: 2px solid var(--pitch); outline-offset: 2px; }
 .roster-chip .crest { width: 20px; height: 20px; border-radius: 5px; }
+#view-toggle .lb-view { margin: 0 0 14px; }
 
 /* Live TxODDS StablePrice strip on match cards */
 .odds-strip {
