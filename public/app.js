@@ -580,32 +580,49 @@ function renderLeaderboard(state) {
     <h3 class="lb-chart-title">Knockout phase: running average Brier score</h3>
     <p class="fnote">One line per model, averaged match by match over every knockout tie since the round of 32 began. The dashed line is the know-nothing baseline, which itself drops from 0.667 to 0.5 partway through when the market switched from three-way to two-way. Group-stage history is excluded here; see a model's own page for its full-tournament average. Hover or tap a match for every model's standing at that point.</p>
     <div class="chart">${koChart}</div>
-  </div>` : ''}<div class="lb-wrap">${state.leaderboard
-    .map((r, i) => {
+  </div>` : ''}<div class="lb-wrap">${(() => {
+    // A model with scored matches but no locked-live one yet (all its scored
+    // forecasts are retro) is a backtest-only entrant — shown for comparison,
+    // ranked separately and never crowned. Gemini is here until the final and
+    // 3rd-place playoff (its only locked forecasts) kick off.
+    const isBacktestOnly = (r) => r.scored > 0 && r.retroScored === r.scored;
+    const ranked = state.leaderboard.filter((r) => r.avgBrier != null && !isBacktestOnly(r));
+    const backtest = state.leaderboard.filter(isBacktestOnly);
+    const pending = state.leaderboard.filter((r) => r.avgBrier == null);
+    let rank = 0;
+    return [...ranked, ...backtest, ...pending].map((r) => {
+      const bt = isBacktestOnly(r);
+      const live = r.avgBrier != null && !bt;
+      if (live) rank += 1;
+      const crown = live && rank === 1;
       const trend = trendOf(r.perMatch);
       const trendBadge = trend === 'up'
         ? '<span class="lb-trend lb-trend-up" title="Scored better in its second half of matches than its first">▲ improving</span>'
         : trend === 'down'
         ? '<span class="lb-trend lb-trend-down" title="Scored worse in its second half of matches than its first">▼ cooling</span>'
         : '';
-      return `<div class="lb-row${i === 0 && r.avgBrier != null ? ' leader' : ''}" data-model="${esc(r.model)}" role="button" tabindex="0" title="Open ${esc(r.label)}: performance over time" aria-label="Open performance detail for ${esc(r.label)}">
-        <div class="lb-rank">${r.avgBrier == null ? '-' : i + 1}</div>
+      return `<div class="lb-row${crown ? ' leader' : ''}${bt ? ' lb-backtest' : ''}" data-model="${esc(r.model)}" role="button" tabindex="0" title="Open ${esc(r.label)}: performance over time" aria-label="Open performance detail for ${esc(r.label)}">
+        <div class="lb-rank">${bt ? '★' : r.avgBrier == null ? '-' : rank}</div>
         <div class="lb-id">${
           (state.models.find((m) => m.id === r.model)?.icon)
             ? `<img class="crest crest-lg" src="${esc(state.models.find((m) => m.id === r.model).icon)}" alt="" onerror="this.style.visibility='hidden'">`
             : ''
-        }<div><span class="lb-name">${esc(r.label)}</span><span class="lb-slug">${esc(r.model)}</span>${
+        }<div><span class="lb-name">${esc(r.label)}${bt ? ' <span class="lb-bt-tag">backtest</span>' : ''}</span><span class="lb-slug">${esc(r.model)}</span>${
           sparkline(r.perMatch) ? `<div class="lb-spark">${sparkline(r.perMatch)}${trendBadge}</div>` : ''
         }</div></div>
         <div class="lb-score">
           <div class="lb-brier">${r.avgBrier == null ? '-' : r.avgBrier.toFixed(3)}</div>
-          <div class="lb-meta">${r.scored} scored / ${r.predicted} forecast${r.predicted === 1 ? '' : 's'}</div>
+          <div class="lb-meta">${bt ? 'backtest · ' : ''}${r.scored} scored / ${r.predicted} forecast${r.predicted === 1 ? '' : 's'}</div>
         </div>
       </div>`;
-    })
-    .join('')}</div>${
+    }).join('');
+  })()}</div>${
     state.leaderboard.some((r) => r.retroScored)
-      ? `<p class="footnote">Includes backfilled matches: forecast after the fact with the same prompt. Every model's training data predates this tournament, so the results were unknowable to them, but these forecasts lack the pre-kickoff lock.</p>`
+      ? `<p class="footnote">Includes backfilled matches: forecast after the fact with the same prompt. Every model's training data predates this tournament, so the results were unknowable to them, but these forecasts lack the pre-kickoff lock.${
+          state.leaderboard.some((r) => r.scored > 0 && r.retroScored === r.scored)
+            ? ' A <b>★ backtest</b> row is entirely retro — that model has no locked live result yet, so it is shown for comparison, ranked separately and left out of the leader crown.'
+            : ''
+        }</p>`
       : ''
   }`;
   for (const row of el.querySelectorAll('[data-model]')) {
@@ -846,7 +863,9 @@ function renderModelDetail(state, modelId) {
   const row = state.leaderboard.find((r) => r.model === modelId);
   const meta = state.models.find((m) => m.id === modelId);
   if (!row || !meta) { el.innerHTML = ''; return; }
-  const rank = state.leaderboard.filter((r) => r.avgBrier != null).findIndex((r) => r.model === modelId) + 1;
+  const isBacktestOnly = (r) => r.scored > 0 && r.retroScored === r.scored;
+  const rankedRows = state.leaderboard.filter((r) => r.avgBrier != null && !isBacktestOnly(r));
+  const rank = isBacktestOnly(row) ? 0 : rankedRows.findIndex((r) => r.model === modelId) + 1;
 
   let cum = 0;
   const points = row.perMatch.map((p, i) => {
@@ -879,7 +898,7 @@ function renderModelDetail(state, modelId) {
         ${meta.icon ? `<img class="crest crest-lg" src="${esc(meta.icon)}" alt="">` : ''}
         <div>
           <div class="detail-title">${esc(row.label)}</div>
-          <div class="fnote">${esc(row.model)}${rank ? ` · rank ${rank} of ${state.leaderboard.length}` : ''}</div>
+          <div class="fnote">${esc(row.model)}${rank ? ` · rank ${rank} of ${rankedRows.length}` : isBacktestOnly(row) ? ' · backtest — not ranked' : ''}</div>
         </div>
       </div>
       <button class="detail-close" data-close aria-label="Close">✕</button>
@@ -1315,7 +1334,7 @@ function renderTicker(state) {
       c ? `, models say ${esc(c.home >= c.away ? m.home.name : m.away.name)} ${pct(Math.max(c.home, c.away))}%` : ''
     }` });
   }
-  const leader = state.leaderboard.find((r) => r.avgBrier != null);
+  const leader = state.leaderboard.find((r) => r.avgBrier != null && !(r.scored > 0 && r.retroScored === r.scored));
   if (leader) items.push({ go: `p/${encodeURIComponent(leader.model)}`, html: `<span class="tick-gold">Brier Cup leader</span> ${esc(leader.label)} ${leader.avgBrier.toFixed(3)}` });
 
   const sep = '<span class="tick-sep" aria-hidden="true">&#9670;</span>';

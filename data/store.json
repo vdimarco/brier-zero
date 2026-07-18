@@ -91,6 +91,21 @@
         "latencyMs": 41730,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.36000000000000004,
+          "draw": 0.29000000000000004,
+          "away": 0.35000000000000003
+        },
+        "rationale": "Both teams possess similar overall quality and international experience, making a tightly contested match on neutral ground highly likely.",
+        "market": "regulation",
+        "fixture": "South Korea vs Czechia",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 6711,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760415": {
@@ -184,6 +199,21 @@
         "latencyMs": 26256,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.68,
+          "draw": 0.21,
+          "away": 0.11
+        },
+        "rationale": "Mexico benefits from a massive home-field advantage and possesses a stronger, more experienced squad compared to South Africa, making them clear favorites to win in regulation.",
+        "market": "regulation",
+        "fixture": "Mexico vs South Africa",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 5520,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760416": {
@@ -277,6 +307,21 @@
         "latencyMs": 14124,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.48,
+          "draw": 0.28,
+          "away": 0.24
+        },
+        "rationale": "Canada benefits from a strong generation of attacking talent and significant home-field advantage in Toronto, making them favorites against a transitioning Bosnia-Herzegovina side.",
+        "market": "regulation",
+        "fixture": "Canada vs Bosnia-Herzegovina",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 6017,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760417": {
@@ -370,6 +415,21 @@
         "latencyMs": 15106,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.58,
+          "draw": 0.24,
+          "away": 0.18
+        },
+        "rationale": "The United States benefits from a strong home-field advantage in Los Angeles and possesses a deeper, more talented squad than Paraguay, making them clear favorites in this group stage encounter.",
+        "market": "regulation",
+        "fixture": "United States vs Paraguay",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 6569,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760418": {
@@ -463,6 +523,21 @@
         "latencyMs": 16159,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.16,
+          "draw": 0.26,
+          "away": 0.58
+        },
+        "rationale": "Scotland possesses a stronger squad with more experience in top-flight European leagues, making them the clear favorites against a resilient but lower-ranked Haiti side.",
+        "market": "regulation",
+        "fixture": "Haiti vs Scotland",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 6404,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760419": {
@@ -556,6 +631,21 @@
         "latencyMs": 21737,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.58,
+          "draw": 0.25,
+          "away": 0.17
+        },
+        "rationale": "Brazil's superior attacking depth and historical pedigree make them favorites, but Morocco's organized defense and recent World Cup success ensure a highly competitive match.",
+        "market": "regulation",
+        "fixture": "Brazil vs Morocco",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 5075,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760420": {
@@ -649,6 +739,21 @@
         "latencyMs": 18523,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.11,
+          "draw": 0.21,
+          "away": 0.68
+        },
+        "rationale": "Switzerland's superior squad depth, European pedigree, and consistent performance in major tournaments make them strong favorites against a Qatar side that struggled against non-Asian opposition at the 2022 World Cup.",
+        "market": "regulation",
+        "fixture": "Qatar vs Switzerland",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 6367,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760421": {
@@ -742,6 +847,21 @@
         "latencyMs": 17010,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.27,
+          "draw": 0.28,
+          "away": 0.45
+        },
+        "rationale": "Türkiye's superior squad depth and recent strong performances in major tournaments give them a slight edge over a resilient but less star-studded Australian side on neutral soil.",
+        "market": "regulation",
+        "fixture": "Australia vs Türkiye",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 6049,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760422": {
@@ -835,6 +955,21 @@
         "latencyMs": 16911,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.91,
+          "draw": 0.07,
+          "away": 0.02
+        },
+        "rationale": "Germany's overwhelming superiority in squad quality, international experience, and tactical depth makes them massive favorites against a much lower-ranked Curaçao side.",
+        "market": "regulation",
+        "fixture": "Germany vs Curaçao",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 6067,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760423": {
@@ -928,6 +1063,21 @@
         "latencyMs": 11575,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.28,
+          "draw": 0.3,
+          "away": 0.42
+        },
+        "rationale": "Ecuador's strong CONMEBOL qualifying form and tactical discipline give them a slight edge over the reigning African champions in a closely contested neutral-site match.",
+        "market": "regulation",
+        "fixture": "Ivory Coast vs Ecuador",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 5708,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760424": {
@@ -1021,6 +1171,21 @@
         "latencyMs": 25036,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.54,
+          "draw": 0.26,
+          "away": 0.2
+        },
+        "rationale": "Sweden possesses superior squad depth and European pedigree compared to Tunisia, making them the favorites on neutral ground despite the potential for a tight, low-scoring group stage match.",
+        "market": "regulation",
+        "fixture": "Sweden vs Tunisia",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 6367,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760425": {
@@ -1114,6 +1279,21 @@
         "latencyMs": 21376,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.54,
+          "draw": 0.26,
+          "away": 0.2
+        },
+        "rationale": "The Netherlands boast superior squad depth and historical pedigree, making them favorites, but Japan's tactical discipline and counter-attacking threat make a draw or upset plausible.",
+        "market": "regulation",
+        "fixture": "Netherlands vs Japan",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 5531,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760426": {
@@ -1207,6 +1387,21 @@
         "latencyMs": 45682,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.62,
+          "draw": 0.23,
+          "away": 0.15
+        },
+        "rationale": "Belgium possesses superior squad depth and overall quality compared to Egypt, making them clear favorites despite the aging of their golden generation.",
+        "market": "regulation",
+        "fixture": "Belgium vs Egypt",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 5325,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760427": {
@@ -1300,6 +1495,21 @@
         "latencyMs": 29406,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.62,
+          "draw": 0.24,
+          "away": 0.14
+        },
+        "rationale": "Iran possesses superior tactical discipline and attacking quality compared to New Zealand, making them clear favorites in this neutral-venue group stage encounter.",
+        "market": "regulation",
+        "fixture": "Iran vs New Zealand",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 6017,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760428": {
@@ -1393,6 +1603,21 @@
         "latencyMs": 14218,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.85,
+          "draw": 0.11,
+          "away": 0.04
+        },
+        "rationale": "Spain's elite squad depth, tactical mastery, and pedigree in major tournaments make them overwhelming favorites against a developing Cape Verde team.",
+        "market": "regulation",
+        "fixture": "Spain vs Cape Verde",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 7219,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760429": {
@@ -1486,6 +1711,21 @@
         "latencyMs": 16634,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.08,
+          "draw": 0.18,
+          "away": 0.74
+        },
+        "rationale": "Uruguay possesses significantly more top-level talent and international pedigree compared to Saudi Arabia, making them heavy favorites in a neutral venue.",
+        "market": "regulation",
+        "fixture": "Saudi Arabia vs Uruguay",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 5275,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760430": {
@@ -1579,6 +1819,21 @@
         "latencyMs": 14111,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.16,
+          "draw": 0.25,
+          "away": 0.59
+        },
+        "rationale": "Norway possesses significant top-level European experience and world-class attacking talent, giving them a distinct advantage over Iraq in this neutral-site matchup.",
+        "market": "regulation",
+        "fixture": "Iraq vs Norway",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 7586,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760431": {
@@ -1672,6 +1927,21 @@
         "latencyMs": 19655,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.7000000000000001,
+          "draw": 0.20000000000000004,
+          "away": 0.10000000000000002
+        },
+        "rationale": "Austria's superior squad depth and experience in top European leagues make them strong favorites against a Jordan side that, despite recent Asian Cup success, lacks comparable international pedigree.",
+        "market": "regulation",
+        "fixture": "Austria vs Jordan",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 5922,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760432": {
@@ -1765,6 +2035,21 @@
         "latencyMs": 10366,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.7000000000000001,
+          "draw": 0.20000000000000004,
+          "away": 0.10000000000000002
+        },
+        "rationale": "France's superior squad depth and world-class talent make them heavy favorites against a capable but outmatched Senegal side.",
+        "market": "regulation",
+        "fixture": "France vs Senegal",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 5192,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760433": {
@@ -1858,6 +2143,21 @@
         "latencyMs": 33132,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.7200000000000001,
+          "draw": 0.20000000000000004,
+          "away": 0.08000000000000002
+        },
+        "rationale": "Argentina's superior squad depth, recent international dominance, and tactical cohesion make them heavy favorites against a capable but less consistent Algerian side.",
+        "market": "regulation",
+        "fixture": "Argentina vs Algeria",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 4814,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760434": {
@@ -1951,6 +2251,21 @@
         "latencyMs": 18335,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.46,
+          "draw": 0.29,
+          "away": 0.25
+        },
+        "rationale": "Ghana possesses superior individual talent playing in top European leagues, making them moderate favorites over a well-organized Panama side on neutral ground.",
+        "market": "regulation",
+        "fixture": "Ghana vs Panama",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 6762,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760435": {
@@ -2044,6 +2359,21 @@
         "latencyMs": 28960,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.76,
+          "draw": 0.17,
+          "away": 0.07
+        },
+        "rationale": "Portugal's vastly superior squad depth, tactical experience, and historical performance in major tournaments make them heavy favorites against a lower-ranked Congo DR side.",
+        "market": "regulation",
+        "fixture": "Portugal vs Congo DR",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 5438,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760436": {
@@ -2137,6 +2467,21 @@
         "latencyMs": 40268,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.13,
+          "draw": 0.22,
+          "away": 0.65
+        },
+        "rationale": "Colombia possesses superior squad depth, international experience, and individual talent compared to Uzbekistan, making them strong favorites despite Uzbekistan's solid defensive organization.",
+        "market": "regulation",
+        "fixture": "Uzbekistan vs Colombia",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 5246,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760437": {
@@ -2230,6 +2575,21 @@
         "latencyMs": 23655,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.52,
+          "draw": 0.27,
+          "away": 0.21
+        },
+        "rationale": "England possesses a deeper and younger squad with higher overall quality, giving them the edge over a transitioning Croatian side, though Croatia's tactical discipline makes a draw a strong possibility.",
+        "market": "regulation",
+        "fixture": "England vs Croatia",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 4645,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760438": {
@@ -2323,6 +2683,21 @@
         "latencyMs": 23273,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.52,
+          "draw": 0.27,
+          "away": 0.21
+        },
+        "rationale": "Czechia's tactical discipline and higher level of European competition experience give them a moderate edge over South Africa, though a tight group stage match is expected.",
+        "market": "regulation",
+        "fixture": "Czechia vs South Africa",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 5271,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760439": {
@@ -2416,6 +2791,21 @@
         "latencyMs": 18087,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.62,
+          "draw": 0.23,
+          "away": 0.15
+        },
+        "rationale": "Switzerland's consistent tournament pedigree and significantly higher international ranking give them a clear advantage over a Bosnian side that has struggled in recent qualifying campaigns.",
+        "market": "regulation",
+        "fixture": "Switzerland vs Bosnia-Herzegovina",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 5168,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760440": {
@@ -2509,6 +2899,21 @@
         "latencyMs": 10239,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.58,
+          "draw": 0.24,
+          "away": 0.18
+        },
+        "rationale": "Canada benefits from a significant home-field advantage at BC Place and possesses superior top-end talent playing in major European leagues compared to Qatar's domestically based squad.",
+        "market": "regulation",
+        "fixture": "Canada vs Qatar",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 6702,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760441": {
@@ -2602,6 +3007,21 @@
         "latencyMs": 33892,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.58,
+          "draw": 0.25,
+          "away": 0.17
+        },
+        "rationale": "Mexico benefits from a significant home-field advantage playing in Guadalajara, making them clear favorites over a solid South Korean side.",
+        "market": "regulation",
+        "fixture": "Mexico vs South Korea",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 6450,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760442": {
@@ -2695,6 +3115,21 @@
         "latencyMs": 61635,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.58,
+          "draw": 0.24,
+          "away": 0.18
+        },
+        "rationale": "The United States boasts a more talented squad with players in top European leagues and will benefit significantly from strong home-field advantage in Seattle, making them clear favorites over a resilient but less star-studded Australian side.",
+        "market": "regulation",
+        "fixture": "United States vs Australia",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 5785,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760443": {
@@ -2788,6 +3223,21 @@
         "latencyMs": 33567,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.42,
+          "draw": 0.31,
+          "away": 0.27
+        },
+        "rationale": "Türkiye's recent strong performances in European competitions give them a slight edge over a defensively resilient but offensively limited Paraguay side.",
+        "market": "regulation",
+        "fixture": "Türkiye vs Paraguay",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 4875,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760444": {
@@ -2881,6 +3331,21 @@
         "latencyMs": 21656,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.88,
+          "draw": 0.1,
+          "away": 0.02
+        },
+        "rationale": "Brazil's overwhelming superiority in talent, experience, and historical performance makes them heavy favorites against a much lower-ranked Haitian side.",
+        "market": "regulation",
+        "fixture": "Brazil vs Haiti",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 5285,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760445": {
@@ -2974,6 +3439,21 @@
         "latencyMs": 35542,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.25,
+          "draw": 0.27,
+          "away": 0.48
+        },
+        "rationale": "Morocco's recent World Cup pedigree and higher FIFA ranking make them the favorites against a Scotland side that often struggles in major tournaments, though a tight match is expected.",
+        "market": "regulation",
+        "fixture": "Scotland vs Morocco",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 5210,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760446": {
@@ -3067,6 +3547,21 @@
         "latencyMs": 3828,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.78,
+          "draw": 0.15,
+          "away": 0.07
+        },
+        "rationale": "Ecuador possesses significantly higher squad quality and international tournament experience compared to Curaçao, making them heavy favorites in this neutral-venue group stage encounter.",
+        "market": "regulation",
+        "fixture": "Ecuador vs Curaçao",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 4550,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760447": {
@@ -3160,6 +3655,21 @@
         "latencyMs": 26557,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.6,
+          "draw": 0.23,
+          "away": 0.17
+        },
+        "rationale": "The Netherlands possess a significantly stronger squad and higher international pedigree than Sweden, making them clear favorites to win in regulation.",
+        "market": "regulation",
+        "fixture": "Netherlands vs Sweden",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 5391,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760448": {
@@ -3253,6 +3763,21 @@
         "latencyMs": 19665,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.63,
+          "draw": 0.22,
+          "away": 0.15
+        },
+        "rationale": "Germany's superior squad depth and tactical organization make them clear favorites, though Ivory Coast's recent AFCON success and athletic quality present a credible threat for a draw or upset.",
+        "market": "regulation",
+        "fixture": "Germany vs Ivory Coast",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 6252,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760449": {
@@ -3346,6 +3871,21 @@
         "latencyMs": 37828,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.2,
+          "draw": 0.25,
+          "away": 0.55
+        },
+        "rationale": "Japan possesses a stronger squad with more players in top European leagues and a higher international ranking, making them the favorites against a defensively solid but less potent Tunisian side.",
+        "market": "regulation",
+        "fixture": "Tunisia vs Japan",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 5757,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760450": {
@@ -3439,6 +3979,21 @@
         "latencyMs": 21761,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.7400000000000001,
+          "draw": 0.18000000000000002,
+          "away": 0.08000000000000002
+        },
+        "rationale": "Uruguay's elite talent, tactical discipline, and extensive World Cup experience make them heavy favorites over a spirited but overmatched Cape Verde side.",
+        "market": "regulation",
+        "fixture": "Uruguay vs Cape Verde",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 6124,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760451": {
@@ -3532,6 +4087,21 @@
         "latencyMs": 32256,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.68,
+          "draw": 0.21,
+          "away": 0.11
+        },
+        "rationale": "Belgium possesses superior squad depth and individual quality compared to Iran, making them strong favorites despite Iran's typically resilient defensive organization.",
+        "market": "regulation",
+        "fixture": "Belgium vs Iran",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 5703,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760452": {
@@ -3625,6 +4195,21 @@
         "latencyMs": 19848,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.15,
+          "draw": 0.25,
+          "away": 0.6
+        },
+        "rationale": "Egypt possesses superior squad depth and higher-level international experience compared to New Zealand, making them clear favorites despite the neutral venue.",
+        "market": "regulation",
+        "fixture": "New Zealand vs Egypt",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 6956,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760453": {
@@ -3718,6 +4303,21 @@
         "latencyMs": 29032,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.82,
+          "draw": 0.13,
+          "away": 0.05
+        },
+        "rationale": "Spain's overwhelming superiority in squad depth, tactical quality, and recent international success makes them heavy favorites against a Saudi Arabian side that typically struggles against elite European opposition.",
+        "market": "regulation",
+        "fixture": "Spain vs Saudi Arabia",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 5295,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760454": {
@@ -3811,6 +4411,21 @@
         "latencyMs": 36261,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.38,
+          "draw": 0.28,
+          "away": 0.34
+        },
+        "rationale": "Norway possesses elite attacking stars like Haaland and Ødegaard, but Senegal's recent World Cup experience and cohesive squad make this a tightly contested matchup.",
+        "market": "regulation",
+        "fixture": "Norway vs Senegal",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 6594,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760455": {
@@ -3904,6 +4519,21 @@
         "latencyMs": 12579,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.18,
+          "draw": 0.26,
+          "away": 0.56
+        },
+        "rationale": "Algeria possesses superior squad depth and top-flight European experience, making them the favorites against a resilient but less experienced Jordanian side on neutral soil.",
+        "market": "regulation",
+        "fixture": "Jordan vs Algeria",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 5072,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760456": {
@@ -3997,6 +4627,21 @@
         "latencyMs": 53911,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.65,
+          "draw": 0.22,
+          "away": 0.13
+        },
+        "rationale": "Argentina enters as the defending champions and heavy favorites with superior squad depth and talent, though Austria's organized pressing under Ralf Rangnick makes them a competitive side capable of keeping the match tight.",
+        "market": "regulation",
+        "fixture": "Argentina vs Austria",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 5793,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760457": {
@@ -4090,6 +4735,21 @@
         "latencyMs": 43367,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.85,
+          "draw": 0.11,
+          "away": 0.04
+        },
+        "rationale": "France boasts a vastly superior squad with world-class talent across all positions, making them overwhelming favorites against a much lower-ranked Iraqi side.",
+        "market": "regulation",
+        "fixture": "France vs Iraq",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 7047,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760458": {
@@ -4183,6 +4843,21 @@
         "latencyMs": 10269,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.7000000000000001,
+          "draw": 0.20000000000000004,
+          "away": 0.10000000000000002
+        },
+        "rationale": "England possesses a significantly stronger squad and higher international ranking than Ghana, making them heavy favorites in a neutral-venue group stage match.",
+        "market": "regulation",
+        "fixture": "England vs Ghana",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 5517,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760459": {
@@ -4276,6 +4951,21 @@
         "latencyMs": 22223,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.68,
+          "draw": 0.21,
+          "away": 0.11
+        },
+        "rationale": "Colombia's superior squad depth, strong recent form in CONMEBOL, and significant advantage in FIFA rankings make them clear favorites against Congo DR.",
+        "market": "regulation",
+        "fixture": "Colombia vs Congo DR",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 5821,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760460": {
@@ -4356,6 +5046,21 @@
         "latencyMs": 17588,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.13,
+          "draw": 0.22,
+          "away": 0.65
+        },
+        "rationale": "Croatia's significant advantage in international experience, tactical discipline, and overall squad quality makes them strong favorites against a developing Panama side.",
+        "market": "regulation",
+        "fixture": "Panama vs Croatia",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 4656,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760461": {
@@ -4449,6 +5154,21 @@
         "latencyMs": 13878,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.82,
+          "draw": 0.13,
+          "away": 0.05
+        },
+        "rationale": "Portugal possesses a vastly superior squad with world-class talent across all positions, making them heavy favorites against an Uzbekistan side that lacks comparable top-level international experience.",
+        "market": "regulation",
+        "fixture": "Portugal vs Uzbekistan",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 4854,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760462": {
@@ -4542,6 +5262,21 @@
         "latencyMs": 35211,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.45,
+          "draw": 0.28,
+          "away": 0.27
+        },
+        "rationale": "Although Qatar has dominated recent Asian Cups, Bosnia-Herzegovina's experience in competitive European qualifiers gives them a slight edge in a neutral venue.",
+        "market": "regulation",
+        "fixture": "Bosnia-Herzegovina vs Qatar",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 7692,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760463": {
@@ -4635,6 +5370,21 @@
         "latencyMs": 72328,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.41,
+          "draw": 0.28,
+          "away": 0.31
+        },
+        "rationale": "Although Switzerland possesses greater international pedigree and a stronger overall squad, Canada's significant home-field advantage in Vancouver and their emerging attacking talent make this a closely contested matchup.",
+        "market": "regulation",
+        "fixture": "Switzerland vs Canada",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 8091,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760464": {
@@ -4728,6 +5478,21 @@
         "latencyMs": 44821,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.82,
+          "draw": 0.13,
+          "away": 0.05
+        },
+        "rationale": "Morocco's significantly superior squad quality, international experience, and recent World Cup pedigree make them heavy favorites against a Haitian side that rarely competes at this level.",
+        "market": "regulation",
+        "fixture": "Morocco vs Haiti",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 4516,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760465": {
@@ -4821,6 +5586,21 @@
         "latencyMs": 20102,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.08,
+          "draw": 0.17,
+          "away": 0.75
+        },
+        "rationale": "Brazil's vastly superior squad depth, technical ability, and historical dominance in World Cup group stages make them heavy favorites over a hard-working but less talented Scotland side.",
+        "market": "regulation",
+        "fixture": "Scotland vs Brazil",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 5310,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760466": {
@@ -4914,6 +5694,21 @@
         "latencyMs": 17735,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.22,
+          "draw": 0.27,
+          "away": 0.51
+        },
+        "rationale": "South Korea possesses a stronger squad with more top-level European experience and a higher historical Elo rating, making them the favorites against a South African side that has struggled to consistently qualify for recent World Cups.",
+        "market": "regulation",
+        "fixture": "South Africa vs South Korea",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 5717,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760467": {
@@ -5007,6 +5802,21 @@
         "latencyMs": 25561,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.26,
+          "draw": 0.28,
+          "away": 0.46
+        },
+        "rationale": "Although officially listed as the away team, Mexico will enjoy a massive home-country advantage and favorable climate conditions, giving them a distinct edge over a capable Czech squad.",
+        "market": "regulation",
+        "fixture": "Czechia vs Mexico",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 8243,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760468": {
@@ -5100,6 +5910,21 @@
         "latencyMs": 29356,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.18,
+          "draw": 0.24,
+          "away": 0.58
+        },
+        "rationale": "Germany possesses superior squad depth and tactical experience on the global stage, making them favorites, though Ecuador's physicality and defensive resilience could make it a competitive match.",
+        "market": "regulation",
+        "fixture": "Ecuador vs Germany",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 5401,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760469": {
@@ -5180,6 +6005,21 @@
         "latencyMs": 40540,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.38,
+          "draw": 0.31,
+          "away": 0.31
+        },
+        "rationale": "Paraguay and Australia are closely matched in international rankings and overall squad quality, making a tightly contested match with a high probability of a draw or a narrow victory for either side likely.",
+        "market": "regulation",
+        "fixture": "Paraguay vs Australia",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 5018,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760470": {
@@ -5273,6 +6113,21 @@
         "latencyMs": 29012,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.28,
+          "draw": 0.27,
+          "away": 0.45
+        },
+        "rationale": "Although Türkiye boasts an emerging golden generation and strong recent tournament experience, the United States benefits from a massive home-field advantage at SoFi Stadium and a talented core, making them slight favorites in a closely contested matchup.",
+        "market": "regulation",
+        "fixture": "Türkiye vs United States",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 17743,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760471": {
@@ -5366,6 +6221,21 @@
         "latencyMs": 4813,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.39,
+          "draw": 0.28,
+          "away": 0.33
+        },
+        "rationale": "Japan's recent consistent international performances and higher current global ranking give them a slight edge over a physically strong but transitioning Swedish side on neutral US soil.",
+        "market": "regulation",
+        "fixture": "Japan vs Sweden",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 5687,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760472": {
@@ -5459,6 +6329,21 @@
         "latencyMs": 34560,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.1,
+          "draw": 0.2,
+          "away": 0.7
+        },
+        "rationale": "The Netherlands possess significantly more top-level European club experience and overall squad quality compared to Tunisia, making them strong favorites in this group stage encounter.",
+        "market": "regulation",
+        "fixture": "Tunisia vs Netherlands",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 4482,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760473": {
@@ -5552,6 +6437,21 @@
         "latencyMs": 17803,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.08,
+          "draw": 0.18,
+          "away": 0.74
+        },
+        "rationale": "Ivory Coast possesses significantly more top-flight international experience and squad depth compared to Curaçao, making them heavy favorites to win this group stage encounter.",
+        "market": "regulation",
+        "fixture": "Curaçao vs Ivory Coast",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 4953,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760474": {
@@ -5645,6 +6545,21 @@
         "latencyMs": 19679,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.62,
+          "draw": 0.24,
+          "away": 0.14
+        },
+        "rationale": "Senegal possesses a significantly stronger squad with top-level European experience compared to Iraq, making them clear favorites in this group stage encounter.",
+        "market": "regulation",
+        "fixture": "Senegal vs Iraq",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 5566,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760475": {
@@ -5738,6 +6653,21 @@
         "latencyMs": 21980,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.15,
+          "draw": 0.23,
+          "away": 0.62
+        },
+        "rationale": "France's superior squad depth, defensive solidity, and extensive tournament pedigree make them clear favorites against a Norway side that relies heavily on a few star attackers.",
+        "market": "regulation",
+        "fixture": "Norway vs France",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 15089,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760476": {
@@ -5831,6 +6761,21 @@
         "latencyMs": 37014,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.28,
+          "draw": 0.31,
+          "away": 0.41
+        },
+        "rationale": "Iran's consistently higher Elo rating and strong performances in Asian qualifying give them a slight edge over an aging Egyptian squad, though a tight, low-scoring match is highly likely.",
+        "market": "regulation",
+        "fixture": "Egypt vs Iran",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 6771,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760477": {
@@ -5924,6 +6869,21 @@
         "latencyMs": 36654,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.05,
+          "draw": 0.15,
+          "away": 0.8
+        },
+        "rationale": "Belgium possesses significantly superior squad depth and individual talent compared to New Zealand, making them heavy favorites to secure a victory in regulation time.",
+        "market": "regulation",
+        "fixture": "New Zealand vs Belgium",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 5676,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760478": {
@@ -6017,6 +6977,21 @@
         "latencyMs": 31900,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.34,
+          "draw": 0.31,
+          "away": 0.35
+        },
+        "rationale": "While Saudi Arabia possesses greater World Cup experience, Cape Verde's squad of European-based professionals makes this a highly competitive and evenly matched fixture.",
+        "market": "regulation",
+        "fixture": "Cape Verde vs Saudi Arabia",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 6471,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760479": {
@@ -6110,6 +7085,21 @@
         "latencyMs": 53210,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.27,
+          "draw": 0.28,
+          "away": 0.45
+        },
+        "rationale": "Spain enters as the slight favorite due to their recent Euro 2024 triumph and deep squad, but Uruguay's high-intensity pressing under Marcelo Bielsa and the match being played in Mexico make a tight contest likely.",
+        "market": "regulation",
+        "fixture": "Uruguay vs Spain",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 6328,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760480": {
@@ -6203,6 +7193,21 @@
         "latencyMs": 20418,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.55,
+          "draw": 0.25,
+          "away": 0.2
+        },
+        "rationale": "Croatia's tactical discipline and superior midfield quality give them the edge over Ghana, though Croatia's aging squad and Ghana's athletic counter-attacks make a draw or upset plausible.",
+        "market": "regulation",
+        "fixture": "Croatia vs Ghana",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 5519,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760481": {
@@ -6296,6 +7301,21 @@
         "latencyMs": 43657,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.31,
+          "draw": 0.28,
+          "away": 0.41
+        },
+        "rationale": "While Portugal boasts a deeper squad with elite European talent, Colombia's recent excellent form and the heavy South American crowd advantage in Miami make this a closely contested matchup.",
+        "market": "regulation",
+        "fixture": "Colombia vs Portugal",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 6276,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760482": {
@@ -6389,6 +7409,21 @@
         "latencyMs": 32287,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.37,
+          "draw": 0.31,
+          "away": 0.32
+        },
+        "rationale": "Congo DR's slight edge in top-level European experience gives them a marginal advantage over a disciplined and rapidly improving Uzbekistan side in what should be a tightly contested neutral-venue match.",
+        "market": "regulation",
+        "fixture": "Congo DR vs Uzbekistan",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 5428,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760483": {
@@ -6482,6 +7517,21 @@
         "latencyMs": 53604,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.03,
+          "draw": 0.1,
+          "away": 0.87
+        },
+        "rationale": "Argentina's overwhelming superiority in talent, experience, and tactical depth makes them heavy favorites against a much lower-ranked Jordan side.",
+        "market": "regulation",
+        "fixture": "Jordan vs Argentina",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 8014,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760484": {
@@ -6575,6 +7625,21 @@
         "latencyMs": 35641,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.23,
+          "draw": 0.26,
+          "away": 0.51
+        },
+        "rationale": "Austria's high-intensity pressing system under Ralf Rangnick and superior recent form against top European opposition give them a clear edge over an Algerian side that has struggled for consistency in recent major tournaments.",
+        "market": "regulation",
+        "fixture": "Algeria vs Austria",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 6233,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760485": {
@@ -6668,6 +7733,21 @@
         "latencyMs": 21295,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.05,
+          "draw": 0.15,
+          "away": 0.8
+        },
+        "rationale": "England's overwhelming advantage in squad depth and world-class talent makes them heavy favorites against a much lower-ranked Panama side.",
+        "market": "regulation",
+        "fixture": "Panama vs England",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 6574,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760486": {
@@ -6761,6 +7841,20 @@
         "latencyMs": 7734,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.36,
+          "away": 0.64
+        },
+        "rationale": "Canada possesses a stronger squad with elite European-based talent and benefits from playing in North America, giving them a clear edge over a resilient South African side.",
+        "market": "advance",
+        "fixture": "South Africa vs Canada",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 7195,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760487": {
@@ -6854,6 +7948,20 @@
         "latencyMs": 49080,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.78,
+          "away": 0.22
+        },
+        "rationale": "Brazil possesses superior overall squad depth and historical pedigree in World Cup knockout stages, making them strong favorites despite Japan's tactical discipline and recent giant-killing capabilities.",
+        "market": "advance",
+        "fixture": "Brazil vs Japan",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 6630,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760488": {
@@ -6947,6 +8055,20 @@
         "latencyMs": 7374,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.62,
+          "away": 0.38
+        },
+        "rationale": "While Morocco proved their knockout pedigree in 2022 and possesses a solid defensive structure, the Netherlands' superior squad depth and attacking quality make them the favorites to advance.",
+        "market": "advance",
+        "fixture": "Netherlands vs Morocco",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 6001,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760489": {
@@ -7040,6 +8162,20 @@
         "latencyMs": 20641,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.78,
+          "away": 0.22
+        },
+        "rationale": "Germany possesses a significantly stronger squad and higher international pedigree than Paraguay, making them clear favorites to advance despite Paraguay's traditional defensive resilience.",
+        "market": "advance",
+        "fixture": "Germany vs Paraguay",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 5175,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760490": {
@@ -7133,6 +8269,20 @@
         "latencyMs": 11108,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.46,
+          "away": 0.54
+        },
+        "rationale": "Norway's elite attacking talent in Haaland and Ødegaard gives them a slight edge over the reigning African champions in a tightly contested matchup.",
+        "market": "advance",
+        "fixture": "Ivory Coast vs Norway",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 6863,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760491": {
@@ -7226,6 +8376,20 @@
         "latencyMs": 57050,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.62,
+          "away": 0.38
+        },
+        "rationale": "Mexico benefits from a significant home-field advantage playing in Monterrey, which tips the scales in their favor against a similarly matched Ecuadorian side.",
+        "market": "advance",
+        "fixture": "Mexico vs Ecuador",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 6523,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760492": {
@@ -7319,6 +8483,20 @@
         "latencyMs": 33496,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.82,
+          "away": 0.18
+        },
+        "rationale": "France possesses a vastly superior squad with world-class depth and recent tournament pedigree, making them heavy favorites against a Swedish side that has struggled to qualify for recent major tournaments despite possessing potent attacking talent.",
+        "market": "advance",
+        "fixture": "France vs Sweden",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 6253,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760493": {
@@ -7412,6 +8590,20 @@
         "latencyMs": 38728,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.62,
+          "away": 0.38
+        },
+        "rationale": "Belgium possesses superior squad depth and tactical experience on the global stage, though Senegal's physicality and defensive resilience make them a formidable threat to cause an upset.",
+        "market": "advance",
+        "fixture": "Belgium vs Senegal",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 5375,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760494": {
@@ -7505,6 +8697,20 @@
         "latencyMs": 38020,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.78,
+          "away": 0.22
+        },
+        "rationale": "The United States benefits from a stronger current squad and significant home-field advantage at Levi's Stadium, making them clear favorites to advance over a lower-ranked Bosnia-Herzegovina side.",
+        "market": "advance",
+        "fixture": "United States vs Bosnia-Herzegovina",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 6456,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760495": {
@@ -7598,6 +8804,20 @@
         "latencyMs": 44554,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.88,
+          "away": 0.12
+        },
+        "rationale": "England possesses a vastly superior squad in terms of talent, depth, and international tournament experience compared to Congo DR, making them heavy favorites to advance.",
+        "market": "advance",
+        "fixture": "England vs Congo DR",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 4777,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760496": {
@@ -7691,6 +8911,20 @@
         "latencyMs": 21786,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.7,
+          "away": 0.3
+        },
+        "rationale": "Portugal's deep pool of prime-age elite talent gives them a clear edge over a Croatian side likely in transition following the phasing out of their golden generation.",
+        "market": "advance",
+        "fixture": "Portugal vs Croatia",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 5138,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760497": {
@@ -7784,6 +9018,20 @@
         "latencyMs": 8584,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.78,
+          "away": 0.22
+        },
+        "rationale": "Spain's superior squad depth, recent major tournament success, and higher international ranking give them a significant edge over a well-organized but less talented Austrian side.",
+        "market": "advance",
+        "fixture": "Spain vs Austria",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 7596,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760498": {
@@ -7877,6 +9125,20 @@
         "latencyMs": 44095,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.63,
+          "away": 0.37
+        },
+        "rationale": "Switzerland's consistent track record of advancing in recent major tournaments gives them a solid edge over an Algerian side that has struggled for consistency on the global stage since their 2019 AFCON victory.",
+        "market": "advance",
+        "fixture": "Switzerland vs Algeria",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 5526,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760499": {
@@ -7970,6 +9232,20 @@
         "latencyMs": 27546,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.53,
+          "away": 0.47
+        },
+        "rationale": "Australia's slightly higher international ratings and recent World Cup knockout stage experience give them a narrow edge over Egypt in a closely contested neutral-venue matchup.",
+        "market": "advance",
+        "fixture": "Australia vs Egypt",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 4710,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760500": {
@@ -8063,6 +9339,20 @@
         "latencyMs": 14937,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.92,
+          "away": 0.08
+        },
+        "rationale": "Argentina's vastly superior squad depth, international experience, and reigning World Cup champion status make them overwhelming favorites to advance against a much lower-ranked Cape Verde side.",
+        "market": "advance",
+        "fixture": "Argentina vs Cape Verde",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 4464,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760501": {
@@ -8156,6 +9446,20 @@
         "latencyMs": 17539,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.72,
+          "away": 0.28
+        },
+        "rationale": "Colombia's impressive recent form and tactical cohesion under Néstor Lorenzo make them strong favorites to advance past a Ghanaian side that has struggled with consistency in recent major tournaments.",
+        "market": "advance",
+        "fixture": "Colombia vs Ghana",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 6077,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760502": {
@@ -8249,6 +9553,20 @@
         "latencyMs": 10368,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.35,
+          "away": 0.65
+        },
+        "rationale": "Morocco possesses superior squad depth and recent tournament pedigree, making them the favorites despite Canada's regional advantage and top-end attacking talent.",
+        "market": "advance",
+        "fixture": "Canada vs Morocco",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 8504,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760503": {
@@ -8329,6 +9647,20 @@
         "latencyMs": 32149,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.18,
+          "away": 0.82
+        },
+        "rationale": "France possesses a vastly superior squad with world-class talent across all positions, making them heavy favorites to overcome a defensively resilient but offensively limited Paraguay side.",
+        "market": "advance",
+        "fixture": "Paraguay vs France",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 5104,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760504": {
@@ -8415,6 +9747,20 @@
         "latencyMs": 26306,
         "eligible": true,
         "fixture": "Brazil vs Norway"
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.82,
+          "away": 0.18
+        },
+        "rationale": "Brazil's superior squad depth, historical tournament pedigree, and overall quality make them heavy favorites to advance against a Norway side that relies heavily on a few star players.",
+        "market": "advance",
+        "fixture": "Brazil vs Norway",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 6449,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760505": {
@@ -8501,6 +9847,20 @@
         "latencyMs": 37220,
         "eligible": true,
         "fixture": "Mexico vs England"
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.32,
+          "away": 0.68
+        },
+        "rationale": "England possesses a significantly stronger squad and superior recent tournament pedigree, but Mexico's home advantage in Monterrey narrows the gap considerably.",
+        "market": "advance",
+        "fixture": "Mexico vs England",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 6775,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760506": {
@@ -8587,6 +9947,20 @@
         "createdAt": "2026-07-06T08:19:02.828Z",
         "latencyMs": 48038,
         "eligible": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.45,
+          "away": 0.55
+        },
+        "rationale": "Spain's recent success at Euro 2024 and cohesive tactical system give them a slight edge over a highly talented but potentially transitioning Portuguese squad.",
+        "market": "advance",
+        "fixture": "Portugal vs Spain",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 4778,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760507": {
@@ -8673,6 +10047,20 @@
         "createdAt": "2026-07-06T08:19:54.284Z",
         "latencyMs": 51448,
         "eligible": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.48,
+          "away": 0.52
+        },
+        "rationale": "While Belgium possesses superior squad depth and higher international rankings, the United States benefits from a significant home-field advantage at Lumen Field, making this a tightly contested matchup.",
+        "market": "advance",
+        "fixture": "United States vs Belgium",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 8174,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760508": {
@@ -8759,6 +10147,20 @@
         "createdAt": "2026-07-06T08:20:41.311Z",
         "latencyMs": 27755,
         "eligible": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.42,
+          "away": 0.58
+        },
+        "rationale": "Colombia's recent strong form in CONMEBOL and higher Elo rating give them a slight edge over a consistently resilient Swiss side.",
+        "market": "advance",
+        "fixture": "Switzerland vs Colombia",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 5766,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760509": {
@@ -8845,6 +10247,20 @@
         "createdAt": "2026-07-06T08:20:13.552Z",
         "latencyMs": 19264,
         "eligible": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.86,
+          "away": 0.14
+        },
+        "rationale": "Argentina's superior squad depth, tactical experience, and status as defending champions make them heavy favorites to advance over a resilient but less formidable Egyptian side.",
+        "market": "advance",
+        "fixture": "Argentina vs Egypt",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 6197,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760510": {
@@ -8931,6 +10347,20 @@
         "createdAt": "2026-07-06T08:21:03.488Z",
         "latencyMs": 22173,
         "eligible": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.72,
+          "away": 0.28
+        },
+        "rationale": "France's superior squad depth, elite attacking talent, and historical pedigree make them clear favorites, though Morocco's organized defense and recent tournament experience give them a solid chance of an upset.",
+        "market": "advance",
+        "fixture": "France vs Morocco",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 5506,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760511": {
@@ -9017,6 +10447,20 @@
         "createdAt": "2026-07-07T02:18:43.046Z",
         "latencyMs": 38409,
         "eligible": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.68,
+          "away": 0.32
+        },
+        "rationale": "Spain's recent international success, including winning Euro 2024, and their cohesive tactical system make them clear favorites over a Belgian side that is currently in transition with an aging core.",
+        "market": "advance",
+        "fixture": "Spain vs Belgium",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 4963,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760512": {
@@ -9103,6 +10547,20 @@
         "createdAt": "2026-07-06T08:21:37.961Z",
         "latencyMs": 21485,
         "eligible": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.22,
+          "away": 0.78
+        },
+        "rationale": "While Norway boasts world-class attacking talent in Haaland and Ødegaard, England's superior squad depth, tournament experience, and defensive solidity make them strong favorites to advance.",
+        "market": "advance",
+        "fixture": "Norway vs England",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 5426,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760513": {
@@ -9189,6 +10647,20 @@
         "createdAt": "2026-07-07T23:02:50.507Z",
         "latencyMs": 11047,
         "eligible": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.72,
+          "away": 0.28
+        },
+        "rationale": "Argentina's superior squad depth, recent tournament pedigree as defending champions, and elite attacking talent make them strong favorites, though Switzerland's tactical discipline and resilience in knockout matches give them a realistic chance of an upset.",
+        "market": "advance",
+        "fixture": "Argentina vs Switzerland",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 5427,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760514": {
@@ -9282,6 +10754,20 @@
         "latencyMs": 49287,
         "eligible": true,
         "retro": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.52,
+          "away": 0.48
+        },
+        "rationale": "While France boasts incredible squad depth and recent World Cup pedigree, Spain's tactical cohesion and recent Euro 2024 victory make this a nearly even matchup.",
+        "market": "advance",
+        "fixture": "France vs Spain",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 6626,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760515": {
@@ -9368,6 +10854,20 @@
         "createdAt": "2026-07-14T20:33:35.222Z",
         "latencyMs": 21568,
         "eligible": true
+      },
+      "google/gemini-3.1-pro-preview": {
+        "probs": {
+          "home": 0.51,
+          "away": 0.49
+        },
+        "rationale": "England is given a razor-thin edge as their elite core of young talent will be in their absolute prime, while Argentina may be navigating a transitional phase as their veteran leaders age out.",
+        "market": "advance",
+        "fixture": "England vs Argentina",
+        "createdAt": "2026-07-17T15:22:26.244Z",
+        "latencyMs": 11366,
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760516": {
