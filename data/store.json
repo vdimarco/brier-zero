@@ -23860,6 +23860,71 @@
           "rationale": "Spain is given a slight edge due to their rapidly developing young core that won Euro 2024, whereas Argentina's key veterans from their 2022 triumph will be significantly older by 2026."
         }
       }
+    },
+    {
+      "at": "2026-07-18T12:04:02.677Z",
+      "teams": [
+        "Spain",
+        "Argentina"
+      ],
+      "models": {
+        "anthropic/claude-sonnet-4.5": {
+          "probs": {
+            "Spain": 0.48,
+            "Argentina": 0.52
+          },
+          "rationale": "Argentina has a slight edge due to their recent World Cup victory and experienced squad, but Spain's young talented team makes this essentially a toss-up."
+        },
+        "openai/gpt-5.1": {
+          "probs": {
+            "Spain": 0.52,
+            "Argentina": 0.48
+          },
+          "rationale": "Spain looks slightly stronger on current form and squad depth, but Argentina remains nearly as likely given recent tournament pedigree and Messi’s potential involvement."
+        },
+        "deepseek/deepseek-chat-v3.1": {
+          "probs": {
+            "Spain": 0.5,
+            "Argentina": 0.5
+          },
+          "rationale": "With only two elite teams remaining, the final is a near toss-up requiring a 50/50 split."
+        },
+        "moonshotai/kimi-k2-0905": {
+          "probs": {
+            "Spain": 0.55,
+            "Argentina": 0.45
+          },
+          "rationale": "Spain's deeper squad and recent form edge them slightly over Messi's still-dangerous Argentina."
+        },
+        "z-ai/glm-4.6": {
+          "probs": {
+            "Spain": 0.45,
+            "Argentina": 0.55
+          },
+          "rationale": "Argentina are the defending champions with a proven winning formula, while Spain's possession-based style and youth development make them strong contenders."
+        },
+        "qwen/qwen3-max": {
+          "probs": {
+            "Spain": 0.45,
+            "Argentina": 0.55
+          },
+          "rationale": "Argentina has a slight edge due to recent tournament success and strong squad depth, though Spain remains highly competitive."
+        },
+        "minimax/minimax-m2": {
+          "probs": {
+            "Spain": 0.45,
+            "Argentina": 0.55
+          },
+          "rationale": "Argentina's recent World Cup success and stronger squad give them a slight advantage over Spain."
+        },
+        "google/gemini-3.1-pro-preview": {
+          "probs": {
+            "Spain": 0.52,
+            "Argentina": 0.48
+          },
+          "rationale": "Spain's rapidly developing young core and recent Euro 2024 dominance give them a very slight edge over an elite but aging Argentine squad that may be transitioning away from its veteran stars by 2026."
+        }
+      }
     }
   ],
   "proofs": {
