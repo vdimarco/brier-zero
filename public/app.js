@@ -1632,6 +1632,47 @@ function renderTrophy(state) {
   if (chartWrap && history.length > 1) attachTrophyHover(chartWrap, history, contenders);
 }
 
+/* Podium: the current top three, front and centre in the hero band. Same
+   ranking rules as the leaderboard — backtest-only entrants and unscored
+   models don't medal. */
+function renderPodium(state) {
+  const el = $('#podium');
+  if (!el) return;
+  const isBacktestOnly = (r) => r.scored > 0 && r.retroScored === r.scored;
+  const top = state.leaderboard
+    .filter((r) => r.avgBrier != null && !isBacktestOnly(r))
+    .slice(0, 3);
+  if (top.length < 2) { el.innerHTML = ''; return; }
+  const PLACE_WORD = { 1: 'First', 2: 'Second', 3: 'Third' };
+  const slot = (r, place) => {
+    if (!r) {
+      // Fewer than three live-ranked models (backtest-only entrants don't
+      // medal): the step stands empty until the next match scores someone.
+      return `<div class="podium-slot podium-${place} podium-vacant" aria-label="${PLACE_WORD[place]} place: vacant">
+        <span class="podium-name">Up for grabs</span>
+        <span class="podium-brier">in the final</span>
+        <span class="podium-step" aria-hidden="true">${place}</span>
+      </div>`;
+    }
+    const icon = state.models.find((x) => x.id === r.model)?.icon;
+    return `<button class="podium-slot podium-${place}" data-model="${esc(r.model)}"
+      aria-label="${PLACE_WORD[place]} place: ${esc(r.label)}, average Brier ${r.avgBrier.toFixed(3)}. Open performance detail.">
+      ${place === 1 ? '<span class="podium-crown" aria-hidden="true">🏆</span>' : ''}
+      ${icon ? `<img class="podium-crest" src="${esc(icon)}" alt="" onerror="this.style.visibility='hidden'">` : ''}
+      <span class="podium-name">${esc(r.label)}</span>
+      <span class="podium-brier">${r.avgBrier.toFixed(3)}</span>
+      <span class="podium-step" aria-hidden="true">${place}</span>
+    </button>`;
+  };
+  el.innerHTML = `<div class="podium" role="group" aria-label="Current top three, by average Brier score">
+    ${slot(top[1], 2)}${slot(top[0], 1)}${slot(top[2], 3)}
+  </div>
+  <p class="podium-note">The leaderboard's top three · average Brier · lower is sharper</p>`;
+  for (const s of el.querySelectorAll('[data-model]')) {
+    s.addEventListener('click', () => { location.hash = `p/${encodeURIComponent(s.dataset.model)}`; });
+  }
+}
+
 /* Featured match: the live game, or the next kickoff, big and up front. */
 function renderFeatured(state) {
   const el = $('#featured');
@@ -1789,6 +1830,7 @@ async function refresh(force = false) {
         : 'Live scores only';
 
     lastState = state;
+    renderPodium(state);
     renderFeatured(state);
     renderTicker(state);
     renderTrophy(state);

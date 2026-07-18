@@ -163,6 +163,69 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
   .feat { gap: 10px; padding: 12px 14px; }
 }
 
+/* Podium: the leaderboard's top three, front and centre in the hero band. */
+#podium { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+.podium {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: end; gap: 12px;
+  max-width: 560px; margin: 0 auto;
+}
+.podium-slot {
+  display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+  gap: 3px; min-width: 0; width: 100%;
+  background: none; border: 0; padding: 0; cursor: pointer;
+  color: #ffffff; font-family: inherit;
+}
+.podium-slot:focus-visible { outline: 2px solid var(--kit-gold); outline-offset: 3px; border-radius: var(--radius-el); }
+.podium-crown { font-size: 22px; line-height: 1; margin-bottom: 2px; }
+.podium-crest { width: 34px; height: 40px; object-fit: contain; }
+.podium-1 .podium-crest { width: 42px; height: 49px; }
+.podium-name {
+  font-weight: 750; font-size: 14px; max-width: 100%;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.podium-1 .podium-name { font-size: 16px; }
+.podium-brier {
+  font-variant-numeric: tabular-nums; font-weight: 700; font-size: 13px;
+  color: rgba(255, 255, 255, 0.85);
+}
+.podium-1 .podium-brier { color: var(--kit-gold); font-size: 15px; }
+.podium-step {
+  width: 100%; margin-top: 7px;
+  display: flex; align-items: flex-start; justify-content: center;
+  font-weight: 800; font-size: 20px; padding-top: 6px;
+  border-radius: 10px 10px 0 0;
+  border: 1px solid rgba(255, 255, 255, 0.25); border-bottom: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.05));
+}
+.podium-1 .podium-step {
+  height: 74px; color: #241a02;
+  background: linear-gradient(180deg, var(--kit-gold), rgba(255, 215, 94, 0.55));
+  border-color: rgba(255, 215, 94, 0.7);
+}
+.podium-2 .podium-step { height: 52px; color: #ffffff; }
+.podium-3 .podium-step { height: 38px; color: rgba(255, 255, 255, 0.85); }
+.podium-vacant { cursor: default; }
+.podium-vacant .podium-name { color: rgba(255, 255, 255, 0.65); font-weight: 650; }
+.podium-vacant .podium-brier { color: rgba(255, 255, 255, 0.5); }
+.podium-vacant .podium-step {
+  border-style: dashed; background: none;
+  color: rgba(255, 255, 255, 0.45);
+}
+.podium-note {
+  text-align: center; color: rgba(255, 255, 255, 0.7);
+  font-size: 12.5px; margin: 10px 0 30px;
+}
+@media (max-width: 560px) {
+  #podium { padding: 0 16px; }
+  .podium { gap: 8px; }
+  .podium-crest { width: 28px; height: 33px; }
+  .podium-1 .podium-crest { width: 36px; height: 42px; }
+  .podium-name { font-size: 12.5px; }
+  .podium-1 .podium-name { font-size: 14px; }
+  .podium-note { margin-bottom: 24px; }
+}
+
 /* Live ticker: one broadcast strip under the pitch */
 .ticker {
   background: var(--ink); color: #f2f1ea;
