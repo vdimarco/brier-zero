@@ -24869,6 +24869,75 @@
             "rationale": "England lead by two goals with only a few minutes plus stoppage remaining, so an away win is overwhelmingly likely while France need two unanswered goals for a draw or three for a win."
           }
         }
+      },
+      {
+        "at": "2026-07-18T23:01:13.634Z",
+        "detail": "90'+6'",
+        "score": [
+          4,
+          5
+        ],
+        "events": 9,
+        "period": "STATUS_SECOND_HALF",
+        "market": "regulation",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.02,
+              "draw": 0.06,
+              "away": 0.92
+            },
+            "rationale": "England leads 5-4 deep into stoppage time; France just scored but would need another goal in seconds to draw."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.02,
+              "draw": 0.95,
+              "away": 0.03
+            },
+            "rationale": "At 90'+6' immediately after France's equalizer, there is almost no time left, making a full-time draw overwhelmingly likely with only a tiny chance of a late winner for either side."
+          },
+          "moonshotai/kimi-k3": {
+            "probs": {
+              "home": 0,
+              "draw": 0.06,
+              "away": 0.94
+            },
+            "rationale": "England leads 5-4 deep into stoppage time with only moments left, so France can at best hope for a last-gasp equalizer, which is unlikely even given their second-half surge."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0.01,
+              "draw": 0.02,
+              "away": 0.97
+            },
+            "rationale": "With the match at 90'+6' and England leading 5-4, only seconds remain and France has virtually no time to mount another equalizing attack."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.001,
+              "draw": 0.029,
+              "away": 0.97
+            },
+            "rationale": "At 90'+6' with England leading 5-4, the final whistle is imminent and France would need at least one more goal from the ensuing kickoff in the dying seconds to force a draw, making an England win overwhelmingly likely."
+          },
+          "google/gemini-3.1-pro-preview": {
+            "probs": {
+              "home": 0,
+              "draw": 0.02,
+              "away": 0.98
+            },
+            "rationale": "With England leading 5-4 at 90'+6' after a late French goal, there is scarcely enough time remaining for France to mount another attack and equalize."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0.01,
+              "draw": 0.04,
+              "away": 0.95
+            },
+            "rationale": "At 90'+6' with England leading 5-4 just after France's goal, virtually no time remains for further scores so England are overwhelming favorites to hold on for the win."
+          }
+        }
       }
     ]
   },
