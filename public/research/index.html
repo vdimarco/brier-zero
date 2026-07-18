@@ -73,7 +73,11 @@ p{max-width:64ch}
 .legend{display:flex;gap:14px;font:600 11px/1 var(--mono);letter-spacing:.05em;color:var(--faint);padding:10px 12px 4px;text-transform:uppercase}
 .legend i{width:10px;height:10px;border-radius:2px;display:inline-block;margin-right:5px;vertical-align:middle}
 
-.row{display:grid;grid-template-columns:150px 1fr 56px 62px;align-items:center;gap:12px;padding:11px 12px;border-radius:9px}
+.row{display:grid;grid-template-columns:150px minmax(0,1fr) 56px 62px;align-items:center;gap:12px;padding:11px 12px;border-radius:9px;min-width:0}
+@media(max-width:400px){
+  .row{grid-template-columns:108px minmax(0,1fr) 44px 54px;gap:8px}
+  .chip{font-size:9.5px;padding:3px 5px}
+}
 .row+.row{border-top:1px solid var(--hairline)}
 .row.lead{background:linear-gradient(0deg,rgba(227,179,65,.10),rgba(227,179,65,.10))}
 .who{display:flex;align-items:center;gap:9px;min-width:0}
@@ -131,7 +135,7 @@ p{max-width:64ch}
 .kicker p{color:#c9c8c0;max-width:60ch}
 .kicker .rule{font:600 12px/1.5 var(--mono);color:#9d9c93;margin-top:16px;border-top:1px solid #2c2c26;padding-top:14px}
 .foot{font:500 12.5px/1.6 var(--mono);color:var(--faint);margin-top:26px;text-align:center}
-.backlink{display:inline-block;margin:26px 0 -8px;font:600 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--pitch);text-decoration:none}
+.backlink{display:inline-block;margin:12px 0 -22px;padding:14px 0;font:600 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--pitch);text-decoration:none}
 .backlink:hover{text-decoration:underline}
 
 /* Lab-grouped knockout standings (expandable) */

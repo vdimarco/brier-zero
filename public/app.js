@@ -329,9 +329,9 @@ function matchCard(match, state) {
       const inMarket = withProbs.filter((p) => predMarket(p) === market).length;
       const advTag = market === 'advance' ? ' to advance' : '';
       outcomeHead = `<div class="outcome-head" title="Consensus of ${inMarket} model forecasts">
-        ${outs.map((o) => `<span class="ol"><i class="swatch swatch-${o}"></i>${
+        ${outs.map((o) => `<span class="ol"><i class="swatch swatch-${o}"></i><span class="ol-label">${
           o === 'draw' ? 'Draw' : `${esc(match[o].name)}${advTag}`
-        } <b>${pct(consensus[o])}%</b></span>`).join('\n        ')}
+        }</span> <b>${pct(consensus[o])}%</b></span>`).join('\n        ')}
       </div>`;
       const consensusPred = {
         probs: consensus,
