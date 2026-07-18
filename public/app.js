@@ -53,12 +53,37 @@ function fmtSkill(s) {
    switches every panel at once (leaderboard, podium, chart, match
    cards, ticker, detail). */
 let viewMode = 'lab';
-try { if (localStorage.getItem('brierView') === 'model') viewMode = 'model'; } catch { /* private mode */ }
+// Session-only persistence: a toggle sticks while browsing, but every
+// fresh visit starts on the by-lab view.
+try { if (sessionStorage.getItem('brierView') === 'model') viewMode = 'model'; } catch { /* private mode */ }
 function setViewMode(mode) {
   if (mode === viewMode) return;
   viewMode = mode;
-  try { localStorage.setItem('brierView', mode); } catch { /* private mode */ }
+  try { sessionStorage.setItem('brierView', mode); } catch { /* private mode */ }
   if (lastState) renderAll(lastState);
+}
+/* The segmented By lab / By model control. Rendered both at the top of
+   the page (The competitors) and above the leaderboard; clicks are
+   delegated document-wide so every instance works. */
+function viewToggleHtml(state) {
+  if (!state.leaderboardByLab) return '';
+  return `<div class="lb-view" role="group" aria-label="Leaderboard view">
+    <button class="lb-view-btn${viewMode === 'lab' ? ' active' : ''}" data-view="lab" aria-pressed="${viewMode === 'lab'}" title="One continuous record per lab — a substituted model's history carries over">By lab</button>
+    <button class="lb-view-btn${viewMode === 'model' ? ' active' : ''}" data-view="model" aria-pressed="${viewMode === 'model'}" title="Every model separately — substituted models keep their own records">By model</button>
+    <span class="lb-view-hint">${viewMode === 'lab'
+      ? 'One record per lab: when a lab substituted its newest model before the final, the line carries on.'
+      : 'Every entrant separately: substituted models keep their own full records.'}</span>
+  </div>`;
+}
+if (typeof document !== 'undefined') {
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest?.('.lb-view-btn');
+    if (btn) {
+      e.preventDefault();
+      e.stopPropagation();
+      setViewMode(btn.dataset.view);
+    }
+  }, true);
 }
 function boardOf(state) {
   return viewMode === 'lab' && state.leaderboardByLab ? state.leaderboardByLab : state.leaderboard;
@@ -821,17 +846,34 @@ function collectiveMiss(state) {
   };
 }
 
+/* The view toggle at the top of the page, in The Competitors section. */
+function renderViewToggle(state) {
+  const el = $('#view-toggle');
+  if (el) el.innerHTML = viewToggleHtml(state);
+}
+
+// Chips follow the active view (labs by default) and click through to the
+// competitor's performance detail; The Market's label keeps its sourcing
+// modal, so a tap on the label opens sourcing, elsewhere opens detail.
 function renderRoster(state) {
   const el = $('#roster');
-  if (!el || !Array.isArray(state.models)) return;
-  el.innerHTML = state.models.map((m) => {
+  if (!el) return;
+  el.innerHTML = displayEntrants(state).map((m) => {
     const crest = m.icon
       ? `<img class="crest" src="${esc(m.icon)}" alt="" onerror="this.style.visibility='hidden'">`
       : '';
     const title = m.id === MARKET_ID ? ` title="The betting market itself: ${MARKET_ATTRIBUTION}"` : '';
     const label = m.id === MARKET_ID ? marketLabel(`<span>${esc(m.label)}</span>`) : `<span>${esc(m.label)}</span>`;
-    return `<span class="roster-chip"${title}>${crest}${label}</span>`;
+    return `<button class="roster-chip" data-model="${esc(m.id)}"${title} aria-label="Open performance detail for ${esc(m.label)}">${crest}${label}</button>`;
   }).join('');
+  for (const chip of el.querySelectorAll('[data-model]')) {
+    chip.addEventListener('click', (e) => {
+      // The market-tip inside the chip opens the sourcing modal instead
+      // (its capture-phase handler runs first and stops propagation).
+      if (e.target.closest('.market-tip')) return;
+      location.hash = `p/${encodeURIComponent(chip.dataset.model)}`;
+    });
+  }
 }
 
 function renderLeaderboard(state) {
@@ -846,14 +888,7 @@ function renderLeaderboard(state) {
   el.classList.remove('skeleton-block');
   const koChart = leaderboardChart(state);
   const miss = collectiveMiss(state);
-  const viewToggle = state.leaderboardByLab ? `<div class="lb-view" role="group" aria-label="Leaderboard view">
-    <button class="lb-view-btn${viewMode === 'lab' ? ' active' : ''}" data-view="lab" aria-pressed="${viewMode === 'lab'}" title="One continuous record per lab — a substituted model's history carries over">By lab</button>
-    <button class="lb-view-btn${viewMode === 'model' ? ' active' : ''}" data-view="model" aria-pressed="${viewMode === 'model'}" title="Every model separately — substituted models keep their own records">By model</button>
-    <span class="lb-view-hint">${viewMode === 'lab'
-      ? 'One record per lab: when a lab substituted its newest model before the final, the line carries on.'
-      : 'Every entrant separately: substituted models keep their own full records.'}</span>
-  </div>` : '';
-  el.innerHTML = `${viewToggle}${miss ? `<button class="lb-miss" data-go="m/${esc(miss.id)}" aria-label="Open ${esc(miss.advanced)} versus ${esc(miss.favored)} detail">
+  el.innerHTML = `${viewToggleHtml(state)}${miss ? `<button class="lb-miss" data-go="m/${esc(miss.id)}" aria-label="Open ${esc(miss.advanced)} versus ${esc(miss.favored)} detail">
     <span class="lb-miss-tag">Nobody saw it coming</span>
     <span class="lb-miss-body">All ${miss.count} models backed <b>${esc(miss.favored)}</b>, but <b>${esc(miss.advanced)}</b> went through ${esc(miss.score)} in the ${esc(miss.stage)}. The field gave ${esc(miss.advanced)} an average of just <b>${pct(miss.avgPct)}%</b> to advance.</span>
   </button>` : ''}${koChart ? `<div class="lb-chart-card">
@@ -894,9 +929,6 @@ function renderLeaderboard(state) {
     }).join('');
   })()}</div><p class="footnote">Ranked by <b>shrunken skill vs the coin flip</b>: each match scores (baseline − Brier) ÷ baseline, and every entrant carries ten phantom coin-flip matches. A newcomer starts neutral and earns rank as real matches accumulate — a hot two-match sample can't leapfrog a hundred-match record. Average Brier stays the headline number.</p>`;
   wireBrierTips(el);
-  for (const btn of el.querySelectorAll('.lb-view-btn')) {
-    btn.addEventListener('click', (e) => { e.stopPropagation(); setViewMode(btn.dataset.view); });
-  }
   for (const row of el.querySelectorAll('[data-model]')) {
     const open = () => { location.hash = `p/${encodeURIComponent(row.dataset.model)}`; };
     row.addEventListener('click', (e) => {
@@ -1944,6 +1976,7 @@ function renderAll(state) {
   renderTicker(state);
   renderTrophy(state);
   renderBanner(state);
+  renderViewToggle(state);
   renderRoster(state);
   renderLeaderboard(state);
   renderMatches(state);
