@@ -6,27 +6,42 @@ import { fetchMatches } from '../lib/espn.js';
 import { backfillMatches, predictorReady, loadModels } from '../lib/predictor.js';
 import { getPredictions } from '../lib/store.js';
 
-if (!predictorReady()) {
-  console.error('Set OPENROUTER_API_KEY (or DEMO_MODE=1) first.');
-  process.exit(1);
+export function parseOnly(argv, models) {
+  const i = argv.indexOf('--only');
+  if (i === -1) return models;
+  const id = argv[i + 1];
+  const picked = models.filter((m) => m.id === id);
+  if (!picked.length) {
+    throw new Error(
+      `--only ${id}: not in the roster. Ids: ${models.map((m) => m.id).join(', ')}`
+    );
+  }
+  return picked;
 }
-const preds = await getPredictions();
-const models = loadModels();
-// Any finished match where at least one model has no stored forecast.
-const targets = (await fetchMatches()).filter(
-  (m) =>
-    m.status.state === 'post' &&
-    !m.teamsTbd &&
-    models.some((mod) => !preds[m.id]?.[mod.id]?.probs)
-);
-if (!targets.length) {
-  console.log('Nothing to backfill.');
-  process.exit(0);
-}
-console.log(`Backfilling ${targets.length} matches × ${loadModels().length} models...`);
-for (const r of await backfillMatches(targets)) {
-  const ok = r.models.filter((m) => m.status === 'ok').length;
-  const errs = r.models.filter((m) => m.status === 'error');
-  console.log(`  ${r.shortName}: ${ok} collected, ${errs.length} errors`);
-  for (const e of errs) console.log(`    ! ${e.error}`);
+
+if (import.meta.url === `file://${process.argv[1]}`) {
+  if (!predictorReady()) {
+    console.error('Set OPENROUTER_API_KEY (or DEMO_MODE=1) first.');
+    process.exit(1);
+  }
+  const preds = await getPredictions();
+  const models = parseOnly(process.argv.slice(2), loadModels());
+  // Any finished match where at least one model has no stored forecast.
+  const targets = (await fetchMatches()).filter(
+    (m) =>
+      m.status.state === 'post' &&
+      !m.teamsTbd &&
+      models.some((mod) => !preds[m.id]?.[mod.id]?.probs)
+  );
+  if (!targets.length) {
+    console.log('Nothing to backfill.');
+    process.exit(0);
+  }
+  console.log(`Backfilling ${targets.length} matches × ${models.length} models...`);
+  for (const r of await backfillMatches(targets, models)) {
+    const ok = r.models.filter((m) => m.status === 'ok').length;
+    const errs = r.models.filter((m) => m.status === 'error');
+    console.log(`  ${r.shortName}: ${ok} collected, ${errs.length} errors`);
+    for (const e of errs) console.log(`    ! ${e.error}`);
+  }
 }
