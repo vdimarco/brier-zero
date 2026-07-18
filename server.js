@@ -2,12 +2,12 @@ import express from 'express';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { fetchMatches, periodRank, txoddsStatus } from './lib/feed.js';
-import { leaderboard, predictionMarket } from './lib/scoring.js';
+import { leaderboard, labLeaderboard, predictionMarket } from './lib/scoring.js';
 import { getPredictions, getSnapshots, getOutright, getProofs } from './lib/store.js';
 import { dbEnabled, dbTryLock } from './lib/db.js';
 import {
-  loadModels, predictMatches, predictorReady, buildPrompt, buildLivePrompt,
-  snapshotMatches, collectOutright,
+  loadModels, loadEntrants, predictMatches, predictorReady, buildPrompt,
+  buildLivePrompt, snapshotMatches, collectOutright,
 } from './lib/predictor.js';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
@@ -21,6 +21,9 @@ app.use('/data', express.static(path.join(root, 'data'), {
 }));
 
 const models = loadModels();
+// Active roster + retired entrants: only `models` collect new forecasts,
+// but scoring and display cover everyone who ever priced a match.
+const entrants = loadEntrants();
 
 // Transparency: the exact prompt templates, rendered from the same code
 // that builds the real prompts, so the page can never drift from reality.
@@ -64,6 +67,7 @@ app.get('/api/state', async (req, res) => {
       demoMode: process.env.DEMO_MODE === '1',
       txodds: txoddsStatus(),
       models,
+      entrants,
       prompts: promptTemplates,
       outright,
       proofs,
@@ -72,7 +76,8 @@ app.get('/api/state', async (req, res) => {
         predictions: predictions[m.id] ?? {},
         snapshots: snapshots[m.id] ?? [],
       })),
-      leaderboard: leaderboard(all, predictions, models),
+      leaderboard: leaderboard(all, predictions, entrants),
+      leaderboardByLab: labLeaderboard(all, predictions, entrants),
     });
     // Self-collection: with a database and a key, any visit keeps the
     // ledger current. Database locks bound the spend no matter how many

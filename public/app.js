@@ -26,6 +26,87 @@ function marketLabel(inner) {
   return `<span class="market-tip" tabindex="0" role="button" aria-haspopup="dialog" aria-label="What is The Market and where do its numbers come from?">${inner}<span class="market-tip-mark" aria-hidden="true">?</span></span>`;
 }
 
+/* Everyone who ever competed: the active roster plus retired entrants
+   (models substituted out mid-tournament, e.g. swapped for their lab's
+   newest release before the final). Display and scoring lookups go
+   through this so historical forecasts never disappear from the page. */
+function entrantsOf(state) {
+  return state.entrants ?? state.models ?? [];
+}
+function entrantById(state, id) {
+  return entrantsOf(state).find((m) => m.id === id);
+}
+/* Ranking runs on shrunken skill vs the coin flip (see lib/scoring.js):
+   every entrant carries ten phantom coin-flip matches, so newcomers
+   start neutral and rise with evidence instead of being gated. Average
+   Brier stays the headline number; avgSkill is its human-readable
+   difficulty-adjusted companion. */
+function fmtSkill(s) {
+  if (s == null) return '-';
+  const v = (Math.abs(s) * 100).toFixed(1);
+  return `${s < 0 ? '−' : '+'}${v}%`;
+}
+
+/* Page-wide view: 'lab' (default) folds each lab's entrants — across
+   mid-tournament substitutions — into one continuous record; 'model'
+   shows every entrant separately. The toggle in the leaderboard header
+   switches every panel at once (leaderboard, podium, chart, match
+   cards, ticker, detail). */
+let viewMode = 'lab';
+try { if (localStorage.getItem('brierView') === 'model') viewMode = 'model'; } catch { /* private mode */ }
+function setViewMode(mode) {
+  if (mode === viewMode) return;
+  viewMode = mode;
+  try { localStorage.setItem('brierView', mode); } catch { /* private mode */ }
+  if (lastState) renderAll(lastState);
+}
+function boardOf(state) {
+  return viewMode === 'lab' && state.leaderboardByLab ? state.leaderboardByLab : state.leaderboard;
+}
+/* Labs derived from the entrants list: one display entry per lab, with
+   `members` (active first — the config order) for forecast lookups. */
+function labsOf(state) {
+  const labs = new Map();
+  for (const m of entrantsOf(state)) {
+    const key = m.lab ?? m.id;
+    let lab = labs.get(key);
+    if (!lab) {
+      lab = { id: key, label: m.labLabel ?? m.label ?? key, icon: m.icon ?? null, members: [] };
+      labs.set(key, lab);
+    }
+    if (m.labLabel) lab.label = m.labLabel;
+    lab.icon ??= m.icon ?? null;
+    lab.members.push(m);
+  }
+  return [...labs.values()];
+}
+function displayEntrants(state) {
+  return viewMode === 'lab' ? labsOf(state) : entrantsOf(state);
+}
+/* The forecast a display entrant holds on a match: its own row in model
+   view; in lab view the lab's official entry — a live-locked forecast
+   beats a retro reconstruction, then the active member beats a retired
+   one (mirrors labLeaderboard in lib/scoring.js). */
+function predOf(match, ent) {
+  if (!ent.members) return match.predictions[ent.id];
+  let pick = null;
+  let pickScore = Infinity;
+  for (const member of ent.members) {
+    const p = match.predictions[member.id];
+    if (!p) continue;
+    const score = (p.retro ? 2 : 0) + (member.retired ? 1 : 0);
+    if (score < pickScore) {
+      pick = p;
+      pickScore = score;
+    }
+  }
+  return pick;
+}
+/* The lineage line under a lab row: retired → active, oldest first. */
+function memberChain(row) {
+  return row.members && row.members.length > 1 ? [...row.members].reverse().join(' → ') : null;
+}
+
 const fmtKickoff = new Intl.DateTimeFormat(undefined, {
   weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit',
 });
@@ -243,7 +324,7 @@ function toast(msg) {
 async function shareMatch(match) {
   const url = shareLink(`m/${match.id}`);
   const title = `${match.home.name} vs ${match.away.name} · The Brier Cup`;
-  const text = `${match.home.name} vs ${match.away.name} — watch eight AI models and the betting market forecast this ${match.stage} match, live.`;
+  const text = `${match.home.name} vs ${match.away.name} — watch frontier AI models and the betting market forecast this ${match.stage} match, live.`;
   if (navigator.share) {
     try { await navigator.share({ title, text, url }); return; }
     catch (e) { if (e.name === 'AbortError') return; }
@@ -333,8 +414,8 @@ function matchCard(match, state) {
   // forecast on a knockout match scores against the regulation outcome.
   const preds = {};
   let bestBrier = null;
-  for (const m of state.models) {
-    const p = match.predictions[m.id];
+  for (const m of displayEntrants(state)) {
+    const p = predOf(match, m);
     if (!p) continue;
     const copy = { ...p };
     const b = predBrier(p, match);
@@ -384,7 +465,7 @@ function matchCard(match, state) {
     body = `<div class="forecasts">
       ${outcomeHead}
       ${isOpen
-        ? rankModels(state.models, preds, match, market).map((m) => forecastRow(m, preds[m.id], match, bestBrier)).join('')
+        ? rankModels(displayEntrants(state), preds, match, market).map((m) => forecastRow(m, preds[m.id], match, bestBrier)).join('')
         : collapsed}
       <button class="toggle-models" data-toggle="${esc(match.id)}" aria-expanded="${isOpen}">
         ${isOpen ? 'Hide models' : `Compare ${Object.keys(preds).length} models`}
@@ -397,7 +478,7 @@ function matchCard(match, state) {
   } else if (match.status.state === 'pre') {
     const disabled = !state.predictorReady || collecting;
     const hint = state.predictorReady
-      ? 'Ask every competitor — eight AI models and the market — for probabilities now.'
+      ? 'Ask every competitor — the AI field and the market — for probabilities now.'
       : 'Set OPENROUTER_API_KEY on the server to enable forecasting.';
     body = `<div class="forecasts"><div class="fnote">No forecasts collected yet.</div>
       <button class="collect" data-match="${esc(match.id)}" ${disabled ? 'disabled' : ''} title="${esc(hint)}">
@@ -475,10 +556,13 @@ const LB_GEO = { W: 760, H: 360, padL: 48, padR: 108, padT: 28, padB: 58 };
 let lbDismiss = null; // the current dismiss-on-outside-tap listener
 
 /* The knockout-phase series shared by the chart renderer and its hover
-   handler: each model's running-average Brier match by match, plus the
-   per-match coin-flip baseline. Points sit at a match's true
-   chronological slot even when a model is missing one, so lines stay
-   comparable instead of drifting out of alignment. */
+   handler: each entrant's shrunken running skill vs the coin flip, match
+   by match. Skill normalizes match difficulty (an easy rout no longer
+   flatters everyone) and the ten-phantom-match shrinkage anchors every
+   line at zero, so the old small-sample dip at the start is gone. Points
+   sit at a match's true chronological slot even when a model is missing
+   one, so lines stay comparable instead of drifting out of alignment. */
+const CHART_SHRINK = 10;
 function leaderboardSeries(state) {
   const koMatches = state.matches
     .filter((m) => m.market === 'advance' && m.status.state === 'post')
@@ -486,30 +570,26 @@ function leaderboardSeries(state) {
   if (koMatches.length < 2) return null;
   const n = koMatches.length;
   const indexOf = new Map(koMatches.map((m, i) => [m.id, i]));
-  // The baseline a match scored against depends on which market its
-  // forecast priced (0.667 three-way before the switch, 0.5 two-way
-  // after); same for every model, so the first seen fills each slot.
-  const baselineAt = new Array(n).fill(null);
-  const series = state.models.map((m, i) => {
-    const row = state.leaderboard.find((r) => r.model === m.id);
-    const byMatch = new Map((row?.perMatch ?? []).map((p) => [p.matchId, p]));
-    let cum = 0, count = 0;
+  const series = boardOf(state).map((row, i) => {
+    const byMatch = new Map((row.perMatch ?? []).map((p) => [p.matchId, p]));
+    let skillSum = 0, count = 0;
     const points = [];
     for (const km of koMatches) {
       const p = byMatch.get(km.id);
       if (!p) continue;
       const idx = indexOf.get(km.id);
-      if (baselineAt[idx] == null && p.baseline != null) baselineAt[idx] = p.baseline;
-      cum += p.brier;
+      skillSum += (p.baseline - p.brier) / p.baseline;
       count++;
-      points.push({ idx, cum: cum / count, brier: p.brier, shortName: km.shortName });
+      points.push({ idx, cum: skillSum / (count + CHART_SHRINK), brier: p.brier, shortName: km.shortName });
     }
     if (points.length < 2) return null;
-    return { model: m.id, label: m.label, color: MODEL_COLORS[i % MODEL_COLORS.length], points };
+    return { model: row.model, label: row.label, color: MODEL_COLORS[i % MODEL_COLORS.length], points };
   }).filter(Boolean);
   if (!series.length) return null;
-  const yMax = Math.max(0.6, ...series.flatMap((s) => s.points.map((p) => p.cum))) * 1.1;
-  return { koMatches, n, series, baselineAt, yMax };
+  const cums = series.flatMap((s) => s.points.map((p) => p.cum));
+  const yMax = Math.max(0.1, ...cums) * 1.15;
+  const yMin = Math.min(0, ...cums) - 0.015;
+  return { koMatches, n, series, yMax, yMin };
 }
 
 /* Combined view of every model's knockout-phase form. The group stage is
@@ -518,22 +598,22 @@ function leaderboardSeries(state) {
 function leaderboardChart(state) {
   const data = leaderboardSeries(state);
   if (!data) return null;
-  const { koMatches, n, series, baselineAt, yMax } = data;
+  const { koMatches, n, series, yMax, yMin } = data;
   const { W, H, padL, padR, padT, padB } = LB_GEO;
   const plotW = W - padL - padR;
   const plotH = H - padT - padB;
   const x = (i) => (n === 1 ? padL : padL + (i * plotW) / (n - 1));
-  const y = (v) => padT + (1 - v / yMax) * plotH;
+  const y = (v) => padT + (1 - (v - yMin) / (yMax - yMin)) * plotH;
   const step = n > 12 ? Math.ceil(n / 8) : Math.max(1, Math.ceil(n / 10));
 
-  // Leader = lowest final running average (sharpest). Emphasize it; fade the rest.
+  // Leader = highest final shrunken skill (sharpest). Emphasize it; fade the rest.
   const ranked = series
     .map((s) => ({ s, final: s.points[s.points.length - 1].cum }))
-    .sort((a, b) => a.final - b.final);
+    .sort((a, b) => b.final - a.final);
   const leaderId = ranked[0]?.s.model;
   const isLeader = (s) => s.model === leaderId;
 
-  let svg = `<svg class="lb-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Running average Brier score for every model over the knockout phase">`;
+  let svg = `<svg class="lb-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Shrunken running skill versus the coin flip for every model over the knockout phase">`;
   svg += `<defs>
     <linearGradient id="lb-plot-bg" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#f7f8f4"/>
@@ -552,39 +632,23 @@ function leaderboardChart(state) {
 
   // Soft plot panel
   svg += `<rect x="${padL}" y="${padT}" width="${plotW}" height="${plotH}" rx="12" fill="url(#lb-plot-bg)"/>`;
-  // Lower Brier is better — a gentle green wash along the bottom.
-  svg += `<rect x="${padL}" y="${padT + plotH * 0.45}" width="${plotW}" height="${plotH * 0.55}" rx="0" fill="url(#lb-good-zone)"/>`;
-  // Clip bottom corners of the wash to the panel
+  // Higher skill is better — a gentle green wash along the top.
+  svg += `<rect x="${padL}" y="${padT}" width="${plotW}" height="${plotH * 0.55}" rx="0" fill="url(#lb-good-zone)" transform="translate(0 ${(2 * padT + plotH * 0.55).toFixed(1)}) scale(1 -1)"/>`;
   svg += `<rect x="${padL}" y="${padT}" width="${plotW}" height="${plotH}" rx="12" fill="none" stroke="rgba(23,46,22,0.06)" stroke-width="1"/>`;
 
-  // Horizontal guides
-  for (const g of [0, yMax / 2, yMax]) {
+  // Horizontal guides — 0 is the coin flip itself.
+  for (const g of [0, yMax / 2, yMax / 1.15]) {
     const gy = y(g);
     const isBase = g === 0;
-    svg += `<line x1="${padL}" y1="${gy.toFixed(1)}" x2="${W - padR}" y2="${gy.toFixed(1)}" stroke="${isBase ? 'rgba(23,46,22,0.14)' : 'rgba(23,46,22,0.07)'}" stroke-width="${isBase ? 1.25 : 1}" stroke-dasharray="${isBase ? '0' : '2 5'}"/>`;
-    svg += `<text x="${padL - 10}" y="${gy.toFixed(1)}" dy="3.5" text-anchor="end" font-size="11" font-weight="600" fill="var(--ink-3)">${g.toFixed(2)}</text>`;
+    svg += `<line x1="${padL}" y1="${gy.toFixed(1)}" x2="${W - padR}" y2="${gy.toFixed(1)}" stroke="${isBase ? 'rgba(82,81,78,0.55)' : 'rgba(23,46,22,0.07)'}" stroke-width="${isBase ? 1.5 : 1}" stroke-dasharray="${isBase ? '5 4' : '2 5'}"/>`;
+    svg += `<text x="${padL - 10}" y="${gy.toFixed(1)}" dy="3.5" text-anchor="end" font-size="11" font-weight="600" fill="var(--ink-3)">${isBase ? '0%' : `+${Math.round(g * 100)}%`}</text>`;
   }
-  svg += `<text x="12" y="${(padT + plotH / 2).toFixed(1)}" text-anchor="middle" font-size="10" font-weight="700" fill="var(--ink-3)" transform="rotate(-90 12 ${(padT + plotH / 2).toFixed(1)})" letter-spacing="0.04em">BRIER ↓ BETTER</text>`;
+  svg += `<text x="12" y="${(padT + plotH / 2).toFixed(1)}" text-anchor="middle" font-size="10" font-weight="700" fill="var(--ink-3)" transform="rotate(-90 12 ${(padT + plotH / 2).toFixed(1)})" letter-spacing="0.04em">SKILL ↑ BETTER</text>`;
 
-  // Coin-flip baseline (steps when the market switch lands)
-  const knownBaselines = koMatches.map((_, i) => i).filter((i) => baselineAt[i] != null);
-  if (knownBaselines.length) {
-    let basePath = '';
-    let prevIdx = null;
-    for (const i of knownBaselines) {
-      const by = y(baselineAt[i]).toFixed(1);
-      const xi = x(i).toFixed(1);
-      if (prevIdx == null) basePath += `M${xi},${by}`;
-      else {
-        // Step horizontally then drop/rise so the switch is visible as a cliff.
-        basePath += `L${xi},${y(baselineAt[prevIdx]).toFixed(1)}L${xi},${by}`;
-      }
-      prevIdx = i;
-    }
-    svg += `<path d="${basePath}" fill="none" stroke="rgba(82,81,78,0.55)" stroke-width="1.5" stroke-dasharray="5 4" stroke-linecap="round"/>`;
-    const lastI = knownBaselines[knownBaselines.length - 1];
-    const lx = x(lastI) - 8;
-    const ly = y(baselineAt[lastI]) - 10;
+  // Coin-flip label pill on the zero line
+  {
+    const lx = W - padR - 8;
+    const ly = y(0) - 10;
     svg += `<rect x="${(lx - 52).toFixed(1)}" y="${(ly - 11).toFixed(1)}" width="56" height="16" rx="8" fill="rgba(255,255,255,0.92)" stroke="rgba(23,46,22,0.08)"/>`;
     svg += `<text x="${(lx - 24).toFixed(1)}" y="${ly.toFixed(1)}" dy="3.5" text-anchor="middle" font-size="9.5" font-weight="700" fill="var(--ink-3)" letter-spacing="0.02em">coin flip</text>`;
   }
@@ -604,7 +668,7 @@ function leaderboardChart(state) {
     const first = s.points[0];
     for (const p of [first, last]) {
       svg += `<circle cx="${x(p.idx).toFixed(1)}" cy="${y(p.cum).toFixed(1)}" r="${leader ? 4 : 3}" fill="${s.color}" stroke="#fff" stroke-width="1.6">` +
-        `<title>${esc(s.label)} after ${esc(p.shortName)}: ${p.cum.toFixed(3)}</title></circle>`;
+        `<title>${esc(s.label)} after ${esc(p.shortName)}: ${fmtSkill(p.cum)} vs coin flip</title></circle>`;
     }
   }
 
@@ -670,7 +734,7 @@ function attachLeaderboardHover(wrap, state) {
       let cur = null;
       for (const p of s.points) { if (p.idx <= i) cur = p; else break; }
       return cur ? { label: s.label, color: s.color, v: cur.cum } : null;
-    }).filter(Boolean).sort((a, b) => a.v - b.v);
+    }).filter(Boolean).sort((a, b) => b.v - a.v);
     return { label: km.shortName, rows };
   });
 
@@ -691,7 +755,7 @@ function attachLeaderboardHover(wrap, state) {
     const gx = xAt(i);
     cross.setAttribute('x1', gx); cross.setAttribute('x2', gx); cross.setAttribute('opacity', '1');
     tip.innerHTML = `<div class="tt-head">After ${esc(col.label)}</div>` +
-      col.rows.map((r) => `<div class="tt-row"><span class="tt-sw" style="background:${r.color}"></span><span class="tt-team">${esc(r.label)}</span><b>${r.v.toFixed(3)}</b></div>`).join('');
+      col.rows.map((r) => `<div class="tt-row"><span class="tt-sw" style="background:${r.color}"></span><span class="tt-team">${esc(r.label)}</span><b>${fmtSkill(r.v)}</b></div>`).join('');
     tip.hidden = false;
     const wrapRect = wrap.getBoundingClientRect();
     const svgRect = svg.getBoundingClientRect();
@@ -732,7 +796,9 @@ function collectiveMiss(state) {
     if (m.market !== 'advance' || m.status.state !== 'post') continue;
     const outcome = m.outcomes ? m.outcomes.advance : m.outcome;
     if (outcome !== 'home' && outcome !== 'away') continue;
-    const eligible = Object.values(m.predictions ?? {}).filter((p) => p.eligible && p.probs);
+    const eligible = displayEntrants(state)
+      .map((e) => predOf(m, e))
+      .filter((p) => p && p.eligible && p.probs);
     if (eligible.length < 5) continue;
     const aps = eligible.map((p) => advancerProb(p, outcome));
     if (!aps.every((v) => v < 0.5)) continue; // not a unanimous miss
@@ -767,7 +833,8 @@ function renderRoster(state) {
 
 function renderLeaderboard(state) {
   const el = $('#leaderboard');
-  const scored = state.leaderboard.filter((r) => r.scored > 0);
+  const board = boardOf(state);
+  const scored = board.filter((r) => r.scored > 0);
   if (!scored.length) {
     el.classList.remove('skeleton-block');
     el.innerHTML = `<div class="empty">No scored matches yet. The table fills in as soon as a match with locked forecasts finishes.</div>`;
@@ -776,22 +843,27 @@ function renderLeaderboard(state) {
   el.classList.remove('skeleton-block');
   const koChart = leaderboardChart(state);
   const miss = collectiveMiss(state);
-  el.innerHTML = `${miss ? `<button class="lb-miss" data-go="m/${esc(miss.id)}" aria-label="Open ${esc(miss.advanced)} versus ${esc(miss.favored)} detail">
+  const viewToggle = state.leaderboardByLab ? `<div class="lb-view" role="group" aria-label="Leaderboard view">
+    <button class="lb-view-btn${viewMode === 'lab' ? ' active' : ''}" data-view="lab" aria-pressed="${viewMode === 'lab'}" title="One continuous record per lab — a substituted model's history carries over">By lab</button>
+    <button class="lb-view-btn${viewMode === 'model' ? ' active' : ''}" data-view="model" aria-pressed="${viewMode === 'model'}" title="Every model separately — substituted models keep their own records">By model</button>
+    <span class="lb-view-hint">${viewMode === 'lab'
+      ? 'One record per lab: when a lab substituted its newest model before the final, the line carries on.'
+      : 'Every entrant separately: substituted models keep their own full records.'}</span>
+  </div>` : '';
+  el.innerHTML = `${viewToggle}${miss ? `<button class="lb-miss" data-go="m/${esc(miss.id)}" aria-label="Open ${esc(miss.advanced)} versus ${esc(miss.favored)} detail">
     <span class="lb-miss-tag">Nobody saw it coming</span>
     <span class="lb-miss-body">All ${miss.count} models backed <b>${esc(miss.favored)}</b>, but <b>${esc(miss.advanced)}</b> went through ${esc(miss.score)} in the ${esc(miss.stage)}. The field gave ${esc(miss.advanced)} an average of just <b>${pct(miss.avgPct)}%</b> to advance.</span>
   </button>` : ''}${koChart ? `<div class="lb-chart-card">
     <div class="lb-chart-head">
       <h3 class="lb-chart-title">Knockout form</h3>
-      <p class="lb-chart-sub">Running average ${brierTip('Brier')} · lower is sharper · ★ marks the current leader</p>
+      <p class="lb-chart-sub">Shrunken skill vs the coin flip · higher is sharper · ★ marks the current leader</p>
     </div>
     <div class="chart lb-chart-plot">${koChart}</div>
-    <p class="fnote lb-chart-note">Averaged match-by-match from the round of 32. The dashed line is the coin-flip baseline (0.667 three-way, then 0.5 two-way after the market switch). Hover any match for a full standing.</p>
+    <p class="fnote lb-chart-note">Each match scores (coin flip − Brier) ÷ coin flip, accumulated from the round of 32 with ten phantom coin-flip matches, so every line starts at 0% and early noise is damped. The dashed line is the coin flip itself. Hover any match for a full standing.</p>
   </div>` : ''}<div class="lb-wrap">${(() => {
-    const scoredRows = state.leaderboard.filter((r) => r.avgBrier != null);
-    const pending = state.leaderboard.filter((r) => r.avgBrier == null);
     let rank = 0;
-    return [...scoredRows, ...pending].map((r) => {
-      const live = r.avgBrier != null;
+    return board.map((r) => {
+      const live = r.scored > 0;
       if (live) rank += 1;
       const crown = live && rank === 1;
       const trend = trendOf(r.perMatch);
@@ -800,23 +872,28 @@ function renderLeaderboard(state) {
         : trend === 'down'
         ? '<span class="lb-trend lb-trend-down" title="Scored worse in its second half of matches than its first">▼ cooling</span>'
         : '';
+      const icon = entrantById(state, r.model)?.icon ?? r.icon;
+      const skillTip = 'Skill vs the coin flip: (baseline − Brier) ÷ baseline per match, averaged. 0% matches guessing, +100% is perfection. Ranking uses the shrunken version — ten phantom coin-flip matches — so a tiny sample starts neutral instead of leaping the table.';
       return `<div class="lb-row${crown ? ' leader' : ''}" data-model="${esc(r.model)}" role="button" tabindex="0" title="Open ${esc(r.label)}: performance over time" aria-label="Open performance detail for ${esc(r.label)}">
-        <div class="lb-rank">${r.avgBrier == null ? '-' : rank}</div>
+        <div class="lb-rank">${live ? rank : '-'}</div>
         <div class="lb-id">${
-          (state.models.find((m) => m.id === r.model)?.icon)
-            ? `<img class="crest crest-lg" src="${esc(state.models.find((m) => m.id === r.model).icon)}" alt="" onerror="this.style.visibility='hidden'">`
+          icon
+            ? `<img class="crest crest-lg" src="${esc(icon)}" alt="" onerror="this.style.visibility='hidden'">`
             : ''
-        }<div><span class="lb-name">${r.model === MARKET_ID ? marketLabel(esc(r.label)) : esc(r.label)}</span><span class="lb-slug">${r.model === MARKET_ID ? MARKET_ATTRIBUTION : esc(r.model)}</span>${
+        }<div><span class="lb-name">${r.model === MARKET_ID ? marketLabel(esc(r.label)) : esc(r.label)}</span><span class="lb-slug">${r.model === MARKET_ID ? MARKET_ATTRIBUTION : esc(memberChain(r) ?? r.model)}</span>${
           sparkline(r.perMatch) ? `<div class="lb-spark">${sparkline(r.perMatch)}${trendBadge}</div>` : ''
         }</div></div>
         <div class="lb-score">
           <div class="lb-brier" title="Average Brier score — lower is better">${r.avgBrier == null ? '-' : r.avgBrier.toFixed(3)}</div>
-          <div class="lb-meta">${r.scored} scored / ${r.predicted} forecast${r.predicted === 1 ? '' : 's'}</div>
+          <div class="lb-meta" title="${esc(skillTip)}">${r.avgSkill == null ? '' : `<b>${fmtSkill(r.avgSkill)}</b> vs coin flip · `}${r.scored} scored / ${r.predicted} forecast${r.predicted === 1 ? '' : 's'}</div>
         </div>
       </div>`;
     }).join('');
-  })()}</div>`;
+  })()}</div><p class="footnote">Ranked by <b>shrunken skill vs the coin flip</b>: each match scores (baseline − Brier) ÷ baseline, and every entrant carries ten phantom coin-flip matches. A newcomer starts neutral and earns rank as real matches accumulate — a hot two-match sample can't leapfrog a hundred-match record. Average Brier stays the headline number.</p>`;
   wireBrierTips(el);
+  for (const btn of el.querySelectorAll('.lb-view-btn')) {
+    btn.addEventListener('click', (e) => { e.stopPropagation(); setViewMode(btn.dataset.view); });
+  }
   for (const row of el.querySelectorAll('[data-model]')) {
     const open = () => { location.hash = `p/${encodeURIComponent(row.dataset.model)}`; };
     row.addEventListener('click', (e) => {
@@ -1056,10 +1133,17 @@ function modelChart(points, fieldPoints) {
 
 function renderModelDetail(state, modelId) {
   const el = $('#detail');
-  const row = state.leaderboard.find((r) => r.model === modelId);
-  const meta = state.models.find((m) => m.id === modelId);
+  // Resolve against the current view's board first, then the other one,
+  // so both lab ids (#p/anthropic) and entrant ids (#p/anthropic%2F...)
+  // open regardless of the active view.
+  let rows = boardOf(state);
+  let row = rows.find((r) => r.model === modelId);
+  for (const other of [state.leaderboard, state.leaderboardByLab]) {
+    if (!row && other) { rows = other; row = other.find((r) => r.model === modelId); }
+  }
+  const meta = (row ? { id: row.model, label: row.label, icon: row.icon ?? entrantById(state, modelId)?.icon } : entrantById(state, modelId));
   if (!row || !meta) { el.innerHTML = ''; return; }
-  const rankedRows = state.leaderboard.filter((r) => r.avgBrier != null);
+  const rankedRows = rows.filter((r) => r.scored > 0);
   const rank = rankedRows.findIndex((r) => r.model === modelId) + 1;
 
   let cum = 0;
@@ -1070,7 +1154,7 @@ function renderModelDetail(state, modelId) {
   // Field: mean per-match Brier across all models, accumulated in the
   // same match order this model was scored in.
   const fieldByMatch = {};
-  for (const r of state.leaderboard)
+  for (const r of rows)
     for (const p of r.perMatch) (fieldByMatch[p.matchId] ??= []).push(p.brier);
   let fcum = 0;
   const fieldPoints = points.map((p, i) => {
@@ -1093,13 +1177,14 @@ function renderModelDetail(state, modelId) {
         ${meta.icon ? `<img class="crest crest-lg" src="${esc(meta.icon)}" alt="">` : ''}
         <div>
           <div class="detail-title">${row.model === MARKET_ID ? marketLabel(esc(row.label)) : esc(row.label)}</div>
-          <div class="fnote">${row.model === MARKET_ID ? MARKET_ATTRIBUTION : esc(row.model)}${rank ? ` · rank ${rank} of ${rankedRows.length}` : ''}</div>
+          <div class="fnote">${row.model === MARKET_ID ? MARKET_ATTRIBUTION : esc(memberChain(row) ?? row.model)}${rank ? ` · rank ${rank} of ${rankedRows.length}` : ''}</div>
         </div>
       </div>
       <button class="detail-close" data-close aria-label="Close">✕</button>
     </div>
     <div class="stat-row">
       <div class="stat"><div class="stat-v">${row.avgBrier == null ? '-' : row.avgBrier.toFixed(3)}</div><div class="stat-l">avg ${brierTip('Brier', { compact: true })}</div></div>
+      <div class="stat"><div class="stat-v">${fmtSkill(row.avgSkill)}</div><div class="stat-l" title="Average of (coin flip − Brier) ÷ coin flip per match. 0% matches guessing; ranking shrinks this toward zero with ten phantom coin-flip matches.">skill vs coin flip</div></div>
       <div class="stat"><div class="stat-v">${row.scored}</div><div class="stat-l">scored</div></div>
       <div class="stat"><div class="stat-v">${points.filter(beats).length}</div><div class="stat-l">beat the coin flip</div></div>
     </div>
@@ -1136,8 +1221,8 @@ function renderDetail(state) {
   // show the score; ranking falls back to confidence before a result.
   const detailPreds = {};
   let bestBrier = null;
-  for (const mod of state.models) {
-    const p = match.predictions[mod.id];
+  for (const mod of displayEntrants(state)) {
+    const p = predOf(match, mod);
     if (!p) continue;
     const copy = { ...p };
     const b = predBrier(p, match);
@@ -1147,14 +1232,14 @@ function renderDetail(state) {
 
   // A plain-language read of where the models stand: who they favour, how
   // strongly, and how far apart they are — the heart of a follow-along page.
-  const consensus = consensusOf(match.predictions, market);
+  const consensus = consensusOf(detailPreds, market);
   let pickHtml = '';
   if (consensus) {
     const outs = MARKET_OUTCOMES[market];
     const fav = outs.reduce((a, o) => ((consensus[o] ?? 0) > (consensus[a] ?? 0) ? o : a), outs[0]);
     const favName = fav === 'draw' ? 'a draw' : esc(match[fav].name);
     const verb = market === 'advance' ? 'to advance' : fav === 'draw' ? '' : 'to win';
-    const modelProbs = Object.values(match.predictions)
+    const modelProbs = Object.values(detailPreds)
       .filter((p) => p.probs && predMarket(p) === market)
       .map((p) => p.probs[fav] ?? 0);
     const lo = modelProbs.length ? pct(Math.min(...modelProbs)) : null;
@@ -1165,7 +1250,7 @@ function renderDetail(state) {
   }
 
   const lockedRows = Object.keys(match.predictions).length
-    ? rankModels(state.models, detailPreds, match, market)
+    ? rankModels(displayEntrants(state), detailPreds, match, market)
         .map((mod) => forecastRow(mod, detailPreds[mod.id], match, bestBrier)).join('')
     : '<div class="fnote">No locked forecasts for this match.</div>';
   const rankNote = isDone
@@ -1198,7 +1283,9 @@ function renderDetail(state) {
     ${points.length > 1 ? `<h3>How the forecast moved</h3>
     <div class="chart tl-chart">${timelineChart(match, points, market)}</div>
     ${timelineRows(match, points, market)}
-    <p class="fnote">${market === 'advance' ? 'Knockout market: probability of advancing, extra time and penalties included. ' : ''}Consensus at each moment across the match clock: the locked pre-kickoff forecast is the only one that scores; in-play points are fresh forecasts after every goal, card, and period change; the last point is the actual result.</p>` :
+    <p class="fnote">${market === 'advance' ? 'Knockout market: probability of advancing, extra time and penalties included. ' : ''}Consensus at each moment across the match clock: the locked pre-kickoff forecast is the only one that scores; in-play points are fresh forecasts after every goal, card, and period change; the last point is the actual result.${
+      ''
+    }</p>` :
     (isLive ? '<p class="fnote">In-play updates land here after every goal, red card, and period change, plus every ~10 quiet minutes.</p>' : '')}
     <h3>${isDone ? 'How each model called it' : 'Model predictions'}</h3>
     <div class="forecasts">${lockedRows}</div>
@@ -1647,19 +1734,34 @@ function renderTrophy(state) {
   if (chartWrap && history.length > 1) attachTrophyHover(chartWrap, history, contenders);
 }
 
-/* Podium: the current top three on the leaderboard, front and centre in the
-   hero band. Unscored models don't medal. */
+/* Podium: the current top three, front and centre in the hero band. Same
+   ranking rules as the leaderboard — shrunken skill, unscored rows
+   don't medal. */
 function renderPodium(state) {
   const el = $('#podium');
   if (!el) return;
-  const top = state.leaderboard
-    .filter((r) => r.avgBrier != null)
-    .slice(0, 3);
+  const scoredRows = boardOf(state).filter((r) => r.scored > 0);
+  const top = scoredRows.slice(0, 3);
   if (top.length < 2) { el.innerHTML = ''; return; }
+  // The headline question is "does anything beat the bookies?" — say the
+  // market's relative standing plainly, right under the podium.
+  const mi = scoredRows.findIndex((r) => r.model === MARKET_ID);
+  let marketStrip = '';
+  if (mi >= 0) {
+    const m = scoredRows[mi];
+    const ahead = scoredRows.slice(0, mi).map((r) => r.label);
+    const text = mi === 0
+      ? `<b>The Market leads the whole field.</b> After ${m.scored} scored matches, no AI outranks the bookmakers' consensus — avg Brier ${m.avgBrier.toFixed(3)}, ${fmtSkill(m.avgSkill)} vs the coin flip.`
+      : `<b>${esc(ahead.join(' and '))} ${ahead.length === 1 ? 'is' : 'are'} ahead of The Market.</b> The bookmakers' consensus sits #${mi + 1} of ${scoredRows.length} — avg Brier ${m.avgBrier.toFixed(3)}, ${fmtSkill(m.avgSkill)} vs the coin flip over ${m.scored} matches.`;
+    marketStrip = `<button class="podium-market" data-model="${esc(MARKET_ID)}" aria-label="The Market's standing. Open performance detail.">
+      <img class="crest" src="/icons/market.svg" alt="" onerror="this.style.visibility='hidden'">
+      <span>${text} <span class="podium-market-src">TxODDS StablePrice · TxLINE on Solana</span></span>
+    </button>`;
+  }
   const PLACE_WORD = { 1: 'First', 2: 'Second', 3: 'Third' };
   const slot = (r, place) => {
     if (!r) {
-      // Fewer than three scored models: the step stands empty until the
+      // Fewer than three scored entrants: the step stands empty until the
       // next match scores someone.
       return `<div class="podium-slot podium-${place} podium-vacant" aria-label="${PLACE_WORD[place]} place: vacant">
         <span class="podium-name">Up for grabs</span>
@@ -1667,7 +1769,7 @@ function renderPodium(state) {
         <span class="podium-step" aria-hidden="true">${place}</span>
       </div>`;
     }
-    const icon = state.models.find((x) => x.id === r.model)?.icon;
+    const icon = entrantById(state, r.model)?.icon ?? r.icon;
     return `<button class="podium-slot podium-${place}" data-model="${esc(r.model)}"
       aria-label="${PLACE_WORD[place]} place: ${esc(r.label)}, average Brier ${r.avgBrier.toFixed(3)}. Open performance detail.">
       ${place === 1 ? '<span class="podium-crown" aria-hidden="true">🏆</span>' : ''}
@@ -1680,7 +1782,8 @@ function renderPodium(state) {
   el.innerHTML = `<div class="podium" role="group" aria-label="Current top three, by average Brier score">
     ${slot(top[1], 2)}${slot(top[0], 1)}${slot(top[2], 3)}
   </div>
-  <p class="podium-note">The leaderboard's top three · average Brier · lower is sharper</p>`;
+  <p class="podium-note">The leaderboard's top three · average Brier · lower is sharper</p>
+  ${marketStrip}`;
   for (const s of el.querySelectorAll('[data-model]')) {
     s.addEventListener('click', () => { location.hash = `p/${encodeURIComponent(s.dataset.model)}`; });
   }
@@ -1747,7 +1850,7 @@ function renderTicker(state) {
       const b = MARKET_OUTCOMES[market].reduce((s, o) => s + (p.probs[o] - (outcome === o ? 1 : 0)) ** 2, 0);
       if (best == null || b < best) {
         best = b;
-        const mod = state.models.find((x) => x.id === id);
+        const mod = entrantById(state, id);
         call = mod ? ` best call ${esc(mod.label)} ${b.toFixed(2)}` : '';
       }
     }
@@ -1759,7 +1862,7 @@ function renderTicker(state) {
       c ? `, models say ${esc(c.home >= c.away ? m.home.name : m.away.name)} ${pct(Math.max(c.home, c.away))}%` : ''
     }` });
   }
-  const leader = state.leaderboard.find((r) => r.avgBrier != null);
+  const leader = boardOf(state).find((r) => r.scored > 0);
   if (leader) items.push({ go: `p/${encodeURIComponent(leader.model)}`, html: `<span class="tick-gold">Brier Cup leader</span> ${esc(leader.label)} ${leader.avgBrier.toFixed(3)}` });
 
   const sep = '<span class="tick-sep" aria-hidden="true">&#9670;</span>';
@@ -1804,7 +1907,7 @@ function renderBanner(state) {
   if (state.demoMode) {
     el.innerHTML = `<div class="banner">Demo mode is on: forecasts below are deterministic placeholders, not real model calls. Unset <code>DEMO_MODE</code> and set <code>OPENROUTER_API_KEY</code> for the real competition.</div>`;
   } else if (!state.predictorReady && !state.hosted) {
-    el.innerHTML = `<div class="banner">Live scores are flowing, but no forecaster is configured. Set <code>OPENROUTER_API_KEY</code> (one key covers all eight AI models via OpenRouter) and restart the server. Upcoming matches are forecast automatically from then on.</div>`;
+    el.innerHTML = `<div class="banner">Live scores are flowing, but no forecaster is configured. Set <code>OPENROUTER_API_KEY</code> (one key covers the whole AI roster via OpenRouter) and restart the server. Upcoming matches are forecast automatically from then on.</div>`;
   } else {
     el.innerHTML = '';
   }
@@ -1830,6 +1933,22 @@ async function collect(matchId) {
   }
 }
 
+/* One render pass over every panel — the polling refresh and the
+   by-lab/by-model view toggle both go through here. */
+function renderAll(state) {
+  renderPodium(state);
+  renderFeatured(state);
+  renderTicker(state);
+  renderTrophy(state);
+  renderBanner(state);
+  renderRoster(state);
+  renderLeaderboard(state);
+  renderMatches(state);
+  renderDetail(state);
+  // Static tips in index.html (leaderboard explainer) + any re-rendered ones.
+  wireBrierTips(document);
+}
+
 async function refresh(force = false) {
   try {
     const res = await fetch('/api/state');
@@ -1843,17 +1962,7 @@ async function refresh(force = false) {
         : 'Live scores only';
 
     lastState = state;
-    renderPodium(state);
-    renderFeatured(state);
-    renderTicker(state);
-    renderTrophy(state);
-    renderBanner(state);
-    renderRoster(state);
-    renderLeaderboard(state);
-    renderMatches(state);
-    renderDetail(state);
-    // Static tips in index.html (leaderboard explainer) + any re-rendered ones.
-    wireBrierTips(document);
+    renderAll(state);
     if (state.prompts) {
       $('#prompt-locked').textContent = state.prompts.locked;
       $('#prompt-live').textContent = state.prompts.live;
