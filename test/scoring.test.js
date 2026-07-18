@@ -200,6 +200,69 @@ test('leaderboard: sorts by average Brier, ignores ineligible predictions', () =
   assert.equal(rows[2].avgBrier, null);
 });
 
+test('leaderboard: ledger ids missing from the entrants list still get a row', () => {
+  const models = [{ id: 'active', label: 'Active' }];
+  const matches = [{ id: 'm1', outcome: 'home', shortName: 'X @ Y' }];
+  const predictions = {
+    m1: {
+      active: { probs: { home: 0.8, draw: 0.1, away: 0.1 }, eligible: true },
+      'ghost/old-slug': { probs: { home: 0.6, draw: 0.2, away: 0.2 }, eligible: true },
+    },
+  };
+  const rows = leaderboard(matches, predictions, models);
+  const ghost = rows.find((r) => r.model === 'ghost/old-slug');
+  assert.ok(ghost, 'a stored forecast never disappears from the board');
+  assert.equal(ghost.label, 'ghost/old-slug');
+  assert.equal(ghost.retired, true);
+  assert.equal(ghost.scored, 1);
+});
+
+test('leaderboard: retired entrants keep label, icon, and records', () => {
+  const models = [
+    { id: 'new/model', label: 'New Model', icon: '/icons/new.svg' },
+    { id: 'old/model', label: 'Old Model', icon: '/icons/old.svg', retired: true },
+  ];
+  const matches = [{ id: 'm1', outcome: 'home', shortName: 'X @ Y' }];
+  const predictions = {
+    m1: { 'old/model': { probs: { home: 0.9, draw: 0.05, away: 0.05 }, eligible: true } },
+  };
+  const rows = leaderboard(matches, predictions, models);
+  const old = rows.find((r) => r.model === 'old/model');
+  assert.equal(old.label, 'Old Model');
+  assert.equal(old.icon, '/icons/old.svg');
+  assert.equal(old.retired, true);
+  assert.equal(old.scored, 1);
+});
+
+test('leaderboard: a late sub with a tiny sample is flagged unqualified', () => {
+  const models = [
+    { id: 'veteran', label: 'Veteran' },
+    { id: 'latesub', label: 'Late Sub' },
+  ];
+  // Veteran scored 10 matches; the sub only the last one — even with a
+  // perfect score it must not rank against the full record.
+  const matches = [];
+  const predictions = {};
+  for (let i = 0; i < 10; i++) {
+    const id = `m${i}`;
+    matches.push({ id, outcome: 'home', shortName: `G${i}` });
+    predictions[id] = { veteran: { probs: { home: 0.7, draw: 0.2, away: 0.1 }, eligible: true } };
+  }
+  predictions.m9.latesub = { probs: { home: 1, draw: 0, away: 0 }, eligible: true };
+  const rows = leaderboard(matches, predictions, models);
+  const vet = rows.find((r) => r.model === 'veteran');
+  const sub = rows.find((r) => r.model === 'latesub');
+  assert.equal(vet.qualified, true);
+  assert.equal(sub.qualified, false, 'one perfect match must not outrank ten');
+  assert.ok(sub.avgBrier < vet.avgBrier, 'the sub does have the lower average — which is why the flag matters');
+  // At half the fullest record the row qualifies.
+  for (let i = 4; i < 9; i++) {
+    predictions[`m${i}`].latesub = { probs: { home: 0.7, draw: 0.2, away: 0.1 }, eligible: true };
+  }
+  const rows2 = leaderboard(matches, predictions, models);
+  assert.equal(rows2.find((r) => r.model === 'latesub').qualified, true);
+});
+
 test('fetchMatches retries a transient ESPN failure then succeeds', async () => {
   const realFetch = globalThis.fetch;
   let calls = 0;

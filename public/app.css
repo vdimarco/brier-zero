@@ -967,7 +967,7 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
 
 .forecasts { margin-top: 14px; display: grid; gap: 8px; min-width: 0; }
 .frow {
-  display: grid; grid-template-columns: 106px minmax(0, 1fr) auto; align-items: center; gap: 10px;
+  display: grid; grid-template-columns: 148px minmax(0, 1fr) auto; align-items: center; gap: 10px;
   min-width: 0;
 }
 .frow .fmodel {
@@ -1220,7 +1220,7 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
   .team { font-size: 14px; }
   .scoreline { font-size: 14px; }
 
-  .frow { grid-template-columns: 96px 1fr auto; gap: 8px; }
+  .frow { grid-template-columns: 118px 1fr auto; gap: 8px; }
   .frow .fmodel { font-size: 12px; gap: 5px; }
   .crest { width: 17px; height: 20px; }
   .crest-lg { width: 24px; height: 28px; }

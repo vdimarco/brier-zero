@@ -20,6 +20,22 @@ const FINISHED_PREVIEW = 8;
 const MARKET_ID = 'txodds/market';
 const MARKET_ATTRIBUTION = 'TxODDS StablePrice · TxLINE on Solana';
 
+/* Everyone who ever competed: the active roster plus retired entrants
+   (models substituted out mid-tournament, e.g. swapped for their lab's
+   newest release before the final). Display and scoring lookups go
+   through this so historical forecasts never disappear from the page. */
+function entrantsOf(state) {
+  return state.entrants ?? state.models ?? [];
+}
+function entrantById(state, id) {
+  return entrantsOf(state).find((m) => m.id === id);
+}
+/* A row ranks only with a meaningful sample (the backend flags rows that
+   scored fewer than half as many matches as the fullest record). */
+function isQualified(r) {
+  return r.qualified !== false;
+}
+
 const fmtKickoff = new Intl.DateTimeFormat(undefined, {
   weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit',
 });
@@ -210,7 +226,7 @@ function toast(msg) {
 async function shareMatch(match) {
   const url = shareLink(`m/${match.id}`);
   const title = `${match.home.name} vs ${match.away.name} · The Brier Cup`;
-  const text = `${match.home.name} vs ${match.away.name} — watch eight AI models and the betting market forecast this ${match.stage} match, live.`;
+  const text = `${match.home.name} vs ${match.away.name} — watch frontier AI models and the betting market forecast this ${match.stage} match, live.`;
   if (navigator.share) {
     try { await navigator.share({ title, text, url }); return; }
     catch (e) { if (e.name === 'AbortError') return; }
@@ -300,7 +316,7 @@ function matchCard(match, state) {
   // forecast on a knockout match scores against the regulation outcome.
   const preds = {};
   let bestBrier = null;
-  for (const m of state.models) {
+  for (const m of entrantsOf(state)) {
     const p = match.predictions[m.id];
     if (!p) continue;
     const copy = { ...p };
@@ -352,7 +368,7 @@ function matchCard(match, state) {
     body = `<div class="forecasts">
       ${outcomeHead}
       ${isOpen
-        ? rankModels(state.models, preds, match, market).map((m) => forecastRow(m, preds[m.id], match, bestBrier)).join('')
+        ? rankModels(entrantsOf(state), preds, match, market).map((m) => forecastRow(m, preds[m.id], match, bestBrier)).join('')
         : collapsed}
       <button class="toggle-models" data-toggle="${esc(match.id)}" aria-expanded="${isOpen}">
         ${isOpen ? 'Hide models' : `Compare ${Object.keys(preds).length} models`}
@@ -365,7 +381,7 @@ function matchCard(match, state) {
   } else if (match.status.state === 'pre') {
     const disabled = !state.predictorReady || collecting;
     const hint = state.predictorReady
-      ? 'Ask every competitor — eight AI models and the market — for probabilities now.'
+      ? 'Ask every competitor — the AI field and the market — for probabilities now.'
       : 'Set OPENROUTER_API_KEY on the server to enable forecasting.';
     body = `<div class="forecasts"><div class="fnote">No forecasts collected yet.</div>
       <button class="collect" data-match="${esc(match.id)}" ${disabled ? 'disabled' : ''} title="${esc(hint)}">
@@ -458,7 +474,7 @@ function leaderboardSeries(state) {
   // forecast priced (0.667 three-way before the switch, 0.5 two-way
   // after); same for every model, so the first seen fills each slot.
   const baselineAt = new Array(n).fill(null);
-  const series = state.models.map((m, i) => {
+  const series = entrantsOf(state).map((m, i) => {
     const row = state.leaderboard.find((r) => r.model === m.id);
     const byMatch = new Map((row?.perMatch ?? []).map((p) => [p.matchId, p]));
     let cum = 0, count = 0;
@@ -759,13 +775,15 @@ function renderLeaderboard(state) {
     // ranked separately and never crowned. Gemini is here until the final and
     // 3rd-place playoff (its only locked forecasts) kick off.
     const isBacktestOnly = (r) => r.scored > 0 && r.retroScored === r.scored;
-    const ranked = state.leaderboard.filter((r) => r.avgBrier != null && !isBacktestOnly(r));
-    const backtest = state.leaderboard.filter(isBacktestOnly);
-    const pending = state.leaderboard.filter((r) => r.avgBrier == null);
+    const ranked = state.leaderboard.filter((r) => r.avgBrier != null && !isBacktestOnly(r) && isQualified(r));
+    const lateSubs = state.leaderboard.filter((r) => r.avgBrier != null && !isBacktestOnly(r) && !isQualified(r));
+    const backtest = state.leaderboard.filter((r) => isBacktestOnly(r) && isQualified(r));
+    const pending = state.leaderboard.filter((r) => r.avgBrier == null || (isBacktestOnly(r) && !isQualified(r)));
     let rank = 0;
-    return [...ranked, ...backtest, ...pending].map((r) => {
+    return [...ranked, ...backtest, ...lateSubs, ...pending].map((r) => {
       const bt = isBacktestOnly(r);
-      const live = r.avgBrier != null && !bt;
+      const late = !isQualified(r);
+      const live = r.avgBrier != null && !bt && !late;
       if (live) rank += 1;
       const crown = live && rank === 1;
       const trend = trendOf(r.perMatch);
@@ -774,18 +792,19 @@ function renderLeaderboard(state) {
         : trend === 'down'
         ? '<span class="lb-trend lb-trend-down" title="Scored worse in its second half of matches than its first">▼ cooling</span>'
         : '';
-      return `<div class="lb-row${crown ? ' leader' : ''}${bt ? ' lb-backtest' : ''}" data-model="${esc(r.model)}" role="button" tabindex="0" title="Open ${esc(r.label)}: performance over time" aria-label="Open performance detail for ${esc(r.label)}">
-        <div class="lb-rank">${bt ? '★' : r.avgBrier == null ? '-' : rank}</div>
+      const icon = entrantById(state, r.model)?.icon ?? r.icon;
+      return `<div class="lb-row${crown ? ' leader' : ''}${bt || late ? ' lb-backtest' : ''}" data-model="${esc(r.model)}" role="button" tabindex="0" title="Open ${esc(r.label)}: performance over time" aria-label="Open performance detail for ${esc(r.label)}">
+        <div class="lb-rank">${live ? rank : bt ? '★' : r.avgBrier == null ? '-' : '·'}</div>
         <div class="lb-id">${
-          (state.models.find((m) => m.id === r.model)?.icon)
-            ? `<img class="crest crest-lg" src="${esc(state.models.find((m) => m.id === r.model).icon)}" alt="" onerror="this.style.visibility='hidden'">`
+          icon
+            ? `<img class="crest crest-lg" src="${esc(icon)}" alt="" onerror="this.style.visibility='hidden'">`
             : ''
-        }<div><span class="lb-name">${esc(r.label)}${bt ? ' <span class="lb-bt-tag">backtest</span>' : ''}</span><span class="lb-slug">${r.model === MARKET_ID ? MARKET_ATTRIBUTION : esc(r.model)}</span>${
+        }<div><span class="lb-name">${esc(r.label)}${bt ? ' <span class="lb-bt-tag">backtest</span>' : ''}${late && r.avgBrier != null ? ' <span class="lb-bt-tag" title="Substituted in shortly before the final — too few scored matches to rank against full-tournament records">late sub</span>' : ''}</span><span class="lb-slug">${r.model === MARKET_ID ? MARKET_ATTRIBUTION : esc(r.model)}</span>${
           sparkline(r.perMatch) ? `<div class="lb-spark">${sparkline(r.perMatch)}${trendBadge}</div>` : ''
         }</div></div>
         <div class="lb-score">
           <div class="lb-brier" title="Average Brier score — lower is better">${r.avgBrier == null ? '-' : r.avgBrier.toFixed(3)}</div>
-          <div class="lb-meta">${bt ? 'backtest · ' : ''}${r.scored} scored / ${r.predicted} forecast${r.predicted === 1 ? '' : 's'}</div>
+          <div class="lb-meta">${bt ? 'backtest · ' : late && r.avgBrier != null ? 'unranked · ' : ''}${r.scored} scored / ${r.predicted} forecast${r.predicted === 1 ? '' : 's'}</div>
         </div>
       </div>`;
     }).join('');
@@ -796,6 +815,10 @@ function renderLeaderboard(state) {
             ? ' A <b>★ backtest</b> row is entirely retro — that model has no locked live result yet, so it is shown for comparison, ranked separately and left out of the leader crown.'
             : ''
         }</p>`
+      : ''
+  }${
+    state.leaderboard.some((r) => !isQualified(r))
+      ? `<p class="footnote">Before the final, each lab's newest model was substituted into the live roster (its predecessor's full-tournament record stays on the board). A <b>· late sub</b> row has only those last matches — far too few to rank against a 100-match record, so it is shown unranked.</p>`
       : ''
   }`;
   wireBrierTips(el);
@@ -1039,11 +1062,11 @@ function modelChart(points, fieldPoints) {
 function renderModelDetail(state, modelId) {
   const el = $('#detail');
   const row = state.leaderboard.find((r) => r.model === modelId);
-  const meta = state.models.find((m) => m.id === modelId);
+  const meta = entrantById(state, modelId) ?? (row ? { id: row.model, label: row.label, icon: row.icon } : null);
   if (!row || !meta) { el.innerHTML = ''; return; }
   const isBacktestOnly = (r) => r.scored > 0 && r.retroScored === r.scored;
-  const rankedRows = state.leaderboard.filter((r) => r.avgBrier != null && !isBacktestOnly(r));
-  const rank = isBacktestOnly(row) ? 0 : rankedRows.findIndex((r) => r.model === modelId) + 1;
+  const rankedRows = state.leaderboard.filter((r) => r.avgBrier != null && !isBacktestOnly(r) && isQualified(r));
+  const rank = isBacktestOnly(row) || !isQualified(row) ? 0 : rankedRows.findIndex((r) => r.model === modelId) + 1;
 
   let cum = 0;
   const points = row.perMatch.map((p, i) => {
@@ -1076,7 +1099,7 @@ function renderModelDetail(state, modelId) {
         ${meta.icon ? `<img class="crest crest-lg" src="${esc(meta.icon)}" alt="">` : ''}
         <div>
           <div class="detail-title">${esc(row.label)}</div>
-          <div class="fnote">${row.model === MARKET_ID ? MARKET_ATTRIBUTION : esc(row.model)}${rank ? ` · rank ${rank} of ${rankedRows.length}` : isBacktestOnly(row) ? ' · backtest — not ranked' : ''}</div>
+          <div class="fnote">${row.model === MARKET_ID ? MARKET_ATTRIBUTION : esc(row.model)}${rank ? ` · rank ${rank} of ${rankedRows.length}` : isBacktestOnly(row) ? ' · backtest — not ranked' : !isQualified(row) ? ' · late sub — not ranked' : ''}</div>
         </div>
       </div>
       <button class="detail-close" data-close aria-label="Close">✕</button>
@@ -1119,7 +1142,7 @@ function renderDetail(state) {
   // show the score; ranking falls back to confidence before a result.
   const detailPreds = {};
   let bestBrier = null;
-  for (const mod of state.models) {
+  for (const mod of entrantsOf(state)) {
     const p = match.predictions[mod.id];
     if (!p) continue;
     const copy = { ...p };
@@ -1148,7 +1171,7 @@ function renderDetail(state) {
   }
 
   const lockedRows = Object.keys(match.predictions).length
-    ? rankModels(state.models, detailPreds, match, market)
+    ? rankModels(entrantsOf(state), detailPreds, match, market)
         .map((mod) => forecastRow(mod, detailPreds[mod.id], match, bestBrier)).join('')
     : '<div class="fnote">No locked forecasts for this match.</div>';
   const rankNote = isDone
@@ -1640,7 +1663,7 @@ function renderPodium(state) {
   if (!el) return;
   const isBacktestOnly = (r) => r.scored > 0 && r.retroScored === r.scored;
   const top = state.leaderboard
-    .filter((r) => r.avgBrier != null && !isBacktestOnly(r))
+    .filter((r) => r.avgBrier != null && !isBacktestOnly(r) && isQualified(r))
     .slice(0, 3);
   if (top.length < 2) { el.innerHTML = ''; return; }
   const PLACE_WORD = { 1: 'First', 2: 'Second', 3: 'Third' };
@@ -1654,7 +1677,7 @@ function renderPodium(state) {
         <span class="podium-step" aria-hidden="true">${place}</span>
       </div>`;
     }
-    const icon = state.models.find((x) => x.id === r.model)?.icon;
+    const icon = entrantById(state, r.model)?.icon ?? r.icon;
     return `<button class="podium-slot podium-${place}" data-model="${esc(r.model)}"
       aria-label="${PLACE_WORD[place]} place: ${esc(r.label)}, average Brier ${r.avgBrier.toFixed(3)}. Open performance detail.">
       ${place === 1 ? '<span class="podium-crown" aria-hidden="true">🏆</span>' : ''}
@@ -1734,7 +1757,7 @@ function renderTicker(state) {
       const b = MARKET_OUTCOMES[market].reduce((s, o) => s + (p.probs[o] - (outcome === o ? 1 : 0)) ** 2, 0);
       if (best == null || b < best) {
         best = b;
-        const mod = state.models.find((x) => x.id === id);
+        const mod = entrantById(state, id);
         call = mod ? ` best call ${esc(mod.label)} ${b.toFixed(2)}` : '';
       }
     }
@@ -1746,7 +1769,7 @@ function renderTicker(state) {
       c ? `, models say ${esc(c.home >= c.away ? m.home.name : m.away.name)} ${pct(Math.max(c.home, c.away))}%` : ''
     }` });
   }
-  const leader = state.leaderboard.find((r) => r.avgBrier != null && !(r.scored > 0 && r.retroScored === r.scored));
+  const leader = state.leaderboard.find((r) => r.avgBrier != null && !(r.scored > 0 && r.retroScored === r.scored) && isQualified(r));
   if (leader) items.push({ go: `p/${encodeURIComponent(leader.model)}`, html: `<span class="tick-gold">Brier Cup leader</span> ${esc(leader.label)} ${leader.avgBrier.toFixed(3)}` });
 
   const sep = '<span class="tick-sep" aria-hidden="true">&#9670;</span>';
@@ -1791,7 +1814,7 @@ function renderBanner(state) {
   if (state.demoMode) {
     el.innerHTML = `<div class="banner">Demo mode is on: forecasts below are deterministic placeholders, not real model calls. Unset <code>DEMO_MODE</code> and set <code>OPENROUTER_API_KEY</code> for the real competition.</div>`;
   } else if (!state.predictorReady && !state.hosted) {
-    el.innerHTML = `<div class="banner">Live scores are flowing, but no forecaster is configured. Set <code>OPENROUTER_API_KEY</code> (one key covers all eight AI models via OpenRouter) and restart the server. Upcoming matches are forecast automatically from then on.</div>`;
+    el.innerHTML = `<div class="banner">Live scores are flowing, but no forecaster is configured. Set <code>OPENROUTER_API_KEY</code> (one key covers the whole AI roster via OpenRouter) and restart the server. Upcoming matches are forecast automatically from then on.</div>`;
   } else {
     el.innerHTML = '';
   }
