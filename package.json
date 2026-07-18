@@ -1,0 +1,20 @@
+{
+  "name": "brier-zero",
+  "version": "1.0.0",
+  "description": "Which AI model predicts the World Cup best? Same prompt, many models, Brier-scored against real results.",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "predict": "node scripts/predict.js",
+    "test": "node --test test/*.test.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1",
+    "@vercel/functions": "^3.7.5",
+    "express": "^4.19.2"
+  }
+}

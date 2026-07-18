@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Mirror Round — Brier Cup knockout analysis</title>
+<meta name="description" content="Seven AI models called France–Spain and England–Argentina before kickoff. One got both right, one got both wrong, everyone else hedged. A Brier Cup breakdown." />
+<link rel="canonical" href="https://worldcup.uptick.fyi/research" />
+<link rel="icon" type="image/svg+xml" href="/icons/favicon.svg" />
+<meta property="og:site_name" content="The Brier Cup" />
+<meta property="og:title" content="Two coin-flips, two upsets, and the one model that saw both" />
+<meta property="og:description" content="Seven AI models forecast France–Spain and England–Argentina. Claude called both winners; Kimi missed both. The Brier Cup knockout breakdown." />
+<meta property="og:image" content="https://worldcup.uptick.fyi/research/card.png" />
+<meta property="og:url" content="https://worldcup.uptick.fyi/research" />
+<meta property="og:type" content="article" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Two coin-flips, two upsets, and the one model that saw both" />
+<meta name="twitter:description" content="Seven AI models called France–Spain and England–Argentina. One got both right, one got both wrong. A Brier Cup breakdown." />
+<meta name="twitter:image" content="https://worldcup.uptick.fyi/research/card.png" />
+<style>
+:root{
+  color-scheme: light;
+  --page:#f1f4ec; --surface:#ffffff; --ink:#14140f; --muted:#52514e; --faint:#85847c;
+  --hairline:#e2e1d8; --pitch:#0a7a33; --pitch-deep:#0a632b; --gold:#e3b341; --gold-ink:#93700a;
+  --home:#2a78d6; --away:#e34948;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--ink);font:17px/1.6 var(--sans);
+  -webkit-font-smoothing:antialiased;background-image:radial-gradient(var(--hairline) 0.5px,transparent 0.5px);background-size:22px 22px;}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px 80px}
+a{color:var(--pitch-deep)}
+.eyebrow{font:600 12px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--pitch);
+  display:inline-flex;gap:.5em;align-items:center;margin:44px 0 18px}
+.eyebrow::before{content:"";width:22px;height:2px;background:var(--pitch)}
+h1{font-size:clamp(2.1rem,6vw,3.15rem);line-height:1.04;letter-spacing:-.022em;font-weight:800;margin:0 0 18px;text-wrap:balance}
+.dek{font-size:1.2rem;line-height:1.5;color:var(--muted);margin:0 0 26px;max-width:60ch}
+.dek b{color:var(--ink);font-weight:650}
+.scorestrip{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:26px 0 8px}
+@media(max-width:560px){.scorestrip{grid-template-columns:1fr}}
+.score{background:var(--surface);border:1px solid var(--hairline);border-radius:12px;padding:14px 16px}
+.score .comp{font:600 12px/1 var(--mono);letter-spacing:.06em;color:var(--faint);text-transform:uppercase;margin-bottom:9px}
+.score .line{display:flex;align-items:center;justify-content:space-between;gap:8px;font-weight:650}
+.score .line+.line{margin-top:4px}
+.score .team{display:flex;align-items:center;gap:8px}
+.score .dot{width:9px;height:9px;border-radius:50%}
+.score .gf{font:700 20px/1 var(--mono);font-variant-numeric:tabular-nums}
+.score .adv{color:var(--pitch);font-weight:800}
+.score .out{color:var(--faint)}
+.meta{font:500 12.5px/1.5 var(--mono);color:var(--faint);margin:16px 0 0}
+
+.callouts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:34px 0}
+@media(max-width:560px){.callouts{grid-template-columns:1fr}}
+.callout{background:var(--surface);border:1px solid var(--hairline);border-radius:12px;padding:16px}
+.callout .big{font:800 30px/1 var(--mono);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.callout.win{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold) inset}
+.callout.win .big{color:var(--gold-ink)}
+.callout.bad .big{color:var(--away)}
+.callout p{margin:8px 0 0;font-size:13.5px;line-height:1.45;color:var(--muted)}
+.callout p b{color:var(--ink)}
+
+h2{font-size:1.7rem;letter-spacing:-.015em;font-weight:800;margin:52px 0 4px;text-wrap:balance}
+.section-note{color:var(--muted);margin:0 0 22px;max-width:62ch}
+p{max-width:64ch}
+
+.module{background:var(--surface);border:1px solid var(--hairline);border-radius:14px;padding:8px;margin:20px 0}
+.mhead{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:12px 12px 14px;border-bottom:1px solid var(--hairline);flex-wrap:wrap}
+.mhead .title{font-weight:750}
+.mhead .fieldbrier{font:600 12px/1 var(--mono);letter-spacing:.04em;color:var(--faint)}
+.mhead .fieldbrier b{color:var(--away)}
+.mhead .fieldbrier.good b{color:var(--pitch)}
+.legend{display:flex;gap:14px;font:600 11px/1 var(--mono);letter-spacing:.05em;color:var(--faint);padding:10px 12px 4px;text-transform:uppercase}
+.legend i{width:10px;height:10px;border-radius:2px;display:inline-block;margin-right:5px;vertical-align:middle}
+
+.row{display:grid;grid-template-columns:150px 1fr 56px 62px;align-items:center;gap:12px;padding:11px 12px;border-radius:9px}
+.row+.row{border-top:1px solid var(--hairline)}
+.row.lead{background:linear-gradient(0deg,rgba(227,179,65,.10),rgba(227,179,65,.10))}
+.who{display:flex;align-items:center;gap:9px;min-width:0}
+.who img{border-radius:5px;flex:none;background:#fff}
+.who span{font:600 13px/1.2 var(--mono);letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar{position:relative;display:flex;height:26px;border-radius:6px;overflow:hidden;background:#eef1e8;border:1px solid var(--hairline)}
+.seg{display:flex;align-items:center;min-width:22px}
+.seg em{font:700 11px/1 var(--mono);font-style:normal;color:#fff;padding:0 7px}
+.seg.home{background:var(--home);justify-content:flex-start}
+.seg.away{background:var(--away);justify-content:flex-end}
+.bar .mid{position:absolute;left:50%;top:-1px;bottom:-1px;width:2px;background:rgba(20,20,15,.55);transform:translateX(-1px)}
+.brier{text-align:right}
+.brier b{font:700 15px/1 var(--mono);font-variant-numeric:tabular-nums}
+.verdict{text-align:right}
+.chip{font:700 10.5px/1 var(--mono);letter-spacing:.04em;padding:4px 7px;border-radius:999px;white-space:nowrap}
+.chip.ok{background:var(--pitch-wash,#e7f2e6);color:var(--pitch-deep)}
+.chip.miss{background:#fcebea;color:var(--away)}
+.row .quote{grid-column:1 / -1;margin:2px 2px 0;font-size:13px;line-height:1.5;color:var(--muted);
+  border-left:2px solid var(--hairline);padding:2px 0 2px 12px}
+
+.tt{width:100%;border-collapse:collapse;margin:16px 0 6px;background:var(--surface);border:1px solid var(--hairline);border-radius:12px;overflow:hidden}
+.tt th{font:600 11px/1.2 var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--faint);text-align:center;padding:12px 10px;border-bottom:1px solid var(--hairline)}
+.tt th:first-child{text-align:left}
+.tt td{padding:10px;border-bottom:1px solid var(--hairline);text-align:center;font:600 13px var(--mono)}
+.tt tr:last-child td{border-bottom:none}
+.tt .tt-model{text-align:left;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.tt .tt-model img{border-radius:4px}
+.tt .tt-ok span{color:var(--pitch-deep)}
+.tt .tt-ok{background:rgba(10,122,51,.07)}
+.tt .tt-miss span{color:var(--away);text-decoration:line-through;text-decoration-thickness:1px}
+.tt .tt-miss{background:rgba(227,73,72,.06)}
+.tag{font:700 9.5px/1 var(--mono);letter-spacing:.04em;text-transform:uppercase;padding:3px 6px;border-radius:5px;vertical-align:middle}
+.tag.gold{background:var(--gold);color:#3d2f05}
+.tag.red{background:var(--away);color:#fff}
+.tag.bt{background:#edf0fb;color:#5b4c8b}
+
+.row.backtest{background:repeating-linear-gradient(135deg,rgba(66,133,244,.05),rgba(66,133,244,.05) 9px,rgba(155,114,203,.055) 9px,rgba(155,114,203,.055) 18px);border:1px dashed #bcbbb2;margin-top:3px}
+.row.backtest .who span{color:var(--muted)}
+.chip.bt{background:#edf0fb;color:#5b4c8b}
+.bt-note{grid-column:1 / -1;font:500 11.5px/1.5 var(--mono);color:var(--faint);margin:3px 2px 0;padding-left:2px}
+
+.stand{width:100%;border-collapse:collapse;margin:14px 0 6px;background:var(--surface);border:1px solid var(--hairline);border-radius:12px;overflow:hidden}
+.stand th{font:600 11px/1.2 var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--faint);text-align:left;padding:11px 12px;border-bottom:1px solid var(--hairline)}
+.stand th:last-child{text-align:right}
+.stand td{padding:9px 12px;border-bottom:1px solid var(--hairline);font:600 13px var(--mono)}
+.stand td:last-child{text-align:right;font-variant-numeric:tabular-nums}
+.stand tr:last-child td{border-bottom:none}
+.stand .lead td{background:linear-gradient(0deg,rgba(66,133,244,.09),rgba(66,133,244,.09))}
+.stand .rank{color:var(--faint);width:30px}
+.stand .mdl{display:flex;align-items:center;gap:8px;white-space:nowrap}
+.stand .mdl img{border-radius:4px}
+
+.kicker{background:var(--ink);color:#f1f1ec;border-radius:14px;padding:26px 24px;margin:44px 0 0}
+.kicker h2{margin:0 0 8px;color:#fff}
+.kicker p{color:#c9c8c0;max-width:60ch}
+.kicker .rule{font:600 12px/1.5 var(--mono);color:#9d9c93;margin-top:16px;border-top:1px solid #2c2c26;padding-top:14px}
+.foot{font:500 12.5px/1.6 var(--mono);color:var(--faint);margin-top:26px;text-align:center}
+.backlink{display:inline-block;margin:26px 0 -8px;font:600 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--pitch);text-decoration:none}
+.backlink:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <a class="backlink" href="/">← The Brier Cup</a>
+  <p class="eyebrow">Brier Cup · Knockout Analysis</p>
+  <h1>Two coin-flips, two upsets, and the one model that saw both.</h1>
+  <p class="dek">Before kickoff, seven frontier AI models each locked a probability on who'd go through. Then Spain dismantled France and Argentina broke English hearts in stoppage time. The forecasts, scored, tell a strangely symmetrical story — <b>the crowd was dead wrong about one match and dead right about the other.</b></p>
+
+  <div class="scorestrip">
+    <div class="score">
+      <div class="comp">Quarter-final · Full time</div>
+      <div class="line"><span class="team"><span class="dot" style="background:var(--home)"></span>France</span><span class="gf out">0</span></div>
+      <div class="line"><span class="team"><span class="dot" style="background:var(--away)"></span>Spain <span class="adv">▸ through</span></span><span class="gf">2</span></div>
+    </div>
+    <div class="score">
+      <div class="comp">Quarter-final · Full time</div>
+      <div class="line"><span class="team"><span class="dot" style="background:var(--home)"></span>England</span><span class="gf out">1</span></div>
+      <div class="line"><span class="team"><span class="dot" style="background:var(--away)"></span>Argentina <span class="adv">▸ through</span></span><span class="gf">2</span></div>
+    </div>
+  </div>
+  <p class="meta">Forecasts locked at kickoff · scored by Brier (lower = sharper; a pure coin-flip on a two-way tie = 0.500)</p>
+
+  <div class="callouts">
+    <div class="callout win"><div class="big">1 / 7</div><p><b>Claude Sonnet 4.5</b> was the only model on the right side of <b>both</b> ties.</p></div>
+    <div class="callout bad"><div class="big">1 / 7</div><p><b>Kimi K2</b> was the only model on the wrong side of <b>both</b>.</p></div>
+    <div class="callout"><div class="big">45–55%</div><p>Every forecast landed inside this band. Nobody committed — the models <b>knew</b> these were coin-flips.</p></div>
+  </div>
+
+  <h2>France 0–2 Spain — the call the machines whiffed</h2>
+  <p class="section-note">Six of seven models nudged toward France. Spain answered with a clean two-goal night, opening the scoring on 58'. As a group, the AIs did worse here than if they'd flipped a coin.</p>
+  <div class="module">
+    <div class="mhead"><span class="title">Who advances? — pre-match probability</span><span class="fieldbrier">field mean Brier <b>0.548</b> · worse than 0.500</span></div>
+    <div class="legend"><span><i style="background:var(--home)"></i>France</span><span><i style="background:var(--away)"></i>Spain</span><span>dashed line = 50/50</span></div>
+    
+      <div class="row lead">
+        <div class="who"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTE3IiByb2xlPSJpbWciPgo8cGF0aCBkPSJNNTAgNSBMOTUgMTkgVjYwIEM5NSA5MCA3NSAxMDUgNTAgMTEyIEMyNSAxMDUgNSA5MCA1IDYwIFYxOSBaIiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiNkOGQ3Y2UiIHN0cm9rZS13aWR0aD0iNCIvPgo8c3ZnIHg9IjI3IiB5PSIzMCIgd2lkdGg9IjQ2IiBoZWlnaHQ9IjQ2IiBmaWxsPSIjRDk3NzU3IiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+Q2xhdWRlPC90aXRsZT48cGF0aCBkPSJtNC43MTQ0IDE1Ljk1NTUgNC43MTc0LTIuNjQ3MS4wNzktLjIzMDctLjA3OS0uMTI3NWgtLjIzMDdsLS43ODkzLS4wNDg2LTIuNjk1Ni0uMDcyOS0yLjMzNzUtLjA5NzEtMi4yNjQ2LS4xMjE0LS41NzA3LS4xMjE1LS41MzQzLS43MDQyLjA1NDYtLjM1MjIuNDc5Ny0uMzIxOC42ODYuMDYwOCAxLjUxNzkuMTAzMiAyLjI3NjcuMTU3OCAxLjY1MTQuMDk3MiAyLjQ0NjguMjU1aC4zODg2bC4wNTQ2LS4xNTc5LS4xMzM2LS4wOTcxLS4xMDMyLS4wOTcyTDYuOTczIDkuODM1NmwtMi41NS0xLjY4NzktMS4zMzU2LS45NzE0LS43MjI1LS40OTE4LS4zNjQzLS40NjE0LS4xNTc4LTEuMDA3OC42NTU3LS43MjI1Ljg4MDMuMDYwNy4yMjQ2LjA2MDcuODkyNS42ODYgMS45MDY0IDEuNDc1NCAyLjQ4OTMgMS44MzM2LjM2NDMuMzAzNS4xNDU3LS4xMDMyLjAxODItLjA3MjgtLjE2NC0uMjczMy0xLjM1MzktMi40NDY3LTEuNDQ1LTIuNDg5My0uNjQzNS0xLjAzMi0uMTctLjYxOTRjLS4wNjA3LS4yNTUtLjEwMzItLjQ2NzQtLjEwMzItLjcyODVMNi4yODcuMTMzNSA2LjY5OTcgMGwuOTk1Ny4xMzM2LjQxOS4zNjQyLjYxOTIgMS40MTQ3IDEuMDAxOCAyLjIyODIgMS41NTQzIDMuMDI5Ni40NTUzLjg5ODUuMjQyOS44MzE4LjA5MS4yNTVoLjE1Nzl2LS4xNDU3bC4xMjc1LTEuNzA2LjIzNjgtMi4wOTQ3LjIzMDctMi42OTU3LjA3ODktLjc1ODkuMzc2NC0uOTEwNy43NDY4LS40OTE4LjU4MjguMjc5My40Nzk3LjY4Ni0uMDY2OC40NDMzLS4yODUzIDEuODUxNy0uNTU4NiAyLjkwMjEtLjM2NDMgMS45NDI5aC4yMTI1bC4yNDI5LS4yNDI5Ljk4MzUtMS4zMDUzIDEuNjUxNC0yLjA2NDMuNzI4Ni0uODE5Ni44NS0uOTA0Ni41NDY0LS40MzExaDEuMDMyMWwuNzU5IDEuMTI5My0uMzQgMS4xNjU3LTEuMDYyNSAxLjM0NzgtLjg4MDQgMS4xNDE0LTEuMjYyOCAxLjctLjc4OTMgMS4zNi4wNzI5LjEwOTMuMTg4Mi0uMDE4MyAyLjg1MzUtLjYwNyAxLjU0MjEtLjI3OTQgMS44Mzk2LS4zMTU3LjgzMTguMzg4Ni4wOTEuMzk0Ni0uMzI3OC44MDc1LTEuOTY3LjQ4NTctMi4zMDcyLjQ2MTQtMy40MzY0LjgxMzYtLjA0MjUuMDMwNC4wNDg2LjA2MDcgMS41NDgyLjE0NTcuNjYxOC4wMzY0aDEuNjIxbDMuMDE3NS4yMjQ3Ljc4OTIuNTIyLjQ3MzYuNjM3Ni0uMDc5LjQ4NTctMS4yMTQyLjYxOTMtMS42MzkzLS4zODg2LTMuODI1LS45MTA3LTEuMzExMy0uMzI3OWgtLjE4MjJ2LjEwOTNsMS4wOTI5IDEuMDY4NiAyLjAwMzUgMS44MDkyIDIuNTA3NSAyLjMzMTQuMTI3NS41NzY4LS4zMjE4LjQ1NTQtLjM0LS4wNDg2LTIuMjAzOS0xLjY1NzUtLjg1LS43NDY4LTEuOTI0Ni0xLjYyMWgtLjEyNzV2LjE3bC40NDMyLjY0OTYgMi4zNDM2IDMuNTIxNC4xMjE0IDEuMDgwNy0uMTcuMzUyMS0uNjA3MS4yMTI1LS42Njc5LS4xMjE0LTEuMzcyMS0xLjkyNDZMMTQuMzggMTcuOTU5bC0xLjE0MTQtMS45NDI4LS4xMzk3LjA3OS0uNjc0IDcuMjU1Mi0uMzE1Ni4zNzAzLS43Mjg2LjI3OTMtLjYwNzEtLjQ2MTQtLjMyMTgtLjc0NjguMzIxOC0xLjQ3NTMuMzg4Ni0xLjkyNDYuMzE1Ny0xLjUzLjI4NTMtMS45MDA0LjE3LS42MzE0LS4wMTIxLS4wNDI1LS4xMzk3LjAxODItMS40MzI4IDEuOTY3Mi0yLjE3OTYgMi45NDQ2LTEuNzI0MyAxLjg0NTYtLjQxMjguMTY0LS43MTY0LS4zNzA0LjA2NjctLjY2MTguNDAwOC0uNTg4OSAyLjM4Ni0zLjAzNTcgMS40Mzg5LTEuODgyLjkyOS0xLjA4NjgtLjAwNjItLjE1NzloLS4wNTQ2bC02LjMzODUgNC4xMTY0LTEuMTI5My4xNDU3LS40ODU3LS40NTU0LjA2MDgtLjc0NjcuMjMwNy0uMjQyOSAxLjkwNjQtMS4zMTE0WiIvPjwvc3ZnPgo8L3N2Zz4=" alt="" width="22" height="22"><span>Claude Sonnet 4.5</span></div>
+        <div class="bar" role="img" aria-label="France 48% versus Spain 52%">
+          <div class="seg home" style="width:48%"><em>48</em></div>
+          <div class="seg away" style="width:52%"><em>52</em></div>
+          <div class="mid"></div>
+        </div>
+        <div class="brier"><b>0.461</b></div>
+        <div class="verdict"><span class="chip ok">✓ hit</span></div>
+        <p class="quote">“a marginal edge to Spain&#x27;s current form and momentum”</p>
+      </div>
+      <div class="row">
+        <div class="who"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTE3IiByb2xlPSJpbWciPgo8cGF0aCBkPSJNNTAgNSBMOTUgMTkgVjYwIEM5NSA5MCA3NSAxMDUgNTAgMTEyIEMyNSAxMDUgNSA5MCA1IDYwIFYxOSBaIiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiNkOGQ3Y2UiIHN0cm9rZS13aWR0aD0iNCIvPgo8dGV4dCB4PSI1MCIgeT0iNjYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJzeXN0ZW0tdWksc2Fucy1zZXJpZiIgZm9udC1zaXplPSIzMCIgZm9udC13ZWlnaHQ9IjgwMCIgZmlsbD0iIzBmMGYwZSI+R1BUPC90ZXh0Pgo8L3N2Zz4=" alt="" width="22" height="22"><span>GPT-5.1</span></div>
+        <div class="bar" role="img" aria-label="France 52% versus Spain 48%">
+          <div class="seg home" style="width:52%"><em>52</em></div>
+          <div class="seg away" style="width:48%"><em>48</em></div>
+          <div class="mid"></div>
+        </div>
+        <div class="brier"><b>0.541</b></div>
+        <div class="verdict"><span class="chip miss">✗ miss</span></div>
+        <p class="quote">“France very slightly favored … close to a coin flip”</p>
+      </div>
+      <div class="row">
+        <div class="who"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTE3IiByb2xlPSJpbWciPgo8cGF0aCBkPSJNNTAgNSBMOTUgMTkgVjYwIEM5NSA5MCA3NSAxMDUgNTAgMTEyIEMyNSAxMDUgNSA5MCA1IDYwIFYxOSBaIiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiNkOGQ3Y2UiIHN0cm9rZS13aWR0aD0iNCIvPgo8c3ZnIHg9IjI3IiB5PSIzMCIgd2lkdGg9IjQ2IiBoZWlnaHQ9IjQ2IiBmaWxsPSIjNTc4NkZFIiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+RGVlcFNlZWs8L3RpdGxlPjxwYXRoIGQ9Ik0yMy43NDggNC42NTFjLS4yNTQtLjEyNC0uMzY0LjExMy0uNTEyLjIzMy0uMDUxLjA0LS4wOTQuMDktLjEzNy4xMzctLjM3Mi4zOTctLjgwNi42NTctMS4zNzMuNjI2LS44MjktLjA0Ni0xLjUzNy4yMTQtMi4xNjMuODQ4LS4xMzMtLjc4Mi0uNTc1LTEuMjQ4LTEuMjQ3LTEuNTQ4LS4zNTItLjE1NS0uNzA4LS4zMTEtLjk1NS0uNjUtLjE3Mi0uMjQtLjIxOS0uNTA5LS4zMDUtLjc3NC0uMDU1LS4xNi0uMTEtLjMyMy0uMjkzLS4zNS0uMi0uMDMxLS4yNzguMTM2LS4zNTYuMjc2LS4zMTMuNTcyLS40MzQgMS4yMDItLjQyMiAxLjg0LjAyNyAxLjQzNi42MzMgMi41OCAxLjgzOCAzLjM5My4xMzcuMDk0LjE3Mi4xODcuMTI5LjMyMy0uMDgyLjI4LS4xOC41NTMtLjI2Ni44MzMtLjA1NS4xNzktLjEzNy4yMTgtLjMyOC4xNGE1LjUgNS41IDAgMCAxLTEuNzM3LTEuMTc5Yy0uODU3LS44MjgtMS42MzEtMS43NDMtMi41OTctMi40NmExMiAxMiAwIDAgMC0uNjg5LS40N2MtLjk4NS0uOTU3LjEzLTEuNzQzLjM4Ny0xLjgzNi4yNy0uMDk4LjA5NC0uNDMzLS43NzgtLjQyOC0uODcyLjAwMy0xLjY3LjI5NS0yLjY4Ny42ODVhMyAzIDAgMCAxLS40NjUuMTM2IDkuNiA5LjYgMCAwIDAtMi44ODMtLjEwMWMtMS44ODUuMjEtMy4zOSAxLjEtNC40OTcgMi42MjJDLjA4MiA4Ljc3Ni0uMjMxIDEwLjg1NC4xNTIgMTMuMDJjLjQwMyAyLjI4NCAxLjU2OCA0LjE3NSAzLjM2IDUuNjUzIDEuODU3IDEuNTMzIDMuOTk3IDIuMjg0IDYuNDM4IDIuMTQgMS40ODItLjA4NSAzLjEzMi0uMjg0IDQuOTk0LTEuODYuNDcuMjM0Ljk2Mi4zMjggMS43OC4zOTguNjI5LjA1OCAxLjIzNS0uMDMxIDEuNzA1LS4xMjkuNzM1LS4xNTUuNjg0LS44MzYuNDE4LS45NjEtMi4xNTUtMS4wMDQtMS42ODItLjU5NS0yLjExMi0uOTI2IDEuMDk1LTEuMjk1IDIuNzY4LTMuNTk4IDMuMjg0LTYuNzMzLjA1LS4zNDYuMTE1LS44MzQuMTA4LTEuMTE0LS4wMDQtLjE3MS4wMzUtLjIzOC4yMy0uMjU3YTQuMiA0LjIgMCAwIDAgMS41NDUtLjQ3NWMxLjM5Ny0uNzYzIDEuOTYtMi4wMTYgMi4wOTMtMy41MTcuMDItLjIzLS4wMDQtLjQ2Ny0uMjQ3LS41ODhNMTEuNTggMTguMTY4Yy0yLjA4OC0xLjY0Mi0zLjEwMS0yLjE4My0zLjUyLTIuMTYtLjM5LjAyNC0uMzIuNDcyLS4yMzQuNzYzLjA5LjI4OC4yMDcuNDg3LjM3MS43NC4xMTQuMTY3LjE5Mi40MTYtLjExMy42MDMtLjY3My40MTYtMS44NDItLjE0LTEuODk3LS4xNjgtMS4zNjEtLjgwMS0yLjUtMS44Ni0zLjMwMS0zLjMwNi0uNzc1LTEuMzkzLTEuMjI1LTIuODg4LTEuMjk5LTQuNDgyLS4wMi0uMzg1LjA5NC0uNTIyLjQ3Ny0uNTkyYTQuNyA0LjcgMCAwIDEgMS41My0uMDM4YzIuMTMxLjMxMSAzLjk0NiAxLjI2NCA1LjQ2NyAyLjc3NC44NjguODYgMS41MjUgMS44ODcgMi4yMDIgMi44OS43MiAxLjA2NiAxLjQ5NCAyLjA4MiAyLjQ4IDIuOTE1LjM0OC4yOTEuNjI2LjUxMy44OTIuNjc3LS44MDIuMDktMi4xNC4xMDktMy4wNTUtLjYxNXptMS4wMDEtNi40NGEuMzA2LjMwNiAwIDAgMSAuNDE1LS4yODcuMy4zIDAgMCAxIC4xMTMuMDc0LjMuMyAwIDAgMSAuMDg2LjIxNGMwIC4xNy0uMTM2LjMwNy0uMzA4LjMwN2EuMzAzLjMwMyAwIDAgMS0uMzA2LS4zMDdtMy4xMSAxLjU5NmMtLjIuMDgxLS40LjE1MS0uNTkxLjE2YTEuMjUgMS4yNSAwIDAgMS0uNzk4LS4yNTRjLS4yNzQtLjIzLS40Ny0uMzU4LS41NTEtLjc1OGExLjcgMS43IDAgMCAxIC4wMTUtLjU4OGMuMDctLjMyNy0uMDA3LS41MzctLjIzOC0uNzI3LS4xODgtLjE1Ni0uNDI2LS4xOTktLjY4OS0uMTk5YS42LjYgMCAwIDEtLjI1NC0uMDc4LjI1My4yNTMgMCAwIDEtLjExNC0uMzU4IDEgMSAwIDAgMSAuMTkyLS4yMWMuMzU2LS4yMDIuNzY3LS4xMzYgMS4xNDYuMDE2LjM1Mi4xNDQuNjE4LjQwOCAxLjAwMS43ODIuMzkyLjQ1MS40NjIuNTc2LjY4NS45MTUuMTc2LjI2NC4zMzYuNTM2LjQ0Ni44NDguMDY2LjE5NC0uMDIuMzUzLS4yNS40NSIvPjwvc3ZnPgo8L3N2Zz4=" alt="" width="22" height="22"><span>DeepSeek V3.1</span></div>
+        <div class="bar" role="img" aria-label="France 52% versus Spain 48%">
+          <div class="seg home" style="width:52%"><em>52</em></div>
+          <div class="seg away" style="width:48%"><em>48</em></div>
+          <div class="mid"></div>
+        </div>
+        <div class="brier"><b>0.541</b></div>
+        <div class="verdict"><span class="chip miss">✗ miss</span></div>
+        
+      </div>
+      <div class="row">
+        <div class="who"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTE3IiByb2xlPSJpbWciPgo8cGF0aCBkPSJNNTAgNSBMOTUgMTkgVjYwIEM5NSA5MCA3NSAxMDUgNTAgMTEyIEMyNSAxMDUgNSA5MCA1IDYwIFYxOSBaIiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiNkOGQ3Y2UiIHN0cm9rZS13aWR0aD0iNCIvPgo8c3ZnIHg9IjI3IiB5PSIzMCIgd2lkdGg9IjQ2IiBoZWlnaHQ9IjQ2IiBmaWxsPSIjMDAwMDAwIiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+TW9vbnNob3QgQUk8L3RpdGxlPjxwYXRoIGQ9Im0xLjA1MyAxNi45MSA5LjUzOCAyLjU1YTIxIDIwLjk4MSAwIDAgMCAuMDYgMi4wMzFsNS45NTYgMS41OTJhMTIgMTEuOTkgMCAwIDEtMTUuNTU0LTYuMTcybS0xLjAyLTUuNzkgMTEuMzUyIDMuMDM1YTIxIDIwLjk4MSAwIDAgMC0uNDY5IDIuMDFsMTAuODE3IDIuODlhMTIgMTEuOTkgMCAwIDEtMS44NDUgMi4wMDRMLjY1OCAxNS45MThhMTIgMTEuOTkgMCAwIDEtLjYyNS00Ljc5Nm0xLjU5My01LjE0NkwxMy41NzMgOS4xN2EyMSAyMC45ODEgMCAwIDAtMS4wMSAxLjg3NGwxMS4yOTcgMy4wMmEyMSAyMC45ODEgMCAwIDEtLjY3IDIuMzYybC0xMS41NS0zLjA4N0wuMTI1IDEwLjI2YTEyIDExLjk5IDAgMCAxIDEuNDk5LTQuMjg1Wk02LjA2NyAxLjU4bDExLjI4NSAzLjAxNmEyMSAyMC45ODEgMCAwIDAtMS42ODggMS43MTlsNy44MjQgMi4wOTFhMjEgMjAuOTgxIDAgMCAxIC41MTMgMi42NjRMMi4xMDcgNS4yMThhMTIgMTEuOTkgMCAwIDEgMy45Ni0zLjYzOE0yMS42OCA0Ljg2NiA3LjIyMiAxLjAwM0ExMiAxMS45OSAwIDAgMSAyMS42OCA0Ljg2NiIvPjwvc3ZnPgo8L3N2Zz4=" alt="" width="22" height="22"><span>Kimi K2</span></div>
+        <div class="bar" role="img" aria-label="France 52% versus Spain 48%">
+          <div class="seg home" style="width:52%"><em>52</em></div>
+          <div class="seg away" style="width:48%"><em>48</em></div>
+          <div class="mid"></div>
+        </div>
+        <div class="brier"><b>0.541</b></div>
+        <div class="verdict"><span class="chip miss">✗ miss</span></div>
+        
+      </div>
+      <div class="row">
+        <div class="who"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTE3IiByb2xlPSJpbWciPgo8cGF0aCBkPSJNNTAgNSBMOTUgMTkgVjYwIEM5NSA5MCA3NSAxMDUgNTAgMTEyIEMyNSAxMDUgNSA5MCA1IDYwIFYxOSBaIiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiNkOGQ3Y2UiIHN0cm9rZS13aWR0aD0iNCIvPgo8dGV4dCB4PSI1MCIgeT0iNjYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJzeXN0ZW0tdWksc2Fucy1zZXJpZiIgZm9udC1zaXplPSIzMCIgZm9udC13ZWlnaHQ9IjgwMCIgZmlsbD0iIzM0NTVmMCI+R0xNPC90ZXh0Pgo8L3N2Zz4=" alt="" width="22" height="22"><span>GLM-4.6</span></div>
+        <div class="bar" role="img" aria-label="France 52% versus Spain 48%">
+          <div class="seg home" style="width:52%"><em>52</em></div>
+          <div class="seg away" style="width:48%"><em>48</em></div>
+          <div class="mid"></div>
+        </div>
+        <div class="brier"><b>0.541</b></div>
+        <div class="verdict"><span class="chip miss">✗ miss</span></div>
+        
+      </div>
+      <div class="row">
+        <div class="who"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTE3IiByb2xlPSJpbWciPgo8cGF0aCBkPSJNNTAgNSBMOTUgMTkgVjYwIEM5NSA5MCA3NSAxMDUgNTAgMTEyIEMyNSAxMDUgNSA5MCA1IDYwIFYxOSBaIiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiNkOGQ3Y2UiIHN0cm9rZS13aWR0aD0iNCIvPgo8c3ZnIHg9IjI3IiB5PSIzMCIgd2lkdGg9IjQ2IiBoZWlnaHQ9IjQ2IiBmaWxsPSIjNjk1MEVGIiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+UVdlbjwvdGl0bGU+PHBhdGggZD0iTTIzLjkxOSAxNC41NDUgMjAuODE3IDkuMTdsMS40Ny0yLjU0NGEuNTYuNTYgMCAwIDAgMC0uNTY2bC0xLjYzMy0yLjgzYS41Ny41NyAwIDAgMC0uNDktLjI4M2gtNi4yMDdMMTIuNDg3LjQwMmEuNTcuNTcgMCAwIDAtLjQ5LS4yODRIOC43MzJhLjU2LjU2IDAgMCAwLS40OS4yODRMNS4xMzkgNS43NzVoLTIuOTRhLjU2LjU2IDAgMCAwLS40OS4yODRMLjA3NyA4Ljg4N2EuNTYuNTYgMCAwIDAgMCAuNTY3TDMuMTggMTQuODNsLTEuNDcgMi41NDVhLjU2LjU2IDAgMCAwIDAgLjU2NmwxLjYzNCAyLjgzYS41Ny41NyAwIDAgMCAuNDkuMjgzaDYuMjA1bDEuNDcgMi41NDVhLjU3LjU3IDAgMCAwIC40OS4yODRoMy4yNjZhLjU3LjU3IDAgMCAwIC40OS0uMjg0bDMuMTA0LTUuMzc1aDIuOTRhLjU3LjU3IDAgMCAwIC40OS0uMjgzbDEuNjM0LTIuODI4YS41NS41NSAwIDAgMC0uMDA0LS41NjhNOC43MzMuNjg2bDEuNjM0IDIuODI4LTEuNjM0IDIuODI4SDIxLjhMMjAuMTY0IDkuMTdINy40MjVMNS42MyA2LjA2Wm0xLjMwNiAxOS44MDEtNi4yMDUtLjAwMiAxLjYzNC0yLjgzaDMuMjY1TDIuMjAxIDYuMzQ0aDMuMjY3cTMuMTgyIDUuNTE3IDYuMzY3IDExLjAzMnptMTAuMTI0LTUuNjZMMTguNTMgMTJsLTYuNTMyIDExLjMxNS0xLjYzNC0yLjgzYzIuMTI5LTMuNjczIDQuMjUtNy4zNTEgNi4zNzMtMTEuMDI4aDMuNTkybDMuMTAyIDUuMzc0eiIvPjwvc3ZnPgo8L3N2Zz4=" alt="" width="22" height="22"><span>Qwen3-Max</span></div>
+        <div class="bar" role="img" aria-label="France 55% versus Spain 45%">
+          <div class="seg home" style="width:55%"><em>55</em></div>
+          <div class="seg away" style="width:45%"><em>45</em></div>
+          <div class="mid"></div>
+        </div>
+        <div class="brier"><b>0.605</b></div>
+        <div class="verdict"><span class="chip miss">✗ miss</span></div>
+        
+      </div>
+      <div class="row">
+        <div class="who"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTE3IiByb2xlPSJpbWciPgo8cGF0aCBkPSJNNTAgNSBMOTUgMTkgVjYwIEM5NSA5MCA3NSAxMDUgNTAgMTEyIEMyNSAxMDUgNSA5MCA1IDYwIFYxOSBaIiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiNkOGQ3Y2UiIHN0cm9rZS13aWR0aD0iNCIvPgo8c3ZnIHg9IjI3IiB5PSIzMCIgd2lkdGg9IjQ2IiBoZWlnaHQ9IjQ2IiBmaWxsPSIjRTczNTYyIiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+TWluaU1heDwvdGl0bGU+PHBhdGggZD0iTTExLjQzIDMuOTJhLjg2Ljg2IDAgMSAwLTEuNzE4IDB2MTQuMjM2YTEuOTk5IDEuOTk5IDAgMCAxLTMuOTk3IDBWOS4wMjJhLjg2Ljg2IDAgMSAwLTEuNzE4IDB2My44N2ExLjk5OSAxLjk5OSAwIDAgMS0zLjk5NyAwVjExLjQ5YS41Ny41NyAwIDAgMSAxLjEzOSAwdjEuNDA0YS44Ni44NiAwIDAgMCAxLjcxOSAwVjkuMDIyYTEuOTk5IDEuOTk5IDAgMCAxIDMuOTk3IDB2OS4xMzRhLjg2Ljg2IDAgMCAwIDEuNzE5IDBWMy45MmExLjk5OCAxLjk5OCAwIDEgMSAzLjk5NiAwdjExLjc4OGEuNTcuNTcgMCAxIDEtMS4xMzkgMHptMTAuNTcyIDMuMTA1YTIgMiAwIDAgMC0xLjk5OSAxLjk5N3Y3LjYzYS44Ni44NiAwIDAgMS0xLjcxOCAwVjMuOTIzYTEuOTk5IDEuOTk5IDAgMCAwLTMuOTk3IDB2MTYuMTZhLjg2Ljg2IDAgMCAxLTEuNzE5IDBWMTguMDhhLjU3LjU3IDAgMSAwLTEuMTM4IDB2MmExLjk5OCAxLjk5OCAwIDAgMCAzLjk5NiAwVjMuOTJhLjg2Ljg2IDAgMCAxIDEuNzE5IDB2MTIuNzNhMS45OTkgMS45OTkgMCAwIDAgMy45OTYgMFY5LjAyM2EuODYuODYgMCAxIDEgMS43MiAwdjYuNjg2YS41Ny41NyAwIDAgMCAxLjEzOCAwVjkuMDIyYTIgMiAwIDAgMC0xLjk5OC0xLjk5NyIvPjwvc3ZnPgo8L3N2Zz4=" alt="" width="22" height="22"><span>MiniMax M2</span></div>
+        <div class="bar" role="img" aria-label="France 55% versus Spain 45%">
+          <div class="seg home" style="width:55%"><em>55</em></div>
+          <div class="seg away" style="width:45%"><em>45</em></div>
+          <div class="mid"></div>
+        </div>
+        <div class="brier"><b>0.605</b></div>
+        <div class="verdict"><span class="chip miss">✗ miss</span></div>
+        <p class="quote">“France&#x27;s deeper squad and recent edge in major tournament knockout stages”</p>
+      </div>
+      <div class="row backtest">
+        <div class="who"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTE3IiByb2xlPSJpbWciPgo8cGF0aCBkPSJNNTAgNSBMOTUgMTkgVjYwIEM5NSA5MCA3NSAxMDUgNTAgMTEyIEMyNSAxMDUgNSA5MCA1IDYwIFYxOSBaIiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiNkOGQ3Y2UiIHN0cm9rZS13aWR0aD0iNCIvPgo8c3ZnIHg9IjI3IiB5PSIzMCIgd2lkdGg9IjQ2IiBoZWlnaHQ9IjQ2IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHRpdGxlPkdlbWluaTwvdGl0bGU+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnZW0iIHgxPSIyIiB5MT0iMyIgeDI9IjIyIiB5Mj0iMjEiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiM0Mjg1RjQiLz48c3RvcCBvZmZzZXQ9Ii41MiIgc3RvcC1jb2xvcj0iIzlCNzJDQiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI0Q5NjU3MCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxwYXRoIGZpbGw9InVybCgjZ2VtKSIgZD0iTTEyIDEgTDE0LjkgOS4xIEwyMyAxMiBMMTQuOSAxNC45IEwxMiAyMyBMOS4xIDE0LjkgTDEgMTIgTDkuMSA5LjEgWiIvPjwvc3ZnPgo8L3N2Zz4K" alt="" width="22" height="22"><span>Gemini 3.1 Pro</span></div>
+        <div class="bar" role="img" aria-label="France 52% versus Spain 48%">
+          <div class="seg home" style="width:52%"><em>52</em></div>
+          <div class="seg away" style="width:48%"><em>48</em></div>
+          <div class="mid"></div>
+        </div>
+        <div class="brier"><b>0.541</b></div>
+        <div class="verdict"><span class="chip bt">★ backtest</span></div>
+        <p class="quote">“France boasts incredible squad depth and recent World Cup pedigree, [but] Spain&#x27;s tactical cohesion and recent Euro 2024 victory make this a nearly even matchup”</p>
+        <p class="bt-note">Gemini joined the roster after this match, so it never locked a forecast here. This is a <b>backtest</b> — the identical pre-kickoff prompt, run after full time, no result in the prompt — so it is not in the field mean above. It leaned France by a single point; Spain went through.</p>
+      </div>
+  </div>
+
+  <h2>England 1–2 Argentina — the call they nailed (mostly)</h2>
+  <p class="section-note">Here the consensus held: six of seven leaned Argentina, and the reigning champions delivered — equalising on 85' after England led at 55', then winning it in the second minute of stoppage time. Only one model looked away.</p>
+  <div class="module">
+    <div class="mhead"><span class="title">Who advances? — pre-match probability</span><span class="fieldbrier good">field mean Brier <b>0.444</b> · better than 0.500</span></div>
+    <div class="legend"><span><i style="background:var(--home)"></i>England</span><span><i style="background:var(--away)"></i>Argentina</span><span>dashed line = 50/50</span></div>
+    
+      <div class="row lead">
+        <div class="who"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTE3IiByb2xlPSJpbWciPgo8cGF0aCBkPSJNNTAgNSBMOTUgMTkgVjYwIEM5NSA5MCA3NSAxMDUgNTAgMTEyIEMyNSAxMDUgNSA5MCA1IDYwIFYxOSBaIiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiNkOGQ3Y2UiIHN0cm9rZS13aWR0aD0iNCIvPgo8c3ZnIHg9IjI3IiB5PSIzMCIgd2lkdGg9IjQ2IiBoZWlnaHQ9IjQ2IiBmaWxsPSIjNTc4NkZFIiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+RGVlcFNlZWs8L3RpdGxlPjxwYXRoIGQ9Ik0yMy43NDggNC42NTFjLS4yNTQtLjEyNC0uMzY0LjExMy0uNTEyLjIzMy0uMDUxLjA0LS4wOTQuMDktLjEzNy4xMzctLjM3Mi4zOTctLjgwNi42NTctMS4zNzMuNjI2LS44MjktLjA0Ni0xLjUzNy4yMTQtMi4xNjMuODQ4LS4xMzMtLjc4Mi0uNTc1LTEuMjQ4LTEuMjQ3LTEuNTQ4LS4zNTItLjE1NS0uNzA4LS4zMTEtLjk1NS0uNjUtLjE3Mi0uMjQtLjIxOS0uNTA5LS4zMDUtLjc3NC0uMDU1LS4xNi0uMTEtLjMyMy0uMjkzLS4zNS0uMi0uMDMxLS4yNzguMTM2LS4zNTYuMjc2LS4zMTMuNTcyLS40MzQgMS4yMDItLjQyMiAxLjg0LjAyNyAxLjQzNi42MzMgMi41OCAxLjgzOCAzLjM5My4xMzcuMDk0LjE3Mi4xODcuMTI5LjMyMy0uMDgyLjI4LS4xOC41NTMtLjI2Ni44MzMtLjA1NS4xNzktLjEzNy4yMTgtLjMyOC4xNGE1LjUgNS41IDAgMCAxLTEuNzM3LTEuMTc5Yy0uODU3LS44MjgtMS42MzEtMS43NDMtMi41OTctMi40NmExMiAxMiAwIDAgMC0uNjg5LS40N2MtLjk4NS0uOTU3LjEzLTEuNzQzLjM4Ny0xLjgzNi4yNy0uMDk4LjA5NC0uNDMzLS43NzgtLjQyOC0uODcyLjAwMy0xLjY3LjI5NS0yLjY4Ny42ODVhMyAzIDAgMCAxLS40NjUuMTM2IDkuNiA5LjYgMCAwIDAtMi44ODMtLjEwMWMtMS44ODUuMjEtMy4zOSAxLjEtNC40OTcgMi42MjJDLjA4MiA4Ljc3Ni0uMjMxIDEwLjg1NC4xNTIgMTMuMDJjLjQwMyAyLjI4NCAxLjU2OCA0LjE3NSAzLjM2IDUuNjUzIDEuODU3IDEuNTMzIDMuOTk3IDIuMjg0IDYuNDM4IDIuMTQgMS40ODItLjA4NSAzLjEzMi0uMjg0IDQuOTk0LTEuODYuNDcuMjM0Ljk2Mi4zMjggMS43OC4zOTguNjI5LjA1OCAxLjIzNS0uMDMxIDEuNzA1LS4xMjkuNzM1LS4xNTUuNjg0LS44MzYuNDE4LS45NjEtMi4xNTUtMS4wMDQtMS42ODItLjU5NS0yLjExMi0uOTI2IDEuMDk1LTEuMjk1IDIuNzY4LTMuNTk4IDMuMjg0LTYuNzMzLjA1LS4zNDYuMTE1LS44MzQuMTA4LTEuMTE0LS4wMDQtLjE3MS4wMzUtLjIzOC4yMy0uMjU3YTQuMiA0LjIgMCAwIDAgMS41NDUtLjQ3NWMxLjM5Ny0uNzYzIDEuOTYtMi4wMTYgMi4wOTMtMy41MTcuMDItLjIzLS4wMDQtLjQ2Ny0uMjQ3LS41ODhNMTEuNTggMTguMTY4Yy0yLjA4OC0xLjY0Mi0zLjEwMS0yLjE4My0zLjUyLTIuMTYtLjM5LjAyNC0uMzIuNDcyLS4yMzQuNzYzLjA5LjI4OC4yMDcuNDg3LjM3MS43NC4xMTQuMTY3LjE5Mi40MTYtLjExMy42MDMtLjY3My40MTYtMS44NDItLjE0LTEuODk3LS4xNjgtMS4zNjEtLjgwMS0yLjUtMS44Ni0zLjMwMS0zLjMwNi0uNzc1LTEuMzkzLTEuMjI1LTIuODg4LTEuMjk5LTQuNDgyLS4wMi0uMzg1LjA5NC0uNTIyLjQ3Ny0uNTkyYTQuNyA0LjcgMCAwIDEgMS41My0uMDM4YzIuMTMxLjMxMSAzLjk0NiAxLjI2NCA1LjQ2NyAyLjc3NC44NjguODYgMS41MjUgMS44ODcgMi4yMDIgMi44OS43MiAxLjA2NiAxLjQ5NCAyLjA4MiAyLjQ4IDIuOTE1LjM0OC4yOTEuNjI2LjUxMy44OTIuNjc3LS44MDIuMDktMi4xNC4xMDktMy4wNTUtLjYxNXptMS4wMDEtNi40NGEuMzA2LjMwNiAwIDAgMSAuNDE1LS4yODcuMy4zIDAgMCAxIC4xMTMuMDc0LjMuMyAwIDAgMSAuMDg2LjIxNGMwIC4xNy0uMTM2LjMwNy0uMzA4LjMwN2EuMzAzLjMwMyAwIDAgMS0uMzA2LS4zMDdtMy4xMSAxLjU5NmMtLjIuMDgxLS40LjE1MS0uNTkxLjE2YTEuMjUgMS4yNSAwIDAgMS0uNzk4LS4yNTRjLS4yNzQtLjIzLS40Ny0uMzU4LS41NTEtLjc1OGExLjcgMS43IDAgMCAxIC4wMTUtLjU4OGMuMDctLjMyNy0uMDA3LS41MzctLjIzOC0uNzI3LS4xODgtLjE1Ni0uNDI2LS4xOTktLjY4OS0uMTk5YS42LjYgMCAwIDEtLjI1NC0uMDc4LjI1My4yNTMgMCAwIDEtLjExNC0uMzU4IDEgMSAwIDAgMSAuMTkyLS4yMWMuMzU2LS4yMDIuNzY3LS4xMzYgMS4xNDYuMDE2LjM1Mi4xNDQuNjE4LjQwOCAxLjAwMS43ODIuMzkyLjQ1MS40NjIuNTc2LjY4NS45MTUuMTc2LjI2NC4zMzYuNTM2LjQ0Ni44NDguMDY2LjE5NC0uMDIuMzUzLS4yNS40NSIvPjwvc3ZnPgo8L3N2Zz4=" alt="" width="22" height="22"><span>DeepSeek V3.1</span></div>
+        <div class="bar" role="img" aria-label="England 45% versus Argentina 55%">
+          <div class="seg home" style="width:45%"><em>45</em></div>
+          <div class="seg away" style="width:55%"><em>55</em></div>
+          <div class="mid"></div>
+        </div>
+        <div class="brier"><b>0.405</b></div>
+        <div class="verdict"><span class="chip ok">✓ hit</span></div>
+        <p class="quote">“Argentina&#x27;s … elite individual talent … over a strong but historically less clinical England side”</p>
+      </div>
+      <div class="row lead">
+        <div class="who"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTE3IiByb2xlPSJpbWciPgo8cGF0aCBkPSJNNTAgNSBMOTUgMTkgVjYwIEM5NSA5MCA3NSAxMDUgNTAgMTEyIEMyNSAxMDUgNSA5MCA1IDYwIFYxOSBaIiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiNkOGQ3Y2UiIHN0cm9rZS13aWR0aD0iNCIvPgo8dGV4dCB4PSI1MCIgeT0iNjYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJzeXN0ZW0tdWksc2Fucy1zZXJpZiIgZm9udC1zaXplPSIzMCIgZm9udC13ZWlnaHQ9IjgwMCIgZmlsbD0iIzM0NTVmMCI+R0xNPC90ZXh0Pgo8L3N2Zz4=" alt="" width="22" height="22"><span>GLM-4.6</span></div>
+        <div class="bar" role="img" aria-label="England 45% versus Argentina 55%">
+          <div class="seg home" style="width:45%"><em>45</em></div>
+          <div class="seg away" style="width:55%"><em>55</em></div>
+          <div class="mid"></div>
+        </div>
+        <div class="brier"><b>0.405</b></div>
+        <div class="verdict"><span class="chip ok">✓ hit</span></div>
+        
+      </div>
+      <div class="row lead">
+        <div class="who"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTE3IiByb2xlPSJpbWciPgo8cGF0aCBkPSJNNTAgNSBMOTUgMTkgVjYwIEM5NSA5MCA3NSAxMDUgNTAgMTEyIEMyNSAxMDUgNSA5MCA1IDYwIFYxOSBaIiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiNkOGQ3Y2UiIHN0cm9rZS13aWR0aD0iNCIvPgo8c3ZnIHg9IjI3IiB5PSIzMCIgd2lkdGg9IjQ2IiBoZWlnaHQ9IjQ2IiBmaWxsPSIjNjk1MEVGIiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+UVdlbjwvdGl0bGU+PHBhdGggZD0iTTIzLjkxOSAxNC41NDUgMjAuODE3IDkuMTdsMS40Ny0yLjU0NGEuNTYuNTYgMCAwIDAgMC0uNTY2bC0xLjYzMy0yLjgzYS41Ny41NyAwIDAgMC0uNDktLjI4M2gtNi4yMDdMMTIuNDg3LjQwMmEuNTcuNTcgMCAwIDAtLjQ5LS4yODRIOC43MzJhLjU2LjU2IDAgMCAwLS40OS4yODRMNS4xMzkgNS43NzVoLTIuOTRhLjU2LjU2IDAgMCAwLS40OS4yODRMLjA3NyA4Ljg4N2EuNTYuNTYgMCAwIDAgMCAuNTY3TDMuMTggMTQuODNsLTEuNDcgMi41NDVhLjU2LjU2IDAgMCAwIDAgLjU2NmwxLjYzNCAyLjgzYS41Ny41NyAwIDAgMCAuNDkuMjgzaDYuMjA1bDEuNDcgMi41NDVhLjU3LjU3IDAgMCAwIC40OS4yODRoMy4yNjZhLjU3LjU3IDAgMCAwIC40OS0uMjg0bDMuMTA0LTUuMzc1aDIuOTRhLjU3LjU3IDAgMCAwIC40OS0uMjgzbDEuNjM0LTIuODI4YS41NS41NSAwIDAgMC0uMDA0LS41NjhNOC43MzMuNjg2bDEuNjM0IDIuODI4LTEuNjM0IDIuODI4SDIxLjhMMjAuMTY0IDkuMTdINy40MjVMNS42MyA2LjA2Wm0xLjMwNiAxOS44MDEtNi4yMDUtLjAwMiAxLjYzNC0yLjgzaDMuMjY1TDIuMjAxIDYuMzQ0aDMuMjY3cTMuMTgyIDUuNTE3IDYuMzY3IDExLjAzMnptMTAuMTI0LTUuNjZMMTguNTMgMTJsLTYuNTMyIDExLjMxNS0xLjYzNC0yLjgzYzIuMTI5LTMuNjczIDQuMjUtNy4zNTEgNi4zNzMtMTEuMDI4aDMuNTkybDMuMTAyIDUuMzc0eiIvPjwvc3ZnPgo8L3N2Zz4=" alt="" width="22" height="22"><span>Qwen3-Max</span></div>
+        <div class="bar" role="img" aria-label="England 45% versus Argentina 55%">
+          <div class="seg home" style="width:45%"><em>45</em></div>
+          <div class="seg away" style="width:55%"><em>55</em></div>
+          <div class="mid"></div>
+        </div>
+        <div class="brier"><b>0.405</b></div>
+        <div class="verdict"><span class="chip ok">✓ hit</span></div>
+        
+      </div>
+      <div class="row lead">
+        <div class="who"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTE3IiByb2xlPSJpbWciPgo8cGF0aCBkPSJNNTAgNSBMOTUgMTkgVjYwIEM5NSA5MCA3NSAxMDUgNTAgMTEyIEMyNSAxMDUgNSA5MCA1IDYwIFYxOSBaIiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiNkOGQ3Y2UiIHN0cm9rZS13aWR0aD0iNCIvPgo8c3ZnIHg9IjI3IiB5PSIzMCIgd2lkdGg9IjQ2IiBoZWlnaHQ9IjQ2IiBmaWxsPSIjRTczNTYyIiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+TWluaU1heDwvdGl0bGU+PHBhdGggZD0iTTExLjQzIDMuOTJhLjg2Ljg2IDAgMSAwLTEuNzE4IDB2MTQuMjM2YTEuOTk5IDEuOTk5IDAgMCAxLTMuOTk3IDBWOS4wMjJhLjg2Ljg2IDAgMSAwLTEuNzE4IDB2My44N2ExLjk5OSAxLjk5OSAwIDAgMS0zLjk5NyAwVjExLjQ5YS41Ny41NyAwIDAgMSAxLjEzOSAwdjEuNDA0YS44Ni44NiAwIDAgMCAxLjcxOSAwVjkuMDIyYTEuOTk5IDEuOTk5IDAgMCAxIDMuOTk3IDB2OS4xMzRhLjg2Ljg2IDAgMCAwIDEuNzE5IDBWMy45MmExLjk5OCAxLjk5OCAwIDEgMSAzLjk5NiAwdjExLjc4OGEuNTcuNTcgMCAxIDEtMS4xMzkgMHptMTAuNTcyIDMuMTA1YTIgMiAwIDAgMC0xLjk5OSAxLjk5N3Y3LjYzYS44Ni44NiAwIDAgMS0xLjcxOCAwVjMuOTIzYTEuOTk5IDEuOTk5IDAgMCAwLTMuOTk3IDB2MTYuMTZhLjg2Ljg2IDAgMCAxLTEuNzE5IDBWMTguMDhhLjU3LjU3IDAgMSAwLTEuMTM4IDB2MmExLjk5OCAxLjk5OCAwIDAgMCAzLjk5NiAwVjMuOTJhLjg2Ljg2IDAgMCAxIDEuNzE5IDB2MTIuNzNhMS45OTkgMS45OTkgMCAwIDAgMy45OTYgMFY5LjAyM2EuODYuODYgMCAxIDEgMS43MiAwdjYuNjg2YS41Ny41NyAwIDAgMCAxLjEzOCAwVjkuMDIyYTIgMiAwIDAgMC0xLjk5OC0xLjk5NyIvPjwvc3ZnPgo8L3N2Zz4=" alt="" width="22" height="22"><span>MiniMax M2</span></div>
+        <div class="bar" role="img" aria-label="England 45% versus Argentina 55%">
+          <div class="seg home" style="width:45%"><em>45</em></div>
+          <div class="seg away" style="width:55%"><em>55</em></div>
+          <div class="mid"></div>
+        </div>
+        <div class="brier"><b>0.405</b></div>
+        <div class="verdict"><span class="chip ok">✓ hit</span></div>
+        
+      </div>
+      <div class="row">
+        <div class="who"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTE3IiByb2xlPSJpbWciPgo8cGF0aCBkPSJNNTAgNSBMOTUgMTkgVjYwIEM5NSA5MCA3NSAxMDUgNTAgMTEyIEMyNSAxMDUgNSA5MCA1IDYwIFYxOSBaIiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiNkOGQ3Y2UiIHN0cm9rZS13aWR0aD0iNCIvPgo8dGV4dCB4PSI1MCIgeT0iNjYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJzeXN0ZW0tdWksc2Fucy1zZXJpZiIgZm9udC1zaXplPSIzMCIgZm9udC13ZWlnaHQ9IjgwMCIgZmlsbD0iIzBmMGYwZSI+R1BUPC90ZXh0Pgo8L3N2Zz4=" alt="" width="22" height="22"><span>GPT-5.1</span></div>
+        <div class="bar" role="img" aria-label="England 47% versus Argentina 53%">
+          <div class="seg home" style="width:47%"><em>47</em></div>
+          <div class="seg away" style="width:53%"><em>53</em></div>
+          <div class="mid"></div>
+        </div>
+        <div class="brier"><b>0.442</b></div>
+        <div class="verdict"><span class="chip ok">✓ hit</span></div>
+        
+      </div>
+      <div class="row">
+        <div class="who"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTE3IiByb2xlPSJpbWciPgo8cGF0aCBkPSJNNTAgNSBMOTUgMTkgVjYwIEM5NSA5MCA3NSAxMDUgNTAgMTEyIEMyNSAxMDUgNSA5MCA1IDYwIFYxOSBaIiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiNkOGQ3Y2UiIHN0cm9rZS13aWR0aD0iNCIvPgo8c3ZnIHg9IjI3IiB5PSIzMCIgd2lkdGg9IjQ2IiBoZWlnaHQ9IjQ2IiBmaWxsPSIjRDk3NzU3IiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+Q2xhdWRlPC90aXRsZT48cGF0aCBkPSJtNC43MTQ0IDE1Ljk1NTUgNC43MTc0LTIuNjQ3MS4wNzktLjIzMDctLjA3OS0uMTI3NWgtLjIzMDdsLS43ODkzLS4wNDg2LTIuNjk1Ni0uMDcyOS0yLjMzNzUtLjA5NzEtMi4yNjQ2LS4xMjE0LS41NzA3LS4xMjE1LS41MzQzLS43MDQyLjA1NDYtLjM1MjIuNDc5Ny0uMzIxOC42ODYuMDYwOCAxLjUxNzkuMTAzMiAyLjI3NjcuMTU3OCAxLjY1MTQuMDk3MiAyLjQ0NjguMjU1aC4zODg2bC4wNTQ2LS4xNTc5LS4xMzM2LS4wOTcxLS4xMDMyLS4wOTcyTDYuOTczIDkuODM1NmwtMi41NS0xLjY4NzktMS4zMzU2LS45NzE0LS43MjI1LS40OTE4LS4zNjQzLS40NjE0LS4xNTc4LTEuMDA3OC42NTU3LS43MjI1Ljg4MDMuMDYwNy4yMjQ2LjA2MDcuODkyNS42ODYgMS45MDY0IDEuNDc1NCAyLjQ4OTMgMS44MzM2LjM2NDMuMzAzNS4xNDU3LS4xMDMyLjAxODItLjA3MjgtLjE2NC0uMjczMy0xLjM1MzktMi40NDY3LTEuNDQ1LTIuNDg5My0uNjQzNS0xLjAzMi0uMTctLjYxOTRjLS4wNjA3LS4yNTUtLjEwMzItLjQ2NzQtLjEwMzItLjcyODVMNi4yODcuMTMzNSA2LjY5OTcgMGwuOTk1Ny4xMzM2LjQxOS4zNjQyLjYxOTIgMS40MTQ3IDEuMDAxOCAyLjIyODIgMS41NTQzIDMuMDI5Ni40NTUzLjg5ODUuMjQyOS44MzE4LjA5MS4yNTVoLjE1Nzl2LS4xNDU3bC4xMjc1LTEuNzA2LjIzNjgtMi4wOTQ3LjIzMDctMi42OTU3LjA3ODktLjc1ODkuMzc2NC0uOTEwNy43NDY4LS40OTE4LjU4MjguMjc5My40Nzk3LjY4Ni0uMDY2OC40NDMzLS4yODUzIDEuODUxNy0uNTU4NiAyLjkwMjEtLjM2NDMgMS45NDI5aC4yMTI1bC4yNDI5LS4yNDI5Ljk4MzUtMS4zMDUzIDEuNjUxNC0yLjA2NDMuNzI4Ni0uODE5Ni44NS0uOTA0Ni41NDY0LS40MzExaDEuMDMyMWwuNzU5IDEuMTI5My0uMzQgMS4xNjU3LTEuMDYyNSAxLjM0NzgtLjg4MDQgMS4xNDE0LTEuMjYyOCAxLjctLjc4OTMgMS4zNi4wNzI5LjEwOTMuMTg4Mi0uMDE4MyAyLjg1MzUtLjYwNyAxLjU0MjEtLjI3OTQgMS44Mzk2LS4zMTU3LjgzMTguMzg4Ni4wOTEuMzk0Ni0uMzI3OC44MDc1LTEuOTY3LjQ4NTctMi4zMDcyLjQ2MTQtMy40MzY0LjgxMzYtLjA0MjUuMDMwNC4wNDg2LjA2MDcgMS41NDgyLjE0NTcuNjYxOC4wMzY0aDEuNjIxbDMuMDE3NS4yMjQ3Ljc4OTIuNTIyLjQ3MzYuNjM3Ni0uMDc5LjQ4NTctMS4yMTQyLjYxOTMtMS42MzkzLS4zODg2LTMuODI1LS45MTA3LTEuMzExMy0uMzI3OWgtLjE4MjJ2LjEwOTNsMS4wOTI5IDEuMDY4NiAyLjAwMzUgMS44MDkyIDIuNTA3NSAyLjMzMTQuMTI3NS41NzY4LS4zMjE4LjQ1NTQtLjM0LS4wNDg2LTIuMjAzOS0xLjY1NzUtLjg1LS43NDY4LTEuOTI0Ni0xLjYyMWgtLjEyNzV2LjE3bC40NDMyLjY0OTYgMi4zNDM2IDMuNTIxNC4xMjE0IDEuMDgwNy0uMTcuMzUyMS0uNjA3MS4yMTI1LS42Njc5LS4xMjE0LTEuMzcyMS0xLjkyNDZMMTQuMzggMTcuOTU5bC0xLjE0MTQtMS45NDI4LS4xMzk3LjA3OS0uNjc0IDcuMjU1Mi0uMzE1Ni4zNzAzLS43Mjg2LjI3OTMtLjYwNzEtLjQ2MTQtLjMyMTgtLjc0NjguMzIxOC0xLjQ3NTMuMzg4Ni0xLjkyNDYuMzE1Ny0xLjUzLjI4NTMtMS45MDA0LjE3LS42MzE0LS4wMTIxLS4wNDI1LS4xMzk3LjAxODItMS40MzI4IDEuOTY3Mi0yLjE3OTYgMi45NDQ2LTEuNzI0MyAxLjg0NTYtLjQxMjguMTY0LS43MTY0LS4zNzA0LjA2NjctLjY2MTguNDAwOC0uNTg4OSAyLjM4Ni0zLjAzNTcgMS40Mzg5LTEuODgyLjkyOS0xLjA4NjgtLjAwNjItLjE1NzloLS4wNTQ2bC02LjMzODUgNC4xMTY0LTEuMTI5My4xNDU3LS40ODU3LS40NTU0LjA2MDgtLjc0NjcuMjMwNy0uMjQyOSAxLjkwNjQtMS4zMTE0WiIvPjwvc3ZnPgo8L3N2Zz4=" alt="" width="22" height="22"><span>Claude Sonnet 4.5</span></div>
+        <div class="bar" role="img" aria-label="England 48% versus Argentina 52%">
+          <div class="seg home" style="width:48%"><em>48</em></div>
+          <div class="seg away" style="width:52%"><em>52</em></div>
+          <div class="mid"></div>
+        </div>
+        <div class="brier"><b>0.461</b></div>
+        <div class="verdict"><span class="chip ok">✓ hit</span></div>
+        
+      </div>
+      <div class="row">
+        <div class="who"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTE3IiByb2xlPSJpbWciPgo8cGF0aCBkPSJNNTAgNSBMOTUgMTkgVjYwIEM5NSA5MCA3NSAxMDUgNTAgMTEyIEMyNSAxMDUgNSA5MCA1IDYwIFYxOSBaIiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiNkOGQ3Y2UiIHN0cm9rZS13aWR0aD0iNCIvPgo8c3ZnIHg9IjI3IiB5PSIzMCIgd2lkdGg9IjQ2IiBoZWlnaHQ9IjQ2IiBmaWxsPSIjMDAwMDAwIiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+TW9vbnNob3QgQUk8L3RpdGxlPjxwYXRoIGQ9Im0xLjA1MyAxNi45MSA5LjUzOCAyLjU1YTIxIDIwLjk4MSAwIDAgMCAuMDYgMi4wMzFsNS45NTYgMS41OTJhMTIgMTEuOTkgMCAwIDEtMTUuNTU0LTYuMTcybS0xLjAyLTUuNzkgMTEuMzUyIDMuMDM1YTIxIDIwLjk4MSAwIDAgMC0uNDY5IDIuMDFsMTAuODE3IDIuODlhMTIgMTEuOTkgMCAwIDEtMS44NDUgMi4wMDRMLjY1OCAxNS45MThhMTIgMTEuOTkgMCAwIDEtLjYyNS00Ljc5Nm0xLjU5My01LjE0NkwxMy41NzMgOS4xN2EyMSAyMC45ODEgMCAwIDAtMS4wMSAxLjg3NGwxMS4yOTcgMy4wMmEyMSAyMC45ODEgMCAwIDEtLjY3IDIuMzYybC0xMS41NS0zLjA4N0wuMTI1IDEwLjI2YTEyIDExLjk5IDAgMCAxIDEuNDk5LTQuMjg1Wk02LjA2NyAxLjU4bDExLjI4NSAzLjAxNmEyMSAyMC45ODEgMCAwIDAtMS42ODggMS43MTlsNy44MjQgMi4wOTFhMjEgMjAuOTgxIDAgMCAxIC41MTMgMi42NjRMMi4xMDcgNS4yMThhMTIgMTEuOTkgMCAwIDEgMy45Ni0zLjYzOE0yMS42OCA0Ljg2NiA3LjIyMiAxLjAwM0ExMiAxMS45OSAwIDAgMSAyMS42OCA0Ljg2NiIvPjwvc3ZnPgo8L3N2Zz4=" alt="" width="22" height="22"><span>Kimi K2</span></div>
+        <div class="bar" role="img" aria-label="England 54% versus Argentina 46%">
+          <div class="seg home" style="width:54%"><em>54</em></div>
+          <div class="seg away" style="width:46%"><em>46</em></div>
+          <div class="mid"></div>
+        </div>
+        <div class="brier"><b>0.583</b></div>
+        <div class="verdict"><span class="chip miss">✗ miss</span></div>
+        <p class="quote">“England&#x27;s deeper squad … give them a slight edge, but Argentina&#x27;s Messi-led clutch knockout record keeps it almost a coin-flip”</p>
+      </div>
+      <div class="row backtest">
+        <div class="who"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTE3IiByb2xlPSJpbWciPgo8cGF0aCBkPSJNNTAgNSBMOTUgMTkgVjYwIEM5NSA5MCA3NSAxMDUgNTAgMTEyIEMyNSAxMDUgNSA5MCA1IDYwIFYxOSBaIiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiNkOGQ3Y2UiIHN0cm9rZS13aWR0aD0iNCIvPgo8c3ZnIHg9IjI3IiB5PSIzMCIgd2lkdGg9IjQ2IiBoZWlnaHQ9IjQ2IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHRpdGxlPkdlbWluaTwvdGl0bGU+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnZW0iIHgxPSIyIiB5MT0iMyIgeDI9IjIyIiB5Mj0iMjEiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiM0Mjg1RjQiLz48c3RvcCBvZmZzZXQ9Ii41MiIgc3RvcC1jb2xvcj0iIzlCNzJDQiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI0Q5NjU3MCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxwYXRoIGZpbGw9InVybCgjZ2VtKSIgZD0iTTEyIDEgTDE0LjkgOS4xIEwyMyAxMiBMMTQuOSAxNC45IEwxMiAyMyBMOS4xIDE0LjkgTDEgMTIgTDkuMSA5LjEgWiIvPjwvc3ZnPgo8L3N2Zz4K" alt="" width="22" height="22"><span>Gemini 3.1 Pro</span></div>
+        <div class="bar" role="img" aria-label="England 51% versus Argentina 49%">
+          <div class="seg home" style="width:51%"><em>51</em></div>
+          <div class="seg away" style="width:49%"><em>49</em></div>
+          <div class="mid"></div>
+        </div>
+        <div class="brier"><b>0.520</b></div>
+        <div class="verdict"><span class="chip bt">★ backtest</span></div>
+        <p class="quote">“England is given a razor-thin edge as their elite core will be in its prime, while Argentina may be navigating a transition as its veteran leaders age out”</p>
+        <p class="bt-note">Same story: a <b>backtest</b>, not a locked forecast, so it is outside the field mean above. Gemini shaded England by a point — and Argentina broke through in stoppage time. On both these coin-flips it landed on the losing side.</p>
+      </div>
+  </div>
+
+  <h2>The mirror</h2>
+  <p class="section-note">Put the two calls side by side and the models sort themselves. Claude sided with both winners. Kimi backed both losers. Everyone else got the match the crowd read correctly — and missed the one it didn't.</p>
+  <div style="overflow-x:auto">
+  <table class="tt">
+    <thead><tr><th>Model</th><th>France v Spain</th><th>England v Argentina</th></tr></thead>
+    <tbody><tr>
+      <td class="tt-model"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTE3IiByb2xlPSJpbWciPgo8cGF0aCBkPSJNNTAgNSBMOTUgMTkgVjYwIEM5NSA5MCA3NSAxMDUgNTAgMTEyIEMyNSAxMDUgNSA5MCA1IDYwIFYxOSBaIiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiNkOGQ3Y2UiIHN0cm9rZS13aWR0aD0iNCIvPgo8c3ZnIHg9IjI3IiB5PSIzMCIgd2lkdGg9IjQ2IiBoZWlnaHQ9IjQ2IiBmaWxsPSIjRDk3NzU3IiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+Q2xhdWRlPC90aXRsZT48cGF0aCBkPSJtNC43MTQ0IDE1Ljk1NTUgNC43MTc0LTIuNjQ3MS4wNzktLjIzMDctLjA3OS0uMTI3NWgtLjIzMDdsLS43ODkzLS4wNDg2LTIuNjk1Ni0uMDcyOS0yLjMzNzUtLjA5NzEtMi4yNjQ2LS4xMjE0LS41NzA3LS4xMjE1LS41MzQzLS43MDQyLjA1NDYtLjM1MjIuNDc5Ny0uMzIxOC42ODYuMDYwOCAxLjUxNzkuMTAzMiAyLjI3NjcuMTU3OCAxLjY1MTQuMDk3MiAyLjQ0NjguMjU1aC4zODg2bC4wNTQ2LS4xNTc5LS4xMzM2LS4wOTcxLS4xMDMyLS4wOTcyTDYuOTczIDkuODM1NmwtMi41NS0xLjY4NzktMS4zMzU2LS45NzE0LS43MjI1LS40OTE4LS4zNjQzLS40NjE0LS4xNTc4LTEuMDA3OC42NTU3LS43MjI1Ljg4MDMuMDYwNy4yMjQ2LjA2MDcuODkyNS42ODYgMS45MDY0IDEuNDc1NCAyLjQ4OTMgMS44MzM2LjM2NDMuMzAzNS4xNDU3LS4xMDMyLjAxODItLjA3MjgtLjE2NC0uMjczMy0xLjM1MzktMi40NDY3LTEuNDQ1LTIuNDg5My0uNjQzNS0xLjAzMi0uMTctLjYxOTRjLS4wNjA3LS4yNTUtLjEwMzItLjQ2NzQtLjEwMzItLjcyODVMNi4yODcuMTMzNSA2LjY5OTcgMGwuOTk1Ny4xMzM2LjQxOS4zNjQyLjYxOTIgMS40MTQ3IDEuMDAxOCAyLjIyODIgMS41NTQzIDMuMDI5Ni40NTUzLjg5ODUuMjQyOS44MzE4LjA5MS4yNTVoLjE1Nzl2LS4xNDU3bC4xMjc1LTEuNzA2LjIzNjgtMi4wOTQ3LjIzMDctMi42OTU3LjA3ODktLjc1ODkuMzc2NC0uOTEwNy43NDY4LS40OTE4LjU4MjguMjc5My40Nzk3LjY4Ni0uMDY2OC40NDMzLS4yODUzIDEuODUxNy0uNTU4NiAyLjkwMjEtLjM2NDMgMS45NDI5aC4yMTI1bC4yNDI5LS4yNDI5Ljk4MzUtMS4zMDUzIDEuNjUxNC0yLjA2NDMuNzI4Ni0uODE5Ni44NS0uOTA0Ni41NDY0LS40MzExaDEuMDMyMWwuNzU5IDEuMTI5My0uMzQgMS4xNjU3LTEuMDYyNSAxLjM0NzgtLjg4MDQgMS4xNDE0LTEuMjYyOCAxLjctLjc4OTMgMS4zNi4wNzI5LjEwOTMuMTg4Mi0uMDE4MyAyLjg1MzUtLjYwNyAxLjU0MjEtLjI3OTQgMS44Mzk2LS4zMTU3LjgzMTguMzg4Ni4wOTEuMzk0Ni0uMzI3OC44MDc1LTEuOTY3LjQ4NTctMi4zMDcyLjQ2MTQtMy40MzY0LjgxMzYtLjA0MjUuMDMwNC4wNDg2LjA2MDcgMS41NDgyLjE0NTcuNjYxOC4wMzY0aDEuNjIxbDMuMDE3NS4yMjQ3Ljc4OTIuNTIyLjQ3MzYuNjM3Ni0uMDc5LjQ4NTctMS4yMTQyLjYxOTMtMS42MzkzLS4zODg2LTMuODI1LS45MTA3LTEuMzExMy0uMzI3OWgtLjE4MjJ2LjEwOTNsMS4wOTI5IDEuMDY4NiAyLjAwMzUgMS44MDkyIDIuNTA3NSAyLjMzMTQuMTI3NS41NzY4LS4zMjE4LjQ1NTQtLjM0LS4wNDg2LTIuMjAzOS0xLjY1NzUtLjg1LS43NDY4LTEuOTI0Ni0xLjYyMWgtLjEyNzV2LjE3bC40NDMyLjY0OTYgMi4zNDM2IDMuNTIxNC4xMjE0IDEuMDgwNy0uMTcuMzUyMS0uNjA3MS4yMTI1LS42Njc5LS4xMjE0LTEuMzcyMS0xLjkyNDZMMTQuMzggMTcuOTU5bC0xLjE0MTQtMS45NDI4LS4xMzk3LjA3OS0uNjc0IDcuMjU1Mi0uMzE1Ni4zNzAzLS43Mjg2LjI3OTMtLjYwNzEtLjQ2MTQtLjMyMTgtLjc0NjguMzIxOC0xLjQ3NTMuMzg4Ni0xLjkyNDYuMzE1Ny0xLjUzLjI4NTMtMS45MDA0LjE3LS42MzE0LS4wMTIxLS4wNDI1LS4xMzk3LjAxODItMS40MzI4IDEuOTY3Mi0yLjE3OTYgMi45NDQ2LTEuNzI0MyAxLjg0NTYtLjQxMjguMTY0LS43MTY0LS4zNzA0LjA2NjctLjY2MTguNDAwOC0uNTg4OSAyLjM4Ni0zLjAzNTcgMS40Mzg5LTEuODgyLjkyOS0xLjA4NjgtLjAwNjItLjE1NzloLS4wNTQ2bC02LjMzODUgNC4xMTY0LTEuMTI5My4xNDU3LS40ODU3LS40NTU0LjA2MDgtLjc0NjcuMjMwNy0uMjQyOSAxLjkwNjQtMS4zMTE0WiIvPjwvc3ZnPgo8L3N2Zz4=" alt="" width="20" height="20"><span>Claude Sonnet 4.5</span> <span class="tag gold">both right</span></td>
+      <td class="tt-ok"><span>Spain</span></td>
+      <td class="tt-ok"><span>Argentina</span></td>
+    </tr><tr>
+      <td class="tt-model"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTE3IiByb2xlPSJpbWciPgo8cGF0aCBkPSJNNTAgNSBMOTUgMTkgVjYwIEM5NSA5MCA3NSAxMDUgNTAgMTEyIEMyNSAxMDUgNSA5MCA1IDYwIFYxOSBaIiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiNkOGQ3Y2UiIHN0cm9rZS13aWR0aD0iNCIvPgo8dGV4dCB4PSI1MCIgeT0iNjYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJzeXN0ZW0tdWksc2Fucy1zZXJpZiIgZm9udC1zaXplPSIzMCIgZm9udC13ZWlnaHQ9IjgwMCIgZmlsbD0iIzBmMGYwZSI+R1BUPC90ZXh0Pgo8L3N2Zz4=" alt="" width="20" height="20"><span>GPT-5.1</span> </td>
+      <td class="tt-miss"><span>France</span></td>
+      <td class="tt-ok"><span>Argentina</span></td>
+    </tr><tr>
+      <td class="tt-model"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTE3IiByb2xlPSJpbWciPgo8cGF0aCBkPSJNNTAgNSBMOTUgMTkgVjYwIEM5NSA5MCA3NSAxMDUgNTAgMTEyIEMyNSAxMDUgNSA5MCA1IDYwIFYxOSBaIiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiNkOGQ3Y2UiIHN0cm9rZS13aWR0aD0iNCIvPgo8c3ZnIHg9IjI3IiB5PSIzMCIgd2lkdGg9IjQ2IiBoZWlnaHQ9IjQ2IiBmaWxsPSIjNTc4NkZFIiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+RGVlcFNlZWs8L3RpdGxlPjxwYXRoIGQ9Ik0yMy43NDggNC42NTFjLS4yNTQtLjEyNC0uMzY0LjExMy0uNTEyLjIzMy0uMDUxLjA0LS4wOTQuMDktLjEzNy4xMzctLjM3Mi4zOTctLjgwNi42NTctMS4zNzMuNjI2LS44MjktLjA0Ni0xLjUzNy4yMTQtMi4xNjMuODQ4LS4xMzMtLjc4Mi0uNTc1LTEuMjQ4LTEuMjQ3LTEuNTQ4LS4zNTItLjE1NS0uNzA4LS4zMTEtLjk1NS0uNjUtLjE3Mi0uMjQtLjIxOS0uNTA5LS4zMDUtLjc3NC0uMDU1LS4xNi0uMTEtLjMyMy0uMjkzLS4zNS0uMi0uMDMxLS4yNzguMTM2LS4zNTYuMjc2LS4zMTMuNTcyLS40MzQgMS4yMDItLjQyMiAxLjg0LjAyNyAxLjQzNi42MzMgMi41OCAxLjgzOCAzLjM5My4xMzcuMDk0LjE3Mi4xODcuMTI5LjMyMy0uMDgyLjI4LS4xOC41NTMtLjI2Ni44MzMtLjA1NS4xNzktLjEzNy4yMTgtLjMyOC4xNGE1LjUgNS41IDAgMCAxLTEuNzM3LTEuMTc5Yy0uODU3LS44MjgtMS42MzEtMS43NDMtMi41OTctMi40NmExMiAxMiAwIDAgMC0uNjg5LS40N2MtLjk4NS0uOTU3LjEzLTEuNzQzLjM4Ny0xLjgzNi4yNy0uMDk4LjA5NC0uNDMzLS43NzgtLjQyOC0uODcyLjAwMy0xLjY3LjI5NS0yLjY4Ny42ODVhMyAzIDAgMCAxLS40NjUuMTM2IDkuNiA5LjYgMCAwIDAtMi44ODMtLjEwMWMtMS44ODUuMjEtMy4zOSAxLjEtNC40OTcgMi42MjJDLjA4MiA4Ljc3Ni0uMjMxIDEwLjg1NC4xNTIgMTMuMDJjLjQwMyAyLjI4NCAxLjU2OCA0LjE3NSAzLjM2IDUuNjUzIDEuODU3IDEuNTMzIDMuOTk3IDIuMjg0IDYuNDM4IDIuMTQgMS40ODItLjA4NSAzLjEzMi0uMjg0IDQuOTk0LTEuODYuNDcuMjM0Ljk2Mi4zMjggMS43OC4zOTguNjI5LjA1OCAxLjIzNS0uMDMxIDEuNzA1LS4xMjkuNzM1LS4xNTUuNjg0LS44MzYuNDE4LS45NjEtMi4xNTUtMS4wMDQtMS42ODItLjU5NS0yLjExMi0uOTI2IDEuMDk1LTEuMjk1IDIuNzY4LTMuNTk4IDMuMjg0LTYuNzMzLjA1LS4zNDYuMTE1LS44MzQuMTA4LTEuMTE0LS4wMDQtLjE3MS4wMzUtLjIzOC4yMy0uMjU3YTQuMiA0LjIgMCAwIDAgMS41NDUtLjQ3NWMxLjM5Ny0uNzYzIDEuOTYtMi4wMTYgMi4wOTMtMy41MTcuMDItLjIzLS4wMDQtLjQ2Ny0uMjQ3LS41ODhNMTEuNTggMTguMTY4Yy0yLjA4OC0xLjY0Mi0zLjEwMS0yLjE4My0zLjUyLTIuMTYtLjM5LjAyNC0uMzIuNDcyLS4yMzQuNzYzLjA5LjI4OC4yMDcuNDg3LjM3MS43NC4xMTQuMTY3LjE5Mi40MTYtLjExMy42MDMtLjY3My40MTYtMS44NDItLjE0LTEuODk3LS4xNjgtMS4zNjEtLjgwMS0yLjUtMS44Ni0zLjMwMS0zLjMwNi0uNzc1LTEuMzkzLTEuMjI1LTIuODg4LTEuMjk5LTQuNDgyLS4wMi0uMzg1LjA5NC0uNTIyLjQ3Ny0uNTkyYTQuNyA0LjcgMCAwIDEgMS41My0uMDM4YzIuMTMxLjMxMSAzLjk0NiAxLjI2NCA1LjQ2NyAyLjc3NC44NjguODYgMS41MjUgMS44ODcgMi4yMDIgMi44OS43MiAxLjA2NiAxLjQ5NCAyLjA4MiAyLjQ4IDIuOTE1LjM0OC4yOTEuNjI2LjUxMy44OTIuNjc3LS44MDIuMDktMi4xNC4xMDktMy4wNTUtLjYxNXptMS4wMDEtNi40NGEuMzA2LjMwNiAwIDAgMSAuNDE1LS4yODcuMy4zIDAgMCAxIC4xMTMuMDc0LjMuMyAwIDAgMSAuMDg2LjIxNGMwIC4xNy0uMTM2LjMwNy0uMzA4LjMwN2EuMzAzLjMwMyAwIDAgMS0uMzA2LS4zMDdtMy4xMSAxLjU5NmMtLjIuMDgxLS40LjE1MS0uNTkxLjE2YTEuMjUgMS4yNSAwIDAgMS0uNzk4LS4yNTRjLS4yNzQtLjIzLS40Ny0uMzU4LS41NTEtLjc1OGExLjcgMS43IDAgMCAxIC4wMTUtLjU4OGMuMDctLjMyNy0uMDA3LS41MzctLjIzOC0uNzI3LS4xODgtLjE1Ni0uNDI2LS4xOTktLjY4OS0uMTk5YS42LjYgMCAwIDEtLjI1NC0uMDc4LjI1My4yNTMgMCAwIDEtLjExNC0uMzU4IDEgMSAwIDAgMSAuMTkyLS4yMWMuMzU2LS4yMDIuNzY3LS4xMzYgMS4xNDYuMDE2LjM1Mi4xNDQuNjE4LjQwOCAxLjAwMS43ODIuMzkyLjQ1MS40NjIuNTc2LjY4NS45MTUuMTc2LjI2NC4zMzYuNTM2LjQ0Ni44NDguMDY2LjE5NC0uMDIuMzUzLS4yNS40NSIvPjwvc3ZnPgo8L3N2Zz4=" alt="" width="20" height="20"><span>DeepSeek V3.1</span> </td>
+      <td class="tt-miss"><span>France</span></td>
+      <td class="tt-ok"><span>Argentina</span></td>
+    </tr><tr>
+      <td class="tt-model"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTE3IiByb2xlPSJpbWciPgo8cGF0aCBkPSJNNTAgNSBMOTUgMTkgVjYwIEM5NSA5MCA3NSAxMDUgNTAgMTEyIEMyNSAxMDUgNSA5MCA1IDYwIFYxOSBaIiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiNkOGQ3Y2UiIHN0cm9rZS13aWR0aD0iNCIvPgo8dGV4dCB4PSI1MCIgeT0iNjYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJzeXN0ZW0tdWksc2Fucy1zZXJpZiIgZm9udC1zaXplPSIzMCIgZm9udC13ZWlnaHQ9IjgwMCIgZmlsbD0iIzM0NTVmMCI+R0xNPC90ZXh0Pgo8L3N2Zz4=" alt="" width="20" height="20"><span>GLM-4.6</span> </td>
+      <td class="tt-miss"><span>France</span></td>
+      <td class="tt-ok"><span>Argentina</span></td>
+    </tr><tr>
+      <td class="tt-model"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTE3IiByb2xlPSJpbWciPgo8cGF0aCBkPSJNNTAgNSBMOTUgMTkgVjYwIEM5NSA5MCA3NSAxMDUgNTAgMTEyIEMyNSAxMDUgNSA5MCA1IDYwIFYxOSBaIiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiNkOGQ3Y2UiIHN0cm9rZS13aWR0aD0iNCIvPgo8c3ZnIHg9IjI3IiB5PSIzMCIgd2lkdGg9IjQ2IiBoZWlnaHQ9IjQ2IiBmaWxsPSIjNjk1MEVGIiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+UVdlbjwvdGl0bGU+PHBhdGggZD0iTTIzLjkxOSAxNC41NDUgMjAuODE3IDkuMTdsMS40Ny0yLjU0NGEuNTYuNTYgMCAwIDAgMC0uNTY2bC0xLjYzMy0yLjgzYS41Ny41NyAwIDAgMC0uNDktLjI4M2gtNi4yMDdMMTIuNDg3LjQwMmEuNTcuNTcgMCAwIDAtLjQ5LS4yODRIOC43MzJhLjU2LjU2IDAgMCAwLS40OS4yODRMNS4xMzkgNS43NzVoLTIuOTRhLjU2LjU2IDAgMCAwLS40OS4yODRMLjA3NyA4Ljg4N2EuNTYuNTYgMCAwIDAgMCAuNTY3TDMuMTggMTQuODNsLTEuNDcgMi41NDVhLjU2LjU2IDAgMCAwIDAgLjU2NmwxLjYzNCAyLjgzYS41Ny41NyAwIDAgMCAuNDkuMjgzaDYuMjA1bDEuNDcgMi41NDVhLjU3LjU3IDAgMCAwIC40OS4yODRoMy4yNjZhLjU3LjU3IDAgMCAwIC40OS0uMjg0bDMuMTA0LTUuMzc1aDIuOTRhLjU3LjU3IDAgMCAwIC40OS0uMjgzbDEuNjM0LTIuODI4YS41NS41NSAwIDAgMC0uMDA0LS41NjhNOC43MzMuNjg2bDEuNjM0IDIuODI4LTEuNjM0IDIuODI4SDIxLjhMMjAuMTY0IDkuMTdINy40MjVMNS42MyA2LjA2Wm0xLjMwNiAxOS44MDEtNi4yMDUtLjAwMiAxLjYzNC0yLjgzaDMuMjY1TDIuMjAxIDYuMzQ0aDMuMjY3cTMuMTgyIDUuNTE3IDYuMzY3IDExLjAzMnptMTAuMTI0LTUuNjZMMTguNTMgMTJsLTYuNTMyIDExLjMxNS0xLjYzNC0yLjgzYzIuMTI5LTMuNjczIDQuMjUtNy4zNTEgNi4zNzMtMTEuMDI4aDMuNTkybDMuMTAyIDUuMzc0eiIvPjwvc3ZnPgo8L3N2Zz4=" alt="" width="20" height="20"><span>Qwen3-Max</span> </td>
+      <td class="tt-miss"><span>France</span></td>
+      <td class="tt-ok"><span>Argentina</span></td>
+    </tr><tr>
+      <td class="tt-model"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTE3IiByb2xlPSJpbWciPgo8cGF0aCBkPSJNNTAgNSBMOTUgMTkgVjYwIEM5NSA5MCA3NSAxMDUgNTAgMTEyIEMyNSAxMDUgNSA5MCA1IDYwIFYxOSBaIiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiNkOGQ3Y2UiIHN0cm9rZS13aWR0aD0iNCIvPgo8c3ZnIHg9IjI3IiB5PSIzMCIgd2lkdGg9IjQ2IiBoZWlnaHQ9IjQ2IiBmaWxsPSIjRTczNTYyIiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+TWluaU1heDwvdGl0bGU+PHBhdGggZD0iTTExLjQzIDMuOTJhLjg2Ljg2IDAgMSAwLTEuNzE4IDB2MTQuMjM2YTEuOTk5IDEuOTk5IDAgMCAxLTMuOTk3IDBWOS4wMjJhLjg2Ljg2IDAgMSAwLTEuNzE4IDB2My44N2ExLjk5OSAxLjk5OSAwIDAgMS0zLjk5NyAwVjExLjQ5YS41Ny41NyAwIDAgMSAxLjEzOSAwdjEuNDA0YS44Ni44NiAwIDAgMCAxLjcxOSAwVjkuMDIyYTEuOTk5IDEuOTk5IDAgMCAxIDMuOTk3IDB2OS4xMzRhLjg2Ljg2IDAgMCAwIDEuNzE5IDBWMy45MmExLjk5OCAxLjk5OCAwIDEgMSAzLjk5NiAwdjExLjc4OGEuNTcuNTcgMCAxIDEtMS4xMzkgMHptMTAuNTcyIDMuMTA1YTIgMiAwIDAgMC0xLjk5OSAxLjk5N3Y3LjYzYS44Ni44NiAwIDAgMS0xLjcxOCAwVjMuOTIzYTEuOTk5IDEuOTk5IDAgMCAwLTMuOTk3IDB2MTYuMTZhLjg2Ljg2IDAgMCAxLTEuNzE5IDBWMTguMDhhLjU3LjU3IDAgMSAwLTEuMTM4IDB2MmExLjk5OCAxLjk5OCAwIDAgMCAzLjk5NiAwVjMuOTJhLjg2Ljg2IDAgMCAxIDEuNzE5IDB2MTIuNzNhMS45OTkgMS45OTkgMCAwIDAgMy45OTYgMFY5LjAyM2EuODYuODYgMCAxIDEgMS43MiAwdjYuNjg2YS41Ny41NyAwIDAgMCAxLjEzOCAwVjkuMDIyYTIgMiAwIDAgMC0xLjk5OC0xLjk5NyIvPjwvc3ZnPgo8L3N2Zz4=" alt="" width="20" height="20"><span>MiniMax M2</span> </td>
+      <td class="tt-miss"><span>France</span></td>
+      <td class="tt-ok"><span>Argentina</span></td>
+    </tr><tr>
+      <td class="tt-model"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTE3IiByb2xlPSJpbWciPgo8cGF0aCBkPSJNNTAgNSBMOTUgMTkgVjYwIEM5NSA5MCA3NSAxMDUgNTAgMTEyIEMyNSAxMDUgNSA5MCA1IDYwIFYxOSBaIiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiNkOGQ3Y2UiIHN0cm9rZS13aWR0aD0iNCIvPgo8c3ZnIHg9IjI3IiB5PSIzMCIgd2lkdGg9IjQ2IiBoZWlnaHQ9IjQ2IiBmaWxsPSIjMDAwMDAwIiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+TW9vbnNob3QgQUk8L3RpdGxlPjxwYXRoIGQ9Im0xLjA1MyAxNi45MSA5LjUzOCAyLjU1YTIxIDIwLjk4MSAwIDAgMCAuMDYgMi4wMzFsNS45NTYgMS41OTJhMTIgMTEuOTkgMCAwIDEtMTUuNTU0LTYuMTcybS0xLjAyLTUuNzkgMTEuMzUyIDMuMDM1YTIxIDIwLjk4MSAwIDAgMC0uNDY5IDIuMDFsMTAuODE3IDIuODlhMTIgMTEuOTkgMCAwIDEtMS44NDUgMi4wMDRMLjY1OCAxNS45MThhMTIgMTEuOTkgMCAwIDEtLjYyNS00Ljc5Nm0xLjU5My01LjE0NkwxMy41NzMgOS4xN2EyMSAyMC45ODEgMCAwIDAtMS4wMSAxLjg3NGwxMS4yOTcgMy4wMmEyMSAyMC45ODEgMCAwIDEtLjY3IDIuMzYybC0xMS41NS0zLjA4N0wuMTI1IDEwLjI2YTEyIDExLjk5IDAgMCAxIDEuNDk5LTQuMjg1Wk02LjA2NyAxLjU4bDExLjI4NSAzLjAxNmEyMSAyMC45ODEgMCAwIDAtMS42ODggMS43MTlsNy44MjQgMi4wOTFhMjEgMjAuOTgxIDAgMCAxIC41MTMgMi42NjRMMi4xMDcgNS4yMThhMTIgMTEuOTkgMCAwIDEgMy45Ni0zLjYzOE0yMS42OCA0Ljg2NiA3LjIyMiAxLjAwM0ExMiAxMS45OSAwIDAgMSAyMS42OCA0Ljg2NiIvPjwvc3ZnPgo8L3N2Zz4=" alt="" width="20" height="20"><span>Kimi K2</span> <span class="tag red">both wrong</span></td>
+      <td class="tt-miss"><span>France</span></td>
+      <td class="tt-miss"><span>England</span></td>
+    </tr><tr>
+      <td class="tt-model"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTE3IiByb2xlPSJpbWciPgo8cGF0aCBkPSJNNTAgNSBMOTUgMTkgVjYwIEM5NSA5MCA3NSAxMDUgNTAgMTEyIEMyNSAxMDUgNSA5MCA1IDYwIFYxOSBaIiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiNkOGQ3Y2UiIHN0cm9rZS13aWR0aD0iNCIvPgo8c3ZnIHg9IjI3IiB5PSIzMCIgd2lkdGg9IjQ2IiBoZWlnaHQ9IjQ2IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHRpdGxlPkdlbWluaTwvdGl0bGU+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnZW0iIHgxPSIyIiB5MT0iMyIgeDI9IjIyIiB5Mj0iMjEiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiM0Mjg1RjQiLz48c3RvcCBvZmZzZXQ9Ii41MiIgc3RvcC1jb2xvcj0iIzlCNzJDQiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI0Q5NjU3MCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxwYXRoIGZpbGw9InVybCgjZ2VtKSIgZD0iTTEyIDEgTDE0LjkgOS4xIEwyMyAxMiBMMTQuOSAxNC45IEwxMiAyMyBMOS4xIDE0LjkgTDEgMTIgTDkuMSA5LjEgWiIvPjwvc3ZnPgo8L3N2Zz4K" alt="" width="20" height="20"><span>Gemini 3.1 Pro</span> <span class="tag bt">backtest</span></td>
+      <td class="tt-miss"><span>France</span></td>
+      <td class="tt-miss"><span>England</span></td>
+    </tr></tbody>
+  </table>
+  </div>
+  <p style="font:500 12.5px/1.5 var(--mono);color:var(--faint);margin-top:10px">Cell shows the side each model favoured. Struck-through = eliminated. Gemini&#x27;s row is a backtest — see below.</p>
+
+  <h2>The eighth model, scored after the whistle</h2>
+  <p class="section-note">Gemini 3.1 Pro joined the Brier Cup <em>after</em> these two quarter-finals, so on the boards above it has no locked forecast — only a <b>backtest</b>: the exact pre-kickoff prompt, replayed after full time, with no result anywhere in it. On these two coin-flips it looks ordinary. It shaded France, then England, and lost both by a single point — the same both-wrong corner as Kimi. Two matches decide nothing.</p>
+  <p class="section-note">So we replayed that prompt across <b>every one of the 102 matches already played</b> this tournament and scored each against the real result. Over a full season the picture inverts:</p>
+  <div style="overflow-x:auto">
+  <table class="stand">
+    <thead><tr><th>#</th><th>Mean Brier · 102 played matches</th><th>Brier</th></tr></thead>
+    <tbody>
+      <tr class="lead"><td class="rank">1</td><td><div class="mdl"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTE3IiByb2xlPSJpbWciPgo8cGF0aCBkPSJNNTAgNSBMOTUgMTkgVjYwIEM5NSA5MCA3NSAxMDUgNTAgMTEyIEMyNSAxMDUgNSA5MCA1IDYwIFYxOSBaIiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiNkOGQ3Y2UiIHN0cm9rZS13aWR0aD0iNCIvPgo8c3ZnIHg9IjI3IiB5PSIzMCIgd2lkdGg9IjQ2IiBoZWlnaHQ9IjQ2IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHRpdGxlPkdlbWluaTwvdGl0bGU+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnZW0iIHgxPSIyIiB5MT0iMyIgeDI9IjIyIiB5Mj0iMjEiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiM0Mjg1RjQiLz48c3RvcCBvZmZzZXQ9Ii41MiIgc3RvcC1jb2xvcj0iIzlCNzJDQiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI0Q5NjU3MCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxwYXRoIGZpbGw9InVybCgjZ2VtKSIgZD0iTTEyIDEgTDE0LjkgOS4xIEwyMyAxMiBMMTQuOSAxNC45IEwxMiAyMyBMOS4xIDE0LjkgTDEgMTIgTDkuMSA5LjEgWiIvPjwvc3ZnPgo8L3N2Zz4K" alt="" width="18" height="18"><span>Gemini 3.1 Pro</span> <span class="tag bt">backtest</span></div></td><td>0.452</td></tr>
+      <tr><td class="rank">2</td><td>MiniMax M2</td><td>0.476</td></tr>
+      <tr><td class="rank">3</td><td>GPT-5.1</td><td>0.495</td></tr>
+      <tr><td class="rank">4</td><td>Kimi K2</td><td>0.500</td></tr>
+      <tr><td class="rank">5</td><td>DeepSeek V3.1</td><td>0.500</td></tr>
+      <tr><td class="rank">6</td><td>Claude Sonnet 4.5</td><td>0.502</td></tr>
+      <tr><td class="rank">7</td><td>GLM-4.6</td><td>0.503</td></tr>
+      <tr><td class="rank">8</td><td>Qwen3-Max</td><td>0.512</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="section-note">Lower is sharper; a two-way coin-flip is 0.500 and the seven locked models averaged <b>0.498</b> across the same matches. Backtested over the whole tournament, Gemini&#x27;s <b>0.452</b> would sit on top — the calibration those two ties were too small to show. The lesson cuts both ways: one match crowns nobody, and it clears nobody either. <b>That&#x27;s</b> why the Brier Cup scores every match, not the highlight.</p>
+  <p class="section-note" style="color:var(--faint);font-size:14px">Fine print, because it matters: a backtest is not a locked forecast. The prompt holds no result and these models were trained before a ball was kicked — but a backtest lacks the pre-kickoff timestamp the live board requires, so Gemini&#x27;s numbers are labelled backtest and never enter the live leaderboard. The other seven figures are the models&#x27; real, pre-kickoff forecasts.</p>
+
+  <div class="kicker">
+    <h2>The quiet lesson</h2>
+    <p>On the tie the field misread, the contrarian won — Claude's one-point lean toward Spain was worth more than any amount of conviction pointed the wrong way. On the tie the field read right, <b>conviction</b> paid: DeepSeek, GLM, Qwen and MiniMax pushed to 55% on Argentina and banked the sharpest scores of the night. Being right is table stakes. Being right with the correct amount of confidence is the whole game — which is exactly what a Brier score measures.</p>
+    <p class="rule">Seven models locked before kickoff · an eighth backtested after the whistle · one identical prompt per match · scored against real results. That's the Brier Cup.</p>
+  </div>
+
+  <p class="foot">Data: model forecasts collected via OpenRouter, results via ESPN. Scored with the two-outcome Brier score. Gemini rows are retro-backtests (same locked prompt, run after full time) — labelled throughout and excluded from the live leaderboard.</p>
+</div>
+
+</body>
+</html>

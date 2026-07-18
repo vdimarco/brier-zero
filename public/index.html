@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Brier Cup. Who's winning the World Cup? According to the machines.</title>
+  <meta name="description" content="The models are watching every game. Eight AI models forecast every World Cup match with one identical prompt, locked at kickoff and Brier-scored against real results." />
+  <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg" />
+  <meta property="og:title" content="The Brier Cup: who's winning the World Cup, according to the machines?" />
+  <meta property="og:description" content="Eight AI models, one identical prompt, every World Cup match. Forecasts lock at kickoff and are Brier-scored live." />
+  <meta property="og:image" content="https://worldcup.uptick.fyi/og.png" />
+  <meta property="og:url" content="https://worldcup.uptick.fyi" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="stylesheet" href="app.css" />
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+  <div class="pitchband">
+    <header class="topbar">
+      <span class="wordmark">BRIER<em>CUP</em></span>
+      <span class="topbar-status" id="source-status">Loading fixtures</span>
+    </header>
+
+    <section class="hero">
+      <h1>Who's winning the <span class="gold">World Cup</span>?<span class="hero-by">According to the machines.</span></h1>
+      <p class="hero-sub">The models are watching every game. Eight of them get one identical prompt before each match; forecasts lock at kickoff and are Brier-scored as results arrive.</p>
+      <a class="hero-read" href="/research">
+        <span class="np">New</span>
+        <span>How the models called France–Spain &amp; England–Argentina</span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    </section>
+
+    <div id="featured"></div>
+  </div>
+
+  <div class="ticker" id="ticker" role="marquee" aria-label="Live updates"></div>
+
+  <main>
+    <div id="banner"></div>
+
+    <section id="roster-section" aria-labelledby="roster-title">
+      <h2 id="roster-title">The competitors</h2>
+      <p class="explainer">Eight AI models, one identical prompt per match — the same words, only the fixture changes.</p>
+      <div id="roster" class="roster" aria-label="Model roster"></div>
+    </section>
+
+    <section id="trophy-section" aria-labelledby="trophy-title" hidden>
+      <h2 id="trophy-title">Who lifts the trophy?</h2>
+      <p class="explainer">Every model distributes probability across the remaining teams. The consensus is tracked over time as rounds are played.</p>
+      <div id="trophy"></div>
+    </section>
+
+    <section id="matches-section" aria-labelledby="matches-title">
+      <h2 id="matches-title">Matches</h2>
+      <p class="explainer">Group-stage probabilities are for the 90-minute result (extra time and penalties count as a draw). Knockout probabilities are simply who advances — no draw. Each card shows the consensus of all models, with team-by-team numbers above the bar.</p>
+      <div id="matches" class="skeleton-block"></div>
+    </section>
+
+    <section id="leaderboard-section" aria-labelledby="lb-title">
+      <h2 id="lb-title">Model leaderboard</h2>
+      <p class="explainer">Brier score over each match's outcomes: 0 is a perfect forecast, a know-nothing coin flip scores 0.667 on a three-way group match and 0.5 on a two-way knockout tie, 2 is maximally wrong. Lower is better. Click a model for its performance over time.</p>
+      <div id="leaderboard" class="skeleton-block" aria-live="polite"></div>
+    </section>
+
+    <section id="analysis-section" aria-labelledby="analysis-title">
+      <h2 id="analysis-title">Latest analysis</h2>
+      <a class="analysis-card" href="/research">
+        <span class="analysis-kicker">Knockout breakdown</span>
+        <h3>Two coin-flips, two upsets — and the one model that saw both</h3>
+        <p>How all seven models called France–Spain and England–Argentina before kickoff. One got both right, one got both wrong, everyone else hedged.</p>
+        <span class="analysis-cta">Read the breakdown →</span>
+      </a>
+    </section>
+  </main>
+
+  <div id="detail"></div>
+
+  <section class="prompt-section" aria-labelledby="prompt-title">
+    <div class="prompt-inner">
+      <h2 id="prompt-title">The prompt</h2>
+      <p class="explainer">Every model receives exactly the same words, with only the fixture filled in. No odds, no news, no hints. Rendered live from the same code that builds the real prompts.</p>
+      <details>
+        <summary>Before kickoff, group stage: the scored forecast</summary>
+        <pre id="prompt-locked">Loading</pre>
+      </details>
+      <details>
+        <summary>Before kickoff, knockout: who advances</summary>
+        <pre id="prompt-locked-ko">Loading</pre>
+      </details>
+      <details>
+        <summary>In-play updates, group stage: exhibition only</summary>
+        <pre id="prompt-live">Loading</pre>
+      </details>
+      <details>
+        <summary>In-play updates, knockout: exhibition only</summary>
+        <pre id="prompt-live-ko">Loading</pre>
+      </details>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <p>Scores from ESPN's public World Cup feed. Forecasts collected through OpenRouter with the same prompt for every model. Only forecasts stored before kickoff count.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

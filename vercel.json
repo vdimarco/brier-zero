@@ -1,10 +1,14 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "outputDirectory": "site",
-  "buildCommand": "echo 'serving prebuilt static site'",
   "framework": null,
-  "redirects": [
-    { "source": "/arena", "destination": "/arena.html", "permanent": false },
-    { "source": "/map", "destination": "/map.html", "permanent": false }
-  ]
+  "outputDirectory": "public",
+  "rewrites": [
+    { "source": "/api/:path*", "destination": "/api/index" }
+  ],
+  "functions": {
+    "api/index.js": {
+      "includeFiles": "{data/**,models.config.json}",
+      "maxDuration": 60
+    }
+  }
 }

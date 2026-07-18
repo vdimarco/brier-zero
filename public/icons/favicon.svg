@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 117" role="img">
+<path d="M50 5 L95 19 V60 C95 90 75 105 50 112 C25 105 5 90 5 60 V19 Z" fill="#0a7a33" stroke="#0a632b" stroke-width="4"/>
+<circle cx="50" cy="38" r="9" fill="none" stroke="#ffffff" stroke-width="4" opacity="0.9"/>
+<text x="50" y="88" text-anchor="middle" font-family="system-ui,sans-serif" font-size="34" font-weight="800" fill="#ffd75e">BC</text>
+</svg>
