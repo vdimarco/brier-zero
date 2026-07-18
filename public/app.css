@@ -175,9 +175,9 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
   padding: 16px; display: grid; gap: 20px; margin-top: 14px;
 }
 @media (min-width: 900px) {
-  .trophy-card { grid-template-columns: minmax(280px, 5fr) 7fr; align-items: start; }
+  .trophy-card { grid-template-columns: minmax(280px, 5fr) 7fr; align-items: stretch; }
 }
-.trophy-list { display: grid; gap: 6px; min-width: 0; }
+.trophy-list { display: grid; gap: 6px; min-width: 0; align-content: start; }
 .trophy-list-head, .trophy-chart-head {
   font-size: 11px; font-weight: 800; letter-spacing: 0.06em;
   text-transform: uppercase; color: var(--ink-3); margin-bottom: 4px;
@@ -208,6 +208,58 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
 .trophy-p { text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; }
 .trophy-row.leader .trophy-p { color: var(--trophy); font-size: 15px; }
 .trophy-rest { margin-top: 4px; line-height: 1.5; }
+
+/* Finalists only: roomier cards so two rows fill the column instead of
+   sitting as a tight stack beside the belief chart. */
+.trophy-list.sparse {
+  gap: 14px;
+  height: 100%;
+  align-content: stretch;
+  padding: 4px 2px 8px;
+}
+.trophy-list.sparse .trophy-list-head {
+  margin-bottom: 8px;
+  font-size: 12px;
+}
+.trophy-list.sparse .trophy-row {
+  grid-template-columns: 28px 36px minmax(90px, auto) 1fr 56px;
+  gap: 12px;
+  padding: 16px 14px;
+  font-size: 16px;
+  border-radius: 12px;
+  min-height: 72px;
+}
+.trophy-list.sparse .trophy-row .flag {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+}
+.trophy-list.sparse .trophy-rank {
+  font-size: 16px;
+}
+.trophy-list.sparse .trophy-rank.gold {
+  font-size: 22px;
+}
+.trophy-list.sparse .trophy-team {
+  font-size: 17px;
+  font-weight: 700;
+}
+.trophy-list.sparse .trophy-bar {
+  height: 14px;
+}
+.trophy-list.sparse .trophy-p {
+  font-size: 18px;
+}
+.trophy-list.sparse .trophy-row.leader .trophy-p {
+  font-size: 20px;
+}
+@media (min-width: 900px) {
+  .trophy-list.sparse {
+    /* Stretch rows evenly down the card height next to the chart */
+    grid-template-rows: auto 1fr 1fr;
+  }
+}
+
 .trophy-chart { min-width: 0; position: relative; }
 .trophy-svg, .lb-svg { cursor: crosshair; }
 

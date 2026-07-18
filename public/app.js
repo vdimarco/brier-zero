@@ -1451,8 +1451,11 @@ function renderTrophy(state) {
     return `${esc(t)}: models range ${pct(Math.min(...ps))}% to ${pct(Math.max(...ps))}%`;
   };
 
+  // Finalists (2 teams) get a roomier layout so the list doesn't look
+  // crushed next to the belief chart.
+  const listSparse = ranked.length > 0 && ranked.length <= 2;
   const listHtml = ranked.length
-    ? `<div class="trophy-list">
+    ? `<div class="trophy-list${listSparse ? ' sparse' : ''}">
         <div class="trophy-list-head">AI consensus to win it all</div>
         ${ranked.slice(0, 8).map((r, i) => `
           <div class="trophy-row${i === 0 ? ' leader' : ''}${i === 1 ? ' silver' : ''}${i === 2 ? ' bronze' : ''}" title="${spread(r.team)}">

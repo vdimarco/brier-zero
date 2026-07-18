@@ -14,6 +14,11 @@ const root = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 app.use(express.json());
 app.use(express.static(path.join(root, 'public')));
+// Research lab standings (and other backtest reports) live under data/.
+// Exposed read-only so /research can fetch without duplicating into public/.
+app.use('/data', express.static(path.join(root, 'data'), {
+  setHeaders(res) { res.setHeader('Cache-Control', 'public, max-age=60'); },
+}));
 
 const models = loadModels();
 
