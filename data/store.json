@@ -106,6 +106,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.37666990957618274,
+          "draw": 0.3017678364287161,
+          "away": 0.3215622539951013
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 2.655/3.314/3.11, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "South Korea vs Czechia",
+        "createdAt": "2026-07-18T03:40:42.393Z",
+        "latencyMs": 1159,
+        "eligible": true,
+        "retro": true
       }
     },
     "760415": {
@@ -214,6 +228,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.6799466547341165,
+          "draw": 0.21537500626913983,
+          "away": 0.10467833899674364
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.471/4.644/9.555, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Mexico vs South Africa",
+        "createdAt": "2026-07-18T03:40:41.219Z",
+        "latencyMs": 1093,
+        "eligible": true,
+        "retro": true
       }
     },
     "760416": {
@@ -322,6 +350,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.5244108491756703,
+          "draw": 0.26926534447442196,
+          "away": 0.2063238063499078
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.907/3.714/4.847, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Canada vs Bosnia-Herzegovina",
+        "createdAt": "2026-07-18T03:40:43.242Z",
+        "latencyMs": 837,
+        "eligible": true,
+        "retro": true
       }
     },
     "760417": {
@@ -430,6 +472,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.4610554749963006,
+          "draw": 0.2987837840654246,
+          "away": 0.2401607409382748
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 2.169/3.347/4.164, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "United States vs Paraguay",
+        "createdAt": "2026-07-18T03:40:44.611Z",
+        "latencyMs": 1352,
+        "eligible": true,
+        "retro": true
       }
     },
     "760418": {
@@ -538,6 +594,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.17644479086435005,
+          "draw": 0.22145462236916214,
+          "away": 0.6021005867664878
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 5.668/4.516/1.661, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Haiti vs Scotland",
+        "createdAt": "2026-07-18T03:40:47.753Z",
+        "latencyMs": 1171,
+        "eligible": true,
+        "retro": true
       }
     },
     "760419": {
@@ -646,6 +716,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.5761020823669599,
+          "draw": 0.25513092219108224,
+          "away": 0.16876699544195786
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.736/3.92/5.926, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Brazil vs Morocco",
+        "createdAt": "2026-07-18T03:40:46.573Z",
+        "latencyMs": 810,
+        "eligible": true,
+        "retro": true
       }
     },
     "760420": {
@@ -754,6 +838,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.054958061455371444,
+          "draw": 0.12180184102383831,
+          "away": 0.8232400975207903
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 18.2/8.212/1.215, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Qatar vs Switzerland",
+        "createdAt": "2026-07-18T03:40:45.725Z",
+        "latencyMs": 1098,
+        "eligible": true,
+        "retro": true
       }
     },
     "760421": {
@@ -862,6 +960,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.1789442566930222,
+          "draw": 0.25377301463011953,
+          "away": 0.5672827286768582
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 5.589/3.941/1.763, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Australia vs Türkiye",
+        "createdAt": "2026-07-18T03:40:48.407Z",
+        "latencyMs": 643,
+        "eligible": true,
+        "retro": true
       }
     },
     "760422": {
@@ -970,6 +1082,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.9499247118824716,
+          "draw": 0.033121547073253065,
+          "away": 0.016953741044275297
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.053/30.2/59, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Germany vs Curaçao",
+        "createdAt": "2026-07-18T03:44:06.399Z",
+        "latencyMs": 1503,
+        "eligible": true,
+        "retro": true
       }
     },
     "760423": {
@@ -1078,6 +1204,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.28785991089012325,
+          "draw": 0.324683548841652,
+          "away": 0.3874565402682248
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 3.474/3.08/2.581, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Ivory Coast vs Ecuador",
+        "createdAt": "2026-07-18T03:40:51.555Z",
+        "latencyMs": 977,
+        "eligible": true,
+        "retro": true
       }
     },
     "760424": {
@@ -1186,6 +1326,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.5133085441813314,
+          "draw": 0.27876360302905867,
+          "away": 0.20792785278960982
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.948/3.587/4.809, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Sweden vs Tunisia",
+        "createdAt": "2026-07-18T03:40:53.053Z",
+        "latencyMs": 1487,
+        "eligible": true,
+        "retro": true
       }
     },
     "760425": {
@@ -1294,6 +1448,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.4764398456936801,
+          "draw": 0.2724182065134935,
+          "away": 0.2511419477928264
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 2.099/3.671/3.982, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Netherlands vs Japan",
+        "createdAt": "2026-07-18T03:40:50.565Z",
+        "latencyMs": 1013,
+        "eligible": true,
+        "retro": true
       }
     },
     "760426": {
@@ -1402,6 +1570,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.647308419727898,
+          "draw": 0.21955905784404,
+          "away": 0.13313252242806206
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.545/4.555/7.512, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Belgium vs Egypt",
+        "createdAt": "2026-07-18T03:40:56.402Z",
+        "latencyMs": 1530,
+        "eligible": true,
+        "retro": true
       }
     },
     "760427": {
@@ -1510,6 +1692,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.5211053780555251,
+          "draw": 0.27917398673605603,
+          "away": 0.19972063520841876
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.919/3.582/5.007, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Iran vs New Zealand",
+        "createdAt": "2026-07-18T03:40:58.960Z",
+        "latencyMs": 1453,
+        "eligible": true,
+        "retro": true
       }
     },
     "760428": {
@@ -1618,6 +1814,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.9023864951624683,
+          "draw": 0.06450607978322677,
+          "away": 0.03310742505430513
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.108/15.5/30.2, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Spain vs Cape Verde",
+        "createdAt": "2026-07-18T03:44:07.628Z",
+        "latencyMs": 1218,
+        "eligible": true,
+        "retro": true
       }
     },
     "760429": {
@@ -1726,6 +1936,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.12120138314642323,
+          "draw": 0.22823816730381,
+          "away": 0.6505604495497669
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 8.25/4.381/1.537, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Saudi Arabia vs Uruguay",
+        "createdAt": "2026-07-18T03:40:57.503Z",
+        "latencyMs": 1088,
+        "eligible": true,
+        "retro": true
       }
     },
     "760430": {
@@ -1834,6 +2058,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.06536741519467326,
+          "draw": 0.1293818179144244,
+          "away": 0.8052507668909024
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 15.3/7.73/1.242, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Iraq vs Norway",
+        "createdAt": "2026-07-18T03:41:00.778Z",
+        "latencyMs": 635,
+        "eligible": true,
+        "retro": true
       }
     },
     "760431": {
@@ -1942,6 +2180,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.698392648069833,
+          "draw": 0.19718025868217684,
+          "away": 0.10442709324799007
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.432/5.072/9.577, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Austria vs Jordan",
+        "createdAt": "2026-07-18T03:41:02.673Z",
+        "latencyMs": 1028,
+        "eligible": true,
+        "retro": true
       }
     },
     "760432": {
@@ -2050,6 +2302,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.6506657284699607,
+          "draw": 0.20847888777534493,
+          "away": 0.1408553837546943
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.537/4.797/7.1, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "France vs Senegal",
+        "createdAt": "2026-07-18T03:41:00.132Z",
+        "latencyMs": 1159,
+        "eligible": true,
+        "retro": true
       }
     },
     "760433": {
@@ -2158,6 +2424,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.6308536884381288,
+          "draw": 0.23183470813225932,
+          "away": 0.13731160342961196
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.585/4.313/7.282, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Argentina vs Algeria",
+        "createdAt": "2026-07-18T03:41:01.634Z",
+        "latencyMs": 843,
+        "eligible": true,
+        "retro": true
       }
     },
     "760434": {
@@ -2266,6 +2546,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.4028759161843787,
+          "draw": 0.30795750661214294,
+          "away": 0.2891665772034783
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 2.482/3.247/3.458, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Ghana vs Panama",
+        "createdAt": "2026-07-18T03:41:05.801Z",
+        "latencyMs": 884,
+        "eligible": true,
+        "retro": true
       }
     },
     "760435": {
@@ -2374,6 +2668,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.7640960656185977,
+          "draw": 0.16070079529157202,
+          "away": 0.07520313908983038
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.309/6.224/13.3, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Portugal vs Congo DR",
+        "createdAt": "2026-07-18T03:41:04.193Z",
+        "latencyMs": 1511,
+        "eligible": true,
+        "retro": true
       }
     },
     "760436": {
@@ -2482,6 +2790,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.08128656324348442,
+          "draw": 0.16809427167028554,
+          "away": 0.7506191650862301
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 12.3/5.948/1.332, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Uzbekistan vs Colombia",
+        "createdAt": "2026-07-18T03:41:06.727Z",
+        "latencyMs": 919,
+        "eligible": true,
+        "retro": true
       }
     },
     "760437": {
@@ -2590,6 +2912,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.5855578570166181,
+          "draw": 0.24786439152029335,
+          "away": 0.1665777514630886
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.708/4.035/6.004, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "England vs Croatia",
+        "createdAt": "2026-07-18T03:41:04.900Z",
+        "latencyMs": 699,
+        "eligible": true,
+        "retro": true
       }
     },
     "760438": {
@@ -2698,6 +3034,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.5058732916349691,
+          "draw": 0.2790489669537762,
+          "away": 0.21507774141125457
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.977/3.584/4.65, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Czechia vs South Africa",
+        "createdAt": "2026-07-18T03:41:07.580Z",
+        "latencyMs": 845,
+        "eligible": true,
+        "retro": true
       }
     },
     "760439": {
@@ -2806,6 +3156,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.6297354952205407,
+          "draw": 0.22257288368800773,
+          "away": 0.14769162109145162
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.588/4.493/6.771, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Switzerland vs Bosnia-Herzegovina",
+        "createdAt": "2026-07-18T03:41:08.495Z",
+        "latencyMs": 908,
+        "eligible": true,
+        "retro": true
       }
     },
     "760440": {
@@ -2914,6 +3278,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.7824070128727489,
+          "draw": 0.14717635596870374,
+          "away": 0.0704166311585474
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.278/6.794/14.2, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Canada vs Qatar",
+        "createdAt": "2026-07-18T03:41:09.618Z",
+        "latencyMs": 1113,
+        "eligible": true,
+        "retro": true
       }
     },
     "760441": {
@@ -3022,6 +3400,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.47060953830113167,
+          "draw": 0.2978985013076868,
+          "away": 0.23149196039118164
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 2.125/3.357/4.32, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Mexico vs South Korea",
+        "createdAt": "2026-07-18T03:41:10.376Z",
+        "latencyMs": 746,
+        "eligible": true,
+        "retro": true
       }
     },
     "760442": {
@@ -3130,6 +3522,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.6234212905331837,
+          "draw": 0.22221505555893928,
+          "away": 0.15436365390787693
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.604/4.5/6.478, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "United States vs Australia",
+        "createdAt": "2026-07-18T03:41:11.576Z",
+        "latencyMs": 1191,
+        "eligible": true,
+        "retro": true
       }
     },
     "760443": {
@@ -3238,6 +3644,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.45996323496434954,
+          "draw": 0.28231509678500727,
+          "away": 0.2577216682506433
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 2.174/3.542/3.88, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Türkiye vs Paraguay",
+        "createdAt": "2026-07-18T03:41:14.250Z",
+        "latencyMs": 836,
+        "eligible": true,
+        "retro": true
       }
     },
     "760444": {
@@ -3346,6 +3766,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.8916020612499276,
+          "draw": 0.07295517596066926,
+          "away": 0.03544276278940316
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.121/13.7/28.2, 0.1% vig removed.",
+        "market": "regulation",
+        "fixture": "Brazil vs Haiti",
+        "createdAt": "2026-07-18T03:41:13.404Z",
+        "latencyMs": 1226,
+        "eligible": true,
+        "retro": true
       }
     },
     "760445": {
@@ -3454,6 +3888,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.16874152382048674,
+          "draw": 0.2528137036612803,
+          "away": 0.578444772518233
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 5.927/3.956/1.729, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Scotland vs Morocco",
+        "createdAt": "2026-07-18T03:41:12.170Z",
+        "latencyMs": 582,
+        "eligible": true,
+        "retro": true
       }
     },
     "760446": {
@@ -3562,6 +4010,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.8515302251074952,
+          "draw": 0.09897984992833658,
+          "away": 0.04948992496416829
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.174/10.1/20.2, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Ecuador vs Curaçao",
+        "createdAt": "2026-07-18T03:41:16.962Z",
+        "latencyMs": 758,
+        "eligible": true,
+        "retro": true
       }
     },
     "760447": {
@@ -3670,6 +4132,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.5692099461390339,
+          "draw": 0.23290681773783942,
+          "away": 0.19788323612312672
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.757/4.294/5.054, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Netherlands vs Sweden",
+        "createdAt": "2026-07-18T03:41:15.072Z",
+        "latencyMs": 811,
+        "eligible": true,
+        "retro": true
       }
     },
     "760448": {
@@ -3778,6 +4254,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.6615166470129985,
+          "draw": 0.19865206956974255,
+          "away": 0.139831283417259
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.512/5.035/7.153, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Germany vs Ivory Coast",
+        "createdAt": "2026-07-18T03:41:16.194Z",
+        "latencyMs": 1108,
+        "eligible": true,
+        "retro": true
       }
     },
     "760449": {
@@ -3886,6 +4376,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.1172294465174649,
+          "draw": 0.21604761465553968,
+          "away": 0.6667229388269954
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 8.531/4.629/1.5, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Tunisia vs Japan",
+        "createdAt": "2026-07-18T03:41:17.873Z",
+        "latencyMs": 895,
+        "eligible": true,
+        "retro": true
       }
     },
     "760450": {
@@ -3994,6 +4498,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.7031143523046305,
+          "draw": 0.19879430227090983,
+          "away": 0.09809134542445974
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.423/5.033/10.2, -0.1% vig removed.",
+        "market": "regulation",
+        "fixture": "Uruguay vs Cape Verde",
+        "createdAt": "2026-07-18T03:41:21.060Z",
+        "latencyMs": 1084,
+        "eligible": true,
+        "retro": true
       }
     },
     "760451": {
@@ -4102,6 +4620,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.6829046733578067,
+          "draw": 0.2053764260057167,
+          "away": 0.11171890063647659
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.464/4.868/8.949, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Belgium vs Iran",
+        "createdAt": "2026-07-18T03:41:19.963Z",
+        "latencyMs": 1013,
+        "eligible": true,
+        "retro": true
       }
     },
     "760452": {
@@ -4210,6 +4742,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.15496699128936353,
+          "draw": 0.25050150170096763,
+          "away": 0.5945315070096688
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 6.453/3.992/1.682, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "New Zealand vs Egypt",
+        "createdAt": "2026-07-18T03:41:21.973Z",
+        "latencyMs": 902,
+        "eligible": true,
+        "retro": true
       }
     },
     "760453": {
@@ -4318,6 +4864,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.8910610800073933,
+          "draw": 0.07297595122396316,
+          "away": 0.035962968768643716
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.122/13.7/27.8, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Spain vs Saudi Arabia",
+        "createdAt": "2026-07-18T03:41:18.935Z",
+        "latencyMs": 1054,
+        "eligible": true,
+        "retro": true
       }
     },
     "760454": {
@@ -4426,6 +4986,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.3974441744701584,
+          "draw": 0.2750191262285254,
+          "away": 0.32753669930131624
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 2.516/3.636/3.053, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Norway vs Senegal",
+        "createdAt": "2026-07-18T03:41:26.817Z",
+        "latencyMs": 1601,
+        "eligible": true,
+        "retro": true
       }
     },
     "760455": {
@@ -4534,6 +5108,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.13272003491089307,
+          "draw": 0.2081417033760758,
+          "away": 0.6591382617130311
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 7.534/4.804/1.517, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Jordan vs Algeria",
+        "createdAt": "2026-07-18T03:41:29.404Z",
+        "latencyMs": 2575,
+        "eligible": true,
+        "retro": true
       }
     },
     "760456": {
@@ -4642,6 +5230,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.6674618748400301,
+          "draw": 0.21328026632047037,
+          "away": 0.11925785883949963
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.498/4.688/8.384, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Argentina vs Austria",
+        "createdAt": "2026-07-18T03:41:23.792Z",
+        "latencyMs": 1807,
+        "eligible": true,
+        "retro": true
       }
     },
     "760457": {
@@ -4750,6 +5352,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.9087188014645924,
+          "draw": 0.06366819628095871,
+          "away": 0.027613002254448942
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.1/15.7/36.2, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "France vs Iraq",
+        "createdAt": "2026-07-18T03:41:25.200Z",
+        "latencyMs": 1394,
+        "eligible": true,
+        "retro": true
       }
     },
     "760458": {
@@ -4858,6 +5474,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.8316823074395557,
+          "draw": 0.11833358588332693,
+          "away": 0.0499841066771173
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.202/8.448/20, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "England vs Ghana",
+        "createdAt": "2026-07-18T03:41:32.790Z",
+        "latencyMs": 1400,
+        "eligible": true,
+        "retro": true
       }
     },
     "760459": {
@@ -4966,6 +5596,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.6298455712960594,
+          "draw": 0.23528458414917486,
+          "away": 0.1348698445547657
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.588/4.251/7.416, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Colombia vs Congo DR",
+        "createdAt": "2026-07-18T03:41:35.408Z",
+        "latencyMs": 1324,
+        "eligible": true,
+        "retro": true
       }
     },
     "760460": {
@@ -5061,6 +5705,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.11300521369627962,
+          "draw": 0.19647674018170214,
+          "away": 0.6905180461220182
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 8.848/5.089/1.448, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Panama vs Croatia",
+        "createdAt": "2026-07-18T03:44:08.588Z",
+        "latencyMs": 954,
+        "eligible": true,
+        "retro": true
       }
     },
     "760461": {
@@ -5169,6 +5827,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.8618030066178649,
+          "draw": 0.09705742598803138,
+          "away": 0.041139567394103835
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.16/10.3/24.3, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Portugal vs Uzbekistan",
+        "createdAt": "2026-07-18T03:41:31.379Z",
+        "latencyMs": 1958,
+        "eligible": true,
+        "retro": true
       }
     },
     "760462": {
@@ -5277,6 +5949,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.6824256696929066,
+          "draw": 0.18820662765438786,
+          "away": 0.12936770265270553
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.465/5.312/7.728, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Bosnia-Herzegovina vs Qatar",
+        "createdAt": "2026-07-18T03:41:37.102Z",
+        "latencyMs": 1680,
+        "eligible": true,
+        "retro": true
       }
     },
     "760463": {
@@ -5385,6 +6071,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.3762557013493632,
+          "draw": 0.3180940375911601,
+          "away": 0.3056502610594766
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 2.658/3.144/3.272, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Switzerland vs Canada",
+        "createdAt": "2026-07-18T03:44:09.912Z",
+        "latencyMs": 1313,
+        "eligible": true,
+        "retro": true
       }
     },
     "760464": {
@@ -5493,6 +6193,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.7510711371055496,
+          "draw": 0.1612380134657236,
+          "away": 0.08769084942872687
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.331/6.2/11.4, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Morocco vs Haiti",
+        "createdAt": "2026-07-18T03:41:39.612Z",
+        "latencyMs": 637,
+        "eligible": true,
+        "retro": true
       }
     },
     "760465": {
@@ -5601,6 +6315,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.0892741409963606,
+          "draw": 0.17498606565614955,
+          "away": 0.7357397933474897
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 11.2/5.714/1.359, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Scotland vs Brazil",
+        "createdAt": "2026-07-18T03:41:40.530Z",
+        "latencyMs": 907,
+        "eligible": true,
+        "retro": true
       }
     },
     "760466": {
@@ -5709,6 +6437,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.17588299347964192,
+          "draw": 0.2563175641968122,
+          "away": 0.5677994423235458
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 5.685/3.901/1.761, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "South Africa vs South Korea",
+        "createdAt": "2026-07-18T03:41:43.055Z",
+        "latencyMs": 1364,
+        "eligible": true,
+        "retro": true
       }
     },
     "760467": {
@@ -5817,6 +6559,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.20606108117886937,
+          "draw": 0.24266304949309703,
+          "away": 0.5512758693280336
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 4.853/4.121/1.814, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Czechia vs Mexico",
+        "createdAt": "2026-07-18T03:41:41.679Z",
+        "latencyMs": 1136,
+        "eligible": true,
+        "retro": true
       }
     },
     "760468": {
@@ -5925,6 +6681,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.2230842826733558,
+          "draw": 0.22081796708082616,
+          "away": 0.556097750245818
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 4.482/4.528/1.798, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Ecuador vs Germany",
+        "createdAt": "2026-07-18T03:41:46.386Z",
+        "latencyMs": 1852,
+        "eligible": true,
+        "retro": true
       }
     },
     "760469": {
@@ -6020,6 +6790,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.37134194239235524,
+          "draw": 0.4110250106299271,
+          "away": 0.21763304697771765
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 2.693/2.433/4.595, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Paraguay vs Australia",
+        "createdAt": "2026-07-18T03:41:50.953Z",
+        "latencyMs": 1013,
+        "eligible": true,
+        "retro": true
       }
     },
     "760470": {
@@ -6128,6 +6912,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.28668005559695703,
+          "draw": 0.24430491911121086,
+          "away": 0.4690150252918321
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 3.488/4.093/2.132, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Türkiye vs United States",
+        "createdAt": "2026-07-18T03:41:52.993Z",
+        "latencyMs": 2027,
+        "eligible": true,
+        "retro": true
       }
     },
     "760471": {
@@ -6236,6 +7034,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.40967772505769795,
+          "draw": 0.2828120268285748,
+          "away": 0.3075102481137271
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 2.441/3.536/3.252, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Japan vs Sweden",
+        "createdAt": "2026-07-18T03:41:48.516Z",
+        "latencyMs": 2120,
+        "eligible": true,
+        "retro": true
       }
     },
     "760472": {
@@ -6344,6 +7156,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.04523384246332286,
+          "draw": 0.09520646842280335,
+          "away": 0.8595596891138737
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 22.1/10.5/1.163, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Tunisia vs Netherlands",
+        "createdAt": "2026-07-18T03:41:49.931Z",
+        "latencyMs": 1400,
+        "eligible": true,
+        "retro": true
       }
     },
     "760473": {
@@ -6452,6 +7278,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.05463266374355297,
+          "draw": 0.10943276559840405,
+          "away": 0.835934570658043
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 18.3/9.136/1.196, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Curaçao vs Ivory Coast",
+        "createdAt": "2026-07-18T03:41:44.521Z",
+        "latencyMs": 1454,
+        "eligible": true,
+        "retro": true
       }
     },
     "760474": {
@@ -6560,6 +7400,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.8108430568027999,
+          "draw": 0.12338263470786774,
+          "away": 0.06577430848933238
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.233/8.103/15.2, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Senegal vs Iraq",
+        "createdAt": "2026-07-18T03:41:56.281Z",
+        "latencyMs": 1731,
+        "eligible": true,
+        "retro": true
       }
     },
     "760475": {
@@ -6668,6 +7522,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.11643045631547815,
+          "draw": 0.16352806078318466,
+          "away": 0.7200414829013372
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 8.59/6.116/1.389, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Norway vs France",
+        "createdAt": "2026-07-18T03:41:54.539Z",
+        "latencyMs": 1538,
+        "eligible": true,
+        "retro": true
       }
     },
     "760476": {
@@ -6776,6 +7644,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.3636203595449667,
+          "draw": 0.3557296295797433,
+          "away": 0.28065001087528996
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 2.75/2.811/3.563, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Egypt vs Iran",
+        "createdAt": "2026-07-18T03:42:00.591Z",
+        "latencyMs": 930,
+        "eligible": true,
+        "retro": true
       }
     },
     "760477": {
@@ -6884,6 +7766,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.05849664261060558,
+          "draw": 0.10233172262315657,
+          "away": 0.8391716347662379
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 17.1/9.775/1.192, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "New Zealand vs Belgium",
+        "createdAt": "2026-07-18T03:42:01.933Z",
+        "latencyMs": 1283,
+        "eligible": true,
+        "retro": true
       }
     },
     "760478": {
@@ -6992,6 +7888,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.3792478621610453,
+          "draw": 0.27942906189401406,
+          "away": 0.3413230759449407
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 2.637/3.579/2.93, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Cape Verde vs Saudi Arabia",
+        "createdAt": "2026-07-18T03:41:57.581Z",
+        "latencyMs": 1296,
+        "eligible": true,
+        "retro": true
       }
     },
     "760479": {
@@ -7100,6 +8010,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.1659208173876948,
+          "draw": 0.2602577900632381,
+          "away": 0.5738213925490672
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 6.028/3.843/1.743, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Uruguay vs Spain",
+        "createdAt": "2026-07-18T03:41:59.294Z",
+        "latencyMs": 1702,
+        "eligible": true,
+        "retro": true
       }
     },
     "760480": {
@@ -7208,6 +8132,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.5318326697702067,
+          "draw": 0.2976616311902318,
+          "away": 0.1705056990395615
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.88/3.359/5.864, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Croatia vs Ghana",
+        "createdAt": "2026-07-18T03:42:03.185Z",
+        "latencyMs": 1201,
+        "eligible": true,
+        "retro": true
       }
     },
     "760481": {
@@ -7316,6 +8254,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.2363763309509198,
+          "draw": 0.24000678095832534,
+          "away": 0.5236168880907548
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 4.231/4.167/1.91, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Colombia vs Portugal",
+        "createdAt": "2026-07-18T03:42:06.710Z",
+        "latencyMs": 1293,
+        "eligible": true,
+        "retro": true
       }
     },
     "760482": {
@@ -7424,6 +8376,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.5827384292167204,
+          "draw": 0.24425479837222572,
+          "away": 0.173006772411054
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.716/4.094/5.78, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Congo DR vs Uzbekistan",
+        "createdAt": "2026-07-18T03:42:07.743Z",
+        "latencyMs": 1016,
+        "eligible": true,
+        "retro": true
       }
     },
     "760483": {
@@ -7532,6 +8498,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.04130460084993797,
+          "draw": 0.0999571340568499,
+          "away": 0.8587382650932122
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 24.2/10/1.164, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Jordan vs Argentina",
+        "createdAt": "2026-07-18T03:42:10.365Z",
+        "latencyMs": 1341,
+        "eligible": true,
+        "retro": true
       }
     },
     "760484": {
@@ -7640,6 +8620,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.2777828339413513,
+          "draw": 0.465341182963641,
+          "away": 0.25687598309500764
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 3.6/2.149/3.893, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Algeria vs Austria",
+        "createdAt": "2026-07-18T03:42:09.005Z",
+        "latencyMs": 1248,
+        "eligible": true,
+        "retro": true
       }
     },
     "760485": {
@@ -7748,6 +8742,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.049028518029994174,
+          "draw": 0.09902789780315654,
+          "away": 0.8519435841668492
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 20.4/10.1/1.174, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Panama vs England",
+        "createdAt": "2026-07-18T03:42:05.399Z",
+        "latencyMs": 2189,
+        "eligible": true,
+        "retro": true
       }
     },
     "760486": {
@@ -7855,6 +8863,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.27422120605887396,
+          "away": 0.725778793941126
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 5.079/3.547/1.919, -0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "South Africa vs Canada",
+        "createdAt": "2026-07-18T03:42:11.719Z",
+        "latencyMs": 1346,
+        "eligible": true,
+        "retro": true
       }
     },
     "760487": {
@@ -7962,6 +8983,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.7443316177493393,
+          "away": 0.25566838225066074
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 1.838/3.718/5.351, -0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "Brazil vs Japan",
+        "createdAt": "2026-07-18T03:42:13.041Z",
+        "latencyMs": 1313,
+        "eligible": true,
+        "retro": true
       }
     },
     "760488": {
@@ -8069,6 +9103,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.581996284411417,
+          "away": 0.418003715588583
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 2.475/3.271/3.446, -0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "Netherlands vs Morocco",
+        "createdAt": "2026-07-18T03:42:16.305Z",
+        "latencyMs": 1902,
+        "eligible": true,
+        "retro": true
       }
     },
     "760489": {
@@ -8176,6 +9223,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.8882007822685789,
+          "away": 0.11179921773142112
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 1.372/5.569/10.9, 0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "Germany vs Paraguay",
+        "createdAt": "2026-07-18T03:44:10.809Z",
+        "latencyMs": 888,
+        "eligible": true,
+        "retro": true
       }
     },
     "760490": {
@@ -8283,6 +9343,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.36632839793711525,
+          "away": 0.6336716020628848
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 3.809/3.53/2.202, -0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "Ivory Coast vs Norway",
+        "createdAt": "2026-07-18T03:42:17.190Z",
+        "latencyMs": 872,
+        "eligible": true,
+        "retro": true
       }
     },
     "760491": {
@@ -8390,6 +9463,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.6327460510328069,
+          "away": 0.36725394896719316
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 2.418/2.887/4.166, -0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "Mexico vs Ecuador",
+        "createdAt": "2026-07-18T03:42:19.607Z",
+        "latencyMs": 965,
+        "eligible": true,
+        "retro": true
       }
     },
     "760492": {
@@ -8497,6 +9583,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.8954041204437401,
+          "away": 0.10459587955625989
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 1.32/6.499/11.3, -0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "France vs Sweden",
+        "createdAt": "2026-07-18T03:42:18.630Z",
+        "latencyMs": 1426,
+        "eligible": true,
+        "retro": true
       }
     },
     "760493": {
@@ -8604,6 +9703,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.675761421319797,
+          "away": 0.32423857868020306
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 2.044/3.624/4.26, -0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "Belgium vs Senegal",
+        "createdAt": "2026-07-18T03:42:21.846Z",
+        "latencyMs": 988,
+        "eligible": true,
+        "retro": true
       }
     },
     "760494": {
@@ -8711,6 +9823,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.8711254612546127,
+          "away": 0.12887453874538746
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 1.397/5.602/9.443, 0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "United States vs Bosnia-Herzegovina",
+        "createdAt": "2026-07-18T03:42:22.972Z",
+        "latencyMs": 1113,
+        "eligible": true,
+        "retro": true
       }
     },
     "760495": {
@@ -8818,6 +9943,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.9140650144834246,
+          "away": 0.08593498551657548
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 1.335/5.536/14.2, 0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "England vs Congo DR",
+        "createdAt": "2026-07-18T03:42:20.846Z",
+        "latencyMs": 1231,
+        "eligible": true,
+        "retro": true
       }
     },
     "760496": {
@@ -8925,6 +10063,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.7712332369182224,
+          "away": 0.2287667630817775
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 1.74/3.927/5.866, -0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "Portugal vs Croatia",
+        "createdAt": "2026-07-18T03:42:25.639Z",
+        "latencyMs": 1631,
+        "eligible": true,
+        "retro": true
       }
     },
     "760497": {
@@ -9032,6 +10183,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.8870636550308009,
+          "away": 0.11293634496919916
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 1.375/5.56/10.8, -0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "Spain vs Austria",
+        "createdAt": "2026-07-18T03:42:23.996Z",
+        "latencyMs": 1014,
+        "eligible": true,
+        "retro": true
       }
     },
     "760498": {
@@ -9139,6 +10303,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.6817207593386405,
+          "away": 0.3182792406613595
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 2.079/3.396/4.453, 0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "Switzerland vs Algeria",
+        "createdAt": "2026-07-18T03:42:26.908Z",
+        "latencyMs": 1265,
+        "eligible": true,
+        "retro": true
       }
     },
     "760499": {
@@ -9246,6 +10423,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.4047429571860576,
+          "away": 0.5952570428139424
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 3.74/2.947/2.543, -0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "Australia vs Egypt",
+        "createdAt": "2026-07-18T03:42:27.716Z",
+        "latencyMs": 797,
+        "eligible": true,
+        "retro": true
       }
     },
     "760500": {
@@ -9353,6 +10543,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.95303200900756,
+          "away": 0.046967990992440076
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 1.168/9.808/23.7, 0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "Argentina vs Cape Verde",
+        "createdAt": "2026-07-18T03:42:28.927Z",
+        "latencyMs": 1200,
+        "eligible": true,
+        "retro": true
       }
     },
     "760501": {
@@ -9460,6 +10663,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.8608801270671774,
+          "away": 0.13911987293282257
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 1.489/4.55/9.214, -0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "Colombia vs Ghana",
+        "createdAt": "2026-07-18T03:42:30.000Z",
+        "latencyMs": 1060,
+        "eligible": true,
+        "retro": true
       }
     },
     "760502": {
@@ -9567,6 +10783,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.25903119868637103,
+          "away": 0.740968801313629
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 5.415/3.485/1.893, -0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "Canada vs Morocco",
+        "createdAt": "2026-07-18T03:42:31.130Z",
+        "latencyMs": 1118,
+        "eligible": true,
+        "retro": true
       }
     },
     "760503": {
@@ -9661,6 +10890,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.06178261303523306,
+          "away": 0.938217386964767
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 18.8/7.2/1.238, -0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "Paraguay vs France",
+        "createdAt": "2026-07-18T03:42:31.710Z",
+        "latencyMs": 569,
+        "eligible": true,
+        "retro": true
       }
     },
     "760504": {
@@ -9761,6 +11003,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.7338792221084954,
+          "away": 0.2661207778915047
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 1.82/3.979/5.019, 0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "Brazil vs Norway",
+        "createdAt": "2026-07-18T03:42:32.142Z",
+        "latencyMs": 416,
+        "eligible": true,
+        "retro": true
       }
     },
     "760505": {
@@ -9861,6 +11116,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.4438801422041646,
+          "away": 0.5561198577958355
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 3.285/3.182/2.622, 0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "Mexico vs England",
+        "createdAt": "2026-07-18T03:42:32.607Z",
+        "latencyMs": 454,
+        "eligible": true,
+        "retro": true
       }
     },
     "760506": {
@@ -9961,6 +11229,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.34039408866995075,
+          "away": 0.6596059113300493
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 4.017/3.723/2.073, -0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "Portugal vs Spain",
+        "createdAt": "2026-07-18T03:42:33.199Z",
+        "latencyMs": 583,
+        "eligible": true,
+        "retro": true
       }
     },
     "760507": {
@@ -10061,6 +11342,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.5299401197604791,
+          "away": 0.4700598802395209
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 2.669/3.414/3.009, -0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "United States vs Belgium",
+        "createdAt": "2026-07-18T03:42:33.844Z",
+        "latencyMs": 636,
+        "eligible": true,
+        "retro": true
       }
     },
     "760508": {
@@ -10161,6 +11455,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.40513737603641686,
+          "away": 0.5948626239635832
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 3.659/3.073/2.492, -0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "Switzerland vs Colombia",
+        "createdAt": "2026-07-18T03:42:34.990Z",
+        "latencyMs": 474,
+        "eligible": true,
+        "retro": true
       }
     },
     "760509": {
@@ -10261,6 +11568,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.9048513955592677,
+          "away": 0.09514860444073224
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 1.367/5.227/13, -0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "Argentina vs Egypt",
+        "createdAt": "2026-07-18T03:42:34.492Z",
+        "latencyMs": 640,
+        "eligible": true,
+        "retro": true
       }
     },
     "760510": {
@@ -10361,6 +11681,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.8091648015078337,
+          "away": 0.19083519849216632
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 1.62/4.216/6.869, 0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "France vs Morocco",
+        "createdAt": "2026-07-18T03:42:35.591Z",
+        "latencyMs": 596,
+        "eligible": true,
+        "retro": true
       }
     },
     "760511": {
@@ -10461,6 +11794,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.777894875510473,
+          "away": 0.2221051244895271
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 1.686/4.207/5.905, 0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "Spain vs Belgium",
+        "createdAt": "2026-07-18T03:42:35.984Z",
+        "latencyMs": 386,
+        "eligible": true,
+        "retro": true
       }
     },
     "760512": {
@@ -10561,6 +11907,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.30069598228408734,
+          "away": 0.6993040177159127
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 4.421/4.038/1.901, -0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "Norway vs England",
+        "createdAt": "2026-07-18T03:39:19.274Z",
+        "latencyMs": 570,
+        "eligible": true,
+        "retro": true
       }
     },
     "760513": {
@@ -10661,6 +12020,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.782550498904843,
+          "away": 0.21744950109515698
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 1.787/3.509/6.431, 0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "Argentina vs Switzerland",
+        "createdAt": "2026-07-18T03:39:19.599Z",
+        "latencyMs": 302,
+        "eligible": true,
+        "retro": true
       }
     },
     "760514": {
@@ -10768,6 +12140,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.5368243243243244,
+          "away": 0.4631756756756757
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 2.742/3.119/3.178, -0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "France vs Spain",
+        "createdAt": "2026-07-18T03:39:20.237Z",
+        "latencyMs": 622,
+        "eligible": true,
+        "retro": true
       }
     },
     "760515": {
@@ -10868,6 +12253,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.5336315440689199,
+          "away": 0.46636845593108023
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 2.815/2.991/3.221, 0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "England vs Argentina",
+        "createdAt": "2026-07-18T03:44:11.473Z",
+        "latencyMs": 647,
+        "eligible": true,
+        "retro": true
       }
     },
     "760516": {
