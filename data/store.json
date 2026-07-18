@@ -24792,6 +24792,83 @@
             "rationale": "England leads by one with only ~9+ minutes left, so they are strong favorites to hold on, while a France equalizer is plausible given their recent scoring but a full comeback win remains unlikely."
           }
         }
+      },
+      {
+        "at": "2026-07-18T22:51:07.448Z",
+        "detail": "87'",
+        "score": [
+          3,
+          5
+        ],
+        "events": 8,
+        "period": "STATUS_SECOND_HALF",
+        "market": "regulation",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.001,
+              "draw": 0.009,
+              "away": 0.99
+            },
+            "rationale": "England leads by two goals with only stoppage time remaining, making a comeback or draw extremely unlikely."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0,
+              "draw": 0.01,
+              "away": 0.99
+            },
+            "rationale": "At 87 minutes with England leading by two goals, only an extremely unlikely quick French double makes a draw plausible, and a France win in regulation is effectively impossible."
+          },
+          "deepseek/deepseek-v4-pro": {
+            "probs": {
+              "home": 0.001,
+              "draw": 0.005,
+              "away": 0.994
+            },
+            "rationale": "With only a few minutes left and a two-goal deficit, France's chances of scoring twice or more are extremely slim."
+          },
+          "moonshotai/kimi-k3": {
+            "probs": {
+              "home": 0.005,
+              "draw": 0.03,
+              "away": 0.965
+            },
+            "rationale": "With England up 5-3 at 87' plus stoppage time, France would need at least two goals in the dying minutes just to force a draw, making an England win near-certain."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0.003,
+              "draw": 0.007,
+              "away": 0.99
+            },
+            "rationale": "England leads 5-3 at 87' with a two-goal cushion and only minutes plus stoppage time remaining, making an England win virtually certain."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.002,
+              "draw": 0.013,
+              "away": 0.985
+            },
+            "rationale": "England leads 5-3 with only about 3 minutes plus stoppage time remaining, making a French comeback of 2+ goals virtually impossible and an England win near-certain."
+          },
+          "google/gemini-3.1-pro-preview": {
+            "probs": {
+              "home": 0.001,
+              "draw": 0.014,
+              "away": 0.985
+            },
+            "rationale": "With a two-goal deficit and only three minutes of regulation plus stoppage time remaining following Saka's 87th-minute penalty, France's chances of forcing a draw or winning are extremely slim."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0.02,
+              "draw": 0.03,
+              "away": 0.95
+            },
+            "rationale": "England lead by two goals with only a few minutes plus stoppage remaining, so an away win is overwhelmingly likely while France need two unanswered goals for a draw or three for a win."
+          }
+        }
       }
     ]
   },
