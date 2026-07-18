@@ -58,6 +58,16 @@ validation proofs.
 - One-command on-chain activation: `scripts/txodds-setup.mjs` (Solana
   ed25519 signing via node:crypto — zero new dependencies, key never
   leaves the machine). World Cup free tier: no TxL required.
+- The Market is backfilled from TxLINE historical StablePrice odds across
+  all **102** played matches (`scripts/backfill.js --only txodds/market`)
+  and currently leads the leaderboard (average Brier **0.4262**).
+- Resolved scores are verified read-side against TxODDS's on-chain
+  `daily_scores_roots` commitment via Anchor `validateStat` simulation
+  (`scripts/verify-results.js`). Program id on devnet:
+  `6pW64gN1s2uqjHkn1unFeEjAwJkPGHoppGvS715wyP2J`. Finished match cards
+  show a "Score verified on Solana ✓" badge linking the PDA on explorer
+  when the proof passes (78 of 102 played matches with a TxLINE
+  `game_finalised` score record).
 
 ## Links
 

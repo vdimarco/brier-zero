@@ -392,6 +392,18 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
 .toggle-models:focus-visible { outline: 1px solid var(--pitch); outline-offset: 3px; }
 .show-finished { margin-top: 14px; font-size: 13px; }
 
+.proof-badge {
+  display: inline-block;
+  margin: 6px 0 0;
+  font-size: 11px;
+  font-weight: 600;
+  color: #14f195;
+  text-decoration: none;
+  opacity: 0.85;
+}
+.proof-badge:hover { opacity: 1; text-decoration: underline; }
+.proof-badge:focus-visible { outline: 1px solid #14f195; outline-offset: 2px; }
+
 .collect {
   margin-top: 12px;
   background: var(--pitch); color: #ffffff;

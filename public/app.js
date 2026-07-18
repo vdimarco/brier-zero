@@ -211,6 +211,17 @@ function oddsStrip(match) {
   </div>`;
 }
 
+// Final-score Merkle proof verified against TxODDS's on-chain
+// daily_scores_roots PDA (scripts/verify-results.js). Only rendered when
+// validateStat.view() returned true for this match.
+function proofBadge(state, match) {
+  const p = state.proofs?.[match.id];
+  if (!p?.verified) return '';
+  const title = `Final score Merkle-proved against the root TxODDS committed on Solana (epoch day ${p.epochDay})`;
+  return `<a class="proof-badge" href="${esc(p.explorerUrl)}" target="_blank" rel="noopener"
+    title="${esc(title)}">Score verified on Solana ✓</a>`;
+}
+
 function matchCard(match, state) {
   const { home, away } = match;
   const isLive = match.status.state === 'in';
@@ -320,6 +331,7 @@ function matchCard(match, state) {
       <div class="match-meta">${meta}</div>
     </div>
     ${match.marketOdds ? oddsStrip(match) : ''}
+    ${isDone ? proofBadge(state, match) : ''}
     ${isDone && match.outcome ? `<div class="fnote" style="margin-top:6px">${
       matchMarket(match) === 'advance'
         ? `Advanced: ${esc(match[match.outcome].name)}${
