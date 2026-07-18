@@ -77,39 +77,43 @@ main { max-width: 1080px; margin: 0 auto; padding: 0 20px 64px; }
 .wordmark em { font-style: normal; color: var(--kit-gold); }
 .topbar-status { color: rgba(255, 255, 255, 0.75); font-size: 13px; }
 
-/* Wordmark as Brier explainer (hover / focus / tap) */
-.brier-tip-wordmark {
+/* Wordmark as Brier explainer (hover / focus / tap).
+   Higher specificity so the shared tip rule's translateX(-50%)
+   centering doesn't yank this panel sideways under the topbar. */
+.wordmark.brier-tip {
   cursor: help;
   z-index: 20;
 }
-.brier-tip-wordmark .brier-tip-label {
+.wordmark.brier-tip .brier-tip-label {
   border-bottom: 1px dashed rgba(255, 215, 94, 0.45);
   gap: 0;
   letter-spacing: 0.04em;
 }
-.brier-tip-wordmark:hover .brier-tip-label,
-.brier-tip-wordmark:focus-visible .brier-tip-label,
-.brier-tip-wordmark.open .brier-tip-label {
+.wordmark.brier-tip:hover .brier-tip-label,
+.wordmark.brier-tip:focus-visible .brier-tip-label,
+.wordmark.brier-tip.open .brier-tip-label {
   border-bottom-color: var(--kit-gold);
   color: #ffffff;
 }
-.brier-tip-wordmark .brier-tip-pop {
-  /* Open downward — wordmark sits at the top of the page */
+.wordmark.brier-tip .brier-tip-pop {
+  /* Flush under the wordmark, open downward only — no horizontal shift */
   left: 0;
   right: auto;
   bottom: auto;
   top: calc(100% + 12px);
-  transform: translateY(-4px);
+  transform: none;
   width: min(340px, 86vw);
   z-index: 60;
+  /* Opacity-only show (shared rule still sets transform on hover) */
 }
-.brier-tip-wordmark:hover .brier-tip-pop,
-.brier-tip-wordmark:focus-within .brier-tip-pop,
-.brier-tip-wordmark.open .brier-tip-pop {
-  transform: translateY(0);
+.wordmark.brier-tip:hover .brier-tip-pop,
+.wordmark.brier-tip:focus-within .brier-tip-pop,
+.wordmark.brier-tip.open .brier-tip-pop {
+  /* Beat .brier-tip:hover .brier-tip-pop { transform: translateX(-50%) } */
+  transform: none;
 }
-.brier-tip-wordmark .brier-tip-pop::after {
-  left: 28px;
+.wordmark.brier-tip .brier-tip-pop::after {
+  left: 22px;
   top: auto;
   bottom: 100%;
   transform: none;
