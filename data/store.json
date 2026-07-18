@@ -24938,6 +24938,91 @@
             "rationale": "At 90'+6' with England leading 5-4 just after France's goal, virtually no time remains for further scores so England are overwhelming favorites to hold on for the win."
           }
         }
+      },
+      {
+        "at": "2026-07-18T23:01:50.854Z",
+        "detail": "90'+8'",
+        "score": [
+          4,
+          6
+        ],
+        "events": 10,
+        "period": "STATUS_SECOND_HALF",
+        "market": "regulation",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.01,
+              "draw": 0.01,
+              "away": 0.98
+            },
+            "rationale": "England leads 6-4 in stoppage time after just conceding and scoring; the match is essentially over."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0,
+              "draw": 0,
+              "away": 1
+            },
+            "rationale": "At 90'+8' with England leading by two goals, there is effectively no time left for France to equalize or win in regulation."
+          },
+          "deepseek/deepseek-v4-pro": {
+            "probs": {
+              "home": 0,
+              "draw": 0,
+              "away": 1
+            },
+            "rationale": "With the score 6-4 and the match at 90'+8', England's win is virtually certain as there is no time left for France to score twice."
+          },
+          "moonshotai/kimi-k3": {
+            "probs": {
+              "home": 0.001,
+              "draw": 0.004,
+              "away": 0.995
+            },
+            "rationale": "With the clock at 90'+8' and England leading 6-4 after Bellingham's goal, France would need at least two goals in the final seconds, making an England win virtually certain."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0.001,
+              "draw": 0.004,
+              "away": 0.995
+            },
+            "rationale": "England leads 6-4 at 90'+8' with a two-goal cushion and only seconds remaining before the final whistle, making an England victory virtually certain."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.0001,
+              "draw": 0.0009,
+              "away": 0.999
+            },
+            "rationale": "England leads by two goals deep into the eighth minute of stoppage time, making any French comeback virtually impossible before the imminent final whistle."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.001,
+              "draw": 0.009,
+              "away": 0.99
+            },
+            "rationale": "With only a minute of added time remaining and France needing at least two goals to draw, England are virtually assured of victory."
+          },
+          "google/gemini-3.1-pro-preview": {
+            "probs": {
+              "home": 0,
+              "draw": 0,
+              "away": 1
+            },
+            "rationale": "With England leading by two goals at 90'+8' and virtually no time remaining, an England victory is guaranteed."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0,
+              "draw": 0,
+              "away": 1
+            },
+            "rationale": "At 90'+8' with England leading 6-4 after the latest goal, the match is effectively over with no realistic time left for France to score twice."
+          }
+        }
       }
     ]
   },
