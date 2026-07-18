@@ -24492,6 +24492,306 @@
             "rationale": "England's two-goal lead with ~35 minutes left makes them heavy favorites, though France's quick second-half goals give a slim chance of a comeback draw or win."
           }
         }
+      },
+      {
+        "at": "2026-07-18T22:28:23.381Z",
+        "detail": "64'",
+        "score": [
+          2,
+          4
+        ],
+        "events": 6,
+        "period": "STATUS_SECOND_HALF",
+        "market": "regulation",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.03,
+              "draw": 0.09,
+              "away": 0.88
+            },
+            "rationale": "England leads by two goals with under 30 minutes plus stoppage remaining; France would need at least two goals to draw and three to win, which is unlikely despite recent momentum."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.1,
+              "draw": 0.2,
+              "away": 0.7
+            },
+            "rationale": "England are two goals up with just over 25 minutes plus stoppage time left, making them strong favourites though France’s attack and remaining time leave some chance of a comeback or draw."
+          },
+          "deepseek/deepseek-v4-pro": {
+            "probs": {
+              "home": 0.02,
+              "draw": 0.08,
+              "away": 0.9
+            },
+            "rationale": "England firmly in control with a two-goal lead and ~30 minutes to play, but France's quickfire double gives them a slim chance of forcing a draw."
+          },
+          "moonshotai/kimi-k3": {
+            "probs": {
+              "home": 0.06,
+              "draw": 0.12,
+              "away": 0.82
+            },
+            "rationale": "England's two-goal cushion with ~26 minutes left is historically very secure, though France's quick second-half brace and this match's exceptionally high scoring rate keep a comeback or draw meaningfully alive."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0.05,
+              "draw": 0.1,
+              "away": 0.85
+            },
+            "rationale": "England holds a two-goal lead with 26 minutes remaining, and while France has shown recent attacking momentum, overcoming a two-goal deficit in the final stretch is highly improbable."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.03,
+              "draw": 0.1,
+              "away": 0.87
+            },
+            "rationale": "England holds a commanding two-goal lead with only 26 minutes remaining, and while France showed a brief scoring burst early in the second half, overturning a 4-2 deficit in regulation is historically very rare even for a team of France's caliber."
+          },
+          "google/gemini-3.1-pro-preview": {
+            "probs": {
+              "home": 0.05,
+              "draw": 0.14,
+              "away": 0.81
+            },
+            "rationale": "Despite France's strong second-half momentum with two quick goals, overcoming a two-goal deficit in the remaining 26 minutes plus stoppage time remains statistically improbable."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0.03,
+              "draw": 0.09,
+              "away": 0.88
+            },
+            "rationale": "England lead 4-2 with only ~26 min + stoppage left, so France need two unanswered goals for a draw or three to win, both low-probability outcomes."
+          }
+        }
+      },
+      {
+        "at": "2026-07-18T22:31:10.558Z",
+        "detail": "67'",
+        "score": [
+          3,
+          4
+        ],
+        "events": 7,
+        "period": "STATUS_SECOND_HALF",
+        "market": "regulation",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.28,
+              "draw": 0.34,
+              "away": 0.38
+            },
+            "rationale": "France has scored three unanswered goals and has clear momentum, but England still leads with 23 minutes to play, making a draw or narrow English win the most likely outcomes."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.26,
+              "draw": 0.29,
+              "away": 0.45
+            },
+            "rationale": "With England one goal up in the 68th minute but France in strong attacking momentum after three quick goals, England remain slight favorites while the chance of an equalizer and eventual draw is also substantial."
+          },
+          "deepseek/deepseek-v4-pro": {
+            "probs": {
+              "home": 0.25,
+              "draw": 0.3,
+              "away": 0.45
+            },
+            "rationale": "France has stormed back with three second-half goals and has momentum, but England still leads and can threaten on the counter, making an away win the most likely single outcome with a draw also probable."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0.15,
+              "draw": 0.35,
+              "away": 0.5
+            },
+            "rationale": "France has erased a four-goal deficit to within one with 23 minutes left, making an English collapse highly plausible but England still holding the lead."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.27,
+              "draw": 0.3,
+              "away": 0.43
+            },
+            "rationale": "France has overwhelming momentum with three second-half goals in 18 minutes, but England still holds a lead with 23 minutes remaining in an extraordinarily high-scoring, open third-place match where more goals seem likely."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.3,
+              "draw": 0.08,
+              "away": 0.62
+            },
+            "rationale": "England leads 4-3 with 24 minutes left, but France has momentum after scoring three goals in 18 minutes and needs just one equalizer."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0.18,
+              "draw": 0.32,
+              "away": 0.5
+            },
+            "rationale": "England leads 4-3 with ~23 min left but France's rapid second-half surge (3 goals) and open game raise comeback odds above typical late one-goal deficits."
+          }
+        }
+      },
+      {
+        "at": "2026-07-18T22:35:05.020Z",
+        "detail": "70'",
+        "score": [
+          3,
+          4
+        ],
+        "events": 7,
+        "period": "STATUS_SECOND_HALF",
+        "market": "regulation",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.18,
+              "draw": 0.34,
+              "away": 0.48
+            },
+            "rationale": "France has scored 3 goals in 18 minutes and has clear momentum, but England still leads by one with only 20 minutes plus stoppage remaining, making an England win most likely but a draw very plausible."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.27,
+              "draw": 0.33,
+              "away": 0.4
+            },
+            "rationale": "With England one goal up on 70' but momentum and recent scoring edge to France, the match is fairly open yet still slightly favors England holding on, with a substantial chance of an equalizer leading to a draw."
+          },
+          "deepseek/deepseek-v4-pro": {
+            "probs": {
+              "home": 0.25,
+              "draw": 0.3,
+              "away": 0.45
+            },
+            "rationale": "France has momentum after three second-half goals, but England still leads 4-3 with 20 minutes left in a high-scoring third-place match."
+          },
+          "moonshotai/kimi-k3": {
+            "probs": {
+              "home": 0.22,
+              "draw": 0.27,
+              "away": 0.51
+            },
+            "rationale": "England leads with ~20 minutes left and history favors the leader, but France's three-goal second-half surge and this game's extraordinary scoring rate (7 goals in 70') make a French equalizer — or more — a live possibility."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0.2,
+              "draw": 0.25,
+              "away": 0.55
+            },
+            "rationale": "England lead 4-3 with 20 minutes left but France have scored three times in 22 minutes and carry strong momentum, making an equalizer plausible while England remain favorites to hold on."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.23,
+              "draw": 0.33,
+              "away": 0.44
+            },
+            "rationale": "England holds a fragile one-goal lead with 20 minutes left in a wildly open 3rd-place match, but France's explosive second-half momentum (3 goals in 18 minutes) and Mbappé's form make an equalizer highly plausible while England's counter-attacking threat with Saka keeps them as favorites to hold on."
+          },
+          "google/gemini-3.1-pro-preview": {
+            "probs": {
+              "home": 0.18,
+              "draw": 0.32,
+              "away": 0.5
+            },
+            "rationale": "Despite France's massive second-half momentum with three unanswered goals, England still holds a one-goal lead with only 20 minutes plus stoppage time remaining, making them the favorites to hold on, though an equalizer is highly plausible given the game's open nature."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0.14,
+              "draw": 0.24,
+              "away": 0.62
+            },
+            "rationale": "England leads by 1 with ~20+ min left so they are strong favorites to hold on, though France's recent scoring surge gives them a realistic shot at equalizing or rarely overtaking."
+          }
+        }
+      },
+      {
+        "at": "2026-07-18T22:44:34.838Z",
+        "detail": "81'",
+        "score": [
+          3,
+          4
+        ],
+        "events": 7,
+        "period": "STATUS_SECOND_HALF",
+        "market": "regulation",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.05,
+              "draw": 0.22,
+              "away": 0.73
+            },
+            "rationale": "England leads by one with only ~9 minutes plus stoppage remaining, but France's three-goal comeback shows scoring momentum, making a draw plausible while a France win requires two more goals."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.19,
+              "draw": 0.36,
+              "away": 0.45
+            },
+            "rationale": "With England one goal ahead on 81' but France in strong attacking rhythm, England remain slight favorites while a late French equaliser is also quite likely, leaving a smaller but real chance of France finding two goals to win in regulation."
+          },
+          "moonshotai/kimi-k3": {
+            "probs": {
+              "home": 0.08,
+              "draw": 0.28,
+              "away": 0.64
+            },
+            "rationale": "England leads with only ~10-12 minutes plus stoppage left, but France's blistering second-half momentum (3 goals since 48') gives them a real chance to equalize, while needing two more goals to win outright is a long shot."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0.03,
+              "draw": 0.12,
+              "away": 0.85
+            },
+            "rationale": "England leads 4-3 with only 9 minutes remaining, making an England win highly likely despite France's strong second-half comeback."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.07,
+              "draw": 0.25,
+              "away": 0.68
+            },
+            "rationale": "England holds a one-goal lead with roughly 10 minutes of regulation remaining, which historically converts to a win about 70% of the time, though France's rapid second-half scoring momentum (3 goals in 18 minutes) gives them a realistic chance of finding an equalizer, while scoring twice in that window to win is highly unlikely."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.32,
+              "draw": 0.28,
+              "away": 0.4
+            },
+            "rationale": "England holds a narrow lead but France has dominated the second half with 3 goals in 18 minutes and momentum strongly favoring them, making either team likely to score in the final 10 minutes."
+          },
+          "google/gemini-3.1-pro-preview": {
+            "probs": {
+              "home": 0.04,
+              "draw": 0.21,
+              "away": 0.75
+            },
+            "rationale": "Although France has immense second-half momentum in this high-scoring third-place match, England's one-goal lead with less than fifteen minutes of total time remaining makes them strong favorites to hold on for the victory."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0.07,
+              "draw": 0.23,
+              "away": 0.7
+            },
+            "rationale": "England leads by one with only ~9+ minutes left, so they are strong favorites to hold on, while a France equalizer is plausible given their recent scoring but a full comeback win remains unlikely."
+          }
+        }
       }
     ]
   },
