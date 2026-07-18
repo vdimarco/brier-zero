@@ -12396,6 +12396,84 @@
         "createdAt": "2026-07-18T04:02:22.946Z",
         "latencyMs": 1,
         "eligible": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.4,
+          "draw": 0.28,
+          "away": 0.32
+        },
+        "rationale": "France's slightly superior squad depth and recent tournament form give them a modest edge over a competitive England side in a neutral venue third-place match.",
+        "market": "regulation",
+        "fixture": "France vs England",
+        "createdAt": "2026-07-18T15:34:33.553Z",
+        "latencyMs": 2729,
+        "eligible": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.42,
+          "draw": 0.28,
+          "away": 0.3
+        },
+        "rationale": "France hold a slight edge in quality and tournament pedigree over England in a 3rd-place match where both sides may rotate but still field strong XIs.",
+        "market": "regulation",
+        "fixture": "France vs England",
+        "createdAt": "2026-07-18T15:34:35.058Z",
+        "latencyMs": 4229,
+        "eligible": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.32,
+          "draw": 0.3,
+          "away": 0.38
+        },
+        "rationale": "In a 3rd place match where motivation and squad rotation are unpredictable, England's slightly deeper squad and recent tournament consistency give them a marginal edge, but France's quality keeps it close with a high chance of a draw.",
+        "market": "regulation",
+        "fixture": "France vs England",
+        "createdAt": "2026-07-18T15:34:35.592Z",
+        "latencyMs": 4766,
+        "eligible": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.4,
+          "draw": 0.24,
+          "away": 0.36
+        },
+        "rationale": "France holds a slight edge in squad depth and recent tournament pedigree, but third-place matches are historically open and high-scoring with rotated squads, reducing draw likelihood and keeping England competitive.",
+        "market": "regulation",
+        "fixture": "France vs England",
+        "createdAt": "2026-07-18T15:34:52.610Z",
+        "latencyMs": 21782,
+        "eligible": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.43,
+          "draw": 0.28,
+          "away": 0.29
+        },
+        "rationale": "France's recent World Cup pedigree and squad depth provide a marginal advantage over England in this neutral-venue third-place match.",
+        "market": "regulation",
+        "fixture": "France vs England",
+        "createdAt": "2026-07-18T15:34:55.356Z",
+        "latencyMs": 24528,
+        "eligible": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.39,
+          "draw": 0.24,
+          "away": 0.37
+        },
+        "rationale": "Two evenly matched elite squads meet in a low-stakes consolation game where rotation and open play historically suppress draws (no 3rd-place match has gone to extra time since 1986), with France getting only a slight edge for superior squad depth and recent tournament pedigree at a neutral venue.",
+        "market": "regulation",
+        "fixture": "France vs England",
+        "createdAt": "2026-07-18T15:35:39.629Z",
+        "latencyMs": 68802,
+        "eligible": true
       }
     },
     "760517": {
@@ -12516,6 +12594,78 @@
         "fixture": "Spain vs Argentina",
         "createdAt": "2026-07-18T04:02:22.972Z",
         "latencyMs": 0,
+        "eligible": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.53,
+          "away": 0.47
+        },
+        "rationale": "Spain's youthful midfield and recent European championship triumph give them a slight edge over an experienced but aging Argentine side.",
+        "market": "advance",
+        "fixture": "Spain vs Argentina",
+        "createdAt": "2026-07-18T15:35:42.311Z",
+        "latencyMs": 2669,
+        "eligible": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.58,
+          "away": 0.42
+        },
+        "rationale": "Spain's deep, in-form squad and recent tournament pedigree give them a modest edge over a strong but aging Argentina side, though the near-neutral MetLife venue and Messi factor keep it close.",
+        "market": "advance",
+        "fixture": "Spain vs Argentina",
+        "createdAt": "2026-07-18T15:35:43.209Z",
+        "latencyMs": 3570,
+        "eligible": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.48,
+          "away": 0.52
+        },
+        "rationale": "Argentina as defending champions retain a slight edge in big-match experience and squad depth despite Messi's age, while Spain's young talent and recent Euro form make it nearly even.",
+        "market": "advance",
+        "fixture": "Spain vs Argentina",
+        "createdAt": "2026-07-18T15:35:43.906Z",
+        "latencyMs": 4263,
+        "eligible": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.55,
+          "away": 0.45
+        },
+        "rationale": "Spain's younger, ascendant squad coming off a dominant Euro 2024 gives them a slight edge over an Argentina side whose aging core faces transition questions by 2026, though Argentina's deep tournament experience and winning mentality keep this very competitive.",
+        "market": "advance",
+        "fixture": "Spain vs Argentina",
+        "createdAt": "2026-07-18T15:35:55.689Z",
+        "latencyMs": 16047,
+        "eligible": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.48,
+          "away": 0.52
+        },
+        "rationale": "Argentina's recent major tournament pedigree and Messi's enduring influence give them a slight edge over a talented but less proven Spanish side in a neutral venue final.",
+        "market": "advance",
+        "fixture": "Spain vs Argentina",
+        "createdAt": "2026-07-18T15:36:05.144Z",
+        "latencyMs": 25504,
+        "eligible": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.54,
+          "away": 0.46
+        },
+        "rationale": "On a neutral pitch this is near a coin flip, but Spain's youthful core (Yamal, Pedri, Nico Williams) peaking in 2026 edges out an aging Argentina side led by a 39-year-old Messi despite the holders' elite knockout pedigree.",
+        "market": "advance",
+        "fixture": "Spain vs Argentina",
+        "createdAt": "2026-07-18T15:36:33.376Z",
+        "latencyMs": 53735,
         "eligible": true
       }
     }
