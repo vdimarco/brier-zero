@@ -885,6 +885,20 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
 }
 .lb-row.lb-backtest .lb-rank { color: #7a68b0; font-size: 16px; }
 .lb-row.lb-backtest .lb-brier { color: var(--ink-2); }
+/* By lab / By model segmented toggle. Switches the whole page's view. */
+.lb-view { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin: 0 0 14px; }
+.lb-view-btn {
+  border: 1px solid var(--hairline); background: #fff; cursor: pointer;
+  color: var(--ink-2); font: 650 12.5px system-ui, sans-serif;
+  padding: 7px 14px; border-radius: 999px;
+}
+.lb-view-btn + .lb-view-btn { margin-left: -4px; }
+.lb-view-btn.active {
+  background: var(--pitch); border-color: var(--pitch); color: #fff;
+}
+.lb-view-btn:focus-visible { outline: 2px solid var(--pitch); outline-offset: 2px; }
+.lb-view-hint { font-size: 12px; color: var(--ink-3); flex: 1 1 220px; min-width: 0; }
+
 .lb-bt-tag {
   display: inline-block; margin-left: 7px; vertical-align: middle;
   font: 700 9.5px/1 var(--mono, ui-monospace, monospace); letter-spacing: .04em; text-transform: uppercase;

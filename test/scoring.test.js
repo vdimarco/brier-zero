@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { brierScore, normalizeProbs, leaderboard, fixtureMatches, coinFlipBrier, predictionMarket } from '../lib/scoring.js';
+import { brierScore, normalizeProbs, leaderboard, labLeaderboard, fixtureMatches, coinFlipBrier, predictionMarket } from '../lib/scoring.js';
 import { regulationOutcome, advanceOutcome, marketOf, periodRank, fetchMatches } from '../lib/espn.js';
 import { parsePrediction, buildPrompt, buildLivePrompt, predictOne } from '../lib/predictor.js';
 
@@ -261,6 +261,42 @@ test('leaderboard: a late sub with a tiny sample is flagged unqualified', () => 
   }
   const rows2 = leaderboard(matches, predictions, models);
   assert.equal(rows2.find((r) => r.model === 'latesub').qualified, true);
+});
+
+test('labLeaderboard: merges a lab across a substitution without double counting', () => {
+  const entrants = [
+    { id: 'lab/new', label: 'New', lab: 'lab', labLabel: 'Lab', icon: '/i.svg' },
+    { id: 'other/solo', label: 'Solo', lab: 'other', labLabel: 'Other' },
+    { id: 'lab/old', label: 'Old', lab: 'lab', labLabel: 'Lab', retired: true },
+  ];
+  const matches = [
+    { id: 'm1', outcome: 'home', shortName: 'A @ B' },
+    { id: 'm2', outcome: 'away', shortName: 'C @ D' },
+  ];
+  const predictions = {
+    // Old model alone priced m1; both generations priced m2 (the
+    // substitution match) — the active model's forecast must win.
+    m1: {
+      'lab/old': { probs: { home: 0.8, draw: 0.1, away: 0.1 }, eligible: true },
+      'other/solo': { probs: { home: 0.5, draw: 0.3, away: 0.2 }, eligible: true },
+    },
+    m2: {
+      'lab/old': { probs: { home: 0.9, draw: 0.05, away: 0.05 }, eligible: true },
+      'lab/new': { probs: { home: 0.1, draw: 0.1, away: 0.8 }, eligible: true },
+      'other/solo': { probs: { home: 0.3, draw: 0.3, away: 0.4 }, eligible: true },
+    },
+  };
+  const rows = labLeaderboard(matches, predictions, entrants);
+  const lab = rows.find((r) => r.model === 'lab');
+  assert.equal(lab.label, 'Lab');
+  assert.equal(lab.icon, '/i.svg');
+  assert.deepEqual(lab.members, ['lab/new', 'lab/old']);
+  assert.equal(lab.scored, 2, 'one continuous record, m2 counted once');
+  // m2 must have scored the ACTIVE model's forecast: .1²+.1²+.2² = 0.06
+  const m2 = lab.perMatch.find((p) => p.matchId === 'm2');
+  assert.ok(Math.abs(m2.brier - 0.06) < 1e-9, 'active member is the lab\'s official entry');
+  const other = rows.find((r) => r.model === 'other');
+  assert.equal(other.scored, 2);
 });
 
 test('fetchMatches retries a transient ESPN failure then succeeds', async () => {

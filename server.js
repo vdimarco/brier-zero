@@ -2,7 +2,7 @@ import express from 'express';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { fetchMatches, periodRank, txoddsStatus } from './lib/feed.js';
-import { leaderboard, predictionMarket } from './lib/scoring.js';
+import { leaderboard, labLeaderboard, predictionMarket } from './lib/scoring.js';
 import { getPredictions, getSnapshots, getOutright, getProofs } from './lib/store.js';
 import { dbEnabled, dbTryLock } from './lib/db.js';
 import {
@@ -77,6 +77,7 @@ app.get('/api/state', async (req, res) => {
         snapshots: snapshots[m.id] ?? [],
       })),
       leaderboard: leaderboard(all, predictions, entrants),
+      leaderboardByLab: labLeaderboard(all, predictions, entrants),
     });
     // Self-collection: with a database and a key, any visit keeps the
     // ledger current. Database locks bound the spend no matter how many
