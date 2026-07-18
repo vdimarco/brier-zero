@@ -23860,6 +23860,91 @@
             "rationale": "England lead 2-0 after 30 minutes so are strong favorites to hold on, though France remain capable of a comeback or forcing a draw over the remaining hour."
           }
         }
+      },
+      {
+        "at": "2026-07-18T21:34:21.704Z",
+        "detail": "34'",
+        "score": [
+          0,
+          2
+        ],
+        "events": 2,
+        "period": "STATUS_IN_PROGRESS",
+        "market": "regulation",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.04,
+              "draw": 0.14,
+              "away": 0.82
+            },
+            "rationale": "England leads 2-0 with 56 minutes remaining, and while France has quality to mount a comeback, historical base rates for overcoming a two-goal deficit this early are low."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.13,
+              "draw": 0.19,
+              "away": 0.68
+            },
+            "rationale": "England are two goals up inside 34 minutes with no red cards or injuries noted, making them strong favorites though France still have time to mount a comeback."
+          },
+          "deepseek/deepseek-v4-pro": {
+            "probs": {
+              "home": 0.03,
+              "draw": 0.09,
+              "away": 0.88
+            },
+            "rationale": "France faces a steep 2-0 deficit with 56 minutes left; England's early dominance and strong defense make an England win highly probable, though a draw remains possible if France rallies."
+          },
+          "moonshotai/kimi-k3": {
+            "probs": {
+              "home": 0.1,
+              "draw": 0.13,
+              "away": 0.77
+            },
+            "rationale": "England leads 2-0 at 34', and even with France's quality and 56+ minutes to play, teams trailing by two goals this early only come back to win or draw roughly a quarter of the time, with an open 3rd-place match slightly boosting France's comeback odds."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0.07,
+              "draw": 0.09,
+              "away": 0.84
+            },
+            "rationale": "England's two-goal cushion at 34' gives them a commanding position, though France's attacking quality keeps a small comeback chance alive in this third-place match."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.12,
+              "draw": 0.18,
+              "away": 0.7
+            },
+            "rationale": "England's commanding 2-0 lead at the 34-minute mark, built on early goals from Rice and Konsa, gives them a strong probability of holding on to win, though France's elite attacking talent keeps comeback and draw scenarios non-trivial with 56 minutes remaining."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.13,
+              "draw": 0.25,
+              "away": 0.62
+            },
+            "rationale": "England's 2-goal lead at the 34-minute mark gives them a strong advantage, though France has ample time to mount a comeback given their quality."
+          },
+          "google/gemini-3.1-pro-preview": {
+            "probs": {
+              "home": 0.08,
+              "draw": 0.18,
+              "away": 0.74
+            },
+            "rationale": "While France possesses the elite attacking talent to mount a comeback in a typically open third-place match, England's commanding two-goal lead with only 56 minutes remaining makes them heavy favorites to hold on for the win in regulation."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0.13,
+              "draw": 0.17,
+              "away": 0.7
+            },
+            "rationale": "England's 2-0 lead at 34 minutes gives them a strong position to close out the win, though France's quality keeps a comeback or draw possible over the remaining time."
+          }
+        }
       }
     ]
   },
