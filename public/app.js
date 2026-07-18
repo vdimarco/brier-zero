@@ -243,7 +243,7 @@ function forecastRow(model, pred, match, bestBrier) {
   }
   const aria = outs.map((o) => `${outcomeLabel(match, o, market)} ${pct(pred.probs[o])}%`).join(', ');
   return `<div class="frow${best}" title="${tip}">
-    <div class="fmodel">${crest}${name}${pred.retro ? '*' : ''}${pred.demo ? ' (demo)' : ''}</div>
+    <div class="fmodel">${crest}${name}${pred.demo ? ' (demo)' : ''}</div>
     <div class="bar" role="img" aria-label="${name}: ${esc(aria)}">
       ${outs.map((o) => seg(o, pred.probs[o], outcomeLabel(match, o, market))).join('')}
     </div>
@@ -313,7 +313,6 @@ function matchCard(match, state) {
   }
 
   const hasAny = Object.keys(preds).length > 0;
-  const isRetro = Object.values(preds).some((p) => p.retro);
   let body;
   if (hasAny) {
     const withProbs = Object.values(preds).filter((p) => p.probs);
@@ -345,7 +344,7 @@ function matchCard(match, state) {
           (sum, o) => sum + (consensus[o] - (outcome === o ? 1 : 0)) ** 2, 0
         );
       }
-      collapsed = forecastRow({ label: `Consensus${isRetro ? '*' : ''}` }, consensusPred, match, null);
+      collapsed = forecastRow({ label: 'Consensus' }, consensusPred, match, null);
     } else {
       collapsed = `<div class="fnote">All model calls failed for this match.</div>`;
     }
@@ -754,18 +753,11 @@ function renderLeaderboard(state) {
     <div class="chart lb-chart-plot">${koChart}</div>
     <p class="fnote lb-chart-note">Averaged match-by-match from the round of 32. The dashed line is the coin-flip baseline (0.667 three-way, then 0.5 two-way after the market switch). Hover any match for a full standing.</p>
   </div>` : ''}<div class="lb-wrap">${(() => {
-    // A model with scored matches but no locked-live one yet (all its scored
-    // forecasts are retro) is a backtest-only entrant — shown for comparison,
-    // ranked separately and never crowned. Gemini is here until the final and
-    // 3rd-place playoff (its only locked forecasts) kick off.
-    const isBacktestOnly = (r) => r.scored > 0 && r.retroScored === r.scored;
-    const ranked = state.leaderboard.filter((r) => r.avgBrier != null && !isBacktestOnly(r));
-    const backtest = state.leaderboard.filter(isBacktestOnly);
+    const scoredRows = state.leaderboard.filter((r) => r.avgBrier != null);
     const pending = state.leaderboard.filter((r) => r.avgBrier == null);
     let rank = 0;
-    return [...ranked, ...backtest, ...pending].map((r) => {
-      const bt = isBacktestOnly(r);
-      const live = r.avgBrier != null && !bt;
+    return [...scoredRows, ...pending].map((r) => {
+      const live = r.avgBrier != null;
       if (live) rank += 1;
       const crown = live && rank === 1;
       const trend = trendOf(r.perMatch);
@@ -774,30 +766,22 @@ function renderLeaderboard(state) {
         : trend === 'down'
         ? '<span class="lb-trend lb-trend-down" title="Scored worse in its second half of matches than its first">▼ cooling</span>'
         : '';
-      return `<div class="lb-row${crown ? ' leader' : ''}${bt ? ' lb-backtest' : ''}" data-model="${esc(r.model)}" role="button" tabindex="0" title="Open ${esc(r.label)}: performance over time" aria-label="Open performance detail for ${esc(r.label)}">
-        <div class="lb-rank">${bt ? '★' : r.avgBrier == null ? '-' : rank}</div>
+      return `<div class="lb-row${crown ? ' leader' : ''}" data-model="${esc(r.model)}" role="button" tabindex="0" title="Open ${esc(r.label)}: performance over time" aria-label="Open performance detail for ${esc(r.label)}">
+        <div class="lb-rank">${r.avgBrier == null ? '-' : rank}</div>
         <div class="lb-id">${
           (state.models.find((m) => m.id === r.model)?.icon)
             ? `<img class="crest crest-lg" src="${esc(state.models.find((m) => m.id === r.model).icon)}" alt="" onerror="this.style.visibility='hidden'">`
             : ''
-        }<div><span class="lb-name">${esc(r.label)}${bt ? ' <span class="lb-bt-tag">backtest</span>' : ''}</span><span class="lb-slug">${r.model === MARKET_ID ? MARKET_ATTRIBUTION : esc(r.model)}</span>${
+        }<div><span class="lb-name">${esc(r.label)}</span><span class="lb-slug">${r.model === MARKET_ID ? MARKET_ATTRIBUTION : esc(r.model)}</span>${
           sparkline(r.perMatch) ? `<div class="lb-spark">${sparkline(r.perMatch)}${trendBadge}</div>` : ''
         }</div></div>
         <div class="lb-score">
           <div class="lb-brier" title="Average Brier score — lower is better">${r.avgBrier == null ? '-' : r.avgBrier.toFixed(3)}</div>
-          <div class="lb-meta">${bt ? 'backtest · ' : ''}${r.scored} scored / ${r.predicted} forecast${r.predicted === 1 ? '' : 's'}</div>
+          <div class="lb-meta">${r.scored} scored / ${r.predicted} forecast${r.predicted === 1 ? '' : 's'}</div>
         </div>
       </div>`;
     }).join('');
-  })()}</div>${
-    state.leaderboard.some((r) => r.retroScored)
-      ? `<p class="footnote">Includes backfilled matches: forecast after the fact with the same prompt. Every model's training data predates this tournament, so the results were unknowable to them, but these forecasts lack the pre-kickoff lock.${
-          state.leaderboard.some((r) => r.scored > 0 && r.retroScored === r.scored)
-            ? ' A <b>★ backtest</b> row is entirely retro — that model has no locked live result yet, so it is shown for comparison, ranked separately and left out of the leader crown.'
-            : ''
-        }</p>`
-      : ''
-  }`;
+  })()}</div>`;
   wireBrierTips(el);
   for (const row of el.querySelectorAll('[data-model]')) {
     const open = () => { location.hash = `p/${encodeURIComponent(row.dataset.model)}`; };
@@ -989,7 +973,7 @@ function timelineRows(match, points, market) {
   const outs = MARKET_OUTCOMES[market];
   return `<div class="forecasts">${points.map((p) => `
     <div class="frow trow${p.final ? ' trow-final' : ''}">
-      <div class="fmodel twhen">${esc(p.label)}${p.snap?.retro ? '*' : ''}${p.sub ? `<span class="tsub">${esc(p.sub)}</span>` : ''}</div>
+      <div class="fmodel twhen">${esc(p.label)}${p.sub ? `<span class="tsub">${esc(p.sub)}</span>` : ''}</div>
       <div class="bar" role="img" aria-label="${esc(p.label)}: ${outs.map((o) => `${outcomeLabel(match, o, market)} ${pct(p.probs[o] ?? 0)}%`).join(', ')}">
         ${outs.map((o) => seg(o, p.probs[o] ?? 0, outcomeLabel(match, o, market))).join('')}
       </div>
@@ -1041,9 +1025,8 @@ function renderModelDetail(state, modelId) {
   const row = state.leaderboard.find((r) => r.model === modelId);
   const meta = state.models.find((m) => m.id === modelId);
   if (!row || !meta) { el.innerHTML = ''; return; }
-  const isBacktestOnly = (r) => r.scored > 0 && r.retroScored === r.scored;
-  const rankedRows = state.leaderboard.filter((r) => r.avgBrier != null && !isBacktestOnly(r));
-  const rank = isBacktestOnly(row) ? 0 : rankedRows.findIndex((r) => r.model === modelId) + 1;
+  const rankedRows = state.leaderboard.filter((r) => r.avgBrier != null);
+  const rank = rankedRows.findIndex((r) => r.model === modelId) + 1;
 
   let cum = 0;
   const points = row.perMatch.map((p, i) => {
@@ -1076,7 +1059,7 @@ function renderModelDetail(state, modelId) {
         ${meta.icon ? `<img class="crest crest-lg" src="${esc(meta.icon)}" alt="">` : ''}
         <div>
           <div class="detail-title">${esc(row.label)}</div>
-          <div class="fnote">${row.model === MARKET_ID ? MARKET_ATTRIBUTION : esc(row.model)}${rank ? ` · rank ${rank} of ${rankedRows.length}` : isBacktestOnly(row) ? ' · backtest — not ranked' : ''}</div>
+          <div class="fnote">${row.model === MARKET_ID ? MARKET_ATTRIBUTION : esc(row.model)}${rank ? ` · rank ${rank} of ${rankedRows.length}` : ''}</div>
         </div>
       </div>
       <button class="detail-close" data-close aria-label="Close">✕</button>
@@ -1181,9 +1164,7 @@ function renderDetail(state) {
     ${points.length > 1 ? `<h3>How the forecast moved</h3>
     <div class="chart tl-chart">${timelineChart(match, points, market)}</div>
     ${timelineRows(match, points, market)}
-    <p class="fnote">${market === 'advance' ? 'Knockout market: probability of advancing, extra time and penalties included. ' : ''}Consensus at each moment across the match clock: the locked pre-kickoff forecast is the only one that scores; in-play points are fresh forecasts after every goal, card, and period change; the last point is the actual result.${
-      points.some((p) => p.snap?.retro) ? ' Points marked * were reconstructed after the fact with the same result-free prompt.' : ''
-    }</p>` :
+    <p class="fnote">${market === 'advance' ? 'Knockout market: probability of advancing, extra time and penalties included. ' : ''}Consensus at each moment across the match clock: the locked pre-kickoff forecast is the only one that scores; in-play points are fresh forecasts after every goal, card, and period change; the last point is the actual result.</p>` :
     (isLive ? '<p class="fnote">In-play updates land here after every goal, red card, and period change, plus every ~10 quiet minutes.</p>' : '')}
     <h3>${isDone ? 'How each model called it' : 'Model predictions'}</h3>
     <div class="forecasts">${lockedRows}</div>
@@ -1632,22 +1613,20 @@ function renderTrophy(state) {
   if (chartWrap && history.length > 1) attachTrophyHover(chartWrap, history, contenders);
 }
 
-/* Podium: the current top three, front and centre in the hero band. Same
-   ranking rules as the leaderboard — backtest-only entrants and unscored
-   models don't medal. */
+/* Podium: the current top three on the leaderboard, front and centre in the
+   hero band. Unscored models don't medal. */
 function renderPodium(state) {
   const el = $('#podium');
   if (!el) return;
-  const isBacktestOnly = (r) => r.scored > 0 && r.retroScored === r.scored;
   const top = state.leaderboard
-    .filter((r) => r.avgBrier != null && !isBacktestOnly(r))
+    .filter((r) => r.avgBrier != null)
     .slice(0, 3);
   if (top.length < 2) { el.innerHTML = ''; return; }
   const PLACE_WORD = { 1: 'First', 2: 'Second', 3: 'Third' };
   const slot = (r, place) => {
     if (!r) {
-      // Fewer than three live-ranked models (backtest-only entrants don't
-      // medal): the step stands empty until the next match scores someone.
+      // Fewer than three scored models: the step stands empty until the
+      // next match scores someone.
       return `<div class="podium-slot podium-${place} podium-vacant" aria-label="${PLACE_WORD[place]} place: vacant">
         <span class="podium-name">Up for grabs</span>
         <span class="podium-brier">in the final</span>
@@ -1746,7 +1725,7 @@ function renderTicker(state) {
       c ? `, models say ${esc(c.home >= c.away ? m.home.name : m.away.name)} ${pct(Math.max(c.home, c.away))}%` : ''
     }` });
   }
-  const leader = state.leaderboard.find((r) => r.avgBrier != null && !(r.scored > 0 && r.retroScored === r.scored));
+  const leader = state.leaderboard.find((r) => r.avgBrier != null);
   if (leader) items.push({ go: `p/${encodeURIComponent(leader.model)}`, html: `<span class="tick-gold">Brier Cup leader</span> ${esc(leader.label)} ${leader.avgBrier.toFixed(3)}` });
 
   const sep = '<span class="tick-sep" aria-hidden="true">&#9670;</span>';

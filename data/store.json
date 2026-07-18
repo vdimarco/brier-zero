@@ -8876,6 +8876,66 @@
         "latencyMs": 1346,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.42,
+          "away": 0.58
+        },
+        "market": "advance",
+        "fixture": "South Africa vs Canada",
+        "createdAt": "2026-07-18T18:15:10.842Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.42,
+          "away": 0.58
+        },
+        "market": "advance",
+        "fixture": "South Africa vs Canada",
+        "createdAt": "2026-07-18T18:15:11.037Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.38,
+          "away": 0.62
+        },
+        "market": "advance",
+        "fixture": "South Africa vs Canada",
+        "createdAt": "2026-07-18T18:15:11.181Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.38,
+          "away": 0.62
+        },
+        "market": "advance",
+        "fixture": "South Africa vs Canada",
+        "createdAt": "2026-07-18T18:15:11.442Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.38,
+          "away": 0.62
+        },
+        "market": "advance",
+        "fixture": "South Africa vs Canada",
+        "createdAt": "2026-07-18T18:15:11.590Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760487": {
@@ -8996,6 +9056,78 @@
         "latencyMs": 1313,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.85,
+          "away": 0.15
+        },
+        "market": "advance",
+        "fixture": "Brazil vs Japan",
+        "createdAt": "2026-07-18T18:15:10.870Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.78,
+          "away": 0.22
+        },
+        "market": "advance",
+        "fixture": "Brazil vs Japan",
+        "createdAt": "2026-07-18T18:15:11.042Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.72,
+          "away": 0.28
+        },
+        "market": "advance",
+        "fixture": "Brazil vs Japan",
+        "createdAt": "2026-07-18T18:15:11.186Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.72,
+          "away": 0.28
+        },
+        "market": "advance",
+        "fixture": "Brazil vs Japan",
+        "createdAt": "2026-07-18T18:15:11.331Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.72,
+          "away": 0.28
+        },
+        "market": "advance",
+        "fixture": "Brazil vs Japan",
+        "createdAt": "2026-07-18T18:15:11.448Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.66,
+          "away": 0.34
+        },
+        "market": "advance",
+        "fixture": "Brazil vs Japan",
+        "createdAt": "2026-07-18T18:15:11.594Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760488": {
@@ -9116,6 +9248,78 @@
         "latencyMs": 1902,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.62,
+          "away": 0.38
+        },
+        "market": "advance",
+        "fixture": "Netherlands vs Morocco",
+        "createdAt": "2026-07-18T18:15:10.880Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.62,
+          "away": 0.38
+        },
+        "market": "advance",
+        "fixture": "Netherlands vs Morocco",
+        "createdAt": "2026-07-18T18:15:11.046Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.62,
+          "away": 0.38
+        },
+        "market": "advance",
+        "fixture": "Netherlands vs Morocco",
+        "createdAt": "2026-07-18T18:15:11.191Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.6,
+          "away": 0.4
+        },
+        "market": "advance",
+        "fixture": "Netherlands vs Morocco",
+        "createdAt": "2026-07-18T18:15:11.335Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.62,
+          "away": 0.38
+        },
+        "market": "advance",
+        "fixture": "Netherlands vs Morocco",
+        "createdAt": "2026-07-18T18:15:11.453Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.58,
+          "away": 0.42
+        },
+        "market": "advance",
+        "fixture": "Netherlands vs Morocco",
+        "createdAt": "2026-07-18T18:15:11.599Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760489": {
@@ -9236,6 +9440,78 @@
         "latencyMs": 888,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.82,
+          "away": 0.18
+        },
+        "market": "advance",
+        "fixture": "Germany vs Paraguay",
+        "createdAt": "2026-07-18T18:15:10.885Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.78,
+          "away": 0.22
+        },
+        "market": "advance",
+        "fixture": "Germany vs Paraguay",
+        "createdAt": "2026-07-18T18:15:11.051Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.8,
+          "away": 0.2
+        },
+        "market": "advance",
+        "fixture": "Germany vs Paraguay",
+        "createdAt": "2026-07-18T18:15:11.196Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.76,
+          "away": 0.24
+        },
+        "market": "advance",
+        "fixture": "Germany vs Paraguay",
+        "createdAt": "2026-07-18T18:15:11.340Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.78,
+          "away": 0.22
+        },
+        "market": "advance",
+        "fixture": "Germany vs Paraguay",
+        "createdAt": "2026-07-18T18:15:11.457Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.67,
+          "away": 0.33
+        },
+        "market": "advance",
+        "fixture": "Germany vs Paraguay",
+        "createdAt": "2026-07-18T18:15:11.605Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760490": {
@@ -9356,6 +9632,66 @@
         "latencyMs": 872,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.42,
+          "away": 0.58
+        },
+        "market": "advance",
+        "fixture": "Ivory Coast vs Norway",
+        "createdAt": "2026-07-18T18:15:10.892Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.45,
+          "away": 0.55
+        },
+        "market": "advance",
+        "fixture": "Ivory Coast vs Norway",
+        "createdAt": "2026-07-18T18:15:11.056Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.35,
+          "away": 0.65
+        },
+        "market": "advance",
+        "fixture": "Ivory Coast vs Norway",
+        "createdAt": "2026-07-18T18:15:11.201Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.52,
+          "away": 0.48
+        },
+        "market": "advance",
+        "fixture": "Ivory Coast vs Norway",
+        "createdAt": "2026-07-18T18:15:11.462Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.53,
+          "away": 0.47
+        },
+        "market": "advance",
+        "fixture": "Ivory Coast vs Norway",
+        "createdAt": "2026-07-18T18:15:11.609Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760491": {
@@ -9476,6 +9812,78 @@
         "latencyMs": 965,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.58,
+          "away": 0.42
+        },
+        "market": "advance",
+        "fixture": "Mexico vs Ecuador",
+        "createdAt": "2026-07-18T18:15:10.897Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.58,
+          "away": 0.42
+        },
+        "market": "advance",
+        "fixture": "Mexico vs Ecuador",
+        "createdAt": "2026-07-18T18:15:11.061Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.48,
+          "away": 0.52
+        },
+        "market": "advance",
+        "fixture": "Mexico vs Ecuador",
+        "createdAt": "2026-07-18T18:15:11.206Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.55,
+          "away": 0.45
+        },
+        "market": "advance",
+        "fixture": "Mexico vs Ecuador",
+        "createdAt": "2026-07-18T18:15:11.344Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.58,
+          "away": 0.42
+        },
+        "market": "advance",
+        "fixture": "Mexico vs Ecuador",
+        "createdAt": "2026-07-18T18:15:11.467Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.53,
+          "away": 0.47
+        },
+        "market": "advance",
+        "fixture": "Mexico vs Ecuador",
+        "createdAt": "2026-07-18T18:15:11.618Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760492": {
@@ -9596,6 +10004,78 @@
         "latencyMs": 1426,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.82,
+          "away": 0.18
+        },
+        "market": "advance",
+        "fixture": "France vs Sweden",
+        "createdAt": "2026-07-18T18:15:10.904Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.78,
+          "away": 0.22
+        },
+        "market": "advance",
+        "fixture": "France vs Sweden",
+        "createdAt": "2026-07-18T18:15:11.065Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.82,
+          "away": 0.18
+        },
+        "market": "advance",
+        "fixture": "France vs Sweden",
+        "createdAt": "2026-07-18T18:15:11.212Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.71,
+          "away": 0.29
+        },
+        "market": "advance",
+        "fixture": "France vs Sweden",
+        "createdAt": "2026-07-18T18:15:11.350Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.78,
+          "away": 0.22
+        },
+        "market": "advance",
+        "fixture": "France vs Sweden",
+        "createdAt": "2026-07-18T18:15:11.472Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.72,
+          "away": 0.28
+        },
+        "market": "advance",
+        "fixture": "France vs Sweden",
+        "createdAt": "2026-07-18T18:15:11.627Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760493": {
@@ -9716,6 +10196,66 @@
         "latencyMs": 988,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.62,
+          "away": 0.38
+        },
+        "market": "advance",
+        "fixture": "Belgium vs Senegal",
+        "createdAt": "2026-07-18T18:15:10.909Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.61,
+          "away": 0.39
+        },
+        "market": "advance",
+        "fixture": "Belgium vs Senegal",
+        "createdAt": "2026-07-18T18:15:11.070Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.7,
+          "away": 0.3
+        },
+        "market": "advance",
+        "fixture": "Belgium vs Senegal",
+        "createdAt": "2026-07-18T18:15:11.217Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.62,
+          "away": 0.38
+        },
+        "market": "advance",
+        "fixture": "Belgium vs Senegal",
+        "createdAt": "2026-07-18T18:15:11.476Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.6,
+          "away": 0.4
+        },
+        "market": "advance",
+        "fixture": "Belgium vs Senegal",
+        "createdAt": "2026-07-18T18:15:11.642Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760494": {
@@ -9836,6 +10376,78 @@
         "latencyMs": 1113,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.68,
+          "away": 0.32
+        },
+        "market": "advance",
+        "fixture": "United States vs Bosnia-Herzegovina",
+        "createdAt": "2026-07-18T18:15:10.922Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.78,
+          "away": 0.22
+        },
+        "market": "advance",
+        "fixture": "United States vs Bosnia-Herzegovina",
+        "createdAt": "2026-07-18T18:15:11.076Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.8,
+          "away": 0.2
+        },
+        "market": "advance",
+        "fixture": "United States vs Bosnia-Herzegovina",
+        "createdAt": "2026-07-18T18:15:11.221Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.7,
+          "away": 0.3
+        },
+        "market": "advance",
+        "fixture": "United States vs Bosnia-Herzegovina",
+        "createdAt": "2026-07-18T18:15:11.355Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.78,
+          "away": 0.22
+        },
+        "market": "advance",
+        "fixture": "United States vs Bosnia-Herzegovina",
+        "createdAt": "2026-07-18T18:15:11.481Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.68,
+          "away": 0.32
+        },
+        "market": "advance",
+        "fixture": "United States vs Bosnia-Herzegovina",
+        "createdAt": "2026-07-18T18:15:11.647Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760495": {
@@ -9956,6 +10568,78 @@
         "latencyMs": 1231,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.9,
+          "away": 0.1
+        },
+        "market": "advance",
+        "fixture": "England vs Congo DR",
+        "createdAt": "2026-07-18T18:15:10.935Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.87,
+          "away": 0.13
+        },
+        "market": "advance",
+        "fixture": "England vs Congo DR",
+        "createdAt": "2026-07-18T18:15:11.080Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.96,
+          "away": 0.04
+        },
+        "market": "advance",
+        "fixture": "England vs Congo DR",
+        "createdAt": "2026-07-18T18:15:11.226Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.82,
+          "away": 0.18
+        },
+        "market": "advance",
+        "fixture": "England vs Congo DR",
+        "createdAt": "2026-07-18T18:15:11.359Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.88,
+          "away": 0.12
+        },
+        "market": "advance",
+        "fixture": "England vs Congo DR",
+        "createdAt": "2026-07-18T18:15:11.486Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.82,
+          "away": 0.18
+        },
+        "market": "advance",
+        "fixture": "England vs Congo DR",
+        "createdAt": "2026-07-18T18:15:11.652Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760496": {
@@ -10076,6 +10760,66 @@
         "latencyMs": 1631,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.62,
+          "away": 0.38
+        },
+        "market": "advance",
+        "fixture": "Portugal vs Croatia",
+        "createdAt": "2026-07-18T18:15:10.941Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.58,
+          "away": 0.42
+        },
+        "market": "advance",
+        "fixture": "Portugal vs Croatia",
+        "createdAt": "2026-07-18T18:15:11.085Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.65,
+          "away": 0.35
+        },
+        "market": "advance",
+        "fixture": "Portugal vs Croatia",
+        "createdAt": "2026-07-18T18:15:11.232Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.62,
+          "away": 0.38
+        },
+        "market": "advance",
+        "fixture": "Portugal vs Croatia",
+        "createdAt": "2026-07-18T18:15:11.491Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.6,
+          "away": 0.4
+        },
+        "market": "advance",
+        "fixture": "Portugal vs Croatia",
+        "createdAt": "2026-07-18T18:15:11.658Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760497": {
@@ -10196,6 +10940,78 @@
         "latencyMs": 1014,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.88,
+          "away": 0.12
+        },
+        "market": "advance",
+        "fixture": "Spain vs Austria",
+        "createdAt": "2026-07-18T18:15:10.945Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.78,
+          "away": 0.22
+        },
+        "market": "advance",
+        "fixture": "Spain vs Austria",
+        "createdAt": "2026-07-18T18:15:11.090Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.72,
+          "away": 0.28
+        },
+        "market": "advance",
+        "fixture": "Spain vs Austria",
+        "createdAt": "2026-07-18T18:15:11.236Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.78,
+          "away": 0.22
+        },
+        "market": "advance",
+        "fixture": "Spain vs Austria",
+        "createdAt": "2026-07-18T18:15:11.364Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.78,
+          "away": 0.22
+        },
+        "market": "advance",
+        "fixture": "Spain vs Austria",
+        "createdAt": "2026-07-18T18:15:11.496Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.72,
+          "away": 0.28
+        },
+        "market": "advance",
+        "fixture": "Spain vs Austria",
+        "createdAt": "2026-07-18T18:15:11.662Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760498": {
@@ -10316,6 +11132,66 @@
         "latencyMs": 1265,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.68,
+          "away": 0.32
+        },
+        "market": "advance",
+        "fixture": "Switzerland vs Algeria",
+        "createdAt": "2026-07-18T18:15:10.950Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.68,
+          "away": 0.32
+        },
+        "market": "advance",
+        "fixture": "Switzerland vs Algeria",
+        "createdAt": "2026-07-18T18:15:11.095Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.58,
+          "away": 0.42
+        },
+        "market": "advance",
+        "fixture": "Switzerland vs Algeria",
+        "createdAt": "2026-07-18T18:15:11.241Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.6,
+          "away": 0.4
+        },
+        "market": "advance",
+        "fixture": "Switzerland vs Algeria",
+        "createdAt": "2026-07-18T18:15:11.501Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.63,
+          "away": 0.37
+        },
+        "market": "advance",
+        "fixture": "Switzerland vs Algeria",
+        "createdAt": "2026-07-18T18:15:11.667Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760499": {
@@ -10436,6 +11312,66 @@
         "latencyMs": 797,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.42,
+          "away": 0.58
+        },
+        "market": "advance",
+        "fixture": "Australia vs Egypt",
+        "createdAt": "2026-07-18T18:15:10.954Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.56,
+          "away": 0.44
+        },
+        "market": "advance",
+        "fixture": "Australia vs Egypt",
+        "createdAt": "2026-07-18T18:15:11.099Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.55,
+          "away": 0.45
+        },
+        "market": "advance",
+        "fixture": "Australia vs Egypt",
+        "createdAt": "2026-07-18T18:15:11.246Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.45,
+          "away": 0.55
+        },
+        "market": "advance",
+        "fixture": "Australia vs Egypt",
+        "createdAt": "2026-07-18T18:15:11.506Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.55,
+          "away": 0.45
+        },
+        "market": "advance",
+        "fixture": "Australia vs Egypt",
+        "createdAt": "2026-07-18T18:15:11.673Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760500": {
@@ -10556,6 +11492,78 @@
         "latencyMs": 1200,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.97,
+          "away": 0.03
+        },
+        "market": "advance",
+        "fixture": "Argentina vs Cape Verde",
+        "createdAt": "2026-07-18T18:15:10.960Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.91,
+          "away": 0.09
+        },
+        "market": "advance",
+        "fixture": "Argentina vs Cape Verde",
+        "createdAt": "2026-07-18T18:15:11.104Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.97,
+          "away": 0.03
+        },
+        "market": "advance",
+        "fixture": "Argentina vs Cape Verde",
+        "createdAt": "2026-07-18T18:15:11.251Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.9,
+          "away": 0.1
+        },
+        "market": "advance",
+        "fixture": "Argentina vs Cape Verde",
+        "createdAt": "2026-07-18T18:15:11.369Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.96,
+          "away": 0.04
+        },
+        "market": "advance",
+        "fixture": "Argentina vs Cape Verde",
+        "createdAt": "2026-07-18T18:15:11.511Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.94,
+          "away": 0.06
+        },
+        "market": "advance",
+        "fixture": "Argentina vs Cape Verde",
+        "createdAt": "2026-07-18T18:15:11.678Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760501": {
@@ -10676,6 +11684,78 @@
         "latencyMs": 1060,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.78,
+          "away": 0.22
+        },
+        "market": "advance",
+        "fixture": "Colombia vs Ghana",
+        "createdAt": "2026-07-18T18:15:10.964Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.63,
+          "away": 0.37
+        },
+        "market": "advance",
+        "fixture": "Colombia vs Ghana",
+        "createdAt": "2026-07-18T18:15:11.109Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.8,
+          "away": 0.2
+        },
+        "market": "advance",
+        "fixture": "Colombia vs Ghana",
+        "createdAt": "2026-07-18T18:15:11.256Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.72,
+          "away": 0.28
+        },
+        "market": "advance",
+        "fixture": "Colombia vs Ghana",
+        "createdAt": "2026-07-18T18:15:11.374Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.71,
+          "away": 0.29
+        },
+        "market": "advance",
+        "fixture": "Colombia vs Ghana",
+        "createdAt": "2026-07-18T18:15:11.515Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.68,
+          "away": 0.32
+        },
+        "market": "advance",
+        "fixture": "Colombia vs Ghana",
+        "createdAt": "2026-07-18T18:15:11.683Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760502": {
@@ -10796,6 +11876,78 @@
         "latencyMs": 1118,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.32,
+          "away": 0.68
+        },
+        "market": "advance",
+        "fixture": "Canada vs Morocco",
+        "createdAt": "2026-07-18T18:15:10.969Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.38,
+          "away": 0.62
+        },
+        "market": "advance",
+        "fixture": "Canada vs Morocco",
+        "createdAt": "2026-07-18T18:15:11.114Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.33,
+          "away": 0.67
+        },
+        "market": "advance",
+        "fixture": "Canada vs Morocco",
+        "createdAt": "2026-07-18T18:15:11.260Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.37,
+          "away": 0.63
+        },
+        "market": "advance",
+        "fixture": "Canada vs Morocco",
+        "createdAt": "2026-07-18T18:15:11.379Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.38,
+          "away": 0.62
+        },
+        "market": "advance",
+        "fixture": "Canada vs Morocco",
+        "createdAt": "2026-07-18T18:15:11.520Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.38,
+          "away": 0.62
+        },
+        "market": "advance",
+        "fixture": "Canada vs Morocco",
+        "createdAt": "2026-07-18T18:15:11.689Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760503": {
@@ -10903,6 +12055,78 @@
         "latencyMs": 569,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.15,
+          "away": 0.85
+        },
+        "market": "advance",
+        "fixture": "Paraguay vs France",
+        "createdAt": "2026-07-18T18:15:10.974Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.23,
+          "away": 0.77
+        },
+        "market": "advance",
+        "fixture": "Paraguay vs France",
+        "createdAt": "2026-07-18T18:15:11.119Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.18,
+          "away": 0.82
+        },
+        "market": "advance",
+        "fixture": "Paraguay vs France",
+        "createdAt": "2026-07-18T18:15:11.265Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.24,
+          "away": 0.76
+        },
+        "market": "advance",
+        "fixture": "Paraguay vs France",
+        "createdAt": "2026-07-18T18:15:11.383Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.18,
+          "away": 0.82
+        },
+        "market": "advance",
+        "fixture": "Paraguay vs France",
+        "createdAt": "2026-07-18T18:15:11.526Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.23,
+          "away": 0.77
+        },
+        "market": "advance",
+        "fixture": "Paraguay vs France",
+        "createdAt": "2026-07-18T18:15:11.694Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760504": {
@@ -11016,6 +12240,78 @@
         "latencyMs": 416,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.72,
+          "away": 0.28
+        },
+        "market": "advance",
+        "fixture": "Brazil vs Norway",
+        "createdAt": "2026-07-18T18:15:10.980Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.78,
+          "away": 0.22
+        },
+        "market": "advance",
+        "fixture": "Brazil vs Norway",
+        "createdAt": "2026-07-18T18:15:11.123Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.85,
+          "away": 0.15
+        },
+        "market": "advance",
+        "fixture": "Brazil vs Norway",
+        "createdAt": "2026-07-18T18:15:11.271Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.65,
+          "away": 0.35
+        },
+        "market": "advance",
+        "fixture": "Brazil vs Norway",
+        "createdAt": "2026-07-18T18:15:11.389Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.75,
+          "away": 0.25
+        },
+        "market": "advance",
+        "fixture": "Brazil vs Norway",
+        "createdAt": "2026-07-18T18:15:11.530Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.73,
+          "away": 0.27
+        },
+        "market": "advance",
+        "fixture": "Brazil vs Norway",
+        "createdAt": "2026-07-18T18:15:11.699Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760505": {
@@ -11129,6 +12425,78 @@
         "latencyMs": 454,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.38,
+          "away": 0.62
+        },
+        "market": "advance",
+        "fixture": "Mexico vs England",
+        "createdAt": "2026-07-18T18:15:10.984Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.38,
+          "away": 0.62
+        },
+        "market": "advance",
+        "fixture": "Mexico vs England",
+        "createdAt": "2026-07-18T18:15:11.128Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.38,
+          "away": 0.62
+        },
+        "market": "advance",
+        "fixture": "Mexico vs England",
+        "createdAt": "2026-07-18T18:15:11.276Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.34,
+          "away": 0.66
+        },
+        "market": "advance",
+        "fixture": "Mexico vs England",
+        "createdAt": "2026-07-18T18:15:11.393Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.35,
+          "away": 0.65
+        },
+        "market": "advance",
+        "fixture": "Mexico vs England",
+        "createdAt": "2026-07-18T18:15:11.535Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.38,
+          "away": 0.62
+        },
+        "market": "advance",
+        "fixture": "Mexico vs England",
+        "createdAt": "2026-07-18T18:15:11.705Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760506": {
@@ -11242,6 +12610,78 @@
         "latencyMs": 583,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.42,
+          "away": 0.58
+        },
+        "market": "advance",
+        "fixture": "Portugal vs Spain",
+        "createdAt": "2026-07-18T18:15:10.989Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.47,
+          "away": 0.53
+        },
+        "market": "advance",
+        "fixture": "Portugal vs Spain",
+        "createdAt": "2026-07-18T18:15:11.133Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.42,
+          "away": 0.58
+        },
+        "market": "advance",
+        "fixture": "Portugal vs Spain",
+        "createdAt": "2026-07-18T18:15:11.280Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.45,
+          "away": 0.55
+        },
+        "market": "advance",
+        "fixture": "Portugal vs Spain",
+        "createdAt": "2026-07-18T18:15:11.398Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.45,
+          "away": 0.55
+        },
+        "market": "advance",
+        "fixture": "Portugal vs Spain",
+        "createdAt": "2026-07-18T18:15:11.540Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.45,
+          "away": 0.55
+        },
+        "market": "advance",
+        "fixture": "Portugal vs Spain",
+        "createdAt": "2026-07-18T18:15:11.709Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760507": {
@@ -11355,6 +12795,78 @@
         "latencyMs": 636,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.45,
+          "away": 0.55
+        },
+        "market": "advance",
+        "fixture": "United States vs Belgium",
+        "createdAt": "2026-07-18T18:15:10.994Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.43,
+          "away": 0.57
+        },
+        "market": "advance",
+        "fixture": "United States vs Belgium",
+        "createdAt": "2026-07-18T18:15:11.138Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.58,
+          "away": 0.42
+        },
+        "market": "advance",
+        "fixture": "United States vs Belgium",
+        "createdAt": "2026-07-18T18:15:11.285Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.44,
+          "away": 0.56
+        },
+        "market": "advance",
+        "fixture": "United States vs Belgium",
+        "createdAt": "2026-07-18T18:15:11.403Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.53,
+          "away": 0.47
+        },
+        "market": "advance",
+        "fixture": "United States vs Belgium",
+        "createdAt": "2026-07-18T18:15:11.545Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.55,
+          "away": 0.45
+        },
+        "market": "advance",
+        "fixture": "United States vs Belgium",
+        "createdAt": "2026-07-18T18:15:11.714Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760508": {
@@ -11468,6 +12980,78 @@
         "latencyMs": 474,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.38,
+          "away": 0.62
+        },
+        "market": "advance",
+        "fixture": "Switzerland vs Colombia",
+        "createdAt": "2026-07-18T18:15:11.000Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.53,
+          "away": 0.47
+        },
+        "market": "advance",
+        "fixture": "Switzerland vs Colombia",
+        "createdAt": "2026-07-18T18:15:11.142Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.42,
+          "away": 0.58
+        },
+        "market": "advance",
+        "fixture": "Switzerland vs Colombia",
+        "createdAt": "2026-07-18T18:15:11.291Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.46,
+          "away": 0.54
+        },
+        "market": "advance",
+        "fixture": "Switzerland vs Colombia",
+        "createdAt": "2026-07-18T18:15:11.408Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.52,
+          "away": 0.48
+        },
+        "market": "advance",
+        "fixture": "Switzerland vs Colombia",
+        "createdAt": "2026-07-18T18:15:11.550Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.46,
+          "away": 0.54
+        },
+        "market": "advance",
+        "fixture": "Switzerland vs Colombia",
+        "createdAt": "2026-07-18T18:15:11.719Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760509": {
@@ -11581,6 +13165,78 @@
         "latencyMs": 640,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.9,
+          "away": 0.1
+        },
+        "market": "advance",
+        "fixture": "Argentina vs Egypt",
+        "createdAt": "2026-07-18T18:15:11.004Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.78,
+          "away": 0.22
+        },
+        "market": "advance",
+        "fixture": "Argentina vs Egypt",
+        "createdAt": "2026-07-18T18:15:11.147Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.84,
+          "away": 0.16
+        },
+        "market": "advance",
+        "fixture": "Argentina vs Egypt",
+        "createdAt": "2026-07-18T18:15:11.296Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.84,
+          "away": 0.16
+        },
+        "market": "advance",
+        "fixture": "Argentina vs Egypt",
+        "createdAt": "2026-07-18T18:15:11.413Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.82,
+          "away": 0.18
+        },
+        "market": "advance",
+        "fixture": "Argentina vs Egypt",
+        "createdAt": "2026-07-18T18:15:11.554Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.83,
+          "away": 0.17
+        },
+        "market": "advance",
+        "fixture": "Argentina vs Egypt",
+        "createdAt": "2026-07-18T18:15:11.777Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760510": {
@@ -11694,6 +13350,78 @@
         "latencyMs": 596,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.72,
+          "away": 0.28
+        },
+        "market": "advance",
+        "fixture": "France vs Morocco",
+        "createdAt": "2026-07-18T18:15:11.008Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.68,
+          "away": 0.32
+        },
+        "market": "advance",
+        "fixture": "France vs Morocco",
+        "createdAt": "2026-07-18T18:15:11.152Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.7,
+          "away": 0.3
+        },
+        "market": "advance",
+        "fixture": "France vs Morocco",
+        "createdAt": "2026-07-18T18:15:11.300Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.72,
+          "away": 0.28
+        },
+        "market": "advance",
+        "fixture": "France vs Morocco",
+        "createdAt": "2026-07-18T18:15:11.418Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.65,
+          "away": 0.35
+        },
+        "market": "advance",
+        "fixture": "France vs Morocco",
+        "createdAt": "2026-07-18T18:15:11.559Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.67,
+          "away": 0.33
+        },
+        "market": "advance",
+        "fixture": "France vs Morocco",
+        "createdAt": "2026-07-18T18:15:11.783Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760511": {
@@ -11807,6 +13535,78 @@
         "latencyMs": 386,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.72,
+          "away": 0.28
+        },
+        "market": "advance",
+        "fixture": "Spain vs Belgium",
+        "createdAt": "2026-07-18T18:15:11.013Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.67,
+          "away": 0.33
+        },
+        "market": "advance",
+        "fixture": "Spain vs Belgium",
+        "createdAt": "2026-07-18T18:15:11.157Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.72,
+          "away": 0.28
+        },
+        "market": "advance",
+        "fixture": "Spain vs Belgium",
+        "createdAt": "2026-07-18T18:15:11.305Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.62,
+          "away": 0.38
+        },
+        "market": "advance",
+        "fixture": "Spain vs Belgium",
+        "createdAt": "2026-07-18T18:15:11.423Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.72,
+          "away": 0.28
+        },
+        "market": "advance",
+        "fixture": "Spain vs Belgium",
+        "createdAt": "2026-07-18T18:15:11.565Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.63,
+          "away": 0.37
+        },
+        "market": "advance",
+        "fixture": "Spain vs Belgium",
+        "createdAt": "2026-07-18T18:15:11.789Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760512": {
@@ -11920,6 +13720,78 @@
         "latencyMs": 570,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.36,
+          "away": 0.64
+        },
+        "market": "advance",
+        "fixture": "Norway vs England",
+        "createdAt": "2026-07-18T18:15:11.018Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.32,
+          "away": 0.68
+        },
+        "market": "advance",
+        "fixture": "Norway vs England",
+        "createdAt": "2026-07-18T18:15:11.161Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.32,
+          "away": 0.68
+        },
+        "market": "advance",
+        "fixture": "Norway vs England",
+        "createdAt": "2026-07-18T18:15:11.311Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.36,
+          "away": 0.64
+        },
+        "market": "advance",
+        "fixture": "Norway vs England",
+        "createdAt": "2026-07-18T18:15:11.428Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.27,
+          "away": 0.73
+        },
+        "market": "advance",
+        "fixture": "Norway vs England",
+        "createdAt": "2026-07-18T18:15:11.570Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.28,
+          "away": 0.72
+        },
+        "market": "advance",
+        "fixture": "Norway vs England",
+        "createdAt": "2026-07-18T18:15:11.795Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760513": {
@@ -12033,6 +13905,66 @@
         "latencyMs": 302,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.85,
+          "away": 0.15
+        },
+        "market": "advance",
+        "fixture": "Argentina vs Switzerland",
+        "createdAt": "2026-07-18T18:15:11.023Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.73,
+          "away": 0.27
+        },
+        "market": "advance",
+        "fixture": "Argentina vs Switzerland",
+        "createdAt": "2026-07-18T18:15:11.166Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.77,
+          "away": 0.23
+        },
+        "market": "advance",
+        "fixture": "Argentina vs Switzerland",
+        "createdAt": "2026-07-18T18:15:11.315Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.82,
+          "away": 0.18
+        },
+        "market": "advance",
+        "fixture": "Argentina vs Switzerland",
+        "createdAt": "2026-07-18T18:15:11.575Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.68,
+          "away": 0.32
+        },
+        "market": "advance",
+        "fixture": "Argentina vs Switzerland",
+        "createdAt": "2026-07-18T18:15:11.800Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760514": {
@@ -12153,6 +14085,78 @@
         "latencyMs": 622,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.45,
+          "away": 0.55
+        },
+        "market": "advance",
+        "fixture": "France vs Spain",
+        "createdAt": "2026-07-18T18:15:11.027Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.53,
+          "away": 0.47
+        },
+        "market": "advance",
+        "fixture": "France vs Spain",
+        "createdAt": "2026-07-18T18:15:11.171Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.48,
+          "away": 0.52
+        },
+        "market": "advance",
+        "fixture": "France vs Spain",
+        "createdAt": "2026-07-18T18:15:11.320Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.46,
+          "away": 0.54
+        },
+        "market": "advance",
+        "fixture": "France vs Spain",
+        "createdAt": "2026-07-18T18:15:11.433Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.5,
+          "away": 0.5
+        },
+        "market": "advance",
+        "fixture": "France vs Spain",
+        "createdAt": "2026-07-18T18:15:11.579Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.48,
+          "away": 0.52
+        },
+        "market": "advance",
+        "fixture": "France vs Spain",
+        "createdAt": "2026-07-18T18:15:11.805Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760515": {
@@ -12266,6 +14270,78 @@
         "latencyMs": 647,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.42,
+          "away": 0.58
+        },
+        "market": "advance",
+        "fixture": "England vs Argentina",
+        "createdAt": "2026-07-18T18:15:11.032Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.47,
+          "away": 0.53
+        },
+        "market": "advance",
+        "fixture": "England vs Argentina",
+        "createdAt": "2026-07-18T18:15:11.176Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.48,
+          "away": 0.52
+        },
+        "market": "advance",
+        "fixture": "England vs Argentina",
+        "createdAt": "2026-07-18T18:15:11.325Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.52,
+          "away": 0.48
+        },
+        "market": "advance",
+        "fixture": "England vs Argentina",
+        "createdAt": "2026-07-18T18:15:11.438Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.48,
+          "away": 0.52
+        },
+        "market": "advance",
+        "fixture": "England vs Argentina",
+        "createdAt": "2026-07-18T18:15:11.585Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.46,
+          "away": 0.54
+        },
+        "market": "advance",
+        "fixture": "England vs Argentina",
+        "createdAt": "2026-07-18T18:15:11.810Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760516": {
