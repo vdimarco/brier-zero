@@ -78,18 +78,20 @@ function displayEntrants(state) {
   return viewMode === 'lab' ? labsOf(state) : entrantsOf(state);
 }
 /* The forecast a display entrant holds on a match: its own row in model
-   view; in lab view the active member's forecast is the lab's official
-   entry when a retired one priced the same match. */
+   view; in lab view the lab's official entry — a live-locked forecast
+   beats a retro reconstruction, then the active member beats a retired
+   one (mirrors labLeaderboard in lib/scoring.js). */
 function predOf(match, ent) {
   if (!ent.members) return match.predictions[ent.id];
   let pick = null;
-  let pickRetired = true;
+  let pickScore = Infinity;
   for (const member of ent.members) {
     const p = match.predictions[member.id];
     if (!p) continue;
-    if (!pick || (pickRetired && !member.retired)) {
+    const score = (p.retro ? 2 : 0) + (member.retired ? 1 : 0);
+    if (score < pickScore) {
       pick = p;
-      pickRetired = Boolean(member.retired);
+      pickScore = score;
     }
   }
   return pick;
@@ -322,7 +324,7 @@ function forecastRow(model, pred, match, bestBrier) {
   }
   const aria = outs.map((o) => `${outcomeLabel(match, o, market)} ${pct(pred.probs[o])}%`).join(', ');
   return `<div class="frow${best}" title="${tip}">
-    <div class="fmodel">${crest}${name}${pred.retro ? '*' : ''}${pred.demo ? ' (demo)' : ''}</div>
+    <div class="fmodel">${crest}${name}${pred.demo ? ' (demo)' : ''}</div>
     <div class="bar" role="img" aria-label="${name}: ${esc(aria)}">
       ${outs.map((o) => seg(o, pred.probs[o], outcomeLabel(match, o, market))).join('')}
     </div>
@@ -392,7 +394,6 @@ function matchCard(match, state) {
   }
 
   const hasAny = Object.keys(preds).length > 0;
-  const isRetro = Object.values(preds).some((p) => p.retro);
   let body;
   if (hasAny) {
     const withProbs = Object.values(preds).filter((p) => p.probs);
@@ -424,7 +425,7 @@ function matchCard(match, state) {
           (sum, o) => sum + (consensus[o] - (outcome === o ? 1 : 0)) ** 2, 0
         );
       }
-      collapsed = forecastRow({ label: `Consensus${isRetro ? '*' : ''}` }, consensusPred, match, null);
+      collapsed = forecastRow({ label: 'Consensus' }, consensusPred, match, null);
     } else {
       collapsed = `<div class="fnote">All model calls failed for this match.</div>`;
     }
@@ -854,11 +855,7 @@ function renderLeaderboard(state) {
         </div>
       </div>`;
     }).join('');
-  })()}</div>${
-    board.some((r) => r.retroScored)
-      ? `<p class="footnote">Includes backfilled matches: forecast after the fact with the same prompt. Every model's training data predates this tournament, so the results were unknowable to them.</p>`
-      : ''
-  }<p class="footnote">Ranked by <b>shrunken skill vs the coin flip</b>: each match scores (baseline − Brier) ÷ baseline, and every entrant carries ten phantom coin-flip matches. A newcomer starts neutral and earns rank as real matches accumulate — a hot two-match sample can't leapfrog a hundred-match record. Average Brier stays the headline number.</p>`;
+  })()}</div><p class="footnote">Ranked by <b>shrunken skill vs the coin flip</b>: each match scores (baseline − Brier) ÷ baseline, and every entrant carries ten phantom coin-flip matches. A newcomer starts neutral and earns rank as real matches accumulate — a hot two-match sample can't leapfrog a hundred-match record. Average Brier stays the headline number.</p>`;
   wireBrierTips(el);
   for (const btn of el.querySelectorAll('.lb-view-btn')) {
     btn.addEventListener('click', (e) => { e.stopPropagation(); setViewMode(btn.dataset.view); });
@@ -1053,7 +1050,7 @@ function timelineRows(match, points, market) {
   const outs = MARKET_OUTCOMES[market];
   return `<div class="forecasts">${points.map((p) => `
     <div class="frow trow${p.final ? ' trow-final' : ''}">
-      <div class="fmodel twhen">${esc(p.label)}${p.snap?.retro ? '*' : ''}${p.sub ? `<span class="tsub">${esc(p.sub)}</span>` : ''}</div>
+      <div class="fmodel twhen">${esc(p.label)}${p.sub ? `<span class="tsub">${esc(p.sub)}</span>` : ''}</div>
       <div class="bar" role="img" aria-label="${esc(p.label)}: ${outs.map((o) => `${outcomeLabel(match, o, market)} ${pct(p.probs[o] ?? 0)}%`).join(', ')}">
         ${outs.map((o) => seg(o, p.probs[o] ?? 0, outcomeLabel(match, o, market))).join('')}
       </div>
@@ -1253,7 +1250,7 @@ function renderDetail(state) {
     <div class="chart tl-chart">${timelineChart(match, points, market)}</div>
     ${timelineRows(match, points, market)}
     <p class="fnote">${market === 'advance' ? 'Knockout market: probability of advancing, extra time and penalties included. ' : ''}Consensus at each moment across the match clock: the locked pre-kickoff forecast is the only one that scores; in-play points are fresh forecasts after every goal, card, and period change; the last point is the actual result.${
-      points.some((p) => p.snap?.retro) ? ' Points marked * were reconstructed after the fact with the same result-free prompt.' : ''
+      ''
     }</p>` :
     (isLive ? '<p class="fnote">In-play updates land here after every goal, red card, and period change, plus every ~10 quiet minutes.</p>' : '')}
     <h3>${isDone ? 'How each model called it' : 'Model predictions'}</h3>
@@ -1709,10 +1706,24 @@ function renderTrophy(state) {
 function renderPodium(state) {
   const el = $('#podium');
   if (!el) return;
-  const top = boardOf(state)
-    .filter((r) => r.scored > 0)
-    .slice(0, 3);
+  const scoredRows = boardOf(state).filter((r) => r.scored > 0);
+  const top = scoredRows.slice(0, 3);
   if (top.length < 2) { el.innerHTML = ''; return; }
+  // The headline question is "does anything beat the bookies?" — say the
+  // market's relative standing plainly, right under the podium.
+  const mi = scoredRows.findIndex((r) => r.model === MARKET_ID);
+  let marketStrip = '';
+  if (mi >= 0) {
+    const m = scoredRows[mi];
+    const ahead = scoredRows.slice(0, mi).map((r) => r.label);
+    const text = mi === 0
+      ? `<b>The Market leads the whole field.</b> After ${m.scored} scored matches, no AI outranks the bookmakers' consensus — avg Brier ${m.avgBrier.toFixed(3)}, ${fmtSkill(m.avgSkill)} vs the coin flip.`
+      : `<b>${esc(ahead.join(' and '))} ${ahead.length === 1 ? 'is' : 'are'} ahead of The Market.</b> The bookmakers' consensus sits #${mi + 1} of ${scoredRows.length} — avg Brier ${m.avgBrier.toFixed(3)}, ${fmtSkill(m.avgSkill)} vs the coin flip over ${m.scored} matches.`;
+    marketStrip = `<button class="podium-market" data-model="${esc(MARKET_ID)}" aria-label="The Market's standing. Open performance detail.">
+      <img class="crest" src="/icons/market.svg" alt="" onerror="this.style.visibility='hidden'">
+      <span>${text} <span class="podium-market-src">TxODDS StablePrice · TxLINE on Solana</span></span>
+    </button>`;
+  }
   const PLACE_WORD = { 1: 'First', 2: 'Second', 3: 'Third' };
   const slot = (r, place) => {
     if (!r) {
@@ -1737,7 +1748,8 @@ function renderPodium(state) {
   el.innerHTML = `<div class="podium" role="group" aria-label="Current top three, by average Brier score">
     ${slot(top[1], 2)}${slot(top[0], 1)}${slot(top[2], 3)}
   </div>
-  <p class="podium-note">The leaderboard's top three · average Brier · lower is sharper</p>`;
+  <p class="podium-note">The leaderboard's top three · average Brier · lower is sharper</p>
+  ${marketStrip}`;
   for (const s of el.querySelectorAll('[data-model]')) {
     s.addEventListener('click', () => { location.hash = `p/${encodeURIComponent(s.dataset.model)}`; });
   }

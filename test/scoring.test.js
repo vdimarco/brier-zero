@@ -305,6 +305,28 @@ test('labLeaderboard: merges a lab across a substitution without double counting
   assert.equal(other.scored, 2);
 });
 
+test('labLeaderboard: a live-locked forecast beats the active member\'s retro backfill', () => {
+  const entrants = [
+    { id: 'lab/new', label: 'New', lab: 'lab', labLabel: 'Lab' },
+    { id: 'lab/old', label: 'Old', lab: 'lab', labLabel: 'Lab', retired: true },
+  ];
+  const matches = [{ id: 'm1', outcome: 'home', shortName: 'A @ B' }];
+  const predictions = {
+    // The retired model locked this match live; the promoted model only has
+    // a retro reconstruction of it. The locked record is the lab's entry.
+    m1: {
+      'lab/old': { probs: { home: 0.8, draw: 0.1, away: 0.1 }, eligible: true },
+      'lab/new': { probs: { home: 0.95, draw: 0.03, away: 0.02 }, eligible: true, retro: true },
+    },
+  };
+  const rows = labLeaderboard(matches, predictions, entrants);
+  const lab = rows.find((r) => r.model === 'lab');
+  assert.equal(lab.scored, 1);
+  // Scored the OLD model's locked forecast: .2²+.1²+.1² = 0.06
+  assert.ok(Math.abs(lab.perMatch[0].brier - 0.06) < 1e-9);
+  assert.equal(lab.retroScored, 0, 'the locked forecast, not the retro one, settles');
+});
+
 test('fetchMatches retries a transient ESPN failure then succeeds', async () => {
   const realFetch = globalThis.fetch;
   let calls = 0;

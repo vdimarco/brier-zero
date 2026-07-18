@@ -198,6 +198,21 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
   border: 1px solid rgba(255, 255, 255, 0.25); border-bottom: 0;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.05));
 }
+/* The market's relative standing, spelled out under the podium. */
+.podium-market {
+  display: flex; align-items: center; gap: 10px;
+  max-width: 620px; margin: 14px auto 0;
+  background: rgba(8, 28, 12, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: var(--radius-card);
+  padding: 10px 14px; cursor: pointer; text-align: left;
+  color: rgba(255, 255, 255, 0.92); font: 400 13.5px/1.45 system-ui, sans-serif;
+}
+.podium-market:hover { background: rgba(8, 28, 12, 0.5); border-color: rgba(255, 255, 255, 0.4); }
+.podium-market:focus-visible { outline: 2px solid var(--kit-gold); outline-offset: 2px; }
+.podium-market b { color: var(--kit-gold); font-weight: 750; }
+.podium-market .crest { width: 24px; height: 28px; flex: none; }
+.podium-market-src { display: block; color: rgba(255, 255, 255, 0.65); font-size: 11.5px; margin-top: 2px; }
 .podium-1 .podium-step {
   height: 74px; color: #241a02;
   background: linear-gradient(180deg, var(--kit-gold), rgba(255, 215, 94, 0.55));
@@ -879,12 +894,6 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
   border-bottom-color: var(--surface);
 }
 .lb-meta { color: var(--ink-3); font-size: 12.5px; }
-.lb-row.lb-backtest {
-  background: repeating-linear-gradient(135deg, rgba(66,133,244,.05), rgba(66,133,244,.05) 9px, rgba(155,114,203,.06) 9px, rgba(155,114,203,.06) 18px);
-  border-top: 1px dashed var(--hairline);
-}
-.lb-row.lb-backtest .lb-rank { color: #7a68b0; font-size: 16px; }
-.lb-row.lb-backtest .lb-brier { color: var(--ink-2); }
 /* By lab / By model segmented toggle. Switches the whole page's view. */
 .lb-view { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin: 0 0 14px; }
 .lb-view-btn {
@@ -899,11 +908,6 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
 .lb-view-btn:focus-visible { outline: 2px solid var(--pitch); outline-offset: 2px; }
 .lb-view-hint { font-size: 12px; color: var(--ink-3); flex: 1 1 220px; min-width: 0; }
 
-.lb-bt-tag {
-  display: inline-block; margin-left: 7px; vertical-align: middle;
-  font: 700 9.5px/1 var(--mono, ui-monospace, monospace); letter-spacing: .04em; text-transform: uppercase;
-  padding: 3px 6px; border-radius: 5px; background: #edf0fb; color: #5b4c8b;
-}
 .empty {
   background: var(--surface); border-radius: var(--radius-card);
   border: 1px solid var(--hairline);
