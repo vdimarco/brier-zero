@@ -1,7 +1,7 @@
 import express from 'express';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { fetchMatches, periodRank } from './lib/espn.js';
+import { fetchMatches, periodRank, txoddsStatus } from './lib/feed.js';
 import { leaderboard, predictionMarket } from './lib/scoring.js';
 import { getPredictions, getSnapshots, getOutright } from './lib/store.js';
 import { dbEnabled, dbTryLock } from './lib/db.js';
@@ -56,6 +56,7 @@ app.get('/api/state', async (req, res) => {
       // page should not ask visitors to configure a key.
       hosted: Boolean(process.env.VERCEL),
       demoMode: process.env.DEMO_MODE === '1',
+      txodds: txoddsStatus(),
       models,
       prompts: promptTemplates,
       outright,
