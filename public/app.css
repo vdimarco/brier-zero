@@ -1327,3 +1327,49 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
   color: var(--ink-3, #9a9a9a);
 }
 .odds-source { text-transform: none; letter-spacing: 0; opacity: 0.8; }
+
+/* The Market: every mention is a tap target opening the sourcing modal. */
+.market-tip {
+  display: inline-flex; align-items: center; gap: 4px;
+  cursor: pointer; min-width: 0;
+  border-bottom: 1px dashed rgba(10, 122, 51, 0.45);
+}
+.market-tip:hover, .market-tip:focus-visible { border-bottom-color: var(--pitch); color: var(--pitch-deep); }
+.market-tip:focus-visible { outline: 1px solid var(--pitch); outline-offset: 2px; border-radius: 3px; }
+.market-tip-mark {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 14px; height: 14px; border-radius: 50%; flex: none;
+  background: var(--pitch-wash); color: var(--pitch-deep);
+  font: 700 9px/1 system-ui, sans-serif;
+}
+.lb-name .market-tip, .detail-title .market-tip { border-bottom-width: 1px; }
+
+#market-modal .mkt-scrim {
+  position: fixed; inset: 0; z-index: 60;
+  background: rgba(12, 26, 14, 0.45);
+}
+#market-modal .mkt-panel {
+  position: fixed; z-index: 61;
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: min(460px, calc(100vw - 24px));
+  max-height: min(86vh, 640px); overflow-y: auto;
+  background: var(--surface); border-radius: var(--radius-card);
+  border: 1px solid var(--hairline);
+  box-shadow: 0 12px 40px rgba(12, 26, 14, 0.25);
+  padding: 22px 22px 18px;
+}
+#market-modal h3 { margin: 0 34px 10px 0; font-size: 17px; letter-spacing: -0.01em; }
+#market-modal p, #market-modal li { color: var(--ink-2); font-size: 14px; line-height: 1.55; }
+#market-modal p { margin: 0 0 10px; }
+#market-modal ul { margin: 0 0 10px; padding-left: 20px; }
+#market-modal li { margin-bottom: 8px; }
+#market-modal li b, #market-modal p strong { color: var(--ink); }
+#market-modal .mkt-foot { color: var(--ink-3); font-size: 12.5px; margin: 12px 0 0; border-top: 1px solid var(--hairline); padding-top: 12px; }
+#market-modal .mkt-close {
+  position: absolute; top: 10px; right: 10px;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: none; border: 0; cursor: pointer;
+  color: var(--ink-3); font-size: 15px;
+}
+#market-modal .mkt-close:hover, #market-modal .mkt-close:focus-visible { background: var(--surface-2); color: var(--ink); }
+body.mkt-open { overflow: hidden; }

@@ -20,6 +20,12 @@ const FINISHED_PREVIEW = 8;
 const MARKET_ID = 'txodds/market';
 const MARKET_ATTRIBUTION = 'TxODDS StablePrice · TxLINE on Solana';
 
+/* "The Market" labels are tap targets that open the shared sourcing modal
+   (#market-modal in index.html): dashed underline + ? mark for affordance. */
+function marketLabel(inner) {
+  return `<span class="market-tip" tabindex="0" role="button" aria-haspopup="dialog" aria-label="What is The Market and where do its numbers come from?">${inner}<span class="market-tip-mark" aria-hidden="true">?</span></span>`;
+}
+
 /* Everyone who ever competed: the active roster plus retired entrants
    (models substituted out mid-tournament, e.g. swapped for their lab's
    newest release before the final). Display and scoring lookups go
@@ -175,6 +181,33 @@ if (typeof document !== 'undefined') {
       document.querySelectorAll('.brier-tip.open').forEach((t) => t.classList.remove('open'));
     }
   });
+
+  // The Market sourcing modal. Delegated in the capture phase so a trigger
+  // nested inside a clickable leaderboard row opens the modal instead of
+  // navigating into the model detail.
+  const marketModal = () => document.getElementById('market-modal');
+  const openMarketModal = () => { const m = marketModal(); if (m) { m.hidden = false; document.body.classList.add('mkt-open'); m.querySelector('.mkt-close')?.focus(); } };
+  const closeMarketModal = () => { const m = marketModal(); if (m && !m.hidden) { m.hidden = true; document.body.classList.remove('mkt-open'); } };
+  document.addEventListener('click', (e) => {
+    if (e.target.closest?.('.market-tip')) {
+      e.preventDefault();
+      e.stopPropagation();
+      openMarketModal();
+    } else if (e.target.closest?.('[data-mkt-close]')) {
+      e.preventDefault();
+      e.stopPropagation();
+      closeMarketModal();
+    }
+  }, true);
+  document.addEventListener('keydown', (e) => {
+    const tip = e.target.closest?.('.market-tip');
+    if (tip && (e.key === 'Enter' || e.key === ' ')) {
+      e.preventDefault();
+      e.stopPropagation();
+      openMarketModal();
+    }
+    if (e.key === 'Escape') closeMarketModal();
+  }, true);
 }
 
 function countdown(iso) {
@@ -301,7 +334,7 @@ async function shareMatch(match) {
 }
 
 function forecastRow(model, pred, match, bestBrier) {
-  const name = esc(model.label);
+  const name = model.id === MARKET_ID ? marketLabel(esc(model.label)) : esc(model.label);
   const crest = model.icon
     ? `<img class="crest" src="${esc(model.icon)}" alt="" onerror="this.style.visibility='hidden'">`
     : '';
@@ -793,7 +826,8 @@ function renderRoster(state) {
       ? `<img class="crest" src="${esc(m.icon)}" alt="" onerror="this.style.visibility='hidden'">`
       : '';
     const title = m.id === MARKET_ID ? ` title="The betting market itself: ${MARKET_ATTRIBUTION}"` : '';
-    return `<span class="roster-chip"${title}>${crest}<span>${esc(m.label)}</span></span>`;
+    const label = m.id === MARKET_ID ? marketLabel(`<span>${esc(m.label)}</span>`) : `<span>${esc(m.label)}</span>`;
+    return `<span class="roster-chip"${title}>${crest}${label}</span>`;
   }).join('');
 }
 
@@ -846,7 +880,7 @@ function renderLeaderboard(state) {
           icon
             ? `<img class="crest crest-lg" src="${esc(icon)}" alt="" onerror="this.style.visibility='hidden'">`
             : ''
-        }<div><span class="lb-name">${esc(r.label)}</span><span class="lb-slug">${r.model === MARKET_ID ? MARKET_ATTRIBUTION : esc(memberChain(r) ?? r.model)}</span>${
+        }<div><span class="lb-name">${r.model === MARKET_ID ? marketLabel(esc(r.label)) : esc(r.label)}</span><span class="lb-slug">${r.model === MARKET_ID ? MARKET_ATTRIBUTION : esc(memberChain(r) ?? r.model)}</span>${
           sparkline(r.perMatch) ? `<div class="lb-spark">${sparkline(r.perMatch)}${trendBadge}</div>` : ''
         }</div></div>
         <div class="lb-score">
@@ -1142,7 +1176,7 @@ function renderModelDetail(state, modelId) {
       <div class="lb-id">
         ${meta.icon ? `<img class="crest crest-lg" src="${esc(meta.icon)}" alt="">` : ''}
         <div>
-          <div class="detail-title">${esc(row.label)}</div>
+          <div class="detail-title">${row.model === MARKET_ID ? marketLabel(esc(row.label)) : esc(row.label)}</div>
           <div class="fnote">${row.model === MARKET_ID ? MARKET_ATTRIBUTION : esc(memberChain(row) ?? row.model)}${rank ? ` · rank ${rank} of ${rankedRows.length}` : ''}</div>
         </div>
       </div>
