@@ -638,6 +638,123 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
 .lb-score { text-align: right; }
 .lb-brier { font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums; }
 .lb-row.leader .lb-brier { color: var(--trophy); }
+
+/* Brier score help popover */
+.brier-tip {
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+  vertical-align: baseline;
+  cursor: help;
+  outline: none;
+}
+.brier-tip-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border-bottom: 1px dashed rgba(10, 122, 51, 0.45);
+  color: inherit;
+  font-weight: inherit;
+}
+.brier-tip:hover .brier-tip-label,
+.brier-tip:focus-visible .brier-tip-label,
+.brier-tip.open .brier-tip-label {
+  border-bottom-color: var(--pitch);
+  color: var(--pitch-deep);
+}
+.brier-tip-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--pitch-wash);
+  color: var(--pitch-deep);
+  font: 700 9px/1 system-ui, sans-serif;
+  flex: none;
+}
+.brier-tip-pop {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 10px);
+  transform: translateX(-50%) translateY(4px);
+  width: min(320px, 78vw);
+  padding: 12px 14px;
+  background: var(--surface);
+  color: var(--ink-2);
+  border: 1px solid var(--hairline);
+  border-radius: 12px;
+  box-shadow: 0 10px 28px rgba(23, 46, 22, 0.16), 0 0 0 1px rgba(23, 46, 22, 0.03);
+  font: 400 13px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-weight: 400;
+  letter-spacing: normal;
+  text-transform: none;
+  text-align: left;
+  z-index: 40;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.14s ease, transform 0.14s ease, visibility 0.14s;
+}
+.brier-tip-pop::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translateX(-50%);
+  border: 7px solid transparent;
+  border-top-color: var(--surface);
+  filter: drop-shadow(0 1px 0 var(--hairline));
+}
+.brier-tip:hover .brier-tip-pop,
+.brier-tip:focus-within .brier-tip-pop,
+.brier-tip.open .brier-tip-pop {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+.brier-tip-title {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 750;
+  color: var(--ink);
+  margin: 0 0 6px;
+}
+.brier-tip-pop p { margin: 0 0 8px; max-width: none; }
+.brier-tip-pop p:last-child { margin-bottom: 0; }
+.brier-tip-pop ul {
+  margin: 0 0 8px;
+  padding: 0 0 0 1.1em;
+}
+.brier-tip-pop li { margin: 3px 0; }
+.brier-tip-pop b { color: var(--ink); font-weight: 700; }
+.brier-tip-foot {
+  margin: 0 !important;
+  padding-top: 8px;
+  border-top: 1px solid var(--hairline);
+  font-size: 12.5px;
+  color: var(--ink-2);
+}
+/* Keep tips above leaderboard rows / chart cards */
+.lb-chart-sub .brier-tip,
+.explainer .brier-tip,
+.stat-l .brier-tip { z-index: 5; }
+.lb-chart-sub .brier-tip:hover,
+.lb-chart-sub .brier-tip.open,
+.lb-chart-sub .brier-tip:focus-within { z-index: 50; }
+/* Flip popover below when near the top of the viewport (section title) */
+.explainer .brier-tip-pop {
+  bottom: auto;
+  top: calc(100% + 10px);
+}
+.explainer .brier-tip-pop::after {
+  top: auto;
+  bottom: 100%;
+  border-top-color: transparent;
+  border-bottom-color: var(--surface);
+}
 .lb-meta { color: var(--ink-3); font-size: 12.5px; }
 .lb-row.lb-backtest {
   background: repeating-linear-gradient(135deg, rgba(66,133,244,.05), rgba(66,133,244,.05) 9px, rgba(155,114,203,.06) 9px, rgba(155,114,203,.06) 18px);
