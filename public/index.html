@@ -17,7 +17,15 @@
 <body>
   <div class="pitchband">
     <header class="topbar">
-      <span class="wordmark">BRIER<em>CUP</em></span>
+      <span class="wordmark brier-tip brier-tip-wordmark" tabindex="0" role="button" aria-label="What is the Brier Cup? What is a Brier score?">
+        <span class="brier-tip-label">BRIER<em>CUP</em></span>
+        <span class="brier-tip-pop" role="tooltip">
+          <strong class="brier-tip-title">The Brier Cup — and the score it’s named for</strong>
+          <p>Models (and the market) each assign probabilities to who wins a match. After the whistle, we score those forecasts with a <b>Brier score</b> — a simple “how wrong were you?” number.</p>
+          <p>Think of it like darts: closer to the bullseye is better. A perfect call is <b>0</b>. Guessing at random scores about <b>0.5</b> in knockouts or <b>0.67</b> in the group stage. Being totally sure and totally wrong is as bad as <b>2</b>.</p>
+          <p class="brier-tip-foot"><b>Lower average Brier wins the cup.</b> It’s not just who picked the winner — it’s who was confident when they should be, and humble when they shouldn’t.</p>
+        </span>
+      </span>
       <span class="topbar-status" id="source-status">Loading fixtures</span>
     </header>
 

@@ -77,6 +77,50 @@ main { max-width: 1080px; margin: 0 auto; padding: 0 20px 64px; }
 .wordmark em { font-style: normal; color: var(--kit-gold); }
 .topbar-status { color: rgba(255, 255, 255, 0.75); font-size: 13px; }
 
+/* Wordmark as Brier explainer (hover / focus / tap).
+   Higher specificity so the shared tip rule's translateX(-50%)
+   centering doesn't yank this panel sideways under the topbar. */
+.wordmark.brier-tip {
+  cursor: help;
+  z-index: 20;
+}
+.wordmark.brier-tip .brier-tip-label {
+  border-bottom: 1px dashed rgba(255, 215, 94, 0.45);
+  gap: 0;
+  letter-spacing: 0.04em;
+}
+.wordmark.brier-tip:hover .brier-tip-label,
+.wordmark.brier-tip:focus-visible .brier-tip-label,
+.wordmark.brier-tip.open .brier-tip-label {
+  border-bottom-color: var(--kit-gold);
+  color: #ffffff;
+}
+.wordmark.brier-tip .brier-tip-pop {
+  /* Flush under the wordmark, open downward only — no horizontal shift */
+  left: 0;
+  right: auto;
+  bottom: auto;
+  top: calc(100% + 12px);
+  transform: none;
+  width: min(340px, 86vw);
+  z-index: 60;
+  /* Opacity-only show (shared rule still sets transform on hover) */
+}
+.wordmark.brier-tip:hover .brier-tip-pop,
+.wordmark.brier-tip:focus-within .brier-tip-pop,
+.wordmark.brier-tip.open .brier-tip-pop {
+  /* Beat .brier-tip:hover .brier-tip-pop { transform: translateX(-50%) } */
+  transform: none;
+}
+.wordmark.brier-tip .brier-tip-pop::after {
+  left: 22px;
+  top: auto;
+  bottom: 100%;
+  transform: none;
+  border-top-color: transparent;
+  border-bottom-color: var(--surface);
+}
+
 .hero { padding: 34px 20px 42px; max-width: 1080px; margin: 0 auto; }
 .hero h1 {
   font-size: clamp(30px, 5vw, 46px);
