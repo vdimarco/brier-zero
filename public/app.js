@@ -1240,6 +1240,173 @@ function attachTrophyHover(wrap, history, contenders) {
   document.addEventListener('pointerdown', trophyDismiss);
 }
 
+/* Knockout stages in tournament order. 3rd-place is omitted from the
+   championship bracket (it sits beside the final as a footnote). */
+const BRACKET_STAGES = [
+  { key: 'round of 32', short: 'R32', full: 'Round of 32' },
+  { key: 'round of 16', short: 'R16', full: 'Round of 16' },
+  { key: 'quarterfinals', short: 'QF', full: 'Quarter-finals' },
+  { key: 'semifinals', short: 'SF', full: 'Semi-finals' },
+  { key: 'final', short: 'Final', full: 'Final' },
+];
+
+function winnerSide(match) {
+  if (match.status?.state !== 'post') return null;
+  // Prefer the advance market (who went through, incl. pens); fall back.
+  return match.outcomes?.advance ?? match.outcome ?? null;
+}
+
+function winnerName(match) {
+  const side = winnerSide(match);
+  if (side === 'home' || side === 'away') return match[side].name;
+  return null;
+}
+
+function shortTeam(name) {
+  // Compact labels for the bracket grid; full name stays in title.
+  if (!name) return 'TBD';
+  if (name.length <= 11) return name;
+  const parts = name.split(/[\s-]+/);
+  if (parts.length >= 2) return parts.map((p) => p.slice(0, 3)).join(' ').slice(0, 11);
+  return name.slice(0, 10);
+}
+
+/* Order an earlier round so its pairs feed the next round top-to-bottom.
+   Winners of consecutive feeder matches become the two sides of one
+   later match; that gives the visual "fork" of a real bracket. */
+function orderFeeders(prevRound, nextRound) {
+  const remaining = [...prevRound];
+  const ordered = [];
+  const take = (pred) => {
+    const i = remaining.findIndex(pred);
+    if (i < 0) return null;
+    return remaining.splice(i, 1)[0];
+  };
+  for (const next of nextRound) {
+    const home = next.home?.name;
+    const away = next.away?.name;
+    const a = take((m) => {
+      const w = winnerName(m);
+      return w === home || (!w && (m.home.name === home || m.away.name === home));
+    }) || take((m) => m.home.name === home || m.away.name === home);
+    const b = take((m) => {
+      const w = winnerName(m);
+      return w === away || (!w && (m.home.name === away || m.away.name === away));
+    }) || take((m) => m.home.name === away || m.away.name === away);
+    if (a) ordered.push(a);
+    if (b) ordered.push(b);
+  }
+  ordered.push(...remaining);
+  return ordered;
+}
+
+function buildBracket(matches) {
+  const by = Object.fromEntries(BRACKET_STAGES.map((s) => [s.key, []]));
+  for (const m of matches) {
+    if (by[m.stage]) by[m.stage].push(m);
+  }
+  for (const s of BRACKET_STAGES) {
+    by[s.key].sort((a, b) => new Date(a.kickoff) - new Date(b.kickoff));
+  }
+  // Walk final → R32 so each round is reordered under its parent.
+  for (let i = BRACKET_STAGES.length - 1; i > 0; i--) {
+    const later = by[BRACKET_STAGES[i].key];
+    const earlier = by[BRACKET_STAGES[i - 1].key];
+    if (later.length && earlier.length) {
+      by[BRACKET_STAGES[i - 1].key] = orderFeeders(earlier, later);
+    }
+  }
+  return by;
+}
+
+function renderBracketMatch(match, probs, logos) {
+  if (!match) {
+    return `<div class="bk-match bk-empty"><div class="bk-side"><span class="bk-name">TBD</span></div><div class="bk-side"><span class="bk-name">TBD</span></div></div>`;
+  }
+  const done = match.status?.state === 'post';
+  const live = match.status?.state === 'in';
+  const win = winnerSide(match);
+  const sides = ['home', 'away'].map((side) => {
+    const t = match[side];
+    const name = t?.name || 'TBD';
+    const isWin = done && win === side;
+    const isLose = done && win && win !== side;
+    const score = done || live ? (t?.score ?? 0) : '';
+    const p = probs?.[name];
+    const flag = logos[name]
+      ? `<img class="bk-flag" src="${esc(logos[name])}" alt="" loading="lazy" onerror="this.style.visibility='hidden'">`
+      : `<span class="bk-flag bk-flag-empty"></span>`;
+    return `<div class="bk-side${isWin ? ' win' : ''}${isLose ? ' lose' : ''}" title="${esc(name)}${p != null ? ` · ${pct(p)}% to lift the trophy` : ''}">
+      ${flag}
+      <span class="bk-name">${esc(shortTeam(name))}</span>
+      ${p != null && !done ? `<span class="bk-prob">${pct(p)}%</span>` : ''}
+      ${score !== '' ? `<span class="bk-score">${score}</span>` : ''}
+    </div>`;
+  }).join('');
+  const stateCls = live ? ' live' : done ? ' done' : ' pre';
+  const href = match.id ? `href="#m/${esc(match.id)}"` : '';
+  return `<a class="bk-match${stateCls}" ${href} data-match="${esc(match.id || '')}">
+    ${sides}
+  </a>`;
+}
+
+/* Classic left-to-right bracket: each round is a column of nested pairs
+   so CSS can draw the }-shaped fork into the next round. */
+function renderKnockoutBracket(matches, probs, logos) {
+  const by = buildBracket(matches);
+  const hasAny = BRACKET_STAGES.some((s) => by[s.key].length);
+  if (!hasAny) return '';
+
+  // One column per stage. Matches are nested in pairs so CSS can draw the
+  // }-shaped fork into the next round; flex grow keeps vertical alignment.
+  const stageLists = BRACKET_STAGES.map((s, si) => {
+    const list = [...(by[s.key] || [])];
+    const expected = 16 / (2 ** si);
+    while (list.length < expected) list.push(null);
+    return list;
+  });
+
+  const cols = BRACKET_STAGES.map((stage, si) => {
+    const list = stageLists[si];
+    let body;
+    if (si === BRACKET_STAGES.length - 1) {
+      body = `<div class="bk-leaf bk-final-leaf">${renderBracketMatch(list[0], probs, logos)}</div>`;
+    } else {
+      const pairs = [];
+      for (let i = 0; i < list.length; i += 2) {
+        pairs.push(`<div class="bk-pair">
+          <div class="bk-pair-kids">
+            <div class="bk-leaf">${renderBracketMatch(list[i], probs, logos)}</div>
+            <div class="bk-leaf">${renderBracketMatch(list[i + 1], probs, logos)}</div>
+          </div>
+          <div class="bk-fork" aria-hidden="true"></div>
+        </div>`);
+      }
+      body = pairs.join('');
+    }
+    return `<div class="bk-round" data-stage="${esc(stage.key)}">
+      <div class="bk-round-label">${esc(stage.short)}<span class="bk-round-full">${esc(stage.full)}</span></div>
+      <div class="bk-col">${body}</div>
+    </div>`;
+  }).join('');
+
+  const third = matches.find((m) => m.stage === '3rd place match');
+  const thirdHtml = third
+    ? `<div class="bk-third">
+        <span class="bk-third-label">3rd place</span>
+        ${renderBracketMatch(third, probs, logos)}
+      </div>`
+    : '';
+
+  return `<div class="bracket-wrap">
+    <div class="bracket" role="img" aria-label="World Cup knockout bracket from round of 32 to the final">
+      ${cols}
+    </div>
+    ${thirdHtml}
+    <p class="fnote bk-legend">Winners in gold. Click any tie for the models' forecasts. Probabilities are the models' consensus chance of lifting the trophy.</p>
+  </div>`;
+}
+
 function renderTrophy(state) {
   const section = $('#trophy-section');
   const el = $('#trophy');
@@ -1247,54 +1414,76 @@ function renderTrophy(state) {
     .map((e) => ({ at: e.at, label: e.label, teams: e.teams, consensus: outrightConsensus(e), models: e.models }))
     .filter((e) => e.consensus)
     .sort((a, b) => new Date(a.at) - new Date(b.at));
-  if (!history.length) { section.hidden = true; return; }
+  const koMatches = (state.matches ?? []).filter((m) =>
+    BRACKET_STAGES.some((s) => s.key === m.stage) || m.stage === '3rd place match'
+  );
+  // Show the section when we have either outright probs or knockout fixtures.
+  if (!history.length && !koMatches.length) { section.hidden = true; return; }
   section.hidden = false;
+
   const latest = history[history.length - 1];
-  const ranked = latest.teams
-    .map((t) => ({ team: t, p: latest.consensus[t] ?? 0 }))
-    .sort((a, b) => b.p - a.p);
+  const ranked = latest
+    ? latest.teams
+      .map((t) => ({ team: t, p: latest.consensus[t] ?? 0 }))
+      .sort((a, b) => b.p - a.p)
+    : [];
+  const probs = Object.fromEntries(ranked.map((r) => [r.team, r.p]));
   const logos = {};
-  for (const m of state.matches) for (const s of [m.home, m.away]) if (s.logo) logos[s.name] = s.logo;
-  const top = ranked.slice(0, 6);
+  for (const m of state.matches ?? []) {
+    for (const s of [m.home, m.away]) if (s.logo) logos[s.name] = s.logo;
+  }
+  const top = ranked[0];
   // A team gets its own band if it is still alive OR it was ever a real
   // contender (peak consensus >= 5%). That keeps every remaining team on
   // the chart AND lets a knocked-out favourite - Brazil, Portugal - keep
-  // its band and visibly collapse to zero at the round it went out,
-  // rather than vanishing straight into the residual. Only the true
-  // minnows, who never had a band, pool into Others so each column still
-  // fills to 100%. Ordered by peak, strongest at the baseline.
+  // its band and visibly collapse to zero at the round it went out.
   const PEAK_BAND = 0.05;
   const peak = {};
   for (const h of history) for (const t of h.teams) peak[t] = Math.max(peak[t] ?? 0, h.consensus[t] ?? 0);
-  const aliveNow = new Set(latest.teams.filter((t) => (latest.consensus[t] ?? 0) > 0));
+  const aliveNow = new Set((latest?.teams ?? []).filter((t) => (latest.consensus[t] ?? 0) > 0));
   const contenders = Object.keys(peak)
     .filter((t) => aliveNow.has(t) || peak[t] >= PEAK_BAND)
     .sort((a, b) => peak[b] - peak[a]);
   const spread = (t) => {
+    if (!latest) return esc(t);
     const ps = Object.values(latest.models).filter((m) => m.probs).map((m) => m.probs[t] ?? 0);
+    if (!ps.length) return esc(t);
     return `${esc(t)}: models range ${pct(Math.min(...ps))}% to ${pct(Math.max(...ps))}%`;
   };
-  el.innerHTML = `<div class="trophy-card">
-    <div class="trophy-list">
-      ${ranked.slice(0, 8).map((r, i) => `
-        <div class="trophy-row" title="${spread(r.team)}">
-          <span class="trophy-rank${i === 0 ? ' gold' : ''}">${i + 1}</span>
-          ${logos[r.team] ? `<img class="flag" src="${esc(logos[r.team])}" alt="" onerror="this.style.visibility='hidden'">` : ''}
-          <span class="trophy-team">${esc(r.team)}</span>
-          <span class="trophy-bar"><i style="width:${Math.max(2, Math.round((r.p / (top[0].p || 1)) * 100))}%"></i></span>
-          <span class="trophy-p">${pct(r.p)}%</span>
-        </div>`).join('')}
-      ${ranked.length > 8 ? `<div class="fnote">${ranked.slice(8).map((r) => `${esc(r.team)} ${pct(r.p)}%`).join(', ')}</div>` : ''}
-    </div>
-    ${history.length > 1
-      ? `<div class="trophy-chart">
-          <div class="chart">${trophyChart(history, contenders)}</div>
-          <p class="fnote">Every remaining team, and every fallen favourite, is a band; each round fills to 100%, so a band's height is that team's share of the models' championship belief. Bands widen as the field narrows, and a team's band pinches to zero and disappears the round it is knocked out. The grey Others area is the long tail of teams that never held a real chance. Hover or tap any round for the full breakdown.</p>
-        </div>`
-      : `<p class="fnote">Collected ${esc(new Intl.DateTimeFormat(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }).format(new Date(latest.at)))}. The over-time chart appears after the next collection round.</p>`}
-  </div>`;
+
+  const listHtml = ranked.length
+    ? `<div class="trophy-list">
+        <div class="trophy-list-head">AI consensus to win it all</div>
+        ${ranked.slice(0, 8).map((r, i) => `
+          <div class="trophy-row${i === 0 ? ' leader' : ''}${i === 1 ? ' silver' : ''}${i === 2 ? ' bronze' : ''}" title="${spread(r.team)}">
+            <span class="trophy-rank${i === 0 ? ' gold' : ''}">${i === 0 ? '🏆' : i + 1}</span>
+            ${logos[r.team] ? `<img class="flag" src="${esc(logos[r.team])}" alt="" onerror="this.style.visibility='hidden'">` : ''}
+            <span class="trophy-team">${esc(r.team)}</span>
+            <span class="trophy-bar"><i style="width:${Math.max(3, Math.round((r.p / (top?.p || 1)) * 100))}%"></i></span>
+            <span class="trophy-p">${pct(r.p)}%</span>
+          </div>`).join('')}
+        ${ranked.length > 8 ? `<div class="fnote trophy-rest">${ranked.slice(8).map((r) => `${esc(r.team)} ${pct(r.p)}%`).join(' · ')}</div>` : ''}
+      </div>`
+    : '';
+
+  const chartHtml = history.length > 1
+    ? `<div class="trophy-chart">
+        <div class="trophy-chart-head">How belief shifted each round</div>
+        <div class="chart">${trophyChart(history, contenders)}</div>
+        <p class="fnote">Each column is a collection round, stacked to 100%. A band pinches to zero the moment that team is knocked out. Hover for the full breakdown.</p>
+      </div>`
+    : history.length === 1
+      ? `<p class="fnote">Collected ${esc(new Intl.DateTimeFormat(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }).format(new Date(latest.at)))}. The over-time chart appears after the next collection round.</p>`
+      : '';
+
+  el.innerHTML = `
+    ${renderKnockoutBracket(koMatches, probs, logos)}
+    <div class="trophy-card">
+      ${listHtml}
+      ${chartHtml}
+    </div>`;
   const chartWrap = el.querySelector('.trophy-chart');
-  if (chartWrap) attachTrophyHover(chartWrap, history, contenders);
+  if (chartWrap && history.length > 1) attachTrophyHover(chartWrap, history, contenders);
 }
 
 /* Featured match: the live game, or the next kickoff, big and up front. */
