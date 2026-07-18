@@ -234,13 +234,14 @@ test('leaderboard: retired entrants keep label, icon, and records', () => {
   assert.equal(old.scored, 1);
 });
 
-test('leaderboard: a late sub with a tiny sample is flagged unqualified', () => {
+test('leaderboard: shrunken skill keeps a tiny perfect sample below a full record', () => {
   const models = [
     { id: 'veteran', label: 'Veteran' },
     { id: 'latesub', label: 'Late Sub' },
   ];
-  // Veteran scored 10 matches; the sub only the last one — even with a
-  // perfect score it must not rank against the full record.
+  // Veteran scored 10 solid matches; the sub aced only the last one. Under
+  // raw average Brier the sub would take #1 — shrinkage (10 phantom
+  // coin-flip matches) must keep it below the earned record.
   const matches = [];
   const predictions = {};
   for (let i = 0; i < 10; i++) {
@@ -252,15 +253,20 @@ test('leaderboard: a late sub with a tiny sample is flagged unqualified', () => 
   const rows = leaderboard(matches, predictions, models);
   const vet = rows.find((r) => r.model === 'veteran');
   const sub = rows.find((r) => r.model === 'latesub');
-  assert.equal(vet.qualified, true);
-  assert.equal(sub.qualified, false, 'one perfect match must not outrank ten');
-  assert.ok(sub.avgBrier < vet.avgBrier, 'the sub does have the lower average — which is why the flag matters');
-  // At half the fullest record the row qualifies.
-  for (let i = 4; i < 9; i++) {
+  assert.ok(sub.avgBrier < vet.avgBrier, 'the sub has the lower (better) raw average');
+  assert.ok(Math.abs(sub.avgSkill - 1) < 1e-9, 'one perfect match = +100% skill');
+  assert.ok(sub.shrunkSkill < vet.shrunkSkill, 'but shrunken skill still ranks the veteran first');
+  assert.equal(rows[0].model, 'veteran');
+  // As the sub earns real matches, shrinkage releases: identical forecasts
+  // over the same ten matches converge to the veteran's shrunken skill.
+  for (let i = 0; i < 9; i++) {
     predictions[`m${i}`].latesub = { probs: { home: 0.7, draw: 0.2, away: 0.1 }, eligible: true };
   }
+  predictions.m9.latesub = { probs: { home: 0.7, draw: 0.2, away: 0.1 }, eligible: true };
   const rows2 = leaderboard(matches, predictions, models);
-  assert.equal(rows2.find((r) => r.model === 'latesub').qualified, true);
+  const vet2 = rows2.find((r) => r.model === 'veteran');
+  const sub2 = rows2.find((r) => r.model === 'latesub');
+  assert.ok(Math.abs(vet2.shrunkSkill - sub2.shrunkSkill) < 1e-9);
 });
 
 test('labLeaderboard: merges a lab across a substitution without double counting', () => {

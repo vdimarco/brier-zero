@@ -83,10 +83,21 @@ priced.
 
 Before the final, each lab's newest release was substituted into the live
 roster (and xAI's Grok joined as a ninth lab); the predecessors' 100+-match
-records stay on the board as retired entrants. To keep the ranking honest, a
-row must have scored at least half as many matches as the fullest record to
-rank — a late sub with a couple of matches is shown, but flagged **late sub**
-and never ranked (or crowned) against a full-tournament record.
+records stay on the board as retired entrants. The default **by-lab view**
+folds each lab's members into one continuous record (the active member's
+forecast is the lab's official entry when both priced the same match); the
+**by-model view** shows every entrant separately.
+
+**Ranking metric:** average Brier is the headline number, but rank comes from
+**shrunken skill vs the coin flip**. Each match scores
+`(baseline − Brier) / baseline` — 0 is know-nothing, 1 is perfect, negative is
+worse than guessing — which normalizes match difficulty and makes group
+(baseline ⅔) and knockout (½) records commensurable. Every entrant then
+carries ten phantom coin-flip matches (`Σskill / (n + 10)`), so a newcomer
+starts at exactly neutral and earns rank as real matches accumulate: models
+can join at any point and be compared immediately, without a lucky two-match
+sample leapfrogging a hundred-match record and without any eligibility
+cliff.
 
 ## API
 
