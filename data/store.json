@@ -24022,6 +24022,83 @@
             "rationale": "England lead 3-0 with over half the match gone, making a French comeback to win or even draw extremely unlikely in 90 minutes."
           }
         }
+      },
+      {
+        "at": "2026-07-18T21:48:25.904Z",
+        "detail": "45'+2'",
+        "score": [
+          0,
+          4
+        ],
+        "events": 4,
+        "period": "STATUS_FIRST_HALF",
+        "market": "regulation",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.001,
+              "draw": 0.004,
+              "away": 0.995
+            },
+            "rationale": "England lead 4-0 at halftime with dominant momentum, making a France comeback virtually impossible."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.01,
+              "draw": 0.03,
+              "away": 0.96
+            },
+            "rationale": "With England 4–0 up at half-time, France coming back to win or even draw in 90 minutes is extremely unlikely, though not entirely impossible."
+          },
+          "deepseek/deepseek-v4-pro": {
+            "probs": {
+              "home": 0,
+              "draw": 0.01,
+              "away": 0.99
+            },
+            "rationale": "With England leading 4-0 at halftime and France showing no signs of a comeback in a low-stakes third-place match, an England win is virtually certain."
+          },
+          "moonshotai/kimi-k3": {
+            "probs": {
+              "home": 0.0005,
+              "draw": 0.0045,
+              "away": 0.995
+            },
+            "rationale": "A four-goal deficit at halftime is effectively decisive, with France needing an unprecedented second-half surge even to force a draw."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0,
+              "draw": 0.001,
+              "away": 0.999
+            },
+            "rationale": "England's commanding 4-0 lead at half-time makes their victory virtually certain."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.002,
+              "draw": 0.008,
+              "away": 0.99
+            },
+            "rationale": "England's commanding 4-0 halftime lead makes an England victory near-certain, as overcoming a four-goal deficit in 45 minutes is historically unprecedented at this level of international football."
+          },
+          "google/gemini-3.1-pro-preview": {
+            "probs": {
+              "home": 0.001,
+              "draw": 0.004,
+              "away": 0.995
+            },
+            "rationale": "With a massive 4-0 lead at halftime, England is overwhelmingly favored to secure the victory, as a four-goal comeback in 45 minutes between elite international teams is historically unprecedented."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0.002,
+              "draw": 0.008,
+              "away": 0.99
+            },
+            "rationale": "England lead 4-0 at half-time in a 3rd-place match, making any French comeback extraordinarily unlikely."
+          }
+        }
       }
     ]
   },
