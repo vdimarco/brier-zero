@@ -23945,6 +23945,83 @@
             "rationale": "England's 2-0 lead at 34 minutes gives them a strong position to close out the win, though France's quality keeps a comeback or draw possible over the remaining time."
           }
         }
+      },
+      {
+        "at": "2026-07-18T21:38:53.671Z",
+        "detail": "37'",
+        "score": [
+          0,
+          3
+        ],
+        "events": 3,
+        "period": "STATUS_FIRST_HALF",
+        "market": "regulation",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.01,
+              "draw": 0.03,
+              "away": 0.96
+            },
+            "rationale": "England lead 3-0 after 37 minutes, making a France comeback in regulation highly unlikely."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.06,
+              "draw": 0.08,
+              "away": 0.86
+            },
+            "rationale": "At 37 minutes with England leading 3–0, historical comeback rates from this deficit are extremely low, making an England win overwhelmingly likely and a late France comeback or draw only a small possibility."
+          },
+          "deepseek/deepseek-v4-pro": {
+            "probs": {
+              "home": 0.01,
+              "draw": 0.02,
+              "away": 0.97
+            },
+            "rationale": "With a 3-0 lead at 37 minutes, England has a historically insurmountable advantage, leaving France with only a remote chance of a draw or win."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0.001,
+              "draw": 0.009,
+              "away": 0.99
+            },
+            "rationale": "England holds a commanding 3-0 lead before halftime, making a France comeback in regulation extremely unlikely."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.01,
+              "draw": 0.03,
+              "away": 0.96
+            },
+            "rationale": "England's commanding 3-0 lead with over 50 minutes remaining makes a French comeback statistically near-impossible, as France would need to outscore England by at least three goals just to salvage a draw."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.01,
+              "draw": 0.02,
+              "away": 0.97
+            },
+            "rationale": "England's dominant 3-0 lead with 53 minutes remaining, combined with France needing at least 3 goals to force extra time, makes an England victory overwhelmingly likely despite France's historical quality."
+          },
+          "google/gemini-3.1-pro-preview": {
+            "probs": {
+              "home": 0.005,
+              "draw": 0.025,
+              "away": 0.97
+            },
+            "rationale": "Trailing 0-3 before halftime, France faces an almost insurmountable deficit against a strong English side, making an England victory overwhelmingly probable."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0.02,
+              "draw": 0.05,
+              "away": 0.93
+            },
+            "rationale": "England lead 3-0 with over half the match gone, making a French comeback to win or even draw extremely unlikely in 90 minutes."
+          }
+        }
       }
     ]
   },
