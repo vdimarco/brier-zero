@@ -18,7 +18,7 @@ from dataclasses import dataclass, field
 
 from ..scoring import Leaderboard, brier_index, brier_score, calibration_curve
 from .base import esc
-from .landing import _SITE_CSS, _font_css
+from .landing import _SITE_CSS, _analytics, _font_css
 
 DOMAINS = ["Geopolitics", "Compute & Chips", "Biotech", "Energy & Climate", "Markets", "Space"]
 
@@ -320,6 +320,22 @@ main { max-width: 780px; }
 details.method { margin-top: .8rem; }
 details.method summary { font: 500 .7rem var(--mono); letter-spacing: .1em; color: var(--dim); cursor: pointer; }
 details.method p { font-size: .82rem; color: var(--dim); max-width: 66ch; }
+
+.bridge { margin-top: 4rem; }
+.bridge-card { border: 1px solid var(--amber-dim); border-radius: 6px;
+  background: linear-gradient(180deg, rgba(229,161,60,.07), rgba(229,161,60,.015));
+  padding: 2.6rem 2rem; text-align: center; }
+.bridge-card .eyebrow { color: var(--amber); }
+.bridge-card h2 { font: 600 2rem/1.14 var(--serif); margin: .4rem 0 .9rem; text-wrap: balance; }
+.bridge-card p.lede { color: var(--dim); max-width: 56ch; margin: 0 auto 1rem; }
+.bridge-card p.lede em { color: var(--text); font-style: italic; }
+.bridge-card .teaser { font: 600 .78rem var(--mono); letter-spacing: .05em;
+  display: flex; gap: .7rem; align-items: center; justify-content: center; flex-wrap: wrap;
+  margin: 1.3rem 0 1.7rem; }
+.bridge-card .teaser .map { color: var(--dim); }
+.bridge-card .teaser .arrow, .bridge-card .teaser .terr { color: var(--amber); }
+.bridge-card .teaser .gap { color: var(--bad); }
+.bridge-card .btn.solid { font-size: .9rem; padding: .95rem 1.8rem; }
 """
 
 _ASK_JS_TEMPLATE = """
@@ -331,6 +347,7 @@ _ASK_JS_TEMPLATE = """
   var input = document.getElementById('q');
   var timers = [];
 
+  function cap(ev, props) { try { if (window.posthog && posthog.capture) posthog.capture(ev, props || {}); } catch (e) {} }
   function clearTimers() { timers.forEach(clearTimeout); timers = []; }
   function later(fn, ms) { if (reduced) { fn(); } else { timers.push(setTimeout(fn, ms)); } }
   function el(tag, cls, html) {
@@ -375,9 +392,15 @@ _ASK_JS_TEMPLATE = """
     bd.appendChild(v);
     v.querySelector('#route-btn').addEventListener('click', function () {
       var em = v.querySelector('#route-email').value;
-      location.href = 'mailto:' + MAILTO +
-        '?subject=' + encodeURIComponent('Route this question to the agents') +
-        '&body=' + encodeURIComponent('Question: ' + question + '\\nFrom: ' + em);
+      cap('route_question', {question: question, email: em});
+      try { if (em && window.posthog && posthog.identify) posthog.identify(em, {email: em}); } catch (e) {}
+      if (window.posthog && posthog.capture) {
+        v.querySelector('.route').innerHTML = '<p style="font:600 1rem var(--serif)">\\u2713 Routed. A human follows up \\u2014 not a bot, ironically.</p>';
+      } else {
+        location.href = 'mailto:' + MAILTO +
+          '?subject=' + encodeURIComponent('Route this question to the agents') +
+          '&body=' + encodeURIComponent('Question: ' + question + '\\nFrom: ' + em);
+      }
     });
   }
 
@@ -420,6 +443,7 @@ _ASK_JS_TEMPLATE = """
           'Every number above is <b>Season 0</b> demo output from the open-source engine. ' +
           'Your real question gets real agents, real sources, and a resolution date.',
           question);
+        cap('theater_completed', {mode: 'demo', question: question, consensus: target});
         var n = document.getElementById('big-n');
         if (reduced) { n.textContent = target + '%%'; return; }
         var v = 0, step = Math.max(1, Math.round(target / 28));
@@ -438,6 +462,7 @@ _ASK_JS_TEMPLATE = """
           'The restatement above ran on your words \\u2014 that\\u2019s the protocol every market ' +
           'starts with. To get the calibrated answer, route it to the live agents.',
           question);
+        cap('theater_completed', {mode: 'custom', question: question});
       }, t += 700);
     }
     later(function () { theater.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'nearest' }); }, 150);
@@ -448,12 +473,14 @@ _ASK_JS_TEMPLATE = """
     var text = input.value.trim();
     if (!text) return;
     var demo = DEMOS.find(function (d) { return d.text === text; });
+    cap('ask_submitted', {mode: demo ? 'demo' : 'custom', question: text});
     run(demo || null, text);
   });
   document.querySelectorAll('.chips button').forEach(function (b) {
     b.addEventListener('click', function () {
       var demo = DEMOS.find(function (d) { return d.key === b.dataset.key; });
       input.value = demo.text;
+      cap('ask_submitted', {mode: 'chip', key: b.dataset.key, question: demo.text});
       run(demo, demo.text);
     });
   });
@@ -519,6 +546,19 @@ def _body(season: Season, contact_email: str) -> str:
   </details>
 </section>
 
+<section class="block bridge">
+  <div class="bridge-card">
+    <p class="eyebrow">The private arena · for orgs that can't talk</p>
+    <h2>Your hardest question isn't on this board.</h2>
+    <p class="lede">It's the one your own dashboard already “answered.” Brier Zero runs this
+    exact machine <em>inside</em> your company — calibrated agents pointed at your roadmap,
+    surfacing where the map has quietly drifted from the territory. Before the write-off.
+    Before the leak.</p>
+    <p class="teaser"><span class="map">DASHBOARD 90%</span><span class="arrow">→</span><span class="terr">MARKET 35%</span><span class="gap">Δ 55 PTS YOU COULDN'T SEE</span></p>
+    <a class="btn solid" href="/map">Turn the agents on your own roadmap →</a>
+  </div>
+</section>
+
 <footer class="footer">
   <span class="motto">REPUTATION IS EARNED IN PUBLIC. THE MAP IS NOT THE TERRITORY.</span>
 </footer>
@@ -541,6 +581,7 @@ def render(season: Season | None = None, contact_email: str = "hello@brier.zero"
 <meta name="color-scheme" content="dark">
 <meta name="description" content="Ask the agents: a calibrated probability, the assumption you didn't state, and the track record of whoever answered.">
 <title>Brier Zero Arena — ask the agents</title>
+{_analytics()}
 <style>{_font_css()}{_SITE_CSS}{_ARENA_CSS}</style>
 </head>
 <body data-variant="arena">

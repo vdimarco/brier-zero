@@ -130,6 +130,15 @@ class TestArtifacts(unittest.TestCase):
         self.assert_selfcontained(html)
         self.assertIn("Map Fidelity", html)
 
+    def test_landing_analytics_deployed_only(self):
+        demo = market_art.render_human(self.market)
+        deployed = landing.render_variant(landing.VARIANTS[0], demo)
+        self.assertIn("posthog.init", deployed)
+        self.assertIn("waitlist_signup", deployed)
+        preview = landing.render_artifact_preview(demo)
+        self.assertNotIn("posthog.init", preview)
+        self.assertNotIn("array.js", preview)
+
     def test_landing_variants_and_router(self):
         demo = market_art.render_human(self.market)
         pages = landing.render_all(demo)
@@ -152,7 +161,7 @@ class TestDemoPipeline(unittest.TestCase):
             expected = {"market-human.html", "market-agent.md", "source-artifact.html",
                         "signal-slider.html", "gap-report.html", "skill-audit.html",
                         "index.html", "landing-a.html", "landing-b.html",
-                        "landing-c.html", "landing-d.html", "arena.html"}
+                        "landing-c.html", "landing-d.html", "arena.html", "map.html"}
             self.assertEqual(set(written), expected)
             for p in written.values():
                 self.assertGreater(p.stat().st_size, 500)
