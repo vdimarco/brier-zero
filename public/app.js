@@ -334,7 +334,10 @@ async function shareMatch(match) {
 }
 
 function forecastRow(model, pred, match, bestBrier) {
-  const name = model.id === MARKET_ID ? marketLabel(esc(model.label)) : esc(model.label);
+  // plainName goes into attributes (title/aria-label); name is visible HTML
+  // and may carry the market-tip markup, whose quotes would break attributes.
+  const plainName = esc(model.label);
+  const name = model.id === MARKET_ID ? marketLabel(plainName) : plainName;
   const crest = model.icon
     ? `<img class="crest" src="${esc(model.icon)}" alt="" onerror="this.style.visibility='hidden'">`
     : '';
@@ -358,7 +361,7 @@ function forecastRow(model, pred, match, bestBrier) {
   const aria = outs.map((o) => `${outcomeLabel(match, o, market)} ${pct(pred.probs[o])}%`).join(', ');
   return `<div class="frow${best}" title="${tip}">
     <div class="fmodel">${crest}${name}${pred.demo ? ' (demo)' : ''}</div>
-    <div class="bar" role="img" aria-label="${name}: ${esc(aria)}">
+    <div class="bar" role="img" aria-label="${plainName}: ${esc(aria)}">
       ${outs.map((o) => seg(o, pred.probs[o], outcomeLabel(match, o, market))).join('')}
     </div>
     ${brierCell}
