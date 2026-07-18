@@ -2,8 +2,8 @@
   "method": "retro-backtest",
   "scope": "knockout",
   "matchCount": 30,
-  "note": "Same locked pre-kickoff knockout prompt, run after full time across every finished knockout tie (R32→SF). Lower average Brier is sharper; a pure two-way coin-flip is 0.500. Incomplete labs are placeholders — OpenRouter spend capped mid-run; re-run with scripts/lab-backtest.js --resume once funded.",
-  "updatedAt": "2026-07-18T04:00:00.000Z",
+  "note": "Same locked pre-kickoff knockout prompt, run after full time across every finished knockout tie (R32→SF). Lower average Brier is sharper; a pure two-way coin-flip is 0.500. A couple of rows show fewer than 30 scored: a handful of OpenRouter calls failed mid-run (rate limits) after a spend-cap top-up; re-run with scripts/lab-backtest.js --resume to fill any remaining gaps.",
+  "updatedAt": "2026-07-18T04:15:59.502Z",
   "status": "partial",
   "labs": [
     {
@@ -52,107 +52,26 @@
       ]
     },
     {
-      "id": "openai",
-      "label": "OpenAI",
-      "icon": "/icons/gpt.svg",
-      "status": "partial",
-      "models": [
-        {
-          "id": "openai/gpt-5.6-luna-pro",
-          "label": "GPT-5.6 Luna Pro",
-          "avgBrier": 0.336,
-          "scored": 30,
-          "requested": 30,
-          "bestInLab": true
-        },
-        {
-          "id": "openai/gpt-5.5-pro",
-          "label": "GPT-5.5 Pro",
-          "avgBrier": 0.379,
-          "scored": 22,
-          "requested": 30,
-          "note": "8 unparseable responses"
-        },
-        {
-          "id": "openai/gpt-5.1",
-          "label": "GPT-5.1",
-          "avgBrier": null,
-          "scored": 5,
-          "requested": 30,
-          "status": "incomplete",
-          "note": "Key limit hit mid-run — current production roster pick"
-        }
-      ]
-    },
-    {
       "id": "google",
       "label": "Google",
       "icon": "/icons/gemini.svg",
-      "status": "pending",
+      "status": "complete",
       "models": [
         {
           "id": "google/gemini-3.1-pro-preview",
           "label": "Gemini 3.1 Pro",
-          "avgBrier": null,
-          "scored": 0,
+          "avgBrier": 0.328,
+          "scored": 30,
           "requested": 30,
-          "status": "pending",
           "bestInLab": true,
-          "note": "Awaiting re-run after key top-up"
-        }
-      ]
-    },
-    {
-      "id": "xai",
-      "label": "xAI",
-      "icon": "/icons/grok.svg",
-      "status": "pending",
-      "models": [
+          "note": "Current production roster pick"
+        },
         {
-          "id": "x-ai/grok-4",
-          "label": "Grok 4",
-          "avgBrier": null,
-          "scored": 0,
-          "requested": 30,
-          "status": "pending",
-          "bestInLab": true,
-          "note": "Awaiting re-run after key top-up"
-        }
-      ]
-    },
-    {
-      "id": "deepseek",
-      "label": "DeepSeek",
-      "icon": "/icons/deepseek.svg",
-      "status": "pending",
-      "models": [
-        {
-          "id": "deepseek/deepseek-chat-v3.1",
-          "label": "DeepSeek V3.1",
-          "avgBrier": null,
-          "scored": 0,
-          "requested": 30,
-          "status": "pending",
-          "bestInLab": true,
-          "note": "Current production roster pick · awaiting re-run"
-        }
-      ]
-    },
-    {
-      "id": "moonshot",
-      "label": "Moonshot",
-      "icon": "/icons/kimi.svg",
-      "status": "pending",
-      "models": [
-        {
-          "id": "moonshotai/kimi-k2-0905",
-          "label": "Kimi K2",
-          "avgBrier": null,
-          "scored": 0,
-          "requested": 30,
-          "status": "pending",
-          "bestInLab": true,
-          "note": "Current production roster pick · awaiting re-run"
+          "id": "google/gemini-3.5-flash",
+          "label": "Gemini 3.5 Flash",
+          "avgBrier": 0.35,
+          "scored": 30,
+          "requested": 30
         }
       ]
     },
@@ -160,17 +79,101 @@
       "id": "zhipu",
       "label": "Z.ai",
       "icon": "/icons/glm.svg",
-      "status": "pending",
+      "status": "complete",
       "models": [
         {
-          "id": "z-ai/glm-4.6",
-          "label": "GLM-4.6",
-          "avgBrier": null,
-          "scored": 0,
+          "id": "z-ai/glm-5.2",
+          "label": "GLM 5.2",
+          "avgBrier": 0.33,
+          "scored": 30,
           "requested": 30,
-          "status": "pending",
+          "bestInLab": true
+        }
+      ]
+    },
+    {
+      "id": "moonshot",
+      "label": "Moonshot",
+      "icon": "/icons/kimi.svg",
+      "status": "partial",
+      "models": [
+        {
+          "id": "moonshotai/kimi-k3",
+          "label": "Kimi K3",
+          "avgBrier": 0.334,
+          "scored": 23,
+          "requested": 30,
+          "bestInLab": true
+        }
+      ]
+    },
+    {
+      "id": "openai",
+      "label": "OpenAI",
+      "icon": "/icons/gpt.svg",
+      "status": "partial",
+      "models": [
+        {
+          "id": "openai/gpt-5.1",
+          "label": "GPT-5.1",
+          "avgBrier": 0.335,
+          "scored": 30,
+          "requested": 30,
           "bestInLab": true,
-          "note": "Current production roster pick · awaiting re-run"
+          "note": "Current production roster pick"
+        },
+        {
+          "id": "openai/gpt-5.6-luna-pro",
+          "label": "GPT-5.6 Luna Pro",
+          "avgBrier": 0.336,
+          "scored": 30,
+          "requested": 30
+        },
+        {
+          "id": "openai/gpt-5.5-pro",
+          "label": "GPT-5.5 Pro",
+          "avgBrier": 0.344,
+          "scored": 24,
+          "requested": 30
+        }
+      ]
+    },
+    {
+      "id": "xai",
+      "label": "xAI",
+      "icon": "/icons/grok.svg",
+      "status": "complete",
+      "models": [
+        {
+          "id": "x-ai/grok-4.5",
+          "label": "Grok 4.5",
+          "avgBrier": 0.344,
+          "scored": 30,
+          "requested": 30,
+          "bestInLab": true
+        },
+        {
+          "id": "x-ai/grok-4.3",
+          "label": "Grok 4.3",
+          "avgBrier": 0.345,
+          "scored": 30,
+          "requested": 30
+        }
+      ]
+    },
+    {
+      "id": "deepseek",
+      "label": "DeepSeek",
+      "icon": "/icons/deepseek.svg",
+      "status": "complete",
+      "models": [
+        {
+          "id": "deepseek/deepseek-v4-pro",
+          "label": "DeepSeek V4 Pro",
+          "avgBrier": 0.346,
+          "scored": 30,
+          "requested": 30,
+          "bestInLab": true
         }
       ]
     },
@@ -178,17 +181,15 @@
       "id": "qwen",
       "label": "Qwen",
       "icon": "/icons/qwen.svg",
-      "status": "pending",
+      "status": "complete",
       "models": [
         {
-          "id": "qwen/qwen3-max",
-          "label": "Qwen3-Max",
-          "avgBrier": null,
-          "scored": 0,
+          "id": "qwen/qwen3.7-max",
+          "label": "Qwen3.7 Max",
+          "avgBrier": 0.352,
+          "scored": 30,
           "requested": 30,
-          "status": "pending",
-          "bestInLab": true,
-          "note": "Current production roster pick · awaiting re-run"
+          "bestInLab": true
         }
       ]
     }
