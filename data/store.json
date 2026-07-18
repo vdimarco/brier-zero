@@ -24330,6 +24330,91 @@
             "rationale": "England's 4-0 lead at the 46th minute makes an away win overwhelmingly probable with France needing a miraculous comeback."
           }
         }
+      },
+      {
+        "at": "2026-07-18T22:12:04.604Z",
+        "detail": "49'",
+        "score": [
+          1,
+          4
+        ],
+        "events": 5,
+        "period": "STATUS_SECOND_HALF",
+        "market": "regulation",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.01,
+              "draw": 0.02,
+              "away": 0.97
+            },
+            "rationale": "England lead 4-1 with only ~41 minutes plus stoppage remaining; France would need three goals just to draw, making an England win overwhelmingly likely."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.04,
+              "draw": 0.08,
+              "away": 0.88
+            },
+            "rationale": "England lead by three goals early in the second half, making a French comeback or draw possible but still quite unlikely given typical scoring rates."
+          },
+          "deepseek/deepseek-v4-pro": {
+            "probs": {
+              "home": 0.001,
+              "draw": 0.004,
+              "away": 0.995
+            },
+            "rationale": "England's three-goal lead with 41 minutes remaining is historically extremely secure, making a France comeback or draw highly improbable."
+          },
+          "moonshotai/kimi-k3": {
+            "probs": {
+              "home": 0.02,
+              "draw": 0.06,
+              "away": 0.92
+            },
+            "rationale": "England's three-goal cushion with ~41 minutes left is historically nearly insurmountable, and even with Mbappé's 48' goal giving France slight momentum, France would need at least three more unanswered goals against a strong England side just to force a draw."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0.03,
+              "draw": 0.04,
+              "away": 0.93
+            },
+            "rationale": "England holds a commanding 4-1 lead entering the second half, and while Mbappé's early goal gives France a flicker of momentum, overcoming a three-goal deficit in 40 minutes is highly improbable."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.01,
+              "draw": 0.03,
+              "away": 0.96
+            },
+            "rationale": "England's commanding 3-goal lead at the start of the second half makes an England win near-certain, as comebacks of this magnitude in ~41 minutes are historically extremely rare even for a team of France's caliber."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.02,
+              "draw": 0.04,
+              "away": 0.94
+            },
+            "rationale": "England's commanding 4-1 lead with over 40 minutes remaining makes a France comeback highly unlikely though not impossible."
+          },
+          "google/gemini-3.1-pro-preview": {
+            "probs": {
+              "home": 0.008,
+              "draw": 0.032,
+              "away": 0.96
+            },
+            "rationale": "Despite France's early second-half goal, overcoming a three-goal deficit in just over 40 minutes against a strong England side remains highly improbable."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0.04,
+              "draw": 0.12,
+              "away": 0.84
+            },
+            "rationale": "England's 3-goal lead with ~40 min left makes them heavy favorites; France comeback to win is rare while a draw requires net +3 unanswered."
+          }
+        }
       }
     ]
   },
