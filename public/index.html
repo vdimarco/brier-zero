@@ -51,7 +51,7 @@
 
     <section id="roster-section" aria-labelledby="roster-title">
       <h2 id="roster-title">The competitors</h2>
-      <p class="explainer">Eight AI models, one identical prompt per match — the same words, only the fixture changes — plus <strong>The Market</strong>: TxODDS StablePrice consensus odds via TxLINE on Solana, de-vigged and scored under the same Brier rules.</p>
+      <p class="explainer">Eight AI models, one identical prompt per match — the same words, only the fixture changes — plus <span class="market-tip" tabindex="0" role="button" aria-haspopup="dialog" aria-label="What is The Market and where do its numbers come from?"><strong>The Market</strong><span class="market-tip-mark" aria-hidden="true">?</span></span>: TxODDS StablePrice consensus odds via TxLINE on Solana, de-vigged and scored under the same Brier rules.</p>
       <div id="roster" class="roster" aria-label="Model roster"></div>
     </section>
 
@@ -82,7 +82,7 @@
           </ul>
           <p class="brier-tip-foot"><b>Lower is better.</b> Being right with the right amount of confidence beats loud conviction in the wrong direction — that calibration is what this cup ranks.</p>
         </span>
-      </span> over each match's outcomes: 0 is a perfect forecast, a know-nothing coin flip scores 0.667 on a three-way group match and 0.5 on a two-way knockout tie, 2 is maximally wrong. Lower is better. <strong>The Market</strong> is bookmaker consensus, not an LLM. Finished cards with a green badge mean the final score was Merkle-proved against TxODDS’s on-chain daily root on Solana. Click a model for its performance over time.</p>
+      </span> over each match's outcomes: 0 is a perfect forecast, a know-nothing coin flip scores 0.667 on a three-way group match and 0.5 on a two-way knockout tie, 2 is maximally wrong. Lower is better. <span class="market-tip" tabindex="0" role="button" aria-haspopup="dialog" aria-label="What is The Market and where do its numbers come from?"><strong>The Market</strong><span class="market-tip-mark" aria-hidden="true">?</span></span> is bookmaker consensus, not an LLM. Finished cards with a green badge mean the final score was Merkle-proved against TxODDS’s on-chain daily root on Solana. Click a model for its performance over time.</p>
       <div id="leaderboard" class="skeleton-block" aria-live="polite"></div>
     </section>
 
@@ -125,6 +125,21 @@
   <footer class="foot">
     <p>Match scores from ESPN’s public World Cup feed. AI forecasts via OpenRouter with one identical prompt per model — only pre-kickoff locks count. Market lines from <strong>TxODDS StablePrice</strong> over <strong>TxLINE</strong> on Solana; settled scores can show a “Score verified on Solana” badge when the Merkle proof matches the on-chain daily root. Built for the Superteam × TxODDS World Cup hackathon.</p>
   </footer>
+
+  <div id="market-modal" hidden>
+    <div class="mkt-scrim" data-mkt-close></div>
+    <section class="mkt-panel" role="dialog" aria-modal="true" aria-labelledby="mkt-title">
+      <button class="mkt-close" data-mkt-close aria-label="Close">✕</button>
+      <h3 id="mkt-title">The Market — where its numbers come from</h3>
+      <p><strong>The Market</strong> is not an AI. It's the real betting market, entered as a competitor on the same scoreboard.</p>
+      <ul>
+        <li><b>Odds source:</b> <strong>TxODDS StablePrice</strong> — a stability-weighted consensus of bookmaker 1X2 prices across the market.</li>
+        <li><b>Delivery:</b> streamed by <strong>TxLINE on Solana</strong>. Settled match scores are verified against TxODDS's Merkle daily roots on-chain — that's the "Score verified on Solana" badge on finished cards.</li>
+        <li><b>Scoring:</b> we strip the bookmakers' margin (the vig) from the raw prices and Brier-score the implied probabilities under exactly the same rules as every model.</li>
+      </ul>
+      <p class="mkt-foot">Like the models, only its pre-kickoff line counts toward the leaderboard.</p>
+    </section>
+  </div>
 
   <script src="app.js"></script>
 </body>
