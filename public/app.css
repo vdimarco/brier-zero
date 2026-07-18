@@ -786,6 +786,9 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
   cursor: help;
   outline: none;
 }
+/* Same invisible touch-target growth as .market-tip: these sit inline in
+   prose at ~20px tall, well under comfortable tap size. */
+.brier-tip::before { content: ""; position: absolute; inset: -9px -4px; }
 .brier-tip-label {
   display: inline-flex;
   align-items: center;
@@ -899,7 +902,7 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
 .lb-view-btn {
   border: 1px solid var(--hairline); background: #fff; cursor: pointer;
   color: var(--ink-2); font: 650 12.5px system-ui, sans-serif;
-  padding: 7px 14px; border-radius: 999px;
+  padding: 11px 16px; border-radius: 999px;
 }
 .lb-view-btn + .lb-view-btn { margin-left: -4px; }
 .lb-view-btn.active {
@@ -1130,7 +1133,7 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
 .detail-share {
   background: var(--pitch); color: #fff; border: 0;
   border-radius: var(--radius-btn); font: 650 13px system-ui, sans-serif;
-  padding: 7px 15px; cursor: pointer;
+  padding: 10px 16px; cursor: pointer;
 }
 .detail-share:hover { background: var(--pitch-deep); }
 .detail-share:active { transform: translateY(1px); }
@@ -1228,6 +1231,10 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
   }
   .trophy-list.sparse .trophy-team { font-size: 15px; }
   .trophy-list.sparse .trophy-p { font-size: 17px; }
+  /* The .leader variants set larger desktop sizes at higher specificity;
+     re-cap them here so "100%" fits the 44px column after the final. */
+  .trophy-list.sparse .trophy-row.leader .trophy-p { font-size: 17px; }
+  .trophy-list.sparse .trophy-rank.gold { font-size: 18px; }
   .trophy-list.sparse .trophy-row .flag { width: 26px; height: 26px; }
 
   /* Kickoff/status moves under the fixture so team names get full width. */
@@ -1262,7 +1269,7 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
   .game-team { font-size: 15px; }
   .game-score { font-size: 15px; padding: 2px 9px; }
   .game-pick { font-size: 13.5px; padding: 11px 13px; }
-  .detail-share { padding: 6px 12px; font-size: 12.5px; }
+  .detail-share { padding: 10px 14px; font-size: 12.5px; }
 }
 
 
@@ -1331,9 +1338,12 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
 /* The Market: every mention is a tap target opening the sourcing modal. */
 .market-tip {
   display: inline-flex; align-items: center; gap: 4px;
-  cursor: pointer; min-width: 0;
+  cursor: pointer; min-width: 0; position: relative;
   border-bottom: 1px dashed rgba(10, 122, 51, 0.45);
 }
+/* Inline in prose, so grow the touch target with an invisible overlay
+   instead of padding that would push the underline off the text. */
+.market-tip::after { content: ""; position: absolute; inset: -9px -4px; }
 .market-tip:hover, .market-tip:focus-visible { border-bottom-color: var(--pitch); color: var(--pitch-deep); }
 .market-tip:focus-visible { outline: 1px solid var(--pitch); outline-offset: 2px; border-radius: 3px; }
 .market-tip-mark {
@@ -1373,3 +1383,17 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
 }
 #market-modal .mkt-close:hover, #market-modal .mkt-close:focus-visible { background: var(--surface-2); color: var(--ink); }
 body.mkt-open { overflow: hidden; }
+
+/* On phones, tip popovers anchored to an inline label clip at the viewport
+   edge (the label often sits near the margin). Present them as centered
+   mini-modals instead; the wordmark tip keeps its own under-topbar layout. */
+@media (max-width: 560px) {
+  .brier-tip:not(.brier-tip-wordmark) .brier-tip-pop {
+    position: fixed; left: 50% !important; top: 50%; bottom: auto;
+    transform: translate(-50%, -50%) !important;
+    width: min(340px, calc(100vw - 32px));
+    max-height: 76vh; overflow-y: auto;
+    z-index: 70;
+  }
+  .brier-tip:not(.brier-tip-wordmark) .brier-tip-pop::after { display: none; }
+}

@@ -206,7 +206,11 @@ if (typeof document !== 'undefined') {
       e.stopPropagation();
       openMarketModal();
     }
-    if (e.key === 'Escape') closeMarketModal();
+    if (e.key === 'Escape') {
+      closeMarketModal();
+      // Close tip popovers too, wherever focus is.
+      document.querySelectorAll('.brier-tip.open').forEach((t) => t.classList.remove('open'));
+    }
   }, true);
 }
 
