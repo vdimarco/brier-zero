@@ -320,7 +320,10 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
 .trophy-chart { min-width: 0; position: relative; }
 .trophy-svg, .lb-svg { cursor: crosshair; }
 
-/* Knockout bracket — horizontal rounds, vertical forks */
+/* Knockout bracket — horizontal rounds, vertical forks.
+   R32 has 16 match cards (~56px each). They must not share a short
+   column: flex min-height:0 was collapsing pair/leaf slots so siblings
+   overlapped. Size from content and grow the bracket to fit. */
 .bracket-wrap {
   background:
     radial-gradient(ellipse 55% 45% at 88% 50%, rgba(227, 179, 65, 0.16), transparent 55%),
@@ -333,18 +336,22 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
   -webkit-overflow-scrolling: touch;
 }
 .bracket {
+  --bk-match-h: 56px;
+  --bk-pair-gap: 10px;
   display: grid;
   grid-template-columns: repeat(5, minmax(150px, 1fr));
   gap: 0 4px;
   min-width: 860px;
-  min-height: 680px;
+  /* 16 R32 cards + 8 in-pair gaps + label row; leftover space grows pairs. */
+  min-height: calc(16 * var(--bk-match-h) + 8 * var(--bk-pair-gap) + 48px);
   align-items: stretch;
 }
 .bk-round {
   display: flex;
   flex-direction: column;
   min-width: 0;
-  height: 100%;
+  /* Stretch with the tallest column; never clip children. */
+  min-height: 100%;
 }
 .bk-round-label {
   color: rgba(255, 255, 255, 0.72);
@@ -368,34 +375,38 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
   .bk-round-full { display: inline; }
 }
 .bk-col {
-  flex: 1;
+  flex: 1 1 auto;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  min-height: 0;
+  /* Grow with content so R32 pairs never collapse into each other. */
+  min-height: min-content;
+  gap: 0;
 }
 .bk-pair {
-  flex: 1 1 0;
+  flex: 1 1 auto;
   display: grid;
   grid-template-columns: 1fr 14px;
   align-items: stretch;
-  min-height: 0;
+  /* Two match cards + gap between them — never smaller. */
+  min-height: calc(2 * var(--bk-match-h) + var(--bk-pair-gap));
   position: relative;
 }
 .bk-pair-kids {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  min-height: 0;
-  gap: 4px;
+  min-height: min-content;
+  gap: var(--bk-pair-gap);
   padding: 2px 0;
 }
 .bk-leaf {
   display: flex;
   align-items: center;
-  min-height: 0;
-  flex: 1 1 0;
+  flex: 1 1 auto;
+  min-height: var(--bk-match-h);
   padding: 2px 0;
+  position: relative;
 }
 .bk-fork {
   position: relative;
@@ -425,7 +436,6 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
   transform: translateY(-50%);
   border-radius: 1px;
 }
-.bk-leaf { position: relative; }
 /* Short stem from each match card into the fork bar */
 .bk-round:not([data-stage="final"]) .bk-leaf::after {
   content: "";
@@ -443,6 +453,8 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
   display: grid;
   grid-template-rows: 1fr 1fr;
   width: 100%;
+  min-height: var(--bk-match-h);
+  flex-shrink: 0;
   text-decoration: none;
   color: inherit;
   background: rgba(255, 255, 255, 0.07);
@@ -580,7 +592,11 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
 .bk-legend { color: rgba(255, 255, 255, 0.55) !important; margin: 10px 4px 2px !important; }
 
 @media (max-width: 700px) {
-  .bracket { min-height: 560px; min-width: 760px; }
+  .bracket {
+    --bk-match-h: 52px;
+    --bk-pair-gap: 8px;
+    min-width: 760px;
+  }
   .bk-side { font-size: 10.5px; padding: 4px 6px; min-height: 24px; }
 }
 .chart-tip {
