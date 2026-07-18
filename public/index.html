@@ -41,7 +41,7 @@
 
     <section id="roster-section" aria-labelledby="roster-title">
       <h2 id="roster-title">The competitors</h2>
-      <p class="explainer">Eight AI models, one identical prompt per match — the same words, only the fixture changes.</p>
+      <p class="explainer">Eight AI models, one identical prompt per match — the same words, only the fixture changes — plus <strong>The Market</strong>: TxODDS StablePrice consensus odds via TxLINE on Solana, de-vigged and scored under the same Brier rules.</p>
       <div id="roster" class="roster" aria-label="Model roster"></div>
     </section>
 
@@ -59,7 +59,20 @@
 
     <section id="leaderboard-section" aria-labelledby="lb-title">
       <h2 id="lb-title">Model leaderboard</h2>
-      <p class="explainer">Brier score over each match's outcomes: 0 is a perfect forecast, a know-nothing coin flip scores 0.667 on a three-way group match and 0.5 on a two-way knockout tie, 2 is maximally wrong. Lower is better. Click a model for its performance over time.</p>
+      <p class="explainer"><span class="brier-tip brier-tip-static" tabindex="0" role="button" aria-label="What is a Brier score?">
+        <span class="brier-tip-label">Brier score<span class="brier-tip-mark" aria-hidden="true">?</span></span>
+        <span class="brier-tip-pop" role="tooltip">
+          <strong class="brier-tip-title">What is a Brier score?</strong>
+          <p>A Brier score measures how well a probability forecast matches the real outcome. For every possible result you square the gap between the probability you gave it and what actually happened (1 for the true result, 0 for the others), then sum those squares.</p>
+          <ul>
+            <li><b>0</b> — perfect forecast (you put 100% on the winner)</li>
+            <li><b>0.5</b> — two-way coin flip (knockout ties)</li>
+            <li><b>0.667</b> — three-way coin flip (group-stage 1X2)</li>
+            <li><b>2</b> — maximally wrong (100% on a result that didn't happen)</li>
+          </ul>
+          <p class="brier-tip-foot"><b>Lower is better.</b> Being right with the right amount of confidence beats loud conviction in the wrong direction — that calibration is what this cup ranks.</p>
+        </span>
+      </span> over each match's outcomes: 0 is a perfect forecast, a know-nothing coin flip scores 0.667 on a three-way group match and 0.5 on a two-way knockout tie, 2 is maximally wrong. Lower is better. <strong>The Market</strong> is the ninth row — bookmaker consensus, not an LLM. Finished cards with a green badge mean the final score was Merkle-proved against TxODDS’s on-chain daily root on Solana. Click a model for its performance over time.</p>
       <div id="leaderboard" class="skeleton-block" aria-live="polite"></div>
     </section>
 
@@ -100,7 +113,7 @@
   </section>
 
   <footer class="foot">
-    <p>Scores from ESPN's public World Cup feed. Forecasts collected through OpenRouter with the same prompt for every model. Only forecasts stored before kickoff count.</p>
+    <p>Match scores from ESPN’s public World Cup feed. AI forecasts via OpenRouter with one identical prompt per model — only pre-kickoff locks count. Market lines from <strong>TxODDS StablePrice</strong> over <strong>TxLINE</strong> on Solana; settled scores can show a “Score verified on Solana” badge when the Merkle proof matches the on-chain daily root. Built for the Superteam × TxODDS World Cup hackathon.</p>
   </footer>
 
   <script src="app.js"></script>

@@ -39,6 +39,63 @@ function pct(p) {
   return Math.round(p * 100);
 }
 
+/* Hover/focus popover explaining the Brier score. Used wherever "Brier"
+   appears as a label or next to a score so readers don't have to scroll
+   for the definition. `compact` drops the examples for tight cells. */
+const BRIER_TIP_BODY = `
+  <strong class="brier-tip-title">What is a Brier score?</strong>
+  <p>A Brier score measures how well a probability forecast matches the real outcome. For every possible result you square the gap between the probability you gave it and what actually happened (1 for the true result, 0 for the others), then sum those squares.</p>
+  <ul>
+    <li><b>0</b> — perfect forecast (you put 100% on the winner)</li>
+    <li><b>0.5</b> — two-way coin flip (knockout ties)</li>
+    <li><b>0.667</b> — three-way coin flip (group-stage 1X2)</li>
+    <li><b>2</b> — maximally wrong (100% on a result that didn't happen)</li>
+  </ul>
+  <p class="brier-tip-foot"><b>Lower is better.</b> Being right with the right amount of confidence beats loud conviction in the wrong direction — that calibration is what this cup ranks.</p>
+`;
+
+function brierTip(label = 'Brier', { compact = false } = {}) {
+  const body = compact
+    ? `<strong class="brier-tip-title">Brier score</strong>
+       <p>How close a probability forecast was to the real outcome. <b>0</b> is perfect, a coin flip is <b>0.5</b> (knockout) or <b>0.667</b> (group), <b>2</b> is maximally wrong. <b>Lower is better.</b></p>`
+    : BRIER_TIP_BODY;
+  return `<span class="brier-tip" tabindex="0" role="button" aria-label="What is a Brier score?">
+    <span class="brier-tip-label">${esc(label)}<span class="brier-tip-mark" aria-hidden="true">?</span></span>
+    <span class="brier-tip-pop" role="tooltip">${body}</span>
+  </span>`;
+}
+
+// Click/tap outside closes any open tip; tip itself toggles on click so
+// touch devices get the same definition without a true hover.
+function wireBrierTips(root = document) {
+  const tips = root.querySelectorAll?.('.brier-tip') ?? [];
+  for (const tip of tips) {
+    if (tip.dataset.wired) continue;
+    tip.dataset.wired = '1';
+    tip.addEventListener('click', (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      const open = tip.classList.contains('open');
+      document.querySelectorAll('.brier-tip.open').forEach((t) => t.classList.remove('open'));
+      if (!open) tip.classList.add('open');
+    });
+    tip.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        tip.click();
+      }
+      if (e.key === 'Escape') tip.classList.remove('open');
+    });
+  }
+}
+if (typeof document !== 'undefined') {
+  document.addEventListener('pointerdown', (e) => {
+    if (!e.target.closest?.('.brier-tip')) {
+      document.querySelectorAll('.brier-tip.open').forEach((t) => t.classList.remove('open'));
+    }
+  });
+}
+
 function countdown(iso) {
   const ms = new Date(iso) - Date.now();
   if (ms <= 0) return 'kicking off';
@@ -180,7 +237,7 @@ function forecastRow(model, pred, match, bestBrier) {
   let best = '';
   if (pred.brier != null) {
     best = pred.brier === bestBrier ? ' best' : '';
-    brierCell = `<div class="fbrier">${pred.brier.toFixed(3)}</div>`;
+    brierCell = `<div class="fbrier" title="Brier score for this match — lower is better">${pred.brier.toFixed(3)}</div>`;
   } else if (!pred.eligible && match.status.state !== 'pre') {
     brierCell = '<div class="fbrier" title="Collected after kickoff, excluded from scoring">late</div>';
   }
@@ -692,7 +749,7 @@ function renderLeaderboard(state) {
   </button>` : ''}${koChart ? `<div class="lb-chart-card">
     <div class="lb-chart-head">
       <h3 class="lb-chart-title">Knockout form</h3>
-      <p class="lb-chart-sub">Running average Brier · lower is sharper · ★ marks the current leader</p>
+      <p class="lb-chart-sub">Running average ${brierTip('Brier')} · lower is sharper · ★ marks the current leader</p>
     </div>
     <div class="chart lb-chart-plot">${koChart}</div>
     <p class="fnote lb-chart-note">Averaged match-by-match from the round of 32. The dashed line is the coin-flip baseline (0.667 three-way, then 0.5 two-way after the market switch). Hover any match for a full standing.</p>
@@ -727,7 +784,7 @@ function renderLeaderboard(state) {
           sparkline(r.perMatch) ? `<div class="lb-spark">${sparkline(r.perMatch)}${trendBadge}</div>` : ''
         }</div></div>
         <div class="lb-score">
-          <div class="lb-brier">${r.avgBrier == null ? '-' : r.avgBrier.toFixed(3)}</div>
+          <div class="lb-brier" title="Average Brier score — lower is better">${r.avgBrier == null ? '-' : r.avgBrier.toFixed(3)}</div>
           <div class="lb-meta">${bt ? 'backtest · ' : ''}${r.scored} scored / ${r.predicted} forecast${r.predicted === 1 ? '' : 's'}</div>
         </div>
       </div>`;
@@ -741,9 +798,14 @@ function renderLeaderboard(state) {
         }</p>`
       : ''
   }`;
+  wireBrierTips(el);
   for (const row of el.querySelectorAll('[data-model]')) {
     const open = () => { location.hash = `p/${encodeURIComponent(row.dataset.model)}`; };
-    row.addEventListener('click', open);
+    row.addEventListener('click', (e) => {
+      // Don't navigate into the model when the reader is opening the tip.
+      if (e.target.closest('.brier-tip')) return;
+      open();
+    });
     row.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
     });
@@ -1020,7 +1082,7 @@ function renderModelDetail(state, modelId) {
       <button class="detail-close" data-close aria-label="Close">✕</button>
     </div>
     <div class="stat-row">
-      <div class="stat"><div class="stat-v">${row.avgBrier == null ? '-' : row.avgBrier.toFixed(3)}</div><div class="stat-l">avg Brier</div></div>
+      <div class="stat"><div class="stat-v">${row.avgBrier == null ? '-' : row.avgBrier.toFixed(3)}</div><div class="stat-l">avg ${brierTip('Brier', { compact: true })}</div></div>
       <div class="stat"><div class="stat-v">${row.scored}</div><div class="stat-l">scored</div></div>
       <div class="stat"><div class="stat-v">${points.filter(beats).length}</div><div class="stat-l">beat the coin flip</div></div>
     </div>
@@ -1034,6 +1096,7 @@ function renderModelDetail(state, modelId) {
     ` : '<p class="fnote">No scored forecasts yet.</p>'}
   </section>`;
   document.body.style.overflow = 'hidden';
+  wireBrierTips(el);
   for (const c of el.querySelectorAll('[data-close]')) {
     c.addEventListener('click', closeDetail);
   }
@@ -1734,6 +1797,8 @@ async function refresh(force = false) {
     renderLeaderboard(state);
     renderMatches(state);
     renderDetail(state);
+    // Static tips in index.html (leaderboard explainer) + any re-rendered ones.
+    wireBrierTips(document);
     if (state.prompts) {
       $('#prompt-locked').textContent = state.prompts.locked;
       $('#prompt-live').textContent = state.prompts.live;

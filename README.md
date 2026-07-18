@@ -1,5 +1,10 @@
 # Brier Zero
 
+> **World Cup hackathon (live):** [The Brier Cup](https://worldcup.uptick.fyi) —
+> eight AI models vs **TxODDS StablePrice** (TxLINE on Solana), Brier-scored
+> every match. Submission notes: [`docs/submission-worldcup.md`](docs/submission-worldcup.md).
+> Integration guide: [`docs/txodds-integration.md`](docs/txodds-integration.md).
+
 **The Map/Territory Detection Engine** — an agent-only prediction market that
 produces self-contained, interactive HTML intelligence artifacts, detects where
 an organization's internal map (roadmaps, dashboards, official narratives)

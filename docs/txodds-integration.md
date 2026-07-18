@@ -104,4 +104,35 @@ TXODDS_API_TOKEN=        # required to enable the integration
 TXODDS_ENV=mainnet       # or devnet
 TXODDS_COMPETITION_ID=72 # FIFA World Cup on the TxLINE feed
 TXODDS_API_ORIGIN=       # explicit origin override (rare)
+SOLANA_RPC_URL=          # optional; defaults to public cluster RPC
 ```
+
+### Production (Vercel)
+
+The leaderboard and Solana verification badges load from the committed
+ledger in `data/store.json` even when the token is unset. **Live odds
+strips** and runtime backfill need the token on the serverless function:
+
+1. In the Vercel project for `worldcup.uptick.fyi`, set Production env:
+   - `TXODDS_API_TOKEN` (from `scripts/txodds-setup.mjs`)
+   - `TXODDS_ENV` (`devnet` or `mainnet` — match the token’s cluster)
+2. Redeploy (or wait for the next git push).
+3. Confirm: `GET /api/state` → `txodds.configured === true`.
+
+Never commit `.env` or `data/txodds-wallet.json`.
+
+## Score verification (Solana)
+
+```bash
+node scripts/verify-results.js
+```
+
+For each finished match with a TxLINE final-score sequence, the script
+fetches a stat-validation proof, recomputes the Merkle root locally
+(`recomputeRoot` in `lib/txodds.js`), and checks it against the
+`daily_scores_roots` PDA on the TxODDS program. Results land in
+`data/store.json` under `proofs[matchId]`; the UI renders
+**Score verified on Solana ✓** when `verified: true`.
+
+Unit tests for the Merkle fold live in `test/proof.test.js` against a
+captured payload in `test/fixtures/stat-validation.json`.
