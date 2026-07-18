@@ -380,8 +380,9 @@ function sparkline(perMatch) {
   </svg>`;
 }
 
-const MODEL_COLORS = ['#2563eb', '#dc2626', '#f59e0b', '#7c3aed', '#0891b2', '#a3550a', '#db2777', '#4f46e5'];
-const LB_GEO = { W: 720, H: 320, padL: 42, padR: 96, padT: 18, padB: 56 };
+// Soft, CVD-friendly palette — Market/blue leads, then distinct warm/cool pairs.
+const MODEL_COLORS = ['#1d4ed8', '#c2410c', '#0f766e', '#7c3aed', '#b45309', '#be123c', '#0369a1', '#4d7c0f', '#9333ea'];
+const LB_GEO = { W: 760, H: 360, padL: 48, padR: 108, padT: 28, padB: 58 };
 let lbDismiss = null; // the current dismiss-on-outside-tap listener
 
 /* The knockout-phase series shared by the chart renderer and its hover
@@ -430,55 +431,131 @@ function leaderboardChart(state) {
   if (!data) return null;
   const { koMatches, n, series, baselineAt, yMax } = data;
   const { W, H, padL, padR, padT, padB } = LB_GEO;
-  const x = (i) => (n === 1 ? padL : padL + (i * (W - padL - padR)) / (n - 1));
-  const y = (v) => padT + (1 - v / yMax) * (H - padT - padB);
-  const step = n > 14 ? Math.ceil(n / 10) : 1;
+  const plotW = W - padL - padR;
+  const plotH = H - padT - padB;
+  const x = (i) => (n === 1 ? padL : padL + (i * plotW) / (n - 1));
+  const y = (v) => padT + (1 - v / yMax) * plotH;
+  const step = n > 12 ? Math.ceil(n / 8) : Math.max(1, Math.ceil(n / 10));
+
+  // Leader = lowest final running average (sharpest). Emphasize it; fade the rest.
+  const ranked = series
+    .map((s) => ({ s, final: s.points[s.points.length - 1].cum }))
+    .sort((a, b) => a.final - b.final);
+  const leaderId = ranked[0]?.s.model;
+  const isLeader = (s) => s.model === leaderId;
 
   let svg = `<svg class="lb-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Running average Brier score for every model over the knockout phase">`;
+  svg += `<defs>
+    <linearGradient id="lb-plot-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f7f8f4"/>
+      <stop offset="100%" stop-color="#eef3ea"/>
+    </linearGradient>
+    <linearGradient id="lb-good-zone" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="rgba(10,122,51,0.10)"/>
+      <stop offset="55%" stop-color="rgba(10,122,51,0.03)"/>
+      <stop offset="100%" stop-color="rgba(10,122,51,0)"/>
+    </linearGradient>
+    <filter id="lb-glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="2.2" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>`;
+
+  // Soft plot panel
+  svg += `<rect x="${padL}" y="${padT}" width="${plotW}" height="${plotH}" rx="12" fill="url(#lb-plot-bg)"/>`;
+  // Lower Brier is better — a gentle green wash along the bottom.
+  svg += `<rect x="${padL}" y="${padT + plotH * 0.45}" width="${plotW}" height="${plotH * 0.55}" rx="0" fill="url(#lb-good-zone)"/>`;
+  // Clip bottom corners of the wash to the panel
+  svg += `<rect x="${padL}" y="${padT}" width="${plotW}" height="${plotH}" rx="12" fill="none" stroke="rgba(23,46,22,0.06)" stroke-width="1"/>`;
+
+  // Horizontal guides
   for (const g of [0, yMax / 2, yMax]) {
-    svg += `<line x1="${padL}" y1="${y(g).toFixed(1)}" x2="${W - padR}" y2="${y(g).toFixed(1)}" stroke="var(--hairline)" stroke-width="1" stroke-dasharray="${g === 0 ? '0' : '3 4'}"/>`;
-    svg += `<text x="${padL - 8}" y="${y(g).toFixed(1)}" dy="3.5" text-anchor="end" font-size="10.5" fill="var(--ink-3)">${g.toFixed(2)}</text>`;
+    const gy = y(g);
+    const isBase = g === 0;
+    svg += `<line x1="${padL}" y1="${gy.toFixed(1)}" x2="${W - padR}" y2="${gy.toFixed(1)}" stroke="${isBase ? 'rgba(23,46,22,0.14)' : 'rgba(23,46,22,0.07)'}" stroke-width="${isBase ? 1.25 : 1}" stroke-dasharray="${isBase ? '0' : '2 5'}"/>`;
+    svg += `<text x="${padL - 10}" y="${gy.toFixed(1)}" dy="3.5" text-anchor="end" font-size="11" font-weight="600" fill="var(--ink-3)">${g.toFixed(2)}</text>`;
   }
-  // Stepped, not flat: the coin-flip baseline itself changed mid-sequence
-  // when the market switch shipped (0.667 three-way -> 0.5 two-way).
+  svg += `<text x="12" y="${(padT + plotH / 2).toFixed(1)}" text-anchor="middle" font-size="10" font-weight="700" fill="var(--ink-3)" transform="rotate(-90 12 ${(padT + plotH / 2).toFixed(1)})" letter-spacing="0.04em">BRIER ↓ BETTER</text>`;
+
+  // Coin-flip baseline (steps when the market switch lands)
   const knownBaselines = koMatches.map((_, i) => i).filter((i) => baselineAt[i] != null);
   if (knownBaselines.length) {
     let basePath = '';
     let prevIdx = null;
     for (const i of knownBaselines) {
       const by = y(baselineAt[i]).toFixed(1);
-      basePath += prevIdx == null ? `M${x(i).toFixed(1)},${by}` : `L${x(i).toFixed(1)},${by}`;
+      const xi = x(i).toFixed(1);
+      if (prevIdx == null) basePath += `M${xi},${by}`;
+      else {
+        // Step horizontally then drop/rise so the switch is visible as a cliff.
+        basePath += `L${xi},${y(baselineAt[prevIdx]).toFixed(1)}L${xi},${by}`;
+      }
       prevIdx = i;
     }
-    svg += `<path d="${basePath}" fill="none" stroke="var(--ink-3)" stroke-width="1" stroke-dasharray="4 4"/>`;
+    svg += `<path d="${basePath}" fill="none" stroke="rgba(82,81,78,0.55)" stroke-width="1.5" stroke-dasharray="5 4" stroke-linecap="round"/>`;
     const lastI = knownBaselines[knownBaselines.length - 1];
-    svg += `<text x="${(x(lastI) - 6).toFixed(1)}" y="${(y(baselineAt[lastI]) - 6).toFixed(1)}" text-anchor="end" font-size="10" fill="var(--ink-3)">coin flip</text>`;
+    const lx = x(lastI) - 8;
+    const ly = y(baselineAt[lastI]) - 10;
+    svg += `<rect x="${(lx - 52).toFixed(1)}" y="${(ly - 11).toFixed(1)}" width="56" height="16" rx="8" fill="rgba(255,255,255,0.92)" stroke="rgba(23,46,22,0.08)"/>`;
+    svg += `<text x="${(lx - 24).toFixed(1)}" y="${ly.toFixed(1)}" dy="3.5" text-anchor="middle" font-size="9.5" font-weight="700" fill="var(--ink-3)" letter-spacing="0.02em">coin flip</text>`;
   }
 
-  for (const s of series) {
+  // Field lines first (non-leaders), then the leader on top.
+  const drawOrder = [...series].sort((a, b) => (isLeader(a) ? 1 : 0) - (isLeader(b) ? 1 : 0));
+  for (const s of drawOrder) {
+    const leader = isLeader(s);
     const path = s.points.map((p, j) => `${j ? 'L' : 'M'}${x(p.idx).toFixed(1)},${y(p.cum).toFixed(1)}`).join('');
-    svg += `<path d="${path}" fill="none" stroke="${s.color}" stroke-width="2.25" stroke-linejoin="round" stroke-linecap="round"/>`;
-    for (const p of s.points) {
-      svg += `<circle cx="${x(p.idx).toFixed(1)}" cy="${y(p.cum).toFixed(1)}" r="2.6" fill="${s.color}" stroke="var(--surface)" stroke-width="1.2">` +
+    // Soft under-glow for the leader only
+    if (leader) {
+      svg += `<path d="${path}" fill="none" stroke="${s.color}" stroke-width="6" stroke-opacity="0.14" stroke-linejoin="round" stroke-linecap="round"/>`;
+    }
+    svg += `<path d="${path}" fill="none" stroke="${s.color}" stroke-width="${leader ? 3 : 1.75}" stroke-opacity="${leader ? 1 : 0.72}" stroke-linejoin="round" stroke-linecap="round"${leader ? ' filter="url(#lb-glow)"' : ''}/>`;
+    // Endpoints only — mid-series dots cluttered the old chart.
+    const last = s.points[s.points.length - 1];
+    const first = s.points[0];
+    for (const p of [first, last]) {
+      svg += `<circle cx="${x(p.idx).toFixed(1)}" cy="${y(p.cum).toFixed(1)}" r="${leader ? 4 : 3}" fill="${s.color}" stroke="#fff" stroke-width="1.6">` +
         `<title>${esc(s.label)} after ${esc(p.shortName)}: ${p.cum.toFixed(3)}</title></circle>`;
     }
   }
 
+  // End labels as color pills, de-overlapped
   const ends = series
-    .map((s) => ({ ...s, idx: s.points[s.points.length - 1].idx, y: y(s.points[s.points.length - 1].cum) }))
+    .map((s) => ({
+      ...s,
+      leader: isLeader(s),
+      idx: s.points[s.points.length - 1].idx,
+      y: y(s.points[s.points.length - 1].cum),
+      final: s.points[s.points.length - 1].cum,
+    }))
     .sort((a, b) => a.y - b.y);
   for (let i = 1; i < ends.length; i++) {
-    if (ends[i].y - ends[i - 1].y < 13) ends[i].y = ends[i - 1].y + 13;
+    if (ends[i].y - ends[i - 1].y < 15) ends[i].y = ends[i - 1].y + 15;
   }
   for (const s of ends) {
-    svg += `<text x="${x(s.idx) + 8}" y="${s.y.toFixed(1)}" dy="3.5" font-size="11" font-weight="700" fill="${s.color}">${esc(s.label)}</text>`;
+    const label = s.label;
+    // Approx monospaced width for bold 10.5px labels + padding / star.
+    const tw = Math.ceil(label.length * 6.8 + (s.leader ? 28 : 18));
+    const tx = W - padR + 6;
+    const ty = Math.min(Math.max(s.y, padT + 8), H - padB - 8);
+    svg += `<rect x="${tx}" y="${(ty - 9).toFixed(1)}" width="${tw}" height="18" rx="9" fill="${s.color}" opacity="${s.leader ? 1 : 0.9}"/>`;
+    if (s.leader) {
+      svg += `<text x="${tx + 9}" y="${ty.toFixed(1)}" dy="3.5" font-size="9" fill="#fff" opacity="0.95">★</text>`;
+      svg += `<text x="${tx + 20}" y="${ty.toFixed(1)}" dy="3.5" font-size="10.5" font-weight="700" fill="#fff">${esc(label)}</text>`;
+    } else {
+      svg += `<text x="${tx + 9}" y="${ty.toFixed(1)}" dy="3.5" font-size="10.5" font-weight="700" fill="#fff">${esc(label)}</text>`;
+    }
   }
 
+  // X-axis match ticks (sparse, angled)
   koMatches.forEach((km, i) => {
     if (i % step !== 0 && i !== n - 1) return;
-    svg += `<text x="${x(i).toFixed(1)}" y="${H - padB + 10}" text-anchor="end" font-size="9.5" fill="var(--ink-3)" transform="rotate(-32 ${x(i).toFixed(1)} ${H - padB + 10})">${esc(km.shortName)}</text>`;
+    const xi = x(i);
+    svg += `<line x1="${xi.toFixed(1)}" y1="${(padT + plotH).toFixed(1)}" x2="${xi.toFixed(1)}" y2="${(padT + plotH + 4).toFixed(1)}" stroke="rgba(23,46,22,0.18)" stroke-width="1"/>`;
+    svg += `<text x="${xi.toFixed(1)}" y="${H - padB + 14}" text-anchor="end" font-size="9.5" font-weight="600" fill="var(--ink-3)" transform="rotate(-30 ${xi.toFixed(1)} ${H - padB + 14})">${esc(km.shortName)}</text>`;
   });
-  svg += `<line class="lb-cross" x1="0" y1="${padT}" x2="0" y2="${H - padB}" stroke="var(--ink)" stroke-width="1" stroke-dasharray="3 3" opacity="0"/>`;
+
+  svg += `<line class="lb-cross" x1="0" y1="${padT}" x2="0" y2="${H - padB}" stroke="var(--pitch)" stroke-width="1.25" stroke-dasharray="3 4" opacity="0"/>`;
   svg += '</svg>';
   return svg;
 }
@@ -613,9 +690,12 @@ function renderLeaderboard(state) {
     <span class="lb-miss-tag">Nobody saw it coming</span>
     <span class="lb-miss-body">All ${miss.count} models backed <b>${esc(miss.favored)}</b>, but <b>${esc(miss.advanced)}</b> went through ${esc(miss.score)} in the ${esc(miss.stage)}. The field gave ${esc(miss.advanced)} an average of just <b>${pct(miss.avgPct)}%</b> to advance.</span>
   </button>` : ''}${koChart ? `<div class="lb-chart-card">
-    <h3 class="lb-chart-title">Knockout phase: running average Brier score</h3>
-    <p class="fnote">One line per model, averaged match by match over every knockout tie since the round of 32 began. The dashed line is the know-nothing baseline, which itself drops from 0.667 to 0.5 partway through when the market switched from three-way to two-way. Group-stage history is excluded here; see a model's own page for its full-tournament average. Hover or tap a match for every model's standing at that point.</p>
-    <div class="chart">${koChart}</div>
+    <div class="lb-chart-head">
+      <h3 class="lb-chart-title">Knockout form</h3>
+      <p class="lb-chart-sub">Running average Brier · lower is sharper · ★ marks the current leader</p>
+    </div>
+    <div class="chart lb-chart-plot">${koChart}</div>
+    <p class="fnote lb-chart-note">Averaged match-by-match from the round of 32. The dashed line is the coin-flip baseline (0.667 three-way, then 0.5 two-way after the market switch). Hover any match for a full standing.</p>
   </div>` : ''}<div class="lb-wrap">${(() => {
     // A model with scored matches but no locked-live one yet (all its scored
     // forecasts are retro) is a backtest-only entrant — shown for comparison,
