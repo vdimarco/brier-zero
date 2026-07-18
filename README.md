@@ -121,8 +121,13 @@ TBD (will be a FOSS license; tracked in 0X5-6).
 
 Which AI model calls the World Cup best?
 
-Seven models (Claude, GPT, DeepSeek, Kimi, GLM, Qwen, MiniMax) get one identical
-prompt before each FIFA World Cup 2026 match and must commit to probabilities.
+Eight models (Claude, GPT, DeepSeek, Kimi, GLM, Qwen, MiniMax, Gemini) get one
+identical prompt before each FIFA World Cup 2026 match and must commit to
+probabilities — and they all compete against a ninth entrant that never
+hallucinates: **the betting market itself**, via
+[TxODDS TxLINE](https://txline-docs.txodds.com), de-vigged StablePrice
+consensus odds delivered over Solana and scored on the exact same Brier
+rules. Can any AI beat the market?
 Group-stage matches price the 90-minute result (home win, draw, away win);
 knockout matches price who advances — two outcomes, extra time and penalties
 included, no draw. Forecasts lock at kickoff. As real results arrive, every
@@ -137,6 +142,13 @@ wrong. Lowest average wins.
 - **Fixtures and live scores** come from ESPN's public World Cup scoreboard
   feed. No key needed. The page polls it and tightens to a 12-second refresh
   while a match is live.
+- **The Market (TxODDS)**: with TxLINE credentials configured, every match
+  card shows the live StablePrice line, and "The Market" trades on the
+  leaderboard as a competitor — its forecast is the de-vigged implied
+  probability from consensus bookmaker odds, locked at kickoff like everyone
+  else's. Knockout advance probabilities derive from the 1X2 line with the
+  draw split by relative strength (documented and unit-tested in
+  `lib/txodds.js`). Setup: `docs/txodds-integration.md`.
 - **Forecasts** are collected through [OpenRouter](https://openrouter.ai), so
   one API key covers the whole roster. Every model receives the exact same
   prompt and must answer with JSON probabilities that sum to 1.
@@ -157,6 +169,7 @@ wrong. Lowest average wins.
 ```bash
 npm install
 cp .env.example .env        # add your OPENROUTER_API_KEY
+                            # + TXODDS_API_TOKEN to seat "The Market"
 OPENROUTER_API_KEY=sk-or-... npm start
 # open http://localhost:3000
 ```

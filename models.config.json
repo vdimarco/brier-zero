@@ -1,6 +1,7 @@
 {
-  "comment": "The competitors. Each entry is an OpenRouter model slug plus a display label. Edit freely; the leaderboard keys off id, so changing an id starts a fresh record. Icons live in public/icons (Simple Icons, CC0; gpt/glm are local monograms).",
+  "comment": "The competitors. Each entry is an OpenRouter model slug plus a display label. Edit freely; the leaderboard keys off id, so changing an id starts a fresh record. Icons live in public/icons (Simple Icons, CC0; gpt/glm are local monograms). The provider:'txodds' entry is not an LLM: it is the betting market itself, de-vigged TxODDS StablePrice consensus, scored on the exact same Brier rules.",
   "models": [
+    { "id": "txodds/market", "label": "The Market", "icon": "/icons/market.svg", "provider": "txodds" },
     { "id": "anthropic/claude-sonnet-4.5", "label": "Claude", "icon": "/icons/claude.svg" },
     { "id": "openai/gpt-5.1", "label": "GPT", "icon": "/icons/gpt.svg" },
     { "id": "deepseek/deepseek-chat-v3.1", "label": "DeepSeek", "icon": "/icons/deepseek.svg" },

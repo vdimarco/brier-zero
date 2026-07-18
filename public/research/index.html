@@ -133,6 +133,58 @@ p{max-width:64ch}
 .foot{font:500 12.5px/1.6 var(--mono);color:var(--faint);margin-top:26px;text-align:center}
 .backlink{display:inline-block;margin:26px 0 -8px;font:600 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--pitch);text-decoration:none}
 .backlink:hover{text-decoration:underline}
+
+/* Lab-grouped knockout standings (expandable) */
+.lab-board{display:grid;gap:10px;margin:18px 0 8px}
+.lab{
+  background:var(--surface);border:1px solid var(--hairline);border-radius:14px;overflow:hidden;
+}
+.lab[open]{border-color:rgba(10,122,51,.28);box-shadow:0 1px 0 rgba(10,122,51,.06)}
+.lab-sum{
+  list-style:none;cursor:pointer;display:grid;
+  grid-template-columns:28px 28px minmax(0,1.2fr) minmax(0,1.4fr) 72px 28px;
+  align-items:center;gap:10px;padding:14px 14px 14px 12px;
+  user-select:none;
+}
+.lab-sum::-webkit-details-marker{display:none}
+.lab-sum:hover{background:rgba(10,122,51,.03)}
+.lab-rank{font:700 13px/1 var(--mono);color:var(--faint);text-align:center}
+.lab.lead .lab-rank{color:var(--gold-ink)}
+.lab-ico{width:28px;height:28px;border-radius:7px;background:#fff;border:1px solid var(--hairline);padding:3px;object-fit:contain}
+.lab-name{font-weight:750;font-size:15px;min-width:0}
+.lab-name .lab-status{
+  display:inline-block;margin-left:8px;font:700 9.5px/1 var(--mono);letter-spacing:.04em;
+  text-transform:uppercase;padding:3px 6px;border-radius:5px;vertical-align:middle;
+}
+.lab-status.ok{background:var(--pitch-wash,#e7f2e6);color:var(--pitch-deep)}
+.lab-status.part{background:#fff4d6;color:#7a5a08}
+.lab-status.wait{background:#edf0fb;color:#5b4c8b}
+.lab-winner{display:flex;align-items:center;gap:8px;min-width:0;color:var(--muted);font-size:13.5px}
+.lab-winner b{color:var(--ink);font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lab-brier{font:800 16px/1 var(--mono);font-variant-numeric:tabular-nums;text-align:right}
+.lab.lead .lab-brier{color:var(--gold-ink)}
+.lab-brier.na{font-size:12px;font-weight:600;color:var(--faint)}
+.lab-chev{color:var(--faint);transition:transform .15s ease;justify-self:end}
+.lab[open] .lab-chev{transform:rotate(180deg);color:var(--pitch)}
+.lab-body{border-top:1px solid var(--hairline);padding:4px 8px 10px}
+.lab-row{
+  display:grid;grid-template-columns:28px 1fr 72px;align-items:center;gap:10px;
+  padding:9px 8px;border-radius:8px;font-size:13.5px;
+}
+.lab-row + .lab-row{border-top:1px solid var(--hairline)}
+.lab-row.best{background:linear-gradient(90deg,rgba(227,179,65,.12),transparent 70%)}
+.lab-row .r{color:var(--faint);font:600 12px/1 var(--mono);text-align:center}
+.lab-row .n{font-weight:650;min-width:0}
+.lab-row .n .tag{margin-left:6px}
+.lab-row .s{font:700 14px/1 var(--mono);font-variant-numeric:tabular-nums;text-align:right}
+.lab-row.best .s{color:var(--gold-ink)}
+.lab-row .s.na{font-size:11.5px;font-weight:600;color:var(--faint)}
+.lab-note{grid-column:1 / -1;font:500 11.5px/1.45 var(--mono);color:var(--faint);padding:2px 0 0 38px}
+.lab-foot{font:500 12.5px/1.5 var(--mono);color:var(--faint);margin:8px 2px 0}
+@media(max-width:640px){
+  .lab-sum{grid-template-columns:22px 24px 1fr 64px 22px;gap:8px}
+  .lab-winner{display:none}
+}
 </style>
 </head>
 <body>
@@ -421,6 +473,13 @@ p{max-width:64ch}
   <p class="section-note">Lower is sharper; a two-way coin-flip is 0.500 and the seven locked models averaged <b>0.498</b> across the same matches. Backtested over the whole tournament, Gemini&#x27;s <b>0.452</b> would sit on top — the calibration those two ties were too small to show. The lesson cuts both ways: one match crowns nobody, and it clears nobody either. <b>That&#x27;s</b> why the Brier Cup scores every match, not the highlight.</p>
   <p class="section-note" style="color:var(--faint);font-size:14px">Fine print, because it matters: a backtest is not a locked forecast. The prompt holds no result and these models were trained before a ball was kicked — but a backtest lacks the pre-kickoff timestamp the live board requires, so Gemini&#x27;s numbers are labelled backtest and never enter the live leaderboard. The other seven figures are the models&#x27; real, pre-kickoff forecasts.</p>
 
+  <h2>Lab standings — knockout phase</h2>
+  <p class="section-note">Which lab's best model prices knockouts sharpest? Each lab is ranked by its <b>best-in-lab</b> average Brier across the 30 finished knockout ties (R32→SF). Click a lab to expand every model that lab fielded. Incomplete rows are placeholders from a mid-run OpenRouter spend cap — not quality signals.</p>
+  <div id="lab-board" class="lab-board" aria-live="polite">
+    <p class="section-note" style="color:var(--faint)">Loading lab backtest…</p>
+  </div>
+  <p class="lab-foot">Source: <code>data/backtests/knockout-labs.json</code> · method: retro-backtest (identical locked pre-kickoff prompt, no result in context). Lower is sharper; coin-flip baseline on a two-way tie = 0.500.</p>
+
   <div class="kicker">
     <h2>The quiet lesson</h2>
     <p>On the tie the field misread, the contrarian won — Claude's one-point lean toward Spain was worth more than any amount of conviction pointed the wrong way. On the tie the field read right, <b>conviction</b> paid: DeepSeek, GLM, Qwen and MiniMax pushed to 55% on Argentina and banked the sharpest scores of the night. Being right is table stakes. Being right with the correct amount of confidence is the whole game — which is exactly what a Brier score measures.</p>
@@ -429,6 +488,83 @@ p{max-width:64ch}
 
   <p class="foot">Data: model forecasts collected via OpenRouter, results via ESPN. Scored with the two-outcome Brier score. Gemini rows are retro-backtests (same locked prompt, run after full time) — labelled throughout and excluded from the live leaderboard.</p>
 </div>
+
+<script>
+/* Lab board: labs ranked by best-in-lab Brier; expand to see full roster. */
+(async function renderLabs() {
+  const root = document.getElementById('lab-board');
+  if (!root) return;
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) =>
+    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  let data;
+  try {
+    const res = await fetch('/data/backtests/knockout-labs.json', { cache: 'no-store' });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    data = await res.json();
+  } catch (err) {
+    root.innerHTML = `<p class="section-note" style="color:var(--away)">Could not load lab standings (${esc(err.message)}).</p>`;
+    return;
+  }
+
+  const labs = (data.labs || []).map((lab) => {
+    const models = [...(lab.models || [])].sort((a, b) => {
+      const av = a.avgBrier, bv = b.avgBrier;
+      if (av == null && bv == null) return 0;
+      if (av == null) return 1;
+      if (bv == null) return -1;
+      return av - bv;
+    });
+    const best = models.find((m) => m.bestInLab) || models.find((m) => m.avgBrier != null) || models[0];
+    return { ...lab, models, best };
+  }).sort((a, b) => {
+    // Complete labs with a number first, then partial, then pending.
+    const rank = (l) => {
+      if (l.best?.avgBrier != null) return l.best.avgBrier;
+      if (l.status === 'partial') return 10;
+      return 20;
+    };
+    return rank(a) - rank(b);
+  });
+
+  const statusChip = (s) => {
+    if (s === 'complete') return '<span class="lab-status ok">complete</span>';
+    if (s === 'partial') return '<span class="lab-status part">partial</span>';
+    return '<span class="lab-status wait">pending</span>';
+  };
+  const brierCell = (v, cls = '') =>
+    v == null
+      ? `<span class="lab-brier na ${cls}">—</span>`
+      : `<span class="lab-brier ${cls}">${Number(v).toFixed(3)}</span>`;
+  const modelBrier = (v) =>
+    v == null ? '<span class="s na">pending</span>' : `<span class="s">${Number(v).toFixed(3)}</span>`;
+
+  root.innerHTML = labs.map((lab, i) => {
+    const best = lab.best || {};
+    const open = i === 0 ? ' open' : '';
+    const lead = i === 0 && best.avgBrier != null ? ' lead' : '';
+    const rows = lab.models.map((m, mi) => {
+      const isBest = m.bestInLab || (best.id && m.id === best.id);
+      return `<div class="lab-row${isBest ? ' best' : ''}">
+        <span class="r">${mi + 1}</span>
+        <span class="n">${esc(m.label)}${isBest ? ' <span class="tag gold">best in lab</span>' : ''}${m.note && m.status === 'incomplete' ? ' <span class="tag red">incomplete</span>' : ''}</span>
+        ${modelBrier(m.avgBrier)}
+        ${m.note ? `<div class="lab-note">${esc(m.note)}${m.scored != null && m.requested ? ` · scored ${m.scored}/${m.requested}` : ''}</div>` : (m.scored != null && m.requested && m.scored < m.requested ? `<div class="lab-note">scored ${m.scored}/${m.requested}</div>` : '')}
+      </div>`;
+    }).join('');
+    return `<details class="lab${lead}"${open}>
+      <summary class="lab-sum">
+        <span class="lab-rank">${i + 1}</span>
+        <img class="lab-ico" src="${esc(lab.icon || '/icons/favicon.svg')}" alt="" width="28" height="28" onerror="this.style.visibility='hidden'">
+        <span class="lab-name">${esc(lab.label)}${statusChip(lab.status)}</span>
+        <span class="lab-winner">${best.label ? `Best: <b>${esc(best.label)}</b>` : '<b>awaiting data</b>'}</span>
+        ${brierCell(best.avgBrier)}
+        <span class="lab-chev" aria-hidden="true">▾</span>
+      </summary>
+      <div class="lab-body">${rows}</div>
+    </details>`;
+  }).join('');
+})();
+</script>
 
 </body>
 </html>

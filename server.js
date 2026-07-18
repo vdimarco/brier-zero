@@ -1,9 +1,9 @@
 import express from 'express';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { fetchMatches, periodRank } from './lib/espn.js';
+import { fetchMatches, periodRank, txoddsStatus } from './lib/feed.js';
 import { leaderboard, predictionMarket } from './lib/scoring.js';
-import { getPredictions, getSnapshots, getOutright } from './lib/store.js';
+import { getPredictions, getSnapshots, getOutright, getProofs } from './lib/store.js';
 import { dbEnabled, dbTryLock } from './lib/db.js';
 import {
   loadModels, predictMatches, predictorReady, buildPrompt, buildLivePrompt,
@@ -14,6 +14,11 @@ const root = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 app.use(express.json());
 app.use(express.static(path.join(root, 'public')));
+// Research lab standings (and other backtest reports) live under data/.
+// Exposed read-only so /research can fetch without duplicating into public/.
+app.use('/data', express.static(path.join(root, 'data'), {
+  setHeaders(res) { res.setHeader('Cache-Control', 'public, max-age=60'); },
+}));
 
 const models = loadModels();
 
@@ -43,6 +48,7 @@ app.get('/api/state', async (req, res) => {
     const predictions = await getPredictions();
     const snapshots = await getSnapshots();
     const outright = await getOutright();
+    const proofs = await getProofs();
     // Display: recent and upcoming matches, plus anything ever forecast.
     // Scoring: every match in the tournament, so the leaderboard is stable.
     const weekAgo = Date.now() - 7 * 24 * 3600 * 1000;
@@ -56,9 +62,11 @@ app.get('/api/state', async (req, res) => {
       // page should not ask visitors to configure a key.
       hosted: Boolean(process.env.VERCEL),
       demoMode: process.env.DEMO_MODE === '1',
+      txodds: txoddsStatus(),
       models,
       prompts: promptTemplates,
       outright,
+      proofs,
       matches: matches.map((m) => ({
         ...m,
         predictions: predictions[m.id] ?? {},

@@ -15,6 +15,11 @@ const expandedMatches = new Set();
 let showAllFinished = false;
 const FINISHED_PREVIEW = 8;
 
+// "The Market" is not an LLM: it is TxODDS's StablePrice bookmaker
+// consensus, delivered on-chain by TxLINE on Solana.
+const MARKET_ID = 'txodds/market';
+const MARKET_ATTRIBUTION = 'TxODDS StablePrice · TxLINE on Solana';
+
 const fmtKickoff = new Intl.DateTimeFormat(undefined, {
   weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit',
 });
@@ -148,7 +153,7 @@ function toast(msg) {
 async function shareMatch(match) {
   const url = shareLink(`m/${match.id}`);
   const title = `${match.home.name} vs ${match.away.name} · The Brier Cup`;
-  const text = `${match.home.name} vs ${match.away.name} — watch eight AI models forecast this ${match.stage} match, live.`;
+  const text = `${match.home.name} vs ${match.away.name} — watch eight AI models and the betting market forecast this ${match.stage} match, live.`;
   if (navigator.share) {
     try { await navigator.share({ title, text, url }); return; }
     catch (e) { if (e.name === 'AbortError') return; }
@@ -187,6 +192,34 @@ function forecastRow(model, pred, match, bestBrier) {
     </div>
     ${brierCell}
   </div>`;
+}
+
+/* Live TxODDS StablePrice line for this fixture: raw decimal odds plus the
+   de-vigged implied probabilities the market trades under on the
+   leaderboard. Streams from TxLINE (odds on Solana) while the match is
+   upcoming or in play. */
+function oddsStrip(match) {
+  const mo = match.marketOdds;
+  const market = matchMarket(match);
+  const outs = MARKET_OUTCOMES[market];
+  const probs = outs.map((o) =>
+    `<span class="ol">${o === 'draw' ? 'Draw' : esc(match[o].name)} <b>${pct(mo.probs[o])}%</b></span>`
+  ).join(' ');
+  const prices = `${mo.prices.home} / ${mo.prices.draw} / ${mo.prices.away}`;
+  return `<div class="odds-strip" title="TxODDS StablePrice consensus, vig removed (raw 1X2: ${esc(prices)}, overround ${((mo.overround - 1) * 100).toFixed(1)}%). Delivered by TxLINE on Solana.">
+    <img class="crest" src="/icons/market.svg" alt=""> <span class="odds-label">Live odds <span class="odds-source">· TxODDS on Solana</span></span> ${probs}
+  </div>`;
+}
+
+// Final-score Merkle proof verified against TxODDS's on-chain
+// daily_scores_roots PDA (scripts/verify-results.js). Only rendered when
+// validateStat.view() returned true for this match.
+function proofBadge(state, match) {
+  const p = state.proofs?.[match.id];
+  if (!p?.verified) return '';
+  const title = `Final score Merkle-proved against the root TxODDS committed on Solana (epoch day ${p.epochDay})`;
+  return `<a class="proof-badge" href="${esc(p.explorerUrl)}" target="_blank" rel="noopener"
+    title="${esc(title)}">Score verified on Solana ✓</a>`;
 }
 
 function matchCard(match, state) {
@@ -275,7 +308,7 @@ function matchCard(match, state) {
   } else if (match.status.state === 'pre') {
     const disabled = !state.predictorReady || collecting;
     const hint = state.predictorReady
-      ? 'Ask all eight models for their probabilities now.'
+      ? 'Ask every competitor — eight AI models and the market — for probabilities now.'
       : 'Set OPENROUTER_API_KEY on the server to enable forecasting.';
     body = `<div class="forecasts"><div class="fnote">No forecasts collected yet.</div>
       <button class="collect" data-match="${esc(match.id)}" ${disabled ? 'disabled' : ''} title="${esc(hint)}">
@@ -297,6 +330,8 @@ function matchCard(match, state) {
       </div>
       <div class="match-meta">${meta}</div>
     </div>
+    ${match.marketOdds ? oddsStrip(match) : ''}
+    ${isDone ? proofBadge(state, match) : ''}
     ${isDone && match.outcome ? `<div class="fnote" style="margin-top:6px">${
       matchMarket(match) === 'advance'
         ? `Advanced: ${esc(match[match.outcome].name)}${
@@ -345,8 +380,9 @@ function sparkline(perMatch) {
   </svg>`;
 }
 
-const MODEL_COLORS = ['#2563eb', '#dc2626', '#f59e0b', '#7c3aed', '#0891b2', '#a3550a', '#db2777', '#4f46e5'];
-const LB_GEO = { W: 720, H: 320, padL: 42, padR: 96, padT: 18, padB: 56 };
+// Soft, CVD-friendly palette — Market/blue leads, then distinct warm/cool pairs.
+const MODEL_COLORS = ['#1d4ed8', '#c2410c', '#0f766e', '#7c3aed', '#b45309', '#be123c', '#0369a1', '#4d7c0f', '#9333ea'];
+const LB_GEO = { W: 760, H: 360, padL: 48, padR: 108, padT: 28, padB: 58 };
 let lbDismiss = null; // the current dismiss-on-outside-tap listener
 
 /* The knockout-phase series shared by the chart renderer and its hover
@@ -395,55 +431,131 @@ function leaderboardChart(state) {
   if (!data) return null;
   const { koMatches, n, series, baselineAt, yMax } = data;
   const { W, H, padL, padR, padT, padB } = LB_GEO;
-  const x = (i) => (n === 1 ? padL : padL + (i * (W - padL - padR)) / (n - 1));
-  const y = (v) => padT + (1 - v / yMax) * (H - padT - padB);
-  const step = n > 14 ? Math.ceil(n / 10) : 1;
+  const plotW = W - padL - padR;
+  const plotH = H - padT - padB;
+  const x = (i) => (n === 1 ? padL : padL + (i * plotW) / (n - 1));
+  const y = (v) => padT + (1 - v / yMax) * plotH;
+  const step = n > 12 ? Math.ceil(n / 8) : Math.max(1, Math.ceil(n / 10));
+
+  // Leader = lowest final running average (sharpest). Emphasize it; fade the rest.
+  const ranked = series
+    .map((s) => ({ s, final: s.points[s.points.length - 1].cum }))
+    .sort((a, b) => a.final - b.final);
+  const leaderId = ranked[0]?.s.model;
+  const isLeader = (s) => s.model === leaderId;
 
   let svg = `<svg class="lb-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Running average Brier score for every model over the knockout phase">`;
+  svg += `<defs>
+    <linearGradient id="lb-plot-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f7f8f4"/>
+      <stop offset="100%" stop-color="#eef3ea"/>
+    </linearGradient>
+    <linearGradient id="lb-good-zone" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="rgba(10,122,51,0.10)"/>
+      <stop offset="55%" stop-color="rgba(10,122,51,0.03)"/>
+      <stop offset="100%" stop-color="rgba(10,122,51,0)"/>
+    </linearGradient>
+    <filter id="lb-glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="2.2" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>`;
+
+  // Soft plot panel
+  svg += `<rect x="${padL}" y="${padT}" width="${plotW}" height="${plotH}" rx="12" fill="url(#lb-plot-bg)"/>`;
+  // Lower Brier is better — a gentle green wash along the bottom.
+  svg += `<rect x="${padL}" y="${padT + plotH * 0.45}" width="${plotW}" height="${plotH * 0.55}" rx="0" fill="url(#lb-good-zone)"/>`;
+  // Clip bottom corners of the wash to the panel
+  svg += `<rect x="${padL}" y="${padT}" width="${plotW}" height="${plotH}" rx="12" fill="none" stroke="rgba(23,46,22,0.06)" stroke-width="1"/>`;
+
+  // Horizontal guides
   for (const g of [0, yMax / 2, yMax]) {
-    svg += `<line x1="${padL}" y1="${y(g).toFixed(1)}" x2="${W - padR}" y2="${y(g).toFixed(1)}" stroke="var(--hairline)" stroke-width="1" stroke-dasharray="${g === 0 ? '0' : '3 4'}"/>`;
-    svg += `<text x="${padL - 8}" y="${y(g).toFixed(1)}" dy="3.5" text-anchor="end" font-size="10.5" fill="var(--ink-3)">${g.toFixed(2)}</text>`;
+    const gy = y(g);
+    const isBase = g === 0;
+    svg += `<line x1="${padL}" y1="${gy.toFixed(1)}" x2="${W - padR}" y2="${gy.toFixed(1)}" stroke="${isBase ? 'rgba(23,46,22,0.14)' : 'rgba(23,46,22,0.07)'}" stroke-width="${isBase ? 1.25 : 1}" stroke-dasharray="${isBase ? '0' : '2 5'}"/>`;
+    svg += `<text x="${padL - 10}" y="${gy.toFixed(1)}" dy="3.5" text-anchor="end" font-size="11" font-weight="600" fill="var(--ink-3)">${g.toFixed(2)}</text>`;
   }
-  // Stepped, not flat: the coin-flip baseline itself changed mid-sequence
-  // when the market switch shipped (0.667 three-way -> 0.5 two-way).
+  svg += `<text x="12" y="${(padT + plotH / 2).toFixed(1)}" text-anchor="middle" font-size="10" font-weight="700" fill="var(--ink-3)" transform="rotate(-90 12 ${(padT + plotH / 2).toFixed(1)})" letter-spacing="0.04em">BRIER ↓ BETTER</text>`;
+
+  // Coin-flip baseline (steps when the market switch lands)
   const knownBaselines = koMatches.map((_, i) => i).filter((i) => baselineAt[i] != null);
   if (knownBaselines.length) {
     let basePath = '';
     let prevIdx = null;
     for (const i of knownBaselines) {
       const by = y(baselineAt[i]).toFixed(1);
-      basePath += prevIdx == null ? `M${x(i).toFixed(1)},${by}` : `L${x(i).toFixed(1)},${by}`;
+      const xi = x(i).toFixed(1);
+      if (prevIdx == null) basePath += `M${xi},${by}`;
+      else {
+        // Step horizontally then drop/rise so the switch is visible as a cliff.
+        basePath += `L${xi},${y(baselineAt[prevIdx]).toFixed(1)}L${xi},${by}`;
+      }
       prevIdx = i;
     }
-    svg += `<path d="${basePath}" fill="none" stroke="var(--ink-3)" stroke-width="1" stroke-dasharray="4 4"/>`;
+    svg += `<path d="${basePath}" fill="none" stroke="rgba(82,81,78,0.55)" stroke-width="1.5" stroke-dasharray="5 4" stroke-linecap="round"/>`;
     const lastI = knownBaselines[knownBaselines.length - 1];
-    svg += `<text x="${(x(lastI) - 6).toFixed(1)}" y="${(y(baselineAt[lastI]) - 6).toFixed(1)}" text-anchor="end" font-size="10" fill="var(--ink-3)">coin flip</text>`;
+    const lx = x(lastI) - 8;
+    const ly = y(baselineAt[lastI]) - 10;
+    svg += `<rect x="${(lx - 52).toFixed(1)}" y="${(ly - 11).toFixed(1)}" width="56" height="16" rx="8" fill="rgba(255,255,255,0.92)" stroke="rgba(23,46,22,0.08)"/>`;
+    svg += `<text x="${(lx - 24).toFixed(1)}" y="${ly.toFixed(1)}" dy="3.5" text-anchor="middle" font-size="9.5" font-weight="700" fill="var(--ink-3)" letter-spacing="0.02em">coin flip</text>`;
   }
 
-  for (const s of series) {
+  // Field lines first (non-leaders), then the leader on top.
+  const drawOrder = [...series].sort((a, b) => (isLeader(a) ? 1 : 0) - (isLeader(b) ? 1 : 0));
+  for (const s of drawOrder) {
+    const leader = isLeader(s);
     const path = s.points.map((p, j) => `${j ? 'L' : 'M'}${x(p.idx).toFixed(1)},${y(p.cum).toFixed(1)}`).join('');
-    svg += `<path d="${path}" fill="none" stroke="${s.color}" stroke-width="2.25" stroke-linejoin="round" stroke-linecap="round"/>`;
-    for (const p of s.points) {
-      svg += `<circle cx="${x(p.idx).toFixed(1)}" cy="${y(p.cum).toFixed(1)}" r="2.6" fill="${s.color}" stroke="var(--surface)" stroke-width="1.2">` +
+    // Soft under-glow for the leader only
+    if (leader) {
+      svg += `<path d="${path}" fill="none" stroke="${s.color}" stroke-width="6" stroke-opacity="0.14" stroke-linejoin="round" stroke-linecap="round"/>`;
+    }
+    svg += `<path d="${path}" fill="none" stroke="${s.color}" stroke-width="${leader ? 3 : 1.75}" stroke-opacity="${leader ? 1 : 0.72}" stroke-linejoin="round" stroke-linecap="round"${leader ? ' filter="url(#lb-glow)"' : ''}/>`;
+    // Endpoints only — mid-series dots cluttered the old chart.
+    const last = s.points[s.points.length - 1];
+    const first = s.points[0];
+    for (const p of [first, last]) {
+      svg += `<circle cx="${x(p.idx).toFixed(1)}" cy="${y(p.cum).toFixed(1)}" r="${leader ? 4 : 3}" fill="${s.color}" stroke="#fff" stroke-width="1.6">` +
         `<title>${esc(s.label)} after ${esc(p.shortName)}: ${p.cum.toFixed(3)}</title></circle>`;
     }
   }
 
+  // End labels as color pills, de-overlapped
   const ends = series
-    .map((s) => ({ ...s, idx: s.points[s.points.length - 1].idx, y: y(s.points[s.points.length - 1].cum) }))
+    .map((s) => ({
+      ...s,
+      leader: isLeader(s),
+      idx: s.points[s.points.length - 1].idx,
+      y: y(s.points[s.points.length - 1].cum),
+      final: s.points[s.points.length - 1].cum,
+    }))
     .sort((a, b) => a.y - b.y);
   for (let i = 1; i < ends.length; i++) {
-    if (ends[i].y - ends[i - 1].y < 13) ends[i].y = ends[i - 1].y + 13;
+    if (ends[i].y - ends[i - 1].y < 15) ends[i].y = ends[i - 1].y + 15;
   }
   for (const s of ends) {
-    svg += `<text x="${x(s.idx) + 8}" y="${s.y.toFixed(1)}" dy="3.5" font-size="11" font-weight="700" fill="${s.color}">${esc(s.label)}</text>`;
+    const label = s.label;
+    // Approx monospaced width for bold 10.5px labels + padding / star.
+    const tw = Math.ceil(label.length * 6.8 + (s.leader ? 28 : 18));
+    const tx = W - padR + 6;
+    const ty = Math.min(Math.max(s.y, padT + 8), H - padB - 8);
+    svg += `<rect x="${tx}" y="${(ty - 9).toFixed(1)}" width="${tw}" height="18" rx="9" fill="${s.color}" opacity="${s.leader ? 1 : 0.9}"/>`;
+    if (s.leader) {
+      svg += `<text x="${tx + 9}" y="${ty.toFixed(1)}" dy="3.5" font-size="9" fill="#fff" opacity="0.95">★</text>`;
+      svg += `<text x="${tx + 20}" y="${ty.toFixed(1)}" dy="3.5" font-size="10.5" font-weight="700" fill="#fff">${esc(label)}</text>`;
+    } else {
+      svg += `<text x="${tx + 9}" y="${ty.toFixed(1)}" dy="3.5" font-size="10.5" font-weight="700" fill="#fff">${esc(label)}</text>`;
+    }
   }
 
+  // X-axis match ticks (sparse, angled)
   koMatches.forEach((km, i) => {
     if (i % step !== 0 && i !== n - 1) return;
-    svg += `<text x="${x(i).toFixed(1)}" y="${H - padB + 10}" text-anchor="end" font-size="9.5" fill="var(--ink-3)" transform="rotate(-32 ${x(i).toFixed(1)} ${H - padB + 10})">${esc(km.shortName)}</text>`;
+    const xi = x(i);
+    svg += `<line x1="${xi.toFixed(1)}" y1="${(padT + plotH).toFixed(1)}" x2="${xi.toFixed(1)}" y2="${(padT + plotH + 4).toFixed(1)}" stroke="rgba(23,46,22,0.18)" stroke-width="1"/>`;
+    svg += `<text x="${xi.toFixed(1)}" y="${H - padB + 14}" text-anchor="end" font-size="9.5" font-weight="600" fill="var(--ink-3)" transform="rotate(-30 ${xi.toFixed(1)} ${H - padB + 14})">${esc(km.shortName)}</text>`;
   });
-  svg += `<line class="lb-cross" x1="0" y1="${padT}" x2="0" y2="${H - padB}" stroke="var(--ink)" stroke-width="1" stroke-dasharray="3 3" opacity="0"/>`;
+
+  svg += `<line class="lb-cross" x1="0" y1="${padT}" x2="0" y2="${H - padB}" stroke="var(--pitch)" stroke-width="1.25" stroke-dasharray="3 4" opacity="0"/>`;
   svg += '</svg>';
   return svg;
 }
@@ -558,7 +670,8 @@ function renderRoster(state) {
     const crest = m.icon
       ? `<img class="crest" src="${esc(m.icon)}" alt="" onerror="this.style.visibility='hidden'">`
       : '';
-    return `<span class="roster-chip">${crest}<span>${esc(m.label)}</span></span>`;
+    const title = m.id === MARKET_ID ? ` title="The betting market itself: ${MARKET_ATTRIBUTION}"` : '';
+    return `<span class="roster-chip"${title}>${crest}<span>${esc(m.label)}</span></span>`;
   }).join('');
 }
 
@@ -577,9 +690,12 @@ function renderLeaderboard(state) {
     <span class="lb-miss-tag">Nobody saw it coming</span>
     <span class="lb-miss-body">All ${miss.count} models backed <b>${esc(miss.favored)}</b>, but <b>${esc(miss.advanced)}</b> went through ${esc(miss.score)} in the ${esc(miss.stage)}. The field gave ${esc(miss.advanced)} an average of just <b>${pct(miss.avgPct)}%</b> to advance.</span>
   </button>` : ''}${koChart ? `<div class="lb-chart-card">
-    <h3 class="lb-chart-title">Knockout phase: running average Brier score</h3>
-    <p class="fnote">One line per model, averaged match by match over every knockout tie since the round of 32 began. The dashed line is the know-nothing baseline, which itself drops from 0.667 to 0.5 partway through when the market switched from three-way to two-way. Group-stage history is excluded here; see a model's own page for its full-tournament average. Hover or tap a match for every model's standing at that point.</p>
-    <div class="chart">${koChart}</div>
+    <div class="lb-chart-head">
+      <h3 class="lb-chart-title">Knockout form</h3>
+      <p class="lb-chart-sub">Running average Brier · lower is sharper · ★ marks the current leader</p>
+    </div>
+    <div class="chart lb-chart-plot">${koChart}</div>
+    <p class="fnote lb-chart-note">Averaged match-by-match from the round of 32. The dashed line is the coin-flip baseline (0.667 three-way, then 0.5 two-way after the market switch). Hover any match for a full standing.</p>
   </div>` : ''}<div class="lb-wrap">${(() => {
     // A model with scored matches but no locked-live one yet (all its scored
     // forecasts are retro) is a backtest-only entrant — shown for comparison,
@@ -607,7 +723,7 @@ function renderLeaderboard(state) {
           (state.models.find((m) => m.id === r.model)?.icon)
             ? `<img class="crest crest-lg" src="${esc(state.models.find((m) => m.id === r.model).icon)}" alt="" onerror="this.style.visibility='hidden'">`
             : ''
-        }<div><span class="lb-name">${esc(r.label)}${bt ? ' <span class="lb-bt-tag">backtest</span>' : ''}</span><span class="lb-slug">${esc(r.model)}</span>${
+        }<div><span class="lb-name">${esc(r.label)}${bt ? ' <span class="lb-bt-tag">backtest</span>' : ''}</span><span class="lb-slug">${r.model === MARKET_ID ? MARKET_ATTRIBUTION : esc(r.model)}</span>${
           sparkline(r.perMatch) ? `<div class="lb-spark">${sparkline(r.perMatch)}${trendBadge}</div>` : ''
         }</div></div>
         <div class="lb-score">
@@ -898,7 +1014,7 @@ function renderModelDetail(state, modelId) {
         ${meta.icon ? `<img class="crest crest-lg" src="${esc(meta.icon)}" alt="">` : ''}
         <div>
           <div class="detail-title">${esc(row.label)}</div>
-          <div class="fnote">${esc(row.model)}${rank ? ` · rank ${rank} of ${rankedRows.length}` : isBacktestOnly(row) ? ' · backtest — not ranked' : ''}</div>
+          <div class="fnote">${row.model === MARKET_ID ? MARKET_ATTRIBUTION : esc(row.model)}${rank ? ` · rank ${rank} of ${rankedRows.length}` : isBacktestOnly(row) ? ' · backtest — not ranked' : ''}</div>
         </div>
       </div>
       <button class="detail-close" data-close aria-label="Close">✕</button>
@@ -1204,6 +1320,173 @@ function attachTrophyHover(wrap, history, contenders) {
   document.addEventListener('pointerdown', trophyDismiss);
 }
 
+/* Knockout stages in tournament order. 3rd-place is omitted from the
+   championship bracket (it sits beside the final as a footnote). */
+const BRACKET_STAGES = [
+  { key: 'round of 32', short: 'R32', full: 'Round of 32' },
+  { key: 'round of 16', short: 'R16', full: 'Round of 16' },
+  { key: 'quarterfinals', short: 'QF', full: 'Quarter-finals' },
+  { key: 'semifinals', short: 'SF', full: 'Semi-finals' },
+  { key: 'final', short: 'Final', full: 'Final' },
+];
+
+function winnerSide(match) {
+  if (match.status?.state !== 'post') return null;
+  // Prefer the advance market (who went through, incl. pens); fall back.
+  return match.outcomes?.advance ?? match.outcome ?? null;
+}
+
+function winnerName(match) {
+  const side = winnerSide(match);
+  if (side === 'home' || side === 'away') return match[side].name;
+  return null;
+}
+
+function shortTeam(name) {
+  // Compact labels for the bracket grid; full name stays in title.
+  if (!name) return 'TBD';
+  if (name.length <= 11) return name;
+  const parts = name.split(/[\s-]+/);
+  if (parts.length >= 2) return parts.map((p) => p.slice(0, 3)).join(' ').slice(0, 11);
+  return name.slice(0, 10);
+}
+
+/* Order an earlier round so its pairs feed the next round top-to-bottom.
+   Winners of consecutive feeder matches become the two sides of one
+   later match; that gives the visual "fork" of a real bracket. */
+function orderFeeders(prevRound, nextRound) {
+  const remaining = [...prevRound];
+  const ordered = [];
+  const take = (pred) => {
+    const i = remaining.findIndex(pred);
+    if (i < 0) return null;
+    return remaining.splice(i, 1)[0];
+  };
+  for (const next of nextRound) {
+    const home = next.home?.name;
+    const away = next.away?.name;
+    const a = take((m) => {
+      const w = winnerName(m);
+      return w === home || (!w && (m.home.name === home || m.away.name === home));
+    }) || take((m) => m.home.name === home || m.away.name === home);
+    const b = take((m) => {
+      const w = winnerName(m);
+      return w === away || (!w && (m.home.name === away || m.away.name === away));
+    }) || take((m) => m.home.name === away || m.away.name === away);
+    if (a) ordered.push(a);
+    if (b) ordered.push(b);
+  }
+  ordered.push(...remaining);
+  return ordered;
+}
+
+function buildBracket(matches) {
+  const by = Object.fromEntries(BRACKET_STAGES.map((s) => [s.key, []]));
+  for (const m of matches) {
+    if (by[m.stage]) by[m.stage].push(m);
+  }
+  for (const s of BRACKET_STAGES) {
+    by[s.key].sort((a, b) => new Date(a.kickoff) - new Date(b.kickoff));
+  }
+  // Walk final → R32 so each round is reordered under its parent.
+  for (let i = BRACKET_STAGES.length - 1; i > 0; i--) {
+    const later = by[BRACKET_STAGES[i].key];
+    const earlier = by[BRACKET_STAGES[i - 1].key];
+    if (later.length && earlier.length) {
+      by[BRACKET_STAGES[i - 1].key] = orderFeeders(earlier, later);
+    }
+  }
+  return by;
+}
+
+function renderBracketMatch(match, probs, logos) {
+  if (!match) {
+    return `<div class="bk-match bk-empty"><div class="bk-side"><span class="bk-name">TBD</span></div><div class="bk-side"><span class="bk-name">TBD</span></div></div>`;
+  }
+  const done = match.status?.state === 'post';
+  const live = match.status?.state === 'in';
+  const win = winnerSide(match);
+  const sides = ['home', 'away'].map((side) => {
+    const t = match[side];
+    const name = t?.name || 'TBD';
+    const isWin = done && win === side;
+    const isLose = done && win && win !== side;
+    const score = done || live ? (t?.score ?? 0) : '';
+    const p = probs?.[name];
+    const flag = logos[name]
+      ? `<img class="bk-flag" src="${esc(logos[name])}" alt="" loading="lazy" onerror="this.style.visibility='hidden'">`
+      : `<span class="bk-flag bk-flag-empty"></span>`;
+    return `<div class="bk-side${isWin ? ' win' : ''}${isLose ? ' lose' : ''}" title="${esc(name)}${p != null ? ` · ${pct(p)}% to lift the trophy` : ''}">
+      ${flag}
+      <span class="bk-name">${esc(shortTeam(name))}</span>
+      ${p != null && !done ? `<span class="bk-prob">${pct(p)}%</span>` : ''}
+      ${score !== '' ? `<span class="bk-score">${score}</span>` : ''}
+    </div>`;
+  }).join('');
+  const stateCls = live ? ' live' : done ? ' done' : ' pre';
+  const href = match.id ? `href="#m/${esc(match.id)}"` : '';
+  return `<a class="bk-match${stateCls}" ${href} data-match="${esc(match.id || '')}">
+    ${sides}
+  </a>`;
+}
+
+/* Classic left-to-right bracket: each round is a column of nested pairs
+   so CSS can draw the }-shaped fork into the next round. */
+function renderKnockoutBracket(matches, probs, logos) {
+  const by = buildBracket(matches);
+  const hasAny = BRACKET_STAGES.some((s) => by[s.key].length);
+  if (!hasAny) return '';
+
+  // One column per stage. Matches are nested in pairs so CSS can draw the
+  // }-shaped fork into the next round; flex grow keeps vertical alignment.
+  const stageLists = BRACKET_STAGES.map((s, si) => {
+    const list = [...(by[s.key] || [])];
+    const expected = 16 / (2 ** si);
+    while (list.length < expected) list.push(null);
+    return list;
+  });
+
+  const cols = BRACKET_STAGES.map((stage, si) => {
+    const list = stageLists[si];
+    let body;
+    if (si === BRACKET_STAGES.length - 1) {
+      body = `<div class="bk-leaf bk-final-leaf">${renderBracketMatch(list[0], probs, logos)}</div>`;
+    } else {
+      const pairs = [];
+      for (let i = 0; i < list.length; i += 2) {
+        pairs.push(`<div class="bk-pair">
+          <div class="bk-pair-kids">
+            <div class="bk-leaf">${renderBracketMatch(list[i], probs, logos)}</div>
+            <div class="bk-leaf">${renderBracketMatch(list[i + 1], probs, logos)}</div>
+          </div>
+          <div class="bk-fork" aria-hidden="true"></div>
+        </div>`);
+      }
+      body = pairs.join('');
+    }
+    return `<div class="bk-round" data-stage="${esc(stage.key)}">
+      <div class="bk-round-label">${esc(stage.short)}<span class="bk-round-full">${esc(stage.full)}</span></div>
+      <div class="bk-col">${body}</div>
+    </div>`;
+  }).join('');
+
+  const third = matches.find((m) => m.stage === '3rd place match');
+  const thirdHtml = third
+    ? `<div class="bk-third">
+        <span class="bk-third-label">3rd place</span>
+        ${renderBracketMatch(third, probs, logos)}
+      </div>`
+    : '';
+
+  return `<div class="bracket-wrap">
+    <div class="bracket" role="img" aria-label="World Cup knockout bracket from round of 32 to the final">
+      ${cols}
+    </div>
+    ${thirdHtml}
+    <p class="fnote bk-legend">Winners in gold. Click any tie for the models' forecasts. Probabilities are the models' consensus chance of lifting the trophy.</p>
+  </div>`;
+}
+
 function renderTrophy(state) {
   const section = $('#trophy-section');
   const el = $('#trophy');
@@ -1211,54 +1494,79 @@ function renderTrophy(state) {
     .map((e) => ({ at: e.at, label: e.label, teams: e.teams, consensus: outrightConsensus(e), models: e.models }))
     .filter((e) => e.consensus)
     .sort((a, b) => new Date(a.at) - new Date(b.at));
-  if (!history.length) { section.hidden = true; return; }
+  const koMatches = (state.matches ?? []).filter((m) =>
+    BRACKET_STAGES.some((s) => s.key === m.stage) || m.stage === '3rd place match'
+  );
+  // Show the section when we have either outright probs or knockout fixtures.
+  if (!history.length && !koMatches.length) { section.hidden = true; return; }
   section.hidden = false;
+
   const latest = history[history.length - 1];
-  const ranked = latest.teams
-    .map((t) => ({ team: t, p: latest.consensus[t] ?? 0 }))
-    .sort((a, b) => b.p - a.p);
+  const ranked = latest
+    ? latest.teams
+      .map((t) => ({ team: t, p: latest.consensus[t] ?? 0 }))
+      .sort((a, b) => b.p - a.p)
+    : [];
+  const probs = Object.fromEntries(ranked.map((r) => [r.team, r.p]));
   const logos = {};
-  for (const m of state.matches) for (const s of [m.home, m.away]) if (s.logo) logos[s.name] = s.logo;
-  const top = ranked.slice(0, 6);
+  for (const m of state.matches ?? []) {
+    for (const s of [m.home, m.away]) if (s.logo) logos[s.name] = s.logo;
+  }
+  const top = ranked[0];
   // A team gets its own band if it is still alive OR it was ever a real
   // contender (peak consensus >= 5%). That keeps every remaining team on
   // the chart AND lets a knocked-out favourite - Brazil, Portugal - keep
-  // its band and visibly collapse to zero at the round it went out,
-  // rather than vanishing straight into the residual. Only the true
-  // minnows, who never had a band, pool into Others so each column still
-  // fills to 100%. Ordered by peak, strongest at the baseline.
+  // its band and visibly collapse to zero at the round it went out.
   const PEAK_BAND = 0.05;
   const peak = {};
   for (const h of history) for (const t of h.teams) peak[t] = Math.max(peak[t] ?? 0, h.consensus[t] ?? 0);
-  const aliveNow = new Set(latest.teams.filter((t) => (latest.consensus[t] ?? 0) > 0));
+  const aliveNow = new Set((latest?.teams ?? []).filter((t) => (latest.consensus[t] ?? 0) > 0));
   const contenders = Object.keys(peak)
     .filter((t) => aliveNow.has(t) || peak[t] >= PEAK_BAND)
     .sort((a, b) => peak[b] - peak[a]);
   const spread = (t) => {
+    if (!latest) return esc(t);
     const ps = Object.values(latest.models).filter((m) => m.probs).map((m) => m.probs[t] ?? 0);
+    if (!ps.length) return esc(t);
     return `${esc(t)}: models range ${pct(Math.min(...ps))}% to ${pct(Math.max(...ps))}%`;
   };
-  el.innerHTML = `<div class="trophy-card">
-    <div class="trophy-list">
-      ${ranked.slice(0, 8).map((r, i) => `
-        <div class="trophy-row" title="${spread(r.team)}">
-          <span class="trophy-rank${i === 0 ? ' gold' : ''}">${i + 1}</span>
-          ${logos[r.team] ? `<img class="flag" src="${esc(logos[r.team])}" alt="" onerror="this.style.visibility='hidden'">` : ''}
-          <span class="trophy-team">${esc(r.team)}</span>
-          <span class="trophy-bar"><i style="width:${Math.max(2, Math.round((r.p / (top[0].p || 1)) * 100))}%"></i></span>
-          <span class="trophy-p">${pct(r.p)}%</span>
-        </div>`).join('')}
-      ${ranked.length > 8 ? `<div class="fnote">${ranked.slice(8).map((r) => `${esc(r.team)} ${pct(r.p)}%`).join(', ')}</div>` : ''}
-    </div>
-    ${history.length > 1
-      ? `<div class="trophy-chart">
-          <div class="chart">${trophyChart(history, contenders)}</div>
-          <p class="fnote">Every remaining team, and every fallen favourite, is a band; each round fills to 100%, so a band's height is that team's share of the models' championship belief. Bands widen as the field narrows, and a team's band pinches to zero and disappears the round it is knocked out. The grey Others area is the long tail of teams that never held a real chance. Hover or tap any round for the full breakdown.</p>
-        </div>`
-      : `<p class="fnote">Collected ${esc(new Intl.DateTimeFormat(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }).format(new Date(latest.at)))}. The over-time chart appears after the next collection round.</p>`}
-  </div>`;
+
+  // Finalists (2 teams) get a roomier layout so the list doesn't look
+  // crushed next to the belief chart.
+  const listSparse = ranked.length > 0 && ranked.length <= 2;
+  const listHtml = ranked.length
+    ? `<div class="trophy-list${listSparse ? ' sparse' : ''}">
+        <div class="trophy-list-head">AI consensus to win it all</div>
+        ${ranked.slice(0, 8).map((r, i) => `
+          <div class="trophy-row${i === 0 ? ' leader' : ''}${i === 1 ? ' silver' : ''}${i === 2 ? ' bronze' : ''}" title="${spread(r.team)}">
+            <span class="trophy-rank${i === 0 ? ' gold' : ''}">${i === 0 ? '🏆' : i + 1}</span>
+            ${logos[r.team] ? `<img class="flag" src="${esc(logos[r.team])}" alt="" onerror="this.style.visibility='hidden'">` : ''}
+            <span class="trophy-team">${esc(r.team)}</span>
+            <span class="trophy-bar"><i style="width:${Math.max(3, Math.round((r.p / (top?.p || 1)) * 100))}%"></i></span>
+            <span class="trophy-p">${pct(r.p)}%</span>
+          </div>`).join('')}
+        ${ranked.length > 8 ? `<div class="fnote trophy-rest">${ranked.slice(8).map((r) => `${esc(r.team)} ${pct(r.p)}%`).join(' · ')}</div>` : ''}
+      </div>`
+    : '';
+
+  const chartHtml = history.length > 1
+    ? `<div class="trophy-chart">
+        <div class="trophy-chart-head">How belief shifted each round</div>
+        <div class="chart">${trophyChart(history, contenders)}</div>
+        <p class="fnote">Each column is a collection round, stacked to 100%. A band pinches to zero the moment that team is knocked out. Hover for the full breakdown.</p>
+      </div>`
+    : history.length === 1
+      ? `<p class="fnote">Collected ${esc(new Intl.DateTimeFormat(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }).format(new Date(latest.at)))}. The over-time chart appears after the next collection round.</p>`
+      : '';
+
+  el.innerHTML = `
+    ${renderKnockoutBracket(koMatches, probs, logos)}
+    <div class="trophy-card">
+      ${listHtml}
+      ${chartHtml}
+    </div>`;
   const chartWrap = el.querySelector('.trophy-chart');
-  if (chartWrap) attachTrophyHover(chartWrap, history, contenders);
+  if (chartWrap && history.length > 1) attachTrophyHover(chartWrap, history, contenders);
 }
 
 /* Featured match: the live game, or the next kickoff, big and up front. */
@@ -1379,7 +1687,7 @@ function renderBanner(state) {
   if (state.demoMode) {
     el.innerHTML = `<div class="banner">Demo mode is on: forecasts below are deterministic placeholders, not real model calls. Unset <code>DEMO_MODE</code> and set <code>OPENROUTER_API_KEY</code> for the real competition.</div>`;
   } else if (!state.predictorReady && !state.hosted) {
-    el.innerHTML = `<div class="banner">Live scores are flowing, but no forecaster is configured. Set <code>OPENROUTER_API_KEY</code> (one key covers all eight models via OpenRouter) and restart the server. Upcoming matches are forecast automatically from then on.</div>`;
+    el.innerHTML = `<div class="banner">Live scores are flowing, but no forecaster is configured. Set <code>OPENROUTER_API_KEY</code> (one key covers all eight AI models via OpenRouter) and restart the server. Upcoming matches are forecast automatically from then on.</div>`;
   } else {
     el.innerHTML = '';
   }

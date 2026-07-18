@@ -106,6 +106,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.37666990957618274,
+          "draw": 0.3017678364287161,
+          "away": 0.3215622539951013
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 2.655/3.314/3.11, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "South Korea vs Czechia",
+        "createdAt": "2026-07-18T03:40:42.393Z",
+        "latencyMs": 1159,
+        "eligible": true,
+        "retro": true
       }
     },
     "760415": {
@@ -214,6 +228,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.6799466547341165,
+          "draw": 0.21537500626913983,
+          "away": 0.10467833899674364
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.471/4.644/9.555, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Mexico vs South Africa",
+        "createdAt": "2026-07-18T03:40:41.219Z",
+        "latencyMs": 1093,
+        "eligible": true,
+        "retro": true
       }
     },
     "760416": {
@@ -322,6 +350,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.5244108491756703,
+          "draw": 0.26926534447442196,
+          "away": 0.2063238063499078
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.907/3.714/4.847, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Canada vs Bosnia-Herzegovina",
+        "createdAt": "2026-07-18T03:40:43.242Z",
+        "latencyMs": 837,
+        "eligible": true,
+        "retro": true
       }
     },
     "760417": {
@@ -430,6 +472,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.4610554749963006,
+          "draw": 0.2987837840654246,
+          "away": 0.2401607409382748
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 2.169/3.347/4.164, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "United States vs Paraguay",
+        "createdAt": "2026-07-18T03:40:44.611Z",
+        "latencyMs": 1352,
+        "eligible": true,
+        "retro": true
       }
     },
     "760418": {
@@ -538,6 +594,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.17644479086435005,
+          "draw": 0.22145462236916214,
+          "away": 0.6021005867664878
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 5.668/4.516/1.661, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Haiti vs Scotland",
+        "createdAt": "2026-07-18T03:40:47.753Z",
+        "latencyMs": 1171,
+        "eligible": true,
+        "retro": true
       }
     },
     "760419": {
@@ -646,6 +716,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.5761020823669599,
+          "draw": 0.25513092219108224,
+          "away": 0.16876699544195786
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.736/3.92/5.926, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Brazil vs Morocco",
+        "createdAt": "2026-07-18T03:40:46.573Z",
+        "latencyMs": 810,
+        "eligible": true,
+        "retro": true
       }
     },
     "760420": {
@@ -754,6 +838,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.054958061455371444,
+          "draw": 0.12180184102383831,
+          "away": 0.8232400975207903
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 18.2/8.212/1.215, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Qatar vs Switzerland",
+        "createdAt": "2026-07-18T03:40:45.725Z",
+        "latencyMs": 1098,
+        "eligible": true,
+        "retro": true
       }
     },
     "760421": {
@@ -862,6 +960,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.1789442566930222,
+          "draw": 0.25377301463011953,
+          "away": 0.5672827286768582
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 5.589/3.941/1.763, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Australia vs Türkiye",
+        "createdAt": "2026-07-18T03:40:48.407Z",
+        "latencyMs": 643,
+        "eligible": true,
+        "retro": true
       }
     },
     "760422": {
@@ -970,6 +1082,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.9499247118824716,
+          "draw": 0.033121547073253065,
+          "away": 0.016953741044275297
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.053/30.2/59, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Germany vs Curaçao",
+        "createdAt": "2026-07-18T03:44:06.399Z",
+        "latencyMs": 1503,
+        "eligible": true,
+        "retro": true
       }
     },
     "760423": {
@@ -1078,6 +1204,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.28785991089012325,
+          "draw": 0.324683548841652,
+          "away": 0.3874565402682248
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 3.474/3.08/2.581, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Ivory Coast vs Ecuador",
+        "createdAt": "2026-07-18T03:40:51.555Z",
+        "latencyMs": 977,
+        "eligible": true,
+        "retro": true
       }
     },
     "760424": {
@@ -1186,6 +1326,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.5133085441813314,
+          "draw": 0.27876360302905867,
+          "away": 0.20792785278960982
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.948/3.587/4.809, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Sweden vs Tunisia",
+        "createdAt": "2026-07-18T03:40:53.053Z",
+        "latencyMs": 1487,
+        "eligible": true,
+        "retro": true
       }
     },
     "760425": {
@@ -1294,6 +1448,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.4764398456936801,
+          "draw": 0.2724182065134935,
+          "away": 0.2511419477928264
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 2.099/3.671/3.982, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Netherlands vs Japan",
+        "createdAt": "2026-07-18T03:40:50.565Z",
+        "latencyMs": 1013,
+        "eligible": true,
+        "retro": true
       }
     },
     "760426": {
@@ -1402,6 +1570,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.647308419727898,
+          "draw": 0.21955905784404,
+          "away": 0.13313252242806206
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.545/4.555/7.512, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Belgium vs Egypt",
+        "createdAt": "2026-07-18T03:40:56.402Z",
+        "latencyMs": 1530,
+        "eligible": true,
+        "retro": true
       }
     },
     "760427": {
@@ -1510,6 +1692,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.5211053780555251,
+          "draw": 0.27917398673605603,
+          "away": 0.19972063520841876
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.919/3.582/5.007, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Iran vs New Zealand",
+        "createdAt": "2026-07-18T03:40:58.960Z",
+        "latencyMs": 1453,
+        "eligible": true,
+        "retro": true
       }
     },
     "760428": {
@@ -1618,6 +1814,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.9023864951624683,
+          "draw": 0.06450607978322677,
+          "away": 0.03310742505430513
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.108/15.5/30.2, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Spain vs Cape Verde",
+        "createdAt": "2026-07-18T03:44:07.628Z",
+        "latencyMs": 1218,
+        "eligible": true,
+        "retro": true
       }
     },
     "760429": {
@@ -1726,6 +1936,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.12120138314642323,
+          "draw": 0.22823816730381,
+          "away": 0.6505604495497669
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 8.25/4.381/1.537, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Saudi Arabia vs Uruguay",
+        "createdAt": "2026-07-18T03:40:57.503Z",
+        "latencyMs": 1088,
+        "eligible": true,
+        "retro": true
       }
     },
     "760430": {
@@ -1834,6 +2058,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.06536741519467326,
+          "draw": 0.1293818179144244,
+          "away": 0.8052507668909024
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 15.3/7.73/1.242, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Iraq vs Norway",
+        "createdAt": "2026-07-18T03:41:00.778Z",
+        "latencyMs": 635,
+        "eligible": true,
+        "retro": true
       }
     },
     "760431": {
@@ -1942,6 +2180,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.698392648069833,
+          "draw": 0.19718025868217684,
+          "away": 0.10442709324799007
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.432/5.072/9.577, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Austria vs Jordan",
+        "createdAt": "2026-07-18T03:41:02.673Z",
+        "latencyMs": 1028,
+        "eligible": true,
+        "retro": true
       }
     },
     "760432": {
@@ -2050,6 +2302,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.6506657284699607,
+          "draw": 0.20847888777534493,
+          "away": 0.1408553837546943
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.537/4.797/7.1, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "France vs Senegal",
+        "createdAt": "2026-07-18T03:41:00.132Z",
+        "latencyMs": 1159,
+        "eligible": true,
+        "retro": true
       }
     },
     "760433": {
@@ -2158,6 +2424,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.6308536884381288,
+          "draw": 0.23183470813225932,
+          "away": 0.13731160342961196
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.585/4.313/7.282, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Argentina vs Algeria",
+        "createdAt": "2026-07-18T03:41:01.634Z",
+        "latencyMs": 843,
+        "eligible": true,
+        "retro": true
       }
     },
     "760434": {
@@ -2266,6 +2546,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.4028759161843787,
+          "draw": 0.30795750661214294,
+          "away": 0.2891665772034783
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 2.482/3.247/3.458, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Ghana vs Panama",
+        "createdAt": "2026-07-18T03:41:05.801Z",
+        "latencyMs": 884,
+        "eligible": true,
+        "retro": true
       }
     },
     "760435": {
@@ -2374,6 +2668,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.7640960656185977,
+          "draw": 0.16070079529157202,
+          "away": 0.07520313908983038
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.309/6.224/13.3, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Portugal vs Congo DR",
+        "createdAt": "2026-07-18T03:41:04.193Z",
+        "latencyMs": 1511,
+        "eligible": true,
+        "retro": true
       }
     },
     "760436": {
@@ -2482,6 +2790,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.08128656324348442,
+          "draw": 0.16809427167028554,
+          "away": 0.7506191650862301
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 12.3/5.948/1.332, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Uzbekistan vs Colombia",
+        "createdAt": "2026-07-18T03:41:06.727Z",
+        "latencyMs": 919,
+        "eligible": true,
+        "retro": true
       }
     },
     "760437": {
@@ -2590,6 +2912,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.5855578570166181,
+          "draw": 0.24786439152029335,
+          "away": 0.1665777514630886
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.708/4.035/6.004, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "England vs Croatia",
+        "createdAt": "2026-07-18T03:41:04.900Z",
+        "latencyMs": 699,
+        "eligible": true,
+        "retro": true
       }
     },
     "760438": {
@@ -2698,6 +3034,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.5058732916349691,
+          "draw": 0.2790489669537762,
+          "away": 0.21507774141125457
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.977/3.584/4.65, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Czechia vs South Africa",
+        "createdAt": "2026-07-18T03:41:07.580Z",
+        "latencyMs": 845,
+        "eligible": true,
+        "retro": true
       }
     },
     "760439": {
@@ -2806,6 +3156,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.6297354952205407,
+          "draw": 0.22257288368800773,
+          "away": 0.14769162109145162
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.588/4.493/6.771, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Switzerland vs Bosnia-Herzegovina",
+        "createdAt": "2026-07-18T03:41:08.495Z",
+        "latencyMs": 908,
+        "eligible": true,
+        "retro": true
       }
     },
     "760440": {
@@ -2914,6 +3278,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.7824070128727489,
+          "draw": 0.14717635596870374,
+          "away": 0.0704166311585474
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.278/6.794/14.2, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Canada vs Qatar",
+        "createdAt": "2026-07-18T03:41:09.618Z",
+        "latencyMs": 1113,
+        "eligible": true,
+        "retro": true
       }
     },
     "760441": {
@@ -3022,6 +3400,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.47060953830113167,
+          "draw": 0.2978985013076868,
+          "away": 0.23149196039118164
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 2.125/3.357/4.32, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Mexico vs South Korea",
+        "createdAt": "2026-07-18T03:41:10.376Z",
+        "latencyMs": 746,
+        "eligible": true,
+        "retro": true
       }
     },
     "760442": {
@@ -3130,6 +3522,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.6234212905331837,
+          "draw": 0.22221505555893928,
+          "away": 0.15436365390787693
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.604/4.5/6.478, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "United States vs Australia",
+        "createdAt": "2026-07-18T03:41:11.576Z",
+        "latencyMs": 1191,
+        "eligible": true,
+        "retro": true
       }
     },
     "760443": {
@@ -3238,6 +3644,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.45996323496434954,
+          "draw": 0.28231509678500727,
+          "away": 0.2577216682506433
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 2.174/3.542/3.88, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Türkiye vs Paraguay",
+        "createdAt": "2026-07-18T03:41:14.250Z",
+        "latencyMs": 836,
+        "eligible": true,
+        "retro": true
       }
     },
     "760444": {
@@ -3346,6 +3766,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.8916020612499276,
+          "draw": 0.07295517596066926,
+          "away": 0.03544276278940316
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.121/13.7/28.2, 0.1% vig removed.",
+        "market": "regulation",
+        "fixture": "Brazil vs Haiti",
+        "createdAt": "2026-07-18T03:41:13.404Z",
+        "latencyMs": 1226,
+        "eligible": true,
+        "retro": true
       }
     },
     "760445": {
@@ -3454,6 +3888,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.16874152382048674,
+          "draw": 0.2528137036612803,
+          "away": 0.578444772518233
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 5.927/3.956/1.729, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Scotland vs Morocco",
+        "createdAt": "2026-07-18T03:41:12.170Z",
+        "latencyMs": 582,
+        "eligible": true,
+        "retro": true
       }
     },
     "760446": {
@@ -3562,6 +4010,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.8515302251074952,
+          "draw": 0.09897984992833658,
+          "away": 0.04948992496416829
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.174/10.1/20.2, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Ecuador vs Curaçao",
+        "createdAt": "2026-07-18T03:41:16.962Z",
+        "latencyMs": 758,
+        "eligible": true,
+        "retro": true
       }
     },
     "760447": {
@@ -3670,6 +4132,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.5692099461390339,
+          "draw": 0.23290681773783942,
+          "away": 0.19788323612312672
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.757/4.294/5.054, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Netherlands vs Sweden",
+        "createdAt": "2026-07-18T03:41:15.072Z",
+        "latencyMs": 811,
+        "eligible": true,
+        "retro": true
       }
     },
     "760448": {
@@ -3778,6 +4254,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.6615166470129985,
+          "draw": 0.19865206956974255,
+          "away": 0.139831283417259
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.512/5.035/7.153, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Germany vs Ivory Coast",
+        "createdAt": "2026-07-18T03:41:16.194Z",
+        "latencyMs": 1108,
+        "eligible": true,
+        "retro": true
       }
     },
     "760449": {
@@ -3886,6 +4376,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.1172294465174649,
+          "draw": 0.21604761465553968,
+          "away": 0.6667229388269954
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 8.531/4.629/1.5, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Tunisia vs Japan",
+        "createdAt": "2026-07-18T03:41:17.873Z",
+        "latencyMs": 895,
+        "eligible": true,
+        "retro": true
       }
     },
     "760450": {
@@ -3994,6 +4498,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.7031143523046305,
+          "draw": 0.19879430227090983,
+          "away": 0.09809134542445974
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.423/5.033/10.2, -0.1% vig removed.",
+        "market": "regulation",
+        "fixture": "Uruguay vs Cape Verde",
+        "createdAt": "2026-07-18T03:41:21.060Z",
+        "latencyMs": 1084,
+        "eligible": true,
+        "retro": true
       }
     },
     "760451": {
@@ -4102,6 +4620,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.6829046733578067,
+          "draw": 0.2053764260057167,
+          "away": 0.11171890063647659
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.464/4.868/8.949, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Belgium vs Iran",
+        "createdAt": "2026-07-18T03:41:19.963Z",
+        "latencyMs": 1013,
+        "eligible": true,
+        "retro": true
       }
     },
     "760452": {
@@ -4210,6 +4742,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.15496699128936353,
+          "draw": 0.25050150170096763,
+          "away": 0.5945315070096688
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 6.453/3.992/1.682, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "New Zealand vs Egypt",
+        "createdAt": "2026-07-18T03:41:21.973Z",
+        "latencyMs": 902,
+        "eligible": true,
+        "retro": true
       }
     },
     "760453": {
@@ -4318,6 +4864,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.8910610800073933,
+          "draw": 0.07297595122396316,
+          "away": 0.035962968768643716
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.122/13.7/27.8, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Spain vs Saudi Arabia",
+        "createdAt": "2026-07-18T03:41:18.935Z",
+        "latencyMs": 1054,
+        "eligible": true,
+        "retro": true
       }
     },
     "760454": {
@@ -4426,6 +4986,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.3974441744701584,
+          "draw": 0.2750191262285254,
+          "away": 0.32753669930131624
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 2.516/3.636/3.053, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Norway vs Senegal",
+        "createdAt": "2026-07-18T03:41:26.817Z",
+        "latencyMs": 1601,
+        "eligible": true,
+        "retro": true
       }
     },
     "760455": {
@@ -4534,6 +5108,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.13272003491089307,
+          "draw": 0.2081417033760758,
+          "away": 0.6591382617130311
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 7.534/4.804/1.517, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Jordan vs Algeria",
+        "createdAt": "2026-07-18T03:41:29.404Z",
+        "latencyMs": 2575,
+        "eligible": true,
+        "retro": true
       }
     },
     "760456": {
@@ -4642,6 +5230,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.6674618748400301,
+          "draw": 0.21328026632047037,
+          "away": 0.11925785883949963
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.498/4.688/8.384, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Argentina vs Austria",
+        "createdAt": "2026-07-18T03:41:23.792Z",
+        "latencyMs": 1807,
+        "eligible": true,
+        "retro": true
       }
     },
     "760457": {
@@ -4750,6 +5352,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.9087188014645924,
+          "draw": 0.06366819628095871,
+          "away": 0.027613002254448942
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.1/15.7/36.2, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "France vs Iraq",
+        "createdAt": "2026-07-18T03:41:25.200Z",
+        "latencyMs": 1394,
+        "eligible": true,
+        "retro": true
       }
     },
     "760458": {
@@ -4858,6 +5474,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.8316823074395557,
+          "draw": 0.11833358588332693,
+          "away": 0.0499841066771173
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.202/8.448/20, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "England vs Ghana",
+        "createdAt": "2026-07-18T03:41:32.790Z",
+        "latencyMs": 1400,
+        "eligible": true,
+        "retro": true
       }
     },
     "760459": {
@@ -4966,6 +5596,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.6298455712960594,
+          "draw": 0.23528458414917486,
+          "away": 0.1348698445547657
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.588/4.251/7.416, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Colombia vs Congo DR",
+        "createdAt": "2026-07-18T03:41:35.408Z",
+        "latencyMs": 1324,
+        "eligible": true,
+        "retro": true
       }
     },
     "760460": {
@@ -5061,6 +5705,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.11300521369627962,
+          "draw": 0.19647674018170214,
+          "away": 0.6905180461220182
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 8.848/5.089/1.448, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Panama vs Croatia",
+        "createdAt": "2026-07-18T03:44:08.588Z",
+        "latencyMs": 954,
+        "eligible": true,
+        "retro": true
       }
     },
     "760461": {
@@ -5169,6 +5827,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.8618030066178649,
+          "draw": 0.09705742598803138,
+          "away": 0.041139567394103835
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.16/10.3/24.3, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Portugal vs Uzbekistan",
+        "createdAt": "2026-07-18T03:41:31.379Z",
+        "latencyMs": 1958,
+        "eligible": true,
+        "retro": true
       }
     },
     "760462": {
@@ -5277,6 +5949,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.6824256696929066,
+          "draw": 0.18820662765438786,
+          "away": 0.12936770265270553
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.465/5.312/7.728, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Bosnia-Herzegovina vs Qatar",
+        "createdAt": "2026-07-18T03:41:37.102Z",
+        "latencyMs": 1680,
+        "eligible": true,
+        "retro": true
       }
     },
     "760463": {
@@ -5385,6 +6071,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.3762557013493632,
+          "draw": 0.3180940375911601,
+          "away": 0.3056502610594766
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 2.658/3.144/3.272, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Switzerland vs Canada",
+        "createdAt": "2026-07-18T03:44:09.912Z",
+        "latencyMs": 1313,
+        "eligible": true,
+        "retro": true
       }
     },
     "760464": {
@@ -5493,6 +6193,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.7510711371055496,
+          "draw": 0.1612380134657236,
+          "away": 0.08769084942872687
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.331/6.2/11.4, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Morocco vs Haiti",
+        "createdAt": "2026-07-18T03:41:39.612Z",
+        "latencyMs": 637,
+        "eligible": true,
+        "retro": true
       }
     },
     "760465": {
@@ -5601,6 +6315,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.0892741409963606,
+          "draw": 0.17498606565614955,
+          "away": 0.7357397933474897
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 11.2/5.714/1.359, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Scotland vs Brazil",
+        "createdAt": "2026-07-18T03:41:40.530Z",
+        "latencyMs": 907,
+        "eligible": true,
+        "retro": true
       }
     },
     "760466": {
@@ -5709,6 +6437,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.17588299347964192,
+          "draw": 0.2563175641968122,
+          "away": 0.5677994423235458
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 5.685/3.901/1.761, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "South Africa vs South Korea",
+        "createdAt": "2026-07-18T03:41:43.055Z",
+        "latencyMs": 1364,
+        "eligible": true,
+        "retro": true
       }
     },
     "760467": {
@@ -5817,6 +6559,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.20606108117886937,
+          "draw": 0.24266304949309703,
+          "away": 0.5512758693280336
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 4.853/4.121/1.814, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Czechia vs Mexico",
+        "createdAt": "2026-07-18T03:41:41.679Z",
+        "latencyMs": 1136,
+        "eligible": true,
+        "retro": true
       }
     },
     "760468": {
@@ -5925,6 +6681,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.2230842826733558,
+          "draw": 0.22081796708082616,
+          "away": 0.556097750245818
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 4.482/4.528/1.798, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Ecuador vs Germany",
+        "createdAt": "2026-07-18T03:41:46.386Z",
+        "latencyMs": 1852,
+        "eligible": true,
+        "retro": true
       }
     },
     "760469": {
@@ -6020,6 +6790,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.37134194239235524,
+          "draw": 0.4110250106299271,
+          "away": 0.21763304697771765
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 2.693/2.433/4.595, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Paraguay vs Australia",
+        "createdAt": "2026-07-18T03:41:50.953Z",
+        "latencyMs": 1013,
+        "eligible": true,
+        "retro": true
       }
     },
     "760470": {
@@ -6128,6 +6912,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.28668005559695703,
+          "draw": 0.24430491911121086,
+          "away": 0.4690150252918321
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 3.488/4.093/2.132, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Türkiye vs United States",
+        "createdAt": "2026-07-18T03:41:52.993Z",
+        "latencyMs": 2027,
+        "eligible": true,
+        "retro": true
       }
     },
     "760471": {
@@ -6236,6 +7034,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.40967772505769795,
+          "draw": 0.2828120268285748,
+          "away": 0.3075102481137271
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 2.441/3.536/3.252, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Japan vs Sweden",
+        "createdAt": "2026-07-18T03:41:48.516Z",
+        "latencyMs": 2120,
+        "eligible": true,
+        "retro": true
       }
     },
     "760472": {
@@ -6344,6 +7156,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.04523384246332286,
+          "draw": 0.09520646842280335,
+          "away": 0.8595596891138737
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 22.1/10.5/1.163, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Tunisia vs Netherlands",
+        "createdAt": "2026-07-18T03:41:49.931Z",
+        "latencyMs": 1400,
+        "eligible": true,
+        "retro": true
       }
     },
     "760473": {
@@ -6452,6 +7278,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.05463266374355297,
+          "draw": 0.10943276559840405,
+          "away": 0.835934570658043
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 18.3/9.136/1.196, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Curaçao vs Ivory Coast",
+        "createdAt": "2026-07-18T03:41:44.521Z",
+        "latencyMs": 1454,
+        "eligible": true,
+        "retro": true
       }
     },
     "760474": {
@@ -6560,6 +7400,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.8108430568027999,
+          "draw": 0.12338263470786774,
+          "away": 0.06577430848933238
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.233/8.103/15.2, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Senegal vs Iraq",
+        "createdAt": "2026-07-18T03:41:56.281Z",
+        "latencyMs": 1731,
+        "eligible": true,
+        "retro": true
       }
     },
     "760475": {
@@ -6668,6 +7522,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.11643045631547815,
+          "draw": 0.16352806078318466,
+          "away": 0.7200414829013372
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 8.59/6.116/1.389, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Norway vs France",
+        "createdAt": "2026-07-18T03:41:54.539Z",
+        "latencyMs": 1538,
+        "eligible": true,
+        "retro": true
       }
     },
     "760476": {
@@ -6776,6 +7644,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.3636203595449667,
+          "draw": 0.3557296295797433,
+          "away": 0.28065001087528996
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 2.75/2.811/3.563, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Egypt vs Iran",
+        "createdAt": "2026-07-18T03:42:00.591Z",
+        "latencyMs": 930,
+        "eligible": true,
+        "retro": true
       }
     },
     "760477": {
@@ -6884,6 +7766,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.05849664261060558,
+          "draw": 0.10233172262315657,
+          "away": 0.8391716347662379
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 17.1/9.775/1.192, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "New Zealand vs Belgium",
+        "createdAt": "2026-07-18T03:42:01.933Z",
+        "latencyMs": 1283,
+        "eligible": true,
+        "retro": true
       }
     },
     "760478": {
@@ -6992,6 +7888,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.3792478621610453,
+          "draw": 0.27942906189401406,
+          "away": 0.3413230759449407
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 2.637/3.579/2.93, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Cape Verde vs Saudi Arabia",
+        "createdAt": "2026-07-18T03:41:57.581Z",
+        "latencyMs": 1296,
+        "eligible": true,
+        "retro": true
       }
     },
     "760479": {
@@ -7100,6 +8010,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.1659208173876948,
+          "draw": 0.2602577900632381,
+          "away": 0.5738213925490672
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 6.028/3.843/1.743, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Uruguay vs Spain",
+        "createdAt": "2026-07-18T03:41:59.294Z",
+        "latencyMs": 1702,
+        "eligible": true,
+        "retro": true
       }
     },
     "760480": {
@@ -7208,6 +8132,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.5318326697702067,
+          "draw": 0.2976616311902318,
+          "away": 0.1705056990395615
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.88/3.359/5.864, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Croatia vs Ghana",
+        "createdAt": "2026-07-18T03:42:03.185Z",
+        "latencyMs": 1201,
+        "eligible": true,
+        "retro": true
       }
     },
     "760481": {
@@ -7316,6 +8254,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.2363763309509198,
+          "draw": 0.24000678095832534,
+          "away": 0.5236168880907548
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 4.231/4.167/1.91, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Colombia vs Portugal",
+        "createdAt": "2026-07-18T03:42:06.710Z",
+        "latencyMs": 1293,
+        "eligible": true,
+        "retro": true
       }
     },
     "760482": {
@@ -7424,6 +8376,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.5827384292167204,
+          "draw": 0.24425479837222572,
+          "away": 0.173006772411054
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.716/4.094/5.78, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Congo DR vs Uzbekistan",
+        "createdAt": "2026-07-18T03:42:07.743Z",
+        "latencyMs": 1016,
+        "eligible": true,
+        "retro": true
       }
     },
     "760483": {
@@ -7532,6 +8498,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.04130460084993797,
+          "draw": 0.0999571340568499,
+          "away": 0.8587382650932122
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 24.2/10/1.164, 0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Jordan vs Argentina",
+        "createdAt": "2026-07-18T03:42:10.365Z",
+        "latencyMs": 1341,
+        "eligible": true,
+        "retro": true
       }
     },
     "760484": {
@@ -7640,6 +8620,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.2777828339413513,
+          "draw": 0.465341182963641,
+          "away": 0.25687598309500764
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 3.6/2.149/3.893, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Algeria vs Austria",
+        "createdAt": "2026-07-18T03:42:09.005Z",
+        "latencyMs": 1248,
+        "eligible": true,
+        "retro": true
       }
     },
     "760485": {
@@ -7748,6 +8742,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.049028518029994174,
+          "draw": 0.09902789780315654,
+          "away": 0.8519435841668492
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 20.4/10.1/1.174, -0.0% vig removed.",
+        "market": "regulation",
+        "fixture": "Panama vs England",
+        "createdAt": "2026-07-18T03:42:05.399Z",
+        "latencyMs": 2189,
+        "eligible": true,
+        "retro": true
       }
     },
     "760486": {
@@ -7855,6 +8863,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.27422120605887396,
+          "away": 0.725778793941126
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 5.079/3.547/1.919, -0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "South Africa vs Canada",
+        "createdAt": "2026-07-18T03:42:11.719Z",
+        "latencyMs": 1346,
+        "eligible": true,
+        "retro": true
       }
     },
     "760487": {
@@ -7962,6 +8983,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.7443316177493393,
+          "away": 0.25566838225066074
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 1.838/3.718/5.351, -0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "Brazil vs Japan",
+        "createdAt": "2026-07-18T03:42:13.041Z",
+        "latencyMs": 1313,
+        "eligible": true,
+        "retro": true
       }
     },
     "760488": {
@@ -8069,6 +9103,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.581996284411417,
+          "away": 0.418003715588583
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 2.475/3.271/3.446, -0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "Netherlands vs Morocco",
+        "createdAt": "2026-07-18T03:42:16.305Z",
+        "latencyMs": 1902,
+        "eligible": true,
+        "retro": true
       }
     },
     "760489": {
@@ -8176,6 +9223,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.8882007822685789,
+          "away": 0.11179921773142112
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 1.372/5.569/10.9, 0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "Germany vs Paraguay",
+        "createdAt": "2026-07-18T03:44:10.809Z",
+        "latencyMs": 888,
+        "eligible": true,
+        "retro": true
       }
     },
     "760490": {
@@ -8283,6 +9343,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.36632839793711525,
+          "away": 0.6336716020628848
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 3.809/3.53/2.202, -0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "Ivory Coast vs Norway",
+        "createdAt": "2026-07-18T03:42:17.190Z",
+        "latencyMs": 872,
+        "eligible": true,
+        "retro": true
       }
     },
     "760491": {
@@ -8390,6 +9463,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.6327460510328069,
+          "away": 0.36725394896719316
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 2.418/2.887/4.166, -0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "Mexico vs Ecuador",
+        "createdAt": "2026-07-18T03:42:19.607Z",
+        "latencyMs": 965,
+        "eligible": true,
+        "retro": true
       }
     },
     "760492": {
@@ -8497,6 +9583,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.8954041204437401,
+          "away": 0.10459587955625989
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 1.32/6.499/11.3, -0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "France vs Sweden",
+        "createdAt": "2026-07-18T03:42:18.630Z",
+        "latencyMs": 1426,
+        "eligible": true,
+        "retro": true
       }
     },
     "760493": {
@@ -8604,6 +9703,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.675761421319797,
+          "away": 0.32423857868020306
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 2.044/3.624/4.26, -0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "Belgium vs Senegal",
+        "createdAt": "2026-07-18T03:42:21.846Z",
+        "latencyMs": 988,
+        "eligible": true,
+        "retro": true
       }
     },
     "760494": {
@@ -8711,6 +9823,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.8711254612546127,
+          "away": 0.12887453874538746
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 1.397/5.602/9.443, 0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "United States vs Bosnia-Herzegovina",
+        "createdAt": "2026-07-18T03:42:22.972Z",
+        "latencyMs": 1113,
+        "eligible": true,
+        "retro": true
       }
     },
     "760495": {
@@ -8818,6 +9943,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.9140650144834246,
+          "away": 0.08593498551657548
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 1.335/5.536/14.2, 0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "England vs Congo DR",
+        "createdAt": "2026-07-18T03:42:20.846Z",
+        "latencyMs": 1231,
+        "eligible": true,
+        "retro": true
       }
     },
     "760496": {
@@ -8925,6 +10063,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.7712332369182224,
+          "away": 0.2287667630817775
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 1.74/3.927/5.866, -0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "Portugal vs Croatia",
+        "createdAt": "2026-07-18T03:42:25.639Z",
+        "latencyMs": 1631,
+        "eligible": true,
+        "retro": true
       }
     },
     "760497": {
@@ -9032,6 +10183,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.8870636550308009,
+          "away": 0.11293634496919916
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 1.375/5.56/10.8, -0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "Spain vs Austria",
+        "createdAt": "2026-07-18T03:42:23.996Z",
+        "latencyMs": 1014,
+        "eligible": true,
+        "retro": true
       }
     },
     "760498": {
@@ -9139,6 +10303,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.6817207593386405,
+          "away": 0.3182792406613595
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 2.079/3.396/4.453, 0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "Switzerland vs Algeria",
+        "createdAt": "2026-07-18T03:42:26.908Z",
+        "latencyMs": 1265,
+        "eligible": true,
+        "retro": true
       }
     },
     "760499": {
@@ -9246,6 +10423,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.4047429571860576,
+          "away": 0.5952570428139424
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 3.74/2.947/2.543, -0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "Australia vs Egypt",
+        "createdAt": "2026-07-18T03:42:27.716Z",
+        "latencyMs": 797,
+        "eligible": true,
+        "retro": true
       }
     },
     "760500": {
@@ -9353,6 +10543,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.95303200900756,
+          "away": 0.046967990992440076
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 1.168/9.808/23.7, 0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "Argentina vs Cape Verde",
+        "createdAt": "2026-07-18T03:42:28.927Z",
+        "latencyMs": 1200,
+        "eligible": true,
+        "retro": true
       }
     },
     "760501": {
@@ -9460,6 +10663,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.8608801270671774,
+          "away": 0.13911987293282257
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 1.489/4.55/9.214, -0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "Colombia vs Ghana",
+        "createdAt": "2026-07-18T03:42:30.000Z",
+        "latencyMs": 1060,
+        "eligible": true,
+        "retro": true
       }
     },
     "760502": {
@@ -9567,6 +10783,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.25903119868637103,
+          "away": 0.740968801313629
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 5.415/3.485/1.893, -0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "Canada vs Morocco",
+        "createdAt": "2026-07-18T03:42:31.130Z",
+        "latencyMs": 1118,
+        "eligible": true,
+        "retro": true
       }
     },
     "760503": {
@@ -9661,6 +10890,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.06178261303523306,
+          "away": 0.938217386964767
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 18.8/7.2/1.238, -0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "Paraguay vs France",
+        "createdAt": "2026-07-18T03:42:31.710Z",
+        "latencyMs": 569,
+        "eligible": true,
+        "retro": true
       }
     },
     "760504": {
@@ -9761,6 +11003,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.7338792221084954,
+          "away": 0.2661207778915047
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 1.82/3.979/5.019, 0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "Brazil vs Norway",
+        "createdAt": "2026-07-18T03:42:32.142Z",
+        "latencyMs": 416,
+        "eligible": true,
+        "retro": true
       }
     },
     "760505": {
@@ -9861,6 +11116,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.4438801422041646,
+          "away": 0.5561198577958355
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 3.285/3.182/2.622, 0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "Mexico vs England",
+        "createdAt": "2026-07-18T03:42:32.607Z",
+        "latencyMs": 454,
+        "eligible": true,
+        "retro": true
       }
     },
     "760506": {
@@ -9961,6 +11229,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.34039408866995075,
+          "away": 0.6596059113300493
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 4.017/3.723/2.073, -0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "Portugal vs Spain",
+        "createdAt": "2026-07-18T03:42:33.199Z",
+        "latencyMs": 583,
+        "eligible": true,
+        "retro": true
       }
     },
     "760507": {
@@ -10061,6 +11342,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.5299401197604791,
+          "away": 0.4700598802395209
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 2.669/3.414/3.009, -0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "United States vs Belgium",
+        "createdAt": "2026-07-18T03:42:33.844Z",
+        "latencyMs": 636,
+        "eligible": true,
+        "retro": true
       }
     },
     "760508": {
@@ -10161,6 +11455,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.40513737603641686,
+          "away": 0.5948626239635832
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 3.659/3.073/2.492, -0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "Switzerland vs Colombia",
+        "createdAt": "2026-07-18T03:42:34.990Z",
+        "latencyMs": 474,
+        "eligible": true,
+        "retro": true
       }
     },
     "760509": {
@@ -10261,6 +11568,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.9048513955592677,
+          "away": 0.09514860444073224
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 1.367/5.227/13, -0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "Argentina vs Egypt",
+        "createdAt": "2026-07-18T03:42:34.492Z",
+        "latencyMs": 640,
+        "eligible": true,
+        "retro": true
       }
     },
     "760510": {
@@ -10361,6 +11681,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.8091648015078337,
+          "away": 0.19083519849216632
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 1.62/4.216/6.869, 0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "France vs Morocco",
+        "createdAt": "2026-07-18T03:42:35.591Z",
+        "latencyMs": 596,
+        "eligible": true,
+        "retro": true
       }
     },
     "760511": {
@@ -10461,6 +11794,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.777894875510473,
+          "away": 0.2221051244895271
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 1.686/4.207/5.905, 0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "Spain vs Belgium",
+        "createdAt": "2026-07-18T03:42:35.984Z",
+        "latencyMs": 386,
+        "eligible": true,
+        "retro": true
       }
     },
     "760512": {
@@ -10561,6 +11907,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.30069598228408734,
+          "away": 0.6993040177159127
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 4.421/4.038/1.901, -0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "Norway vs England",
+        "createdAt": "2026-07-18T03:39:19.274Z",
+        "latencyMs": 570,
+        "eligible": true,
+        "retro": true
       }
     },
     "760513": {
@@ -10661,6 +12020,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.782550498904843,
+          "away": 0.21744950109515698
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 1.787/3.509/6.431, 0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "Argentina vs Switzerland",
+        "createdAt": "2026-07-18T03:39:19.599Z",
+        "latencyMs": 302,
+        "eligible": true,
+        "retro": true
       }
     },
     "760514": {
@@ -10768,6 +12140,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.5368243243243244,
+          "away": 0.4631756756756757
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 2.742/3.119/3.178, -0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "France vs Spain",
+        "createdAt": "2026-07-18T03:39:20.237Z",
+        "latencyMs": 622,
+        "eligible": true,
+        "retro": true
       }
     },
     "760515": {
@@ -10868,6 +12253,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.5336315440689199,
+          "away": 0.46636845593108023
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 2.815/2.991/3.221, 0.0% vig removed), draw split by relative strength for the advance market.",
+        "market": "advance",
+        "fixture": "England vs Argentina",
+        "createdAt": "2026-07-18T03:44:11.473Z",
+        "latencyMs": 647,
+        "eligible": true,
+        "retro": true
       }
     },
     "760516": {
@@ -10974,6 +12372,30 @@
         "createdAt": "2026-07-16T05:02:54.563Z",
         "latencyMs": 7588,
         "eligible": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.5133555315028815,
+          "draw": 0.23713933492236497,
+          "away": 0.2495051335747537
+        },
+        "rationale": "TxODDS StablePrice consensus: decimal 1.948/4.217/4.008, -0.0% vig removed.",
+        "odds": {
+          "fixtureId": "18257865",
+          "prices": {
+            "home": 1.948,
+            "draw": 4.217,
+            "away": 4.008
+          },
+          "overround": 0.9999834249071253,
+          "source": "txodds-stableprice",
+          "env": "devnet"
+        },
+        "market": "regulation",
+        "fixture": "France vs England",
+        "createdAt": "2026-07-18T04:02:22.946Z",
+        "latencyMs": 1,
+        "eligible": true
       }
     },
     "760517": {
@@ -11071,6 +12493,29 @@
         "fixture": "Spain vs Argentina",
         "createdAt": "2026-07-16T05:03:01.141Z",
         "latencyMs": 6555,
+        "eligible": true
+      },
+      "txodds/market": {
+        "probs": {
+          "home": 0.6134289439374185,
+          "away": 0.38657105606258146
+        },
+        "rationale": "TxODDS StablePrice consensus (1X2 2.372/3.199/3.764, -0.0% vig removed), draw split by relative strength for the advance market.",
+        "odds": {
+          "fixtureId": "18257739",
+          "prices": {
+            "home": 2.372,
+            "draw": 3.199,
+            "away": 3.764
+          },
+          "overround": 0.999857661007109,
+          "source": "txodds-stableprice",
+          "env": "devnet"
+        },
+        "market": "advance",
+        "fixture": "Spain vs Argentina",
+        "createdAt": "2026-07-18T04:02:22.972Z",
+        "latencyMs": 0,
         "eligible": true
       }
     }
@@ -22416,5 +23861,1177 @@
         }
       }
     }
-  ]
+  ],
+  "proofs": {
+    "760438": {
+      "matchId": "760438",
+      "fixtureId": "17926765",
+      "seq": 973,
+      "statKey": 1002,
+      "root": "1ec33ea95ee2aff96e579a57bf7fe325675e92c8db50e4c9ca77446c877b98e0",
+      "onchainRoot": "1ec33ea95ee2aff96e579a57bf7fe325675e92c8db50e4c9ca77446c877b98e0",
+      "verified": true,
+      "epochDay": 20622,
+      "pda": "BvHXpNdDsdKZgWwL74mkzYMruNGU8n9ChzfWdyMq8LL8",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/BvHXpNdDsdKZgWwL74mkzYMruNGU8n9ChzfWdyMq8LL8?cluster=devnet",
+      "at": "2026-07-18T04:14:08.945Z",
+      "method": "validateStat.view"
+    },
+    "760439": {
+      "matchId": "760439",
+      "fixtureId": "17926603",
+      "seq": 1062,
+      "statKey": 1002,
+      "root": "c31d90d5c399abcbad7b842525d039f75ca60fd3a4336ae713c685a39e99e8b7",
+      "onchainRoot": "c31d90d5c399abcbad7b842525d039f75ca60fd3a4336ae713c685a39e99e8b7",
+      "verified": true,
+      "epochDay": 20622,
+      "pda": "BvHXpNdDsdKZgWwL74mkzYMruNGU8n9ChzfWdyMq8LL8",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/BvHXpNdDsdKZgWwL74mkzYMruNGU8n9ChzfWdyMq8LL8?cluster=devnet",
+      "at": "2026-07-18T04:14:09.672Z",
+      "method": "validateStat.view"
+    },
+    "760440": {
+      "matchId": "760440",
+      "fixtureId": "17588238",
+      "seq": 1164,
+      "statKey": 1002,
+      "root": "84313351a159a63ec51e472197fb4e503c1ec8bae1c284fc3a50d21ce6fb7534",
+      "onchainRoot": "84313351a159a63ec51e472197fb4e503c1ec8bae1c284fc3a50d21ce6fb7534",
+      "verified": true,
+      "epochDay": 20623,
+      "pda": "BLxrKnBFfagbN4b88UbirPdMiUgNoVSNqaSkERipxcfy",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/BLxrKnBFfagbN4b88UbirPdMiUgNoVSNqaSkERipxcfy?cluster=devnet",
+      "at": "2026-07-18T04:14:10.192Z",
+      "method": "validateStat.view"
+    },
+    "760441": {
+      "matchId": "760441",
+      "fixtureId": "17588223",
+      "seq": 1024,
+      "statKey": 1002,
+      "root": "8c412f237f3075885e595195443eb24b15321e068f720b8a1730aad40d9aea3f",
+      "onchainRoot": "8c412f237f3075885e595195443eb24b15321e068f720b8a1730aad40d9aea3f",
+      "verified": true,
+      "epochDay": 20623,
+      "pda": "BLxrKnBFfagbN4b88UbirPdMiUgNoVSNqaSkERipxcfy",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/BLxrKnBFfagbN4b88UbirPdMiUgNoVSNqaSkERipxcfy?cluster=devnet",
+      "at": "2026-07-18T04:14:10.590Z",
+      "method": "validateStat.view"
+    },
+    "760442": {
+      "matchId": "760442",
+      "fixtureId": "17588388",
+      "seq": 1033,
+      "statKey": 1002,
+      "root": "336f34a112a2f62a1147907be70e3e8316d119694f8c2c0abf1cd01d37440f31",
+      "onchainRoot": "336f34a112a2f62a1147907be70e3e8316d119694f8c2c0abf1cd01d37440f31",
+      "verified": true,
+      "epochDay": 20623,
+      "pda": "BLxrKnBFfagbN4b88UbirPdMiUgNoVSNqaSkERipxcfy",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/BLxrKnBFfagbN4b88UbirPdMiUgNoVSNqaSkERipxcfy?cluster=devnet",
+      "at": "2026-07-18T04:14:11.183Z",
+      "method": "validateStat.view"
+    },
+    "760443": {
+      "matchId": "760443",
+      "fixtureId": "17926688",
+      "seq": 1174,
+      "statKey": 1002,
+      "root": "a2941827b48142a0db17658df090fa8bd2c90ed5932373fe9da2c95d9cca202a",
+      "onchainRoot": "a2941827b48142a0db17658df090fa8bd2c90ed5932373fe9da2c95d9cca202a",
+      "verified": true,
+      "epochDay": 20624,
+      "pda": "BM2n3RE2ADwZDaGehqd4mtkCQsFgW4aQrtdnDQ3VR4Kn",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/BM2n3RE2ADwZDaGehqd4mtkCQsFgW4aQrtdnDQ3VR4Kn?cluster=devnet",
+      "at": "2026-07-18T04:14:12.866Z",
+      "method": "validateStat.view"
+    },
+    "760444": {
+      "matchId": "760444",
+      "fixtureId": "17588317",
+      "seq": 1046,
+      "statKey": 1002,
+      "root": "28173c2048b483fd05033227ef0961369327ee8adfd17bbd8cfd0e2dec0e9eb5",
+      "onchainRoot": "28173c2048b483fd05033227ef0961369327ee8adfd17bbd8cfd0e2dec0e9eb5",
+      "verified": true,
+      "epochDay": 20624,
+      "pda": "BM2n3RE2ADwZDaGehqd4mtkCQsFgW4aQrtdnDQ3VR4Kn",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/BM2n3RE2ADwZDaGehqd4mtkCQsFgW4aQrtdnDQ3VR4Kn?cluster=devnet",
+      "at": "2026-07-18T04:14:12.323Z",
+      "method": "validateStat.view"
+    },
+    "760445": {
+      "matchId": "760445",
+      "fixtureId": "17588397",
+      "seq": 884,
+      "statKey": 1002,
+      "root": "2830cc394a020f7b7d64e3050a232a3c46187e513cd3511c4ceb0c18f291823d",
+      "onchainRoot": "2830cc394a020f7b7d64e3050a232a3c46187e513cd3511c4ceb0c18f291823d",
+      "verified": true,
+      "epochDay": 20624,
+      "pda": "BM2n3RE2ADwZDaGehqd4mtkCQsFgW4aQrtdnDQ3VR4Kn",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/BM2n3RE2ADwZDaGehqd4mtkCQsFgW4aQrtdnDQ3VR4Kn?cluster=devnet",
+      "at": "2026-07-18T04:14:11.565Z",
+      "method": "validateStat.view"
+    },
+    "760446": {
+      "matchId": "760446",
+      "fixtureId": "17588320",
+      "seq": 1113,
+      "statKey": 1002,
+      "root": "6f4d6200ff69873f4247fb2055bb373476b8fbc6e63b0a4edf6dff5704048fd4",
+      "onchainRoot": "6f4d6200ff69873f4247fb2055bb373476b8fbc6e63b0a4edf6dff5704048fd4",
+      "verified": true,
+      "epochDay": 20625,
+      "pda": "HmxgHZXtzVS9hdywMb83vCZPopbwbBgFPMh2DrJN46MF",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/HmxgHZXtzVS9hdywMb83vCZPopbwbBgFPMh2DrJN46MF?cluster=devnet",
+      "at": "2026-07-18T04:14:14.577Z",
+      "method": "validateStat.view"
+    },
+    "760447": {
+      "matchId": "760447",
+      "fixtureId": "17926687",
+      "seq": 903,
+      "statKey": 1002,
+      "root": "195062c75fcb93ea8b8c2667249098c5e3e02bd94490b7e449dbdaaedd84d1ff",
+      "onchainRoot": "195062c75fcb93ea8b8c2667249098c5e3e02bd94490b7e449dbdaaedd84d1ff",
+      "verified": true,
+      "epochDay": 20624,
+      "pda": "BM2n3RE2ADwZDaGehqd4mtkCQsFgW4aQrtdnDQ3VR4Kn",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/BM2n3RE2ADwZDaGehqd4mtkCQsFgW4aQrtdnDQ3VR4Kn?cluster=devnet",
+      "at": "2026-07-18T04:14:13.433Z",
+      "method": "validateStat.view"
+    },
+    "760448": {
+      "matchId": "760448",
+      "fixtureId": "17588240",
+      "seq": 1071,
+      "statKey": 1002,
+      "root": "240794ccbb2ff045b1287e8d590fc85d736237b2ec2b7982b49e408edcc7bb4f",
+      "onchainRoot": "240794ccbb2ff045b1287e8d590fc85d736237b2ec2b7982b49e408edcc7bb4f",
+      "verified": true,
+      "epochDay": 20624,
+      "pda": "BM2n3RE2ADwZDaGehqd4mtkCQsFgW4aQrtdnDQ3VR4Kn",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/BM2n3RE2ADwZDaGehqd4mtkCQsFgW4aQrtdnDQ3VR4Kn?cluster=devnet",
+      "at": "2026-07-18T04:14:14.044Z",
+      "method": "validateStat.view"
+    },
+    "760449": {
+      "matchId": "760449",
+      "fixtureId": "17588310",
+      "seq": 1030,
+      "statKey": 1002,
+      "root": "6579d2c1587239922b3f6f1fb1dbad5d61d2be692d9d95589d91098bd49af79f",
+      "onchainRoot": "6579d2c1587239922b3f6f1fb1dbad5d61d2be692d9d95589d91098bd49af79f",
+      "verified": true,
+      "epochDay": 20625,
+      "pda": "HmxgHZXtzVS9hdywMb83vCZPopbwbBgFPMh2DrJN46MF",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/HmxgHZXtzVS9hdywMb83vCZPopbwbBgFPMh2DrJN46MF?cluster=devnet",
+      "at": "2026-07-18T04:14:15.410Z",
+      "method": "validateStat.view"
+    },
+    "760450": {
+      "matchId": "760450",
+      "fixtureId": "17588235",
+      "seq": 1004,
+      "statKey": 1002,
+      "root": "dfce76950d94ea03a19a7cb56ccd8091f965f0eee7dcf73056658a9cf32dba8d",
+      "onchainRoot": "dfce76950d94ea03a19a7cb56ccd8091f965f0eee7dcf73056658a9cf32dba8d",
+      "verified": true,
+      "epochDay": 20626,
+      "pda": "9rgwriJRW4TZXxMfK3LzbUw1fupM515CKRegf7ZBME3E",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/9rgwriJRW4TZXxMfK3LzbUw1fupM515CKRegf7ZBME3E?cluster=devnet",
+      "at": "2026-07-18T04:14:17.388Z",
+      "method": "validateStat.view"
+    },
+    "760451": {
+      "matchId": "760451",
+      "fixtureId": "17588390",
+      "seq": 1166,
+      "statKey": 1002,
+      "root": "f76420feefbb4b1c67babbe8fe2ba858e5c80faafbe319d741a393fd54391386",
+      "onchainRoot": "f76420feefbb4b1c67babbe8fe2ba858e5c80faafbe319d741a393fd54391386",
+      "verified": true,
+      "epochDay": 20625,
+      "pda": "HmxgHZXtzVS9hdywMb83vCZPopbwbBgFPMh2DrJN46MF",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/HmxgHZXtzVS9hdywMb83vCZPopbwbBgFPMh2DrJN46MF?cluster=devnet",
+      "at": "2026-07-18T04:14:17.000Z",
+      "method": "validateStat.view"
+    },
+    "760452": {
+      "matchId": "760452",
+      "fixtureId": "17588242",
+      "seq": 1021,
+      "statKey": 1002,
+      "root": "5ab468b78344e148ae7a56d9bc878b058597fdd15dae9d1306fe167366d1433d",
+      "onchainRoot": "5ab468b78344e148ae7a56d9bc878b058597fdd15dae9d1306fe167366d1433d",
+      "verified": true,
+      "epochDay": 20626,
+      "pda": "9rgwriJRW4TZXxMfK3LzbUw1fupM515CKRegf7ZBME3E",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/9rgwriJRW4TZXxMfK3LzbUw1fupM515CKRegf7ZBME3E?cluster=devnet",
+      "at": "2026-07-18T04:14:18.061Z",
+      "method": "validateStat.view"
+    },
+    "760453": {
+      "matchId": "760453",
+      "fixtureId": "17588232",
+      "seq": 967,
+      "statKey": 1002,
+      "root": "a2042b577cb31170c9916d02a4f9ded991a5a6d41d469576c9c0492e52bf7895",
+      "onchainRoot": "a2042b577cb31170c9916d02a4f9ded991a5a6d41d469576c9c0492e52bf7895",
+      "verified": true,
+      "epochDay": 20625,
+      "pda": "HmxgHZXtzVS9hdywMb83vCZPopbwbBgFPMh2DrJN46MF",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/HmxgHZXtzVS9hdywMb83vCZPopbwbBgFPMh2DrJN46MF?cluster=devnet",
+      "at": "2026-07-18T04:14:16.188Z",
+      "method": "validateStat.view"
+    },
+    "760454": {
+      "matchId": "760454",
+      "fixtureId": "17588313",
+      "seq": 1064,
+      "statKey": 1002,
+      "root": "522002f8a7db40ba0ccb066db5df1c8ad587787cd57b94d1634941d294323e07",
+      "onchainRoot": "522002f8a7db40ba0ccb066db5df1c8ad587787cd57b94d1634941d294323e07",
+      "verified": true,
+      "epochDay": 20627,
+      "pda": "7SCTwQKPx9nF1qgaHT3pMaG7gTS949VM3EY9DGSrzXHy",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/7SCTwQKPx9nF1qgaHT3pMaG7gTS949VM3EY9DGSrzXHy?cluster=devnet",
+      "at": "2026-07-18T04:14:19.695Z",
+      "method": "validateStat.view"
+    },
+    "760455": {
+      "matchId": "760455",
+      "fixtureId": "17588244",
+      "seq": 1034,
+      "statKey": 1002,
+      "root": "0e6da967d8cff411274100ce38965036b9733246b5d2e79fa79ecb9c5bd3bf74",
+      "onchainRoot": "0e6da967d8cff411274100ce38965036b9733246b5d2e79fa79ecb9c5bd3bf74",
+      "verified": true,
+      "epochDay": 20627,
+      "pda": "7SCTwQKPx9nF1qgaHT3pMaG7gTS949VM3EY9DGSrzXHy",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/7SCTwQKPx9nF1qgaHT3pMaG7gTS949VM3EY9DGSrzXHy?cluster=devnet",
+      "at": "2026-07-18T04:14:20.498Z",
+      "method": "validateStat.view"
+    },
+    "760456": {
+      "matchId": "760456",
+      "fixtureId": "17588389",
+      "seq": 905,
+      "statKey": 1002,
+      "root": "9d715d3a21bb39951fad462e05375a998fb43b0231a62703bd23055892406bd1",
+      "onchainRoot": "9d715d3a21bb39951fad462e05375a998fb43b0231a62703bd23055892406bd1",
+      "verified": true,
+      "epochDay": 20626,
+      "pda": "9rgwriJRW4TZXxMfK3LzbUw1fupM515CKRegf7ZBME3E",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/9rgwriJRW4TZXxMfK3LzbUw1fupM515CKRegf7ZBME3E?cluster=devnet",
+      "at": "2026-07-18T04:14:18.841Z",
+      "method": "validateStat.view"
+    },
+    "760457": {
+      "matchId": "760457",
+      "fixtureId": "17926647",
+      "seq": 1035,
+      "statKey": 1002,
+      "root": "b6e8337df0ec01da92e80a04036339eae91a977dd375166fec12af469b7bb0bf",
+      "onchainRoot": "b6e8337df0ec01da92e80a04036339eae91a977dd375166fec12af469b7bb0bf",
+      "verified": true,
+      "epochDay": 20627,
+      "pda": "7SCTwQKPx9nF1qgaHT3pMaG7gTS949VM3EY9DGSrzXHy",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/7SCTwQKPx9nF1qgaHT3pMaG7gTS949VM3EY9DGSrzXHy?cluster=devnet",
+      "at": "2026-07-18T04:14:19.363Z",
+      "method": "validateStat.view"
+    },
+    "760458": {
+      "matchId": "760458",
+      "fixtureId": "17588324",
+      "seq": 1020,
+      "statKey": 1002,
+      "root": "77fd01cb0e1084c696667fba11b76eb7ce71eaaf1d12dd4a6fbbfc9d9bc1ba70",
+      "onchainRoot": "77fd01cb0e1084c696667fba11b76eb7ce71eaaf1d12dd4a6fbbfc9d9bc1ba70",
+      "verified": true,
+      "epochDay": 20627,
+      "pda": "7SCTwQKPx9nF1qgaHT3pMaG7gTS949VM3EY9DGSrzXHy",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/7SCTwQKPx9nF1qgaHT3pMaG7gTS949VM3EY9DGSrzXHy?cluster=devnet",
+      "at": "2026-07-18T04:14:21.630Z",
+      "method": "validateStat.view"
+    },
+    "760459": {
+      "matchId": "760459",
+      "fixtureId": "17926615",
+      "seq": 952,
+      "statKey": 1002,
+      "root": "689539a0b339f896ccd7fabd26ee31c80757b0a4981d9322ab65304d690d9463",
+      "onchainRoot": "689539a0b339f896ccd7fabd26ee31c80757b0a4981d9322ab65304d690d9463",
+      "verified": true,
+      "epochDay": 20628,
+      "pda": "3G4DNsZtWvoQ5aNoykXWTSCHwFLyyXhiu1mwenc6hrUw",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/3G4DNsZtWvoQ5aNoykXWTSCHwFLyyXhiu1mwenc6hrUw?cluster=devnet",
+      "at": "2026-07-18T04:14:22.568Z",
+      "method": "validateStat.view"
+    },
+    "760460": {
+      "matchId": "760460",
+      "fixtureId": "17588401",
+      "seq": 865,
+      "statKey": 1002,
+      "root": "9ce2aeb2d33e227921830c9dc550a3e414a9b3ea9c2289b8c6a6a782dd09f5fb",
+      "onchainRoot": "9ce2aeb2d33e227921830c9dc550a3e414a9b3ea9c2289b8c6a6a782dd09f5fb",
+      "verified": true,
+      "epochDay": 20628,
+      "pda": "3G4DNsZtWvoQ5aNoykXWTSCHwFLyyXhiu1mwenc6hrUw",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/3G4DNsZtWvoQ5aNoykXWTSCHwFLyyXhiu1mwenc6hrUw?cluster=devnet",
+      "at": "2026-07-18T04:14:21.961Z",
+      "method": "validateStat.view"
+    },
+    "760461": {
+      "matchId": "760461",
+      "fixtureId": "17588231",
+      "seq": 1166,
+      "statKey": 1002,
+      "root": "fd09e23a8036de7d6cdae723f52892c3d5f9af904cf0d2d2d5945ca47d30923a",
+      "onchainRoot": "fd09e23a8036de7d6cdae723f52892c3d5f9af904cf0d2d2d5945ca47d30923a",
+      "verified": true,
+      "epochDay": 20627,
+      "pda": "7SCTwQKPx9nF1qgaHT3pMaG7gTS949VM3EY9DGSrzXHy",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/7SCTwQKPx9nF1qgaHT3pMaG7gTS949VM3EY9DGSrzXHy?cluster=devnet",
+      "at": "2026-07-18T04:14:21.032Z",
+      "method": "validateStat.view"
+    },
+    "760462": {
+      "matchId": "760462",
+      "fixtureId": "17926766",
+      "seq": 880,
+      "statKey": 1002,
+      "root": "0aa7006d0f6dba0c11f054b1fcf8c184248c7dd42f6ccc5ae6a06fea841fb455",
+      "onchainRoot": "0aa7006d0f6dba0c11f054b1fcf8c184248c7dd42f6ccc5ae6a06fea841fb455",
+      "verified": true,
+      "epochDay": 20628,
+      "pda": "3G4DNsZtWvoQ5aNoykXWTSCHwFLyyXhiu1mwenc6hrUw",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/3G4DNsZtWvoQ5aNoykXWTSCHwFLyyXhiu1mwenc6hrUw?cluster=devnet",
+      "at": "2026-07-18T04:14:23.308Z",
+      "method": "validateStat.view"
+    },
+    "760463": {
+      "matchId": "760463",
+      "fixtureId": "17588303",
+      "seq": 1149,
+      "statKey": 1002,
+      "root": "c0881d1bd9a35268eb0f2048598f763c11a7ca47b2f789e4cdbb5150d48b0664",
+      "onchainRoot": "c0881d1bd9a35268eb0f2048598f763c11a7ca47b2f789e4cdbb5150d48b0664",
+      "verified": true,
+      "epochDay": 20628,
+      "pda": "3G4DNsZtWvoQ5aNoykXWTSCHwFLyyXhiu1mwenc6hrUw",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/3G4DNsZtWvoQ5aNoykXWTSCHwFLyyXhiu1mwenc6hrUw?cluster=devnet",
+      "at": "2026-07-18T04:14:23.866Z",
+      "method": "validateStat.view"
+    },
+    "760464": {
+      "matchId": "760464",
+      "fixtureId": "17588319",
+      "seq": 1103,
+      "statKey": 1002,
+      "root": "712ad58d4f0490b42b6c986ec58ac8bbd41a648f5e9afdc6dfbe48e9f8dacbe8",
+      "onchainRoot": "712ad58d4f0490b42b6c986ec58ac8bbd41a648f5e9afdc6dfbe48e9f8dacbe8",
+      "verified": true,
+      "epochDay": 20629,
+      "pda": "CdUmkUdc4XBKeeq7Kq6JxQvnVMNuDA21mp98x4Rs3jHQ",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/CdUmkUdc4XBKeeq7Kq6JxQvnVMNuDA21mp98x4Rs3jHQ?cluster=devnet",
+      "at": "2026-07-18T04:14:24.653Z",
+      "method": "validateStat.view"
+    },
+    "760465": {
+      "matchId": "760465",
+      "fixtureId": "17588398",
+      "seq": 980,
+      "statKey": 1002,
+      "root": "ee95422e5b727ab58daeb3e7d6de7c84226a337ece2fa42aeeee20c6f1a6de4a",
+      "onchainRoot": "ee95422e5b727ab58daeb3e7d6de7c84226a337ece2fa42aeeee20c6f1a6de4a",
+      "verified": true,
+      "epochDay": 20629,
+      "pda": "CdUmkUdc4XBKeeq7Kq6JxQvnVMNuDA21mp98x4Rs3jHQ",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/CdUmkUdc4XBKeeq7Kq6JxQvnVMNuDA21mp98x4Rs3jHQ?cluster=devnet",
+      "at": "2026-07-18T04:14:25.196Z",
+      "method": "validateStat.view"
+    },
+    "760466": {
+      "matchId": "760466",
+      "fixtureId": "17588395",
+      "seq": 987,
+      "statKey": 1002,
+      "root": "a9e03f3a630fc39011ae9c14d2160fe9cb7e863e863840e7af146db0cd29ce91",
+      "onchainRoot": "a9e03f3a630fc39011ae9c14d2160fe9cb7e863e863840e7af146db0cd29ce91",
+      "verified": true,
+      "epochDay": 20629,
+      "pda": "CdUmkUdc4XBKeeq7Kq6JxQvnVMNuDA21mp98x4Rs3jHQ",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/CdUmkUdc4XBKeeq7Kq6JxQvnVMNuDA21mp98x4Rs3jHQ?cluster=devnet",
+      "at": "2026-07-18T04:14:26.311Z",
+      "method": "validateStat.view"
+    },
+    "760467": {
+      "matchId": "760467",
+      "fixtureId": "17926764",
+      "seq": 968,
+      "statKey": 1002,
+      "root": "7d32292fbe66f16d6d95c8e8eb253e15e382544371d9066d6dc6c8f8abbaf623",
+      "onchainRoot": "7d32292fbe66f16d6d95c8e8eb253e15e382544371d9066d6dc6c8f8abbaf623",
+      "verified": true,
+      "epochDay": 20629,
+      "pda": "CdUmkUdc4XBKeeq7Kq6JxQvnVMNuDA21mp98x4Rs3jHQ",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/CdUmkUdc4XBKeeq7Kq6JxQvnVMNuDA21mp98x4Rs3jHQ?cluster=devnet",
+      "at": "2026-07-18T04:14:25.942Z",
+      "method": "validateStat.view"
+    },
+    "760468": {
+      "matchId": "760468",
+      "fixtureId": "17588302",
+      "seq": 983,
+      "statKey": 1002,
+      "root": "24194535ea75a051862c9df66ece2ce875e5e410cb0a0cb99e8db2d5483a3c9c",
+      "onchainRoot": "24194535ea75a051862c9df66ece2ce875e5e410cb0a0cb99e8db2d5483a3c9c",
+      "verified": true,
+      "epochDay": 20629,
+      "pda": "CdUmkUdc4XBKeeq7Kq6JxQvnVMNuDA21mp98x4Rs3jHQ",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/CdUmkUdc4XBKeeq7Kq6JxQvnVMNuDA21mp98x4Rs3jHQ?cluster=devnet",
+      "at": "2026-07-18T04:14:27.354Z",
+      "method": "validateStat.view"
+    },
+    "760469": {
+      "matchId": "760469",
+      "fixtureId": "17588229",
+      "seq": 887,
+      "statKey": 1002,
+      "root": "e393d6cdebd71682693f93daa43da01125ee5ef5542e2faf61ba7ac542b902a2",
+      "onchainRoot": "e393d6cdebd71682693f93daa43da01125ee5ef5542e2faf61ba7ac542b902a2",
+      "verified": true,
+      "epochDay": 20630,
+      "pda": "AcSnxw9MkNCWW3YyPgKPVBNbw1eeKGWP4fcsi77hcR4H",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/AcSnxw9MkNCWW3YyPgKPVBNbw1eeKGWP4fcsi77hcR4H?cluster=devnet",
+      "at": "2026-07-18T04:14:29.339Z",
+      "method": "validateStat.view"
+    },
+    "760470": {
+      "matchId": "760470",
+      "fixtureId": "17926593",
+      "seq": 1096,
+      "statKey": 1002,
+      "root": "92c2f3f2218c7c4bf773d2f4f23e544f053968ad8e009799bdb3392c89d74247",
+      "onchainRoot": "92c2f3f2218c7c4bf773d2f4f23e544f053968ad8e009799bdb3392c89d74247",
+      "verified": true,
+      "epochDay": 20630,
+      "pda": "AcSnxw9MkNCWW3YyPgKPVBNbw1eeKGWP4fcsi77hcR4H",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/AcSnxw9MkNCWW3YyPgKPVBNbw1eeKGWP4fcsi77hcR4H?cluster=devnet",
+      "at": "2026-07-18T04:14:30.054Z",
+      "method": "validateStat.view"
+    },
+    "760471": {
+      "matchId": "760471",
+      "fixtureId": "17926686",
+      "seq": 884,
+      "statKey": 1002,
+      "root": "a214b0ed5176fc707f2cae22fb13825fd1a1c3d77b66a484831831a591a36971",
+      "onchainRoot": "a214b0ed5176fc707f2cae22fb13825fd1a1c3d77b66a484831831a591a36971",
+      "verified": true,
+      "epochDay": 20630,
+      "pda": "AcSnxw9MkNCWW3YyPgKPVBNbw1eeKGWP4fcsi77hcR4H",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/AcSnxw9MkNCWW3YyPgKPVBNbw1eeKGWP4fcsi77hcR4H?cluster=devnet",
+      "at": "2026-07-18T04:14:28.106Z",
+      "method": "validateStat.view"
+    },
+    "760472": {
+      "matchId": "760472",
+      "fixtureId": "17588236",
+      "seq": 1002,
+      "statKey": 1002,
+      "root": "5739a1a64f76d0f8ef284cbfc65988e16bcd79d87f4f151297994b0e4c7d1d04",
+      "onchainRoot": "5739a1a64f76d0f8ef284cbfc65988e16bcd79d87f4f151297994b0e4c7d1d04",
+      "verified": true,
+      "epochDay": 20630,
+      "pda": "AcSnxw9MkNCWW3YyPgKPVBNbw1eeKGWP4fcsi77hcR4H",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/AcSnxw9MkNCWW3YyPgKPVBNbw1eeKGWP4fcsi77hcR4H?cluster=devnet",
+      "at": "2026-07-18T04:14:28.807Z",
+      "method": "validateStat.view"
+    },
+    "760473": {
+      "matchId": "760473",
+      "fixtureId": "17588321",
+      "seq": 1137,
+      "statKey": 1002,
+      "root": "3fdadd4e29c34748d6ecab981bfdad987a526533462f31aad0c39e6dd554ef17",
+      "onchainRoot": "3fdadd4e29c34748d6ecab981bfdad987a526533462f31aad0c39e6dd554ef17",
+      "verified": true,
+      "epochDay": 20629,
+      "pda": "CdUmkUdc4XBKeeq7Kq6JxQvnVMNuDA21mp98x4Rs3jHQ",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/CdUmkUdc4XBKeeq7Kq6JxQvnVMNuDA21mp98x4Rs3jHQ?cluster=devnet",
+      "at": "2026-07-18T04:14:26.838Z",
+      "method": "validateStat.view"
+    },
+    "760474": {
+      "matchId": "760474",
+      "fixtureId": "17926740",
+      "seq": 1168,
+      "statKey": 1002,
+      "root": "24c6e2aa8bda4c9b287a850e91ee8cf26f6fb084362afb495ff788900541b928",
+      "onchainRoot": "24c6e2aa8bda4c9b287a850e91ee8cf26f6fb084362afb495ff788900541b928",
+      "verified": true,
+      "epochDay": 20630,
+      "pda": "AcSnxw9MkNCWW3YyPgKPVBNbw1eeKGWP4fcsi77hcR4H",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/AcSnxw9MkNCWW3YyPgKPVBNbw1eeKGWP4fcsi77hcR4H?cluster=devnet",
+      "at": "2026-07-18T04:14:31.408Z",
+      "method": "validateStat.view"
+    },
+    "760475": {
+      "matchId": "760475",
+      "fixtureId": "17588234",
+      "seq": 1091,
+      "statKey": 1002,
+      "root": "b0d75511d2e406ed9930c9774ea3c02050e4eb8e90a21761668f6e7938b51201",
+      "onchainRoot": "b0d75511d2e406ed9930c9774ea3c02050e4eb8e90a21761668f6e7938b51201",
+      "verified": true,
+      "epochDay": 20630,
+      "pda": "AcSnxw9MkNCWW3YyPgKPVBNbw1eeKGWP4fcsi77hcR4H",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/AcSnxw9MkNCWW3YyPgKPVBNbw1eeKGWP4fcsi77hcR4H?cluster=devnet",
+      "at": "2026-07-18T04:14:30.571Z",
+      "method": "validateStat.view"
+    },
+    "760476": {
+      "matchId": "760476",
+      "fixtureId": "17588309",
+      "seq": 1140,
+      "statKey": 1002,
+      "root": "3a0ff51b6bc360330107653dfda598f1263ec3830f964d230db2c182a20c0551",
+      "onchainRoot": "3a0ff51b6bc360330107653dfda598f1263ec3830f964d230db2c182a20c0551",
+      "verified": true,
+      "epochDay": 20631,
+      "pda": "BByGFqzPF3Ks6GjWMUZcvzY9ShMFQrdDcyf1vcAi67oe",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/BByGFqzPF3Ks6GjWMUZcvzY9ShMFQrdDcyf1vcAi67oe?cluster=devnet",
+      "at": "2026-07-18T04:14:33.121Z",
+      "method": "validateStat.view"
+    },
+    "760477": {
+      "matchId": "760477",
+      "fixtureId": "17588323",
+      "seq": 944,
+      "statKey": 1002,
+      "root": "629b601d471918afa7a174edd0576df76f4a283b626093d763275c564e2c343e",
+      "onchainRoot": "629b601d471918afa7a174edd0576df76f4a283b626093d763275c564e2c343e",
+      "verified": true,
+      "epochDay": 20631,
+      "pda": "BByGFqzPF3Ks6GjWMUZcvzY9ShMFQrdDcyf1vcAi67oe",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/BByGFqzPF3Ks6GjWMUZcvzY9ShMFQrdDcyf1vcAi67oe?cluster=devnet",
+      "at": "2026-07-18T04:14:33.716Z",
+      "method": "validateStat.view"
+    },
+    "760478": {
+      "matchId": "760478",
+      "fixtureId": "17588314",
+      "seq": 1072,
+      "statKey": 1002,
+      "root": "40df14e0ff4a246b0692aed316c7e61b4050b26b4a3ceabbd54e379d5debca2f",
+      "onchainRoot": "40df14e0ff4a246b0692aed316c7e61b4050b26b4a3ceabbd54e379d5debca2f",
+      "verified": true,
+      "epochDay": 20631,
+      "pda": "BByGFqzPF3Ks6GjWMUZcvzY9ShMFQrdDcyf1vcAi67oe",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/BByGFqzPF3Ks6GjWMUZcvzY9ShMFQrdDcyf1vcAi67oe?cluster=devnet",
+      "at": "2026-07-18T04:14:31.753Z",
+      "method": "validateStat.view"
+    },
+    "760479": {
+      "matchId": "760479",
+      "fixtureId": "17588404",
+      "seq": 882,
+      "statKey": 1002,
+      "root": "08f77ad01763fb84b4a5927fc3b85501bd37be2e6bbc3ad332f050f76351cfb6",
+      "onchainRoot": "08f77ad01763fb84b4a5927fc3b85501bd37be2e6bbc3ad332f050f76351cfb6",
+      "verified": true,
+      "epochDay": 20631,
+      "pda": "BByGFqzPF3Ks6GjWMUZcvzY9ShMFQrdDcyf1vcAi67oe",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/BByGFqzPF3Ks6GjWMUZcvzY9ShMFQrdDcyf1vcAi67oe?cluster=devnet",
+      "at": "2026-07-18T04:14:32.282Z",
+      "method": "validateStat.view"
+    },
+    "760480": {
+      "matchId": "760480",
+      "fixtureId": "17588245",
+      "seq": 988,
+      "statKey": 1002,
+      "root": "68643b38caf2891e3468a5c56b9a2466e3666dcedf7014bb3a1b3ac7a266f4af",
+      "onchainRoot": "68643b38caf2891e3468a5c56b9a2466e3666dcedf7014bb3a1b3ac7a266f4af",
+      "verified": true,
+      "epochDay": 20631,
+      "pda": "BByGFqzPF3Ks6GjWMUZcvzY9ShMFQrdDcyf1vcAi67oe",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/BByGFqzPF3Ks6GjWMUZcvzY9ShMFQrdDcyf1vcAi67oe?cluster=devnet",
+      "at": "2026-07-18T04:14:34.087Z",
+      "method": "validateStat.view"
+    },
+    "760481": {
+      "matchId": "760481",
+      "fixtureId": "17588391",
+      "seq": 1086,
+      "statKey": 1002,
+      "root": "3f5c9e7a0feb6477c6d1b91868a7273b24ae8f8fb26071f8e1224dd9d93b778a",
+      "onchainRoot": "3f5c9e7a0feb6477c6d1b91868a7273b24ae8f8fb26071f8e1224dd9d93b778a",
+      "verified": true,
+      "epochDay": 20632,
+      "pda": "ARH3jGajWvaFqv1WYxFvh67WrpxeHQQAfGf6Ea3LDweT",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/ARH3jGajWvaFqv1WYxFvh67WrpxeHQQAfGf6Ea3LDweT?cluster=devnet",
+      "at": "2026-07-18T04:14:35.520Z",
+      "method": "validateStat.view"
+    },
+    "760482": {
+      "matchId": "760482",
+      "fixtureId": "17926704",
+      "seq": 1116,
+      "statKey": 1002,
+      "root": "743d937f174872f3045ca71c763a7794741e23dffe3ea3c0ab2bac9df87e5fdb",
+      "onchainRoot": "743d937f174872f3045ca71c763a7794741e23dffe3ea3c0ab2bac9df87e5fdb",
+      "verified": true,
+      "epochDay": 20632,
+      "pda": "ARH3jGajWvaFqv1WYxFvh67WrpxeHQQAfGf6Ea3LDweT",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/ARH3jGajWvaFqv1WYxFvh67WrpxeHQQAfGf6Ea3LDweT?cluster=devnet",
+      "at": "2026-07-18T04:14:35.876Z",
+      "method": "validateStat.view"
+    },
+    "760483": {
+      "matchId": "760483",
+      "fixtureId": "17588325",
+      "seq": 980,
+      "statKey": 1002,
+      "root": "281c2f4c8963585fad1350dfd4186ec61317affad7d57baaf99276816a4c3c8d",
+      "onchainRoot": "281c2f4c8963585fad1350dfd4186ec61317affad7d57baaf99276816a4c3c8d",
+      "verified": true,
+      "epochDay": 20632,
+      "pda": "ARH3jGajWvaFqv1WYxFvh67WrpxeHQQAfGf6Ea3LDweT",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/ARH3jGajWvaFqv1WYxFvh67WrpxeHQQAfGf6Ea3LDweT?cluster=devnet",
+      "at": "2026-07-18T04:14:37.238Z",
+      "method": "validateStat.view"
+    },
+    "760484": {
+      "matchId": "760484",
+      "fixtureId": "17588326",
+      "seq": 985,
+      "statKey": 1002,
+      "root": "5dfed9e08d86c98620f36b45084da8ca385b6d8f1012006e34b2440d9290f4c1",
+      "onchainRoot": "5dfed9e08d86c98620f36b45084da8ca385b6d8f1012006e34b2440d9290f4c1",
+      "verified": true,
+      "epochDay": 20632,
+      "pda": "ARH3jGajWvaFqv1WYxFvh67WrpxeHQQAfGf6Ea3LDweT",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/ARH3jGajWvaFqv1WYxFvh67WrpxeHQQAfGf6Ea3LDweT?cluster=devnet",
+      "at": "2026-07-18T04:14:36.418Z",
+      "method": "validateStat.view"
+    },
+    "760485": {
+      "matchId": "760485",
+      "fixtureId": "17588402",
+      "seq": 1180,
+      "statKey": 1002,
+      "root": "a601c3e8841524cd38cdac33e6c64b8812c7a1caf3c3988ef29a0ede9bbd8dff",
+      "onchainRoot": "a601c3e8841524cd38cdac33e6c64b8812c7a1caf3c3988ef29a0ede9bbd8dff",
+      "verified": true,
+      "epochDay": 20631,
+      "pda": "BByGFqzPF3Ks6GjWMUZcvzY9ShMFQrdDcyf1vcAi67oe",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/BByGFqzPF3Ks6GjWMUZcvzY9ShMFQrdDcyf1vcAi67oe?cluster=devnet",
+      "at": "2026-07-18T04:14:34.805Z",
+      "method": "validateStat.view"
+    },
+    "760486": {
+      "matchId": "760486",
+      "fixtureId": "18167317",
+      "seq": 960,
+      "statKey": 1002,
+      "root": "aea949f7bf76845370cfce4aeaed2db55b9dc04525992becab4ceca73b8945c3",
+      "onchainRoot": "aea949f7bf76845370cfce4aeaed2db55b9dc04525992becab4ceca73b8945c3",
+      "verified": true,
+      "epochDay": 20632,
+      "pda": "ARH3jGajWvaFqv1WYxFvh67WrpxeHQQAfGf6Ea3LDweT",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/ARH3jGajWvaFqv1WYxFvh67WrpxeHQQAfGf6Ea3LDweT?cluster=devnet",
+      "at": "2026-07-18T04:14:38.034Z",
+      "method": "validateStat.view"
+    },
+    "760487": {
+      "matchId": "760487",
+      "fixtureId": "18172469",
+      "seq": 988,
+      "statKey": 1002,
+      "root": "ab170f301362ec8c52f2a86cf18d92537ab7649f1ff3b279f9d18afa5707cce9",
+      "onchainRoot": "ab170f301362ec8c52f2a86cf18d92537ab7649f1ff3b279f9d18afa5707cce9",
+      "verified": true,
+      "epochDay": 20633,
+      "pda": "v6FT1V62tiUm5ZgMgNjgyczJ71VGxBebdZPHdTY7RE2",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/v6FT1V62tiUm5ZgMgNjgyczJ71VGxBebdZPHdTY7RE2?cluster=devnet",
+      "at": "2026-07-18T04:14:38.782Z",
+      "method": "validateStat.view"
+    },
+    "760488": {
+      "matchId": "760488",
+      "fixtureId": "18172280",
+      "seq": 1427,
+      "statKey": 1002,
+      "root": "47dc0d1af37a6bdd0f2d1694e606fa574116e118906033316ed7b5243a23a92b",
+      "onchainRoot": "47dc0d1af37a6bdd0f2d1694e606fa574116e118906033316ed7b5243a23a92b",
+      "verified": true,
+      "epochDay": 20634,
+      "pda": "BcLwqHJehs8ut8ycRo6NhCGsrtmRnkZbFMm273SdcPGe",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/BcLwqHJehs8ut8ycRo6NhCGsrtmRnkZbFMm273SdcPGe?cluster=devnet",
+      "at": "2026-07-18T04:14:40.290Z",
+      "method": "validateStat.view"
+    },
+    "760489": {
+      "matchId": "760489",
+      "fixtureId": "18175983",
+      "seq": 1582,
+      "statKey": 1002,
+      "root": "d8801c4ef80d1f06b63aa0727ac29dd5f3fceed0d894f4affa444513f36bf61e",
+      "onchainRoot": "d8801c4ef80d1f06b63aa0727ac29dd5f3fceed0d894f4affa444513f36bf61e",
+      "verified": true,
+      "epochDay": 20633,
+      "pda": "v6FT1V62tiUm5ZgMgNjgyczJ71VGxBebdZPHdTY7RE2",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/v6FT1V62tiUm5ZgMgNjgyczJ71VGxBebdZPHdTY7RE2?cluster=devnet",
+      "at": "2026-07-18T04:14:39.578Z",
+      "method": "validateStat.view"
+    },
+    "760490": {
+      "matchId": "760490",
+      "fixtureId": "18175397",
+      "seq": 1059,
+      "statKey": 1002,
+      "root": "163385f318a8739e75de662283c8bfd2eb50e1495a0be203797dffc927fea7d1",
+      "onchainRoot": "163385f318a8739e75de662283c8bfd2eb50e1495a0be203797dffc927fea7d1",
+      "verified": true,
+      "epochDay": 20634,
+      "pda": "BcLwqHJehs8ut8ycRo6NhCGsrtmRnkZbFMm273SdcPGe",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/BcLwqHJehs8ut8ycRo6NhCGsrtmRnkZbFMm273SdcPGe?cluster=devnet",
+      "at": "2026-07-18T04:14:40.692Z",
+      "method": "validateStat.view"
+    },
+    "760491": {
+      "matchId": "760491",
+      "fixtureId": "18179759",
+      "seq": 885,
+      "statKey": 1002,
+      "root": "7b6d9bda6242b296788729b2f46b78de1d0004e8f3aea2665b78f5ceda8494c1",
+      "onchainRoot": "7b6d9bda6242b296788729b2f46b78de1d0004e8f3aea2665b78f5ceda8494c1",
+      "verified": true,
+      "epochDay": 20635,
+      "pda": "69SexUQvQ9uNpyx6bgDLVoQ5uKkbn3uRxZXCJ5KVZ7QL",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/69SexUQvQ9uNpyx6bgDLVoQ5uKkbn3uRxZXCJ5KVZ7QL?cluster=devnet",
+      "at": "2026-07-18T04:14:41.966Z",
+      "method": "validateStat.view"
+    },
+    "760492": {
+      "matchId": "760492",
+      "fixtureId": "18175981",
+      "seq": 993,
+      "statKey": 1002,
+      "root": "5bc277eeb76be1b1ba3d76970ceeb525d1eafc19ee0a771206c2583f02f7528e",
+      "onchainRoot": "5bc277eeb76be1b1ba3d76970ceeb525d1eafc19ee0a771206c2583f02f7528e",
+      "verified": true,
+      "epochDay": 20634,
+      "pda": "BcLwqHJehs8ut8ycRo6NhCGsrtmRnkZbFMm273SdcPGe",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/BcLwqHJehs8ut8ycRo6NhCGsrtmRnkZbFMm273SdcPGe?cluster=devnet",
+      "at": "2026-07-18T04:14:41.249Z",
+      "method": "validateStat.view"
+    },
+    "760493": {
+      "matchId": "760493",
+      "fixtureId": "18179550",
+      "seq": 1315,
+      "statKey": 1002,
+      "root": "e78549b06c3c072d4097cb28e32aa85fc2df1fecd6df797612c3469625138e24",
+      "onchainRoot": "e78549b06c3c072d4097cb28e32aa85fc2df1fecd6df797612c3469625138e24",
+      "verified": true,
+      "epochDay": 20635,
+      "pda": "69SexUQvQ9uNpyx6bgDLVoQ5uKkbn3uRxZXCJ5KVZ7QL",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/69SexUQvQ9uNpyx6bgDLVoQ5uKkbn3uRxZXCJ5KVZ7QL?cluster=devnet",
+      "at": "2026-07-18T04:14:43.083Z",
+      "method": "validateStat.view"
+    },
+    "760494": {
+      "matchId": "760494",
+      "fixtureId": "18172379",
+      "seq": 1057,
+      "statKey": 1002,
+      "root": "e94216d38cb8f50ccb4dc7d365f25b5aa043af1e01941332363adfd08741cd10",
+      "onchainRoot": "e94216d38cb8f50ccb4dc7d365f25b5aa043af1e01941332363adfd08741cd10",
+      "verified": true,
+      "epochDay": 20636,
+      "pda": "FNLRxCxRf3idEDyixYg8uHj9xEVJSuqHvStxwRHf7k6e",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/FNLRxCxRf3idEDyixYg8uHj9xEVJSuqHvStxwRHf7k6e?cluster=devnet",
+      "at": "2026-07-18T04:14:43.779Z",
+      "method": "validateStat.view"
+    },
+    "760495": {
+      "matchId": "760495",
+      "fixtureId": "18179764",
+      "seq": 1164,
+      "statKey": 1002,
+      "root": "47475ff6798cb4ea30c85d02f1858c7114c9139f08492cdbac23ad0c01a84a84",
+      "onchainRoot": "47475ff6798cb4ea30c85d02f1858c7114c9139f08492cdbac23ad0c01a84a84",
+      "verified": true,
+      "epochDay": 20635,
+      "pda": "69SexUQvQ9uNpyx6bgDLVoQ5uKkbn3uRxZXCJ5KVZ7QL",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/69SexUQvQ9uNpyx6bgDLVoQ5uKkbn3uRxZXCJ5KVZ7QL?cluster=devnet",
+      "at": "2026-07-18T04:14:42.317Z",
+      "method": "validateStat.view"
+    },
+    "760496": {
+      "matchId": "760496",
+      "fixtureId": "18179763",
+      "seq": 1074,
+      "statKey": 1002,
+      "root": "0f20b81767db8f0a1365f90e616836458f367c3bcc2a7221e01bf1d2ec1438da",
+      "onchainRoot": "0f20b81767db8f0a1365f90e616836458f367c3bcc2a7221e01bf1d2ec1438da",
+      "verified": true,
+      "epochDay": 20637,
+      "pda": "EUT55SLSTpqbQVQUfGDSKKbxuMVa8GsNrH2GQw5aKvy2",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/EUT55SLSTpqbQVQUfGDSKKbxuMVa8GsNrH2GQw5aKvy2?cluster=devnet",
+      "at": "2026-07-18T04:14:45.014Z",
+      "method": "validateStat.view"
+    },
+    "760497": {
+      "matchId": "760497",
+      "fixtureId": "18179551",
+      "seq": 1041,
+      "statKey": 1002,
+      "root": "4b4ca8d4eae009f561e2a2fc36d9825a6df8a702dde7473bdaba8ba6bc10f58e",
+      "onchainRoot": "4b4ca8d4eae009f561e2a2fc36d9825a6df8a702dde7473bdaba8ba6bc10f58e",
+      "verified": true,
+      "epochDay": 20636,
+      "pda": "FNLRxCxRf3idEDyixYg8uHj9xEVJSuqHvStxwRHf7k6e",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/FNLRxCxRf3idEDyixYg8uHj9xEVJSuqHvStxwRHf7k6e?cluster=devnet",
+      "at": "2026-07-18T04:14:44.485Z",
+      "method": "validateStat.view"
+    },
+    "760498": {
+      "matchId": "760498",
+      "fixtureId": "18179552",
+      "seq": 1070,
+      "statKey": 1002,
+      "root": "c57dcceac891a01c3d290b55308cb2eaffe14a43c8aed205d042fbce67bd222e",
+      "onchainRoot": "c57dcceac891a01c3d290b55308cb2eaffe14a43c8aed205d042fbce67bd222e",
+      "verified": true,
+      "epochDay": 20637,
+      "pda": "EUT55SLSTpqbQVQUfGDSKKbxuMVa8GsNrH2GQw5aKvy2",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/EUT55SLSTpqbQVQUfGDSKKbxuMVa8GsNrH2GQw5aKvy2?cluster=devnet",
+      "at": "2026-07-18T04:14:45.848Z",
+      "method": "validateStat.view"
+    },
+    "760499": {
+      "matchId": "760499",
+      "fixtureId": "18176123",
+      "seq": 1352,
+      "statKey": 1002,
+      "root": "8631b7802c8ed32fc39d96100a1060138d313c8fd612e8dd6bb461bbde628bbc",
+      "onchainRoot": "8631b7802c8ed32fc39d96100a1060138d313c8fd612e8dd6bb461bbde628bbc",
+      "verified": true,
+      "epochDay": 20637,
+      "pda": "EUT55SLSTpqbQVQUfGDSKKbxuMVa8GsNrH2GQw5aKvy2",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/EUT55SLSTpqbQVQUfGDSKKbxuMVa8GsNrH2GQw5aKvy2?cluster=devnet",
+      "at": "2026-07-18T04:14:46.421Z",
+      "method": "validateStat.view"
+    },
+    "760500": {
+      "matchId": "760500",
+      "fixtureId": "18175918",
+      "seq": 1242,
+      "statKey": 1002,
+      "root": "4e8e241a2e737acd02de53d83115d69ebae1caa9a130a461b9f657238e2d52a2",
+      "onchainRoot": "4e8e241a2e737acd02de53d83115d69ebae1caa9a130a461b9f657238e2d52a2",
+      "verified": true,
+      "epochDay": 20638,
+      "pda": "DjE6qSDHJEUwbXXTV5v1YSQpzfsWcRsARbWqLqR3KoSA",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/DjE6qSDHJEUwbXXTV5v1YSQpzfsWcRsARbWqLqR3KoSA?cluster=devnet",
+      "at": "2026-07-18T04:14:47.232Z",
+      "method": "validateStat.view"
+    },
+    "760501": {
+      "matchId": "760501",
+      "fixtureId": "18179549",
+      "seq": 1037,
+      "statKey": 1002,
+      "root": "61552860776b2bfa887b7244141c11d80afc7841896e26fb0a9845bd4d166ea7",
+      "onchainRoot": "61552860776b2bfa887b7244141c11d80afc7841896e26fb0a9845bd4d166ea7",
+      "verified": true,
+      "epochDay": 20638,
+      "pda": "DjE6qSDHJEUwbXXTV5v1YSQpzfsWcRsARbWqLqR3KoSA",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/DjE6qSDHJEUwbXXTV5v1YSQpzfsWcRsARbWqLqR3KoSA?cluster=devnet",
+      "at": "2026-07-18T04:14:47.756Z",
+      "method": "validateStat.view"
+    },
+    "760502": {
+      "matchId": "760502",
+      "fixtureId": "18185036",
+      "seq": 1121,
+      "statKey": 1002,
+      "root": "2d924aafe01aadc893cd5acbbc0b73889798961dbcba40f5299b8920c94220b3",
+      "onchainRoot": "2d924aafe01aadc893cd5acbbc0b73889798961dbcba40f5299b8920c94220b3",
+      "verified": true,
+      "epochDay": 20638,
+      "pda": "DjE6qSDHJEUwbXXTV5v1YSQpzfsWcRsARbWqLqR3KoSA",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/DjE6qSDHJEUwbXXTV5v1YSQpzfsWcRsARbWqLqR3KoSA?cluster=devnet",
+      "at": "2026-07-18T04:14:48.580Z",
+      "method": "validateStat.view"
+    },
+    "760503": {
+      "matchId": "760503",
+      "fixtureId": "18188721",
+      "seq": 964,
+      "statKey": 1002,
+      "root": "4d40169f52e873eead9b3ad71533dfec872fbb8d03ed7f4bd314762fd7e1c5b2",
+      "onchainRoot": "4d40169f52e873eead9b3ad71533dfec872fbb8d03ed7f4bd314762fd7e1c5b2",
+      "verified": true,
+      "epochDay": 20638,
+      "pda": "DjE6qSDHJEUwbXXTV5v1YSQpzfsWcRsARbWqLqR3KoSA",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/DjE6qSDHJEUwbXXTV5v1YSQpzfsWcRsARbWqLqR3KoSA?cluster=devnet",
+      "at": "2026-07-18T04:14:49.128Z",
+      "method": "validateStat.view"
+    },
+    "760504": {
+      "matchId": "760504",
+      "fixtureId": "18187298",
+      "seq": 1100,
+      "statKey": 1002,
+      "root": "c374a7e1e36540bfc9c119a0647e5a2e95011f45271122cee512007e0cfe6c97",
+      "onchainRoot": "c374a7e1e36540bfc9c119a0647e5a2e95011f45271122cee512007e0cfe6c97",
+      "verified": true,
+      "epochDay": 20639,
+      "pda": "7FwXux2xDDCLngnWiJceaXr2h1bDeBe5uKAsmYQruHL3",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/7FwXux2xDDCLngnWiJceaXr2h1bDeBe5uKAsmYQruHL3?cluster=devnet",
+      "at": "2026-07-18T04:14:49.690Z",
+      "method": "validateStat.view"
+    },
+    "760505": {
+      "matchId": "760505",
+      "fixtureId": "18192996",
+      "seq": 1046,
+      "statKey": 1002,
+      "root": "aeb62a638dc4d7735d746ec78bc6e9fb85450874c82a886a818e9b44e4939444",
+      "onchainRoot": "aeb62a638dc4d7735d746ec78bc6e9fb85450874c82a886a818e9b44e4939444",
+      "verified": true,
+      "epochDay": 20640,
+      "pda": "CMtVGDyWsZ4u3yeYeyC9yxNzzyvwco6Jgtd9ubRJWCGV",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/CMtVGDyWsZ4u3yeYeyC9yxNzzyvwco6Jgtd9ubRJWCGV?cluster=devnet",
+      "at": "2026-07-18T04:14:50.225Z",
+      "method": "validateStat.view"
+    },
+    "760506": {
+      "matchId": "760506",
+      "fixtureId": "18198205",
+      "seq": 992,
+      "statKey": 1002,
+      "root": "a8165150db87587c850f1adb5424b7d6eb6eb43f2c77709beff182dc41ecf584",
+      "onchainRoot": "a8165150db87587c850f1adb5424b7d6eb6eb43f2c77709beff182dc41ecf584",
+      "verified": true,
+      "epochDay": 20640,
+      "pda": "CMtVGDyWsZ4u3yeYeyC9yxNzzyvwco6Jgtd9ubRJWCGV",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/CMtVGDyWsZ4u3yeYeyC9yxNzzyvwco6Jgtd9ubRJWCGV?cluster=devnet",
+      "at": "2026-07-18T04:14:51.018Z",
+      "method": "validateStat.view"
+    },
+    "760507": {
+      "matchId": "760507",
+      "fixtureId": "18193785",
+      "seq": 1123,
+      "statKey": 1002,
+      "root": "3edf2b616fd0150f186d1c1ca3b937a5981c46013f38458610fab76b64a9d9f6",
+      "onchainRoot": "3edf2b616fd0150f186d1c1ca3b937a5981c46013f38458610fab76b64a9d9f6",
+      "verified": true,
+      "epochDay": 20641,
+      "pda": "GRJBcG6G9CnvvNZPQagxietR7caFtAG8sFRZ2mg5n8QZ",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/GRJBcG6G9CnvvNZPQagxietR7caFtAG8sFRZ2mg5n8QZ?cluster=devnet",
+      "at": "2026-07-18T04:14:51.543Z",
+      "method": "validateStat.view"
+    },
+    "760508": {
+      "matchId": "760508",
+      "fixtureId": "18202783",
+      "seq": 1352,
+      "statKey": 1002,
+      "root": "471a292ff64fb5e39cb508acd6fee0defc0c437d944871e64ea536c02175079b",
+      "onchainRoot": "471a292ff64fb5e39cb508acd6fee0defc0c437d944871e64ea536c02175079b",
+      "verified": true,
+      "epochDay": 20641,
+      "pda": "GRJBcG6G9CnvvNZPQagxietR7caFtAG8sFRZ2mg5n8QZ",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/GRJBcG6G9CnvvNZPQagxietR7caFtAG8sFRZ2mg5n8QZ?cluster=devnet",
+      "at": "2026-07-18T04:14:52.861Z",
+      "method": "validateStat.view"
+    },
+    "760509": {
+      "matchId": "760509",
+      "fixtureId": "18202701",
+      "seq": 1045,
+      "statKey": 1002,
+      "root": "5c0781b3d00019e93c6386ca3704b5e6e4b3a2f777734b891ef2b00caada0588",
+      "onchainRoot": "5c0781b3d00019e93c6386ca3704b5e6e4b3a2f777734b891ef2b00caada0588",
+      "verified": true,
+      "epochDay": 20641,
+      "pda": "GRJBcG6G9CnvvNZPQagxietR7caFtAG8sFRZ2mg5n8QZ",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/GRJBcG6G9CnvvNZPQagxietR7caFtAG8sFRZ2mg5n8QZ?cluster=devnet",
+      "at": "2026-07-18T04:14:52.067Z",
+      "method": "validateStat.view"
+    },
+    "760510": {
+      "matchId": "760510",
+      "fixtureId": "18209181",
+      "seq": 1114,
+      "statKey": 1002,
+      "root": "291f8e755b11e5d29a92041109c7cac8f3e979fcdbf3aa14ad7c26f79aa7e39c",
+      "onchainRoot": "291f8e755b11e5d29a92041109c7cac8f3e979fcdbf3aa14ad7c26f79aa7e39c",
+      "verified": true,
+      "epochDay": 20643,
+      "pda": "EUCbk9vftUek4vChr6rnXP9hhR8UuHGBDJKLsAQTZ9Zr",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/EUCbk9vftUek4vChr6rnXP9hhR8UuHGBDJKLsAQTZ9Zr?cluster=devnet",
+      "at": "2026-07-18T04:14:53.733Z",
+      "method": "validateStat.view"
+    },
+    "760511": {
+      "matchId": "760511",
+      "fixtureId": "18218149",
+      "seq": 1087,
+      "statKey": 1002,
+      "root": "2469f78963e0ddddbc192e1ebe3b3e8ef57507f5fb40be16d69fc0069579696e",
+      "onchainRoot": "2469f78963e0ddddbc192e1ebe3b3e8ef57507f5fb40be16d69fc0069579696e",
+      "verified": true,
+      "epochDay": 20644,
+      "pda": "9r38iAd4MyQn7DHEGNGkH4myRJHtHT95mfnndCZ25dkC",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/9r38iAd4MyQn7DHEGNGkH4myRJHtHT95mfnndCZ25dkC?cluster=devnet",
+      "at": "2026-07-18T04:14:54.424Z",
+      "method": "validateStat.view"
+    },
+    "760512": {
+      "matchId": "760512",
+      "fixtureId": "18213979",
+      "seq": 1184,
+      "statKey": 1002,
+      "root": "969b9ab86f37abac6a9e75a13ca5d22f9e0db9b251c2fa219af3f9c25f70dad8",
+      "onchainRoot": "969b9ab86f37abac6a9e75a13ca5d22f9e0db9b251c2fa219af3f9c25f70dad8",
+      "verified": true,
+      "epochDay": 20645,
+      "pda": "EdJuEftTBNwXRWJpvYCziVxKT87qMDVu9V6HC7PwGffB",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/EdJuEftTBNwXRWJpvYCziVxKT87qMDVu9V6HC7PwGffB?cluster=devnet",
+      "at": "2026-07-18T04:14:54.766Z",
+      "method": "validateStat.view"
+    },
+    "760513": {
+      "matchId": "760513",
+      "fixtureId": "18222446",
+      "seq": 1306,
+      "statKey": 1002,
+      "root": "88d460b89ea78f9539159ec77a3984a5e976e412952b940cca2191f4f2465dbe",
+      "onchainRoot": "88d460b89ea78f9539159ec77a3984a5e976e412952b940cca2191f4f2465dbe",
+      "verified": true,
+      "epochDay": 20646,
+      "pda": "FtnZq4V8mp56GUNEGGXfL1MuyT81cvoz59yeKn192HdH",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/FtnZq4V8mp56GUNEGGXfL1MuyT81cvoz59yeKn192HdH?cluster=devnet",
+      "at": "2026-07-18T04:14:55.303Z",
+      "method": "validateStat.view"
+    },
+    "760514": {
+      "matchId": "760514",
+      "fixtureId": "18237038",
+      "seq": 1026,
+      "statKey": 1002,
+      "root": "238ab5ec77dfbef429aa5f8e61de40800085ef600948f34373fc2ebdd714a5af",
+      "onchainRoot": "238ab5ec77dfbef429aa5f8e61de40800085ef600948f34373fc2ebdd714a5af",
+      "verified": true,
+      "epochDay": 20648,
+      "pda": "FDU3RVD6u95iLNdVrTNpars2dM8XLyf1doNThPjY7ypm",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/FDU3RVD6u95iLNdVrTNpars2dM8XLyf1doNThPjY7ypm?cluster=devnet",
+      "at": "2026-07-18T04:14:55.880Z",
+      "method": "validateStat.view"
+    },
+    "760515": {
+      "matchId": "760515",
+      "fixtureId": "18241006",
+      "seq": 962,
+      "statKey": 1002,
+      "root": "20c7bbfc90819f24681d92be309dd4917140edbeb68e8006028b0ecb1a39da70",
+      "onchainRoot": "20c7bbfc90819f24681d92be309dd4917140edbeb68e8006028b0ecb1a39da70",
+      "verified": true,
+      "epochDay": 20649,
+      "pda": "HJ6nSVkUs4VG9JQ5sEUq3VbmyUSBf76ePXUCATLtRYTX",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/HJ6nSVkUs4VG9JQ5sEUq3VbmyUSBf76ePXUCATLtRYTX?cluster=devnet",
+      "at": "2026-07-18T04:14:56.595Z",
+      "method": "validateStat.view"
+    }
+  }
 }
