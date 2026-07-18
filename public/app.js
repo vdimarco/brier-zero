@@ -15,6 +15,11 @@ const expandedMatches = new Set();
 let showAllFinished = false;
 const FINISHED_PREVIEW = 8;
 
+// "The Market" is not an LLM: it is TxODDS's StablePrice bookmaker
+// consensus, delivered on-chain by TxLINE on Solana.
+const MARKET_ID = 'txodds/market';
+const MARKET_ATTRIBUTION = 'TxODDS StablePrice · TxLINE on Solana';
+
 const fmtKickoff = new Intl.DateTimeFormat(undefined, {
   weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit',
 });
@@ -148,7 +153,7 @@ function toast(msg) {
 async function shareMatch(match) {
   const url = shareLink(`m/${match.id}`);
   const title = `${match.home.name} vs ${match.away.name} · The Brier Cup`;
-  const text = `${match.home.name} vs ${match.away.name} — watch eight AI models forecast this ${match.stage} match, live.`;
+  const text = `${match.home.name} vs ${match.away.name} — watch eight AI models and the betting market forecast this ${match.stage} match, live.`;
   if (navigator.share) {
     try { await navigator.share({ title, text, url }); return; }
     catch (e) { if (e.name === 'AbortError') return; }
@@ -186,6 +191,23 @@ function forecastRow(model, pred, match, bestBrier) {
       ${outs.map((o) => seg(o, pred.probs[o], outcomeLabel(match, o, market))).join('')}
     </div>
     ${brierCell}
+  </div>`;
+}
+
+/* Live TxODDS StablePrice line for this fixture: raw decimal odds plus the
+   de-vigged implied probabilities the market trades under on the
+   leaderboard. Streams from TxLINE (odds on Solana) while the match is
+   upcoming or in play. */
+function oddsStrip(match) {
+  const mo = match.marketOdds;
+  const market = matchMarket(match);
+  const outs = MARKET_OUTCOMES[market];
+  const probs = outs.map((o) =>
+    `<span class="ol">${o === 'draw' ? 'Draw' : esc(match[o].name)} <b>${pct(mo.probs[o])}%</b></span>`
+  ).join(' ');
+  const prices = `${mo.prices.home} / ${mo.prices.draw} / ${mo.prices.away}`;
+  return `<div class="odds-strip" title="TxODDS StablePrice consensus, vig removed (raw 1X2: ${esc(prices)}, overround ${((mo.overround - 1) * 100).toFixed(1)}%). Delivered by TxLINE on Solana.">
+    <img class="crest" src="/icons/market.svg" alt=""> <span class="odds-label">Live odds <span class="odds-source">· TxODDS on Solana</span></span> ${probs}
   </div>`;
 }
 
@@ -275,7 +297,7 @@ function matchCard(match, state) {
   } else if (match.status.state === 'pre') {
     const disabled = !state.predictorReady || collecting;
     const hint = state.predictorReady
-      ? 'Ask all eight models for their probabilities now.'
+      ? 'Ask every competitor — eight AI models and the market — for probabilities now.'
       : 'Set OPENROUTER_API_KEY on the server to enable forecasting.';
     body = `<div class="forecasts"><div class="fnote">No forecasts collected yet.</div>
       <button class="collect" data-match="${esc(match.id)}" ${disabled ? 'disabled' : ''} title="${esc(hint)}">
@@ -297,6 +319,7 @@ function matchCard(match, state) {
       </div>
       <div class="match-meta">${meta}</div>
     </div>
+    ${match.marketOdds ? oddsStrip(match) : ''}
     ${isDone && match.outcome ? `<div class="fnote" style="margin-top:6px">${
       matchMarket(match) === 'advance'
         ? `Advanced: ${esc(match[match.outcome].name)}${
@@ -558,7 +581,8 @@ function renderRoster(state) {
     const crest = m.icon
       ? `<img class="crest" src="${esc(m.icon)}" alt="" onerror="this.style.visibility='hidden'">`
       : '';
-    return `<span class="roster-chip">${crest}<span>${esc(m.label)}</span></span>`;
+    const title = m.id === MARKET_ID ? ` title="The betting market itself: ${MARKET_ATTRIBUTION}"` : '';
+    return `<span class="roster-chip"${title}>${crest}<span>${esc(m.label)}</span></span>`;
   }).join('');
 }
 
@@ -607,7 +631,7 @@ function renderLeaderboard(state) {
           (state.models.find((m) => m.id === r.model)?.icon)
             ? `<img class="crest crest-lg" src="${esc(state.models.find((m) => m.id === r.model).icon)}" alt="" onerror="this.style.visibility='hidden'">`
             : ''
-        }<div><span class="lb-name">${esc(r.label)}${bt ? ' <span class="lb-bt-tag">backtest</span>' : ''}</span><span class="lb-slug">${esc(r.model)}</span>${
+        }<div><span class="lb-name">${esc(r.label)}${bt ? ' <span class="lb-bt-tag">backtest</span>' : ''}</span><span class="lb-slug">${r.model === MARKET_ID ? MARKET_ATTRIBUTION : esc(r.model)}</span>${
           sparkline(r.perMatch) ? `<div class="lb-spark">${sparkline(r.perMatch)}${trendBadge}</div>` : ''
         }</div></div>
         <div class="lb-score">
@@ -898,7 +922,7 @@ function renderModelDetail(state, modelId) {
         ${meta.icon ? `<img class="crest crest-lg" src="${esc(meta.icon)}" alt="">` : ''}
         <div>
           <div class="detail-title">${esc(row.label)}</div>
-          <div class="fnote">${esc(row.model)}${rank ? ` · rank ${rank} of ${rankedRows.length}` : isBacktestOnly(row) ? ' · backtest — not ranked' : ''}</div>
+          <div class="fnote">${row.model === MARKET_ID ? MARKET_ATTRIBUTION : esc(row.model)}${rank ? ` · rank ${rank} of ${rankedRows.length}` : isBacktestOnly(row) ? ' · backtest — not ranked' : ''}</div>
         </div>
       </div>
       <button class="detail-close" data-close aria-label="Close">✕</button>
@@ -1379,7 +1403,7 @@ function renderBanner(state) {
   if (state.demoMode) {
     el.innerHTML = `<div class="banner">Demo mode is on: forecasts below are deterministic placeholders, not real model calls. Unset <code>DEMO_MODE</code> and set <code>OPENROUTER_API_KEY</code> for the real competition.</div>`;
   } else if (!state.predictorReady && !state.hosted) {
-    el.innerHTML = `<div class="banner">Live scores are flowing, but no forecaster is configured. Set <code>OPENROUTER_API_KEY</code> (one key covers all eight models via OpenRouter) and restart the server. Upcoming matches are forecast automatically from then on.</div>`;
+    el.innerHTML = `<div class="banner">Live scores are flowing, but no forecaster is configured. Set <code>OPENROUTER_API_KEY</code> (one key covers all eight AI models via OpenRouter) and restart the server. Upcoming matches are forecast automatically from then on.</div>`;
   } else {
     el.innerHTML = '';
   }

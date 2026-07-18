@@ -649,3 +649,18 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
   font-weight: 650; font-size: 14px; color: var(--ink);
 }
 .roster-chip .crest { width: 20px; height: 20px; border-radius: 5px; }
+
+/* Live TxODDS StablePrice strip on match cards */
+.odds-strip {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  margin-top: 8px; padding: 6px 10px;
+  border: 1px solid var(--line, #2a2a2a); border-radius: 8px;
+  font-size: 12.5px; color: var(--ink-3, #9a9a9a);
+}
+.odds-strip .crest { width: 14px; height: 14px; }
+.odds-strip .ol b { color: var(--ink-1, #eee); }
+.odds-label {
+  text-transform: uppercase; letter-spacing: 0.06em; font-size: 10.5px;
+  color: var(--ink-3, #9a9a9a);
+}
+.odds-source { text-transform: none; letter-spacing: 0; opacity: 0.8; }
