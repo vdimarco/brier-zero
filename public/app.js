@@ -1128,6 +1128,163 @@ function renderBankroll(state) {
   }
 }
 
+// ------------------------------------------------------- bankroll chart ----
+// The Bankroll race: every agent's paper-unit bankroll over settled matches,
+// one line per entrant, at the top of the page. Same fold as the table
+// below (state.bankroll) — nothing new is computed here.
+
+// One fixed color slot per lab (never cycled; a lab's substituted models
+// share its hue). Validated with the data-viz six checks against the white
+// card surface: all slots in the OKLCH light band, chroma >= 0.10,
+// adjacent-pair CVD dE >= 13.3, contrast >= 3:1.
+const LAB_COLORS = {
+  anthropic: '#2a78d6', openai: '#eb6834', deepseek: '#086b47',
+  moonshotai: '#c94f80', 'z-ai': '#008300', qwen: '#e34948',
+  minimax: '#0e8aa5', google: '#c78500', 'x-ai': '#4a3aa7',
+};
+const labOf = (state, modelId) =>
+  entrantById(state, modelId)?.lab ?? modelId.split('/')[0];
+
+function bankChartData(state) {
+  const bk = state.bankroll;
+  if (!bk?.bets?.length) return null;
+  // Global x axis: settled matches in the order the fold settled them.
+  const matchIdx = new Map(); // matchId -> x index
+  const matchName = [];
+  for (const b of bk.bets) {
+    if (!matchIdx.has(b.matchId)) {
+      matchIdx.set(b.matchId, matchName.length);
+      matchName.push(b.shortName);
+    }
+  }
+  const start = bk.startingBankroll ?? 1000;
+  const lines = Object.values(bk.models)
+    .filter((m) => m.series?.length)
+    .map((m) => {
+      const meta = entrantById(state, m.model);
+      const pts = m.series
+        .filter((p) => matchIdx.has(p.matchId))
+        .map((p) => ({ i: matchIdx.get(p.matchId), v: p.after }));
+      if (!pts.length) return null;
+      // Every line enters at the starting bankroll one slot before its
+      // first priced match, so late substitutes visibly join at 1,000.
+      pts.unshift({ i: pts[0].i - 1, v: start });
+      return {
+        id: m.model,
+        label: meta?.label ?? m.model,
+        lab: labOf(state, m.model),
+        color: LAB_COLORS[labOf(state, m.model)] ?? '#52514e',
+        retired: Boolean(meta?.retired),
+        final: m.bankroll,
+        pts,
+      };
+    })
+    .filter(Boolean);
+  if (!lines.length) return null;
+  return { lines, matchName, start, n: matchName.length };
+}
+
+function renderBankrollChart(state) {
+  const section = document.getElementById('bankchart-section');
+  const el = document.getElementById('bankchart');
+  if (!section || !el) return;
+  const data = bankChartData(state);
+  if (!data) { section.hidden = true; return; }
+  section.hidden = false;
+
+  const { lines, matchName, start, n } = data;
+  const W = 960, H = 280, ML = 46, MR = 10, MT = 14, MB = 24;
+  const x = (i) => ML + ((i + 1) / n) * (W - ML - MR);
+  let lo = start, hi = start;
+  for (const l of lines) for (const p of l.pts) { lo = Math.min(lo, p.v); hi = Math.max(hi, p.v); }
+  const pad = (hi - lo) * 0.06 || 50;
+  lo -= pad; hi += pad;
+  const y = (v) => MT + (1 - (v - lo) / (hi - lo)) * (H - MT - MB);
+
+  // ~4 recessive gridlines on round numbers.
+  const step = [100, 200, 250, 500, 1000].find((s) => (hi - lo) / s <= 5) ?? 1000;
+  let ticks = [];
+  for (let v = Math.ceil(lo / step) * step; v <= hi; v += step) ticks.push(v);
+  ticks = ticks.filter((v) => v !== start); // the baseline carries its own label
+
+  const paths = [...lines]
+    .sort((a, b) => a.final - b.final) // leaders drawn last, on top
+    .map((l) => `<polyline class="bkc-line${l.retired ? ' bkc-retired' : ''}" data-lab="${esc(l.lab)}"
+      points="${l.pts.map((p) => `${x(p.i).toFixed(1)},${y(p.v).toFixed(1)}`).join(' ')}"
+      style="stroke:${l.color}" fill="none"/>`).join('');
+
+  // Selective direct labels: top three active finishers plus the trailer.
+  const active = lines.filter((l) => !l.retired).sort((a, b) => b.final - a.final);
+  const labeled = [...active.slice(0, 3), ...(active.length > 4 ? [active[active.length - 1]] : [])];
+  let lastY = -Infinity;
+  const endLabels = [...labeled]
+    .sort((a, b) => y(b.final) - y(a.final))
+    .reverse()
+    .map((l) => {
+      let ly = y(l.pts[l.pts.length - 1].v);
+      if (ly - lastY < 12) ly = lastY + 12; // nudge collisions apart
+      lastY = ly;
+      const lx = x(l.pts[l.pts.length - 1].i);
+      return `<text class="bkc-endlabel" x="${(lx - 4).toFixed(1)}" y="${(ly - 5).toFixed(1)}" text-anchor="end">${esc(l.label)} ${fmtUnits(l.final)}</text>`;
+    }).join('');
+
+  el.innerHTML = `<div class="bkc-wrap">
+    <svg class="bkc-svg" viewBox="0 0 ${W} ${H}" role="img"
+      aria-label="Each agent's paper-unit bankroll over ${n} settled matches; the same numbers as The Bankroll table.">
+      ${ticks.map((v) => `<g><line class="bkc-grid" x1="${ML}" y1="${y(v).toFixed(1)}" x2="${W - MR}" y2="${y(v).toFixed(1)}"/>
+        <text class="bkc-tick" x="${ML - 6}" y="${(y(v) + 3.5).toFixed(1)}" text-anchor="end">${fmtUnits(v)}</text></g>`).join('')}
+      <line class="bkc-base" x1="${ML}" y1="${y(start).toFixed(1)}" x2="${W - MR}" y2="${y(start).toFixed(1)}"/>
+      <text class="bkc-tick bkc-base-label" x="${ML - 6}" y="${(y(start) + 3.5).toFixed(1)}" text-anchor="end">${fmtUnits(start)}</text>
+      ${paths}
+      ${endLabels}
+      <line class="bkc-cursor" y1="${MT}" y2="${H - MB}" hidden/>
+    </svg>
+    <div class="bkc-tip" hidden></div>
+  </div>
+  <div class="bkc-legend" role="list">${[...active].map((l) => `
+    <button class="bkc-chip" role="listitem" data-lab="${esc(l.lab)}" data-model="${esc(l.id)}" title="Open ${esc(l.label)}'s ledger">
+      <span class="bkc-swatch" style="background:${l.color}"></span>${esc(l.label)}
+      <b class="bkc-chip-v">${fmtUnits(l.final)}</b>
+    </button>`).join('')}
+  </div>`;
+
+  // Legend hover isolates a lab's lines; click opens the agent's ledger.
+  const svg = el.querySelector('.bkc-svg');
+  for (const chip of el.querySelectorAll('.bkc-chip')) {
+    chip.addEventListener('mouseenter', () => svg.setAttribute('data-focus', chip.dataset.lab));
+    chip.addEventListener('mouseleave', () => svg.removeAttribute('data-focus'));
+    chip.addEventListener('click', () => { location.hash = `p/${encodeURIComponent(chip.dataset.model)}`; });
+  }
+
+  // Hover layer: nearest-match crosshair + all live bankrolls at that match.
+  const wrap = el.querySelector('.bkc-wrap');
+  const cursor = el.querySelector('.bkc-cursor');
+  const tip = el.querySelector('.bkc-tip');
+  const valueAt = (l, i) => {
+    if (i < l.pts[0].i || i > l.pts[l.pts.length - 1].i) return null;
+    let v = null;
+    for (const p of l.pts) { if (p.i <= i) v = p.v; else break; }
+    return v;
+  };
+  wrap.addEventListener('mousemove', (e) => {
+    const r = wrap.getBoundingClientRect();
+    const i = Math.max(0, Math.min(n - 1, Math.round(((e.clientX - r.left) / r.width * W - ML) / (W - ML - MR) * n - 1)));
+    const cx = x(i);
+    cursor.hidden = false;
+    cursor.setAttribute('x1', cx); cursor.setAttribute('x2', cx);
+    const rows = lines
+      .map((l) => ({ l, v: valueAt(l, i) }))
+      .filter((r2) => r2.v != null)
+      .sort((a, b) => b.v - a.v);
+    tip.hidden = false;
+    tip.innerHTML = `<div class="bkc-tip-t">${esc(matchName[i] ?? '')} · match ${i + 1} of ${n}</div>
+      ${rows.map((r2) => `<div class="bkc-tip-row${r2.l.retired ? ' bkc-tip-retired' : ''}"><span class="bkc-swatch" style="background:${r2.l.color}"></span>${esc(r2.l.label)}<b>${fmtUnits(r2.v)}</b></div>`).join('')}`;
+    const px = (cx / W) * r.width;
+    tip.style.left = `${Math.min(Math.max(px + 12, 0), r.width - tip.offsetWidth - 4)}px`;
+  });
+  wrap.addEventListener('mouseleave', () => { cursor.hidden = true; tip.hidden = true; });
+}
+
 // The bet ledger for one model, rendered inside the model detail panel.
 function betLedgerHtml(state, modelId) {
   const bets = state.bankroll?.bets?.filter((b) => b.modelId === modelId);
@@ -2558,6 +2715,7 @@ function renderAll(state) {
   renderRoster(state);
   renderLeaderboard(state);
   renderBankroll(state);
+  renderBankrollChart(state);
   renderEdgeBoard(state);
   renderMatches(state);
   renderDetail(state);
