@@ -2826,13 +2826,59 @@ function podiumSlides(state) {
       }));
   };
   const blocLabel = new Map((state.leaderboardByBloc ?? []).map((r) => [r.model, r.label]));
+  const blocEmoji = (k) => (blocLabel.get(k) ?? '').split(' ')[0] || k.toUpperCase();
   const labLabels = new Map(labsOf(state).map((l) => [l.id, l.label]));
 
+  // By-country slides champion each region's best MODEL (its flag on the
+  // model's row), not a bloc aggregate — the podium stays a contest of
+  // named agents at every granularity.
+  const brierByCountry = [];
+  {
+    const seen = new Set();
+    for (const r of (state.leaderboard ?? [])) {
+      if (!(r.scored > 0)) continue;
+      const bloc = entrantById(state, r.model)?.bloc;
+      if (!bloc || bloc === 'market' || seen.has(bloc)) continue;
+      seen.add(bloc);
+      brierByCountry.push({
+        label: `${blocEmoji(bloc)} ${r.label}`,
+        icon: r.icon ?? entrantById(state, r.model)?.icon ?? null,
+        value: r.avgBrier.toFixed(3),
+        aria: `${r.label}, the region's best, average Brier ${r.avgBrier.toFixed(3)}`,
+        model: r.model,
+      });
+      if (brierByCountry.length === 3) break;
+    }
+  }
+  const bankByCountry = (() => {
+    const best = new Map();
+    for (const m of books) {
+      const bloc = entrantById(state, m.model)?.bloc;
+      if (!bloc || bloc === 'market') continue;
+      const cur = best.get(bloc);
+      if (!cur || m.bankroll > cur.bankroll) best.set(bloc, m);
+    }
+    return [...best.entries()]
+      .sort((a, b) => b[1].bankroll - a[1].bankroll)
+      .slice(0, 3)
+      .map(([bloc, m]) => {
+        const meta = entrantById(state, m.model);
+        return {
+          label: `${blocEmoji(bloc)} ${meta?.label ?? m.model}`,
+          icon: meta?.icon ?? null,
+          value: fmtUnits(m.bankroll),
+          valueClass: m.bankroll >= start ? 'up' : 'down',
+          aria: `${meta?.label ?? m.model}, the region's best book, ${fmtUnits(m.bankroll)} paper units`,
+          model: m.model,
+        };
+      });
+  })();
+
   return [
-    { key: 'brier-bloc', title: 'Brier · by country', note: 'consensus of each bloc\'s labs · lower is sharper', rows: brierRows(state.leaderboardByBloc, 'bloc') },
+    { key: 'brier-bloc', title: 'Brier · by country', note: 'each region\'s best model · lower is sharper', rows: brierByCountry },
     { key: 'brier-lab', title: 'Brier · by lab', note: 'one record per lab · lower is sharper', rows: brierRows(state.leaderboardByLab, 'lab') },
     { key: 'brier-model', title: 'Brier · by model', note: 'every entrant separately · lower is sharper', rows: brierRows(state.leaderboard, 'model') },
-    { key: 'bank-bloc', title: 'Bankroll · by country', note: 'net paper P&L across the bloc\'s books', rows: bankGroups((id) => entrantById(state, id)?.bloc ?? null, (k) => blocLabel.get(k) ?? k.toUpperCase()) },
+    { key: 'bank-bloc', title: 'Bankroll · by country', note: 'each region\'s best book · paper units', rows: bankByCountry },
     { key: 'bank-lab', title: 'Bankroll · by lab', note: 'net paper P&L across the lab\'s books', rows: bankGroups((id) => labOf(state, id), (k) => labLabels.get(k) ?? k) },
     { key: 'bank-model', title: 'Bankroll · by model', note: 'paper units, from 1,000 at the start', rows: bankByModel },
   ].filter((s) => s.rows.length >= 2);
