@@ -1433,19 +1433,43 @@ function renderBankrollChart(state) {
   wrap.addEventListener('mouseleave', () => { cursor.hidden = true; tip.hidden = true; });
 }
 
-// Sticky topbar: once the reader scrolls past the hero band, the section
-// menu pins to the top of the screen. Class-toggle on rAF-throttled
-// scroll; sticky positioning can't do this because the bar must outlive
+// Sticky topbar + scrollspy: once past the hero band the menu pins to
+// the top; as sections pass, the link for the section under the reader
+// highlights, and on narrow screens the menu auto-scrolls sideways to
+// keep that link in view. One rAF-throttled scroll handler for both;
+// sticky positioning can't do the pinning because the bar must outlive
 // its pitchband parent.
 function wireStickyTopbar() {
   if (typeof window === 'undefined') return;
   const bar = document.querySelector('.topbar');
   const band = document.querySelector('.pitchband');
   if (!bar || !band) return;
+  const navLinks = [...bar.querySelectorAll('.topnav a[href^="#"]')];
+  const tocLinks = [...document.querySelectorAll('.toc a[href^="#"]')];
+  let currentId = null;
   let ticking = false;
   const update = () => {
     ticking = false;
     bar.classList.toggle('topbar-stuck', window.scrollY > band.offsetHeight - 64);
+
+    // Active section: the last visible section whose top has crossed a
+    // line just under the pinned bar.
+    const probe = window.scrollY + 96;
+    let active = null;
+    for (const a of navLinks) {
+      const sec = document.getElementById(a.getAttribute('href').slice(1));
+      if (sec && !sec.hidden && sec.offsetTop <= probe) active = a.getAttribute('href').slice(1);
+    }
+    if (active === currentId) return;
+    currentId = active;
+    for (const a of [...navLinks, ...tocLinks]) {
+      a.classList.toggle('active', a.getAttribute('href') === `#${active}`);
+    }
+    const nav = bar.querySelector('.topnav');
+    const link = active && nav?.querySelector(`a[href="#${active}"]`);
+    if (link && nav.scrollWidth > nav.clientWidth) {
+      nav.scrollTo({ left: link.offsetLeft - nav.clientWidth / 2 + link.offsetWidth / 2, behavior: 'smooth' });
+    }
   };
   window.addEventListener('scroll', () => {
     if (!ticking) { ticking = true; requestAnimationFrame(update); }
