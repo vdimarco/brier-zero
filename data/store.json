@@ -34785,6 +34785,89 @@
             "rationale": "Argentina down to 10 men in extra time heavily favors Spain's chances."
           }
         }
+      },
+      {
+        "at": "2026-07-19T21:40:38.081Z",
+        "detail": "ET-HT",
+        "score": [
+          0,
+          0
+        ],
+        "events": 1,
+        "period": "STATUS_HALFTIME_ET",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.72,
+              "away": 0.28
+            },
+            "rationale": "Spain enter extra time's second half with a man advantage against a 10-man Argentina, giving them a significant edge to score or win on penalties."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.7,
+              "away": 0.3
+            },
+            "rationale": "Spain are level but entering the second half of extra time with a full XI against a 10-man Argentina, giving them a clear overall edge both in the remaining play and potential penalties."
+          },
+          "deepseek/deepseek-v4-pro": {
+            "probs": {
+              "home": 0.73,
+              "away": 0.27
+            },
+            "rationale": "Spain has a one-man advantage for the final 15 minutes of extra time and would benefit from greater depth and fresher legs if the match goes to penalties."
+          },
+          "moonshotai/kimi-k3": {
+            "probs": {
+              "home": 0.62,
+              "away": 0.38
+            },
+            "rationale": "With the match goalless at extra-time halftime, Spain holds a clear edge playing 15 minutes against 10-man Argentina after Enzo Fernández's red card, though a penalty shootout remains the most likely resolution."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0.58,
+              "away": 0.42
+            },
+            "rationale": "Spain holds a man advantage throughout extra time and should control possession, but Argentina's defensive resilience and penalty pedigree keep them very much alive."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.58,
+              "away": 0.42
+            },
+            "rationale": "Spain's numerical advantage for the remaining 15 minutes of extra time gives them a meaningful edge to break the deadlock against a fatigued 10-man Argentina, but Argentina's deep defensive block and penalty shootout pedigree with Martínez keep them very much in the contest."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.68,
+              "away": 0.32
+            },
+            "rationale": "Spain holds a significant man advantage for the remaining ~15 minutes of extra time, making them strongly favored to score or force penalties."
+          },
+          "google/gemini-3.1-pro-preview": {
+            "probs": {
+              "home": 0.54,
+              "away": 0.46
+            },
+            "rationale": "Spain has a crucial one-man advantage for the final 15 minutes of extra time to potentially find a late winner, though Argentina's formidable penalty shootout pedigree keeps the tie very close if it goes the distance."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0.68,
+              "away": 0.32
+            },
+            "rationale": "Spain's man advantage for the remaining 15+ minutes of extra time after Enzo's red card makes them clear favorites to break the 0-0 deadlock or at least reach penalties less fatigued, though Argentina's tournament resilience keeps them alive."
+          },
+          "mistralai/mistral-medium-3-5": {
+            "probs": {
+              "home": 0.75,
+              "away": 0.25
+            },
+            "rationale": "Argentina down to 10 men in extra time significantly reduces their chances against Spain's possession dominance."
+          }
+        }
       }
     ]
   },
