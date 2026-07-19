@@ -2,7 +2,7 @@ import express from 'express';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { fetchMatches, periodRank, txoddsStatus } from './lib/feed.js';
-import { leaderboard, labLeaderboard, predictionMarket } from './lib/scoring.js';
+import { leaderboard, labLeaderboard, predictionMarket, isKnockoutMatch } from './lib/scoring.js';
 import { getPredictions, getSnapshots, getOutright, getProofs } from './lib/store.js';
 import { dbEnabled, dbTryLock } from './lib/db.js';
 import {
@@ -53,7 +53,9 @@ app.get('/api/state', async (req, res) => {
     const outright = await getOutright();
     const proofs = await getProofs();
     // Display: recent and upcoming matches, plus anything ever forecast.
-    // Scoring: every match in the tournament, so the leaderboard is stable.
+    // Scoring: the knockout phase and beyond — the standings and the
+    // podium both read this board, so the filter lives here once.
+    const scoredMatches = all.filter(isKnockoutMatch);
     const weekAgo = Date.now() - 7 * 24 * 3600 * 1000;
     const matches = all.filter(
       (m) => new Date(m.kickoff).getTime() >= weekAgo || predictions[m.id]
@@ -76,8 +78,8 @@ app.get('/api/state', async (req, res) => {
         predictions: predictions[m.id] ?? {},
         snapshots: snapshots[m.id] ?? [],
       })),
-      leaderboard: leaderboard(all, predictions, entrants),
-      leaderboardByLab: labLeaderboard(all, predictions, entrants),
+      leaderboard: leaderboard(scoredMatches, predictions, entrants),
+      leaderboardByLab: labLeaderboard(scoredMatches, predictions, entrants),
     });
     // Self-collection: with a database and a key, any visit keeps the
     // ledger current. Database locks bound the spend no matter how many

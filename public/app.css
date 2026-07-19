@@ -69,10 +69,15 @@ main { max-width: 1080px; margin: 0 auto; padding: 0 20px 64px; }
 }
 .pitchband > * { position: relative; z-index: 1; }
 
+/* `.pitchband > *` gives every band child z-index 1, which makes each one
+   its own stacking context. The wordmark tooltip hangs below the topbar
+   and over the hero, so without outranking its siblings here it paints
+   *under* the hero no matter how high its own z-index goes. */
 .topbar {
   display: flex; justify-content: space-between; align-items: center;
   height: 64px; padding: 0 20px; max-width: 1080px; margin: 0 auto;
 }
+.pitchband > .topbar { z-index: 30; }
 .wordmark { font-weight: 800; letter-spacing: 0.04em; font-size: 15px; color: #ffffff; }
 .wordmark em { font-style: normal; color: var(--kit-gold); }
 .topbar-status { color: rgba(255, 255, 255, 0.75); font-size: 13px; }
@@ -132,8 +137,70 @@ main { max-width: 1080px; margin: 0 auto; padding: 0 20px 64px; }
 .hero-by { display: block; font-weight: 600; color: rgba(255, 255, 255, 0.72); }
 .hero-sub { color: rgba(255, 255, 255, 0.88); font-size: 16px; max-width: 58ch; margin: 0; }
 
+/* Hero consensus panel: the finalists' odds to lift the trophy, one
+   column per team, each over its own model-by-model breakdown. Sits top
+   right of the hero on desktop and stacks under the copy on mobile. */
+.hero { display: grid; gap: 28px; align-items: start; }
+@media (min-width: 900px) {
+  .hero { grid-template-columns: minmax(0, 1fr) minmax(300px, 380px); }
+  #hero-consensus { margin-top: 4px; }
+}
+#hero-consensus[hidden] { display: none; }
+#hero-consensus {
+  background: rgba(8, 28, 12, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: var(--radius-card);
+  padding: 12px 14px 14px;
+}
+.hc-head {
+  font-size: 10.5px; font-weight: 800; letter-spacing: 0.07em;
+  text-transform: uppercase; color: rgba(255, 255, 255, 0.7); margin-bottom: 10px;
+}
+.hc-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.hc-team {
+  min-width: 0;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 10px; padding: 8px 8px 6px;
+  background: rgba(255, 255, 255, 0.05);
+}
+.hc-team.leader {
+  border-color: rgba(255, 215, 94, 0.55);
+  background: rgba(255, 215, 94, 0.1);
+}
+.hc-team-head {
+  display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+  padding-bottom: 7px; margin-bottom: 7px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+}
+.hc-flag { width: 20px; height: 20px; border-radius: 4px; flex: none; object-fit: contain; }
+.hc-name {
+  font-weight: 750; font-size: 14px; color: #ffffff;
+  min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.hc-p {
+  margin-left: auto; font-weight: 800; font-size: 15px;
+  font-variant-numeric: tabular-nums; color: rgba(255, 255, 255, 0.92);
+}
+.hc-team.leader .hc-p { color: var(--kit-gold); }
+.hc-models { display: grid; gap: 1px; }
+.hc-model {
+  display: flex; align-items: center; gap: 6px; width: 100%;
+  background: none; border: 0; padding: 2px 3px; border-radius: 5px;
+  cursor: pointer; font-family: inherit; text-align: left;
+  color: rgba(255, 255, 255, 0.82); font-size: 11.5px;
+}
+.hc-model:hover { background: rgba(255, 255, 255, 0.1); color: #ffffff; }
+.hc-model:focus-visible { outline: 2px solid var(--kit-gold); outline-offset: -1px; }
+.hc-model .crest { width: 14px; height: 16px; flex: none; object-fit: contain; }
+.hc-model-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hc-model-p { margin-left: auto; font-variant-numeric: tabular-nums; font-weight: 700; }
+
 h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
 .explainer { color: var(--ink-2); font-size: 13.5px; max-width: 70ch; margin: 0 0 16px; }
+/* These sections' explainers run the full section width rather than the
+   70ch reading measure the default keeps. */
+#leaderboard-section > .explainer,
+#roster-section > .explainer { max-width: none; }
 
 /* Featured match: big and up front, inside the pitch band */
 #featured { max-width: 1080px; margin: 0 auto; padding: 0 20px 34px; }
@@ -164,7 +231,7 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
 }
 
 /* Podium: the leaderboard's top three, front and centre in the hero band. */
-#podium { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+#podium { max-width: 1080px; margin: 0 auto; padding: 0 20px 22px; }
 .podium {
   display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
   align-items: end; gap: 12px;
@@ -213,6 +280,20 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
 .podium-market b { color: var(--kit-gold); font-weight: 750; }
 .podium-market .crest { width: 24px; height: 28px; flex: none; }
 .podium-market-src { display: block; color: rgba(255, 255, 255, 0.65); font-size: 11.5px; margin-top: 2px; }
+/* Desktop: the podium keeps the left column and the market's standing
+   moves into a column of its own on the right, beside it. */
+@media (min-width: 900px) {
+  #podium {
+    display: grid; column-gap: 28px; align-items: center;
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 340px);
+  }
+  .podium { grid-column: 1; grid-row: 1; }
+  .podium-note { grid-column: 1; grid-row: 2; }
+  .podium-market {
+    grid-column: 2; grid-row: 1 / span 2;
+    margin: 0; max-width: none; align-self: center;
+  }
+}
 .podium-1 .podium-step {
   height: 74px; color: #241a02;
   background: linear-gradient(180deg, var(--kit-gold), rgba(255, 215, 94, 0.55));
@@ -294,105 +375,11 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
 .trophy-card {
   background: var(--surface); border: 1px solid var(--hairline);
   border-radius: var(--radius-card); box-shadow: 0 1px 2px rgba(23, 46, 22, 0.05);
-  padding: 16px; display: grid; gap: 20px; margin-top: 14px;
+  padding: 16px; display: grid; gap: 18px; margin-top: 14px;
 }
-@media (min-width: 900px) {
-  .trophy-card { grid-template-columns: minmax(280px, 5fr) 7fr; align-items: stretch; }
-}
-.trophy-list { display: grid; gap: 6px; min-width: 0; align-content: start; }
-.trophy-list-head, .trophy-chart-head {
+.trophy-chart-head {
   font-size: 11px; font-weight: 800; letter-spacing: 0.06em;
-  text-transform: uppercase; color: var(--ink-3); margin-bottom: 4px;
-}
-.trophy-row {
-  display: grid; grid-template-columns: 22px 24px minmax(0, 128px) minmax(36px, 1fr) 48px;
-  align-items: center; gap: 6px; font-size: 14px;
-  padding: 4px 6px; border-radius: 8px;
-}
-.trophy-row.leader {
-  background: linear-gradient(90deg, rgba(227, 179, 65, 0.18), transparent 70%);
-  outline: 1px solid rgba(227, 179, 65, 0.35);
-}
-.trophy-row.silver { background: linear-gradient(90deg, rgba(148, 163, 184, 0.12), transparent 60%); }
-.trophy-row.bronze { background: linear-gradient(90deg, rgba(180, 120, 60, 0.1), transparent 60%); }
-.trophy-rank { color: var(--ink-3); font-weight: 700; font-variant-numeric: tabular-nums; font-size: 13px; }
-.trophy-rank.gold { color: var(--trophy); font-size: 15px; }
-.trophy-team { font-weight: 650; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.trophy-bar { height: 10px; background: var(--surface-2); border-radius: 99px; overflow: hidden; }
-.trophy-bar i {
-  display: block; height: 100%; border-radius: 99px;
-  background: var(--pitch); min-width: 3px;
-  transition: width 0.4s ease;
-}
-.trophy-row.leader .trophy-bar i {
-  background: linear-gradient(90deg, #e3b341, #f5d06a);
-}
-.trophy-p { text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; }
-.trophy-row.leader .trophy-p { color: var(--trophy); font-size: 15px; }
-.trophy-rest { margin-top: 4px; line-height: 1.5; }
-
-/* Finalists only: roomier cards so two rows fill the column instead of
-   sitting as a tight stack beside the belief chart. */
-.trophy-list.sparse {
-  gap: 18px;
-  height: 100%;
-  min-height: 220px;
-  align-content: stretch;
-  padding: 6px 4px 10px;
-  box-sizing: border-box;
-}
-.trophy-list.sparse .trophy-list-head {
-  margin-bottom: 4px;
-  font-size: 12px;
-  letter-spacing: 0.07em;
-}
-.trophy-list.sparse .trophy-row {
-  grid-template-columns: 32px 40px minmax(100px, auto) 1fr 64px;
-  gap: 14px;
-  padding: 20px 18px;
-  font-size: 16px;
-  border-radius: 14px;
-  min-height: 88px;
-  box-shadow: 0 1px 2px rgba(23, 46, 22, 0.04);
-}
-.trophy-list.sparse .trophy-row.leader {
-  outline-width: 1.5px;
-  box-shadow: 0 2px 10px rgba(227, 179, 65, 0.18);
-}
-.trophy-list.sparse .trophy-row .flag {
-  width: 36px;
-  height: 36px;
-  border-radius: 5px;
-  box-shadow: 0 0 0 1px rgba(23, 46, 22, 0.08);
-}
-.trophy-list.sparse .trophy-rank {
-  font-size: 17px;
-}
-.trophy-list.sparse .trophy-rank.gold {
-  font-size: 24px;
-}
-.trophy-list.sparse .trophy-team {
-  font-size: 18px;
-  font-weight: 750;
-  letter-spacing: -0.01em;
-}
-.trophy-list.sparse .trophy-bar {
-  height: 16px;
-  background: var(--surface-2);
-}
-.trophy-list.sparse .trophy-p {
-  font-size: 20px;
-  font-weight: 800;
-}
-.trophy-list.sparse .trophy-row.leader .trophy-p {
-  font-size: 22px;
-}
-@media (min-width: 900px) {
-  .trophy-list.sparse {
-    /* Stretch rows evenly down the card height next to the chart */
-    grid-template-rows: auto 1fr 1fr;
-    min-height: 280px;
-  }
+  text-transform: uppercase; color: var(--ink-3); margin-bottom: 10px;
 }
 
 .trophy-chart { min-width: 0; position: relative; }
@@ -412,6 +399,8 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
   padding: 16px 10px 12px;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+  /* The belief card sits above the bracket, so the gap lives here. */
+  margin-top: 14px;
 }
 .bracket {
   --bk-match-h: 56px;
@@ -629,18 +618,20 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
   max-width: 100%;
   padding: 0 4px;
 }
-.bk-round[data-stage="final"] .bk-match {
+/* Scoped to the final's own leaf, not the whole column: the third-place
+   tie now shares this column and must not inherit the trophy treatment. */
+.bk-final-leaf .bk-match {
   background: linear-gradient(160deg, rgba(227, 179, 65, 0.28), rgba(255, 255, 255, 0.07));
   border-color: rgba(255, 215, 94, 0.6);
   box-shadow: 0 0 0 1px rgba(255, 215, 94, 0.18), 0 10px 28px rgba(0, 0, 0, 0.35);
   min-height: 80px;
 }
-.bk-round[data-stage="final"] .bk-side {
+.bk-final-leaf .bk-side {
   min-height: 36px;
   font-size: 13.5px;
   padding: 9px 11px;
 }
-.bk-round[data-stage="final"] .bk-flag { width: 20px; height: 20px; }
+.bk-final-leaf .bk-flag { width: 20px; height: 20px; }
 .bk-round[data-stage="final"] .bk-round-label {
   color: var(--kit-gold);
   font-size: 12px;
@@ -649,14 +640,16 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
   content: "🏆 ";
 }
 
+/* Sits in the final's column, under the trophy card: the column is only
+   one match wide, so the label stacks above the tie instead of beside it. */
 .bk-third {
+  flex: 0 0 auto;
   display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 12px;
+  flex-direction: column;
+  gap: 6px;
+  margin: 16px 4px 0;
   padding-top: 12px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  max-width: 300px;
 }
 .bk-third-label {
   color: rgba(255, 255, 255, 0.5);
@@ -666,7 +659,6 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
   text-transform: uppercase;
   white-space: nowrap;
 }
-.bk-third .bk-match { flex: 1; }
 .bk-legend { color: rgba(255, 255, 255, 0.55) !important; margin: 10px 4px 2px !important; }
 
 @media (max-width: 700px) {
@@ -724,6 +716,9 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
   position: relative;
   overflow: hidden;
 }
+/* Nested in the trophy card, under the belief-shift chart: span both
+   columns of that grid and let the grid gap own the spacing. */
+.trophy-card .lb-chart-card { grid-column: 1 / -1; margin-bottom: 0; }
 .lb-chart-head { margin: 0 2px 12px; }
 .lb-chart-title {
   font-size: 16px;
@@ -753,9 +748,12 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
   border: 1px solid var(--hairline);
   box-shadow: 0 1px 2px rgba(23, 46, 22, 0.05);
 }
+/* Rank | name | sparkline | score. The spark sits in its own column so
+   every row's trend reads on one baseline next to the Brier number,
+   instead of stacking under the name and pushing rows tall. */
 .lb-row {
   display: grid;
-  grid-template-columns: 44px 1fr auto;
+  grid-template-columns: 44px minmax(0, 1fr) auto auto;
   align-items: center; gap: 14px;
   padding: 14px 16px;
   border-bottom: 1px solid var(--hairline);
@@ -768,7 +766,10 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
   color: var(--ink-3); font-size: 12.5px; display: block;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
-.lb-spark { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+.lb-spark {
+  display: flex; align-items: center; justify-content: flex-end; gap: 8px;
+  min-width: 190px;
+}
 .spark-svg { width: 108px; height: 28px; display: block; flex: none; }
 .lb-trend { font-size: 11px; font-weight: 650; white-space: nowrap; }
 .lb-trend-up { color: var(--pitch); }
@@ -893,6 +894,32 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
 .explainer .brier-tip-pop::after {
   top: auto;
   bottom: 100%;
+  border-top-color: transparent;
+  border-bottom-color: var(--surface);
+}
+/* Same flip in the detail panel: the stat row sits at the top of a
+   scrollable box (.detail-panel is overflow-y:auto, which clips both
+   axes), so a popover opening upward was cut off by the panel edge.
+   Opening downward keeps it inside the scroll area. The 320px popover
+   centered on a tip this close to the panel's left margin also overhangs
+   it, so anchor its left edge to the tip instead of centering. Only the
+   first stat carries a tip, so there is no mirrored right-edge case. */
+.detail-panel .stat-l .brier-tip-pop {
+  bottom: auto;
+  top: calc(100% + 10px);
+  left: 0;
+  transform: translateY(4px);
+}
+.detail-panel .stat-l .brier-tip:hover .brier-tip-pop,
+.detail-panel .stat-l .brier-tip:focus-within .brier-tip-pop,
+.detail-panel .stat-l .brier-tip.open .brier-tip-pop {
+  transform: translateY(0);
+}
+.detail-panel .stat-l .brier-tip-pop::after {
+  top: auto;
+  bottom: 100%;
+  left: 22px;
+  transform: none;
   border-top-color: transparent;
   border-bottom-color: var(--surface);
 }
@@ -1222,21 +1249,6 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
   .pitchband::before { right: -140px; width: 260px; height: 260px; }
   .pitchband::after { right: 40px; }
 
-  /* The "sparse" finalist trophy row is sized for desktop's wider column;
-     on phones its unbounded team-name column pushes the row past the
-     viewport, so cap it and scale the row down to fit. */
-  .trophy-list.sparse .trophy-row {
-    grid-template-columns: 20px 28px minmax(0, 116px) minmax(28px, 1fr) 44px;
-    gap: 8px; padding: 14px 12px; font-size: 14px;
-  }
-  .trophy-list.sparse .trophy-team { font-size: 15px; }
-  .trophy-list.sparse .trophy-p { font-size: 17px; }
-  /* The .leader variants set larger desktop sizes at higher specificity;
-     re-cap them here so "100%" fits the 44px column after the final. */
-  .trophy-list.sparse .trophy-row.leader .trophy-p { font-size: 17px; }
-  .trophy-list.sparse .trophy-rank.gold { font-size: 18px; }
-  .trophy-list.sparse .trophy-row .flag { width: 26px; height: 26px; }
-
   /* Kickoff/status moves under the fixture so team names get full width. */
   .match { padding: 14px 14px 10px; }
   .match-head { flex-direction: column; gap: 6px; }
@@ -1251,7 +1263,12 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
   .crest-lg { width: 24px; height: 28px; }
   .fbrier { min-width: 44px; font-size: 12.5px; }
 
+  /* Too narrow for four columns: the spark drops to its own row under the
+     name, with rank and score spanning both rows as before. */
   .lb-row { grid-template-columns: 30px minmax(0, 1fr) auto; padding: 12px 14px; gap: 10px; }
+  .lb-rank, .lb-score { grid-row: 1 / span 2; }
+  .lb-spark { grid-column: 2; grid-row: 2; justify-content: flex-start; min-width: 0; }
+  .lb-spark:empty { display: none; }
   .lb-rank { font-size: 16px; }
   .lb-name { font-size: 14px; }
   .lb-slug { font-size: 11.5px; }
@@ -1313,11 +1330,16 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
 
 /* Competitors roster strip: one chip per competitor in the active view,
    each clicking through to that competitor's performance detail. */
-.roster { display: flex; flex-wrap: wrap; gap: 10px; }
+.roster {
+  display: flex; flex-wrap: nowrap; gap: 6px;
+  overflow-x: auto; scrollbar-width: none; padding: 2px;
+}
+.roster::-webkit-scrollbar { display: none; }
 .roster-chip {
-  display: inline-flex; align-items: center; gap: 8px; background: var(--surface);
-  border: 1px solid var(--hairline); border-radius: 999px; padding: 7px 14px 7px 9px;
-  font-weight: 650; font-size: 14px; color: var(--ink);
+  flex: none; white-space: nowrap;
+  display: inline-flex; align-items: center; gap: 7px; background: var(--surface);
+  border: 1px solid var(--hairline); border-radius: 999px; padding: 6px 12px 6px 8px;
+  font-weight: 650; font-size: 13.5px; color: var(--ink);
   font-family: inherit; cursor: pointer;
 }
 .roster-chip:hover { border-color: var(--pitch); box-shadow: 0 1px 4px rgba(10, 122, 51, 0.14); }
