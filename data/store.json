@@ -33741,6 +33741,89 @@
             "rationale": "No score at halftime in a balanced final, so equal chances for both teams."
           }
         }
+      },
+      {
+        "at": "2026-07-19T20:07:20.949Z",
+        "detail": "HT",
+        "score": [
+          0,
+          0
+        ],
+        "events": 0,
+        "period": "STATUS_HALFTIME",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.54,
+              "away": 0.46
+            },
+            "rationale": "Spain has been the stronger side throughout the tournament with a deeper squad, but a scoreless first half keeps Argentina well within striking distance in a tight final."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.53,
+              "away": 0.47
+            },
+            "rationale": "At 0-0 in a World Cup final at halftime on neutral ground, Spain has a slight edge based on overall strength and control tendencies but the match remains very close to even."
+          },
+          "deepseek/deepseek-v4-pro": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "Match is scoreless at halftime in a neutral venue final between two evenly matched teams, giving each an equal chance to advance."
+          },
+          "moonshotai/kimi-k3": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "Scoreless at halftime in the final leaves this essentially a coin flip between two elite sides, with only a slight edge to Spain for their marginally stronger current form and tournament dominance."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "The match remains deadlocked at halftime between two evenly matched titans, keeping advancement odds close with a slight edge to Spain's squad depth."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.53,
+              "away": 0.47
+            },
+            "rationale": "Spain's younger, more dynamic squad gives them a slight edge in a tight final, but Argentina's championship pedigree and tournament mentality keep this nearly a coin flip at the halfway mark."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "With a goalless draw at halftime and no key events to differentiate the teams, the match is essentially a 50-50 chance for each side."
+          },
+          "google/gemini-3.1-pro-preview": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "With the match scoreless at half-time and no key events, this final between two evenly matched elite teams is a complete toss-up."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0.49,
+              "away": 0.51
+            },
+            "rationale": "0-0 at HT in a final between two elite sides leaves it essentially a coin flip with Argentina a hair ahead as reigning champions."
+          },
+          "mistralai/mistral-medium-3-5": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "No score at halftime in a balanced final, so equal chances for both teams."
+          }
+        }
       }
     ]
   },
