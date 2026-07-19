@@ -27,7 +27,8 @@
 }
 
 * { box-sizing: border-box; }
-html { color-scheme: light; }
+html { color-scheme: light; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 body {
   margin: 0;
   background: var(--page);
@@ -81,6 +82,23 @@ main { max-width: 1080px; margin: 0 auto; padding: 0 20px 64px; }
 .wordmark { font-weight: 800; letter-spacing: 0.04em; font-size: 15px; color: #ffffff; }
 .wordmark em { font-style: normal; color: var(--kit-gold); }
 .topbar-status { color: rgba(255, 255, 255, 0.75); font-size: 13px; }
+/* Section menu: white-on-pitch links; scrolls sideways on small screens
+   instead of wrapping the 64px bar taller. */
+.topnav {
+  display: flex; gap: 2px; min-width: 0;
+  overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch;
+  /* Fade the clipped edges so scrolled-off items don't butt the wordmark */
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 14px, #000 calc(100% - 14px), transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 14px, #000 calc(100% - 14px), transparent);
+  padding: 0 6px;
+}
+.topnav::-webkit-scrollbar { display: none; }
+.topnav a {
+  color: rgba(255, 255, 255, 0.82); text-decoration: none;
+  font: 600 12.5px/1.4 system-ui, sans-serif; white-space: nowrap;
+  padding: 6px 9px; border-radius: 999px;
+}
+.topnav a:hover, .topnav a:focus-visible { color: #ffffff; background: rgba(255, 255, 255, 0.12); }
 
 /* Wordmark as Brier explainer (hover / focus / tap).
    Higher specificity so the shared tip rule's translateX(-50%)
@@ -126,7 +144,9 @@ main { max-width: 1080px; margin: 0 auto; padding: 0 20px 64px; }
   border-bottom-color: var(--surface);
 }
 
-.hero { padding: 34px 20px 42px; max-width: 1080px; margin: 0 auto; }
+/* Tight enough vertically that the podium's crowns break the fold on a
+   typical ~800px-tall laptop viewport. */
+.hero { padding: 22px 20px 28px; max-width: 1080px; margin: 0 auto; }
 .hero h1 {
   font-size: clamp(30px, 5vw, 46px);
   line-height: 1.08; letter-spacing: -0.02em; margin: 0 0 14px;
@@ -142,8 +162,20 @@ main { max-width: 1080px; margin: 0 auto; padding: 0 20px 64px; }
    right of the hero on desktop and stacks under the copy on mobile. */
 .hero { display: grid; gap: 28px; align-items: start; }
 @media (min-width: 900px) {
-  .hero { grid-template-columns: minmax(0, 1fr) minmax(300px, 380px); }
-  #hero-consensus { margin-top: 4px; }
+  /* Copy and card sit as one composed row: vertically centred against
+     each other, the card wide enough to feel like a co-star rather than
+     a sidebar widget. */
+  .hero { grid-template-columns: minmax(0, 1fr) minmax(330px, 430px); align-items: center; gap: 48px; }
+  #hero-consensus {
+    padding: 18px 20px;
+    background: rgba(6, 24, 10, 0.45);
+    box-shadow: 0 14px 38px rgba(3, 22, 9, 0.35);
+  }
+  .hc-head { margin-bottom: 12px; }
+  .hc-name { font-size: 15px; }
+  .hc-p { font-size: 17px; }
+  .hc-flag { width: 22px; height: 22px; }
+  .hc-status { font-size: 13px; margin-top: 12px; padding-top: 11px; }
 }
 #hero-consensus[hidden] { display: none; }
 #hero-consensus {
@@ -155,6 +187,12 @@ main { max-width: 1080px; margin: 0 auto; padding: 0 20px 64px; }
 .hc-head {
   font-size: 10.5px; font-weight: 800; letter-spacing: 0.07em;
   text-transform: uppercase; color: rgba(255, 255, 255, 0.7); margin-bottom: 10px;
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+}
+/* Toggle lives on the head line, so it stays compact and unstyled-case */
+.hc-head .hc-toggle {
+  width: auto; margin: 0; padding: 2px 8px;
+  text-transform: none; letter-spacing: normal; font-size: 11.5px;
 }
 .hc-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
 .hc-team {
@@ -284,8 +322,9 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
    moves into a column of its own on the right, beside it. */
 @media (min-width: 900px) {
   #podium {
-    display: grid; column-gap: 28px; align-items: center;
-    grid-template-columns: minmax(0, 1fr) minmax(260px, 340px);
+    display: grid; column-gap: 48px; align-items: center;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 400px);
+    padding-top: 8px;
   }
   .podium { grid-column: 1; grid-row: 1; }
   .podium-note { grid-column: 1; grid-row: 2; }
@@ -1244,8 +1283,13 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
   main { padding: 0 16px 48px; }
   .topbar { padding: 0 16px; }
   .topbar-status { display: none; }
-  .hero { padding: 24px 16px 34px; }
-  .hero-sub { font-size: 15px; }
+  /* Small screens: the whole hero (headline, hook, one-liner, research
+     link, consensus card) should fit one ~667px viewport under the bar. */
+  .hero { padding: 16px 16px 22px; gap: 18px; }
+  .hero h1 { margin-bottom: 10px; }
+  .hero-hook { font-size: 14.5px; margin-bottom: 10px; }
+  .hero-sub { font-size: 14.5px; }
+  .hero-read { margin-top: 14px; }
   .pitchband::before { right: -140px; width: 260px; height: 260px; }
   .pitchband::after { right: 40px; }
 
@@ -1263,18 +1307,24 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
   .crest-lg { width: 24px; height: 28px; }
   .fbrier { min-width: 44px; font-size: 12.5px; }
 
-  /* Too narrow for four columns: the spark drops to its own row under the
-     name, with rank and score spanning both rows as before. */
-  .lb-row { grid-template-columns: 30px minmax(0, 1fr) auto; padding: 12px 14px; gap: 10px; }
-  .lb-rank, .lb-score { grid-row: 1 / span 2; }
-  .lb-spark { grid-column: 2; grid-row: 2; justify-content: flex-start; min-width: 0; }
+  /* Two tight rows. The meta line ("+39.1% vs coin flip · 32 forecasts")
+     used to live in the right-hand score column, whose max-content width
+     crushed the name column into "anthro…" and ballooned row height.
+     display:contents dissolves the score wrapper so the big Brier sits
+     on row one and the meta text gets the full width of row two. */
+  .lb-row { grid-template-columns: 26px minmax(0, 1fr) auto; padding: 10px 12px; gap: 3px 10px; }
+  .lb-rank { grid-row: 1 / span 2; align-self: center; }
+  .lb-score { display: contents; }
+  .lb-brier { grid-row: 1; grid-column: 3; text-align: right; align-self: center; }
+  .lb-meta { grid-row: 2; grid-column: 2; text-align: left; align-self: center; }
+  .lb-spark { grid-column: 3; grid-row: 2; justify-content: flex-end; min-width: 0; }
   .lb-spark:empty { display: none; }
   .lb-rank { font-size: 16px; }
   .lb-name { font-size: 14px; }
-  .lb-slug { font-size: 11.5px; }
+  .lb-slug { font-size: 11px; }
   .lb-brier { font-size: 18px; }
   .lb-meta { font-size: 11.5px; }
-  .spark-svg { width: 84px; height: 22px; }
+  .spark-svg { width: 72px; height: 20px; }
   .lb-trend { display: none; }
 
   .outcome-head { font-size: 11.5px; gap: 6px; }
@@ -1363,16 +1413,16 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
 .odds-source { text-transform: none; letter-spacing: 0; opacity: 0.8; }
 
 /* The Market: every mention is a tap target opening the sourcing modal. */
-.market-tip {
+.market-tip, .kelly-tip {
   display: inline-flex; align-items: center; gap: 4px;
   cursor: pointer; min-width: 0; position: relative;
   border-bottom: 1px dashed rgba(10, 122, 51, 0.45);
 }
 /* Inline in prose, so grow the touch target with an invisible overlay
    instead of padding that would push the underline off the text. */
-.market-tip::after { content: ""; position: absolute; inset: -9px -4px; }
-.market-tip:hover, .market-tip:focus-visible { border-bottom-color: var(--pitch); color: var(--pitch-deep); }
-.market-tip:focus-visible { outline: 1px solid var(--pitch); outline-offset: 2px; border-radius: 3px; }
+.market-tip::after, .kelly-tip::after { content: ""; position: absolute; inset: -9px -4px; }
+.market-tip:hover, .market-tip:focus-visible, .kelly-tip:hover, .kelly-tip:focus-visible { border-bottom-color: var(--pitch); color: var(--pitch-deep); }
+.market-tip:focus-visible, .kelly-tip:focus-visible { outline: 1px solid var(--pitch); outline-offset: 2px; border-radius: 3px; }
 .market-tip-mark {
   display: inline-flex; align-items: center; justify-content: center;
   width: 14px; height: 14px; border-radius: 50%; flex: none;
@@ -1381,11 +1431,11 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
 }
 .lb-name .market-tip, .detail-title .market-tip { border-bottom-width: 1px; }
 
-#market-modal .mkt-scrim {
+#market-modal .mkt-scrim, #kelly-modal .mkt-scrim, #prompt-modal .mkt-scrim {
   position: fixed; inset: 0; z-index: 60;
   background: rgba(12, 26, 14, 0.45);
 }
-#market-modal .mkt-panel {
+#market-modal .mkt-panel, #kelly-modal .mkt-panel, #prompt-modal .mkt-panel {
   position: fixed; z-index: 61;
   top: 50%; left: 50%; transform: translate(-50%, -50%);
   width: min(460px, calc(100vw - 24px));
@@ -1395,20 +1445,20 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
   box-shadow: 0 12px 40px rgba(12, 26, 14, 0.25);
   padding: 22px 22px 18px;
 }
-#market-modal h3 { margin: 0 34px 10px 0; font-size: 17px; letter-spacing: -0.01em; }
-#market-modal p, #market-modal li { color: var(--ink-2); font-size: 14px; line-height: 1.55; }
-#market-modal p { margin: 0 0 10px; }
-#market-modal ul { margin: 0 0 10px; padding-left: 20px; }
-#market-modal li { margin-bottom: 8px; }
-#market-modal li b, #market-modal p strong { color: var(--ink); }
-#market-modal .mkt-foot { color: var(--ink-3); font-size: 12.5px; margin: 12px 0 0; border-top: 1px solid var(--hairline); padding-top: 12px; }
-#market-modal .mkt-close {
+#market-modal h3, #kelly-modal h3, #prompt-modal h3 { margin: 0 34px 10px 0; font-size: 17px; letter-spacing: -0.01em; }
+#market-modal p, #market-modal li, #kelly-modal p, #kelly-modal li, #prompt-modal p, #prompt-modal li { color: var(--ink-2); font-size: 14px; line-height: 1.55; }
+#market-modal p, #kelly-modal p, #prompt-modal p { margin: 0 0 10px; }
+#market-modal ul, #kelly-modal ul, #prompt-modal ul { margin: 0 0 10px; padding-left: 20px; }
+#market-modal li, #kelly-modal li, #prompt-modal li { margin-bottom: 8px; }
+#market-modal li b, #market-modal p strong, #kelly-modal li b, #kelly-modal p strong, #prompt-modal li b, #prompt-modal p strong { color: var(--ink); }
+#market-modal .mkt-foot, #kelly-modal .mkt-foot, #prompt-modal .mkt-foot { color: var(--ink-3); font-size: 12.5px; margin: 12px 0 0; border-top: 1px solid var(--hairline); padding-top: 12px; }
+#market-modal .mkt-close, #kelly-modal .mkt-close, #prompt-modal .mkt-close {
   position: absolute; top: 10px; right: 10px;
   width: 36px; height: 36px; border-radius: 50%;
   background: none; border: 0; cursor: pointer;
   color: var(--ink-3); font-size: 15px;
 }
-#market-modal .mkt-close:hover, #market-modal .mkt-close:focus-visible { background: var(--surface-2); color: var(--ink); }
+#market-modal .mkt-close:hover, #market-modal .mkt-close:focus-visible, #kelly-modal .mkt-close:hover, #kelly-modal .mkt-close:focus-visible, #prompt-modal .mkt-close:hover, #prompt-modal .mkt-close:focus-visible { background: var(--surface-2); color: var(--ink); }
 body.mkt-open { overflow: hidden; }
 
 /* Settlement proof modal (reuses .mkt-scrim/.mkt-panel/.mkt-close scaffold). */
@@ -1537,3 +1587,233 @@ th.bet-num { text-align: right; }
 .pipe-link { color: var(--pitch-deep); font-weight: 650; }
 @media (max-width: 900px) { .pipeline { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 560px) { .pipeline { grid-template-columns: 1fr 1fr; gap: 8px; } }
+
+/* Edge Board: live divergence vs the TxODDS StablePrice line */
+.edge-match { background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--radius-card); padding: 12px 14px; margin: 12px 0; }
+.edge-head { font-size: 13.5px; margin-bottom: 6px; }
+.edge-when { color: var(--ink-3); font-size: 11.5px; margin-left: 6px; font-weight: 400; }
+.edge-table td { white-space: normal; }
+.edge-out { font-weight: 650; white-space: nowrap; }
+th.edge-num, td.edge-num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.edge-div { font: 700 11px/1 var(--mono, ui-monospace, monospace); color: var(--ink-2); margin-left: 3px; }
+/* Positive consensus divergence gets the winning-bankroll treatment */
+.edge-row-pos { background: linear-gradient(90deg, rgba(227, 179, 65, 0.12), transparent 70%); }
+.edge-row-pos .edge-div { color: var(--pitch-deep); }
+.edge-chips { display: flex; flex-wrap: wrap; gap: 4px; min-width: 200px; }
+.edge-chip { font: 600 10.5px/1.4 var(--mono, ui-monospace, monospace); border-radius: 4px; padding: 2px 5px; background: var(--surface-2); color: var(--ink-2); white-space: nowrap; }
+.edge-chip.edge-pos { background: var(--pitch-wash); color: var(--pitch-deep); }
+.edge-past { margin-top: 12px; }
+.edge-past summary { cursor: pointer; font-weight: 650; font-size: 13.5px; }
+.edge-past-list { list-style: none; margin: 8px 0 0; padding: 0; font-size: 12.5px; }
+.edge-past-row { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: baseline; padding: 6px 2px; border-bottom: 1px solid var(--hairline); }
+.edge-past-row:last-child { border-bottom: 0; }
+.edge-past-match { font-weight: 650; }
+.edge-paid { color: var(--pitch-deep); font-weight: 700; }
+.edge-missed { color: var(--away); font-weight: 700; }
+.edge-ledger-link { color: var(--pitch-deep); font-weight: 650; margin-left: auto; }
+
+/* Bet-ledger extras: strategy card + verified-settlement link */
+.bank-strategy { background: var(--surface-2); border-radius: var(--radius-el); padding: 8px 10px; font-size: 12.5px; margin: 8px 0; }
+.bank-strategy-note { color: var(--ink-3); }
+.bet-verified { border: 0; cursor: pointer; font: 700 10px/1 var(--mono, ui-monospace, monospace); color: var(--pitch-deep); background: var(--pitch-wash); border-radius: 4px; padding: 2px 5px; margin-left: 5px; }
+.bet-verified:hover { background: var(--pitch); color: #fff; }
+
+/* Hero consensus: collapsed by default; per-agent breakdown on demand */
+.hc-collapsed .hc-team-head { padding-bottom: 0; margin-bottom: 0; border-bottom: 0; }
+.hc-toggle {
+  display: block; width: 100%; margin-top: 10px;
+  background: none; border: 0; padding: 4px 2px; cursor: pointer;
+  font: 650 11.5px/1.3 inherit; font-family: inherit;
+  color: rgba(255, 255, 255, 0.75); text-align: center; border-radius: 6px;
+}
+.hc-toggle:hover { color: #ffffff; background: rgba(255, 255, 255, 0.08); }
+.hc-toggle:focus-visible { outline: 2px solid var(--kit-gold); outline-offset: 1px; }
+
+/* The Bankroll race: per-agent bankroll chart, "Who lifts the trophy?" */
+.bkc-card {
+  background: var(--surface); border: 1px solid var(--hairline);
+  border-radius: var(--radius-card); padding: 18px 18px 14px;
+}
+.bkc-wrap { position: relative; }
+.bkc-svg { display: block; width: 100%; height: auto; overflow: visible; }
+.bkc-grid { stroke: var(--hairline); stroke-width: 1; }
+.bkc-base { stroke: var(--ink-3); stroke-width: 1; stroke-dasharray: 3 4; }
+.bkc-tick { font: 600 11px/1 var(--mono, ui-monospace, monospace); fill: var(--ink-3); }
+.bkc-base-label { fill: var(--ink-2); }
+.bkc-area { opacity: 0.07; }
+.bkc-line {
+  stroke-width: 2.25; stroke-linejoin: round; stroke-linecap: round;
+  vector-effect: non-scaling-stroke; fill: none;
+  transition: opacity 0.15s ease, stroke-width 0.15s ease;
+}
+.bkc-endlabel { cursor: pointer; }
+.bkc-endlabel text {
+  font: 650 11.5px/1 system-ui, sans-serif; fill: var(--ink-2);
+  transition: opacity 0.15s ease;
+}
+.bkc-endlabel-v { font-variant-numeric: tabular-nums; fill: var(--ink); font-weight: 800; }
+.bkc-join { fill: var(--surface); stroke-width: 2; }
+.bkc-cursor { stroke: var(--ink-3); stroke-width: 1; stroke-dasharray: 2 3; }
+/* Hovering a line, its end-label, or its legend chip highlights all three */
+.bkc-svg[data-focus] .bkc-line,
+.bkc-svg[data-focus] .bkc-endlabel { opacity: 0.16; }
+.bkc-svg[data-focus] .bkc-area { opacity: 0.02; }
+.bkc-svg[data-focus="anthropic"] [data-lab="anthropic"],
+.bkc-svg[data-focus="openai"] [data-lab="openai"],
+.bkc-svg[data-focus="deepseek"] [data-lab="deepseek"],
+.bkc-svg[data-focus="moonshotai"] [data-lab="moonshotai"],
+.bkc-svg[data-focus="z-ai"] [data-lab="z-ai"],
+.bkc-svg[data-focus="qwen"] [data-lab="qwen"],
+.bkc-svg[data-focus="minimax"] [data-lab="minimax"],
+.bkc-svg[data-focus="google"] [data-lab="google"],
+.bkc-svg[data-focus="x-ai"] [data-lab="x-ai"] { opacity: 1; }
+.bkc-svg[data-focus] [data-lab].bkc-line { stroke-width: 3; }
+.bkc-tip {
+  position: absolute; top: 10px; pointer-events: none; z-index: 3;
+  background: var(--surface); border: 1px solid var(--hairline); border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(20, 20, 15, 0.14); padding: 9px 11px; font-size: 12px;
+  min-width: 180px;
+}
+.bkc-tip-t { font-weight: 700; margin-bottom: 5px; color: var(--ink); }
+.bkc-tip-row { display: flex; align-items: center; gap: 6px; padding: 1.5px 0; color: var(--ink-2); }
+.bkc-tip-row b { margin-left: auto; font-variant-numeric: tabular-nums; color: var(--ink); }
+.bkc-swatch { width: 9px; height: 9px; border-radius: 3px; flex: none; display: inline-block; }
+.bkc-legend { display: flex; flex-wrap: wrap; gap: 6px 8px; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--hairline); }
+.bkc-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: none; border: 1px solid var(--hairline); border-radius: 999px;
+  padding: 4px 10px; font: 600 12px/1.4 system-ui, sans-serif; color: var(--ink-2);
+  cursor: pointer; transition: background 0.15s ease, border-color 0.15s ease;
+}
+.bkc-chip:hover { background: var(--surface-2); color: var(--ink); border-color: var(--ink-3); }
+.bkc-chip-v { font-variant-numeric: tabular-nums; color: var(--ink); }
+@media (max-width: 640px) {
+  .bkc-card { padding: 14px 12px 12px; }
+  .bkc-endlabel text { font-size: 10.5px; }
+}
+.bkc-note { color: var(--ink-3); font-size: 11.5px; margin: 8px 0 0; }
+
+/* Merged Bankroll section: story card, lab tags, substitution note */
+.bank-subnote { font-size: 12.5px; color: var(--ink-3); margin-top: -8px; }
+.bank-story { border-left-color: var(--trophy-fill); cursor: default; margin-top: 14px; }
+.bank-story:hover { border-color: var(--hairline); border-left-color: var(--trophy-fill); }
+.bank-story-tag { color: var(--trophy); }
+.bank-lab {
+  font: 600 10px/1.4 var(--mono, ui-monospace, monospace); color: var(--ink-3);
+  background: var(--surface-2); border-radius: 4px; padding: 1px 5px; margin-left: 6px;
+  vertical-align: 1px; white-space: nowrap;
+}
+#bankchart { margin-bottom: 14px; }
+
+/* Right-edge table of contents: a quiet dot rail that expands to full
+   labels on hover/keyboard focus. Hidden on touch widths (no hover). */
+.toc {
+  position: fixed; right: 0; top: 50%; transform: translateY(-50%);
+  z-index: 40; max-height: 76vh; overflow-y: auto; scrollbar-width: none;
+  display: flex; flex-direction: column; gap: 2px;
+  padding: 10px 10px 10px 14px;
+}
+.toc::-webkit-scrollbar { display: none; }
+.toc a {
+  display: flex; align-items: center; gap: 8px; justify-content: flex-end;
+  text-decoration: none; padding: 4px 0; color: var(--ink-2);
+}
+.toc-dot {
+  width: 7px; height: 7px; border-radius: 50%; flex: none; order: 2;
+  background: var(--ink-3); opacity: 0.5; transition: opacity 0.15s ease, background 0.15s ease;
+}
+.toc-label {
+  order: 1; font: 600 12px/1.4 system-ui, sans-serif; white-space: nowrap;
+  background: var(--surface); border: 1px solid var(--hairline); border-radius: 999px;
+  padding: 3px 10px; box-shadow: 0 2px 8px rgba(20, 20, 15, 0.08);
+  opacity: 0; transform: translateX(8px); pointer-events: none;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+.toc:hover .toc-label, .toc:focus-within .toc-label {
+  opacity: 1; transform: none; pointer-events: auto;
+}
+.toc:hover .toc-dot, .toc:focus-within .toc-dot { opacity: 0.9; }
+.toc a:hover .toc-dot, .toc a:focus-visible .toc-dot { background: var(--pitch); opacity: 1; }
+.toc a:hover .toc-label { border-color: var(--pitch); color: var(--ink); }
+@media (max-width: 900px) { .toc { display: none; } }
+
+/* Wide charts (trophy belief columns, knockout form) scroll inside their
+   own container on phones instead of scaling text to ~4px. */
+.trophy-chart .chart, .lb-chart-card .chart {
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+}
+@media (max-width: 700px) {
+  .trophy-chart .chart svg { min-width: 860px; }
+  /* Match the viewBox so glyphs render at their designed size, 1:1 */
+  .lb-chart-card .chart svg { min-width: 760px; }
+}
+
+/* Tablet: the hero stacks, but the consensus card should read as a card,
+   not a full-width band. */
+@media (max-width: 899px) {
+  #hero-consensus { max-width: 560px; }
+}
+
+/* Sticky topbar: pins once scrolled past the hero band (class toggled in
+   app.js). Full-width deep-green bar; content keeps the page's max width. */
+.topbar.topbar-stuck {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 90;
+  max-width: none; margin: 0; padding: 0 20px;
+  background: var(--pitch-deep);
+  box-shadow: 0 2px 14px rgba(4, 30, 12, 0.35);
+  animation: topbar-drop 0.18s ease;
+}
+.topbar.topbar-stuck > * { max-width: 1080px; }
+@keyframes topbar-drop { from { transform: translateY(-100%); } to { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .topbar.topbar-stuck { animation: none; } }
+
+/* "prompt" in the hero one-liner links to the prompt section */
+.hero-sub-link {
+  color: inherit; font-weight: 650;
+  text-decoration: underline dotted rgba(255, 255, 255, 0.6);
+  text-underline-offset: 3px;
+}
+.hero-sub-link:hover { text-decoration-color: var(--kit-gold); color: #ffffff; }
+
+/* Kelly modal: inherit the market modal shell; code spans read as math */
+#kelly-modal .mkt-panel code {
+  font: 600 12.5px/1.5 var(--mono, ui-monospace, monospace);
+  background: var(--surface-2); border-radius: 4px; padding: 1px 5px;
+  white-space: nowrap;
+}
+
+/* Prompt modal: wider panel; cloned <details> reuse the section's look */
+#prompt-modal .prompt-panel { width: min(640px, calc(100vw - 24px)); }
+#prompt-modal details {
+  background: var(--surface-2); border: 1px solid var(--hairline);
+  border-radius: var(--radius-el); margin-top: 8px;
+}
+#prompt-modal summary { cursor: pointer; padding: 9px 12px; font-size: 13px; font-weight: 650; color: var(--ink-2); }
+#prompt-modal summary:hover { color: var(--pitch); }
+#prompt-modal details[open] summary { border-bottom: 1px solid var(--hairline); color: var(--ink); }
+#prompt-modal pre {
+  margin: 0; padding: 12px; overflow-x: auto;
+  font: 400 11.5px/1.6 ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  color: var(--ink-2); white-space: pre-wrap; word-break: break-word;
+}
+
+/* Scrollspy: the section under the reader highlights in both menus */
+.topnav a.active { color: #ffffff; background: rgba(255, 255, 255, 0.16); }
+.toc a.active .toc-dot { background: var(--pitch); opacity: 1; transform: scale(1.35); }
+.toc a.active .toc-label { border-color: var(--pitch); color: var(--ink); font-weight: 700; }
+
+/* Anchored sections land below the fixed bar, not under it */
+main section, #prompt-section { scroll-margin-top: 76px; }
+
+/* Hero final card: status line folds the old NEXT banner into the card */
+.hc-status {
+  display: block; margin-top: 10px; padding-top: 9px;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.85); font-size: 12.5px; text-decoration: none;
+}
+.hc-status b { color: var(--kit-gold); }
+.hc-status:hover { color: #ffffff; }
+.hc-live {
+  color: #ffffff; background: var(--away); border-radius: 5px;
+  padding: 1px 6px; font-size: 10px; letter-spacing: 0.05em;
+}

@@ -218,6 +218,30 @@ if (typeof document !== 'undefined') {
   const marketModal = () => document.getElementById('market-modal');
   const openMarketModal = () => { const m = marketModal(); if (m) { m.hidden = false; document.body.classList.add('mkt-open'); m.querySelector('.mkt-close')?.focus(); } };
   const closeMarketModal = () => { const m = marketModal(); if (m && !m.hidden) { m.hidden = true; document.body.classList.remove('mkt-open'); } };
+  // Quarter-Kelly explainer modal: same shell and wiring as the market one.
+  const kellyModal = () => document.getElementById('kelly-modal');
+  const openKellyModal = () => { const m = kellyModal(); if (m) { m.hidden = false; document.body.classList.add('mkt-open'); m.querySelector('.mkt-close')?.focus(); } };
+  const closeKellyModal = () => { const m = kellyModal(); if (m && !m.hidden) { m.hidden = true; document.body.classList.remove('mkt-open'); } };
+  // Prompt modal: clones the live prompt section (the baked-and-refreshed
+  // <details> blocks) on open, so the modal can never drift from the page.
+  const promptModal = () => document.getElementById('prompt-modal');
+  const openPromptModal = () => {
+    const m = promptModal();
+    const body = document.getElementById('prompt-modal-body');
+    if (!m || !body) return;
+    body.innerHTML = '';
+    document.querySelectorAll('#prompt-section details').forEach((d, i) => {
+      const copy = d.cloneNode(true);
+      copy.open = i === 0;
+      // The originals' <pre> ids must stay unique to the section.
+      copy.querySelectorAll('[id]').forEach((el) => el.removeAttribute('id'));
+      body.appendChild(copy);
+    });
+    m.hidden = false;
+    document.body.classList.add('mkt-open');
+    m.querySelector('.mkt-close')?.focus();
+  };
+  const closePromptModal = () => { const m = promptModal(); if (m && !m.hidden) { m.hidden = true; document.body.classList.remove('mkt-open'); } };
   document.addEventListener('click', (e) => {
     const proofBtn = e.target.closest?.('.proof-badge[data-proof]');
     const copyBtn = e.target.closest?.('.proof-copy[data-copy]');
@@ -240,10 +264,26 @@ if (typeof document !== 'undefined') {
       e.preventDefault();
       e.stopPropagation();
       openMarketModal();
+    } else if (e.target.closest?.('.kelly-tip')) {
+      e.preventDefault();
+      e.stopPropagation();
+      openKellyModal();
     } else if (e.target.closest?.('[data-mkt-close]')) {
       e.preventDefault();
       e.stopPropagation();
       closeMarketModal();
+    } else if (e.target.closest?.('[data-kelly-close]')) {
+      e.preventDefault();
+      e.stopPropagation();
+      closeKellyModal();
+    } else if (e.target.closest?.('.prompt-tip')) {
+      e.preventDefault();
+      e.stopPropagation();
+      openPromptModal();
+    } else if (e.target.closest?.('[data-prompt-close]')) {
+      e.preventDefault();
+      e.stopPropagation();
+      closePromptModal();
     }
   }, true);
   document.addEventListener('keydown', (e) => {
@@ -252,6 +292,12 @@ if (typeof document !== 'undefined') {
       e.preventDefault();
       e.stopPropagation();
       openMarketModal();
+    }
+    const ktip = e.target.closest?.('.kelly-tip');
+    if (ktip && (e.key === 'Enter' || e.key === ' ')) {
+      e.preventDefault();
+      e.stopPropagation();
+      openKellyModal();
     }
     const badge = e.target.closest?.('.proof-badge[data-proof]');
     if (badge && (e.key === 'Enter' || e.key === ' ')) {
@@ -263,6 +309,8 @@ if (typeof document !== 'undefined') {
     }
     if (e.key === 'Escape') {
       closeMarketModal();
+      closeKellyModal();
+      closePromptModal();
       closeProofModal();
       // Close tip popovers too, wherever focus is.
       document.querySelectorAll('.brier-tip.open').forEach((t) => t.classList.remove('open'));
@@ -309,6 +357,29 @@ function displayMarketOf(modelsMap, match) {
   const list = Object.values(modelsMap ?? {}).filter((p) => p.probs);
   if (!list.length || list.some((p) => predMarket(p) === want)) return want;
   return predMarket(list[0]);
+}
+
+/* The forecasts a match's consensus is built from: one per entrant in the
+   active view, exactly as the leaderboard counts them. The raw
+   `match.predictions` ledger also holds retired models that were
+   superseded mid-tournament, so averaging it directly double-weights any
+   lab that fielded two models and yields a number no view of the page can
+   reproduce. Every surface that quotes a match consensus goes through
+   here so they can't drift apart. */
+/* Name/crest for an id that may be either a lab key ("anthropic", in the
+   by-lab view) or a model id ("anthropic/claude-opus-4.7"). The active
+   view is checked first because only it carries lab labels. */
+function displayEntrantById(state, id) {
+  return displayEntrants(state).find((e) => e.id === id) ?? entrantById(state, id) ?? null;
+}
+
+function entrantPredsOf(state, match) {
+  const preds = {};
+  for (const ent of displayEntrants(state)) {
+    const p = predOf(match, ent);
+    if (p) preds[ent.id] = p;
+  }
+  return preds;
 }
 
 function consensusOf(modelsMap, market = 'regulation') {
@@ -498,7 +569,7 @@ function renderProofModal(match, proof) {
   el.innerHTML = `<div class="mkt-scrim" data-proof-close></div>
   <section class="mkt-panel proof-panel" role="dialog" aria-modal="true" aria-labelledby="proof-title">
     <button class="mkt-close" data-proof-close aria-label="Close">✕</button>
-    <h3 id="proof-title">Settlement proof</h3>
+    <h3 id="proof-title">Settlement audit trail</h3>
     <p class="proof-sub">${esc(match.home.name)} <b>${hs}–${as}</b> ${esc(match.away.name)} · ${esc(match.stage)}</p>
     <div class="proof-block">
       <div class="proof-k">Settled outcome</div>
@@ -521,7 +592,7 @@ function renderProofModal(match, proof) {
       <a class="proof-link" href="${esc(solscanUrl(proof))}" target="_blank" rel="noopener">Open on Solscan ↗</a>
       ${proof.explorerUrl ? `<a class="proof-link proof-link-2" href="${esc(proof.explorerUrl)}" target="_blank" rel="noopener">Solana Explorer ↗</a>` : ''}
     </div>
-    <p class="proof-foot">This match's settled score is a leaf in TxODDS's Merkle daily root, published on Solana (${esc(proof.cluster || 'devnet')}${proof.epochDay != null ? `, epoch day ${esc(proof.epochDay)}` : ''}). Recompute the path yourself — if any hash differed, the badge would not show.</p>
+    <p class="proof-foot">A traceable record of the outcome — no external oracle to trust. Every agent's P&amp;L settles against scores Merkle-verified on Solana against TxODDS's daily root, so the ledger can't be quietly edited after the fact. This match's settled score is a leaf in that root (${esc(proof.cluster || 'devnet')}${proof.epochDay != null ? `, epoch day ${esc(proof.epochDay)}` : ''}). Recompute the path yourself — if any hash differed, the badge would not show.</p>
   </section>`;
   el.hidden = false;
   document.body.classList.add('mkt-open');
@@ -691,8 +762,7 @@ function sparkline(perMatch) {
 }
 
 // Soft, CVD-friendly palette — Market/blue leads, then distinct warm/cool pairs.
-const MODEL_COLORS = ['#1d4ed8', '#c2410c', '#0f766e', '#7c3aed', '#b45309', '#be123c', '#0369a1', '#4d7c0f', '#9333ea'];
-const LB_GEO = { W: 760, H: 360, padL: 48, padR: 108, padT: 28, padB: 58 };
+const LB_GEO = { W: 760, H: 340, padL: 64, padR: 150, padT: 20, padB: 40 };
 let lbDismiss = null; // the current dismiss-on-outside-tap listener
 
 /* The knockout-phase series shared by the chart renderer and its hover
@@ -710,7 +780,7 @@ function leaderboardSeries(state) {
   if (koMatches.length < 2) return null;
   const n = koMatches.length;
   const indexOf = new Map(koMatches.map((m, i) => [m.id, i]));
-  const series = boardOf(state).map((row, i) => {
+  const series = boardOf(state).map((row) => {
     const byMatch = new Map((row.perMatch ?? []).map((p) => [p.matchId, p]));
     let skillSum = 0, count = 0;
     const points = [];
@@ -723,7 +793,18 @@ function leaderboardSeries(state) {
       points.push({ idx, cum: skillSum / (count + CHART_SHRINK), brier: p.brier, shortName: km.shortName });
     }
     if (points.length < 2) return null;
-    return { model: row.model, label: row.label, color: MODEL_COLORS[i % MODEL_COLORS.length], points };
+    // Color follows the entity, and matches the Bankroll chart: one fixed
+    // hue per lab (labOf falls back to the id prefix, so by-lab rows work
+    // too). The Market is the benchmark, not a competitor hue — it draws
+    // as a dashed dark line instead.
+    const market = row.model === MARKET_ID;
+    return {
+      model: row.model,
+      label: row.label,
+      color: market ? '#3f3e38' : (LAB_COLORS[labOf(state, row.model)] ?? '#52514e'),
+      dash: market,
+      points,
+    };
   }).filter(Boolean);
   if (!series.length) return null;
   const cums = series.flatMap((s) => s.points.map((p) => p.cum));
@@ -744,7 +825,6 @@ function leaderboardChart(state) {
   const plotH = H - padT - padB;
   const x = (i) => (n === 1 ? padL : padL + (i * plotW) / (n - 1));
   const y = (v) => padT + (1 - (v - yMin) / (yMax - yMin)) * plotH;
-  const step = n > 12 ? Math.ceil(n / 8) : Math.max(1, Math.ceil(n / 10));
 
   // Leader = highest final shrunken skill (sharpest). Emphasize it; fade the rest.
   const ranked = series
@@ -753,109 +833,71 @@ function leaderboardChart(state) {
   const leaderId = ranked[0]?.s.model;
   const isLeader = (s) => s.model === leaderId;
 
-  let svg = `<svg class="lb-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Shrunken running skill versus the coin flip for every model over the knockout phase">`;
-  svg += `<defs>
-    <linearGradient id="lb-plot-bg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#f7f8f4"/>
-      <stop offset="100%" stop-color="#eef3ea"/>
-    </linearGradient>
-    <linearGradient id="lb-good-zone" x1="0" y1="1" x2="0" y2="0">
-      <stop offset="0%" stop-color="rgba(10,122,51,0.10)"/>
-      <stop offset="55%" stop-color="rgba(10,122,51,0.03)"/>
-      <stop offset="100%" stop-color="rgba(10,122,51,0)"/>
-    </linearGradient>
-    <filter id="lb-glow" x="-40%" y="-40%" width="180%" height="180%">
-      <feGaussianBlur stdDeviation="2.2" result="b"/>
-      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
-  </defs>`;
+  let svg = `<svg class="lb-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Running skill versus the coin flip for every competitor over the knockout rounds">`;
 
-  // Soft plot panel
-  svg += `<rect x="${padL}" y="${padT}" width="${plotW}" height="${plotH}" rx="12" fill="url(#lb-plot-bg)"/>`;
-  // Higher skill is better — a gentle green wash along the top.
-  svg += `<rect x="${padL}" y="${padT}" width="${plotW}" height="${plotH * 0.55}" rx="0" fill="url(#lb-good-zone)" transform="translate(0 ${(2 * padT + plotH * 0.55).toFixed(1)}) scale(1 -1)"/>`;
-  svg += `<rect x="${padL}" y="${padT}" width="${plotW}" height="${plotH}" rx="12" fill="none" stroke="rgba(23,46,22,0.06)" stroke-width="1"/>`;
+  // Round bands on the x-axis: R32 / R16 / QF / SF / Final — far calmer
+  // than rotated per-match codes, and they tell the story of the rounds.
+  const SHORT_STAGE = [
+    [/round of 32/i, 'R32'], [/round of 16/i, 'R16'],
+    [/quarter/i, 'QF'], [/semi/i, 'SF'], [/final/i, 'Final'],
+  ];
+  const stageOf = (m) => SHORT_STAGE.find(([re]) => re.test(m.stage ?? ''))?.[1] ?? '';
+  const bands = [];
+  koMatches.forEach((km, i) => {
+    const s = stageOf(km);
+    if (bands.length && bands[bands.length - 1].stage === s) bands[bands.length - 1].to = i;
+    else bands.push({ stage: s, from: i, to: i });
+  });
+  const axisY = padT + plotH;
+  bands.forEach((b, bi) => {
+    if (bi > 0) {
+      const bx = (x(b.from - 1) + x(b.from)) / 2;
+      svg += `<line x1="${bx.toFixed(1)}" y1="${padT}" x2="${bx.toFixed(1)}" y2="${axisY}" stroke="rgba(23,46,22,0.08)" stroke-width="1"/>`;
+    }
+    const mid = (x(b.from) + x(b.to)) / 2;
+    svg += `<text x="${mid.toFixed(1)}" y="${axisY + 18}" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ink-3)" letter-spacing="0.05em">${esc(b.stage)}</text>`;
+  });
 
-  // Horizontal guides — 0 is the coin flip itself.
-  for (const g of [0, yMax / 2, yMax / 1.15]) {
+  // Horizontal guides on round values; the zero line IS the coin flip.
+  const gStep = yMax > 0.32 ? 0.2 : 0.1;
+  for (let g = 0; g < yMax; g += gStep) {
     const gy = y(g);
     const isBase = g === 0;
-    svg += `<line x1="${padL}" y1="${gy.toFixed(1)}" x2="${W - padR}" y2="${gy.toFixed(1)}" stroke="${isBase ? 'rgba(82,81,78,0.55)' : 'rgba(23,46,22,0.07)'}" stroke-width="${isBase ? 1.5 : 1}" stroke-dasharray="${isBase ? '5 4' : '2 5'}"/>`;
-    svg += `<text x="${padL - 10}" y="${gy.toFixed(1)}" dy="3.5" text-anchor="end" font-size="11" font-weight="600" fill="var(--ink-3)">${isBase ? '0%' : `+${Math.round(g * 100)}%`}</text>`;
-  }
-  svg += `<text x="12" y="${(padT + plotH / 2).toFixed(1)}" text-anchor="middle" font-size="10" font-weight="700" fill="var(--ink-3)" transform="rotate(-90 12 ${(padT + plotH / 2).toFixed(1)})" letter-spacing="0.04em">SKILL ↑ BETTER</text>`;
-
-  // Coin-flip label pill on the zero line
-  {
-    const lx = W - padR - 8;
-    const ly = y(0) - 10;
-    svg += `<rect x="${(lx - 52).toFixed(1)}" y="${(ly - 11).toFixed(1)}" width="56" height="16" rx="8" fill="rgba(255,255,255,0.92)" stroke="rgba(23,46,22,0.08)"/>`;
-    svg += `<text x="${(lx - 24).toFixed(1)}" y="${ly.toFixed(1)}" dy="3.5" text-anchor="middle" font-size="9.5" font-weight="700" fill="var(--ink-3)" letter-spacing="0.02em">coin flip</text>`;
+    svg += `<line x1="${padL}" y1="${gy.toFixed(1)}" x2="${W - padR}" y2="${gy.toFixed(1)}" stroke="${isBase ? 'rgba(82,81,78,0.5)' : 'var(--hairline)'}" stroke-width="1"${isBase ? ' stroke-dasharray="4 4"' : ''}/>`;
+    svg += `<text x="${padL - 8}" y="${gy.toFixed(1)}" dy="3.5" text-anchor="end" font-size="11" font-weight="600" fill="var(--ink-3)">${isBase ? 'coin flip' : `+${Math.round(g * 100)}%`}</text>`;
   }
 
-  // Field lines first (non-leaders), then the leader on top.
+  // Field first, leader last (on top). Stepped (step-after): a standing
+  // holds flat until the next match settles it.
   const drawOrder = [...series].sort((a, b) => (isLeader(a) ? 1 : 0) - (isLeader(b) ? 1 : 0));
   for (const s of drawOrder) {
     const leader = isLeader(s);
-    // Stepped (step-after): a standing holds flat until the next match
-    // settles it, so the line changes only where a result landed rather
-    // than sloping between them as if it drifted.
     const path = s.points
       .map((p, j) => (j
         ? `H${x(p.idx).toFixed(1)}V${y(p.cum).toFixed(1)}`
         : `M${x(p.idx).toFixed(1)},${y(p.cum).toFixed(1)}`))
       .join('');
-    // Soft under-glow for the leader only
-    if (leader) {
-      svg += `<path d="${path}" fill="none" stroke="${s.color}" stroke-width="6" stroke-opacity="0.14" stroke-linejoin="round" stroke-linecap="round"/>`;
-    }
-    svg += `<path d="${path}" fill="none" stroke="${s.color}" stroke-width="${leader ? 3 : 1.75}" stroke-opacity="${leader ? 1 : 0.72}" stroke-linejoin="round" stroke-linecap="round"${leader ? ' filter="url(#lb-glow)"' : ''}/>`;
-    // Endpoints only — mid-series dots cluttered the old chart.
+    svg += `<path d="${path}" fill="none" stroke="${s.color}" stroke-width="${leader ? 2.75 : 2}" stroke-opacity="${leader ? 1 : 0.85}" stroke-linejoin="round" stroke-linecap="round"${s.dash ? ' stroke-dasharray="7 5"' : ''}/>`;
     const last = s.points[s.points.length - 1];
-    const first = s.points[0];
-    for (const p of [first, last]) {
-      svg += `<circle cx="${x(p.idx).toFixed(1)}" cy="${y(p.cum).toFixed(1)}" r="${leader ? 4 : 3}" fill="${s.color}" stroke="#fff" stroke-width="1.6">` +
-        `<title>${esc(s.label)} after ${esc(p.shortName)}: ${fmtSkill(p.cum)} vs coin flip</title></circle>`;
-    }
+    svg += `<circle cx="${x(last.idx).toFixed(1)}" cy="${y(last.cum).toFixed(1)}" r="${leader ? 3.5 : 2.5}" fill="${s.color}"/>`;
   }
 
-  // End labels as color pills, de-overlapped
+  // Quiet end labels — name + final skill in ink, spread by the same
+  // two-pass solver as the Bankroll chart so they hug their lines.
+  const MIN_GAP = 15;
   const ends = series
-    .map((s) => ({
-      ...s,
-      leader: isLeader(s),
-      idx: s.points[s.points.length - 1].idx,
-      y: y(s.points[s.points.length - 1].cum),
-      final: s.points[s.points.length - 1].cum,
-    }))
+    .map((s) => ({ s, leader: isLeader(s), final: s.points[s.points.length - 1].cum, y: y(s.points[s.points.length - 1].cum) }))
     .sort((a, b) => a.y - b.y);
-  for (let i = 1; i < ends.length; i++) {
-    if (ends[i].y - ends[i - 1].y < 15) ends[i].y = ends[i - 1].y + 15;
-  }
-  for (const s of ends) {
-    const label = s.label;
-    // Approx monospaced width for bold 10.5px labels + padding / star.
-    const tw = Math.ceil(label.length * 6.8 + (s.leader ? 28 : 18));
-    const tx = W - padR + 6;
-    const ty = Math.min(Math.max(s.y, padT + 8), H - padB - 8);
-    svg += `<rect x="${tx}" y="${(ty - 9).toFixed(1)}" width="${tw}" height="18" rx="9" fill="${s.color}" opacity="${s.leader ? 1 : 0.9}"/>`;
-    if (s.leader) {
-      svg += `<text x="${tx + 9}" y="${ty.toFixed(1)}" dy="3.5" font-size="9" fill="#fff" opacity="0.95">★</text>`;
-      svg += `<text x="${tx + 20}" y="${ty.toFixed(1)}" dy="3.5" font-size="10.5" font-weight="700" fill="#fff">${esc(label)}</text>`;
-    } else {
-      svg += `<text x="${tx + 9}" y="${ty.toFixed(1)}" dy="3.5" font-size="10.5" font-weight="700" fill="#fff">${esc(label)}</text>`;
-    }
+  for (let i = 1; i < ends.length; i++) ends[i].y = Math.max(ends[i].y, ends[i - 1].y + MIN_GAP);
+  ends[ends.length - 1].y = Math.min(ends[ends.length - 1].y, axisY - 2);
+  for (let i = ends.length - 2; i >= 0; i--) ends[i].y = Math.min(ends[i].y, ends[i + 1].y - MIN_GAP);
+  const ex = W - padR + 8;
+  for (const e of ends) {
+    svg += `<circle cx="${ex}" cy="${e.y.toFixed(1)}" r="2.5" fill="${e.s.color}"/>`;
+    svg += `<text x="${ex + 6}" y="${(e.y + 3.5).toFixed(1)}" font-size="11" font-weight="${e.leader ? 750 : 600}" fill="${e.leader ? 'var(--ink)' : 'var(--ink-2)'}">${e.leader ? '★ ' : ''}${esc(e.s.label)} <tspan font-weight="750" fill="var(--ink)">${fmtSkill(e.final)}</tspan></text>`;
   }
 
-  // X-axis match ticks (sparse, angled)
-  koMatches.forEach((km, i) => {
-    if (i % step !== 0 && i !== n - 1) return;
-    const xi = x(i);
-    svg += `<line x1="${xi.toFixed(1)}" y1="${(padT + plotH).toFixed(1)}" x2="${xi.toFixed(1)}" y2="${(padT + plotH + 4).toFixed(1)}" stroke="rgba(23,46,22,0.18)" stroke-width="1"/>`;
-    svg += `<text x="${xi.toFixed(1)}" y="${H - padB + 14}" text-anchor="end" font-size="9.5" font-weight="600" fill="var(--ink-3)" transform="rotate(-30 ${xi.toFixed(1)} ${H - padB + 14})">${esc(km.shortName)}</text>`;
-  });
-
-  svg += `<line class="lb-cross" x1="0" y1="${padT}" x2="0" y2="${H - padB}" stroke="var(--pitch)" stroke-width="1.25" stroke-dasharray="3 4" opacity="0"/>`;
+  svg += `<line class="lb-cross" x1="0" y1="${padT}" x2="0" y2="${axisY}" stroke="var(--pitch)" stroke-width="1.25" stroke-dasharray="3 4" opacity="0"/>`;
   svg += '</svg>';
   return svg;
 }
@@ -1003,11 +1045,11 @@ function koFormCardHtml(state) {
   if (!koChart) return '';
   return `<div class="lb-chart-card">
     <div class="lb-chart-head">
-      <h3 class="lb-chart-title">Knockout form</h3>
-      <p class="lb-chart-sub">Shrunken skill vs the coin flip · higher is sharper · ★ marks the current leader</p>
+      <h3 class="lb-chart-title">The calibration race</h3>
+      <p class="lb-chart-sub">Every competitor's running skill vs the coin flip, round by round — the score that decides the Brier Cup. Higher is sharper; <b>★</b> leads; the dashed dark line is <b>The Market</b>.</p>
     </div>
     <div class="chart lb-chart-plot">${koChart}</div>
-    <p class="fnote lb-chart-note">Each match scores (coin flip − Brier) ÷ coin flip, accumulated from the round of 32 with ten phantom coin-flip matches, so every line starts at 0% and early noise is damped. The dashed line is the coin flip itself. Hover any match for a full standing.</p>
+    <p class="fnote lb-chart-note">Each match scores (coin flip − Brier) ÷ coin flip, damped by ten phantom coin-flips so early noise can't spike a line. Standings step only when a match settles. Hover or tap anywhere for the full field at that match.</p>
   </div>`;
 }
 
@@ -1022,20 +1064,21 @@ function renderHeroHook(state) {
   const marketPos = board.indexOf(market);
   const machinesAhead = board.slice(0, marketPos).filter((r) => r.model !== MARKET_ID);
   const aiCount = (state.models ?? []).filter((m) => m.id !== MARKET_ID).length || 9;
-  let line;
-  if (machinesAhead.length) {
-    const bestM = machinesAhead[0];
-    line = `Right now, <b>${machinesAhead.length} of ${aiCount} machines</b> are beating the market — best: <b>${esc(bestM.label)}</b>, ${bestM.avgBrier.toFixed(3)} Brier vs the market's ${market.avgBrier.toFixed(3)}.`;
-  } else {
-    line = `Right now, <b>the market is beating every machine</b> — ${market.avgBrier.toFixed(3)} Brier vs the best AI's ${board.find((r) => r.model !== MARKET_ID)?.avgBrier?.toFixed(3) ?? '—'}.`;
-  }
+  // Bankroll-first: the agents are trading the tournament; Brier is line two.
+  let line = '';
   const banks = state.bankroll ? Object.values(state.bankroll.models).filter((m) => m.betsPlaced > 0) : [];
   if (banks.length) {
     const top = banks.reduce((a, b) => (b.bankroll > a.bankroll ? b : a));
     const label = entrantById(state, top.model)?.label ?? top.model;
-    line += ` <b>${esc(label)}</b> has turned 1,000 paper units into <b>${fmtUnits(top.bankroll)}</b>.`;
+    line = `<b>${aiCount} AI agents</b> are trading the World Cup against the real market. Leader: <b>${esc(label)}</b>, 1,000 → <b>${fmtUnits(top.bankroll)}</b> paper units over ${top.betsPlaced} bets.`;
   }
-  el.innerHTML = line;
+  if (machinesAhead.length) {
+    const bestM = machinesAhead[0];
+    line += ` <b>${machinesAhead.length} of ${aiCount}</b> are beating the market's calibration — best: <b>${esc(bestM.label)}</b>, ${bestM.avgBrier.toFixed(3)} Brier vs the market's ${market.avgBrier.toFixed(3)}.`;
+  } else {
+    line += ` <b>0 of ${aiCount}</b> are beating the market's calibration — ${market.avgBrier.toFixed(3)} Brier vs the best agent's ${board.find((r) => r.model !== MARKET_ID)?.avgBrier?.toFixed(3) ?? '—'}.`;
+  }
+  el.innerHTML = line.trim();
   el.hidden = false;
 }
 
@@ -1085,14 +1128,41 @@ function renderBankroll(state) {
   section.hidden = false;
   rows.sort((a, b) => b.bankroll - a.bankroll);
   const start = bk.startingBankroll ?? 1000;
-  el.innerHTML = `<div class="bank-wrap">${rows.map((r, i) => {
+
+  // The site's best story, computed from live data so the final's
+  // settlement updates it: The Market wins calibration, yet the bankroll
+  // leader is nowhere near the top of the Brier board.
+  const board = (state.leaderboard ?? []).filter((r) => r.scored > 0);
+  const marketRow = board.find((r) => r.model === MARKET_ID);
+  const topBank = rows[0];
+  let storyCard = '';
+  if (marketRow && board.indexOf(marketRow) === 0 && topBank?.betsPlaced) {
+    const agents = board.filter((r) => r.model !== MARKET_ID);
+    const leadRow = agents.find((r) => r.model === topBank.model);
+    const calRank = leadRow ? agents.indexOf(leadRow) + 1 : 0;
+    const leadLabel = entrantById(state, topBank.model)?.label ?? topBank.model;
+    if (leadRow && calRank > 1) {
+      const ord = (n) => n + (n % 10 === 1 && n % 100 !== 11 ? 'st' : n % 10 === 2 && n % 100 !== 12 ? 'nd' : n % 10 === 3 && n % 100 !== 13 ? 'rd' : 'th');
+      const calDesc = calRank === agents.length
+        ? 'the worst-calibrated agent in the field'
+        : `an agent ranked ${ord(calRank)} of ${agents.length} on calibration`;
+      storyCard = `<div class="lb-miss bank-story">
+        <span class="lb-miss-tag bank-story-tag">The best forecaster isn't the richest agent</span>
+        <span class="lb-miss-body">The Market out-calibrates every model (<b>${fmtSkill(marketRow.avgSkill)}</b> vs the coin flip), and no agent beats its Brier score. But ${calDesc} — <b>${esc(leadLabel)}</b> — leads the bankroll at <b>${fmtUnits(topBank.bankroll)}</b>, hitting just <b>${topBank.wins} of ${topBank.betsPlaced}</b> longshot bets. Calibration wins the Brier Cup; variance wins the bankroll.</span>
+      </div>`;
+    }
+  }
+
+  el.innerHTML = `${storyCard}<div class="bank-wrap">${rows.map((r, i) => {
     const meta = entrantById(state, r.model);
+    let labLabel = meta?.labLabel ?? labsOf(state).find((l) => l.id === (meta?.lab ?? ''))?.label ?? null;
+    if (labLabel && labLabel === (meta?.label ?? r.model)) labLabel = null; // tag adds nothing when it repeats the name
     const hit = r.betsPlaced ? `${r.wins}/${r.betsPlaced}` : '—';
     const up = r.bankroll >= start;
     return `<div class="bank-row${i === 0 ? ' leader' : ''}" data-model="${esc(r.model)}" role="button" tabindex="0" aria-label="Open bet ledger for ${esc(meta?.label ?? r.model)}">
       <div class="bank-rank">${i + 1}</div>
       <div class="lb-id">${meta?.icon ? `<img class="crest" src="${esc(meta.icon)}" alt="" onerror="this.style.visibility='hidden'">` : ''}
-        <span class="bank-name">${esc(meta?.label ?? r.model)}</span></div>
+        <span class="bank-name">${esc(meta?.label ?? r.model)}${labLabel ? `<span class="bank-lab" title="${esc(labLabel)}'s entrant — substituted models run separate books">${esc(labLabel)}</span>` : ''}</span></div>
       ${bankSpark(r.series, start)}
       <div class="bank-cells">
         <span class="bank-units ${up ? 'lb-bank-up' : 'lb-bank-down'}">${fmtUnits(r.bankroll)}</span>
@@ -1101,7 +1171,7 @@ function renderBankroll(state) {
       </div>
     </div>`;
   }).join('')}</div>
-  <p class="footnote">Paper trading with <b>virtual units</b> — no real money anywhere. Each model starts with 1,000 units and places at most one bet per match: quarter-Kelly on its biggest edge against the locked TxODDS StablePrice line, only when the edge clears 2%; otherwise it sits out. Group-stage bets settle at the raw bookmaker line (vig included); knockout bets settle at fair (de-vigged) odds, since no single "advances" price is quoted. Settled by the same Merkle-verified scores as the leaderboard. The Market doesn't get a bankroll: it can't bet against itself. Tap a row for the full bet ledger.</p>`;
+  <p class="footnote">Group-stage bets settle at the raw bookmaker line (vig included); knockout bets settle at fair (de-vigged) odds, since no single "advances" price is quoted. The Market doesn't get a bankroll — it can't bet against itself. Tap a row for the full bet ledger.</p>`;
   for (const row of el.querySelectorAll('[data-model]')) {
     const open = () => { location.hash = `p/${encodeURIComponent(row.dataset.model)}`; };
     row.addEventListener('click', open);
@@ -1109,17 +1179,320 @@ function renderBankroll(state) {
   }
 }
 
+// ------------------------------------------------------- bankroll chart ----
+// The Bankroll race: every agent's paper-unit bankroll over settled matches,
+// one line per entrant, at the top of the page. Same fold as the table
+// below (state.bankroll) — nothing new is computed here.
+
+// One fixed color slot per lab (never cycled; a lab's substituted models
+// share its hue). Validated with the data-viz six checks against the white
+// card surface: all slots in the OKLCH light band, chroma >= 0.10,
+// adjacent-pair CVD dE >= 13.3, contrast >= 3:1.
+const LAB_COLORS = {
+  anthropic: '#2a78d6', openai: '#eb6834', deepseek: '#086b47',
+  moonshotai: '#c94f80', 'z-ai': '#008300', qwen: '#e34948',
+  minimax: '#0e8aa5', google: '#c78500', 'x-ai': '#4a3aa7',
+};
+const labOf = (state, modelId) =>
+  entrantById(state, modelId)?.lab ?? modelId.split('/')[0];
+
+function bankChartData(state) {
+  const bk = state.bankroll;
+  if (!bk?.bets?.length) return null;
+  // Global x axis: settled matches in the order the fold settled them.
+  const matchIdx = new Map(); // matchId -> x index
+  const matchName = [];
+  for (const b of bk.bets) {
+    if (!matchIdx.has(b.matchId)) {
+      matchIdx.set(b.matchId, matchName.length);
+      matchName.push(b.shortName);
+    }
+  }
+  const start = bk.startingBankroll ?? 1000;
+  const lines = Object.values(bk.models)
+    // Each retired model ran its own independent 1,000-unit ledger under
+    // the old slug — plotting it alongside its lab's active successor
+    // doubles every color and buries the chart. The current roster (what
+    // the Bankroll table's default view and the legend both lead with) is
+    // the whole story here; full history for a retired slug still lives
+    // in that model's own ledger via the table.
+    .filter((m) => m.series?.length && !entrantById(state, m.model)?.retired)
+    .map((m) => {
+      const meta = entrantById(state, m.model);
+      const pts = m.series
+        .filter((p) => matchIdx.has(p.matchId))
+        .map((p) => ({ i: matchIdx.get(p.matchId), v: p.after }));
+      if (!pts.length) return null;
+      pts.unshift({ i: pts[0].i - 1, v: start });
+      return {
+        id: m.model,
+        label: meta?.label ?? m.model,
+        lab: labOf(state, m.model),
+        color: LAB_COLORS[labOf(state, m.model)] ?? '#52514e',
+        final: m.bankroll,
+        pts,
+      };
+    })
+    .filter(Boolean);
+  if (!lines.length) return null;
+  return { lines, matchName, start, n: matchName.length };
+}
+
+// Catmull-Rom-through-cubic-Bezier smoothing: turns the polyline into a
+// gently curved path without ever overshooting a data point (unlike a
+// naive spline), so the line still reads as "value at this match."
+function smoothPath(pts) {
+  if (pts.length < 3) return `M${pts.map((p) => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join('L')}`;
+  let d = `M${pts[0].x.toFixed(1)},${pts[0].y.toFixed(1)}`;
+  for (let i = 0; i < pts.length - 1; i++) {
+    const p0 = pts[i - 1] ?? pts[i];
+    const p1 = pts[i];
+    const p2 = pts[i + 1];
+    const p3 = pts[i + 2] ?? p2;
+    const c1x = p1.x + (p2.x - p0.x) / 6, c1y = p1.y + (p2.y - p0.y) / 6;
+    const c2x = p2.x - (p3.x - p1.x) / 6, c2y = p2.y - (p3.y - p1.y) / 6;
+    d += `C${c1x.toFixed(1)},${c1y.toFixed(1)} ${c2x.toFixed(1)},${c2y.toFixed(1)} ${p2.x.toFixed(1)},${p2.y.toFixed(1)}`;
+  }
+  return d;
+}
+
+function renderBankrollChart(state) {
+  // Chart and table share one merged section (#bankroll-section); both
+  // renderers derive from the same state.bankroll, so their hidden
+  // toggles always agree.
+  const section = document.getElementById('bankroll-section');
+  const el = document.getElementById('bankchart');
+  if (!section || !el) return;
+  const data = bankChartData(state);
+  if (!data) { section.hidden = true; return; }
+  section.hidden = false;
+
+  const { lines, matchName, start, n } = data;
+  // The SVG scales with its container, so a 960-unit viewBox squeezed
+  // into a phone renders text at ~40% size — illegible. Below 640px the
+  // chart re-renders in a compact geometry: a narrow viewBox (so glyphs
+  // keep roughly CSS-pixel size), values-only end labels, and the legend
+  // carrying the names.
+  const compact = (el.clientWidth || section.clientWidth || 800) < 640;
+  // Right-hand lane reserved for direct end-labels ("Claude Opus 4.7 991",
+  // or just "1,566" when compact) so they never overlap the plotted lines.
+  const W = compact ? 420 : 960, H = compact ? 340 : 380,
+    ML = compact ? 40 : 54, LABEL_LANE = compact ? 52 : 150,
+    MR = (compact ? 8 : 16) + LABEL_LANE, MT = 18, MB = compact ? 24 : 28;
+  const x = (i) => ML + ((i + 1) / n) * (W - MR - ML);
+  let lo = start, hi = start;
+  for (const l of lines) for (const p of l.pts) { lo = Math.min(lo, p.v); hi = Math.max(hi, p.v); }
+  const pad = (hi - lo) * 0.08 || 50;
+  lo = Math.max(0, lo - pad); hi += pad;
+  const y = (v) => MT + (1 - (v - lo) / (hi - lo)) * (H - MT - MB);
+
+  // ~5 recessive gridlines on round numbers.
+  const rawStep = (hi - lo) / 5;
+  const magnitude = 10 ** Math.floor(Math.log10(rawStep || 1));
+  const step = [1, 2, 2.5, 5, 10].map((m) => m * magnitude).find((s) => rawStep <= s) ?? magnitude * 10;
+  let ticks = [];
+  for (let v = Math.ceil(lo / step) * step; v <= hi; v += step) ticks.push(Math.round(v));
+  ticks = ticks.filter((v) => Math.abs(v - start) > step * 0.3); // the baseline carries its own label
+
+  const ranked = [...lines].sort((a, b) => b.final - a.final);
+  const paths = [...ranked].reverse() // leaders drawn last, on top
+    .map((l) => `<path class="bkc-line" data-lab="${esc(l.lab)}" data-model="${esc(l.id)}"
+      d="${smoothPath(l.pts.map((p) => ({ x: x(p.i), y: y(p.v) })))}"
+      style="stroke:${l.color}" fill="none"/>`).join('');
+  // A soft fill under the leader only — gives the chart a focal point
+  // without turning nine overlapping areas into a smear. Vertical fade so
+  // the fill has no hard bottom or side edges.
+  const leader = ranked[0];
+  const leaderFloor = y(lo);
+  const leaderFill = leader ? `<defs><linearGradient id="bkc-fade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="${leader.color}" stop-opacity="0.14"/>
+      <stop offset="1" stop-color="${leader.color}" stop-opacity="0"/>
+    </linearGradient></defs>
+    <path class="bkc-area" d="${smoothPath(leader.pts.map((p) => ({ x: x(p.i), y: y(p.v) })))} L${x(leader.pts[leader.pts.length - 1].i).toFixed(1)},${leaderFloor} L${x(leader.pts[0].i).toFixed(1)},${leaderFloor} Z" fill="url(#bkc-fade)"/>` : '';
+  // Some agents are their lab's newest release, subbed in partway through
+  // the tournament — their line starts mid-chart. A small ring at that
+  // join point (title = "joined at match N") keeps it from reading as a
+  // rendering gap.
+  const joinMarkers = ranked
+    .filter((l) => l.pts[0].i > 0)
+    .map((l) => `<circle class="bkc-join" cx="${x(l.pts[0].i).toFixed(1)}" cy="${y(l.pts[0].v).toFixed(1)}" r="3.5" style="stroke:${l.color}">
+      <title>${esc(l.label)} joined at match ${l.pts[0].i + 2} of ${n}</title>
+    </circle>`).join('');
+
+  // Selective direct labels: the top three plus the trailer. Nine labels
+  // forced a fan of steep leader ticks that read as extra data lines; the
+  // ranked legend below already names every agent, so the plot only
+  // labels the lines a reader actually asks about. Two-pass solver keeps
+  // the four apart while hugging their lines.
+  const MIN_GAP = 15;
+  const labeled = ranked.length > 4
+    ? [...ranked.slice(0, 3), ranked[ranked.length - 1]]
+    : ranked;
+  const raw = labeled
+    .map((l) => ({ l, y: y(l.pts[l.pts.length - 1].v) }))
+    .sort((a, b) => a.y - b.y);
+  for (let i = 1; i < raw.length; i++) {
+    raw[i].y = Math.max(raw[i].y, raw[i - 1].y + MIN_GAP);
+  }
+  raw[raw.length - 1].y = Math.min(raw[raw.length - 1].y, H - MB - 2);
+  for (let i = raw.length - 2; i >= 0; i--) {
+    raw[i].y = Math.min(raw[i].y, raw[i + 1].y - MIN_GAP);
+  }
+  const lastX = x(n - 1);
+  const endLabels = raw.map(({ l, y: ly }) => `<g class="bkc-endlabel" data-lab="${esc(l.lab)}" data-model="${esc(l.id)}">
+      <circle cx="${(lastX + 8).toFixed(1)}" cy="${ly.toFixed(1)}" r="2.5" fill="${l.color}"/>
+      <text x="${(lastX + 14).toFixed(1)}" y="${(ly + 3.5).toFixed(1)}">${compact ? '' : `${esc(l.label)} `}<tspan class="bkc-endlabel-v">${fmtUnits(l.final)}</tspan></text>
+    </g>`).join('');
+
+  el.innerHTML = `<div class="bkc-card">
+    <div class="bkc-wrap">
+      <svg class="bkc-svg" viewBox="0 0 ${W} ${H}" role="img"
+        aria-label="Each active agent's paper-unit bankroll over ${n} settled matches; the same numbers as The Bankroll table below.">
+        ${ticks.map((v) => `<g><line class="bkc-grid" x1="${ML}" y1="${y(v).toFixed(1)}" x2="${W - MR}" y2="${y(v).toFixed(1)}"/>
+          <text class="bkc-tick" x="${ML - 8}" y="${(y(v) + 3.5).toFixed(1)}" text-anchor="end">${fmtUnits(v)}</text></g>`).join('')}
+        <line class="bkc-base" x1="${ML}" y1="${y(start).toFixed(1)}" x2="${W - MR}" y2="${y(start).toFixed(1)}"/>
+        <text class="bkc-tick bkc-base-label" x="${ML - 8}" y="${(y(start) + 3.5).toFixed(1)}" text-anchor="end">${compact ? fmtUnits(start) : `${fmtUnits(start)} start`}</text>
+        ${leaderFill}
+        ${paths}
+        ${joinMarkers}
+        <line class="bkc-cursor" y1="${MT}" y2="${H - MB}" hidden/>
+        ${endLabels}
+      </svg>
+      <div class="bkc-tip" hidden></div>
+    </div>
+    <div class="bkc-legend" role="list">${ranked.map((l) => `
+      <button class="bkc-chip" role="listitem" data-lab="${esc(l.lab)}" data-model="${esc(l.id)}" title="Open ${esc(l.label)}'s ledger">
+        <span class="bkc-swatch" style="background:${l.color}"></span>${esc(l.label)}
+        <b class="bkc-chip-v">${fmtUnits(l.final)}</b>
+      </button>`).join('')}
+    </div>
+    ${joinMarkers ? '<p class="bkc-note">○ marks a substitute joining mid-tournament on a fresh book.</p>' : ''}
+  </div>`;
+
+  // Hover/click a line, end-label, or legend chip — all three reference
+  // the same agent and highlight/open together.
+  const svg = el.querySelector('.bkc-svg');
+  const focus = (lab) => { if (lab) svg.setAttribute('data-focus', lab); else svg.removeAttribute('data-focus'); };
+  const openLedger = (id) => { location.hash = `p/${encodeURIComponent(id)}`; };
+  for (const node of el.querySelectorAll('[data-model]')) {
+    node.addEventListener('mouseenter', () => focus(node.dataset.lab));
+    node.addEventListener('mouseleave', () => focus(null));
+    node.addEventListener('click', () => openLedger(node.dataset.model));
+  }
+
+  // Hover layer: nearest-match crosshair + all live bankrolls at that match.
+  const wrap = el.querySelector('.bkc-wrap');
+  const cursor = el.querySelector('.bkc-cursor');
+  const tip = el.querySelector('.bkc-tip');
+  const valueAt = (l, i) => {
+    if (i < l.pts[0].i || i > l.pts[l.pts.length - 1].i) return null;
+    let v = null;
+    for (const p of l.pts) { if (p.i <= i) v = p.v; else break; }
+    return v;
+  };
+  wrap.addEventListener('mousemove', (e) => {
+    const r = wrap.getBoundingClientRect();
+    const i = Math.max(0, Math.min(n - 1, Math.round(((e.clientX - r.left) / r.width * W - ML) / (W - ML - MR) * n - 1)));
+    const cx = x(i);
+    cursor.hidden = false;
+    cursor.setAttribute('x1', cx); cursor.setAttribute('x2', cx);
+    const rows = lines
+      .map((l) => ({ l, v: valueAt(l, i) }))
+      .filter((r2) => r2.v != null)
+      .sort((a, b) => b.v - a.v);
+    tip.hidden = false;
+    tip.innerHTML = `<div class="bkc-tip-t">${esc(matchName[i] ?? '')} · match ${i + 1} of ${n}</div>
+      ${rows.map((r2) => `<div class="bkc-tip-row"><span class="bkc-swatch" style="background:${r2.l.color}"></span>${esc(r2.l.label)}<b>${fmtUnits(r2.v)}</b></div>`).join('')}`;
+    const px = (cx / W) * r.width;
+    tip.style.left = `${Math.min(Math.max(px + 12, 0), r.width - tip.offsetWidth - 4)}px`;
+  });
+  wrap.addEventListener('mouseleave', () => { cursor.hidden = true; tip.hidden = true; });
+}
+
+// Sticky topbar + scrollspy: once past the hero band the menu pins to
+// the top; as sections pass, the link for the section under the reader
+// highlights, and on narrow screens the menu auto-scrolls sideways to
+// keep that link in view. One rAF-throttled scroll handler for both;
+// sticky positioning can't do the pinning because the bar must outlive
+// its pitchband parent.
+function wireStickyTopbar() {
+  if (typeof window === 'undefined') return;
+  const bar = document.querySelector('.topbar');
+  const band = document.querySelector('.pitchband');
+  if (!bar || !band) return;
+  const navLinks = [...bar.querySelectorAll('.topnav a[href^="#"]')];
+  const tocLinks = [...document.querySelectorAll('.toc a[href^="#"]')];
+  let currentId = null;
+  let ticking = false;
+  const update = () => {
+    ticking = false;
+    bar.classList.toggle('topbar-stuck', window.scrollY > band.offsetHeight - 64);
+
+    // Active section: the last visible section whose top has crossed a
+    // line just under the pinned bar.
+    const probe = window.scrollY + 96;
+    let active = null;
+    for (const a of navLinks) {
+      const sec = document.getElementById(a.getAttribute('href').slice(1));
+      if (sec && !sec.hidden && sec.offsetTop <= probe) active = a.getAttribute('href').slice(1);
+    }
+    if (active === currentId) return;
+    currentId = active;
+    for (const a of [...navLinks, ...tocLinks]) {
+      a.classList.toggle('active', a.getAttribute('href') === `#${active}`);
+    }
+    const nav = bar.querySelector('.topnav');
+    const link = active && nav?.querySelector(`a[href="#${active}"]`);
+    if (link && nav.scrollWidth > nav.clientWidth) {
+      // Center the active link, but never let it park inside the edge
+      // fade masks (18px) where it renders half-cut against the wordmark.
+      // Positions via rects: when the bar is position:fixed it becomes
+      // the offsetParent, so offsetLeft would wrongly include the
+      // wordmark's width.
+      const EDGE = 18;
+      const linkLeft = link.getBoundingClientRect().left - nav.getBoundingClientRect().left + nav.scrollLeft;
+      const center = linkLeft - nav.clientWidth / 2 + link.offsetWidth / 2;
+      const minLeft = linkLeft + link.offsetWidth + EDGE - nav.clientWidth;
+      const maxLeft = linkLeft - EDGE;
+      nav.scrollTo({ left: Math.max(minLeft, Math.min(center, maxLeft)), behavior: 'smooth' });
+    }
+  };
+  window.addEventListener('scroll', () => {
+    if (!ticking) { ticking = true; requestAnimationFrame(update); }
+  }, { passive: true });
+  update();
+}
+wireStickyTopbar();
+
+// Crossing the 640px compact threshold needs a re-render, not just CSS —
+// the geometry and label style change. Debounced; wired once.
+let bkcResizeWired = false;
+function wireBankChartResize() {
+  if (bkcResizeWired || typeof window === 'undefined') return;
+  bkcResizeWired = true;
+  let t;
+  window.addEventListener('resize', () => {
+    clearTimeout(t);
+    t = setTimeout(() => { if (lastState) renderBankrollChart(lastState); }, 150);
+  });
+}
+wireBankChartResize();
+
 // The bet ledger for one model, rendered inside the model detail panel.
 function betLedgerHtml(state, modelId) {
   const bets = state.bankroll?.bets?.filter((b) => b.modelId === modelId);
   if (!bets?.length) return '';
   const rows = [...bets].reverse().map((b) => {
+    // Trust layer, reachable from the trading surface: settled rows whose
+    // score Merkle-proved on-chain link straight into the audit-trail modal.
+    const verified = state.proofs?.[b.matchId]
+      ? ` <button class="proof-badge bet-verified" data-proof="${esc(b.matchId)}" title="Verified settlement — open the audit trail">✓</button>` : '';
     if (b.result === 'no_bet') {
       return `<tr class="bet-nobet"><td>${esc(b.shortName)}</td><td colspan="3">no bet — no edge over 2%</td><td class="bet-num">${fmtUnits(b.bankrollAfter)}</td></tr>`;
     }
     const sideName = b.outcome === 'draw' ? 'Draw' : (b.outcome === 'home' ? esc(b.shortName.split(' @ ')[1] ?? 'home') : esc(b.shortName.split(' @ ')[0] ?? 'away'));
     return `<tr class="bet-${b.result}">
-      <td>${esc(b.shortName)}</td>
+      <td>${esc(b.shortName)}${verified}</td>
       <td>${sideName} @ ${b.odds.toFixed(2)}${b.oddsType === 'fair' ? '<span class="bet-fair" title="No raw advances price is quoted; settled at fair (de-vigged) odds">f</span>' : ''}</td>
       <td class="bet-num">${b.stake.toFixed(1)}</td>
       <td class="bet-num bet-pnl">${b.pnl >= 0 ? '+' : '−'}${Math.abs(b.pnl).toFixed(1)}</td>
@@ -1127,11 +1500,168 @@ function betLedgerHtml(state, modelId) {
     </tr>`;
   }).join('');
   return `<h3>Bet ledger <span class="bet-paper">paper units</span></h3>
-  <p class="fnote">Quarter-Kelly vs the locked TxODDS line, newest first. Sitting out is a decision too, so no-bets are shown. <b>f</b> marks knockout bets settled at fair (de-vigged) odds.</p>
+  <p class="bank-strategy"><b>Strategy:</b> <span class="kelly-tip" tabindex="0" role="button" aria-haspopup="dialog" aria-label="What is a quarter-Kelly bet?">quarter-Kelly<span class="market-tip-mark" aria-hidden="true">?</span></span> on largest edge vs the de-vigged StablePrice line; sits out under 2% edge; max 10% of bankroll. <span class="bank-strategy-note">Identical for every agent — the strategy is held constant so the ledger isolates forecasting skill.</span></p>
+  <p class="fnote">Newest first. Sitting out is a decision too, so no-bets are shown. <b>f</b> marks knockout bets settled at fair (de-vigged) odds. <b>✓</b> opens the verified-settlement audit trail.</p>
   <div class="bet-scroll"><table class="bet-table">
     <thead><tr><th>Match</th><th>Backed</th><th class="bet-num">Stake</th><th class="bet-num">P&amp;L</th><th class="bet-num">Bank</th></tr></thead>
     <tbody>${rows}</tbody>
   </table></div>`;
+}
+
+// ---------------------------------------------------------- edge board ----
+// Live trading signal: where the agents' locked probabilities diverge from
+// the de-vigged TxODDS StablePrice line, per outcome, for matches that have
+// not settled yet. Derived entirely from the same locked forecast + line
+// data the Bankroll bets — nothing new is fetched. Exhibition only.
+
+const EDGE_OUTS = { regulation: ['home', 'draw', 'away'], advance: ['home', 'away'] };
+
+// Mirror of lib/bankroll.js: the raw 1X2 decimals frozen into the market
+// record's rationale; fair odds 1/q otherwise (knockout advance markets).
+function edgeParseRawOdds(rationale = '') {
+  const m = /(?:decimal|1X2) ([\d.]+)\/([\d.]+)\/([\d.]+)/.exec(rationale);
+  if (!m) return null;
+  const [home, draw, away] = [Number(m[1]), Number(m[2]), Number(m[3])];
+  if (![home, draw, away].every((d) => Number.isFinite(d) && d > 1)) return null;
+  return { home, draw, away };
+}
+function edgeLineFor(match, marketPred) {
+  if (!marketPred?.probs) return null;
+  const market = match.market ?? 'regulation';
+  if (market === 'regulation') {
+    const raw = edgeParseRawOdds(marketPred.rationale);
+    if (raw) return { odds: raw, oddsType: 'raw' };
+  }
+  const fair = {};
+  for (const o of EDGE_OUTS[market]) {
+    if (!(marketPred.probs[o] > 0)) return null;
+    fair[o] = 1 / marketPred.probs[o];
+  }
+  return { odds: fair, oddsType: 'fair' };
+}
+
+function outcomeName(match, o) {
+  return o === 'draw' ? 'Draw' : (o === 'home' ? match.home?.name ?? 'Home' : match.away?.name ?? 'Away');
+}
+
+// Per-outcome divergence rows for one match, sorted by |consensus − market|.
+function edgeRowsFor(state, match) {
+  const preds = match.predictions ?? {};
+  const marketPred = preds[MARKET_ID];
+  if (!marketPred?.probs) return null;
+  const market = match.market ?? 'regulation';
+  const line = edgeLineFor(match, marketPred);
+  // Locked pre-kickoff forecasts only — the same lock discipline the
+  // Bankroll bets under, and the same one-per-entrant population every
+  // consensus surface uses (entrantPredsOf), so numbers can't drift.
+  const agents = displayEntrants(state)
+    .filter((e) => e.id !== MARKET_ID)
+    .map((e) => ({ meta: e, pred: predOf(match, e) }))
+    .filter((a) => a.pred?.probs && a.pred.eligible !== false && !a.pred.retro
+      && predMarket(a.pred) === market);
+  if (agents.length < 2) return null;
+  const rows = [];
+  for (const o of EDGE_OUTS[market]) {
+    const q = marketPred.probs[o];
+    if (!(q > 0)) continue;
+    const pts = agents
+      .map((a) => ({
+        id: a.meta.id,
+        // Bet ledgers are keyed by model id; in the by-lab view resolve the
+        // lab to its active member so "…'s ledger" never opens empty.
+        ledgerId: a.meta.members ? (a.meta.members.find((m) => !m.retired) ?? a.meta.members[0]).id : a.meta.id,
+        label: a.meta.label ?? a.meta.id,
+        p: a.pred.probs[o],
+      }))
+      .filter((x) => Number.isFinite(x.p));
+    if (!pts.length) continue;
+    const consensus = pts.reduce((s, x) => s + x.p, 0) / pts.length;
+    const d = line?.odds?.[o];
+    const widest = pts.reduce((w, x) => (Math.abs(x.p - q) > Math.abs(w.p - q) ? x : w));
+    rows.push({
+      outcome: o, market, q, consensus, div: consensus - q,
+      widest: { ...widest, div: widest.p - q },
+      odds: d, oddsType: line?.oddsType,
+      edges: d > 1 ? pts.map((x) => ({ ...x, edge: x.p * d - 1 })) : [],
+    });
+  }
+  if (!rows.length) return null;
+  rows.sort((a, b) => Math.abs(b.div) - Math.abs(a.div));
+  return { rows, lockedAt: marketPred.createdAt ?? null };
+}
+
+const fmtPp = (x) => `${x >= 0 ? '+' : '−'}${Math.abs(x * 100).toFixed(1)}pp`;
+const fmtEdge = (x) => `${x >= 0 ? '+' : '−'}${Math.abs(x * 100).toFixed(1)}%`;
+
+function edgeMatchHtml(state, match) {
+  const data = edgeRowsFor(state, match);
+  if (!data) return '';
+  const when = data.lockedAt
+    ? `<span class="edge-when">pre-lock line · ${esc(fmtKickoff.format(new Date(data.lockedAt)))}</span>` : '';
+  const rows = data.rows.map((r) => {
+    const chips = r.edges
+      .slice()
+      .sort((a, b) => b.edge - a.edge)
+      .map((e) => `<span class="edge-chip ${e.edge > 0.02 ? 'edge-pos' : 'edge-neu'}" title="${esc(e.label)}: ${fmtEdge(e.edge)} implied edge at ${r.odds?.toFixed(2)}${r.oddsType === 'fair' ? ' (fair, de-vigged)' : ''}">${esc(e.label)} ${fmtEdge(e.edge)}</span>`)
+      .join('');
+    return `<tr class="${r.div >= 0.0001 ? 'edge-row-pos' : ''}">
+      <td class="edge-out">${esc(outcomeName(match, r.outcome))}</td>
+      <td class="edge-num">${pct(r.q)}%</td>
+      <td class="edge-num">${pct(r.consensus)}% <span class="edge-div">${fmtPp(r.div)}</span></td>
+      <td>${esc(r.widest.label)} <span class="edge-div">${fmtPp(r.widest.div)}</span></td>
+      <td class="edge-chips">${chips || '—'}</td>
+    </tr>`;
+  }).join('');
+  return `<div class="edge-match">
+    <div class="edge-head"><b>${esc(match.home?.name ?? '')} vs ${esc(match.away?.name ?? '')}</b> · ${esc(match.stage ?? '')} ${when}</div>
+    <div class="bet-scroll"><table class="bet-table edge-table">
+      <thead><tr><th>Outcome</th><th class="edge-num">Market</th><th class="edge-num">Consensus</th><th>Widest divergence</th><th>Per-agent edge</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table></div>
+  </div>`;
+}
+
+// After a match locks and settles its signal collapses into "past signals":
+// did the consensus divergence pay? Links into the bet ledger.
+function edgePastHtml(state, match) {
+  const data = edgeRowsFor(state, match);
+  if (!data) return '';
+  const market = match.market ?? 'regulation';
+  const outcome = match.outcomes?.[market] ?? match.outcome;
+  if (!outcome) return '';
+  const top = data.rows[0]; // widest consensus divergence pre-lock
+  const happened = top.outcome === outcome;
+  const paid = top.div >= 0 ? happened : !happened;
+  return `<li class="edge-past-row">
+    <span class="edge-past-match">${esc(match.home?.name ?? '')} ${match.home?.score ?? ''}–${match.away?.score ?? ''} ${esc(match.away?.name ?? '')}</span>
+    <span>consensus ${fmtPp(top.div)} on ${esc(outcomeName(match, top.outcome))} vs the market</span>
+    <span class="${paid ? 'edge-paid' : 'edge-missed'}">${paid ? 'paid ✓' : 'missed ✗'}</span>
+    <a class="edge-ledger-link" href="#p/${encodeURIComponent(top.widest.ledgerId)}">${esc(top.widest.label)}'s ledger →</a>
+  </li>`;
+}
+
+function renderEdgeBoard(state) {
+  const section = document.getElementById('edge-section');
+  const el = document.getElementById('edgeboard');
+  if (!section || !el) return;
+  const candidates = (state.matches ?? []).filter((m) => !m.teamsTbd && m.predictions?.[MARKET_ID]);
+  const upcoming = candidates
+    .filter((m) => m.status?.state !== 'post')
+    .sort((a, b) => new Date(a.kickoff) - new Date(b.kickoff));
+  const past = candidates
+    .filter((m) => m.status?.state === 'post' && m.outcome)
+    .sort((a, b) => new Date(b.kickoff) - new Date(a.kickoff))
+    .slice(0, 20);
+  const liveHtml = upcoming.map((m) => edgeMatchHtml(state, m)).join('');
+  const pastRows = past.map((m) => edgePastHtml(state, m)).join('');
+  if (!liveHtml && !pastRows) { section.hidden = true; return; }
+  section.hidden = false;
+  el.innerHTML = `${liveHtml || '<p class="fnote">No unsettled matches with a locked line right now — see past signals below.</p>'}
+  ${pastRows ? `<details class="edge-past"><summary>Past signals — did the divergence pay?</summary>
+    <p class="fnote">For each settled match: the outcome where consensus diverged most from the pre-lock market line, and whether that divergence was right. Links open the agent's bet ledger.</p>
+    <ul class="edge-past-list">${pastRows}</ul>
+  </details>` : ''}
+  <p class="footnote">Divergence is each agent's locked probability minus the market's de-vigged implied probability, in percentage points; edge is <b>p·d − 1</b> at the locked decimal odds — the same numbers the Bankroll bets. Paper units only, not betting advice.</p>`;
 }
 
 function renderLeaderboard(state) {
@@ -1504,13 +2034,11 @@ function renderDetail(state) {
   // show the score; ranking falls back to confidence before a result.
   const detailPreds = {};
   let bestBrier = null;
-  for (const mod of displayEntrants(state)) {
-    const p = predOf(match, mod);
-    if (!p) continue;
+  for (const [id, p] of Object.entries(entrantPredsOf(state, match))) {
     const copy = { ...p };
     const b = predBrier(p, match);
     if (b != null) { copy.brier = b; bestBrier = bestBrier == null ? b : Math.min(bestBrier, b); }
-    detailPreds[mod.id] = copy;
+    detailPreds[id] = copy;
   }
 
   // A plain-language read of where the models stand: who they favour, how
@@ -1994,18 +2522,67 @@ function renderKnockoutBracket(matches, probs, logos) {
    a hero summary — when more of the field is alive, these are the top
    two and the full picture lives in the trophy section. */
 const HERO_CONSENSUS_TEAMS = 2;
-function renderHeroConsensus(state) {
-  const el = $('#hero-consensus');
-  if (!el) return;
+/* At the final, "advance" and "win it all" are the same event, so the
+   panel reads the final's own locked forecasts rather than the separate
+   outright collection. Those two datasets are gathered on different
+   cadences from different rosters — the outright round predates the
+   substituted models and carries no market price — so quoting the
+   outright here made the hero contradict the fixture strip and the match
+   detail, which both score that fixture. Before the final there is no
+   single match that settles the trophy, so the outright is the only
+   source and is used as-is. */
+function heroConsensusSource(state) {
+  const finalMatch = (state.matches ?? []).find(
+    (m) => m.stage === 'final' && matchMarket(m) === 'advance'
+  );
+  const finalPreds = finalMatch ? entrantPredsOf(state, finalMatch) : null;
+  const finalConsensus = finalPreds && consensusOf(finalPreds, 'advance');
+  if (finalMatch && finalConsensus) {
+    const sideOf = (team) => (finalMatch.home.name === team ? 'home' : 'away');
+    return {
+      teams: [finalMatch.home.name, finalMatch.away.name],
+      consensus: {
+        [finalMatch.home.name]: finalConsensus.home,
+        [finalMatch.away.name]: finalConsensus.away,
+      },
+      // One row per entrant in the active view, so the breakdown adds up
+      // to the headline number above it.
+      forecasts: (team) => Object.entries(finalPreds)
+        .filter(([, p]) => p.probs && predMarket(p) === 'advance')
+        .map(([id, p]) => ({ id, p: p.probs[sideOf(team)] })),
+    };
+  }
   const latest = (state.outright ?? [])
     .map((e) => ({ at: e.at, teams: e.teams, consensus: outrightConsensus(e), models: e.models }))
     .filter((e) => e.consensus)
     .sort((a, b) => new Date(a.at) - new Date(b.at))
     .pop();
-  if (!latest) { el.hidden = true; el.innerHTML = ''; return; }
+  if (!latest) return null;
+  return {
+    teams: latest.teams,
+    consensus: latest.consensus,
+    forecasts: (team) => Object.entries(latest.models)
+      .filter(([, m]) => m.probs && m.probs[team] != null)
+      .map(([id, m]) => ({ id, p: m.probs[team] })),
+  };
+}
 
-  const ranked = latest.teams
-    .map((t) => ({ team: t, p: latest.consensus[t] ?? 0 }))
+// Collapsed by default: the team consensus is the headline; the per-agent
+// breakdown expands on demand. Survives the polling re-renders.
+let heroConsensusOpen = false;
+// When the hero card is showing the final as the featured fixture, the
+// separate NEXT/LIVE banner would duplicate it — renderFeatured checks
+// this and stands down.
+let heroFeaturedMatchId = null;
+
+function renderHeroConsensus(state) {
+  const el = $('#hero-consensus');
+  if (!el) return;
+  const src = heroConsensusSource(state);
+  if (!src) { el.hidden = true; el.innerHTML = ''; heroFeaturedMatchId = null; return; }
+
+  const ranked = src.teams
+    .map((t) => ({ team: t, p: src.consensus[t] ?? 0 }))
     .sort((a, b) => b.p - a.p)
     .slice(0, HERO_CONSENSUS_TEAMS);
   if (!ranked.length) { el.hidden = true; el.innerHTML = ''; return; }
@@ -2014,20 +2591,46 @@ function renderHeroConsensus(state) {
   for (const m of state.matches ?? []) {
     for (const s of [m.home, m.away]) if (s.logo) logos[s.name] = s.logo;
   }
-  // One row per model that published probabilities this round, sharpest
-  // call on this team first, so the spread inside the consensus is legible.
-  const breakdown = (team) => Object.entries(latest.models)
-    .filter(([, m]) => m.probs && m.probs[team] != null)
-    .map(([id, m]) => ({
-      id,
-      label: entrantById(state, id)?.label ?? id,
-      icon: entrantById(state, id)?.icon ?? null,
-      p: m.probs[team],
+  // Sharpest call on this team first, so the spread inside the consensus
+  // is legible at a glance.
+  const breakdown = (team) => src.forecasts(team)
+    .filter((f) => f.p != null)
+    .map((f) => ({
+      ...f,
+      label: displayEntrantById(state, f.id)?.label ?? f.id,
+      icon: displayEntrantById(state, f.id)?.icon ?? null,
     }))
     .sort((a, b) => b.p - a.p);
 
+  // It's the final: this card IS the next-game banner too. One header,
+  // the trophy consensus, and a live status line that walks through
+  // pre-kickoff -> live -> full time as today unfolds.
+  const finalMatch = (state.matches ?? []).find(
+    (m) => m.stage === 'final' && !m.teamsTbd
+  );
+  let headTag = 'Consensus to win it all';
+  let statusLine = '';
+  heroFeaturedMatchId = null;
+  if (finalMatch) {
+    heroFeaturedMatchId = finalMatch.id;
+    const st = finalMatch.status?.state;
+    const h = finalMatch.home, a = finalMatch.away;
+    if (st === 'in') {
+      headTag = `The final · <span class="hc-live">LIVE ${esc(finalMatch.status.detail ?? '')}</span>`;
+      statusLine = `${esc(h.name)} <b>${h.score ?? 0}–${a.score ?? 0}</b> ${esc(a.name)} · match detail →`;
+    } else if (st === 'post') {
+      headTag = 'The final · full time';
+      statusLine = `${esc(h.name)} <b>${h.score ?? 0}–${a.score ?? 0}</b> ${esc(a.name)} · how every agent called it →`;
+    } else {
+      headTag = 'The final · today';
+      statusLine = `Kicks off ${esc(countdown(finalMatch.kickoff))} · the machines' consensus to lift the trophy · match detail →`;
+    }
+  }
   el.hidden = false;
-  el.innerHTML = `<div class="hc-head">AI consensus to win it all</div>
+  el.classList.toggle('hc-collapsed', !heroConsensusOpen);
+  el.innerHTML = `<div class="hc-head">${headTag}
+      <button class="hc-toggle" aria-expanded="${heroConsensusOpen}">${heroConsensusOpen ? 'Hide each agent’s call ▴' : 'Show each agent’s call ▾'}</button>
+    </div>
     <div class="hc-grid">
       ${ranked.map((r, i) => `
         <div class="hc-team${i === 0 ? ' leader' : ''}">
@@ -2036,19 +2639,24 @@ function renderHeroConsensus(state) {
             <span class="hc-name">${esc(r.team)}</span>
             <span class="hc-p">${pct(r.p)}%</span>
           </div>
-          <div class="hc-models">
+          ${heroConsensusOpen ? `<div class="hc-models">
             ${breakdown(r.team).map((m) => `
               <button class="hc-model" data-model="${esc(m.id)}" title="${esc(m.label)} gives ${esc(r.team)} ${pct(m.p)}% to lift the trophy" aria-label="Open performance detail for ${esc(m.label)}">
                 ${m.icon ? `<img class="crest" src="${esc(m.icon)}" alt="" onerror="this.style.visibility='hidden'">` : ''}
                 <span class="hc-model-name">${esc(m.label)}</span>
                 <b class="hc-model-p">${pct(m.p)}%</b>
               </button>`).join('')}
-          </div>
+          </div>` : ''}
         </div>`).join('')}
-    </div>`;
+    </div>
+    ${statusLine ? `<a class="hc-status" href="#m/${esc(heroFeaturedMatchId)}">${statusLine}</a>` : ''}`;
   for (const btn of el.querySelectorAll('[data-model]')) {
     btn.addEventListener('click', () => { location.hash = `p/${encodeURIComponent(btn.dataset.model)}`; });
   }
+  el.querySelector('.hc-toggle').addEventListener('click', () => {
+    heroConsensusOpen = !heroConsensusOpen;
+    renderHeroConsensus(state);
+  });
 }
 
 function renderTrophy(state) {
@@ -2180,8 +2788,12 @@ function renderFeatured(state) {
     .sort((a, b) => new Date(a.kickoff) - new Date(b.kickoff))[0];
   const m = live ?? next;
   if (!m) { el.innerHTML = ''; return; }
-  const market = displayMarketOf(m.predictions, m);
-  const c = consensusOf(m.predictions, market);
+  // The hero consensus card already carries this fixture (the final) —
+  // a second NEXT/LIVE banner two blocks below would just repeat it.
+  if (m.id === heroFeaturedMatchId) { el.innerHTML = ''; return; }
+  const feedPreds = entrantPredsOf(state, m);
+  const market = displayMarketOf(feedPreds, m);
+  const c = consensusOf(feedPreds, market);
   const pick = c
     ? `models say ${esc(c.home >= c.away ? m.home.name : m.away.name)} ${pct(Math.max(c.home, c.away))}%${market === 'advance' ? ' to advance' : ''}`
     : '';
@@ -2329,6 +2941,8 @@ function renderAll(state) {
   renderRoster(state);
   renderLeaderboard(state);
   renderBankroll(state);
+  renderBankrollChart(state);
+  renderEdgeBoard(state);
   renderMatches(state);
   renderDetail(state);
   // Static tips in index.html (leaderboard explainer) + any re-rendered ones.
