@@ -33983,6 +33983,89 @@
             "rationale": "No score and no key events in a balanced final, so equal chances."
           }
         }
+      },
+      {
+        "at": "2026-07-19T20:34:22.274Z",
+        "detail": "56'",
+        "score": [
+          0,
+          0
+        ],
+        "events": 0,
+        "period": "STATUS_IN_PROGRESS",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.58,
+              "away": 0.42
+            },
+            "rationale": "Spain entered as slight favorites based on squad depth and form, and with the match still 0-0 at 56' that pre-match edge largely holds."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.53,
+              "away": 0.47
+            },
+            "rationale": "With the match level just past halftime on a neutral field, Spain’s slightly stronger recent form and depth give them a marginal edge in an otherwise very even tie."
+          },
+          "deepseek/deepseek-v4-pro": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "With the match goalless at 56' and no decisive events, both world-class sides remain evenly matched, making advancement essentially a coin flip."
+          },
+          "moonshotai/kimi-k3": {
+            "probs": {
+              "home": 0.51,
+              "away": 0.49
+            },
+            "rationale": "Still goalless at 56' between two evenly matched elite sides, so it's essentially a coin flip with a growing chance of extra time or penalties deciding it."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "With the score level at 0-0 in the 56th minute, Spain's possession-based control slightly favors them to find a breakthrough against Argentina's resilient defense in a tense final."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "A goalless final at 56 minutes strongly suggests a tight, tactical contest likely to go to extra time or penalties, where Spain's marginally superior squad depth and recent form give them a slight edge over Argentina's experience and tournament pedigree."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "With the game still goalless at the 56th minute and both sides evenly matched, the chances are nearly even, though Argentina's slight edge in recent knockout experience tips the odds marginally in their favor."
+          },
+          "google/gemini-3.1-pro-preview": {
+            "probs": {
+              "home": 0.49,
+              "away": 0.51
+            },
+            "rationale": "With the match deadlocked at 0-0 in the second half, the tie remains extremely close, but Argentina's slight edge in recent major finals and penalty shootout experience gives them a marginal advantage."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0.51,
+              "away": 0.49
+            },
+            "rationale": "At 0-0 in the 56th minute of a final with no events, the sides remain near pre-match parity with Spain a slim favorite on squad depth and structure."
+          },
+          "mistralai/mistral-medium-3-5": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "No goals or key events in a balanced final, so equal chances at halftime."
+          }
+        }
       }
     ]
   },
