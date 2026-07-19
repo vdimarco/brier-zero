@@ -3615,6 +3615,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.14,
+          "draw": 0.24,
+          "away": 0.62
+        },
+        "rationale": "Uruguay is a top-15 side with far superior squad depth (Valverde, Núñez) and beat Saudi Arabia at the 2018 World Cup, making them clear favorites on a neutral venue, though Saudi Arabia's organization keeps a draw or upset plausible.",
+        "market": "regulation",
+        "fixture": "Saudi Arabia vs Uruguay",
+        "createdAt": "2026-07-19T16:29:28.061Z",
+        "latencyMs": 19783,
+        "eligible": true,
+        "retro": true
       }
     },
     "760430": {
@@ -5643,6 +5657,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.5,
+          "draw": 0.27,
+          "away": 0.23
+        },
+        "rationale": "Czechia’s greater European squad depth and attacking options make them moderate favorites, while South Africa’s compact defense and counterattacking threat keep the draw and upset live.",
+        "market": "regulation",
+        "fixture": "Czechia vs South Africa",
+        "createdAt": "2026-07-19T16:36:47.529Z",
+        "latencyMs": 79399,
+        "eligible": true,
+        "retro": true
       }
     },
     "760439": {
@@ -10168,6 +10196,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.67,
+          "draw": 0.2,
+          "away": 0.13
+        },
+        "rationale": "England's far superior squad depth, Elo rating, and tournament pedigree make them clear favorites over a Ghana side that, while talented in attack, is significantly weaker defensively and less consistent against elite opposition.",
+        "market": "regulation",
+        "fixture": "England vs Ghana",
+        "createdAt": "2026-07-19T16:36:59.261Z",
+        "latencyMs": 11660,
+        "eligible": true,
+        "retro": true
       }
     },
     "760459": {
@@ -10609,6 +10651,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "z-ai/glm-4.6": {
+        "probs": {
+          "home": 0.12,
+          "draw": 0.28,
+          "away": 0.6
+        },
+        "rationale": "Croatia's superior talent and tournament experience makes them favorites, but Panama could secure a draw with a defensive approach.",
+        "market": "regulation",
+        "fixture": "Panama vs Croatia",
+        "createdAt": "2026-07-19T16:42:13.034Z",
+        "latencyMs": 37206,
+        "eligible": true,
+        "retro": true
       }
     },
     "760461": {
@@ -11048,6 +11104,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.43,
+          "draw": 0.27,
+          "away": 0.3
+        },
+        "rationale": "Bosnia's deeper pool of European-based talent makes them moderate favorites on a neutral pitch, but Qatar's organized, Asian Cup-winning side is capable enough to keep an upset or draw well within reach.",
+        "market": "regulation",
+        "fixture": "Bosnia-Herzegovina vs Qatar",
+        "createdAt": "2026-07-19T16:37:27.227Z",
+        "latencyMs": 25635,
+        "eligible": true,
+        "retro": true
       }
     },
     "760463": {
@@ -11260,6 +11330,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.36,
+          "draw": 0.26,
+          "away": 0.38
+        },
+        "rationale": "Switzerland's tournament pedigree and experience are offset by Canada's rapidly improving squad (Davies, David) plus a genuine home-venue edge at BC Place, making this a near coin-flip with a slight lean to the co-hosts.",
+        "market": "regulation",
+        "fixture": "Switzerland vs Canada",
+        "createdAt": "2026-07-19T16:38:23.804Z",
+        "latencyMs": 56567,
+        "eligible": true,
+        "retro": true
       }
     },
     "760464": {
@@ -11926,6 +12010,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.25,
+          "draw": 0.27,
+          "away": 0.48
+        },
+        "rationale": "South Korea is the higher-ranked side with more top-league talent (e.g., Son Heung-min, Kim Min-jae) and recent knockout-round World Cup experience, while South Africa is competitive but clearly the underdog over 90 minutes.",
+        "market": "regulation",
+        "fixture": "South Africa vs South Korea",
+        "createdAt": "2026-07-19T16:38:38.100Z",
+        "latencyMs": 14148,
+        "eligible": true,
+        "retro": true
       }
     },
     "760467": {
@@ -12365,6 +12463,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.23,
+          "draw": 0.26,
+          "away": 0.51
+        },
+        "rationale": "Germany's superior squad depth and attacking talent (Musiala, Wirtz) make them clear favorites, but Ecuador's elite defense and Caicedo-anchored midfield keep an upset or draw very live.",
+        "market": "regulation",
+        "fixture": "Ecuador vs Germany",
+        "createdAt": "2026-07-19T16:39:01.447Z",
+        "latencyMs": 23335,
+        "eligible": true,
+        "retro": true
       }
     },
     "760469": {
@@ -12579,6 +12691,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "minimax/minimax-m2": {
+        "probs": {
+          "home": 0.47,
+          "draw": 0.28,
+          "away": 0.25
+        },
+        "rationale": "Paraguay has historically been stronger in World Cups and qualified through the more competitive CONMEBOL, giving them a slight edge over Australia.",
+        "market": "regulation",
+        "fixture": "Paraguay vs Australia",
+        "createdAt": "2026-07-19T16:42:19.584Z",
+        "latencyMs": 6500,
+        "eligible": true,
+        "retro": true
       }
     },
     "760470": {
@@ -14153,6 +14279,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.3,
+          "draw": 0.3,
+          "away": 0.4
+        },
+        "rationale": "Iran's superior recent form, higher ranking, and more complete attack (Taremi, Azmoun) give them a modest edge over a Salah-reliant Egypt in what profiles as a tight, low-scoring neutral-venue match, keeping the draw very live.",
+        "market": "regulation",
+        "fixture": "Egypt vs Iran",
+        "createdAt": "2026-07-19T16:40:20.611Z",
+        "latencyMs": 79153,
+        "eligible": true,
+        "retro": true
       }
     },
     "760477": {
@@ -15273,6 +15413,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.27,
+          "draw": 0.26,
+          "away": 0.47
+        },
+        "rationale": "Portugal's superior squad depth and higher world ranking make them clear favorites, but Colombia is a top-15 side and Miami's large Colombian community gives them partial crowd support at a nominally neutral venue.",
+        "market": "regulation",
+        "fixture": "Colombia vs Portugal",
+        "createdAt": "2026-07-19T16:40:36.475Z",
+        "latencyMs": 15852,
+        "eligible": true,
+        "retro": true
       }
     },
     "760482": {
@@ -15939,6 +16093,20 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.31,
+          "draw": 0.28,
+          "away": 0.41
+        },
+        "rationale": "Austria's higher ranking, deeper squad, and strong recent tournament form make them moderate favorites on a neutral pitch, but Algeria's attacking quality keeps an upset or draw very live.",
+        "market": "regulation",
+        "fixture": "Algeria vs Austria",
+        "createdAt": "2026-07-19T16:41:13.390Z",
+        "latencyMs": 36898,
+        "eligible": true,
+        "retro": true
       }
     },
     "760485": {
@@ -16360,6 +16528,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.38,
+          "away": 0.62
+        },
+        "rationale": "Canada's deeper, Europe-based squad (Davies, David, Buchanan), higher ranking, and familiarity with North American conditions make them clear favorites, though South Africa's organized defense and Ronwen Williams's shot-stopping keep an upset or penalties well within reach.",
+        "market": "advance",
+        "fixture": "South Africa vs Canada",
+        "createdAt": "2026-07-19T16:41:35.786Z",
+        "latencyMs": 22384,
+        "eligible": true,
+        "retro": true
       }
     },
     "760487": {
@@ -19859,6 +20040,19 @@
         "eligible": true,
         "retro": true,
         "backtest": true
+      },
+      "minimax/minimax-m2": {
+        "probs": {
+          "home": 0.2,
+          "away": 0.8
+        },
+        "rationale": "France's superior squad depth and historical performance make them clear favorites, though Paraguay's defensive resilience could cause an upset.",
+        "market": "advance",
+        "fixture": "Paraguay vs France",
+        "createdAt": "2026-07-19T16:42:36.755Z",
+        "latencyMs": 17160,
+        "eligible": true,
+        "retro": true
       }
     },
     "760504": {

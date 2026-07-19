@@ -188,9 +188,14 @@ reproducible (`node scripts/bankroll.js`; run twice, byte-identical output).
 
 - **Starting bankroll:** 1,000 units per model, at its first scored match.
 - **Odds used:** raw TxODDS StablePrice decimal odds (vig included) for
-  group-stage 1X2 bets — the honest version, the model must beat the vig.
+  1X2 bets — the honest version, the model must beat the vig.
   Knockout "who advances" bets settle at fair (de-vigged) odds `d = 1/q`,
   since no single advances price is quoted; disclosed in the UI.
+- **Which market a bet is in:** the one the forecast priced — the same rule
+  the leaderboard scores by. A 90-minute 1X2 forecast placed on a knockout
+  fixture is still a 1X2 bet on the raw line, settled by the 90-minute
+  result; an advance forecast settles the two-way advance market. So every
+  model has a decision row (bet or no-bet) on all 103 settled matches.
 - **Edge per outcome:** `edge_o = p_o · d_o − 1`.
 - **Bet selection:** one bet per match per model, on the outcome with the
   maximum edge, only if `edge > 0.02` (2% threshold). Otherwise the model
@@ -199,8 +204,8 @@ reproducible (`node scripts/bankroll.js`; run twice, byte-identical output).
   stake = `0.25 · f* · bankroll` (quarter-Kelly), capped at
   `0.10 · bankroll`. Stakes below 0.5 units floor to zero (no dust bets).
 - **Settlement:** on the same result event that triggers Brier scoring.
-  Win → `bankroll += stake·(d−1)`; loss → `bankroll −= stake`. Group stage
-  settles the 1X2 90-minute result (draw is a real outcome); knockouts
+  Win → `bankroll += stake·(d−1)`; loss → `bankroll −= stake`. 1X2 bets
+  settle the 90-minute result (draw is a real outcome); advance bets
   settle "who advances" (two outcomes, no draw).
 - **Lock discipline:** identical to forecasts — only the pre-kickoff locked
   probability and pre-kickoff line count. In-play numbers never bet.
