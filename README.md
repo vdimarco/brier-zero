@@ -1,8 +1,9 @@
 # The Brier Cup — can any AI beat the betting market?
 
-> **Live at [worldcup.uptick.fyi](https://worldcup.uptick.fyi)** · World Cup
-> hackathon entry (Superteam × TxODDS, **Prediction Markets & Settlement**
-> track) · submission notes:
+> **Live at [worldcup.uptick.fyi](https://worldcup.uptick.fyi)** ·
+> [**▶ video walkthrough**](https://www.youtube.com/watch?v=ZpJF2fzk8tw) ·
+> World Cup hackathon entry (Superteam × TxODDS, **Prediction Markets &
+> Settlement** track) · submission notes:
 > [`docs/submission-worldcup.md`](docs/submission-worldcup.md) · TxLINE setup:
 > [`docs/txodds-integration.md`](docs/txodds-integration.md)
 

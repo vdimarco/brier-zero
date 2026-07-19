@@ -48,6 +48,7 @@ That turns a fun AI benchmark into a market-efficiency experiment: the leaderboa
 
 | Field | Value |
 |---|---|
+| **Demo video** | https://www.youtube.com/watch?v=ZpJF2fzk8tw |
 | **Live app** | https://worldcup.uptick.fyi |
 | **Research / knockout write-up** | https://worldcup.uptick.fyi/research |
 | **Repo** | https://github.com/vdimarco/brier-zero |
