@@ -2748,6 +2748,18 @@ const PODIUM_ROTATE_MS = 7000;
 let podiumSlideIdx = 0;
 let podiumTimer = null;
 let podiumPaused = false;
+let podiumPrevKey = null; // animate entrances only on actual slide changes
+
+// Slide transition: float the outgoing names up and out, then render the
+// incoming slide (which floats in). Falls back to an instant swap under
+// prefers-reduced-motion.
+function podiumGoTo(state, idx) {
+  const stage = document.querySelector('#podium .podium-stage');
+  const reduce = typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!stage || reduce) { podiumSlideIdx = idx; renderPodium(state); return; }
+  stage.classList.add('podium-out');
+  setTimeout(() => { podiumSlideIdx = idx; renderPodium(state); }, 170);
+}
 
 function podiumSlides(state) {
   const brierRows = (board, granularity) => (board ?? [])
@@ -2863,7 +2875,9 @@ function renderPodium(state) {
     </${tag}>`;
   };
 
-  el.innerHTML = `<div class="podium-stage">
+  const entering = podiumPrevKey !== null && podiumPrevKey !== slide.key;
+  podiumPrevKey = slide.key;
+  el.innerHTML = `<div class="podium-stage${entering ? ' podium-in' : ''}">
     <div class="podium-slide-head">
       <span class="podium-slide-title">${esc(slide.title)}</span>
       <span class="podium-nav">
@@ -2887,17 +2901,15 @@ function renderPodium(state) {
   for (const d of el.querySelectorAll('.podium-dot')) {
     d.addEventListener('click', (e) => {
       e.stopPropagation();
-      podiumSlideIdx = Number(d.dataset.slide);
-      renderPodium(state);
+      podiumGoTo(state, Number(d.dataset.slide));
     });
   }
   for (const a of el.querySelectorAll('.podium-arrow')) {
     a.addEventListener('click', (e) => {
       e.stopPropagation();
-      podiumSlideIdx = (podiumSlideIdx + Number(a.dataset.step) + slides.length) % slides.length;
-      renderPodium(state);
+      podiumGoTo(state, (podiumSlideIdx + Number(a.dataset.step) + slides.length) % slides.length);
       // Keep keyboard focus on the equivalent arrow after the re-render.
-      el.querySelector(`.podium-arrow[data-step="${a.dataset.step}"]`)?.focus();
+      setTimeout(() => el.querySelector(`.podium-arrow[data-step="${a.dataset.step}"]`)?.focus(), 200);
     });
   }
   const stage = el.querySelector('.podium-stage');
@@ -2910,8 +2922,7 @@ function renderPodium(state) {
   if (typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   podiumTimer = setTimeout(function advance() {
     if (!podiumPaused && lastState) {
-      podiumSlideIdx = (podiumSlideIdx + 1) % slides.length;
-      renderPodium(lastState);
+      podiumGoTo(lastState, (podiumSlideIdx + 1) % slides.length);
     } else {
       // Paused: keep ticking without advancing so rotation resumes.
       podiumTimer = setTimeout(advance, PODIUM_ROTATE_MS);

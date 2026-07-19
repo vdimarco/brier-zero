@@ -1852,3 +1852,27 @@ main section, #prompt-section { scroll-margin-top: 76px; }
 }
 .podium-arrow:hover { border-color: #ffffff; color: #ffffff; background: rgba(255, 255, 255, 0.1); }
 .podium-arrow:focus-visible { outline: 2px solid var(--kit-gold); outline-offset: 2px; }
+
+/* Podium carousel motion: constant height (slots anchor to the steps,
+   so slides without crests just leave air up top instead of reflowing
+   the band), and slide changes float names out/in with a small stagger. */
+.podium-stage .podium { min-height: 212px; align-content: end; }
+.podium-out .podium-slot, .podium-out .podium-slide-title {
+  animation: podium-float-out 0.17s ease forwards;
+}
+.podium-in .podium-slot, .podium-in .podium-slide-title {
+  animation: podium-float-in 0.3s ease backwards;
+}
+.podium-in .podium-slot:nth-child(1) { animation-delay: 0.05s; }
+.podium-in .podium-slot:nth-child(2) { animation-delay: 0s; }
+.podium-in .podium-slot:nth-child(3) { animation-delay: 0.1s; }
+@keyframes podium-float-out {
+  to { opacity: 0; transform: translateY(-14px); }
+}
+@keyframes podium-float-in {
+  from { opacity: 0; transform: translateY(16px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .podium-out .podium-slot, .podium-out .podium-slide-title,
+  .podium-in .podium-slot, .podium-in .podium-slide-title { animation: none; }
+}
