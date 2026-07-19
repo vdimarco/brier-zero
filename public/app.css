@@ -81,6 +81,19 @@ main { max-width: 1080px; margin: 0 auto; padding: 0 20px 64px; }
 .wordmark { font-weight: 800; letter-spacing: 0.04em; font-size: 15px; color: #ffffff; }
 .wordmark em { font-style: normal; color: var(--kit-gold); }
 .topbar-status { color: rgba(255, 255, 255, 0.75); font-size: 13px; }
+/* Section menu: white-on-pitch links; scrolls sideways on small screens
+   instead of wrapping the 64px bar taller. */
+.topnav {
+  display: flex; gap: 2px; min-width: 0;
+  overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch;
+}
+.topnav::-webkit-scrollbar { display: none; }
+.topnav a {
+  color: rgba(255, 255, 255, 0.82); text-decoration: none;
+  font: 600 12.5px/1.4 system-ui, sans-serif; white-space: nowrap;
+  padding: 6px 9px; border-radius: 999px;
+}
+.topnav a:hover, .topnav a:focus-visible { color: #ffffff; background: rgba(255, 255, 255, 0.12); }
 
 /* Wordmark as Brier explainer (hover / focus / tap).
    Higher specificity so the shared tip rule's translateX(-50%)
