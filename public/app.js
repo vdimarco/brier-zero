@@ -306,6 +306,29 @@ function displayMarketOf(modelsMap, match) {
   return predMarket(list[0]);
 }
 
+/* The forecasts a match's consensus is built from: one per entrant in the
+   active view, exactly as the leaderboard counts them. The raw
+   `match.predictions` ledger also holds retired models that were
+   superseded mid-tournament, so averaging it directly double-weights any
+   lab that fielded two models and yields a number no view of the page can
+   reproduce. Every surface that quotes a match consensus goes through
+   here so they can't drift apart. */
+/* Name/crest for an id that may be either a lab key ("anthropic", in the
+   by-lab view) or a model id ("anthropic/claude-opus-4.7"). The active
+   view is checked first because only it carries lab labels. */
+function displayEntrantById(state, id) {
+  return displayEntrants(state).find((e) => e.id === id) ?? entrantById(state, id) ?? null;
+}
+
+function entrantPredsOf(state, match) {
+  const preds = {};
+  for (const ent of displayEntrants(state)) {
+    const p = predOf(match, ent);
+    if (p) preds[ent.id] = p;
+  }
+  return preds;
+}
+
 function consensusOf(modelsMap, market = 'regulation') {
   const outs = MARKET_OUTCOMES[market];
   const list = Object.values(modelsMap ?? {}).filter((p) => p.probs && predMarket(p) === market);
@@ -1499,13 +1522,11 @@ function renderDetail(state) {
   // show the score; ranking falls back to confidence before a result.
   const detailPreds = {};
   let bestBrier = null;
-  for (const mod of displayEntrants(state)) {
-    const p = predOf(match, mod);
-    if (!p) continue;
+  for (const [id, p] of Object.entries(entrantPredsOf(state, match))) {
     const copy = { ...p };
     const b = predBrier(p, match);
     if (b != null) { copy.brier = b; bestBrier = bestBrier == null ? b : Math.min(bestBrier, b); }
-    detailPreds[mod.id] = copy;
+    detailPreds[id] = copy;
   }
 
   // A plain-language read of where the models stand: who they favour, how
@@ -1989,18 +2010,59 @@ function renderKnockoutBracket(matches, probs, logos) {
    a hero summary — when more of the field is alive, these are the top
    two and the full picture lives in the trophy section. */
 const HERO_CONSENSUS_TEAMS = 2;
-function renderHeroConsensus(state) {
-  const el = $('#hero-consensus');
-  if (!el) return;
+/* At the final, "advance" and "win it all" are the same event, so the
+   panel reads the final's own locked forecasts rather than the separate
+   outright collection. Those two datasets are gathered on different
+   cadences from different rosters — the outright round predates the
+   substituted models and carries no market price — so quoting the
+   outright here made the hero contradict the fixture strip and the match
+   detail, which both score that fixture. Before the final there is no
+   single match that settles the trophy, so the outright is the only
+   source and is used as-is. */
+function heroConsensusSource(state) {
+  const finalMatch = (state.matches ?? []).find(
+    (m) => m.stage === 'final' && matchMarket(m) === 'advance'
+  );
+  const finalPreds = finalMatch ? entrantPredsOf(state, finalMatch) : null;
+  const finalConsensus = finalPreds && consensusOf(finalPreds, 'advance');
+  if (finalMatch && finalConsensus) {
+    const sideOf = (team) => (finalMatch.home.name === team ? 'home' : 'away');
+    return {
+      teams: [finalMatch.home.name, finalMatch.away.name],
+      consensus: {
+        [finalMatch.home.name]: finalConsensus.home,
+        [finalMatch.away.name]: finalConsensus.away,
+      },
+      // One row per entrant in the active view, so the breakdown adds up
+      // to the headline number above it.
+      forecasts: (team) => Object.entries(finalPreds)
+        .filter(([, p]) => p.probs && predMarket(p) === 'advance')
+        .map(([id, p]) => ({ id, p: p.probs[sideOf(team)] })),
+    };
+  }
   const latest = (state.outright ?? [])
     .map((e) => ({ at: e.at, teams: e.teams, consensus: outrightConsensus(e), models: e.models }))
     .filter((e) => e.consensus)
     .sort((a, b) => new Date(a.at) - new Date(b.at))
     .pop();
-  if (!latest) { el.hidden = true; el.innerHTML = ''; return; }
+  if (!latest) return null;
+  return {
+    teams: latest.teams,
+    consensus: latest.consensus,
+    forecasts: (team) => Object.entries(latest.models)
+      .filter(([, m]) => m.probs && m.probs[team] != null)
+      .map(([id, m]) => ({ id, p: m.probs[team] })),
+  };
+}
 
-  const ranked = latest.teams
-    .map((t) => ({ team: t, p: latest.consensus[t] ?? 0 }))
+function renderHeroConsensus(state) {
+  const el = $('#hero-consensus');
+  if (!el) return;
+  const src = heroConsensusSource(state);
+  if (!src) { el.hidden = true; el.innerHTML = ''; return; }
+
+  const ranked = src.teams
+    .map((t) => ({ team: t, p: src.consensus[t] ?? 0 }))
     .sort((a, b) => b.p - a.p)
     .slice(0, HERO_CONSENSUS_TEAMS);
   if (!ranked.length) { el.hidden = true; el.innerHTML = ''; return; }
@@ -2009,20 +2071,19 @@ function renderHeroConsensus(state) {
   for (const m of state.matches ?? []) {
     for (const s of [m.home, m.away]) if (s.logo) logos[s.name] = s.logo;
   }
-  // One row per model that published probabilities this round, sharpest
-  // call on this team first, so the spread inside the consensus is legible.
-  const breakdown = (team) => Object.entries(latest.models)
-    .filter(([, m]) => m.probs && m.probs[team] != null)
-    .map(([id, m]) => ({
-      id,
-      label: entrantById(state, id)?.label ?? id,
-      icon: entrantById(state, id)?.icon ?? null,
-      p: m.probs[team],
+  // Sharpest call on this team first, so the spread inside the consensus
+  // is legible at a glance.
+  const breakdown = (team) => src.forecasts(team)
+    .filter((f) => f.p != null)
+    .map((f) => ({
+      ...f,
+      label: displayEntrantById(state, f.id)?.label ?? f.id,
+      icon: displayEntrantById(state, f.id)?.icon ?? null,
     }))
     .sort((a, b) => b.p - a.p);
 
   el.hidden = false;
-  el.innerHTML = `<div class="hc-head">AI consensus to win it all</div>
+  el.innerHTML = `<div class="hc-head">Consensus to win it all</div>
     <div class="hc-grid">
       ${ranked.map((r, i) => `
         <div class="hc-team${i === 0 ? ' leader' : ''}">
@@ -2175,8 +2236,9 @@ function renderFeatured(state) {
     .sort((a, b) => new Date(a.kickoff) - new Date(b.kickoff))[0];
   const m = live ?? next;
   if (!m) { el.innerHTML = ''; return; }
-  const market = displayMarketOf(m.predictions, m);
-  const c = consensusOf(m.predictions, market);
+  const feedPreds = entrantPredsOf(state, m);
+  const market = displayMarketOf(feedPreds, m);
+  const c = consensusOf(feedPreds, market);
   const pick = c
     ? `models say ${esc(c.home >= c.away ? m.home.name : m.away.name)} ${pct(Math.max(c.home, c.away))}%${market === 'advance' ? ' to advance' : ''}`
     : '';
