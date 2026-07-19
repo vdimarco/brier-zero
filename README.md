@@ -326,4 +326,5 @@ tests/            unittest suite (no external deps)
 
 ## License
 
-TBD (will be a FOSS license; tracked in 0X5-6).
+[MIT](LICENSE). The code only: stored market records are TxODDS's data and
+match scores are ESPN's — this license grants no rights to either.
