@@ -457,7 +457,15 @@ function toast(msg) {
 async function shareMatch(match) {
   const url = shareLink(`m/${match.id}`);
   const title = `${match.home.name} vs ${match.away.name} · The Brier Cup`;
-  const text = `${match.home.name} vs ${match.away.name} — watch frontier AI models and the betting market forecast this ${match.stage} match, live.`;
+  // The market's current view rides along in the share text; probs without
+  // a draw key are the two-way knockout advance market.
+  const probs = match.marketOdds?.probs;
+  const pct = (p) => `${Math.round(p * 100)}%`;
+  const oddsLine = !probs ? ''
+    : probs.draw != null
+      ? ` The market says ${match.home.name} ${pct(probs.home)}, draw ${pct(probs.draw)}, ${match.away.name} ${pct(probs.away)}.`
+      : ` The market says ${match.home.name} ${pct(probs.home)}, ${match.away.name} ${pct(probs.away)}.`;
+  const text = `${match.home.name} vs ${match.away.name} — watch frontier AI models and the betting market forecast this ${match.stage} match, live.${oddsLine}`;
   if (navigator.share) {
     try { await navigator.share({ title, text, url }); return; }
     catch (e) { if (e.name === 'AbortError') return; }
