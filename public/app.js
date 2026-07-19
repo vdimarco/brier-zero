@@ -2513,7 +2513,9 @@ function renderHeroConsensus(state) {
 
   el.hidden = false;
   el.classList.toggle('hc-collapsed', !heroConsensusOpen);
-  el.innerHTML = `<div class="hc-head">Consensus to win it all</div>
+  el.innerHTML = `<div class="hc-head">Consensus to win it all
+      <button class="hc-toggle" aria-expanded="${heroConsensusOpen}">${heroConsensusOpen ? 'Hide each agent’s call ▴' : 'Show each agent’s call ▾'}</button>
+    </div>
     <div class="hc-grid">
       ${ranked.map((r, i) => `
         <div class="hc-team${i === 0 ? ' leader' : ''}">
@@ -2531,8 +2533,7 @@ function renderHeroConsensus(state) {
               </button>`).join('')}
           </div>` : ''}
         </div>`).join('')}
-    </div>
-    <button class="hc-toggle" aria-expanded="${heroConsensusOpen}">${heroConsensusOpen ? 'Hide each agent’s call ▴' : 'Show each agent’s call ▾'}</button>`;
+    </div>`;
   for (const btn of el.querySelectorAll('[data-model]')) {
     btn.addEventListener('click', () => { location.hash = `p/${encodeURIComponent(btn.dataset.model)}`; });
   }
