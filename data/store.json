@@ -34225,6 +34225,89 @@
             "rationale": "Slight edge to Argentina based on historical knockout resilience and Spain's recent struggles in tight games."
           }
         }
+      },
+      {
+        "at": "2026-07-19T20:57:32.897Z",
+        "detail": "80'",
+        "score": [
+          0,
+          0
+        ],
+        "events": 0,
+        "period": "STATUS_SECOND_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "With a scoreless deadlock late in regulation, the match is likely heading to extra time or penalties, giving Spain a slight edge based on pre-match favoritism and squad depth."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.54,
+              "away": 0.46
+            },
+            "rationale": "With the match level late and the teams fairly even on paper, Spain gets a slight edge from marginally stronger recent form and depth but penalties loom as a near coin-flip if it stays tied."
+          },
+          "deepseek/deepseek-v4-pro": {
+            "probs": {
+              "home": 0.55,
+              "away": 0.45
+            },
+            "rationale": "At 0-0 in the 80th minute, Spain's control-oriented style gives a slight edge to break the deadlock or prevail in a shootout, but Argentina's explosive counter-attacking threat keeps it close."
+          },
+          "moonshotai/kimi-k3": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "At 0-0 with ~10 minutes left, the tie is most likely heading to extra time or penalties, making it near a coin flip with only a slight edge to Spain on recent form and squad depth."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "A cagey final remains level at 80', and while Argentina's big-tournament pedigree keeps them very much alive, Spain's possession-control style is better suited to managing the dying minutes and potential extra time."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "With 10 minutes left in a goalless final, a penalty shootout is highly probable, making this essentially a coin flip with a marginal edge to Spain's younger, possession-dominant squad."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "With ten minutes left in a scoreless World Cup final, both teams are playing cautiously, making extra time and penalties likely, giving Spain a slight home-advantage edge."
+          },
+          "google/gemini-3.1-pro-preview": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "With the match tied late in normal time, it is highly likely to go to extra time or penalties, where Argentina's recent tournament pedigree and shootout experience give them a marginal edge."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "At 0-0 with 10 minutes left in a World Cup final between two elite sides, a draw through 90 is likely followed by extra time or pens where Argentina's experience gives them a razor-thin edge."
+          },
+          "mistralai/mistral-medium-3-5": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "No score and no key events at 80' in a high-stakes final implies near-even chances for both teams to advance."
+          }
+        }
       }
     ]
   },
