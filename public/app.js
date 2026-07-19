@@ -2217,6 +2217,10 @@ function heroConsensusSource(state) {
   };
 }
 
+// Collapsed by default: the team consensus is the headline; the per-agent
+// breakdown expands on demand. Survives the polling re-renders.
+let heroConsensusOpen = false;
+
 function renderHeroConsensus(state) {
   const el = $('#hero-consensus');
   if (!el) return;
@@ -2245,6 +2249,7 @@ function renderHeroConsensus(state) {
     .sort((a, b) => b.p - a.p);
 
   el.hidden = false;
+  el.classList.toggle('hc-collapsed', !heroConsensusOpen);
   el.innerHTML = `<div class="hc-head">Consensus to win it all</div>
     <div class="hc-grid">
       ${ranked.map((r, i) => `
@@ -2254,19 +2259,24 @@ function renderHeroConsensus(state) {
             <span class="hc-name">${esc(r.team)}</span>
             <span class="hc-p">${pct(r.p)}%</span>
           </div>
-          <div class="hc-models">
+          ${heroConsensusOpen ? `<div class="hc-models">
             ${breakdown(r.team).map((m) => `
               <button class="hc-model" data-model="${esc(m.id)}" title="${esc(m.label)} gives ${esc(r.team)} ${pct(m.p)}% to lift the trophy" aria-label="Open performance detail for ${esc(m.label)}">
                 ${m.icon ? `<img class="crest" src="${esc(m.icon)}" alt="" onerror="this.style.visibility='hidden'">` : ''}
                 <span class="hc-model-name">${esc(m.label)}</span>
                 <b class="hc-model-p">${pct(m.p)}%</b>
               </button>`).join('')}
-          </div>
+          </div>` : ''}
         </div>`).join('')}
-    </div>`;
+    </div>
+    <button class="hc-toggle" aria-expanded="${heroConsensusOpen}">${heroConsensusOpen ? 'Hide each agent’s call ▴' : 'Show each agent’s call ▾'}</button>`;
   for (const btn of el.querySelectorAll('[data-model]')) {
     btn.addEventListener('click', () => { location.hash = `p/${encodeURIComponent(btn.dataset.model)}`; });
   }
+  el.querySelector('.hc-toggle').addEventListener('click', () => {
+    heroConsensusOpen = !heroConsensusOpen;
+    renderHeroConsensus(state);
+  });
 }
 
 function renderTrophy(state) {
