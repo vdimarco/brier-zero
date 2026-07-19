@@ -2,12 +2,12 @@ import express from 'express';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { fetchMatches, periodRank, txoddsStatus } from './lib/feed.js';
-import { leaderboard, labLeaderboard, predictionMarket, isKnockoutMatch } from './lib/scoring.js';
+import { leaderboard, labLeaderboard, blocLeaderboard, predictionMarket, isKnockoutMatch } from './lib/scoring.js';
 import { computeBankrolls } from './lib/bankroll.js';
 import { getPredictions, getSnapshots, getOutright, getProofs } from './lib/store.js';
 import { dbEnabled, dbTryLock } from './lib/db.js';
 import {
-  loadModels, loadEntrants, predictMatches, predictorReady, buildPrompt,
+  loadModels, loadEntrants, loadBlocs, predictMatches, predictorReady, buildPrompt,
   buildLivePrompt, snapshotMatches, collectOutright,
 } from './lib/predictor.js';
 
@@ -81,6 +81,8 @@ app.get('/api/state', async (req, res) => {
       })),
       leaderboard: leaderboard(scoredMatches, predictions, entrants),
       leaderboardByLab: labLeaderboard(scoredMatches, predictions, entrants),
+      // By-country view: blocs scored as a consensus of their labs' picks.
+      leaderboardByBloc: blocLeaderboard(scoredMatches, predictions, entrants, loadBlocs()),
       // The Bankroll: deterministic paper-trading fold over the whole ledger
       // (see lib/bankroll.js). Derived on read — same source every view uses.
       bankroll: computeBankrolls(all, predictions, entrants),

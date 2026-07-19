@@ -70,9 +70,12 @@ function viewToggleHtml(state) {
   return `<div class="lb-view" role="group" aria-label="Leaderboard view">
     <button class="lb-view-btn${viewMode === 'lab' ? ' active' : ''}" data-view="lab" aria-pressed="${viewMode === 'lab'}" title="One continuous record per lab — a substituted model's history carries over">By lab</button>
     <button class="lb-view-btn${viewMode === 'model' ? ' active' : ''}" data-view="model" aria-pressed="${viewMode === 'model'}" title="Every model separately — substituted models keep their own records">By model</button>
+    <button class="lb-view-btn${viewMode === 'bloc' ? ' active' : ''}" data-view="bloc" aria-pressed="${viewMode === 'bloc'}" title="Labs grouped into geopolitical blocs — each scored as the consensus of its labs' forecasts">By country</button>
     <span class="lb-view-hint">${viewMode === 'lab'
       ? 'One record per lab: when a lab substituted its newest model before the final, the line carries on.'
-      : 'Every entrant separately: substituted models keep their own full records.'}</span>
+      : viewMode === 'model'
+      ? 'Every entrant separately: substituted models keep their own full records.'
+      : 'National teams: each bloc\'s forecast is the average of its labs\' locked forecasts per match, scored like any competitor. The Market stays as the reference.'}</span>
   </div>`;
 }
 if (typeof document !== 'undefined') {
@@ -86,7 +89,9 @@ if (typeof document !== 'undefined') {
   }, true);
 }
 function boardOf(state) {
-  return viewMode === 'lab' && state.leaderboardByLab ? state.leaderboardByLab : state.leaderboard;
+  if (viewMode === 'lab' && state.leaderboardByLab) return state.leaderboardByLab;
+  if (viewMode === 'bloc' && state.leaderboardByBloc) return state.leaderboardByBloc;
+  return state.leaderboard;
 }
 /* Labs derived from the entrants list: one display entry per lab, with
    `members` (active first — the config order) for forecast lookups. */
@@ -1163,7 +1168,7 @@ function renderLeaderboard(state) {
           icon
             ? `<img class="crest crest-lg" src="${esc(icon)}" alt="" onerror="this.style.visibility='hidden'">`
             : ''
-        }<div><span class="lb-name">${r.model === MARKET_ID ? marketLabel(esc(r.label)) : esc(r.label)}</span><span class="lb-slug">${r.model === MARKET_ID ? MARKET_ATTRIBUTION : esc(memberChain(r) ?? r.model)}</span></div></div>
+        }<div><span class="lb-name">${r.model === MARKET_ID ? marketLabel(esc(r.label)) : esc(r.label)}</span><span class="lb-slug">${r.model === MARKET_ID || r.model === 'market' ? MARKET_ATTRIBUTION : viewMode === 'bloc' && r.members?.length ? esc(r.members.join(' · ')) : esc(memberChain(r) ?? r.model)}</span></div></div>
         ${sparkline(r.perMatch) ? `<div class="lb-spark">${sparkline(r.perMatch)}${trendBadge}</div>` : '<div class="lb-spark"></div>'}
         <div class="lb-score">
           <div class="lb-brier" title="Average Brier score — lower is better">${r.avgBrier == null ? '-' : r.avgBrier.toFixed(3)}</div>
@@ -1415,7 +1420,7 @@ function renderModelDetail(state, modelId) {
   // open regardless of the active view.
   let rows = boardOf(state);
   let row = rows.find((r) => r.model === modelId);
-  for (const other of [state.leaderboard, state.leaderboardByLab]) {
+  for (const other of [state.leaderboard, state.leaderboardByLab, state.leaderboardByBloc]) {
     if (!row && other) { rows = other; row = other.find((r) => r.model === modelId); }
   }
   const meta = (row ? { id: row.model, label: row.label, icon: row.icon ?? entrantById(state, modelId)?.icon } : entrantById(state, modelId));
