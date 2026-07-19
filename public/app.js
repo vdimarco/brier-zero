@@ -1147,7 +1147,7 @@ function renderBankroll(state) {
       </div>
     </div>`;
   }).join('')}</div>
-  <p class="footnote">Paper trading with <b>virtual units</b> — no real money anywhere. Each agent starts with 1,000 units and places at most one bet per match: quarter-Kelly on its biggest edge against the locked TxODDS StablePrice line, only when the edge clears 2%; otherwise it sits out. Group-stage bets settle at the raw bookmaker line (vig included); knockout bets settle at fair (de-vigged) odds, since no single "advances" price is quoted. Settled by the same Merkle-verified scores as the leaderboard. The Market doesn't get a bankroll: it can't bet against itself. Tap a row for the full bet ledger.</p>`;
+  <p class="footnote">Group-stage bets settle at the raw bookmaker line (vig included); knockout bets settle at fair (de-vigged) odds, since no single "advances" price is quoted. The Market doesn't get a bankroll — it can't bet against itself. Tap a row for the full bet ledger.</p>`;
   for (const row of el.querySelectorAll('[data-model]')) {
     const open = () => { location.hash = `p/${encodeURIComponent(row.dataset.model)}`; };
     row.addEventListener('click', open);
@@ -1322,7 +1322,7 @@ function renderBankrollChart(state) {
         <b class="bkc-chip-v">${fmtUnits(l.final)}</b>
       </button>`).join('')}
     </div>
-    ${joinMarkers ? '<p class="bkc-note">○ marks a lab\'s newest release joining partway through — its predecessor\'s record lives on that model\'s own ledger.</p>' : ''}
+    ${joinMarkers ? '<p class="bkc-note">○ marks a substitute joining mid-tournament on a fresh book.</p>' : ''}
   </div>`;
 
   // Hover/click a line, end-label, or legend chip — all three reference

@@ -32,7 +32,7 @@
       <div class="hero-copy">
         <h1>Who's winning the <span class="gold">World Cup</span>?<span class="hero-by">According to the machines.</span></h1>
         <p id="hero-hook" class="hero-hook" hidden></p>
-        <p class="hero-sub">The machines are watching every game. Frontier models from nine AI labs get one identical prompt before each match — and the betting market itself (TxODDS StablePrice, de-vigged, on Solana) trades against them. Forecasts lock at kickoff and are Brier-scored as results arrive.</p>
+        <p class="hero-sub">One identical prompt per match, locked at kickoff. Paper bets settle against the real TxODDS line on Solana; Brier scores settle the argument.</p>
         <a class="hero-read" href="/research">
           <span class="np">New</span>
           <span>How the models called France–Spain &amp; England–Argentina</span>
@@ -62,7 +62,7 @@
 
     <section id="roster-section" aria-labelledby="roster-title">
       <h2 id="roster-title">The competitors</h2>
-      <p class="explainer">One identical prompt per match — the same words, only the fixture changes — put to frontier models from nine AI labs (eight ran the whole tournament; each lab's newest release was subbed in for the final, and xAI joined then), plus <span class="market-tip" tabindex="0" role="button" aria-haspopup="dialog" aria-label="What is The Market and where do its numbers come from?"><strong>The Market</strong><span class="market-tip-mark" aria-hidden="true">?</span></span>: TxODDS StablePrice consensus odds via TxLINE on Solana, de-vigged and scored under the same Brier rules. Click a competitor for its record.</p>
+      <p class="explainer">Agents from nine AI labs — eight ran the whole tournament, each lab's newest release subbed in for the final — plus <span class="market-tip" tabindex="0" role="button" aria-haspopup="dialog" aria-label="What is The Market and where do its numbers come from?"><strong>The Market</strong><span class="market-tip-mark" aria-hidden="true">?</span></span>: TxODDS StablePrice odds via TxLINE on Solana, de-vigged and scored under the same rules. Click a competitor for its record.</p>
       <div id="view-toggle"></div>
       <div id="roster" class="roster" aria-label="Model roster"></div>
     </section>
@@ -97,13 +97,13 @@
           </ul>
           <p class="brier-tip-foot"><b>Lower is better.</b> Being right with the right amount of confidence beats loud conviction in the wrong direction — that calibration is what this cup ranks.</p>
         </span>
-      </span> over each match's outcomes: 0 is a perfect forecast, a know-nothing coin flip scores 0.667 on a three-way group match and 0.5 on a two-way knockout tie, 2 is maximally wrong. Lower is better. Rank comes from <strong>shrunken skill vs the coin flip</strong> — each match scores (coin flip − Brier) ÷ coin flip, averaged with ten phantom coin-flip matches, so new entrants start neutral and earn rank as matches accumulate. <span class="market-tip" tabindex="0" role="button" aria-haspopup="dialog" aria-label="What is The Market and where do its numbers come from?"><strong>The Market</strong><span class="market-tip-mark" aria-hidden="true">?</span></span> is bookmaker consensus, not an LLM, scored under the same rules. Finished cards with a green badge mean the final score was Merkle-proved against TxODDS’s on-chain daily root on Solana. Click a competitor for its performance over time.</div>
+      </span> over each match's outcomes — lower is better. Rank uses <strong>shrunken skill vs the coin flip</strong>, so new entrants start neutral and earn rank as matches accumulate. <span class="market-tip" tabindex="0" role="button" aria-haspopup="dialog" aria-label="What is The Market and where do its numbers come from?"><strong>The Market</strong><span class="market-tip-mark" aria-hidden="true">?</span></span> is bookmaker consensus, not an LLM, scored under the same rules. Click a competitor for its performance over time.</div>
       <div id="leaderboard" class="skeleton-block" aria-live="polite"></div>
     </section>
 
     <section id="edge-section" aria-labelledby="edge-title" hidden>
       <h2 id="edge-title">Edge Board</h2>
-      <p class="explainer">Where the machines disagree with the market right now. Consensus and per-agent edge vs the live TxODDS StablePrice line — the same signal the agents bet. Exhibition only: paper units, no betting advice.</p>
+      <p class="explainer">Where the machines disagree with the market right now. Consensus and per-agent edge vs the live TxODDS StablePrice line — the same signal the agents bet.</p>
       <div id="edgeboard" aria-live="polite"></div>
     </section>
 
