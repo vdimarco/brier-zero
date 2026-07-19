@@ -202,12 +202,12 @@ p{max-width:64ch}
 
   <div class="scorestrip">
     <div class="score">
-      <div class="comp">Quarter-final · Full time</div>
+      <div class="comp">Semi-final · Full time</div>
       <div class="line"><span class="team"><span class="dot" style="background:var(--home)"></span>France</span><span class="gf out">0</span></div>
       <div class="line"><span class="team"><span class="dot" style="background:var(--away)"></span>Spain <span class="adv">▸ through</span></span><span class="gf">2</span></div>
     </div>
     <div class="score">
-      <div class="comp">Quarter-final · Full time</div>
+      <div class="comp">Semi-final · Full time</div>
       <div class="line"><span class="team"><span class="dot" style="background:var(--home)"></span>England</span><span class="gf out">1</span></div>
       <div class="line"><span class="team"><span class="dot" style="background:var(--away)"></span>Argentina <span class="adv">▸ through</span></span><span class="gf">2</span></div>
     </div>
@@ -457,7 +457,7 @@ p{max-width:64ch}
   <p style="font:500 12.5px/1.5 var(--mono);color:var(--faint);margin-top:10px">Cell shows the side each model favoured. Struck-through = eliminated. Gemini&#x27;s row is a backtest — see below.</p>
 
   <h2>The eighth model, scored after the whistle</h2>
-  <p class="section-note">Gemini 3.1 Pro joined the Brier Cup <em>after</em> these two quarter-finals, so on the boards above it has no locked forecast — only a <b>backtest</b>: the exact pre-kickoff prompt, replayed after full time, with no result anywhere in it. On these two coin-flips it looks ordinary. It shaded France, then England, and lost both by a single point — the same both-wrong corner as Kimi. Two matches decide nothing.</p>
+  <p class="section-note">Gemini 3.1 Pro joined the Brier Cup <em>after</em> these two semi-finals, so on the boards above it has no locked forecast — only a <b>backtest</b>: the exact pre-kickoff prompt, replayed after full time, with no result anywhere in it. On these two coin-flips it looks ordinary. It shaded France, then England, and lost both by a single point — the same both-wrong corner as Kimi. Two matches decide nothing.</p>
   <p class="section-note">So we replayed that prompt across <b>every one of the 102 matches already played</b> this tournament and scored each against the real result. Over a full season the picture inverts:</p>
   <div style="overflow-x:auto">
   <table class="stand">
@@ -478,7 +478,7 @@ p{max-width:64ch}
   <p class="section-note" style="color:var(--faint);font-size:14px">Fine print, because it matters: a backtest is not a locked forecast. The prompt holds no result and these models were trained before a ball was kicked — but a backtest lacks the pre-kickoff timestamp the live board requires, so Gemini&#x27;s numbers are labelled backtest and never enter the live leaderboard. The other seven figures are the models&#x27; real, pre-kickoff forecasts.</p>
 
   <h2>Lab standings — knockout phase</h2>
-  <p class="section-note">Which lab's best model prices knockouts sharpest? Each lab is ranked by its <b>best-in-lab</b> average Brier across the 30 finished knockout ties (R32→SF). Click a lab to expand every model that lab fielded. All 16 models scored; two labs (Moonshot, OpenAI) are marked <b>partial</b> because a handful of calls failed mid-run — still 20+ of 30 matches each, not a placeholder.</p>
+  <p class="section-note">Which lab's best model prices knockouts sharpest? Each lab is ranked by its <b>best-in-lab</b> average Brier on the advance market across the 30 finished knockout ties (R32→SF) — a two-way coin flip is 0.500. Ten labs, 22 models: roster models are scored from the <b>live prediction ledger</b> (the same records the leaderboard settles), backtest-only candidates keep their original lab-backtest numbers, and long-running models show fewer scored ties because they priced early rounds under the old 90-minute market — mind the sample sizes. <b>Partial</b> marks a lab with any row short of 30. Click a lab to expand its full slate.</p>
   <div id="lab-board" class="lab-board" aria-live="polite">
     <p class="section-note" style="color:var(--faint)">Loading lab backtest…</p>
   </div>
