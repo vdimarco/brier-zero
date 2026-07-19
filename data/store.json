@@ -34709,6 +34709,82 @@
             "rationale": "Argentina down to 10 men in extra time heavily favors Spain's chances to score and advance."
           }
         }
+      },
+      {
+        "at": "2026-07-19T21:32:55.171Z",
+        "detail": "101'",
+        "score": [
+          0,
+          0
+        ],
+        "events": 1,
+        "period": "STATUS_OVERTIME",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.72,
+              "away": 0.28
+            },
+            "rationale": "Spain has a man advantage in extra time with the score level, giving them a significant edge to win in ET or penalties."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.78,
+              "away": 0.22
+            },
+            "rationale": "With Argentina down to 10 men from the 93rd minute in a tied final, Spain’s numerical advantage in extra time and potential shootout edge makes them strong but not overwhelming favorites to advance."
+          },
+          "deepseek/deepseek-v4-pro": {
+            "probs": {
+              "home": 0.7,
+              "away": 0.3
+            },
+            "rationale": "Spain has a one-man advantage for the remaining 19 minutes of extra time, significantly increasing their chances to score and avoid a penalty shootout, while Argentina will likely defend deep and hope to hold on."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0.68,
+              "away": 0.32
+            },
+            "rationale": "Spain holds a decisive man advantage in extra time of the final, giving them a strong edge to find a winner or prevail over 30 minutes against ten-man Argentina."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.57,
+              "away": 0.43
+            },
+            "rationale": "Spain's numerical advantage from Enzo Fernández's red card gives them a meaningful edge to break the deadlock in the remaining extra time, but a 0-0 scoreline through 101 minutes suggests strong Argentine defensive resilience, and Argentina's historically strong penalty record keeps them competitive if the match reaches a shootout."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.66,
+              "away": 0.34
+            },
+            "rationale": "Spain has a man advantage after Argentina's red card and is controlling the match."
+          },
+          "google/gemini-3.1-pro-preview": {
+            "probs": {
+              "home": 0.63,
+              "away": 0.37
+            },
+            "rationale": "With Argentina down to ten men for the entirety of extra time, Spain has a distinct advantage to find a winning goal before a roughly even penalty shootout."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0.68,
+              "away": 0.32
+            },
+            "rationale": "Spain hold a man advantage for the remaining ~19 minutes of extra time plus any penalties in a 0-0 final, which significantly raises their chances of scoring or holding for a shootout edge."
+          },
+          "mistralai/mistral-medium-3-5": {
+            "probs": {
+              "home": 0.75,
+              "away": 0.25
+            },
+            "rationale": "Argentina down to 10 men in extra time heavily favors Spain's chances."
+          }
+        }
       }
     ]
   },
