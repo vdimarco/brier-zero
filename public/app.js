@@ -1244,9 +1244,17 @@ function renderBankrollChart(state) {
   section.hidden = false;
 
   const { lines, matchName, start, n } = data;
-  // Right-hand lane reserved for direct end-labels ("Claude Opus 4.7 991")
-  // so they never overlap the plotted lines or run off the viewBox.
-  const W = 960, H = 380, ML = 54, LABEL_LANE = 190, MR = 16 + LABEL_LANE, MT = 18, MB = 28;
+  // The SVG scales with its container, so a 960-unit viewBox squeezed
+  // into a phone renders text at ~40% size — illegible. Below 640px the
+  // chart re-renders in a compact geometry: a narrow viewBox (so glyphs
+  // keep roughly CSS-pixel size), values-only end labels, and the legend
+  // carrying the names.
+  const compact = (el.clientWidth || section.clientWidth || 800) < 640;
+  // Right-hand lane reserved for direct end-labels ("Claude Opus 4.7 991",
+  // or just "1,566" when compact) so they never overlap the plotted lines.
+  const W = compact ? 420 : 960, H = compact ? 340 : 380,
+    ML = compact ? 40 : 54, LABEL_LANE = compact ? 52 : 190,
+    MR = (compact ? 8 : 16) + LABEL_LANE, MT = 18, MB = compact ? 24 : 28;
   const x = (i) => ML + ((i + 1) / n) * (W - MR - ML);
   let lo = start, hi = start;
   for (const l of lines) for (const p of l.pts) { lo = Math.min(lo, p.v); hi = Math.max(hi, p.v); }
@@ -1282,22 +1290,26 @@ function renderBankrollChart(state) {
       <title>${esc(l.label)} joined at match ${l.pts[0].i + 2} of ${n}</title>
     </circle>`).join('');
 
-  // Direct end-labels for every line, pushed apart top-to-bottom so none
-  // overlap — with 9 series this still beats a legend-only chart for
-  // "who's ahead right now."
+  // Direct end-labels for every line, spread apart only where lines
+  // bunch. Two passes: push down to clear collisions, then push back up
+  // from the bottom edge — labels compress into free gaps instead of the
+  // whole stack drifting off its lines.
   const MIN_GAP = 15;
-  const raw = ranked.map((l) => ({ l, y: y(l.final) })).sort((a, b) => a.y - b.y);
+  const raw = ranked
+    .map((l) => ({ l, lineY: y(l.pts[l.pts.length - 1].v), y: y(l.final) }))
+    .sort((a, b) => a.y - b.y);
   for (let i = 1; i < raw.length; i++) {
-    if (raw[i].y - raw[i - 1].y < MIN_GAP) raw[i].y = raw[i - 1].y + MIN_GAP;
+    raw[i].y = Math.max(raw[i].y, raw[i - 1].y + MIN_GAP);
   }
-  // If pushing down ran the bottom labels off-chart, settle the whole
-  // stack back up so it fits inside the plot area.
-  const overflow = raw[raw.length - 1].y - (H - MB);
-  if (overflow > 0) for (const r of raw) r.y -= overflow;
+  raw[raw.length - 1].y = Math.min(raw[raw.length - 1].y, H - MB - 2);
+  for (let i = raw.length - 2; i >= 0; i--) {
+    raw[i].y = Math.min(raw[i].y, raw[i + 1].y - MIN_GAP);
+  }
   const lastX = x(n - 1);
-  const endLabels = raw.map(({ l, y: ly }) => `<g class="bkc-endlabel" data-lab="${esc(l.lab)}" data-model="${esc(l.id)}">
-      <circle cx="${(lastX + 4).toFixed(1)}" cy="${ly.toFixed(1)}" r="2.5" fill="${l.color}"/>
-      <text x="${(lastX + 10).toFixed(1)}" y="${(ly + 3.5).toFixed(1)}">${esc(l.label)} <tspan class="bkc-endlabel-v">${fmtUnits(l.final)}</tspan></text>
+  const endLabels = raw.map(({ l, lineY, y: ly }) => `<g class="bkc-endlabel" data-lab="${esc(l.lab)}" data-model="${esc(l.id)}">
+      ${Math.abs(ly - lineY) > 4 ? `<line class="bkc-leader" x1="${(lastX + 1).toFixed(1)}" y1="${lineY.toFixed(1)}" x2="${(lastX + 7).toFixed(1)}" y2="${ly.toFixed(1)}" style="stroke:${l.color}"/>` : ''}
+      <circle cx="${(lastX + 8).toFixed(1)}" cy="${ly.toFixed(1)}" r="2.5" fill="${l.color}"/>
+      <text x="${(lastX + 14).toFixed(1)}" y="${(ly + 3.5).toFixed(1)}">${compact ? '' : `${esc(l.label)} `}<tspan class="bkc-endlabel-v">${fmtUnits(l.final)}</tspan></text>
     </g>`).join('');
 
   el.innerHTML = `<div class="bkc-card">
@@ -1307,7 +1319,7 @@ function renderBankrollChart(state) {
         ${ticks.map((v) => `<g><line class="bkc-grid" x1="${ML}" y1="${y(v).toFixed(1)}" x2="${W - MR}" y2="${y(v).toFixed(1)}"/>
           <text class="bkc-tick" x="${ML - 8}" y="${(y(v) + 3.5).toFixed(1)}" text-anchor="end">${fmtUnits(v)}</text></g>`).join('')}
         <line class="bkc-base" x1="${ML}" y1="${y(start).toFixed(1)}" x2="${W - MR}" y2="${y(start).toFixed(1)}"/>
-        <text class="bkc-tick bkc-base-label" x="${ML - 8}" y="${(y(start) + 3.5).toFixed(1)}" text-anchor="end">${fmtUnits(start)} start</text>
+        <text class="bkc-tick bkc-base-label" x="${ML - 8}" y="${(y(start) + 3.5).toFixed(1)}" text-anchor="end">${compact ? fmtUnits(start) : `${fmtUnits(start)} start`}</text>
         ${leaderFill}
         ${paths}
         ${joinMarkers}
@@ -1364,6 +1376,20 @@ function renderBankrollChart(state) {
   });
   wrap.addEventListener('mouseleave', () => { cursor.hidden = true; tip.hidden = true; });
 }
+
+// Crossing the 640px compact threshold needs a re-render, not just CSS —
+// the geometry and label style change. Debounced; wired once.
+let bkcResizeWired = false;
+function wireBankChartResize() {
+  if (bkcResizeWired || typeof window === 'undefined') return;
+  bkcResizeWired = true;
+  let t;
+  window.addEventListener('resize', () => {
+    clearTimeout(t);
+    t = setTimeout(() => { if (lastState) renderBankrollChart(lastState); }, 150);
+  });
+}
+wireBankChartResize();
 
 // The bet ledger for one model, rendered inside the model detail panel.
 function betLedgerHtml(state, modelId) {
