@@ -34308,6 +34308,82 @@
             "rationale": "No score and no key events at 80' in a high-stakes final implies near-even chances for both teams to advance."
           }
         }
+      },
+      {
+        "at": "2026-07-19T21:08:08.525Z",
+        "detail": "89'",
+        "score": [
+          0,
+          0
+        ],
+        "events": 0,
+        "period": "STATUS_SECOND_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "With no goals and no key events at 89', the match is heading to extra time as a coin flip between two elite sides."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.55,
+              "away": 0.45
+            },
+            "rationale": "With the match level at 89', advancing chances are close to even, but Spain’s slightly stronger recent form and depth give them a small edge over Argentina across extra time and penalties."
+          },
+          "deepseek/deepseek-v4-pro": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "With the match scoreless and only minutes left, the likelihood of a late decider is small, leaving advancement chances nearly equal between the two elite sides."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "Deadlocked at 0-0 in the 89th minute of a final with no key events, this is heading to extra time where Argentina's recent big-tournament pedigree and penalty shootout experience give them a slight edge in an otherwise coin-flip scenario."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "With the match essentially heading to extra time and likely penalties, Spain holds a marginal edge due to superior squad depth and youthful energy that could prove decisive in 30 additional minutes, but this is nearly a coin flip between two elite finalists."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.47,
+              "away": 0.53
+            },
+            "rationale": "With a minute left in regulation and no goals, this will likely go to extra time where Argentina holds a slight historical edge in knockout finals and penalties."
+          },
+          "google/gemini-3.1-pro-preview": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "With the match tied at 0-0 in the 89th minute, extra time and potentially penalties are highly likely, giving a slight edge to Argentina due to their recent shootout pedigree and World Cup experience."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "At 0-0 in the 89th minute with no key events, the tie is almost certain to reach extra time and likely penalties, giving both elite sides essentially equal advancement odds."
+          },
+          "mistralai/mistral-medium-3-5": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "No goals scored and minimal events suggest an even match heading into stoppage time."
+          }
+        }
       }
     ]
   },
