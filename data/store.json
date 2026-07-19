@@ -33409,6 +33409,89 @@
             "rationale": "No goals or key events yet, teams evenly matched at this early stage."
           }
         }
+      },
+      {
+        "at": "2026-07-19T19:37:02.620Z",
+        "detail": "30'",
+        "score": [
+          0,
+          0
+        ],
+        "events": 0,
+        "period": "STATUS_FIRST_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.58,
+              "away": 0.42
+            },
+            "rationale": "Spain enters as a slight favorite based on recent form and squad depth, and with the score level early there's been little information to shift from pre-match expectations."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "With the match still goalless early and both teams elite, Spain gets a very slight edge based on marginally stronger recent form and squad depth, but it remains close to a coin flip."
+          },
+          "deepseek/deepseek-v4-pro": {
+            "probs": {
+              "home": 0.55,
+              "away": 0.45
+            },
+            "rationale": "Slight advantage to Spain given their possession-based style in high-pressure finals and Argentina's relatively slower starts in this tournament, but still very early and evenly matched."
+          },
+          "moonshotai/kimi-k3": {
+            "probs": {
+              "home": 0.53,
+              "away": 0.47
+            },
+            "rationale": "At 0-0 after 30 minutes the tie is nearly a coin flip, with Spain holding only a slight edge as the marginally stronger current side while the scoreless clock pushes the outcome toward extra time and penalties where variance dominates."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "Scoreless and eventless after 30 minutes, the tightly contested final remains roughly a coin flip with a slight edge to Spain's midfield control."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.53,
+              "away": 0.47
+            },
+            "rationale": "At 0-0 through 30 minutes of a tight final, both elite sides remain evenly matched, with Spain holding a marginal edge due to a younger, deeper squad and strong recent tournament form, while Argentina's champion experience keeps them nearly level."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "At 30 minutes with a scoreless draw, the match remains tightly contested, with Spain slightly favored due to their strong midfield control."
+          },
+          "google/gemini-3.1-pro-preview": {
+            "probs": {
+              "home": 0.49,
+              "away": 0.51
+            },
+            "rationale": "With the match scoreless at the 30-minute mark and no major events, the tie remains incredibly balanced between two elite sides, giving a marginal edge to the defending champions Argentina based on their recent tournament pedigree."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0.51,
+              "away": 0.49
+            },
+            "rationale": "Early 0-0 in a final between two elite sides leaves it essentially a coin flip with a razor-thin edge to Spain on squad depth and recent tournament form."
+          },
+          "mistralai/mistral-medium-3-5": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "No score and no key events at 30' in a balanced final, so equal chances."
+          }
+        }
       }
     ]
   },
