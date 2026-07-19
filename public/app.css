@@ -1388,16 +1388,16 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
 .odds-source { text-transform: none; letter-spacing: 0; opacity: 0.8; }
 
 /* The Market: every mention is a tap target opening the sourcing modal. */
-.market-tip {
+.market-tip, .kelly-tip {
   display: inline-flex; align-items: center; gap: 4px;
   cursor: pointer; min-width: 0; position: relative;
   border-bottom: 1px dashed rgba(10, 122, 51, 0.45);
 }
 /* Inline in prose, so grow the touch target with an invisible overlay
    instead of padding that would push the underline off the text. */
-.market-tip::after { content: ""; position: absolute; inset: -9px -4px; }
-.market-tip:hover, .market-tip:focus-visible { border-bottom-color: var(--pitch); color: var(--pitch-deep); }
-.market-tip:focus-visible { outline: 1px solid var(--pitch); outline-offset: 2px; border-radius: 3px; }
+.market-tip::after, .kelly-tip::after { content: ""; position: absolute; inset: -9px -4px; }
+.market-tip:hover, .market-tip:focus-visible, .kelly-tip:hover, .kelly-tip:focus-visible { border-bottom-color: var(--pitch); color: var(--pitch-deep); }
+.market-tip:focus-visible, .kelly-tip:focus-visible { outline: 1px solid var(--pitch); outline-offset: 2px; border-radius: 3px; }
 .market-tip-mark {
   display: inline-flex; align-items: center; justify-content: center;
   width: 14px; height: 14px; border-radius: 50%; flex: none;
@@ -1406,11 +1406,11 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
 }
 .lb-name .market-tip, .detail-title .market-tip { border-bottom-width: 1px; }
 
-#market-modal .mkt-scrim {
+#market-modal .mkt-scrim, #kelly-modal .mkt-scrim {
   position: fixed; inset: 0; z-index: 60;
   background: rgba(12, 26, 14, 0.45);
 }
-#market-modal .mkt-panel {
+#market-modal .mkt-panel, #kelly-modal .mkt-panel {
   position: fixed; z-index: 61;
   top: 50%; left: 50%; transform: translate(-50%, -50%);
   width: min(460px, calc(100vw - 24px));
@@ -1420,20 +1420,20 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
   box-shadow: 0 12px 40px rgba(12, 26, 14, 0.25);
   padding: 22px 22px 18px;
 }
-#market-modal h3 { margin: 0 34px 10px 0; font-size: 17px; letter-spacing: -0.01em; }
-#market-modal p, #market-modal li { color: var(--ink-2); font-size: 14px; line-height: 1.55; }
-#market-modal p { margin: 0 0 10px; }
-#market-modal ul { margin: 0 0 10px; padding-left: 20px; }
-#market-modal li { margin-bottom: 8px; }
-#market-modal li b, #market-modal p strong { color: var(--ink); }
-#market-modal .mkt-foot { color: var(--ink-3); font-size: 12.5px; margin: 12px 0 0; border-top: 1px solid var(--hairline); padding-top: 12px; }
-#market-modal .mkt-close {
+#market-modal h3, #kelly-modal h3 { margin: 0 34px 10px 0; font-size: 17px; letter-spacing: -0.01em; }
+#market-modal p, #market-modal li, #kelly-modal p, #kelly-modal li { color: var(--ink-2); font-size: 14px; line-height: 1.55; }
+#market-modal p, #kelly-modal p { margin: 0 0 10px; }
+#market-modal ul, #kelly-modal ul { margin: 0 0 10px; padding-left: 20px; }
+#market-modal li, #kelly-modal li { margin-bottom: 8px; }
+#market-modal li b, #market-modal p strong, #kelly-modal li b, #kelly-modal p strong { color: var(--ink); }
+#market-modal .mkt-foot, #kelly-modal .mkt-foot { color: var(--ink-3); font-size: 12.5px; margin: 12px 0 0; border-top: 1px solid var(--hairline); padding-top: 12px; }
+#market-modal .mkt-close, #kelly-modal .mkt-close {
   position: absolute; top: 10px; right: 10px;
   width: 36px; height: 36px; border-radius: 50%;
   background: none; border: 0; cursor: pointer;
   color: var(--ink-3); font-size: 15px;
 }
-#market-modal .mkt-close:hover, #market-modal .mkt-close:focus-visible { background: var(--surface-2); color: var(--ink); }
+#market-modal .mkt-close:hover, #market-modal .mkt-close:focus-visible, #kelly-modal .mkt-close:hover, #kelly-modal .mkt-close:focus-visible { background: var(--surface-2); color: var(--ink); }
 body.mkt-open { overflow: hidden; }
 
 /* Settlement proof modal (reuses .mkt-scrim/.mkt-panel/.mkt-close scaffold). */
@@ -1747,3 +1747,10 @@ th.edge-num, td.edge-num { text-align: right; font-variant-numeric: tabular-nums
   text-underline-offset: 3px;
 }
 .hero-sub-link:hover { text-decoration-color: var(--kit-gold); color: #ffffff; }
+
+/* Kelly modal: inherit the market modal shell; code spans read as math */
+#kelly-modal .mkt-panel code {
+  font: 600 12.5px/1.5 var(--mono, ui-monospace, monospace);
+  background: var(--surface-2); border-radius: 4px; padding: 1px 5px;
+  white-space: nowrap;
+}

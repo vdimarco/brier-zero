@@ -213,6 +213,10 @@ if (typeof document !== 'undefined') {
   const marketModal = () => document.getElementById('market-modal');
   const openMarketModal = () => { const m = marketModal(); if (m) { m.hidden = false; document.body.classList.add('mkt-open'); m.querySelector('.mkt-close')?.focus(); } };
   const closeMarketModal = () => { const m = marketModal(); if (m && !m.hidden) { m.hidden = true; document.body.classList.remove('mkt-open'); } };
+  // Quarter-Kelly explainer modal: same shell and wiring as the market one.
+  const kellyModal = () => document.getElementById('kelly-modal');
+  const openKellyModal = () => { const m = kellyModal(); if (m) { m.hidden = false; document.body.classList.add('mkt-open'); m.querySelector('.mkt-close')?.focus(); } };
+  const closeKellyModal = () => { const m = kellyModal(); if (m && !m.hidden) { m.hidden = true; document.body.classList.remove('mkt-open'); } };
   document.addEventListener('click', (e) => {
     const proofBtn = e.target.closest?.('.proof-badge[data-proof]');
     const copyBtn = e.target.closest?.('.proof-copy[data-copy]');
@@ -235,10 +239,18 @@ if (typeof document !== 'undefined') {
       e.preventDefault();
       e.stopPropagation();
       openMarketModal();
+    } else if (e.target.closest?.('.kelly-tip')) {
+      e.preventDefault();
+      e.stopPropagation();
+      openKellyModal();
     } else if (e.target.closest?.('[data-mkt-close]')) {
       e.preventDefault();
       e.stopPropagation();
       closeMarketModal();
+    } else if (e.target.closest?.('[data-kelly-close]')) {
+      e.preventDefault();
+      e.stopPropagation();
+      closeKellyModal();
     }
   }, true);
   document.addEventListener('keydown', (e) => {
@@ -247,6 +259,12 @@ if (typeof document !== 'undefined') {
       e.preventDefault();
       e.stopPropagation();
       openMarketModal();
+    }
+    const ktip = e.target.closest?.('.kelly-tip');
+    if (ktip && (e.key === 'Enter' || e.key === ' ')) {
+      e.preventDefault();
+      e.stopPropagation();
+      openKellyModal();
     }
     const badge = e.target.closest?.('.proof-badge[data-proof]');
     if (badge && (e.key === 'Enter' || e.key === ' ')) {
@@ -258,6 +276,7 @@ if (typeof document !== 'undefined') {
     }
     if (e.key === 'Escape') {
       closeMarketModal();
+      closeKellyModal();
       closeProofModal();
       // Close tip popovers too, wherever focus is.
       document.querySelectorAll('.brier-tip.open').forEach((t) => t.classList.remove('open'));
@@ -1442,7 +1461,7 @@ function betLedgerHtml(state, modelId) {
     </tr>`;
   }).join('');
   return `<h3>Bet ledger <span class="bet-paper">paper units</span></h3>
-  <p class="bank-strategy"><b>Strategy:</b> quarter-Kelly on largest edge vs the de-vigged StablePrice line; sits out under 2% edge; max 10% of bankroll. <span class="bank-strategy-note">Identical for every agent — the strategy is held constant so the ledger isolates forecasting skill.</span></p>
+  <p class="bank-strategy"><b>Strategy:</b> <span class="kelly-tip" tabindex="0" role="button" aria-haspopup="dialog" aria-label="What is a quarter-Kelly bet?">quarter-Kelly<span class="market-tip-mark" aria-hidden="true">?</span></span> on largest edge vs the de-vigged StablePrice line; sits out under 2% edge; max 10% of bankroll. <span class="bank-strategy-note">Identical for every agent — the strategy is held constant so the ledger isolates forecasting skill.</span></p>
   <p class="fnote">Newest first. Sitting out is a decision too, so no-bets are shown. <b>f</b> marks knockout bets settled at fair (de-vigged) odds. <b>✓</b> opens the verified-settlement audit trail.</p>
   <div class="bet-scroll"><table class="bet-table">
     <thead><tr><th>Match</th><th>Backed</th><th class="bet-num">Stake</th><th class="bet-num">P&amp;L</th><th class="bet-num">Bank</th></tr></thead>

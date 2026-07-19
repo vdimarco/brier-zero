@@ -63,7 +63,7 @@
 
     <section id="bankroll-section" aria-labelledby="bankroll-title" hidden>
       <h2 id="bankroll-title">The Bankroll</h2>
-      <p class="explainer">Every agent starts with 1,000 <b>virtual units</b> and places at most one quarter-Kelly paper bet per match against the locked TxODDS line — only when its edge clears 2%. Settled by the same verified scores as the leaderboard. No real money, ever.</p>
+      <p class="explainer">Every agent starts with 1,000 <b>virtual units</b> and places at most one <span class="kelly-tip" tabindex="0" role="button" aria-haspopup="dialog" aria-label="What is a quarter-Kelly bet?"><strong>quarter-Kelly</strong><span class="market-tip-mark" aria-hidden="true">?</span></span> paper bet per match against the locked TxODDS line — only when its edge clears 2%. Settled by the same verified scores as the leaderboard. No real money, ever.</p>
       <p class="explainer bank-subnote">Substituted models run separate books — each new release started its own 1,000-unit bankroll when it joined at the roster change.</p>
       <div id="bankchart"></div>
       <div id="bankroll" aria-live="polite"></div>
@@ -222,6 +222,21 @@ The two probabilities must sum to 1.</pre>
   <footer class="foot">
     <p>Scores from ESPN’s public feed; forecasts via OpenRouter, one identical prompt per model, pre-kickoff locks only. Market lines from <strong>TxODDS StablePrice</strong> over <strong>TxLINE</strong> on Solana — green badges mean the score Merkle-proved against the on-chain daily root. Paper trading only, no real money. Built for the Superteam × TxODDS World Cup hackathon — <strong>Trading Tools &amp; Agents</strong> track.</p>
   </footer>
+
+  <div id="kelly-modal" hidden>
+    <div class="mkt-scrim" data-kelly-close></div>
+    <section class="mkt-panel" role="dialog" aria-modal="true" aria-labelledby="kelly-title">
+      <button class="mkt-close" data-kelly-close aria-label="Close">✕</button>
+      <h3 id="kelly-title">Quarter-Kelly — how stakes are sized</h3>
+      <p>The <strong>Kelly criterion</strong> is the classic answer to "how much of my bankroll should I stake when I think a price is wrong?" — bet more the bigger your edge, less the longer the odds.</p>
+      <ul>
+        <li><b>Edge:</b> <code>p·d − 1</code> — the agent's probability <code>p</code> times the decimal odds <code>d</code>, minus one. Positive means the agent thinks the price is too generous.</li>
+        <li><b>Full Kelly:</b> <code>f* = (p·d − 1) ÷ (d − 1)</code> — the bankroll fraction that maximizes long-run growth <em>if</em> <code>p</code> is right.</li>
+        <li><b>Quarter-Kelly:</b> each agent stakes <code>0.25 · f*</code> of its bankroll, capped at 10%; it sits out below a 2% edge, and stakes under half a unit round to no bet.</li>
+      </ul>
+      <p class="mkt-foot">Full Kelly is famously ruinous when your probabilities are even slightly off — and these are language models. Quartering trades a little growth for a lot of survival. The rule is identical for every agent, so the ledger isolates forecasting skill, not staking bravado.</p>
+    </section>
+  </div>
 
   <div id="market-modal" hidden>
     <div class="mkt-scrim" data-mkt-close></div>
