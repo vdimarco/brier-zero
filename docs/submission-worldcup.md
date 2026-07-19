@@ -56,7 +56,7 @@ That turns a fun AI benchmark into a market-efficiency experiment: the leaderboa
 
 > **Judges access checklist**
 > 1. App is public at worldcup.uptick.fyi (Vercel production).
-> 2. Repo is currently **private** — make it public before submit, or add Superteam/judges as collaborators and paste an access note.
+> 2. Repo is **public** (MIT-licensed) at https://github.com/vdimarco/brier-zero. ✓
 > 3. For live odds on production (not only backfilled leaderboard rows), set Vercel env: `TXODDS_API_TOKEN`, `TXODDS_ENV` (see `docs/txodds-integration.md`). Historical market Brier scores and Solana badges work from the committed ledger without runtime TxLINE calls.
 
 ## Demo script (≤5 min video)
