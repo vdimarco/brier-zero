@@ -104,6 +104,7 @@
   </main>
 
   <div id="detail"></div>
+  <div id="proof-modal" hidden></div>
 
   <section class="prompt-section" aria-labelledby="prompt-title">
     <div class="prompt-inner">
@@ -111,19 +112,61 @@
       <p class="explainer">Every model receives exactly the same words, with only the fixture filled in. No odds, no news, no hints. Rendered live from the same code that builds the real prompts.</p>
       <details>
         <summary>Before kickoff, group stage: the scored forecast</summary>
-        <pre id="prompt-locked">Loading</pre>
+        <pre id="prompt-locked">You are entering a forecasting competition scored by Brier score (lower is better).
+Forecast the FIFA World Cup 2026 match below. Give your honest probabilities for the result after 90 minutes of regulation time (extra time and penalties count as a draw).
+
+Match: {HOME TEAM} vs {AWAY TEAM}
+Stage: {STAGE}
+Kickoff (UTC): {KICKOFF UTC}
+Venue: {VENUE}
+
+Respond with ONLY a JSON object, no markdown, in exactly this shape:
+{"home": &lt;P({HOME TEAM} wins in 90')&gt;, "draw": &lt;P(draw in 90')&gt;, "away": &lt;P({AWAY TEAM} wins in 90')&gt;, "rationale": "&lt;one sentence&gt;"}
+The three probabilities must sum to 1.</pre>
       </details>
       <details>
         <summary>Before kickoff, knockout: who advances</summary>
-        <pre id="prompt-locked-ko">Loading</pre>
+        <pre id="prompt-locked-ko">You are entering a forecasting competition scored by Brier score (lower is better).
+Forecast the FIFA World Cup 2026 knockout match below. Give your honest probabilities that each team advances, i.e. wins the tie, whether in 90 minutes, extra time, or on penalties.
+
+Match: {HOME TEAM} vs {AWAY TEAM}
+Stage: {STAGE}
+Kickoff (UTC): {KICKOFF UTC}
+Venue: {VENUE}
+
+Respond with ONLY a JSON object, no markdown, in exactly this shape:
+{"home": &lt;P({HOME TEAM} advances)&gt;, "away": &lt;P({AWAY TEAM} advances)&gt;, "rationale": "&lt;one sentence&gt;"}
+The two probabilities must sum to 1.</pre>
       </details>
       <details>
         <summary>In-play updates, group stage: exhibition only</summary>
-        <pre id="prompt-live">Loading</pre>
+        <pre id="prompt-live">You are giving a LIVE in-play forecast for a FIFA World Cup 2026 match, scored informally by Brier score (lower is better).
+Given the current state below, give your honest probabilities for the FINAL result after 90 minutes of regulation (extra time and penalties count as a draw).
+
+Match: {HOME TEAM} vs {AWAY TEAM}
+Stage: {STAGE}
+Current score: {HOME TEAM} {HOME GOALS} - {AWAY GOALS} {AWAY TEAM}
+Match clock: {MATCH CLOCK}
+Key events so far: {GOALS AND RED CARDS SO FAR}
+
+Respond with ONLY a JSON object, no markdown, in exactly this shape:
+{"home": &lt;P({HOME TEAM} wins in 90')&gt;, "draw": &lt;P(draw in 90')&gt;, "away": &lt;P({AWAY TEAM} wins in 90')&gt;, "rationale": "&lt;one sentence&gt;"}
+The three probabilities must sum to 1.</pre>
       </details>
       <details>
         <summary>In-play updates, knockout: exhibition only</summary>
-        <pre id="prompt-live-ko">Loading</pre>
+        <pre id="prompt-live-ko">You are giving a LIVE in-play forecast for a FIFA World Cup 2026 knockout match, scored informally by Brier score (lower is better).
+Given the current state below, give your honest probabilities that each team ultimately advances, i.e. wins the tie, whether in 90 minutes, extra time, or on penalties.
+
+Match: {HOME TEAM} vs {AWAY TEAM}
+Stage: {STAGE}
+Current score: {HOME TEAM} {HOME GOALS} - {AWAY GOALS} {AWAY TEAM}
+Match clock: {MATCH CLOCK}
+Key events so far: {GOALS AND RED CARDS SO FAR}
+
+Respond with ONLY a JSON object, no markdown, in exactly this shape:
+{"home": &lt;P({HOME TEAM} advances)&gt;, "away": &lt;P({AWAY TEAM} advances)&gt;, "rationale": "&lt;one sentence&gt;"}
+The two probabilities must sum to 1.</pre>
       </details>
     </div>
   </section>

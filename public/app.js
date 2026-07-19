@@ -214,7 +214,24 @@ if (typeof document !== 'undefined') {
   const openMarketModal = () => { const m = marketModal(); if (m) { m.hidden = false; document.body.classList.add('mkt-open'); m.querySelector('.mkt-close')?.focus(); } };
   const closeMarketModal = () => { const m = marketModal(); if (m && !m.hidden) { m.hidden = true; document.body.classList.remove('mkt-open'); } };
   document.addEventListener('click', (e) => {
-    if (e.target.closest?.('.market-tip')) {
+    const proofBtn = e.target.closest?.('.proof-badge[data-proof]');
+    const copyBtn = e.target.closest?.('.proof-copy[data-copy]');
+    if (proofBtn) {
+      e.preventDefault();
+      e.stopPropagation();
+      const id = proofBtn.dataset.proof;
+      const match = lastState?.matches.find((m) => m.id === id);
+      const proof = lastState?.proofs?.[id];
+      if (match && proof) renderProofModal(match, proof);
+    } else if (copyBtn) {
+      e.preventDefault();
+      e.stopPropagation();
+      navigator.clipboard?.writeText(copyBtn.dataset.copy).then(() => toast('Hash copied')).catch(() => {});
+    } else if (e.target.closest?.('[data-proof-close]')) {
+      e.preventDefault();
+      e.stopPropagation();
+      closeProofModal();
+    } else if (e.target.closest?.('.market-tip')) {
       e.preventDefault();
       e.stopPropagation();
       openMarketModal();
@@ -231,8 +248,17 @@ if (typeof document !== 'undefined') {
       e.stopPropagation();
       openMarketModal();
     }
+    const badge = e.target.closest?.('.proof-badge[data-proof]');
+    if (badge && (e.key === 'Enter' || e.key === ' ')) {
+      e.preventDefault();
+      e.stopPropagation();
+      const match = lastState?.matches.find((m) => m.id === badge.dataset.proof);
+      const proof = lastState?.proofs?.[badge.dataset.proof];
+      if (match && proof) renderProofModal(match, proof);
+    }
     if (e.key === 'Escape') {
       closeMarketModal();
+      closeProofModal();
       // Close tip popovers too, wherever focus is.
       document.querySelectorAll('.brier-tip.open').forEach((t) => t.classList.remove('open'));
     }
@@ -420,9 +446,86 @@ function oddsStrip(match) {
 function proofBadge(state, match) {
   const p = state.proofs?.[match.id];
   if (!p?.verified) return '';
-  const title = `Final score Merkle-proved against the root TxODDS committed on Solana (epoch day ${p.epochDay})`;
-  return `<a class="proof-badge" href="${esc(p.explorerUrl)}" target="_blank" rel="noopener"
-    title="${esc(title)}">Score verified on Solana ✓</a>`;
+  const title = `Final score Merkle-proved against the root TxODDS committed on Solana (epoch day ${p.epochDay}) — tap for the receipt`;
+  return `<button class="proof-badge" data-proof="${esc(match.id)}"
+    aria-haspopup="dialog" title="${esc(title)}">Score verified on Solana ✓</button>`;
+}
+
+// Solscan link for the on-chain daily-roots account. Explorer link is kept
+// too (proof.explorerUrl); Solscan is the one the spec asks for.
+function solscanUrl(proof) {
+  const q = proof.cluster && proof.cluster !== 'mainnet' ? `?cluster=${proof.cluster}` : '';
+  return `https://solscan.io/account/${proof.pda}${q}`;
+}
+
+// Settlement-proof receipt: the leaf identity, the recomputed daily root vs
+// the on-chain root they must match, the Merkle path when a verify run has
+// persisted it, and a one-click link to the on-chain account so a judge can
+// verify the root independently.
+function renderProofModal(match, proof) {
+  const el = document.getElementById('proof-modal');
+  if (!el || !proof) return;
+  const hs = match.home.score ?? '?';
+  const as = match.away.score ?? '?';
+  const market = matchMarket(match);
+  const settled = match.outcome
+    ? (market === 'advance'
+        ? `${esc(match[match.outcome].name)} advanced`
+        : match.outcome === 'draw' ? 'Draw' : `${esc(match[match.outcome].name)} won`)
+    : '—';
+  const hash = (h) => `<code class="proof-hash">${esc(h)}</code><button class="proof-copy" data-copy="${esc(h)}" title="Copy hash" aria-label="Copy hash">⧉</button>`;
+  const rootsMatch = proof.root && proof.onchainRoot && proof.root === proof.onchainRoot;
+
+  // Merkle path (leaf → siblings → root), only if a verify run persisted it.
+  let pathHtml = '';
+  const nodes = proof.merklePath;
+  if (Array.isArray(nodes) && nodes.length) {
+    pathHtml = `<div class="proof-block">
+      <div class="proof-k">Merkle path · leaf → root</div>
+      <ol class="proof-path">
+        <li><span class="proof-step-tag">leaf</span>${hash(proof.leafHash || '(full-time score stat)')}</li>
+        ${nodes.map((n, i) => `<li><span class="proof-step-tag">h${i + 1}</span>${hash(n.hash ?? n)}</li>`).join('')}
+        <li><span class="proof-step-tag">root</span>${hash(proof.root)}</li>
+      </ol>
+    </div>`;
+  }
+
+  el.innerHTML = `<div class="mkt-scrim" data-proof-close></div>
+  <section class="mkt-panel proof-panel" role="dialog" aria-modal="true" aria-labelledby="proof-title">
+    <button class="mkt-close" data-proof-close aria-label="Close">✕</button>
+    <h3 id="proof-title">Settlement proof</h3>
+    <p class="proof-sub">${esc(match.home.name)} <b>${hs}–${as}</b> ${esc(match.away.name)} · ${esc(match.stage)}</p>
+    <div class="proof-block">
+      <div class="proof-k">Settled outcome</div>
+      <div class="proof-v">${settled}</div>
+    </div>
+    <div class="proof-block">
+      <div class="proof-k">The leaf</div>
+      <div class="proof-v">Full-time score stat (TxODDS stat key ${esc(proof.statKey ?? 1002)}) · fixture ${esc(proof.fixtureId ?? '—')}${proof.seq != null ? ` · seq ${esc(proof.seq)}` : ''}</div>
+    </div>
+    ${pathHtml}
+    <div class="proof-block">
+      <div class="proof-k">Recomputed daily root</div>
+      <div class="proof-v">${proof.root ? hash(proof.root) : '—'}</div>
+    </div>
+    <div class="proof-block">
+      <div class="proof-k">On-chain daily root ${rootsMatch ? '<span class="proof-ok">✓ match</span>' : ''}</div>
+      <div class="proof-v">${proof.onchainRoot ? hash(proof.onchainRoot) : '—'}</div>
+    </div>
+    <div class="proof-links">
+      <a class="proof-link" href="${esc(solscanUrl(proof))}" target="_blank" rel="noopener">Open on Solscan ↗</a>
+      ${proof.explorerUrl ? `<a class="proof-link proof-link-2" href="${esc(proof.explorerUrl)}" target="_blank" rel="noopener">Solana Explorer ↗</a>` : ''}
+    </div>
+    <p class="proof-foot">This match's settled score is a leaf in TxODDS's Merkle daily root, published on Solana (${esc(proof.cluster || 'devnet')}${proof.epochDay != null ? `, epoch day ${esc(proof.epochDay)}` : ''}). Recompute the path yourself — if any hash differed, the badge would not show.</p>
+  </section>`;
+  el.hidden = false;
+  document.body.classList.add('mkt-open');
+  el.querySelector('.mkt-close')?.focus();
+}
+
+function closeProofModal() {
+  const el = document.getElementById('proof-modal');
+  if (el && !el.hidden) { el.hidden = true; document.body.classList.remove('mkt-open'); }
 }
 
 function matchCard(match, state) {

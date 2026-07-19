@@ -1411,6 +1411,44 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
 #market-modal .mkt-close:hover, #market-modal .mkt-close:focus-visible { background: var(--surface-2); color: var(--ink); }
 body.mkt-open { overflow: hidden; }
 
+/* Settlement proof modal (reuses .mkt-scrim/.mkt-panel/.mkt-close scaffold). */
+#proof-modal .mkt-scrim { position: fixed; inset: 0; z-index: 60; background: rgba(12, 26, 14, 0.5); }
+#proof-modal .proof-panel {
+  position: fixed; z-index: 61; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: min(520px, calc(100vw - 24px)); max-height: min(88vh, 760px); overflow-y: auto;
+  background: var(--surface); border-radius: var(--radius-card); border: 1px solid var(--hairline);
+  box-shadow: 0 12px 40px rgba(12, 26, 14, 0.28); padding: 22px 22px 18px;
+}
+#proof-modal h3 { margin: 0 34px 4px 0; font-size: 17px; letter-spacing: -0.01em; }
+.proof-sub { color: var(--ink-2); font-size: 13.5px; margin: 0 0 14px; }
+.proof-sub b { color: var(--ink); font-variant-numeric: tabular-nums; }
+.proof-block { padding: 9px 0; border-top: 1px solid var(--hairline); }
+.proof-block:first-of-type { border-top: 0; }
+.proof-k { font: 600 11px/1.3 var(--mono, ui-monospace, monospace); letter-spacing: .05em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 4px; }
+.proof-v { font-size: 13.5px; color: var(--ink); }
+.proof-ok { color: var(--pitch-deep); font-weight: 700; font-size: 11px; margin-left: 6px; }
+.proof-hash {
+  font: 500 12px/1.5 var(--mono, ui-monospace, monospace);
+  color: var(--ink-2); word-break: break-all;
+  background: var(--surface-2); border-radius: 6px; padding: 3px 6px;
+}
+.proof-copy { background: none; border: 0; cursor: pointer; color: var(--ink-3); font-size: 13px; padding: 2px 4px; vertical-align: middle; }
+.proof-copy:hover { color: var(--pitch); }
+.proof-path { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.proof-path li { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.proof-step-tag { font: 700 10px/1 var(--mono, ui-monospace, monospace); color: var(--ink-3); background: var(--surface-2); border-radius: 4px; padding: 3px 5px; flex: none; }
+.proof-links { display: flex; gap: 10px; flex-wrap: wrap; margin: 14px 0 4px; }
+.proof-link {
+  display: inline-block; text-decoration: none; font: 650 13px system-ui, sans-serif;
+  background: #6c4bd0; color: #fff; border-radius: var(--radius-btn); padding: 10px 16px;
+}
+.proof-link:hover { background: #5a3cb8; }
+.proof-link-2 { background: var(--surface-2); color: var(--ink); }
+.proof-link-2:hover { background: var(--hairline); }
+.proof-foot { color: var(--ink-3); font-size: 12px; line-height: 1.5; margin: 12px 0 0; border-top: 1px solid var(--hairline); padding-top: 12px; }
+/* proof-badge is now a <button>; strip native chrome, keep the badge look. */
+button.proof-badge { background: none; border: 0; cursor: pointer; font-family: inherit; text-align: left; }
+
 /* On phones, tip popovers anchored to an inline label clip at the viewport
    edge (the label often sits near the margin). Present them as centered
    mini-modals instead; the wordmark tip keeps its own under-topbar layout. */
