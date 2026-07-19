@@ -516,7 +516,7 @@ function renderProofModal(match, proof) {
   el.innerHTML = `<div class="mkt-scrim" data-proof-close></div>
   <section class="mkt-panel proof-panel" role="dialog" aria-modal="true" aria-labelledby="proof-title">
     <button class="mkt-close" data-proof-close aria-label="Close">✕</button>
-    <h3 id="proof-title">Settlement proof</h3>
+    <h3 id="proof-title">Settlement audit trail</h3>
     <p class="proof-sub">${esc(match.home.name)} <b>${hs}–${as}</b> ${esc(match.away.name)} · ${esc(match.stage)}</p>
     <div class="proof-block">
       <div class="proof-k">Settled outcome</div>
@@ -539,7 +539,7 @@ function renderProofModal(match, proof) {
       <a class="proof-link" href="${esc(solscanUrl(proof))}" target="_blank" rel="noopener">Open on Solscan ↗</a>
       ${proof.explorerUrl ? `<a class="proof-link proof-link-2" href="${esc(proof.explorerUrl)}" target="_blank" rel="noopener">Solana Explorer ↗</a>` : ''}
     </div>
-    <p class="proof-foot">This match's settled score is a leaf in TxODDS's Merkle daily root, published on Solana (${esc(proof.cluster || 'devnet')}${proof.epochDay != null ? `, epoch day ${esc(proof.epochDay)}` : ''}). Recompute the path yourself — if any hash differed, the badge would not show.</p>
+    <p class="proof-foot">Every agent's P&amp;L settles against scores Merkle-verified on Solana against TxODDS's daily root — the ledger can't be quietly edited after the fact. This match's settled score is a leaf in that root (${esc(proof.cluster || 'devnet')}${proof.epochDay != null ? `, epoch day ${esc(proof.epochDay)}` : ''}). Recompute the path yourself — if any hash differed, the badge would not show.</p>
   </section>`;
   el.hidden = false;
   document.body.classList.add('mkt-open');
@@ -1040,20 +1040,21 @@ function renderHeroHook(state) {
   const marketPos = board.indexOf(market);
   const machinesAhead = board.slice(0, marketPos).filter((r) => r.model !== MARKET_ID);
   const aiCount = (state.models ?? []).filter((m) => m.id !== MARKET_ID).length || 9;
-  let line;
-  if (machinesAhead.length) {
-    const bestM = machinesAhead[0];
-    line = `Right now, <b>${machinesAhead.length} of ${aiCount} machines</b> are beating the market — best: <b>${esc(bestM.label)}</b>, ${bestM.avgBrier.toFixed(3)} Brier vs the market's ${market.avgBrier.toFixed(3)}.`;
-  } else {
-    line = `Right now, <b>the market is beating every machine</b> — ${market.avgBrier.toFixed(3)} Brier vs the best AI's ${board.find((r) => r.model !== MARKET_ID)?.avgBrier?.toFixed(3) ?? '—'}.`;
-  }
+  // Bankroll-first: the agents are trading the tournament; Brier is line two.
+  let line = '';
   const banks = state.bankroll ? Object.values(state.bankroll.models).filter((m) => m.betsPlaced > 0) : [];
   if (banks.length) {
     const top = banks.reduce((a, b) => (b.bankroll > a.bankroll ? b : a));
     const label = entrantById(state, top.model)?.label ?? top.model;
-    line += ` <b>${esc(label)}</b> has turned 1,000 paper units into <b>${fmtUnits(top.bankroll)}</b>.`;
+    line = `<b>${aiCount} AI agents</b> are trading the World Cup against the real market. Leader: <b>${esc(label)}</b>, 1,000 → <b>${fmtUnits(top.bankroll)}</b> paper units over ${top.betsPlaced} bets.`;
   }
-  el.innerHTML = line;
+  if (machinesAhead.length) {
+    const bestM = machinesAhead[0];
+    line += ` <b>${machinesAhead.length} of ${aiCount}</b> are beating the market's calibration — best: <b>${esc(bestM.label)}</b>, ${bestM.avgBrier.toFixed(3)} Brier vs the market's ${market.avgBrier.toFixed(3)}.`;
+  } else {
+    line += ` <b>0 of ${aiCount}</b> are beating the market's calibration — ${market.avgBrier.toFixed(3)} Brier vs the best agent's ${board.find((r) => r.model !== MARKET_ID)?.avgBrier?.toFixed(3) ?? '—'}.`;
+  }
+  el.innerHTML = line.trim();
   el.hidden = false;
 }
 
@@ -1119,7 +1120,7 @@ function renderBankroll(state) {
       </div>
     </div>`;
   }).join('')}</div>
-  <p class="footnote">Paper trading with <b>virtual units</b> — no real money anywhere. Each model starts with 1,000 units and places at most one bet per match: quarter-Kelly on its biggest edge against the locked TxODDS StablePrice line, only when the edge clears 2%; otherwise it sits out. Group-stage bets settle at the raw bookmaker line (vig included); knockout bets settle at fair (de-vigged) odds, since no single "advances" price is quoted. Settled by the same Merkle-verified scores as the leaderboard. The Market doesn't get a bankroll: it can't bet against itself. Tap a row for the full bet ledger.</p>`;
+  <p class="footnote">Paper trading with <b>virtual units</b> — no real money anywhere. Each agent starts with 1,000 units and places at most one bet per match: quarter-Kelly on its biggest edge against the locked TxODDS StablePrice line, only when the edge clears 2%; otherwise it sits out. Group-stage bets settle at the raw bookmaker line (vig included); knockout bets settle at fair (de-vigged) odds, since no single "advances" price is quoted. Settled by the same Merkle-verified scores as the leaderboard. The Market doesn't get a bankroll: it can't bet against itself. Tap a row for the full bet ledger.</p>`;
   for (const row of el.querySelectorAll('[data-model]')) {
     const open = () => { location.hash = `p/${encodeURIComponent(row.dataset.model)}`; };
     row.addEventListener('click', open);
@@ -1132,12 +1133,16 @@ function betLedgerHtml(state, modelId) {
   const bets = state.bankroll?.bets?.filter((b) => b.modelId === modelId);
   if (!bets?.length) return '';
   const rows = [...bets].reverse().map((b) => {
+    // Trust layer, reachable from the trading surface: settled rows whose
+    // score Merkle-proved on-chain link straight into the audit-trail modal.
+    const verified = state.proofs?.[b.matchId]
+      ? ` <button class="proof-badge bet-verified" data-proof="${esc(b.matchId)}" title="Verified settlement — open the audit trail">✓</button>` : '';
     if (b.result === 'no_bet') {
       return `<tr class="bet-nobet"><td>${esc(b.shortName)}</td><td colspan="3">no bet — no edge over 2%</td><td class="bet-num">${fmtUnits(b.bankrollAfter)}</td></tr>`;
     }
     const sideName = b.outcome === 'draw' ? 'Draw' : (b.outcome === 'home' ? esc(b.shortName.split(' @ ')[1] ?? 'home') : esc(b.shortName.split(' @ ')[0] ?? 'away'));
     return `<tr class="bet-${b.result}">
-      <td>${esc(b.shortName)}</td>
+      <td>${esc(b.shortName)}${verified}</td>
       <td>${sideName} @ ${b.odds.toFixed(2)}${b.oddsType === 'fair' ? '<span class="bet-fair" title="No raw advances price is quoted; settled at fair (de-vigged) odds">f</span>' : ''}</td>
       <td class="bet-num">${b.stake.toFixed(1)}</td>
       <td class="bet-num bet-pnl">${b.pnl >= 0 ? '+' : '−'}${Math.abs(b.pnl).toFixed(1)}</td>
@@ -1145,11 +1150,168 @@ function betLedgerHtml(state, modelId) {
     </tr>`;
   }).join('');
   return `<h3>Bet ledger <span class="bet-paper">paper units</span></h3>
-  <p class="fnote">Quarter-Kelly vs the locked TxODDS line, newest first. Sitting out is a decision too, so no-bets are shown. <b>f</b> marks knockout bets settled at fair (de-vigged) odds.</p>
+  <p class="bank-strategy"><b>Strategy:</b> quarter-Kelly on largest edge vs the de-vigged StablePrice line; sits out under 2% edge; max 10% of bankroll. <span class="bank-strategy-note">Identical for every agent — the strategy is held constant so the ledger isolates forecasting skill.</span></p>
+  <p class="fnote">Newest first. Sitting out is a decision too, so no-bets are shown. <b>f</b> marks knockout bets settled at fair (de-vigged) odds. <b>✓</b> opens the verified-settlement audit trail.</p>
   <div class="bet-scroll"><table class="bet-table">
     <thead><tr><th>Match</th><th>Backed</th><th class="bet-num">Stake</th><th class="bet-num">P&amp;L</th><th class="bet-num">Bank</th></tr></thead>
     <tbody>${rows}</tbody>
   </table></div>`;
+}
+
+// ---------------------------------------------------------- edge board ----
+// Live trading signal: where the agents' locked probabilities diverge from
+// the de-vigged TxODDS StablePrice line, per outcome, for matches that have
+// not settled yet. Derived entirely from the same locked forecast + line
+// data the Bankroll bets — nothing new is fetched. Exhibition only.
+
+const EDGE_OUTS = { regulation: ['home', 'draw', 'away'], advance: ['home', 'away'] };
+
+// Mirror of lib/bankroll.js: the raw 1X2 decimals frozen into the market
+// record's rationale; fair odds 1/q otherwise (knockout advance markets).
+function edgeParseRawOdds(rationale = '') {
+  const m = /(?:decimal|1X2) ([\d.]+)\/([\d.]+)\/([\d.]+)/.exec(rationale);
+  if (!m) return null;
+  const [home, draw, away] = [Number(m[1]), Number(m[2]), Number(m[3])];
+  if (![home, draw, away].every((d) => Number.isFinite(d) && d > 1)) return null;
+  return { home, draw, away };
+}
+function edgeLineFor(match, marketPred) {
+  if (!marketPred?.probs) return null;
+  const market = match.market ?? 'regulation';
+  if (market === 'regulation') {
+    const raw = edgeParseRawOdds(marketPred.rationale);
+    if (raw) return { odds: raw, oddsType: 'raw' };
+  }
+  const fair = {};
+  for (const o of EDGE_OUTS[market]) {
+    if (!(marketPred.probs[o] > 0)) return null;
+    fair[o] = 1 / marketPred.probs[o];
+  }
+  return { odds: fair, oddsType: 'fair' };
+}
+
+function outcomeName(match, o) {
+  return o === 'draw' ? 'Draw' : (o === 'home' ? match.home?.name ?? 'Home' : match.away?.name ?? 'Away');
+}
+
+// Per-outcome divergence rows for one match, sorted by |consensus − market|.
+function edgeRowsFor(state, match) {
+  const preds = match.predictions ?? {};
+  const marketPred = preds[MARKET_ID];
+  if (!marketPred?.probs) return null;
+  const market = match.market ?? 'regulation';
+  const line = edgeLineFor(match, marketPred);
+  // Locked pre-kickoff forecasts only — the same lock discipline the
+  // Bankroll bets under, and the same one-per-entrant population every
+  // consensus surface uses (entrantPredsOf), so numbers can't drift.
+  const agents = displayEntrants(state)
+    .filter((e) => e.id !== MARKET_ID)
+    .map((e) => ({ meta: e, pred: predOf(match, e) }))
+    .filter((a) => a.pred?.probs && a.pred.eligible !== false && !a.pred.retro
+      && predMarket(a.pred) === market);
+  if (agents.length < 2) return null;
+  const rows = [];
+  for (const o of EDGE_OUTS[market]) {
+    const q = marketPred.probs[o];
+    if (!(q > 0)) continue;
+    const pts = agents
+      .map((a) => ({
+        id: a.meta.id,
+        // Bet ledgers are keyed by model id; in the by-lab view resolve the
+        // lab to its active member so "…'s ledger" never opens empty.
+        ledgerId: a.meta.members ? (a.meta.members.find((m) => !m.retired) ?? a.meta.members[0]).id : a.meta.id,
+        label: a.meta.label ?? a.meta.id,
+        p: a.pred.probs[o],
+      }))
+      .filter((x) => Number.isFinite(x.p));
+    if (!pts.length) continue;
+    const consensus = pts.reduce((s, x) => s + x.p, 0) / pts.length;
+    const d = line?.odds?.[o];
+    const widest = pts.reduce((w, x) => (Math.abs(x.p - q) > Math.abs(w.p - q) ? x : w));
+    rows.push({
+      outcome: o, market, q, consensus, div: consensus - q,
+      widest: { ...widest, div: widest.p - q },
+      odds: d, oddsType: line?.oddsType,
+      edges: d > 1 ? pts.map((x) => ({ ...x, edge: x.p * d - 1 })) : [],
+    });
+  }
+  if (!rows.length) return null;
+  rows.sort((a, b) => Math.abs(b.div) - Math.abs(a.div));
+  return { rows, lockedAt: marketPred.createdAt ?? null };
+}
+
+const fmtPp = (x) => `${x >= 0 ? '+' : '−'}${Math.abs(x * 100).toFixed(1)}pp`;
+const fmtEdge = (x) => `${x >= 0 ? '+' : '−'}${Math.abs(x * 100).toFixed(1)}%`;
+
+function edgeMatchHtml(state, match) {
+  const data = edgeRowsFor(state, match);
+  if (!data) return '';
+  const when = data.lockedAt
+    ? `<span class="edge-when">pre-lock line · ${esc(fmtKickoff.format(new Date(data.lockedAt)))}</span>` : '';
+  const rows = data.rows.map((r) => {
+    const chips = r.edges
+      .slice()
+      .sort((a, b) => b.edge - a.edge)
+      .map((e) => `<span class="edge-chip ${e.edge > 0.02 ? 'edge-pos' : 'edge-neu'}" title="${esc(e.label)}: implied edge at ${r.odds?.toFixed(2)}${r.oddsType === 'fair' ? ' (fair, de-vigged)' : ''}">${esc(e.label)} ${fmtEdge(e.edge)}</span>`)
+      .join('');
+    return `<tr class="${r.div >= 0.0001 ? 'edge-row-pos' : ''}">
+      <td class="edge-out">${esc(outcomeName(match, r.outcome))}</td>
+      <td class="edge-num">${pct(r.q)}%</td>
+      <td class="edge-num">${pct(r.consensus)}% <span class="edge-div">${fmtPp(r.div)}</span></td>
+      <td>${esc(r.widest.label)} <span class="edge-div">${fmtPp(r.widest.div)}</span></td>
+      <td class="edge-chips">${chips || '—'}</td>
+    </tr>`;
+  }).join('');
+  return `<div class="edge-match">
+    <div class="edge-head"><b>${esc(match.home?.name ?? '')} vs ${esc(match.away?.name ?? '')}</b> · ${esc(match.stage ?? '')} ${when}</div>
+    <div class="bet-scroll"><table class="bet-table edge-table">
+      <thead><tr><th>Outcome</th><th class="edge-num">Market</th><th class="edge-num">Consensus</th><th>Widest divergence</th><th>Per-agent edge</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table></div>
+  </div>`;
+}
+
+// After a match locks and settles its signal collapses into "past signals":
+// did the consensus divergence pay? Links into the bet ledger.
+function edgePastHtml(state, match) {
+  const data = edgeRowsFor(state, match);
+  if (!data) return '';
+  const market = match.market ?? 'regulation';
+  const outcome = match.outcomes?.[market] ?? match.outcome;
+  if (!outcome) return '';
+  const top = data.rows[0]; // widest consensus divergence pre-lock
+  const happened = top.outcome === outcome;
+  const paid = top.div >= 0 ? happened : !happened;
+  return `<li class="edge-past-row">
+    <span class="edge-past-match">${esc(match.home?.name ?? '')} ${match.home?.score ?? ''}–${match.away?.score ?? ''} ${esc(match.away?.name ?? '')}</span>
+    <span>consensus ${fmtPp(top.div)} on ${esc(outcomeName(match, top.outcome))} vs the market</span>
+    <span class="${paid ? 'edge-paid' : 'edge-missed'}">${paid ? 'paid ✓' : 'missed ✗'}</span>
+    <a class="edge-ledger-link" href="#p/${encodeURIComponent(top.widest.ledgerId)}">${esc(top.widest.label)}'s ledger →</a>
+  </li>`;
+}
+
+function renderEdgeBoard(state) {
+  const section = document.getElementById('edge-section');
+  const el = document.getElementById('edgeboard');
+  if (!section || !el) return;
+  const candidates = (state.matches ?? []).filter((m) => !m.teamsTbd && m.predictions?.[MARKET_ID]);
+  const upcoming = candidates
+    .filter((m) => m.status?.state !== 'post')
+    .sort((a, b) => new Date(a.kickoff) - new Date(b.kickoff));
+  const past = candidates
+    .filter((m) => m.status?.state === 'post' && m.outcome)
+    .sort((a, b) => new Date(b.kickoff) - new Date(a.kickoff))
+    .slice(0, 20);
+  const liveHtml = upcoming.map((m) => edgeMatchHtml(state, m)).join('');
+  const pastRows = past.map((m) => edgePastHtml(state, m)).join('');
+  if (!liveHtml && !pastRows) { section.hidden = true; return; }
+  section.hidden = false;
+  el.innerHTML = `${liveHtml || '<p class="fnote">No unsettled matches with a locked line right now — see past signals below.</p>'}
+  ${pastRows ? `<details class="edge-past"><summary>Past signals — did the divergence pay?</summary>
+    <p class="fnote">For each settled match: the outcome where consensus diverged most from the pre-lock market line, and whether that divergence was right. Links open the agent's bet ledger.</p>
+    <ul class="edge-past-list">${pastRows}</ul>
+  </details>` : ''}
+  <p class="footnote">Divergence is each agent's locked probability minus the market's de-vigged implied probability, in percentage points; edge is <b>p·d − 1</b> at the locked decimal odds — the same numbers the Bankroll bets. Paper units only, not betting advice.</p>`;
 }
 
 function renderLeaderboard(state) {
@@ -2386,6 +2548,7 @@ function renderAll(state) {
   renderRoster(state);
   renderLeaderboard(state);
   renderBankroll(state);
+  renderEdgeBoard(state);
   renderMatches(state);
   renderDetail(state);
   // Static tips in index.html (leaderboard explainer) + any re-rendered ones.

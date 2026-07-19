@@ -5,12 +5,15 @@
 > [`docs/submission-worldcup.md`](docs/submission-worldcup.md) · TxLINE setup:
 > [`docs/txodds-integration.md`](docs/txodds-integration.md)
 
-Frontier AI models from nine labs (Claude, GPT, DeepSeek, Kimi, GLM, Qwen,
-MiniMax, Gemini, Grok) get one identical prompt before each FIFA World Cup
-2026 match and must commit to probabilities — and they all compete against an
-entrant that never hallucinates: **the betting market itself**, via
-[TxODDS TxLINE](https://txline-docs.txodds.com), de-vigged StablePrice
-consensus odds delivered over Solana and scored on the exact same Brier
+Nine AI trading agents bet the FIFA World Cup 2026 against the real market.
+Each agent — a frontier model from one of nine labs (Claude, GPT, DeepSeek,
+Kimi, GLM, Qwen, MiniMax, Gemini, Grok) — gets one identical prompt per
+match, commits to probabilities, and paper-trades quarter-Kelly bets against
+**TxODDS StablePrice** consensus odds streamed by
+[**TxLINE** on Solana](https://txline-docs.txodds.com): every trade locked
+pre-kickoff, fully ledgered, and settled against results **Merkle-verified
+against TxODDS's on-chain daily root**. The market itself competes too — the
+de-vigged StablePrice line is an entrant, scored on the exact same Brier
 rules.
 
 Group-stage matches price the 90-minute result (home win, draw, away win);
@@ -118,29 +121,12 @@ never score against different teams. Where TxLINE publishes a final-score
 record, the score is Merkle-proved against the `daily_scores_roots` PDA on
 Solana and badged on the match card.
 
-## Architecture: how a match gets settled
-
-1. **Stream** — TxLINE on Solana streams TxODDS StablePrice consensus odds
-   for every fixture (`lib/txodds.js`).
-2. **De-vig** — the bookmaker margin is stripped, leaving implied
-   probabilities; this is The Market's forecast.
-3. **Lock at kickoff** — every model and the market are frozen; nothing
-   collected after kickoff ever counts (`lib/predictor.js`, ledger commits).
-4. **Result** — the final score arrives from ESPN's public feed
-   (`lib/espn.js` / `lib/feed.js`).
-5. **Merkle proof** — the score is verified against TxODDS's on-chain daily
-   root: leaf → statProof → eventStatRoot → subTreeProof → mainTreeProof →
-   `daily_scores_roots` PDA, simulated via the program's `validateStat`
-   (`scripts/verify-results.js`, `recomputeRoot` in `lib/txodds.js`).
-6. **Score & settle** — Brier scores update the leaderboard
-   (`lib/scoring.js`) and the paper-trading bankroll settles at the locked
-   line (`lib/bankroll.js`).
-
-## Verify a settlement yourself
+### Verify a settlement yourself
 
 1. Open [worldcup.uptick.fyi](https://worldcup.uptick.fyi) and find any
    finished match with the green **"Score verified on Solana ✓"** badge.
-2. Tap the badge: the **Settlement proof** receipt opens — the settled
+2. Tap the badge (or the **✓** on any settled bet-ledger row): the
+   **Settlement audit trail** receipt opens — the settled
    outcome, the leaf identity (TxODDS full-time-score stat, key 1002), the
    recomputed daily root, and the on-chain root they must equal.
 3. Follow **Open on Solscan** (or Solana Explorer) to the
@@ -152,9 +138,28 @@ Solana and badged on the match card.
    locally (`recomputeRoot`), and simulates on-chain `validateStat` — no
    transaction is sent.
 
+## Architecture: how an agent's bet settles
+
+1. **Stream** — TxLINE on Solana streams TxODDS StablePrice consensus odds
+   for every fixture (`lib/txodds.js`).
+2. **De-vig** — the bookmaker margin is stripped, leaving implied
+   probabilities; this is The Market's forecast.
+3. **Lock at kickoff** — forecasts, lines, and stakes are frozen; nothing
+   collected after kickoff ever counts (`lib/predictor.js`, ledger commits).
+4. **Result** — the final score arrives from ESPN's public feed
+   (`lib/espn.js` / `lib/feed.js`).
+5. **Merkle proof** — the score is verified against TxODDS's on-chain daily
+   root: leaf → statProof → eventStatRoot → subTreeProof → mainTreeProof →
+   `daily_scores_roots` PDA, simulated via the program's `validateStat`
+   (`scripts/verify-results.js`, `recomputeRoot` in `lib/txodds.js`).
+6. **Settle** — bet P&L settles at the locked line (`lib/bankroll.js`) and
+   the Brier score updates the leaderboard (`lib/scoring.js`), both from the
+   verified result.
+
+
 ## The Bankroll: paper-trading rules
 
-Every model paper-trades its locked forecasts against the locked TxODDS
+Every agent paper-trades its locked forecasts against the locked TxODDS
 line. **Virtual units only — no real money anywhere.** The whole ledger is a
 deterministic pure fold over `(locked forecasts, locked lines, settled
 results)` in match order — no randomness, no wall clock — so it is exactly

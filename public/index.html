@@ -95,19 +95,25 @@
 
     <section id="bankroll-section" aria-labelledby="bankroll-title" hidden>
       <h2 id="bankroll-title">The Bankroll</h2>
-      <p class="explainer">Calibration as P&amp;L: every model paper-trades its locked forecasts against the locked TxODDS StablePrice line. 1,000 <b>virtual units</b> at the start, at most one quarter-Kelly bet per match on its biggest edge — only when the edge clears 2% — settled by the same Merkle-verified scores as the leaderboard. No real money, ever.</p>
+      <p class="explainer">Calibration as P&amp;L: every agent paper-trades its locked forecasts against the locked TxODDS StablePrice line. 1,000 <b>virtual units</b> at the start, at most one quarter-Kelly bet per match on its biggest edge — only when the edge clears 2% — settled by the same Merkle-verified scores as the leaderboard. No real money, ever.</p>
       <div id="bankroll" aria-live="polite"></div>
     </section>
 
+    <section id="edge-section" aria-labelledby="edge-title" hidden>
+      <h2 id="edge-title">Edge Board</h2>
+      <p class="explainer">Where the machines disagree with the market right now. Consensus and per-agent edge vs the live TxODDS StablePrice line — the same signal the agents bet. Exhibition only: paper units, no betting advice.</p>
+      <div id="edgeboard" aria-live="polite"></div>
+    </section>
+
     <section id="pipeline-section" aria-labelledby="pipeline-title">
-      <h2 id="pipeline-title">How a match gets settled</h2>
+      <h2 id="pipeline-title">How an agent's bet settles</h2>
       <ol class="pipeline">
         <li class="pipe-step"><span class="pipe-n">1</span><b>Stream</b><span>TxLINE on Solana streams TxODDS StablePrice consensus odds for every fixture.</span></li>
         <li class="pipe-step"><span class="pipe-n">2</span><b>De-vig</b><span>The bookmaker margin is stripped, leaving implied probabilities.</span></li>
-        <li class="pipe-step"><span class="pipe-n">3</span><b>Lock</b><span>At kickoff, every model and the market are frozen — nothing after counts.</span></li>
+        <li class="pipe-step"><span class="pipe-n">3</span><b>Lock at kickoff</b><span>Forecasts, lines, and stakes frozen — nothing after counts.</span></li>
         <li class="pipe-step"><span class="pipe-n">4</span><b>Result</b><span>The final score arrives from ESPN's public feed.</span></li>
         <li class="pipe-step"><span class="pipe-n">5</span><b>Merkle proof</b><span>The score is verified against TxODDS's on-chain daily root — tap any green badge for the receipt.</span></li>
-        <li class="pipe-step"><span class="pipe-n">6</span><b>Score &amp; settle</b><span>Brier scores update the board; <a href="#bankroll-section" class="pipe-link">paper bets</a> settle at the locked line.</span></li>
+        <li class="pipe-step"><span class="pipe-n">6</span><b>Settle</b><span><a href="#bankroll-section" class="pipe-link">Bet P&amp;L</a> and Brier score update from the verified result.</span></li>
       </ol>
     </section>
 
@@ -191,7 +197,7 @@ The two probabilities must sum to 1.</pre>
   </section>
 
   <footer class="foot">
-    <p>Match scores from ESPN’s public World Cup feed. AI forecasts via OpenRouter with one identical prompt per model — only pre-kickoff locks count. Market lines from <strong>TxODDS StablePrice</strong> over <strong>TxLINE</strong> on Solana; settled scores can show a “Score verified on Solana” badge when the Merkle proof matches the on-chain daily root. The Bankroll is paper trading with virtual units — no real money. Built for the Superteam × TxODDS World Cup hackathon — <strong>Prediction Markets &amp; Settlement</strong> track.</p>
+    <p>Match scores from ESPN’s public World Cup feed. AI forecasts via OpenRouter with one identical prompt per model — only pre-kickoff locks count. Market lines from <strong>TxODDS StablePrice</strong> over <strong>TxLINE</strong> on Solana; settled scores can show a “Score verified on Solana” badge when the Merkle proof matches the on-chain daily root. The Bankroll is paper trading with virtual units — no real money. Built for the Superteam × TxODDS World Cup hackathon — <strong>Trading Tools &amp; Agents</strong> track.</p>
   </footer>
 
   <div id="market-modal" hidden>

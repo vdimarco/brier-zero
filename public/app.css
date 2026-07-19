@@ -1537,3 +1537,33 @@ th.bet-num { text-align: right; }
 .pipe-link { color: var(--pitch-deep); font-weight: 650; }
 @media (max-width: 900px) { .pipeline { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 560px) { .pipeline { grid-template-columns: 1fr 1fr; gap: 8px; } }
+
+/* Edge Board: live divergence vs the TxODDS StablePrice line */
+.edge-match { background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--radius-card); padding: 12px 14px; margin: 12px 0; }
+.edge-head { font-size: 13.5px; margin-bottom: 6px; }
+.edge-when { color: var(--ink-3); font-size: 11.5px; margin-left: 6px; font-weight: 400; }
+.edge-table td { white-space: normal; }
+.edge-out { font-weight: 650; white-space: nowrap; }
+th.edge-num, td.edge-num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.edge-div { font: 700 11px/1 var(--mono, ui-monospace, monospace); color: var(--ink-2); margin-left: 3px; }
+/* Positive consensus divergence gets the winning-bankroll treatment */
+.edge-row-pos { background: linear-gradient(90deg, rgba(227, 179, 65, 0.12), transparent 70%); }
+.edge-row-pos .edge-div { color: var(--pitch-deep); }
+.edge-chips { display: flex; flex-wrap: wrap; gap: 4px; min-width: 200px; }
+.edge-chip { font: 600 10.5px/1.4 var(--mono, ui-monospace, monospace); border-radius: 4px; padding: 2px 5px; background: var(--surface-2); color: var(--ink-2); white-space: nowrap; }
+.edge-chip.edge-pos { background: var(--pitch-wash); color: var(--pitch-deep); }
+.edge-past { margin-top: 12px; }
+.edge-past summary { cursor: pointer; font-weight: 650; font-size: 13.5px; }
+.edge-past-list { list-style: none; margin: 8px 0 0; padding: 0; font-size: 12.5px; }
+.edge-past-row { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: baseline; padding: 6px 2px; border-bottom: 1px solid var(--hairline); }
+.edge-past-row:last-child { border-bottom: 0; }
+.edge-past-match { font-weight: 650; }
+.edge-paid { color: var(--pitch-deep); font-weight: 700; }
+.edge-missed { color: var(--away); font-weight: 700; }
+.edge-ledger-link { color: var(--pitch-deep); font-weight: 650; margin-left: auto; }
+
+/* Bet-ledger extras: strategy card + verified-settlement link */
+.bank-strategy { background: var(--surface-2); border-radius: var(--radius-el); padding: 8px 10px; font-size: 12.5px; margin: 8px 0; }
+.bank-strategy-note { color: var(--ink-3); }
+.bet-verified { border: 0; cursor: pointer; font: 700 10px/1 var(--mono, ui-monospace, monospace); color: var(--pitch-deep); background: var(--pitch-wash); border-radius: 4px; padding: 2px 5px; margin-left: 5px; }
+.bet-verified:hover { background: var(--pitch); color: #fff; }
