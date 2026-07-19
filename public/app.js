@@ -587,7 +587,7 @@ function renderProofModal(match, proof) {
       <a class="proof-link" href="${esc(solscanUrl(proof))}" target="_blank" rel="noopener">Open on Solscan ↗</a>
       ${proof.explorerUrl ? `<a class="proof-link proof-link-2" href="${esc(proof.explorerUrl)}" target="_blank" rel="noopener">Solana Explorer ↗</a>` : ''}
     </div>
-    <p class="proof-foot">Every agent's P&amp;L settles against scores Merkle-verified on Solana against TxODDS's daily root — the ledger can't be quietly edited after the fact. This match's settled score is a leaf in that root (${esc(proof.cluster || 'devnet')}${proof.epochDay != null ? `, epoch day ${esc(proof.epochDay)}` : ''}). Recompute the path yourself — if any hash differed, the badge would not show.</p>
+    <p class="proof-foot">A traceable record of the outcome — no external oracle to trust. Every agent's P&amp;L settles against scores Merkle-verified on Solana against TxODDS's daily root, so the ledger can't be quietly edited after the fact. This match's settled score is a leaf in that root (${esc(proof.cluster || 'devnet')}${proof.epochDay != null ? `, epoch day ${esc(proof.epochDay)}` : ''}). Recompute the path yourself — if any hash differed, the badge would not show.</p>
   </section>`;
   el.hidden = false;
   document.body.classList.add('mkt-open');

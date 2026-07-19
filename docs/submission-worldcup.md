@@ -1,7 +1,7 @@
 # Superteam Earn — World Cup Hackathon submission
 
 **Deadline: July 19, 2026** (submissions close with the tournament final).  
-**Tracks:** primary **Markets** / **Trading agents**; the live page also serves as a **Fan experience**.
+**Track:** **Prediction Markets & Settlement**; the live page also serves as a **Fan experience**.
 
 Use this file as the paste source for Superteam Earn (demo video, app link, technical overview, TxLINE feedback).
 

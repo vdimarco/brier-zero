@@ -1,7 +1,8 @@
 # The Brier Cup — can any AI beat the betting market?
 
 > **Live at [worldcup.uptick.fyi](https://worldcup.uptick.fyi)** · World Cup
-> hackathon entry (Superteam Earn, TxODDS track) · submission notes:
+> hackathon entry (Superteam × TxODDS, **Prediction Markets & Settlement**
+> track) · submission notes:
 > [`docs/submission-worldcup.md`](docs/submission-worldcup.md) · TxLINE setup:
 > [`docs/txodds-integration.md`](docs/txodds-integration.md)
 
@@ -67,8 +68,12 @@ OPENROUTER_API_KEY=sk-or-... npm start
 # open http://localhost:3000
 ```
 
+### Runs itself
+
 While the server runs it automatically collects forecasts for upcoming matches
-every 5 minutes, so the "in advance" part takes care of itself. You can also:
+every 5 minutes, so the "in advance" part takes care of itself; in hosted mode
+any page visit keeps the ledger current, bounded by database locks. You can
+also:
 
 ```bash
 npm run predict              # one-shot: collect forecasts for all upcoming matches
@@ -133,10 +138,15 @@ Solana and badged on the match card.
    `daily_scores_roots` account and compare the committed root for that epoch
    day with the one in the receipt. If any hash differed, the badge would not
    show.
-4. To reproduce from scratch: `node scripts/verify-results.js` re-fetches the
-   stat-validation payload for every finished match, folds the Merkle path
-   locally (`recomputeRoot`), and simulates on-chain `validateStat` — no
-   transaction is sent.
+4. For one match from the terminal:
+   `node --env-file=.env scripts/verify-settlement.js <matchId>` prints the
+   leaf preimage, every sibling hash in the Merkle path, the recomputed
+   daily root, and the root committed on Solana, then says
+   VERIFIED/FAILED.
+5. To reproduce everything from scratch: `node scripts/verify-results.js`
+   re-fetches the stat-validation payload for every finished match, folds
+   the Merkle path locally (`recomputeRoot`), and simulates on-chain
+   `validateStat` — no transaction is sent.
 
 ## Architecture: how an agent's bet settles
 
@@ -156,6 +166,17 @@ Solana and badged on the match card.
    the Brier score updates the leaderboard (`lib/scoring.js`), both from the
    verified result.
 
+
+## Solana scope
+
+Honest boundaries: Solana is the **verification layer**, not the trading
+venue. TxLINE delivers TxODDS StablePrice odds and commits Merkle daily
+roots of settled scores to the `daily_scores_roots` PDA; this project reads
+those roots (devnet) and proves each final score against them —
+`validateStat` is simulated read-only, no transaction is sent and no funds
+move. Betting is paper-only with virtual units. What the chain buys us is
+tamper-evidence: the settlement record every score and every bet resolves
+against cannot be quietly edited after the fact.
 
 ## The Bankroll: paper-trading rules
 
