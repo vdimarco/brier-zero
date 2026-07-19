@@ -757,8 +757,7 @@ function sparkline(perMatch) {
 }
 
 // Soft, CVD-friendly palette — Market/blue leads, then distinct warm/cool pairs.
-const MODEL_COLORS = ['#1d4ed8', '#c2410c', '#0f766e', '#7c3aed', '#b45309', '#be123c', '#0369a1', '#4d7c0f', '#9333ea'];
-const LB_GEO = { W: 760, H: 360, padL: 48, padR: 108, padT: 28, padB: 58 };
+const LB_GEO = { W: 760, H: 340, padL: 64, padR: 150, padT: 20, padB: 40 };
 let lbDismiss = null; // the current dismiss-on-outside-tap listener
 
 /* The knockout-phase series shared by the chart renderer and its hover
@@ -776,7 +775,7 @@ function leaderboardSeries(state) {
   if (koMatches.length < 2) return null;
   const n = koMatches.length;
   const indexOf = new Map(koMatches.map((m, i) => [m.id, i]));
-  const series = boardOf(state).map((row, i) => {
+  const series = boardOf(state).map((row) => {
     const byMatch = new Map((row.perMatch ?? []).map((p) => [p.matchId, p]));
     let skillSum = 0, count = 0;
     const points = [];
@@ -789,7 +788,18 @@ function leaderboardSeries(state) {
       points.push({ idx, cum: skillSum / (count + CHART_SHRINK), brier: p.brier, shortName: km.shortName });
     }
     if (points.length < 2) return null;
-    return { model: row.model, label: row.label, color: MODEL_COLORS[i % MODEL_COLORS.length], points };
+    // Color follows the entity, and matches the Bankroll chart: one fixed
+    // hue per lab (labOf falls back to the id prefix, so by-lab rows work
+    // too). The Market is the benchmark, not a competitor hue — it draws
+    // as a dashed dark line instead.
+    const market = row.model === MARKET_ID;
+    return {
+      model: row.model,
+      label: row.label,
+      color: market ? '#3f3e38' : (LAB_COLORS[labOf(state, row.model)] ?? '#52514e'),
+      dash: market,
+      points,
+    };
   }).filter(Boolean);
   if (!series.length) return null;
   const cums = series.flatMap((s) => s.points.map((p) => p.cum));
@@ -810,7 +820,6 @@ function leaderboardChart(state) {
   const plotH = H - padT - padB;
   const x = (i) => (n === 1 ? padL : padL + (i * plotW) / (n - 1));
   const y = (v) => padT + (1 - (v - yMin) / (yMax - yMin)) * plotH;
-  const step = n > 12 ? Math.ceil(n / 8) : Math.max(1, Math.ceil(n / 10));
 
   // Leader = highest final shrunken skill (sharpest). Emphasize it; fade the rest.
   const ranked = series
@@ -819,109 +828,71 @@ function leaderboardChart(state) {
   const leaderId = ranked[0]?.s.model;
   const isLeader = (s) => s.model === leaderId;
 
-  let svg = `<svg class="lb-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Shrunken running skill versus the coin flip for every model over the knockout phase">`;
-  svg += `<defs>
-    <linearGradient id="lb-plot-bg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#f7f8f4"/>
-      <stop offset="100%" stop-color="#eef3ea"/>
-    </linearGradient>
-    <linearGradient id="lb-good-zone" x1="0" y1="1" x2="0" y2="0">
-      <stop offset="0%" stop-color="rgba(10,122,51,0.10)"/>
-      <stop offset="55%" stop-color="rgba(10,122,51,0.03)"/>
-      <stop offset="100%" stop-color="rgba(10,122,51,0)"/>
-    </linearGradient>
-    <filter id="lb-glow" x="-40%" y="-40%" width="180%" height="180%">
-      <feGaussianBlur stdDeviation="2.2" result="b"/>
-      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
-  </defs>`;
+  let svg = `<svg class="lb-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Running skill versus the coin flip for every competitor over the knockout rounds">`;
 
-  // Soft plot panel
-  svg += `<rect x="${padL}" y="${padT}" width="${plotW}" height="${plotH}" rx="12" fill="url(#lb-plot-bg)"/>`;
-  // Higher skill is better — a gentle green wash along the top.
-  svg += `<rect x="${padL}" y="${padT}" width="${plotW}" height="${plotH * 0.55}" rx="0" fill="url(#lb-good-zone)" transform="translate(0 ${(2 * padT + plotH * 0.55).toFixed(1)}) scale(1 -1)"/>`;
-  svg += `<rect x="${padL}" y="${padT}" width="${plotW}" height="${plotH}" rx="12" fill="none" stroke="rgba(23,46,22,0.06)" stroke-width="1"/>`;
+  // Round bands on the x-axis: R32 / R16 / QF / SF / Final — far calmer
+  // than rotated per-match codes, and they tell the story of the rounds.
+  const SHORT_STAGE = [
+    [/round of 32/i, 'R32'], [/round of 16/i, 'R16'],
+    [/quarter/i, 'QF'], [/semi/i, 'SF'], [/final/i, 'Final'],
+  ];
+  const stageOf = (m) => SHORT_STAGE.find(([re]) => re.test(m.stage ?? ''))?.[1] ?? '';
+  const bands = [];
+  koMatches.forEach((km, i) => {
+    const s = stageOf(km);
+    if (bands.length && bands[bands.length - 1].stage === s) bands[bands.length - 1].to = i;
+    else bands.push({ stage: s, from: i, to: i });
+  });
+  const axisY = padT + plotH;
+  bands.forEach((b, bi) => {
+    if (bi > 0) {
+      const bx = (x(b.from - 1) + x(b.from)) / 2;
+      svg += `<line x1="${bx.toFixed(1)}" y1="${padT}" x2="${bx.toFixed(1)}" y2="${axisY}" stroke="rgba(23,46,22,0.08)" stroke-width="1"/>`;
+    }
+    const mid = (x(b.from) + x(b.to)) / 2;
+    svg += `<text x="${mid.toFixed(1)}" y="${axisY + 18}" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ink-3)" letter-spacing="0.05em">${esc(b.stage)}</text>`;
+  });
 
-  // Horizontal guides — 0 is the coin flip itself.
-  for (const g of [0, yMax / 2, yMax / 1.15]) {
+  // Horizontal guides on round values; the zero line IS the coin flip.
+  const gStep = yMax > 0.32 ? 0.2 : 0.1;
+  for (let g = 0; g < yMax; g += gStep) {
     const gy = y(g);
     const isBase = g === 0;
-    svg += `<line x1="${padL}" y1="${gy.toFixed(1)}" x2="${W - padR}" y2="${gy.toFixed(1)}" stroke="${isBase ? 'rgba(82,81,78,0.55)' : 'rgba(23,46,22,0.07)'}" stroke-width="${isBase ? 1.5 : 1}" stroke-dasharray="${isBase ? '5 4' : '2 5'}"/>`;
-    svg += `<text x="${padL - 10}" y="${gy.toFixed(1)}" dy="3.5" text-anchor="end" font-size="11" font-weight="600" fill="var(--ink-3)">${isBase ? '0%' : `+${Math.round(g * 100)}%`}</text>`;
-  }
-  svg += `<text x="12" y="${(padT + plotH / 2).toFixed(1)}" text-anchor="middle" font-size="10" font-weight="700" fill="var(--ink-3)" transform="rotate(-90 12 ${(padT + plotH / 2).toFixed(1)})" letter-spacing="0.04em">SKILL ↑ BETTER</text>`;
-
-  // Coin-flip label pill on the zero line
-  {
-    const lx = W - padR - 8;
-    const ly = y(0) - 10;
-    svg += `<rect x="${(lx - 52).toFixed(1)}" y="${(ly - 11).toFixed(1)}" width="56" height="16" rx="8" fill="rgba(255,255,255,0.92)" stroke="rgba(23,46,22,0.08)"/>`;
-    svg += `<text x="${(lx - 24).toFixed(1)}" y="${ly.toFixed(1)}" dy="3.5" text-anchor="middle" font-size="9.5" font-weight="700" fill="var(--ink-3)" letter-spacing="0.02em">coin flip</text>`;
+    svg += `<line x1="${padL}" y1="${gy.toFixed(1)}" x2="${W - padR}" y2="${gy.toFixed(1)}" stroke="${isBase ? 'rgba(82,81,78,0.5)' : 'var(--hairline)'}" stroke-width="1"${isBase ? ' stroke-dasharray="4 4"' : ''}/>`;
+    svg += `<text x="${padL - 8}" y="${gy.toFixed(1)}" dy="3.5" text-anchor="end" font-size="11" font-weight="600" fill="var(--ink-3)">${isBase ? 'coin flip' : `+${Math.round(g * 100)}%`}</text>`;
   }
 
-  // Field lines first (non-leaders), then the leader on top.
+  // Field first, leader last (on top). Stepped (step-after): a standing
+  // holds flat until the next match settles it.
   const drawOrder = [...series].sort((a, b) => (isLeader(a) ? 1 : 0) - (isLeader(b) ? 1 : 0));
   for (const s of drawOrder) {
     const leader = isLeader(s);
-    // Stepped (step-after): a standing holds flat until the next match
-    // settles it, so the line changes only where a result landed rather
-    // than sloping between them as if it drifted.
     const path = s.points
       .map((p, j) => (j
         ? `H${x(p.idx).toFixed(1)}V${y(p.cum).toFixed(1)}`
         : `M${x(p.idx).toFixed(1)},${y(p.cum).toFixed(1)}`))
       .join('');
-    // Soft under-glow for the leader only
-    if (leader) {
-      svg += `<path d="${path}" fill="none" stroke="${s.color}" stroke-width="6" stroke-opacity="0.14" stroke-linejoin="round" stroke-linecap="round"/>`;
-    }
-    svg += `<path d="${path}" fill="none" stroke="${s.color}" stroke-width="${leader ? 3 : 1.75}" stroke-opacity="${leader ? 1 : 0.72}" stroke-linejoin="round" stroke-linecap="round"${leader ? ' filter="url(#lb-glow)"' : ''}/>`;
-    // Endpoints only — mid-series dots cluttered the old chart.
+    svg += `<path d="${path}" fill="none" stroke="${s.color}" stroke-width="${leader ? 2.75 : 2}" stroke-opacity="${leader ? 1 : 0.85}" stroke-linejoin="round" stroke-linecap="round"${s.dash ? ' stroke-dasharray="7 5"' : ''}/>`;
     const last = s.points[s.points.length - 1];
-    const first = s.points[0];
-    for (const p of [first, last]) {
-      svg += `<circle cx="${x(p.idx).toFixed(1)}" cy="${y(p.cum).toFixed(1)}" r="${leader ? 4 : 3}" fill="${s.color}" stroke="#fff" stroke-width="1.6">` +
-        `<title>${esc(s.label)} after ${esc(p.shortName)}: ${fmtSkill(p.cum)} vs coin flip</title></circle>`;
-    }
+    svg += `<circle cx="${x(last.idx).toFixed(1)}" cy="${y(last.cum).toFixed(1)}" r="${leader ? 3.5 : 2.5}" fill="${s.color}"/>`;
   }
 
-  // End labels as color pills, de-overlapped
+  // Quiet end labels — name + final skill in ink, spread by the same
+  // two-pass solver as the Bankroll chart so they hug their lines.
+  const MIN_GAP = 15;
   const ends = series
-    .map((s) => ({
-      ...s,
-      leader: isLeader(s),
-      idx: s.points[s.points.length - 1].idx,
-      y: y(s.points[s.points.length - 1].cum),
-      final: s.points[s.points.length - 1].cum,
-    }))
+    .map((s) => ({ s, leader: isLeader(s), final: s.points[s.points.length - 1].cum, y: y(s.points[s.points.length - 1].cum) }))
     .sort((a, b) => a.y - b.y);
-  for (let i = 1; i < ends.length; i++) {
-    if (ends[i].y - ends[i - 1].y < 15) ends[i].y = ends[i - 1].y + 15;
-  }
-  for (const s of ends) {
-    const label = s.label;
-    // Approx monospaced width for bold 10.5px labels + padding / star.
-    const tw = Math.ceil(label.length * 6.8 + (s.leader ? 28 : 18));
-    const tx = W - padR + 6;
-    const ty = Math.min(Math.max(s.y, padT + 8), H - padB - 8);
-    svg += `<rect x="${tx}" y="${(ty - 9).toFixed(1)}" width="${tw}" height="18" rx="9" fill="${s.color}" opacity="${s.leader ? 1 : 0.9}"/>`;
-    if (s.leader) {
-      svg += `<text x="${tx + 9}" y="${ty.toFixed(1)}" dy="3.5" font-size="9" fill="#fff" opacity="0.95">★</text>`;
-      svg += `<text x="${tx + 20}" y="${ty.toFixed(1)}" dy="3.5" font-size="10.5" font-weight="700" fill="#fff">${esc(label)}</text>`;
-    } else {
-      svg += `<text x="${tx + 9}" y="${ty.toFixed(1)}" dy="3.5" font-size="10.5" font-weight="700" fill="#fff">${esc(label)}</text>`;
-    }
+  for (let i = 1; i < ends.length; i++) ends[i].y = Math.max(ends[i].y, ends[i - 1].y + MIN_GAP);
+  ends[ends.length - 1].y = Math.min(ends[ends.length - 1].y, axisY - 2);
+  for (let i = ends.length - 2; i >= 0; i--) ends[i].y = Math.min(ends[i].y, ends[i + 1].y - MIN_GAP);
+  const ex = W - padR + 8;
+  for (const e of ends) {
+    svg += `<circle cx="${ex}" cy="${e.y.toFixed(1)}" r="2.5" fill="${e.s.color}"/>`;
+    svg += `<text x="${ex + 6}" y="${(e.y + 3.5).toFixed(1)}" font-size="11" font-weight="${e.leader ? 750 : 600}" fill="${e.leader ? 'var(--ink)' : 'var(--ink-2)'}">${e.leader ? '★ ' : ''}${esc(e.s.label)} <tspan font-weight="750" fill="var(--ink)">${fmtSkill(e.final)}</tspan></text>`;
   }
 
-  // X-axis match ticks (sparse, angled)
-  koMatches.forEach((km, i) => {
-    if (i % step !== 0 && i !== n - 1) return;
-    const xi = x(i);
-    svg += `<line x1="${xi.toFixed(1)}" y1="${(padT + plotH).toFixed(1)}" x2="${xi.toFixed(1)}" y2="${(padT + plotH + 4).toFixed(1)}" stroke="rgba(23,46,22,0.18)" stroke-width="1"/>`;
-    svg += `<text x="${xi.toFixed(1)}" y="${H - padB + 14}" text-anchor="end" font-size="9.5" font-weight="600" fill="var(--ink-3)" transform="rotate(-30 ${xi.toFixed(1)} ${H - padB + 14})">${esc(km.shortName)}</text>`;
-  });
-
-  svg += `<line class="lb-cross" x1="0" y1="${padT}" x2="0" y2="${H - padB}" stroke="var(--pitch)" stroke-width="1.25" stroke-dasharray="3 4" opacity="0"/>`;
+  svg += `<line class="lb-cross" x1="0" y1="${padT}" x2="0" y2="${axisY}" stroke="var(--pitch)" stroke-width="1.25" stroke-dasharray="3 4" opacity="0"/>`;
   svg += '</svg>';
   return svg;
 }
@@ -1069,11 +1040,11 @@ function koFormCardHtml(state) {
   if (!koChart) return '';
   return `<div class="lb-chart-card">
     <div class="lb-chart-head">
-      <h3 class="lb-chart-title">Knockout form</h3>
-      <p class="lb-chart-sub">Shrunken skill vs the coin flip · higher is sharper · ★ marks the current leader</p>
+      <h3 class="lb-chart-title">The calibration race</h3>
+      <p class="lb-chart-sub">Every competitor's running skill vs the coin flip, round by round — the score that decides the Brier Cup. Higher is sharper; <b>★</b> leads; the dashed dark line is <b>The Market</b>.</p>
     </div>
     <div class="chart lb-chart-plot">${koChart}</div>
-    <p class="fnote lb-chart-note">Each match scores (coin flip − Brier) ÷ coin flip, accumulated from the round of 32 with ten phantom coin-flip matches, so every line starts at 0% and early noise is damped. The dashed line is the coin flip itself. Hover any match for a full standing.</p>
+    <p class="fnote lb-chart-note">Each match scores (coin flip − Brier) ÷ coin flip, damped by ten phantom coin-flips so early noise can't spike a line. Standings step only when a match settles. Hover or tap anywhere for the full field at that match.</p>
   </div>`;
 }
 

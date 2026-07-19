@@ -1722,7 +1722,9 @@ th.edge-num, td.edge-num { text-align: right; font-variant-numeric: tabular-nums
   overflow-x: auto; -webkit-overflow-scrolling: touch;
 }
 @media (max-width: 700px) {
-  .trophy-chart .chart svg, .lb-chart-card .chart svg { min-width: 860px; }
+  .trophy-chart .chart svg { min-width: 860px; }
+  /* Match the viewBox so glyphs render at their designed size, 1:1 */
+  .lb-chart-card .chart svg { min-width: 760px; }
 }
 
 /* Tablet: the hero stacks, but the consensus card should read as a card,
