@@ -28,14 +28,6 @@
       </span>
     </header>
 
-    <section id="bankchart-section" class="bankchart-card" aria-labelledby="bankchart-title" hidden>
-      <div class="bankchart-head">
-        <h2 id="bankchart-title">The Bankroll race</h2>
-        <span class="bankchart-sub">Paper units per agent, match by match · quarter-Kelly vs the TxODDS StablePrice line · no real money</span>
-      </div>
-      <div id="bankchart"></div>
-    </section>
-
     <section class="hero">
       <div class="hero-copy">
         <h1>Who's winning the <span class="gold">World Cup</span>?<span class="hero-by">According to the machines.</span></h1>
@@ -65,6 +57,12 @@
       <p class="explainer">One identical prompt per match — the same words, only the fixture changes — put to frontier models from nine AI labs (eight ran the whole tournament; each lab's newest release was subbed in for the final, and xAI joined then), plus <span class="market-tip" tabindex="0" role="button" aria-haspopup="dialog" aria-label="What is The Market and where do its numbers come from?"><strong>The Market</strong><span class="market-tip-mark" aria-hidden="true">?</span></span>: TxODDS StablePrice consensus odds via TxLINE on Solana, de-vigged and scored under the same Brier rules. Click a competitor for its record.</p>
       <div id="view-toggle"></div>
       <div id="roster" class="roster" aria-label="Model roster"></div>
+    </section>
+
+    <section id="bankchart-section" aria-labelledby="bankchart-title" hidden>
+      <h2 id="bankchart-title">The Bankroll race</h2>
+      <p class="explainer">Paper units per agent, match by match — quarter-Kelly bets against the locked TxODDS StablePrice line, settled by the same Merkle-verified scores as the leaderboard. No real money, ever.</p>
+      <div id="bankchart"></div>
     </section>
 
     <section id="trophy-section" aria-labelledby="trophy-title" hidden>

@@ -1159,22 +1159,25 @@ function bankChartData(state) {
   }
   const start = bk.startingBankroll ?? 1000;
   const lines = Object.values(bk.models)
-    .filter((m) => m.series?.length)
+    // Each retired model ran its own independent 1,000-unit ledger under
+    // the old slug — plotting it alongside its lab's active successor
+    // doubles every color and buries the chart. The current roster (what
+    // the Bankroll table's default view and the legend both lead with) is
+    // the whole story here; full history for a retired slug still lives
+    // in that model's own ledger via the table.
+    .filter((m) => m.series?.length && !entrantById(state, m.model)?.retired)
     .map((m) => {
       const meta = entrantById(state, m.model);
       const pts = m.series
         .filter((p) => matchIdx.has(p.matchId))
         .map((p) => ({ i: matchIdx.get(p.matchId), v: p.after }));
       if (!pts.length) return null;
-      // Every line enters at the starting bankroll one slot before its
-      // first priced match, so late substitutes visibly join at 1,000.
       pts.unshift({ i: pts[0].i - 1, v: start });
       return {
         id: m.model,
         label: meta?.label ?? m.model,
         lab: labOf(state, m.model),
         color: LAB_COLORS[labOf(state, m.model)] ?? '#52514e',
-        retired: Boolean(meta?.retired),
         final: m.bankroll,
         pts,
       };
@@ -1182,6 +1185,24 @@ function bankChartData(state) {
     .filter(Boolean);
   if (!lines.length) return null;
   return { lines, matchName, start, n: matchName.length };
+}
+
+// Catmull-Rom-through-cubic-Bezier smoothing: turns the polyline into a
+// gently curved path without ever overshooting a data point (unlike a
+// naive spline), so the line still reads as "value at this match."
+function smoothPath(pts) {
+  if (pts.length < 3) return `M${pts.map((p) => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join('L')}`;
+  let d = `M${pts[0].x.toFixed(1)},${pts[0].y.toFixed(1)}`;
+  for (let i = 0; i < pts.length - 1; i++) {
+    const p0 = pts[i - 1] ?? pts[i];
+    const p1 = pts[i];
+    const p2 = pts[i + 1];
+    const p3 = pts[i + 2] ?? p2;
+    const c1x = p1.x + (p2.x - p0.x) / 6, c1y = p1.y + (p2.y - p0.y) / 6;
+    const c2x = p2.x - (p3.x - p1.x) / 6, c2y = p2.y - (p3.y - p1.y) / 6;
+    d += `C${c1x.toFixed(1)},${c1y.toFixed(1)} ${c2x.toFixed(1)},${c2y.toFixed(1)} ${p2.x.toFixed(1)},${p2.y.toFixed(1)}`;
+  }
+  return d;
 }
 
 function renderBankrollChart(state) {
@@ -1193,67 +1214,96 @@ function renderBankrollChart(state) {
   section.hidden = false;
 
   const { lines, matchName, start, n } = data;
-  const W = 960, H = 280, ML = 46, MR = 10, MT = 14, MB = 24;
-  const x = (i) => ML + ((i + 1) / n) * (W - ML - MR);
+  // Right-hand lane reserved for direct end-labels ("Claude Opus 4.7 991")
+  // so they never overlap the plotted lines or run off the viewBox.
+  const W = 960, H = 380, ML = 54, LABEL_LANE = 190, MR = 16 + LABEL_LANE, MT = 18, MB = 28;
+  const x = (i) => ML + ((i + 1) / n) * (W - MR - ML);
   let lo = start, hi = start;
   for (const l of lines) for (const p of l.pts) { lo = Math.min(lo, p.v); hi = Math.max(hi, p.v); }
-  const pad = (hi - lo) * 0.06 || 50;
-  lo -= pad; hi += pad;
+  const pad = (hi - lo) * 0.08 || 50;
+  lo = Math.max(0, lo - pad); hi += pad;
   const y = (v) => MT + (1 - (v - lo) / (hi - lo)) * (H - MT - MB);
 
-  // ~4 recessive gridlines on round numbers.
-  const step = [100, 200, 250, 500, 1000].find((s) => (hi - lo) / s <= 5) ?? 1000;
+  // ~5 recessive gridlines on round numbers.
+  const rawStep = (hi - lo) / 5;
+  const magnitude = 10 ** Math.floor(Math.log10(rawStep || 1));
+  const step = [1, 2, 2.5, 5, 10].map((m) => m * magnitude).find((s) => rawStep <= s) ?? magnitude * 10;
   let ticks = [];
-  for (let v = Math.ceil(lo / step) * step; v <= hi; v += step) ticks.push(v);
-  ticks = ticks.filter((v) => v !== start); // the baseline carries its own label
+  for (let v = Math.ceil(lo / step) * step; v <= hi; v += step) ticks.push(Math.round(v));
+  ticks = ticks.filter((v) => Math.abs(v - start) > step * 0.3); // the baseline carries its own label
 
-  const paths = [...lines]
-    .sort((a, b) => a.final - b.final) // leaders drawn last, on top
-    .map((l) => `<polyline class="bkc-line${l.retired ? ' bkc-retired' : ''}" data-lab="${esc(l.lab)}"
-      points="${l.pts.map((p) => `${x(p.i).toFixed(1)},${y(p.v).toFixed(1)}`).join(' ')}"
+  const ranked = [...lines].sort((a, b) => b.final - a.final);
+  const paths = [...ranked].reverse() // leaders drawn last, on top
+    .map((l) => `<path class="bkc-line" data-lab="${esc(l.lab)}" data-model="${esc(l.id)}"
+      d="${smoothPath(l.pts.map((p) => ({ x: x(p.i), y: y(p.v) })))}"
       style="stroke:${l.color}" fill="none"/>`).join('');
+  // A soft fill under the leader only — gives the chart a focal point
+  // without turning nine overlapping areas into a smear.
+  const leader = ranked[0];
+  const leaderFloor = y(lo);
+  const leaderFill = leader ? `<path class="bkc-area" d="${smoothPath(leader.pts.map((p) => ({ x: x(p.i), y: y(p.v) })))} L${x(leader.pts[leader.pts.length - 1].i).toFixed(1)},${leaderFloor} L${x(leader.pts[0].i).toFixed(1)},${leaderFloor} Z" style="fill:${leader.color}"/>` : '';
+  // Some agents are their lab's newest release, subbed in partway through
+  // the tournament — their line starts mid-chart. A small ring at that
+  // join point (title = "joined at match N") keeps it from reading as a
+  // rendering gap.
+  const joinMarkers = ranked
+    .filter((l) => l.pts[0].i > 0)
+    .map((l) => `<circle class="bkc-join" cx="${x(l.pts[0].i).toFixed(1)}" cy="${y(l.pts[0].v).toFixed(1)}" r="3.5" style="stroke:${l.color}">
+      <title>${esc(l.label)} joined at match ${l.pts[0].i + 2} of ${n}</title>
+    </circle>`).join('');
 
-  // Selective direct labels: top three active finishers plus the trailer.
-  const active = lines.filter((l) => !l.retired).sort((a, b) => b.final - a.final);
-  const labeled = [...active.slice(0, 3), ...(active.length > 4 ? [active[active.length - 1]] : [])];
-  let lastY = -Infinity;
-  const endLabels = [...labeled]
-    .sort((a, b) => y(b.final) - y(a.final))
-    .reverse()
-    .map((l) => {
-      let ly = y(l.pts[l.pts.length - 1].v);
-      if (ly - lastY < 12) ly = lastY + 12; // nudge collisions apart
-      lastY = ly;
-      const lx = x(l.pts[l.pts.length - 1].i);
-      return `<text class="bkc-endlabel" x="${(lx - 4).toFixed(1)}" y="${(ly - 5).toFixed(1)}" text-anchor="end">${esc(l.label)} ${fmtUnits(l.final)}</text>`;
-    }).join('');
+  // Direct end-labels for every line, pushed apart top-to-bottom so none
+  // overlap — with 9 series this still beats a legend-only chart for
+  // "who's ahead right now."
+  const MIN_GAP = 15;
+  const raw = ranked.map((l) => ({ l, y: y(l.final) })).sort((a, b) => a.y - b.y);
+  for (let i = 1; i < raw.length; i++) {
+    if (raw[i].y - raw[i - 1].y < MIN_GAP) raw[i].y = raw[i - 1].y + MIN_GAP;
+  }
+  // If pushing down ran the bottom labels off-chart, settle the whole
+  // stack back up so it fits inside the plot area.
+  const overflow = raw[raw.length - 1].y - (H - MB);
+  if (overflow > 0) for (const r of raw) r.y -= overflow;
+  const lastX = x(n - 1);
+  const endLabels = raw.map(({ l, y: ly }) => `<g class="bkc-endlabel" data-lab="${esc(l.lab)}" data-model="${esc(l.id)}">
+      <circle cx="${(lastX + 4).toFixed(1)}" cy="${ly.toFixed(1)}" r="2.5" fill="${l.color}"/>
+      <text x="${(lastX + 10).toFixed(1)}" y="${(ly + 3.5).toFixed(1)}">${esc(l.label)} <tspan class="bkc-endlabel-v">${fmtUnits(l.final)}</tspan></text>
+    </g>`).join('');
 
-  el.innerHTML = `<div class="bkc-wrap">
-    <svg class="bkc-svg" viewBox="0 0 ${W} ${H}" role="img"
-      aria-label="Each agent's paper-unit bankroll over ${n} settled matches; the same numbers as The Bankroll table.">
-      ${ticks.map((v) => `<g><line class="bkc-grid" x1="${ML}" y1="${y(v).toFixed(1)}" x2="${W - MR}" y2="${y(v).toFixed(1)}"/>
-        <text class="bkc-tick" x="${ML - 6}" y="${(y(v) + 3.5).toFixed(1)}" text-anchor="end">${fmtUnits(v)}</text></g>`).join('')}
-      <line class="bkc-base" x1="${ML}" y1="${y(start).toFixed(1)}" x2="${W - MR}" y2="${y(start).toFixed(1)}"/>
-      <text class="bkc-tick bkc-base-label" x="${ML - 6}" y="${(y(start) + 3.5).toFixed(1)}" text-anchor="end">${fmtUnits(start)}</text>
-      ${paths}
-      ${endLabels}
-      <line class="bkc-cursor" y1="${MT}" y2="${H - MB}" hidden/>
-    </svg>
-    <div class="bkc-tip" hidden></div>
-  </div>
-  <div class="bkc-legend" role="list">${[...active].map((l) => `
-    <button class="bkc-chip" role="listitem" data-lab="${esc(l.lab)}" data-model="${esc(l.id)}" title="Open ${esc(l.label)}'s ledger">
-      <span class="bkc-swatch" style="background:${l.color}"></span>${esc(l.label)}
-      <b class="bkc-chip-v">${fmtUnits(l.final)}</b>
-    </button>`).join('')}
+  el.innerHTML = `<div class="bkc-card">
+    <div class="bkc-wrap">
+      <svg class="bkc-svg" viewBox="0 0 ${W} ${H}" role="img"
+        aria-label="Each active agent's paper-unit bankroll over ${n} settled matches; the same numbers as The Bankroll table below.">
+        ${ticks.map((v) => `<g><line class="bkc-grid" x1="${ML}" y1="${y(v).toFixed(1)}" x2="${W - MR}" y2="${y(v).toFixed(1)}"/>
+          <text class="bkc-tick" x="${ML - 8}" y="${(y(v) + 3.5).toFixed(1)}" text-anchor="end">${fmtUnits(v)}</text></g>`).join('')}
+        <line class="bkc-base" x1="${ML}" y1="${y(start).toFixed(1)}" x2="${W - MR}" y2="${y(start).toFixed(1)}"/>
+        <text class="bkc-tick bkc-base-label" x="${ML - 8}" y="${(y(start) + 3.5).toFixed(1)}" text-anchor="end">${fmtUnits(start)} start</text>
+        ${leaderFill}
+        ${paths}
+        ${joinMarkers}
+        <line class="bkc-cursor" y1="${MT}" y2="${H - MB}" hidden/>
+        ${endLabels}
+      </svg>
+      <div class="bkc-tip" hidden></div>
+    </div>
+    <div class="bkc-legend" role="list">${ranked.map((l) => `
+      <button class="bkc-chip" role="listitem" data-lab="${esc(l.lab)}" data-model="${esc(l.id)}" title="Open ${esc(l.label)}'s ledger">
+        <span class="bkc-swatch" style="background:${l.color}"></span>${esc(l.label)}
+        <b class="bkc-chip-v">${fmtUnits(l.final)}</b>
+      </button>`).join('')}
+    </div>
+    ${joinMarkers ? '<p class="bkc-note">○ marks a lab\'s newest release joining partway through — its predecessor\'s record lives on that model\'s own ledger.</p>' : ''}
   </div>`;
 
-  // Legend hover isolates a lab's lines; click opens the agent's ledger.
+  // Hover/click a line, end-label, or legend chip — all three reference
+  // the same agent and highlight/open together.
   const svg = el.querySelector('.bkc-svg');
-  for (const chip of el.querySelectorAll('.bkc-chip')) {
-    chip.addEventListener('mouseenter', () => svg.setAttribute('data-focus', chip.dataset.lab));
-    chip.addEventListener('mouseleave', () => svg.removeAttribute('data-focus'));
-    chip.addEventListener('click', () => { location.hash = `p/${encodeURIComponent(chip.dataset.model)}`; });
+  const focus = (lab) => { if (lab) svg.setAttribute('data-focus', lab); else svg.removeAttribute('data-focus'); };
+  const openLedger = (id) => { location.hash = `p/${encodeURIComponent(id)}`; };
+  for (const node of el.querySelectorAll('[data-model]')) {
+    node.addEventListener('mouseenter', () => focus(node.dataset.lab));
+    node.addEventListener('mouseleave', () => focus(null));
+    node.addEventListener('click', () => openLedger(node.dataset.model));
   }
 
   // Hover layer: nearest-match crosshair + all live bankrolls at that match.
@@ -1278,7 +1328,7 @@ function renderBankrollChart(state) {
       .sort((a, b) => b.v - a.v);
     tip.hidden = false;
     tip.innerHTML = `<div class="bkc-tip-t">${esc(matchName[i] ?? '')} · match ${i + 1} of ${n}</div>
-      ${rows.map((r2) => `<div class="bkc-tip-row${r2.l.retired ? ' bkc-tip-retired' : ''}"><span class="bkc-swatch" style="background:${r2.l.color}"></span>${esc(r2.l.label)}<b>${fmtUnits(r2.v)}</b></div>`).join('')}`;
+      ${rows.map((r2) => `<div class="bkc-tip-row"><span class="bkc-swatch" style="background:${r2.l.color}"></span>${esc(r2.l.label)}<b>${fmtUnits(r2.v)}</b></div>`).join('')}`;
     const px = (cx / W) * r.width;
     tip.style.left = `${Math.min(Math.max(px + 12, 0), r.width - tip.offsetWidth - 4)}px`;
   });
