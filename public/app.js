@@ -1220,10 +1220,22 @@ function bankChartData(state) {
     .filter((m) => m.series?.length && !entrantById(state, m.model)?.retired)
     .map((m) => {
       const meta = entrantById(state, m.model);
-      const pts = m.series
+      const sparse = m.series
         .filter((p) => matchIdx.has(p.matchId))
         .map((p) => ({ i: matchIdx.get(p.matchId), v: p.after }));
-      if (!pts.length) return null;
+      if (!sparse.length) return null;
+      // A model doesn't price every match, so its series skips indices —
+      // and a smoothed line drawn over the gaps renders long straight
+      // chords, as if the bankroll drifted between bets. It didn't: it
+      // held. Densify with hold values so the line only moves at matches
+      // the model actually settled.
+      const pts = [];
+      let k = 0;
+      let v = sparse[0].v;
+      for (let i = sparse[0].i; i <= sparse[sparse.length - 1].i; i++) {
+        if (k < sparse.length && sparse[k].i === i) { v = sparse[k].v; k++; }
+        pts.push({ i, v });
+      }
       pts.unshift({ i: pts[0].i - 1, v: start });
       return {
         id: m.model,
@@ -2854,8 +2866,12 @@ function renderPodium(state) {
   el.innerHTML = `<div class="podium-stage">
     <div class="podium-slide-head">
       <span class="podium-slide-title">${esc(slide.title)}</span>
-      <span class="podium-dots" role="tablist" aria-label="Podium views">
-        ${slides.map((s, i) => `<button class="podium-dot${i === podiumSlideIdx ? ' active' : ''}" role="tab" aria-selected="${i === podiumSlideIdx}" data-slide="${i}" title="${esc(s.title)}"></button>`).join('')}
+      <span class="podium-nav">
+        <button class="podium-arrow" data-step="-1" aria-label="Previous podium view">‹</button>
+        <span class="podium-dots" role="tablist" aria-label="Podium views">
+          ${slides.map((s, i) => `<button class="podium-dot${i === podiumSlideIdx ? ' active' : ''}" role="tab" aria-selected="${i === podiumSlideIdx}" data-slide="${i}" title="${esc(s.title)}"></button>`).join('')}
+        </span>
+        <button class="podium-arrow" data-step="1" aria-label="Next podium view">›</button>
       </span>
     </div>
     <div class="podium" role="group" aria-label="Top three, ${esc(slide.title)}">
@@ -2873,6 +2889,15 @@ function renderPodium(state) {
       e.stopPropagation();
       podiumSlideIdx = Number(d.dataset.slide);
       renderPodium(state);
+    });
+  }
+  for (const a of el.querySelectorAll('.podium-arrow')) {
+    a.addEventListener('click', (e) => {
+      e.stopPropagation();
+      podiumSlideIdx = (podiumSlideIdx + Number(a.dataset.step) + slides.length) % slides.length;
+      renderPodium(state);
+      // Keep keyboard focus on the equivalent arrow after the re-render.
+      el.querySelector(`.podium-arrow[data-step="${a.dataset.step}"]`)?.focus();
     });
   }
   const stage = el.querySelector('.podium-stage');

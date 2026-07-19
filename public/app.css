@@ -1841,3 +1841,14 @@ main section, #prompt-section { scroll-margin-top: 76px; }
 .podium-v-up { color: #9fe3b4; }
 .podium-v-down { color: #ffb3a7; }
 .podium-1 .podium-brier.podium-v-up, .podium-1 .podium-brier.podium-v-down { color: var(--kit-gold); }
+
+/* Podium carousel arrows */
+.podium-nav { display: flex; align-items: center; gap: 8px; }
+.podium-arrow {
+  width: 22px; height: 22px; border-radius: 50%; padding: 0; cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.4); background: transparent;
+  color: rgba(255, 255, 255, 0.85); font: 700 14px/1 system-ui, sans-serif;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.podium-arrow:hover { border-color: #ffffff; color: #ffffff; background: rgba(255, 255, 255, 0.1); }
+.podium-arrow:focus-visible { outline: 2px solid var(--kit-gold); outline-offset: 2px; }
