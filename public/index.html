@@ -54,7 +54,7 @@
 
     <section id="bankroll-section" aria-labelledby="bankroll-title" hidden>
       <h2 id="bankroll-title">The Bankroll</h2>
-      <p class="explainer">Calibration as P&amp;L: every agent paper-trades its locked forecasts against the locked TxODDS StablePrice line. 1,000 <b>virtual units</b> at the start, at most one quarter-Kelly bet per match on its biggest edge — only when the edge clears 2% — settled by the same Merkle-verified scores as the leaderboard. No real money, ever.</p>
+      <p class="explainer">Every agent starts with 1,000 <b>virtual units</b> and places at most one quarter-Kelly paper bet per match against the locked TxODDS line — only when its edge clears 2%. Settled by the same verified scores as the leaderboard. No real money, ever.</p>
       <p class="explainer bank-subnote">Substituted models run separate books — each new release started its own 1,000-unit bankroll when it joined at the roster change.</p>
       <div id="bankchart"></div>
       <div id="bankroll" aria-live="polite"></div>
@@ -75,7 +75,7 @@
 
     <section id="matches-section" aria-labelledby="matches-title">
       <h2 id="matches-title">Matches</h2>
-      <p class="explainer">Group-stage probabilities are for the 90-minute result (extra time and penalties count as a draw). Knockout probabilities are simply who advances — no draw. Each card shows the consensus of all models, with team-by-team numbers above the bar.</p>
+      <p class="explainer">Group-stage cards price the 90-minute result (extra time and penalties count as a draw); knockout cards price who advances. Each card shows the consensus, with per-team numbers above the bar.</p>
       <div id="matches" class="skeleton-block"></div>
     </section>
 
@@ -199,7 +199,7 @@ The two probabilities must sum to 1.</pre>
   </section>
 
   <footer class="foot">
-    <p>Match scores from ESPN’s public World Cup feed. AI forecasts via OpenRouter with one identical prompt per model — only pre-kickoff locks count. Market lines from <strong>TxODDS StablePrice</strong> over <strong>TxLINE</strong> on Solana; settled scores can show a “Score verified on Solana” badge when the Merkle proof matches the on-chain daily root. The Bankroll is paper trading with virtual units — no real money. Built for the Superteam × TxODDS World Cup hackathon — <strong>Trading Tools &amp; Agents</strong> track.</p>
+    <p>Scores from ESPN’s public feed; forecasts via OpenRouter, one identical prompt per model, pre-kickoff locks only. Market lines from <strong>TxODDS StablePrice</strong> over <strong>TxLINE</strong> on Solana — green badges mean the score Merkle-proved against the on-chain daily root. Paper trading only, no real money. Built for the Superteam × TxODDS World Cup hackathon — <strong>Trading Tools &amp; Agents</strong> track.</p>
   </footer>
 
   <div id="market-modal" hidden>
