@@ -1253,7 +1253,7 @@ function renderBankrollChart(state) {
   // Right-hand lane reserved for direct end-labels ("Claude Opus 4.7 991",
   // or just "1,566" when compact) so they never overlap the plotted lines.
   const W = compact ? 420 : 960, H = compact ? 340 : 380,
-    ML = compact ? 40 : 54, LABEL_LANE = compact ? 52 : 190,
+    ML = compact ? 40 : 54, LABEL_LANE = compact ? 52 : 150,
     MR = (compact ? 8 : 16) + LABEL_LANE, MT = 18, MB = compact ? 24 : 28;
   const x = (i) => ML + ((i + 1) / n) * (W - MR - ML);
   let lo = start, hi = start;
@@ -1276,10 +1276,15 @@ function renderBankrollChart(state) {
       d="${smoothPath(l.pts.map((p) => ({ x: x(p.i), y: y(p.v) })))}"
       style="stroke:${l.color}" fill="none"/>`).join('');
   // A soft fill under the leader only — gives the chart a focal point
-  // without turning nine overlapping areas into a smear.
+  // without turning nine overlapping areas into a smear. Vertical fade so
+  // the fill has no hard bottom or side edges.
   const leader = ranked[0];
   const leaderFloor = y(lo);
-  const leaderFill = leader ? `<path class="bkc-area" d="${smoothPath(leader.pts.map((p) => ({ x: x(p.i), y: y(p.v) })))} L${x(leader.pts[leader.pts.length - 1].i).toFixed(1)},${leaderFloor} L${x(leader.pts[0].i).toFixed(1)},${leaderFloor} Z" style="fill:${leader.color}"/>` : '';
+  const leaderFill = leader ? `<defs><linearGradient id="bkc-fade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="${leader.color}" stop-opacity="0.14"/>
+      <stop offset="1" stop-color="${leader.color}" stop-opacity="0"/>
+    </linearGradient></defs>
+    <path class="bkc-area" d="${smoothPath(leader.pts.map((p) => ({ x: x(p.i), y: y(p.v) })))} L${x(leader.pts[leader.pts.length - 1].i).toFixed(1)},${leaderFloor} L${x(leader.pts[0].i).toFixed(1)},${leaderFloor} Z" fill="url(#bkc-fade)"/>` : '';
   // Some agents are their lab's newest release, subbed in partway through
   // the tournament — their line starts mid-chart. A small ring at that
   // join point (title = "joined at match N") keeps it from reading as a
@@ -1290,13 +1295,17 @@ function renderBankrollChart(state) {
       <title>${esc(l.label)} joined at match ${l.pts[0].i + 2} of ${n}</title>
     </circle>`).join('');
 
-  // Direct end-labels for every line, spread apart only where lines
-  // bunch. Two passes: push down to clear collisions, then push back up
-  // from the bottom edge — labels compress into free gaps instead of the
-  // whole stack drifting off its lines.
+  // Selective direct labels: the top three plus the trailer. Nine labels
+  // forced a fan of steep leader ticks that read as extra data lines; the
+  // ranked legend below already names every agent, so the plot only
+  // labels the lines a reader actually asks about. Two-pass solver keeps
+  // the four apart while hugging their lines.
   const MIN_GAP = 15;
-  const raw = ranked
-    .map((l) => ({ l, lineY: y(l.pts[l.pts.length - 1].v), y: y(l.final) }))
+  const labeled = ranked.length > 4
+    ? [...ranked.slice(0, 3), ranked[ranked.length - 1]]
+    : ranked;
+  const raw = labeled
+    .map((l) => ({ l, y: y(l.pts[l.pts.length - 1].v) }))
     .sort((a, b) => a.y - b.y);
   for (let i = 1; i < raw.length; i++) {
     raw[i].y = Math.max(raw[i].y, raw[i - 1].y + MIN_GAP);
@@ -1306,8 +1315,7 @@ function renderBankrollChart(state) {
     raw[i].y = Math.min(raw[i].y, raw[i + 1].y - MIN_GAP);
   }
   const lastX = x(n - 1);
-  const endLabels = raw.map(({ l, lineY, y: ly }) => `<g class="bkc-endlabel" data-lab="${esc(l.lab)}" data-model="${esc(l.id)}">
-      ${Math.abs(ly - lineY) > 4 ? `<line class="bkc-leader" x1="${(lastX + 1).toFixed(1)}" y1="${lineY.toFixed(1)}" x2="${(lastX + 7).toFixed(1)}" y2="${ly.toFixed(1)}" style="stroke:${l.color}"/>` : ''}
+  const endLabels = raw.map(({ l, y: ly }) => `<g class="bkc-endlabel" data-lab="${esc(l.lab)}" data-model="${esc(l.id)}">
       <circle cx="${(lastX + 8).toFixed(1)}" cy="${ly.toFixed(1)}" r="2.5" fill="${l.color}"/>
       <text x="${(lastX + 14).toFixed(1)}" y="${(ly + 3.5).toFixed(1)}">${compact ? '' : `${esc(l.label)} `}<tspan class="bkc-endlabel-v">${fmtUnits(l.final)}</tspan></text>
     </g>`).join('');

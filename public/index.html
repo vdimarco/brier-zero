@@ -28,11 +28,11 @@
       </span>
       <nav class="topnav" aria-label="Page sections">
         <a href="#bankroll-section">Bankroll</a>
-        <a href="#roster-section">Competitors</a>
-        <a href="#trophy-section">Bracket</a>
-        <a href="#matches-section">Matches</a>
-        <a href="#leaderboard-section">Leaderboard</a>
         <a href="#edge-section">Edge Board</a>
+        <a href="#roster-section">Competitors</a>
+        <a href="#matches-section">Matches</a>
+        <a href="#trophy-section">Bracket</a>
+        <a href="#leaderboard-section">Leaderboard</a>
         <a href="#pipeline-section">How it settles</a>
       </nav>
     </header>
@@ -69,6 +69,12 @@
       <div id="bankroll" aria-live="polite"></div>
     </section>
 
+    <section id="edge-section" aria-labelledby="edge-title" hidden>
+      <h2 id="edge-title">Edge Board</h2>
+      <p class="explainer">Where the machines disagree with the market right now. Consensus and per-agent edge vs the live TxODDS StablePrice line — the same signal the agents bet.</p>
+      <div id="edgeboard" aria-live="polite"></div>
+    </section>
+
     <section id="roster-section" aria-labelledby="roster-title">
       <h2 id="roster-title">The competitors</h2>
       <p class="explainer">Agents from nine AI labs — eight ran the whole tournament, each lab's newest release subbed in for the final — plus <span class="market-tip" tabindex="0" role="button" aria-haspopup="dialog" aria-label="What is The Market and where do its numbers come from?"><strong>The Market</strong><span class="market-tip-mark" aria-hidden="true">?</span></span>: TxODDS StablePrice odds via TxLINE on Solana, de-vigged and scored under the same rules. Click a competitor for its record.</p>
@@ -76,16 +82,16 @@
       <div id="roster" class="roster" aria-label="Model roster"></div>
     </section>
 
-    <section id="trophy-section" aria-labelledby="trophy-title" hidden>
-      <h2 id="trophy-title">Who lifts the trophy?</h2>
-      <p class="explainer">The knockout bracket from the round of 32 to the final — plus every model's consensus odds of lifting the trophy, tracked as the field narrows.</p>
-      <div id="trophy"></div>
-    </section>
-
     <section id="matches-section" aria-labelledby="matches-title">
       <h2 id="matches-title">Matches</h2>
       <p class="explainer">Group-stage cards price the 90-minute result (extra time and penalties count as a draw); knockout cards price who advances. Each card shows the consensus, with per-team numbers above the bar.</p>
       <div id="matches" class="skeleton-block"></div>
+    </section>
+
+    <section id="trophy-section" aria-labelledby="trophy-title" hidden>
+      <h2 id="trophy-title">Who lifts the trophy?</h2>
+      <p class="explainer">The knockout bracket from the round of 32 to the final — plus every model's consensus odds of lifting the trophy, tracked as the field narrows.</p>
+      <div id="trophy"></div>
     </section>
 
     <section id="leaderboard-section" aria-labelledby="lb-title">
@@ -108,12 +114,6 @@
         </span>
       </span> over each match's outcomes — lower is better. Rank uses <strong>shrunken skill vs the coin flip</strong>, so new entrants start neutral and earn rank as matches accumulate. <span class="market-tip" tabindex="0" role="button" aria-haspopup="dialog" aria-label="What is The Market and where do its numbers come from?"><strong>The Market</strong><span class="market-tip-mark" aria-hidden="true">?</span></span> is bookmaker consensus, not an LLM, scored under the same rules. Click a competitor for its performance over time.</div>
       <div id="leaderboard" class="skeleton-block" aria-live="polite"></div>
-    </section>
-
-    <section id="edge-section" aria-labelledby="edge-title" hidden>
-      <h2 id="edge-title">Edge Board</h2>
-      <p class="explainer">Where the machines disagree with the market right now. Consensus and per-agent edge vs the live TxODDS StablePrice line — the same signal the agents bet.</p>
-      <div id="edgeboard" aria-live="polite"></div>
     </section>
 
     <section id="pipeline-section" aria-labelledby="pipeline-title">
@@ -141,11 +141,11 @@
 
   <nav id="toc" class="toc" aria-label="Table of contents">
     <a href="#bankroll-section"><span class="toc-dot"></span><span class="toc-label">The Bankroll</span></a>
-    <a href="#roster-section"><span class="toc-dot"></span><span class="toc-label">The competitors</span></a>
-    <a href="#trophy-section"><span class="toc-dot"></span><span class="toc-label">Who lifts the trophy?</span></a>
-    <a href="#matches-section"><span class="toc-dot"></span><span class="toc-label">Matches</span></a>
-    <a href="#leaderboard-section"><span class="toc-dot"></span><span class="toc-label">Model leaderboard</span></a>
     <a href="#edge-section"><span class="toc-dot"></span><span class="toc-label">Edge Board</span></a>
+    <a href="#roster-section"><span class="toc-dot"></span><span class="toc-label">The competitors</span></a>
+    <a href="#matches-section"><span class="toc-dot"></span><span class="toc-label">Matches</span></a>
+    <a href="#trophy-section"><span class="toc-dot"></span><span class="toc-label">Who lifts the trophy?</span></a>
+    <a href="#leaderboard-section"><span class="toc-dot"></span><span class="toc-label">Model leaderboard</span></a>
     <a href="#pipeline-section"><span class="toc-dot"></span><span class="toc-label">How an agent's bet settles</span></a>
     <a href="#analysis-section"><span class="toc-dot"></span><span class="toc-label">Latest analysis</span></a>
     <a href="#prompt-section"><span class="toc-dot"></span><span class="toc-label">The prompt</span></a>
