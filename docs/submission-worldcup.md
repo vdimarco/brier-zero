@@ -13,19 +13,19 @@ Use this file as the paste source for Superteam Earn (demo video, app link, tech
 
 ## One-liner
 
-Frontier AI models from nine labs forecast every FIFA World Cup 2026 match under one identical prompt — and compete head-to-head against TxODDS’s StablePrice consensus line, de-vigged and Brier-scored on the same leaderboard. Can any AI beat the market?
+AI agents from ten labs forecast and paper-trade every FIFA World Cup 2026 match under one identical prompt — against TxODDS’s StablePrice consensus line, de-vigged, Brier-scored, and bet quarter-Kelly on the same board, with every settlement Merkle-verified on Solana. Can any AI beat the market?
 
 ## Description (submission form)
 
-The Brier Cup is a live forecasting tournament that has run the whole World Cup. Before every match, frontier models from eight AI labs (Claude, GPT, DeepSeek, Kimi, GLM, Qwen, MiniMax, Gemini) receive the exact same prompt and commit probabilities: home/draw/away for the 90-minute result in the group stage, who advances in the knockouts. Forecasts lock at kickoff — the git history of the prediction ledger is a public audit trail that every forecast predates the whistle. As results arrive, every forecast is scored with the multi-category Brier score (0 = perfect, 0.667 = three-way coin flip, 2 = maximally wrong). Lowest average wins.
+The Brier Cup is a live forecasting tournament that has run the whole World Cup. Before every match, frontier models from ten AI labs (Claude, GPT, DeepSeek, Kimi, GLM, Qwen, MiniMax, Gemini, Grok, Mistral) receive the exact same prompt and commit probabilities: home/draw/away for the 90-minute result in the group stage, who advances in the knockouts. Forecasts lock at kickoff — the git history of the prediction ledger is a public audit trail that every forecast predates the whistle. As results arrive, every forecast is scored with the multi-category Brier score (0 = perfect, 0.667 = three-way coin flip, 2 = maximally wrong). Lowest average wins.
 
-Before the final, each lab’s backtest-winning newest release was substituted into the live roster (and xAI’s Grok 4.5 joined as a ninth lab). The predecessors’ full-tournament records stay on the board as retired entrants — the default by-lab view folds them into one continuous record per lab — and the ranking metric keeps it honest: rows rank by **shrunken skill vs the coin flip** ((baseline − Brier)/baseline per match, with ten phantom coin-flip matches), so a newcomer starts neutral and earns rank with evidence instead of a lucky two-match sample leapfrogging a 100-match record. Average Brier stays the headline number.
+Before the final, each lab’s backtest-winning newest release was substituted into the live roster (with xAI’s Grok 4.5 and Mistral joining at the final). The predecessors’ full-tournament records stay on the board as retired entrants — the default by-lab view folds them into one continuous record per lab — and the ranking metric keeps it honest: rows rank by **shrunken skill vs the coin flip** ((baseline − Brier)/baseline per match, with ten phantom coin-flip matches), so a newcomer starts neutral and earns rank with evidence instead of a lucky two-match sample leapfrogging a 100-match record. Average Brier stays the headline number.
 
-**The TxODDS integration seats a ninth competitor that never hallucinates: the market itself.** TxLINE’s StablePrice feed — consensus bookmaker odds aggregated by TxODDS and anchored on Solana — is fetched per fixture, stripped of its vig (proportional normalization; overround stored for transparency), locked at kickoff under identical rules, and Brier-scored on the same leaderboard. During matches, the live line can reprice on the card next to each model’s in-play re-forecasts.
+**The TxODDS integration seats one more competitor that never hallucinates: the market itself.** TxLINE’s StablePrice feed — consensus bookmaker odds aggregated by TxODDS and anchored on Solana — is fetched per fixture, stripped of its vig (proportional normalization; overround stored for transparency), locked at kickoff under identical rules, and Brier-scored on the same leaderboard. During matches, the live line can reprice on the card next to each model’s in-play re-forecasts.
 
 That turns a fun AI benchmark into a market-efficiency experiment: the leaderboard is a running, cryptographically auditable answer to “do frontier LLMs price football better or worse than the global betting market?” — with the market’s settled scores themselves verifiable on-chain via TxLINE validation proofs.
 
-**Current result (as of submission):** The Market leads with average Brier **0.4262** over **102** scored matches, ahead of every AI model (best AI: Gemini at 0.4520, also full backtest). Headline for judges: **no AI model beat the bookies over this World Cup.**
+**Current result (as of the final's kickoff):** On the knockout board that decides the cup, The Market leads with average Brier **0.312** over **31** scored matches, ahead of all ten labs (best agent: Claude Opus 4.7 at 0.322). On the paper-trading Bankroll — 1,361 quarter-Kelly bets settled across all 103 matches — **MiniMax leads at 1,566 units from 1,000**, despite ranking near the bottom on calibration. Headline for judges: **no AI beat the bookies on calibration; variance, not skill, made the richest agent.**
 
 ## How TxODDS / TxLINE is used
 
@@ -61,8 +61,8 @@ That turns a fun AI benchmark into a market-efficiency experiment: the leaderboa
 
 ## Demo script (≤5 min video)
 
-1. **Open** https://worldcup.uptick.fyi — hero states the experiment: eight AIs + the market on Solana.
-2. **Leaderboard** — point at **The Market** leading (avg Brier ~0.426, skill ~+32% vs the coin flip over 102 matches) with slug *TxODDS StablePrice · TxLINE on Solana*; scan the eight full-tournament lab records below it. Flip the **By lab / By model** toggle to show substitution lineage vs individual model records.
+1. **Open** https://worldcup.uptick.fyi — hero states the experiment: ten AI agents trading the World Cup against the market on Solana; podium carousel cycles Brier and Bankroll by country / lab / model.
+2. **The Bankroll** — the race chart, an agent's bet ledger, and a settled bet's **✓** opening the Merkle settlement receipt. Then the **Leaderboard**: The Market leading the knockout board (avg Brier 0.312, +39.1% vs the coin flip over 31 matches), slug *TxODDS StablePrice · TxLINE on Solana*; flip **By lab / By model / By country**.
 3. **Expand a finished match** — locked forecasts vs outcome; show **Score verified on Solana ✓** and open the explorer PDA link.
 4. **Match card / live path** — if a match is upcoming or in-play and the API token is configured, show the **Live odds · TxODDS on Solana** strip next to model forecasts.
 5. **Audit trail** — mention forecasts committed to git before kickoff; odds/scores anchored via TxLINE; proofs recomputed client-side against the on-chain root.
@@ -72,7 +72,7 @@ That turns a fun AI benchmark into a market-efficiency experiment: the leaderboa
 
 ### Core idea
 
-Same prompt → many models → Brier score vs real results, with the **bookmaker consensus as a ninth entrant** so the leaderboard answers a real market question, not only “which LLM is least bad.”
+Same prompt → many models → Brier score vs real results, with the **bookmaker consensus as an entrant** so the leaderboard answers a real market question, not only “which LLM is least bad.”
 
 ### Stack
 
@@ -130,7 +130,7 @@ Env: `TXODDS_API_TOKEN`, `TXODDS_ENV=devnet|mainnet`, optional `TXODDS_COMPETITI
 Nobody knows if frontier LLMs price sports better than the market. We run both under identical scoring and show the answer live.
 
 **What did you build?**  
-A public Brier-scored World Cup arena where eight AIs compete against TxODDS StablePrice on Solana, with lock-at-kickoff forecasts and on-chain score verification badges.
+A public World Cup arena where agents from ten AI labs forecast and paper-trade every match against TxODDS StablePrice on Solana — lock-at-kickoff forecasts, a quarter-Kelly bet ledger, and every settlement Merkle-verified on-chain: a receipt, not a claim.
 
 **What should judges click?**  
-1) Leaderboard — Market #1. 2) Any finished match with a green Solana badge. 3) Optional `/research`.
+1) **The Bankroll** (top of page) — the race chart, then any agent's row for its full bet ledger; tap a **✓** on a settled bet for the Merkle settlement receipt. 2) Any finished match's green **"Score verified on Solana"** badge → the audit-trail modal → Solscan. 3) The **podium carousel** (Brier and Bankroll, by country / lab / model) and the **Edge Board**. 4) Terminal proof: `node --env-file=.env scripts/verify-settlement.js <matchId>` prints leaf → siblings → recomputed root vs the on-chain root. 5) Optional `/research`.
