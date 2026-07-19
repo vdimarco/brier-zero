@@ -199,6 +199,13 @@ for (const m of done) {
     if (!seq) { skipped++; console.log(`  ${m.shortName}: skip (no seq)`); continue; }
     const payload = await fetchStatValidation(fixtureId, seq, FULL_TIME_SCORE_STAT_KEY);
     const chain = await verifyOnChain(program, payload);
+    // Materialize the Merkle path for the settlement-proof receipt (UI). Purely
+    // additive: the pass/fail decision above is untouched. Each sibling is
+    // recorded leaf→root with its fold side; local() gives the intermediate roots.
+    const toHex = (arr) => Buffer.from(arr).toString('hex');
+    const flatten = (nodes) => (nodes ?? []).map((n) => ({ hash: toHex(n.hash), side: n.isRightSibling ? 'right' : 'left' }));
+    let local = { eventRoot: null, subRoot: null };
+    try { local = recomputeRoot(payload); } catch { /* keep nulls */ }
     const proof = {
       matchId: m.id,
       fixtureId,
@@ -211,6 +218,15 @@ for (const m of done) {
       pda: chain.pda.toBase58(),
       cluster: ENV,
       explorerUrl: `https://explorer.solana.com/address/${chain.pda.toBase58()}${ENV === 'devnet' ? '?cluster=devnet' : ''}`,
+      // Receipt detail (consumed by the proof modal). Absent on older records.
+      statToProve: payload.statToProve,
+      eventRoot: local.eventRoot,
+      subRoot: local.subRoot,
+      merklePath: [
+        ...flatten(payload.statProof),
+        ...flatten(payload.subTreeProof),
+        ...flatten(payload.mainTreeProof),
+      ],
       at: new Date().toISOString(),
       method: 'validateStat.view',
       ...(chain.reason ? { reason: chain.reason } : {}),

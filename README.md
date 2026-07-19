@@ -118,6 +118,69 @@ never score against different teams. Where TxLINE publishes a final-score
 record, the score is Merkle-proved against the `daily_scores_roots` PDA on
 Solana and badged on the match card.
 
+## Architecture: how a match gets settled
+
+1. **Stream** — TxLINE on Solana streams TxODDS StablePrice consensus odds
+   for every fixture (`lib/txodds.js`).
+2. **De-vig** — the bookmaker margin is stripped, leaving implied
+   probabilities; this is The Market's forecast.
+3. **Lock at kickoff** — every model and the market are frozen; nothing
+   collected after kickoff ever counts (`lib/predictor.js`, ledger commits).
+4. **Result** — the final score arrives from ESPN's public feed
+   (`lib/espn.js` / `lib/feed.js`).
+5. **Merkle proof** — the score is verified against TxODDS's on-chain daily
+   root: leaf → statProof → eventStatRoot → subTreeProof → mainTreeProof →
+   `daily_scores_roots` PDA, simulated via the program's `validateStat`
+   (`scripts/verify-results.js`, `recomputeRoot` in `lib/txodds.js`).
+6. **Score & settle** — Brier scores update the leaderboard
+   (`lib/scoring.js`) and the paper-trading bankroll settles at the locked
+   line (`lib/bankroll.js`).
+
+## Verify a settlement yourself
+
+1. Open [worldcup.uptick.fyi](https://worldcup.uptick.fyi) and find any
+   finished match with the green **"Score verified on Solana ✓"** badge.
+2. Tap the badge: the **Settlement proof** receipt opens — the settled
+   outcome, the leaf identity (TxODDS full-time-score stat, key 1002), the
+   recomputed daily root, and the on-chain root they must equal.
+3. Follow **Open on Solscan** (or Solana Explorer) to the
+   `daily_scores_roots` account and compare the committed root for that epoch
+   day with the one in the receipt. If any hash differed, the badge would not
+   show.
+4. To reproduce from scratch: `node scripts/verify-results.js` re-fetches the
+   stat-validation payload for every finished match, folds the Merkle path
+   locally (`recomputeRoot`), and simulates on-chain `validateStat` — no
+   transaction is sent.
+
+## The Bankroll: paper-trading rules
+
+Every model paper-trades its locked forecasts against the locked TxODDS
+line. **Virtual units only — no real money anywhere.** The whole ledger is a
+deterministic pure fold over `(locked forecasts, locked lines, settled
+results)` in match order — no randomness, no wall clock — so it is exactly
+reproducible (`node scripts/bankroll.js`; run twice, byte-identical output).
+
+- **Starting bankroll:** 1,000 units per model, at its first scored match.
+- **Odds used:** raw TxODDS StablePrice decimal odds (vig included) for
+  group-stage 1X2 bets — the honest version, the model must beat the vig.
+  Knockout "who advances" bets settle at fair (de-vigged) odds `d = 1/q`,
+  since no single advances price is quoted; disclosed in the UI.
+- **Edge per outcome:** `edge_o = p_o · d_o − 1`.
+- **Bet selection:** one bet per match per model, on the outcome with the
+  maximum edge, only if `edge > 0.02` (2% threshold). Otherwise the model
+  sits out that match (recorded as a "no bet").
+- **Stake — fractional Kelly:** full Kelly `f* = (p·d − 1)/(d − 1)`;
+  stake = `0.25 · f* · bankroll` (quarter-Kelly), capped at
+  `0.10 · bankroll`. Stakes below 0.5 units floor to zero (no dust bets).
+- **Settlement:** on the same result event that triggers Brier scoring.
+  Win → `bankroll += stake·(d−1)`; loss → `bankroll −= stake`. Group stage
+  settles the 1X2 90-minute result (draw is a real outcome); knockouts
+  settle "who advances" (two outcomes, no draw).
+- **Lock discipline:** identical to forecasts — only the pre-kickoff locked
+  probability and pre-kickoff line count. In-play numbers never bet.
+- **The Market as competitor:** excluded — it can't bet against itself
+  (zero edge at its own odds by construction).
+
 ---
 
 # Brier Zero: the Map/Territory Detection Engine

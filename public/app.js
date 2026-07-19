@@ -214,7 +214,24 @@ if (typeof document !== 'undefined') {
   const openMarketModal = () => { const m = marketModal(); if (m) { m.hidden = false; document.body.classList.add('mkt-open'); m.querySelector('.mkt-close')?.focus(); } };
   const closeMarketModal = () => { const m = marketModal(); if (m && !m.hidden) { m.hidden = true; document.body.classList.remove('mkt-open'); } };
   document.addEventListener('click', (e) => {
-    if (e.target.closest?.('.market-tip')) {
+    const proofBtn = e.target.closest?.('.proof-badge[data-proof]');
+    const copyBtn = e.target.closest?.('.proof-copy[data-copy]');
+    if (proofBtn) {
+      e.preventDefault();
+      e.stopPropagation();
+      const id = proofBtn.dataset.proof;
+      const match = lastState?.matches.find((m) => m.id === id);
+      const proof = lastState?.proofs?.[id];
+      if (match && proof) renderProofModal(match, proof);
+    } else if (copyBtn) {
+      e.preventDefault();
+      e.stopPropagation();
+      navigator.clipboard?.writeText(copyBtn.dataset.copy).then(() => toast('Hash copied')).catch(() => {});
+    } else if (e.target.closest?.('[data-proof-close]')) {
+      e.preventDefault();
+      e.stopPropagation();
+      closeProofModal();
+    } else if (e.target.closest?.('.market-tip')) {
       e.preventDefault();
       e.stopPropagation();
       openMarketModal();
@@ -231,8 +248,17 @@ if (typeof document !== 'undefined') {
       e.stopPropagation();
       openMarketModal();
     }
+    const badge = e.target.closest?.('.proof-badge[data-proof]');
+    if (badge && (e.key === 'Enter' || e.key === ' ')) {
+      e.preventDefault();
+      e.stopPropagation();
+      const match = lastState?.matches.find((m) => m.id === badge.dataset.proof);
+      const proof = lastState?.proofs?.[badge.dataset.proof];
+      if (match && proof) renderProofModal(match, proof);
+    }
     if (e.key === 'Escape') {
       closeMarketModal();
+      closeProofModal();
       // Close tip popovers too, wherever focus is.
       document.querySelectorAll('.brier-tip.open').forEach((t) => t.classList.remove('open'));
     }
@@ -278,6 +304,29 @@ function displayMarketOf(modelsMap, match) {
   const list = Object.values(modelsMap ?? {}).filter((p) => p.probs);
   if (!list.length || list.some((p) => predMarket(p) === want)) return want;
   return predMarket(list[0]);
+}
+
+/* The forecasts a match's consensus is built from: one per entrant in the
+   active view, exactly as the leaderboard counts them. The raw
+   `match.predictions` ledger also holds retired models that were
+   superseded mid-tournament, so averaging it directly double-weights any
+   lab that fielded two models and yields a number no view of the page can
+   reproduce. Every surface that quotes a match consensus goes through
+   here so they can't drift apart. */
+/* Name/crest for an id that may be either a lab key ("anthropic", in the
+   by-lab view) or a model id ("anthropic/claude-opus-4.7"). The active
+   view is checked first because only it carries lab labels. */
+function displayEntrantById(state, id) {
+  return displayEntrants(state).find((e) => e.id === id) ?? entrantById(state, id) ?? null;
+}
+
+function entrantPredsOf(state, match) {
+  const preds = {};
+  for (const ent of displayEntrants(state)) {
+    const p = predOf(match, ent);
+    if (p) preds[ent.id] = p;
+  }
+  return preds;
 }
 
 function consensusOf(modelsMap, market = 'regulation') {
@@ -420,9 +469,86 @@ function oddsStrip(match) {
 function proofBadge(state, match) {
   const p = state.proofs?.[match.id];
   if (!p?.verified) return '';
-  const title = `Final score Merkle-proved against the root TxODDS committed on Solana (epoch day ${p.epochDay})`;
-  return `<a class="proof-badge" href="${esc(p.explorerUrl)}" target="_blank" rel="noopener"
-    title="${esc(title)}">Score verified on Solana ✓</a>`;
+  const title = `Final score Merkle-proved against the root TxODDS committed on Solana (epoch day ${p.epochDay}) — tap for the receipt`;
+  return `<button class="proof-badge" data-proof="${esc(match.id)}"
+    aria-haspopup="dialog" title="${esc(title)}">Score verified on Solana ✓</button>`;
+}
+
+// Solscan link for the on-chain daily-roots account. Explorer link is kept
+// too (proof.explorerUrl); Solscan is the one the spec asks for.
+function solscanUrl(proof) {
+  const q = proof.cluster && proof.cluster !== 'mainnet' ? `?cluster=${proof.cluster}` : '';
+  return `https://solscan.io/account/${proof.pda}${q}`;
+}
+
+// Settlement-proof receipt: the leaf identity, the recomputed daily root vs
+// the on-chain root they must match, the Merkle path when a verify run has
+// persisted it, and a one-click link to the on-chain account so a judge can
+// verify the root independently.
+function renderProofModal(match, proof) {
+  const el = document.getElementById('proof-modal');
+  if (!el || !proof) return;
+  const hs = match.home.score ?? '?';
+  const as = match.away.score ?? '?';
+  const market = matchMarket(match);
+  const settled = match.outcome
+    ? (market === 'advance'
+        ? `${esc(match[match.outcome].name)} advanced`
+        : match.outcome === 'draw' ? 'Draw' : `${esc(match[match.outcome].name)} won`)
+    : '—';
+  const hash = (h) => `<code class="proof-hash">${esc(h)}</code><button class="proof-copy" data-copy="${esc(h)}" title="Copy hash" aria-label="Copy hash">⧉</button>`;
+  const rootsMatch = proof.root && proof.onchainRoot && proof.root === proof.onchainRoot;
+
+  // Merkle path (leaf → siblings → root), only if a verify run persisted it.
+  let pathHtml = '';
+  const nodes = proof.merklePath;
+  if (Array.isArray(nodes) && nodes.length) {
+    pathHtml = `<div class="proof-block">
+      <div class="proof-k">Merkle path · leaf → root</div>
+      <ol class="proof-path">
+        <li><span class="proof-step-tag">leaf</span>${hash(proof.leafHash || '(full-time score stat)')}</li>
+        ${nodes.map((n, i) => `<li><span class="proof-step-tag">h${i + 1}</span>${hash(n.hash ?? n)}</li>`).join('')}
+        <li><span class="proof-step-tag">root</span>${hash(proof.root)}</li>
+      </ol>
+    </div>`;
+  }
+
+  el.innerHTML = `<div class="mkt-scrim" data-proof-close></div>
+  <section class="mkt-panel proof-panel" role="dialog" aria-modal="true" aria-labelledby="proof-title">
+    <button class="mkt-close" data-proof-close aria-label="Close">✕</button>
+    <h3 id="proof-title">Settlement proof</h3>
+    <p class="proof-sub">${esc(match.home.name)} <b>${hs}–${as}</b> ${esc(match.away.name)} · ${esc(match.stage)}</p>
+    <div class="proof-block">
+      <div class="proof-k">Settled outcome</div>
+      <div class="proof-v">${settled}</div>
+    </div>
+    <div class="proof-block">
+      <div class="proof-k">The leaf</div>
+      <div class="proof-v">Full-time score stat (TxODDS stat key ${esc(proof.statKey ?? 1002)}) · fixture ${esc(proof.fixtureId ?? '—')}${proof.seq != null ? ` · seq ${esc(proof.seq)}` : ''}</div>
+    </div>
+    ${pathHtml}
+    <div class="proof-block">
+      <div class="proof-k">Recomputed daily root</div>
+      <div class="proof-v">${proof.root ? hash(proof.root) : '—'}</div>
+    </div>
+    <div class="proof-block">
+      <div class="proof-k">On-chain daily root ${rootsMatch ? '<span class="proof-ok">✓ match</span>' : ''}</div>
+      <div class="proof-v">${proof.onchainRoot ? hash(proof.onchainRoot) : '—'}</div>
+    </div>
+    <div class="proof-links">
+      <a class="proof-link" href="${esc(solscanUrl(proof))}" target="_blank" rel="noopener">Open on Solscan ↗</a>
+      ${proof.explorerUrl ? `<a class="proof-link proof-link-2" href="${esc(proof.explorerUrl)}" target="_blank" rel="noopener">Solana Explorer ↗</a>` : ''}
+    </div>
+    <p class="proof-foot">This match's settled score is a leaf in TxODDS's Merkle daily root, published on Solana (${esc(proof.cluster || 'devnet')}${proof.epochDay != null ? `, epoch day ${esc(proof.epochDay)}` : ''}). Recompute the path yourself — if any hash differed, the badge would not show.</p>
+  </section>`;
+  el.hidden = false;
+  document.body.classList.add('mkt-open');
+  el.querySelector('.mkt-close')?.focus();
+}
+
+function closeProofModal() {
+  const el = document.getElementById('proof-modal');
+  if (el && !el.hidden) { el.hidden = true; document.body.classList.remove('mkt-open'); }
 }
 
 function matchCard(match, state) {
@@ -903,6 +1029,129 @@ function koFormCardHtml(state) {
   </div>`;
 }
 
+// Hero hook: the machines-vs-market standing in one live sentence, computed
+// from the same leaderboard rows the table renders. Nothing new is fetched.
+function renderHeroHook(state) {
+  const el = document.getElementById('hero-hook');
+  if (!el) return;
+  const board = (state.leaderboard ?? []).filter((r) => r.scored > 0);
+  const market = board.find((r) => r.model === MARKET_ID);
+  if (!board.length || !market) { el.hidden = true; return; }
+  const marketPos = board.indexOf(market);
+  const machinesAhead = board.slice(0, marketPos).filter((r) => r.model !== MARKET_ID);
+  const aiCount = (state.models ?? []).filter((m) => m.id !== MARKET_ID).length || 9;
+  let line;
+  if (machinesAhead.length) {
+    const bestM = machinesAhead[0];
+    line = `Right now, <b>${machinesAhead.length} of ${aiCount} machines</b> are beating the market — best: <b>${esc(bestM.label)}</b>, ${bestM.avgBrier.toFixed(3)} Brier vs the market's ${market.avgBrier.toFixed(3)}.`;
+  } else {
+    line = `Right now, <b>the market is beating every machine</b> — ${market.avgBrier.toFixed(3)} Brier vs the best AI's ${board.find((r) => r.model !== MARKET_ID)?.avgBrier?.toFixed(3) ?? '—'}.`;
+  }
+  const banks = state.bankroll ? Object.values(state.bankroll.models).filter((m) => m.betsPlaced > 0) : [];
+  if (banks.length) {
+    const top = banks.reduce((a, b) => (b.bankroll > a.bankroll ? b : a));
+    const label = entrantById(state, top.model)?.label ?? top.model;
+    line += ` <b>${esc(label)}</b> has turned 1,000 paper units into <b>${fmtUnits(top.bankroll)}</b>.`;
+  }
+  el.innerHTML = line;
+  el.hidden = false;
+}
+
+// ------------------------------------------------------------ bankroll ----
+// The Bankroll: paper-trading ledger computed server-side (lib/bankroll.js).
+// Virtual units only, never money.
+
+const BANK_TIP = '1,000 paper units at tournament start. Quarter-Kelly bets on its biggest edge vs the TxODDS StablePrice line, only when edge > 2%. Settled by the same Merkle-verified scores as the Brier board. Virtual units — no real money.';
+const fmtUnits = (n) => Math.round(n).toLocaleString('en-US');
+
+function bankChip(state, modelId) {
+  const b = state.bankroll?.models?.[modelId];
+  if (!b || !b.betsPlaced) return '';
+  const up = b.bankroll >= (state.bankroll.startingBankroll ?? 1000);
+  return ` · <span class="lb-bank ${up ? 'lb-bank-up' : 'lb-bank-down'}" title="${esc(BANK_TIP)}">${fmtUnits(b.bankroll)}u</span>`;
+}
+
+// Tiny inline SVG polyline of a bankroll series (paper units over matches).
+function bankSpark(series, starting = 1000) {
+  if (!series || series.length < 2) return '';
+  const vals = [starting, ...series.map((p) => p.after)];
+  const min = Math.min(...vals);
+  const max = Math.max(...vals);
+  const span = max - min || 1;
+  const W = 96, H = 26, P = 2;
+  const pts = vals.map((v, i) => {
+    const x = P + (i / (vals.length - 1)) * (W - 2 * P);
+    const y = H - P - ((v - min) / span) * (H - 2 * P);
+    return `${x.toFixed(1)},${y.toFixed(1)}`;
+  }).join(' ');
+  // Baseline at the starting bankroll, when it sits inside the range.
+  const by = H - P - ((starting - min) / span) * (H - 2 * P);
+  const up = vals[vals.length - 1] >= starting;
+  return `<svg class="bank-spark" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" aria-hidden="true">
+    ${starting >= min && starting <= max ? `<line x1="0" y1="${by.toFixed(1)}" x2="${W}" y2="${by.toFixed(1)}" class="bank-base"/>` : ''}
+    <polyline points="${pts}" class="${up ? 'bank-line-up' : 'bank-line-down'}"/>
+  </svg>`;
+}
+
+function renderBankroll(state) {
+  const section = document.getElementById('bankroll-section');
+  const el = document.getElementById('bankroll');
+  if (!section || !el) return;
+  const bk = state.bankroll;
+  const rows = bk ? Object.values(bk.models).filter((m) => m.betsPlaced > 0 || m.noBets > 0) : [];
+  if (!rows.length) { section.hidden = true; return; }
+  section.hidden = false;
+  rows.sort((a, b) => b.bankroll - a.bankroll);
+  const start = bk.startingBankroll ?? 1000;
+  el.innerHTML = `<div class="bank-wrap">${rows.map((r, i) => {
+    const meta = entrantById(state, r.model);
+    const hit = r.betsPlaced ? `${r.wins}/${r.betsPlaced}` : '—';
+    const up = r.bankroll >= start;
+    return `<div class="bank-row${i === 0 ? ' leader' : ''}" data-model="${esc(r.model)}" role="button" tabindex="0" aria-label="Open bet ledger for ${esc(meta?.label ?? r.model)}">
+      <div class="bank-rank">${i + 1}</div>
+      <div class="lb-id">${meta?.icon ? `<img class="crest" src="${esc(meta.icon)}" alt="" onerror="this.style.visibility='hidden'">` : ''}
+        <span class="bank-name">${esc(meta?.label ?? r.model)}</span></div>
+      ${bankSpark(r.series, start)}
+      <div class="bank-cells">
+        <span class="bank-units ${up ? 'lb-bank-up' : 'lb-bank-down'}">${fmtUnits(r.bankroll)}</span>
+        <span class="bank-meta">${r.betsPlaced} bets · hit ${hit}${r.noBets ? ` · sat out ${r.noBets}` : ''}</span>
+        <span class="bank-meta">${r.biggestWin ? `best +${fmtUnits(r.biggestWin.pnl)} (${esc(r.biggestWin.shortName)})` : ''}${r.biggestWin && r.biggestLoss ? ' · ' : ''}${r.biggestLoss ? `worst −${fmtUnits(-r.biggestLoss.pnl)} (${esc(r.biggestLoss.shortName)})` : ''}</span>
+      </div>
+    </div>`;
+  }).join('')}</div>
+  <p class="footnote">Paper trading with <b>virtual units</b> — no real money anywhere. Each model starts with 1,000 units and places at most one bet per match: quarter-Kelly on its biggest edge against the locked TxODDS StablePrice line, only when the edge clears 2%; otherwise it sits out. Group-stage bets settle at the raw bookmaker line (vig included); knockout bets settle at fair (de-vigged) odds, since no single "advances" price is quoted. Settled by the same Merkle-verified scores as the leaderboard. The Market doesn't get a bankroll: it can't bet against itself. Tap a row for the full bet ledger.</p>`;
+  for (const row of el.querySelectorAll('[data-model]')) {
+    const open = () => { location.hash = `p/${encodeURIComponent(row.dataset.model)}`; };
+    row.addEventListener('click', open);
+    row.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+  }
+}
+
+// The bet ledger for one model, rendered inside the model detail panel.
+function betLedgerHtml(state, modelId) {
+  const bets = state.bankroll?.bets?.filter((b) => b.modelId === modelId);
+  if (!bets?.length) return '';
+  const rows = [...bets].reverse().map((b) => {
+    if (b.result === 'no_bet') {
+      return `<tr class="bet-nobet"><td>${esc(b.shortName)}</td><td colspan="3">no bet — no edge over 2%</td><td class="bet-num">${fmtUnits(b.bankrollAfter)}</td></tr>`;
+    }
+    const sideName = b.outcome === 'draw' ? 'Draw' : (b.outcome === 'home' ? esc(b.shortName.split(' @ ')[1] ?? 'home') : esc(b.shortName.split(' @ ')[0] ?? 'away'));
+    return `<tr class="bet-${b.result}">
+      <td>${esc(b.shortName)}</td>
+      <td>${sideName} @ ${b.odds.toFixed(2)}${b.oddsType === 'fair' ? '<span class="bet-fair" title="No raw advances price is quoted; settled at fair (de-vigged) odds">f</span>' : ''}</td>
+      <td class="bet-num">${b.stake.toFixed(1)}</td>
+      <td class="bet-num bet-pnl">${b.pnl >= 0 ? '+' : '−'}${Math.abs(b.pnl).toFixed(1)}</td>
+      <td class="bet-num">${fmtUnits(b.bankrollAfter)}</td>
+    </tr>`;
+  }).join('');
+  return `<h3>Bet ledger <span class="bet-paper">paper units</span></h3>
+  <p class="fnote">Quarter-Kelly vs the locked TxODDS line, newest first. Sitting out is a decision too, so no-bets are shown. <b>f</b> marks knockout bets settled at fair (de-vigged) odds.</p>
+  <div class="bet-scroll"><table class="bet-table">
+    <thead><tr><th>Match</th><th>Backed</th><th class="bet-num">Stake</th><th class="bet-num">P&amp;L</th><th class="bet-num">Bank</th></tr></thead>
+    <tbody>${rows}</tbody>
+  </table></div>`;
+}
+
 function renderLeaderboard(state) {
   const el = $('#leaderboard');
   const board = boardOf(state);
@@ -941,7 +1190,7 @@ function renderLeaderboard(state) {
         ${sparkline(r.perMatch) ? `<div class="lb-spark">${sparkline(r.perMatch)}${trendBadge}</div>` : '<div class="lb-spark"></div>'}
         <div class="lb-score">
           <div class="lb-brier" title="Average Brier score — lower is better">${r.avgBrier == null ? '-' : r.avgBrier.toFixed(3)}</div>
-          <div class="lb-meta" title="${esc(skillTip)}">${r.avgSkill == null ? '' : `<b>${fmtSkill(r.avgSkill)}</b> vs coin flip · `}${r.predicted} forecast${r.predicted === 1 ? '' : 's'}</div>
+          <div class="lb-meta" title="${esc(skillTip)}">${r.avgSkill == null ? '' : `<b>${fmtSkill(r.avgSkill)}</b> vs coin flip · `}${r.predicted} forecast${r.predicted === 1 ? '' : 's'}${bankChip(state, r.model)}</div>
         </div>
       </div>`;
     }).join('');
@@ -1247,6 +1496,7 @@ function renderModelDetail(state, modelId) {
     <p class="fnote">W beats the know-nothing baseline for its market (0.667 three-way group match, 0.5 two-way knockout), L does not.</p>
     ${best ? `<p class="fnote">Best call: ${esc(best.shortName)} at ${best.brier.toFixed(3)}. Roughest: ${esc(worst.shortName)} at ${worst.brier.toFixed(3)}.</p>` : ''}
     ` : '<p class="fnote">No scored forecasts yet.</p>'}
+    ${betLedgerHtml(state, modelId)}
   </section>`;
   document.body.style.overflow = 'hidden';
   wireBrierTips(el);
@@ -1272,13 +1522,11 @@ function renderDetail(state) {
   // show the score; ranking falls back to confidence before a result.
   const detailPreds = {};
   let bestBrier = null;
-  for (const mod of displayEntrants(state)) {
-    const p = predOf(match, mod);
-    if (!p) continue;
+  for (const [id, p] of Object.entries(entrantPredsOf(state, match))) {
     const copy = { ...p };
     const b = predBrier(p, match);
     if (b != null) { copy.brier = b; bestBrier = bestBrier == null ? b : Math.min(bestBrier, b); }
-    detailPreds[mod.id] = copy;
+    detailPreds[id] = copy;
   }
 
   // A plain-language read of where the models stand: who they favour, how
@@ -1762,18 +2010,59 @@ function renderKnockoutBracket(matches, probs, logos) {
    a hero summary — when more of the field is alive, these are the top
    two and the full picture lives in the trophy section. */
 const HERO_CONSENSUS_TEAMS = 2;
-function renderHeroConsensus(state) {
-  const el = $('#hero-consensus');
-  if (!el) return;
+/* At the final, "advance" and "win it all" are the same event, so the
+   panel reads the final's own locked forecasts rather than the separate
+   outright collection. Those two datasets are gathered on different
+   cadences from different rosters — the outright round predates the
+   substituted models and carries no market price — so quoting the
+   outright here made the hero contradict the fixture strip and the match
+   detail, which both score that fixture. Before the final there is no
+   single match that settles the trophy, so the outright is the only
+   source and is used as-is. */
+function heroConsensusSource(state) {
+  const finalMatch = (state.matches ?? []).find(
+    (m) => m.stage === 'final' && matchMarket(m) === 'advance'
+  );
+  const finalPreds = finalMatch ? entrantPredsOf(state, finalMatch) : null;
+  const finalConsensus = finalPreds && consensusOf(finalPreds, 'advance');
+  if (finalMatch && finalConsensus) {
+    const sideOf = (team) => (finalMatch.home.name === team ? 'home' : 'away');
+    return {
+      teams: [finalMatch.home.name, finalMatch.away.name],
+      consensus: {
+        [finalMatch.home.name]: finalConsensus.home,
+        [finalMatch.away.name]: finalConsensus.away,
+      },
+      // One row per entrant in the active view, so the breakdown adds up
+      // to the headline number above it.
+      forecasts: (team) => Object.entries(finalPreds)
+        .filter(([, p]) => p.probs && predMarket(p) === 'advance')
+        .map(([id, p]) => ({ id, p: p.probs[sideOf(team)] })),
+    };
+  }
   const latest = (state.outright ?? [])
     .map((e) => ({ at: e.at, teams: e.teams, consensus: outrightConsensus(e), models: e.models }))
     .filter((e) => e.consensus)
     .sort((a, b) => new Date(a.at) - new Date(b.at))
     .pop();
-  if (!latest) { el.hidden = true; el.innerHTML = ''; return; }
+  if (!latest) return null;
+  return {
+    teams: latest.teams,
+    consensus: latest.consensus,
+    forecasts: (team) => Object.entries(latest.models)
+      .filter(([, m]) => m.probs && m.probs[team] != null)
+      .map(([id, m]) => ({ id, p: m.probs[team] })),
+  };
+}
 
-  const ranked = latest.teams
-    .map((t) => ({ team: t, p: latest.consensus[t] ?? 0 }))
+function renderHeroConsensus(state) {
+  const el = $('#hero-consensus');
+  if (!el) return;
+  const src = heroConsensusSource(state);
+  if (!src) { el.hidden = true; el.innerHTML = ''; return; }
+
+  const ranked = src.teams
+    .map((t) => ({ team: t, p: src.consensus[t] ?? 0 }))
     .sort((a, b) => b.p - a.p)
     .slice(0, HERO_CONSENSUS_TEAMS);
   if (!ranked.length) { el.hidden = true; el.innerHTML = ''; return; }
@@ -1782,20 +2071,19 @@ function renderHeroConsensus(state) {
   for (const m of state.matches ?? []) {
     for (const s of [m.home, m.away]) if (s.logo) logos[s.name] = s.logo;
   }
-  // One row per model that published probabilities this round, sharpest
-  // call on this team first, so the spread inside the consensus is legible.
-  const breakdown = (team) => Object.entries(latest.models)
-    .filter(([, m]) => m.probs && m.probs[team] != null)
-    .map(([id, m]) => ({
-      id,
-      label: entrantById(state, id)?.label ?? id,
-      icon: entrantById(state, id)?.icon ?? null,
-      p: m.probs[team],
+  // Sharpest call on this team first, so the spread inside the consensus
+  // is legible at a glance.
+  const breakdown = (team) => src.forecasts(team)
+    .filter((f) => f.p != null)
+    .map((f) => ({
+      ...f,
+      label: displayEntrantById(state, f.id)?.label ?? f.id,
+      icon: displayEntrantById(state, f.id)?.icon ?? null,
     }))
     .sort((a, b) => b.p - a.p);
 
   el.hidden = false;
-  el.innerHTML = `<div class="hc-head">AI consensus to win it all</div>
+  el.innerHTML = `<div class="hc-head">Consensus to win it all</div>
     <div class="hc-grid">
       ${ranked.map((r, i) => `
         <div class="hc-team${i === 0 ? ' leader' : ''}">
@@ -1948,8 +2236,9 @@ function renderFeatured(state) {
     .sort((a, b) => new Date(a.kickoff) - new Date(b.kickoff))[0];
   const m = live ?? next;
   if (!m) { el.innerHTML = ''; return; }
-  const market = displayMarketOf(m.predictions, m);
-  const c = consensusOf(m.predictions, market);
+  const feedPreds = entrantPredsOf(state, m);
+  const market = displayMarketOf(feedPreds, m);
+  const c = consensusOf(feedPreds, market);
   const pick = c
     ? `models say ${esc(c.home >= c.away ? m.home.name : m.away.name)} ${pct(Math.max(c.home, c.away))}%${market === 'advance' ? ' to advance' : ''}`
     : '';
@@ -2087,6 +2376,7 @@ async function collect(matchId) {
    by-lab/by-model view toggle both go through here. */
 function renderAll(state) {
   renderPodium(state);
+  renderHeroHook(state);
   renderHeroConsensus(state);
   renderFeatured(state);
   renderTicker(state);
@@ -2095,6 +2385,7 @@ function renderAll(state) {
   renderViewToggle(state);
   renderRoster(state);
   renderLeaderboard(state);
+  renderBankroll(state);
   renderMatches(state);
   renderDetail(state);
   // Static tips in index.html (leaderboard explainer) + any re-rendered ones.
