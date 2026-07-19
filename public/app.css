@@ -1876,3 +1876,11 @@ main section, #prompt-section { scroll-margin-top: 76px; }
   .podium-out .podium-slot, .podium-out .podium-slide-title,
   .podium-in .podium-slot, .podium-in .podium-slide-title { animation: none; }
 }
+
+/* Trophy lives inside the winner's step, under the numeral */
+.podium-1 .podium-step { flex-direction: column; align-items: center; justify-content: flex-start; gap: 3px; padding-bottom: 4px; }
+.podium-step-cup { font-size: 19px; line-height: 1; }
+
+/* The whole consensus card toggles the agent breakdown */
+#hero-consensus { cursor: pointer; }
+#hero-consensus .hc-status, #hero-consensus .hc-model { cursor: pointer; }

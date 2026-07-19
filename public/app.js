@@ -2670,6 +2670,14 @@ function renderHeroConsensus(state) {
     heroConsensusOpen = !heroConsensusOpen;
     renderHeroConsensus(state);
   });
+  // The whole card is a tap target for the expand/collapse — except its
+  // real controls: the toggle (own handler above), the match-detail
+  // status link, and the per-agent rows that open detail panels.
+  el.onclick = (e) => {
+    if (e.target.closest('.hc-toggle, .hc-status, .hc-model')) return;
+    heroConsensusOpen = !heroConsensusOpen;
+    renderHeroConsensus(state);
+  };
 }
 
 function renderTrophy(state) {
@@ -2867,11 +2875,10 @@ function renderPodium(state) {
     const tag = r.model ? 'button' : 'div';
     return `<${tag} class="podium-slot podium-${place}${r.model ? '' : ' podium-static'}"${r.model ? ` data-model="${esc(r.model)}"` : ''}
       aria-label="${PLACE_WORD[place]} place: ${esc(r.label)}, ${esc(r.aria)}${r.model ? '. Open performance detail.' : ''}">
-      ${place === 1 ? '<span class="podium-crown" aria-hidden="true">🏆</span>' : ''}
       ${r.icon ? `<img class="podium-crest" src="${esc(r.icon)}" alt="" onerror="this.style.visibility='hidden'">` : ''}
       <span class="podium-name">${esc(r.label)}</span>
       <span class="podium-brier podium-v-${r.valueClass ?? 'brier'}">${esc(r.value)}</span>
-      <span class="podium-step" aria-hidden="true">${place}</span>
+      <span class="podium-step" aria-hidden="true">${place}${place === 1 ? '<span class="podium-step-cup">🏆</span>' : ''}</span>
     </${tag}>`;
   };
 
