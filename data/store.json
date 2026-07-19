@@ -33900,6 +33900,89 @@
             "rationale": "No score at halftime in a balanced final, so equal chances for both teams."
           }
         }
+      },
+      {
+        "at": "2026-07-19T20:24:17.715Z",
+        "detail": "46'",
+        "score": [
+          0,
+          0
+        ],
+        "events": 0,
+        "period": "STATUS_SECOND_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.55,
+              "away": 0.45
+            },
+            "rationale": "Spain's superior possession and squad depth give them a slight edge in a scoreless final entering the second half, though Argentina remains highly competitive."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.55,
+              "away": 0.45
+            },
+            "rationale": "With the match level early in the second half on a neutral field, Spain’s slightly stronger recent form and underlying metrics give them a modest edge, but the tie remains very close to 50-50."
+          },
+          "deepseek/deepseek-v4-pro": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "Spain's possession-based style may slightly edge a tight final, but Argentina's knockout resilience under pressure keeps it nearly even at halftime."
+          },
+          "moonshotai/kimi-k3": {
+            "probs": {
+              "home": 0.53,
+              "away": 0.47
+            },
+            "rationale": "Still goalless at the start of the second half, so it's close to a coin flip with growing chances of extra time/penalties, but Spain get a slight edge on current form and their younger core versus Argentina's aging 2022-winning squad."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "With the score level at the start of the second half and no key events, the match remains a coin-flip, with Spain holding a slight edge due to their recent dominant tournament form and squad depth."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.51,
+              "away": 0.49
+            },
+            "rationale": "A 0-0 halftime scoreline in a final between two elite, evenly matched squads leaves the tie essentially a coin flip, with Spain earning a marginal edge due to superior squad youth and depth that could prove decisive in the second half or extra time."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.45,
+              "away": 0.55
+            },
+            "rationale": "Both teams are evenly matched, but Argentina's greater big‑game experience gives them a slight edge."
+          },
+          "google/gemini-3.1-pro-preview": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "With the match deadlocked at 0-0 at the start of the second half and no major events, these two evenly matched tournament favorites have nearly identical chances of lifting the trophy."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "0-0 at half-time in a final between two elite sides leaves it essentially a coin-flip with Argentina's experience and squad depth edging a slight edge."
+          },
+          "mistralai/mistral-medium-3-5": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "No score and no key events in a balanced final, so equal chances."
+          }
+        }
       }
     ]
   },
