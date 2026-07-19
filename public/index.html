@@ -4,10 +4,10 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>The Brier Cup. Who's winning the World Cup? According to the machines.</title>
-  <meta name="description" content="Eight AI models forecast every World Cup match with one identical prompt — and the betting market itself, via TxODDS on Solana, trades against them. Locked at kickoff, Brier-scored against real results." />
+  <meta name="description" content="Frontier AI models from nine labs forecast every World Cup match with one identical prompt — and the betting market itself, via TxODDS on Solana, trades against them. Locked at kickoff, Brier-scored against real results." />
   <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg" />
   <meta property="og:title" content="The Brier Cup: who's winning the World Cup, according to the machines?" />
-  <meta property="og:description" content="Eight AI models, one identical prompt, every World Cup match. Forecasts lock at kickoff and are Brier-scored live." />
+  <meta property="og:description" content="Frontier AI models, one identical prompt, every World Cup match. Forecasts lock at kickoff and are Brier-scored live." />
   <meta property="og:image" content="https://worldcup.uptick.fyi/og.png" />
   <meta property="og:url" content="https://worldcup.uptick.fyi" />
   <meta property="og:type" content="website" />
@@ -26,17 +26,19 @@
           <p class="brier-tip-foot"><b>Lower average Brier wins the cup.</b> It’s not just who picked the winner — it’s who was confident when they should be, and humble when they shouldn’t.</p>
         </span>
       </span>
-      <span class="topbar-status" id="source-status">Loading fixtures</span>
     </header>
 
     <section class="hero">
-      <h1>Who's winning the <span class="gold">World Cup</span>?<span class="hero-by">According to the machines.</span></h1>
-      <p class="hero-sub">The machines are watching every game. Eight AI models get one identical prompt before each match — and the betting market itself (TxODDS StablePrice, de-vigged, on Solana) trades against them. Forecasts lock at kickoff and are Brier-scored as results arrive.</p>
-      <a class="hero-read" href="/research">
-        <span class="np">New</span>
-        <span>How the models called France–Spain &amp; England–Argentina</span>
-        <span class="arrow" aria-hidden="true">→</span>
-      </a>
+      <div class="hero-copy">
+        <h1>Who's winning the <span class="gold">World Cup</span>?<span class="hero-by">According to the machines.</span></h1>
+        <p class="hero-sub">The machines are watching every game. Frontier models from nine AI labs get one identical prompt before each match — and the betting market itself (TxODDS StablePrice, de-vigged, on Solana) trades against them. Forecasts lock at kickoff and are Brier-scored as results arrive.</p>
+        <a class="hero-read" href="/research">
+          <span class="np">New</span>
+          <span>How the models called France–Spain &amp; England–Argentina</span>
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+      <div id="hero-consensus" aria-label="AI consensus to win it all" hidden></div>
     </section>
 
     <div id="podium" aria-label="Current top three models"></div>
@@ -51,7 +53,8 @@
 
     <section id="roster-section" aria-labelledby="roster-title">
       <h2 id="roster-title">The competitors</h2>
-      <p class="explainer">Eight AI models, one identical prompt per match — the same words, only the fixture changes — plus <strong>The Market</strong>: TxODDS StablePrice consensus odds via TxLINE on Solana, de-vigged and scored under the same Brier rules.</p>
+      <p class="explainer">One identical prompt per match — the same words, only the fixture changes — put to frontier models from nine AI labs (eight ran the whole tournament; each lab's newest release was subbed in for the final, and xAI joined then), plus <span class="market-tip" tabindex="0" role="button" aria-haspopup="dialog" aria-label="What is The Market and where do its numbers come from?"><strong>The Market</strong><span class="market-tip-mark" aria-hidden="true">?</span></span>: TxODDS StablePrice consensus odds via TxLINE on Solana, de-vigged and scored under the same Brier rules. Click a competitor for its record.</p>
+      <div id="view-toggle"></div>
       <div id="roster" class="roster" aria-label="Model roster"></div>
     </section>
 
@@ -69,7 +72,10 @@
 
     <section id="leaderboard-section" aria-labelledby="lb-title">
       <h2 id="lb-title">Model leaderboard</h2>
-      <p class="explainer"><span class="brier-tip brier-tip-static" tabindex="0" role="button" aria-label="What is a Brier score?">
+      <!-- div, not p: the tip's popover holds <p>/<ul> blocks, and a <p>
+           container would be auto-closed by the parser, spilling the popover
+           content into the page as visible text. -->
+      <div class="explainer"><span class="brier-tip brier-tip-static" tabindex="0" role="button" aria-label="What is a Brier score?">
         <span class="brier-tip-label">Brier score<span class="brier-tip-mark" aria-hidden="true">?</span></span>
         <span class="brier-tip-pop" role="tooltip">
           <strong class="brier-tip-title">What is a Brier score?</strong>
@@ -82,7 +88,7 @@
           </ul>
           <p class="brier-tip-foot"><b>Lower is better.</b> Being right with the right amount of confidence beats loud conviction in the wrong direction — that calibration is what this cup ranks.</p>
         </span>
-      </span> over each match's outcomes: 0 is a perfect forecast, a know-nothing coin flip scores 0.667 on a three-way group match and 0.5 on a two-way knockout tie, 2 is maximally wrong. Lower is better. <strong>The Market</strong> is the ninth row — bookmaker consensus, not an LLM. Finished cards with a green badge mean the final score was Merkle-proved against TxODDS’s on-chain daily root on Solana. Click a model for its performance over time.</p>
+      </span> over each match's outcomes: 0 is a perfect forecast, a know-nothing coin flip scores 0.667 on a three-way group match and 0.5 on a two-way knockout tie, 2 is maximally wrong. Lower is better. Rank comes from <strong>shrunken skill vs the coin flip</strong> — each match scores (coin flip − Brier) ÷ coin flip, averaged with ten phantom coin-flip matches, so new entrants start neutral and earn rank as matches accumulate. <span class="market-tip" tabindex="0" role="button" aria-haspopup="dialog" aria-label="What is The Market and where do its numbers come from?"><strong>The Market</strong><span class="market-tip-mark" aria-hidden="true">?</span></span> is bookmaker consensus, not an LLM, scored under the same rules. Finished cards with a green badge mean the final score was Merkle-proved against TxODDS’s on-chain daily root on Solana. Click a competitor for its performance over time.</div>
       <div id="leaderboard" class="skeleton-block" aria-live="polite"></div>
     </section>
 
@@ -125,6 +131,21 @@
   <footer class="foot">
     <p>Match scores from ESPN’s public World Cup feed. AI forecasts via OpenRouter with one identical prompt per model — only pre-kickoff locks count. Market lines from <strong>TxODDS StablePrice</strong> over <strong>TxLINE</strong> on Solana; settled scores can show a “Score verified on Solana” badge when the Merkle proof matches the on-chain daily root. Built for the Superteam × TxODDS World Cup hackathon.</p>
   </footer>
+
+  <div id="market-modal" hidden>
+    <div class="mkt-scrim" data-mkt-close></div>
+    <section class="mkt-panel" role="dialog" aria-modal="true" aria-labelledby="mkt-title">
+      <button class="mkt-close" data-mkt-close aria-label="Close">✕</button>
+      <h3 id="mkt-title">The Market — where its numbers come from</h3>
+      <p><strong>The Market</strong> is not an AI. It's the real betting market, entered as a competitor on the same scoreboard.</p>
+      <ul>
+        <li><b>Odds source:</b> <strong>TxODDS StablePrice</strong> — a stability-weighted consensus of bookmaker 1X2 prices across the market.</li>
+        <li><b>Delivery:</b> streamed by <strong>TxLINE on Solana</strong>. Settled match scores are verified against TxODDS's Merkle daily roots on-chain — that's the "Score verified on Solana" badge on finished cards.</li>
+        <li><b>Scoring:</b> we strip the bookmakers' margin (the vig) from the raw prices and Brier-score the implied probabilities under exactly the same rules as every model.</li>
+      </ul>
+      <p class="mkt-foot">Like the models, only its pre-kickoff line counts toward the leaderboard.</p>
+    </section>
+  </div>
 
   <script src="app.js"></script>
 </body>

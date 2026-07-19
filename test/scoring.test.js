@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { brierScore, normalizeProbs, leaderboard, fixtureMatches, coinFlipBrier, predictionMarket } from '../lib/scoring.js';
+import { brierScore, normalizeProbs, leaderboard, labLeaderboard, fixtureMatches, coinFlipBrier, predictionMarket } from '../lib/scoring.js';
 import { regulationOutcome, advanceOutcome, marketOf, periodRank, fetchMatches } from '../lib/espn.js';
 import { parsePrediction, buildPrompt, buildLivePrompt, predictOne } from '../lib/predictor.js';
 
@@ -198,6 +198,133 @@ test('leaderboard: sorts by average Brier, ignores ineligible predictions', () =
   assert.equal(rows[2].model, 'c');
   assert.equal(rows[2].scored, 0);
   assert.equal(rows[2].avgBrier, null);
+});
+
+test('leaderboard: ledger ids missing from the entrants list still get a row', () => {
+  const models = [{ id: 'active', label: 'Active' }];
+  const matches = [{ id: 'm1', outcome: 'home', shortName: 'X @ Y' }];
+  const predictions = {
+    m1: {
+      active: { probs: { home: 0.8, draw: 0.1, away: 0.1 }, eligible: true },
+      'ghost/old-slug': { probs: { home: 0.6, draw: 0.2, away: 0.2 }, eligible: true },
+    },
+  };
+  const rows = leaderboard(matches, predictions, models);
+  const ghost = rows.find((r) => r.model === 'ghost/old-slug');
+  assert.ok(ghost, 'a stored forecast never disappears from the board');
+  assert.equal(ghost.label, 'ghost/old-slug');
+  assert.equal(ghost.retired, true);
+  assert.equal(ghost.scored, 1);
+});
+
+test('leaderboard: retired entrants keep label, icon, and records', () => {
+  const models = [
+    { id: 'new/model', label: 'New Model', icon: '/icons/new.svg' },
+    { id: 'old/model', label: 'Old Model', icon: '/icons/old.svg', retired: true },
+  ];
+  const matches = [{ id: 'm1', outcome: 'home', shortName: 'X @ Y' }];
+  const predictions = {
+    m1: { 'old/model': { probs: { home: 0.9, draw: 0.05, away: 0.05 }, eligible: true } },
+  };
+  const rows = leaderboard(matches, predictions, models);
+  const old = rows.find((r) => r.model === 'old/model');
+  assert.equal(old.label, 'Old Model');
+  assert.equal(old.icon, '/icons/old.svg');
+  assert.equal(old.retired, true);
+  assert.equal(old.scored, 1);
+});
+
+test('leaderboard: shrunken skill keeps a tiny perfect sample below a full record', () => {
+  const models = [
+    { id: 'veteran', label: 'Veteran' },
+    { id: 'latesub', label: 'Late Sub' },
+  ];
+  // Veteran scored 10 solid matches; the sub aced only the last one. Under
+  // raw average Brier the sub would take #1 — shrinkage (10 phantom
+  // coin-flip matches) must keep it below the earned record.
+  const matches = [];
+  const predictions = {};
+  for (let i = 0; i < 10; i++) {
+    const id = `m${i}`;
+    matches.push({ id, outcome: 'home', shortName: `G${i}` });
+    predictions[id] = { veteran: { probs: { home: 0.7, draw: 0.2, away: 0.1 }, eligible: true } };
+  }
+  predictions.m9.latesub = { probs: { home: 1, draw: 0, away: 0 }, eligible: true };
+  const rows = leaderboard(matches, predictions, models);
+  const vet = rows.find((r) => r.model === 'veteran');
+  const sub = rows.find((r) => r.model === 'latesub');
+  assert.ok(sub.avgBrier < vet.avgBrier, 'the sub has the lower (better) raw average');
+  assert.ok(Math.abs(sub.avgSkill - 1) < 1e-9, 'one perfect match = +100% skill');
+  assert.ok(sub.shrunkSkill < vet.shrunkSkill, 'but shrunken skill still ranks the veteran first');
+  assert.equal(rows[0].model, 'veteran');
+  // As the sub earns real matches, shrinkage releases: identical forecasts
+  // over the same ten matches converge to the veteran's shrunken skill.
+  for (let i = 0; i < 9; i++) {
+    predictions[`m${i}`].latesub = { probs: { home: 0.7, draw: 0.2, away: 0.1 }, eligible: true };
+  }
+  predictions.m9.latesub = { probs: { home: 0.7, draw: 0.2, away: 0.1 }, eligible: true };
+  const rows2 = leaderboard(matches, predictions, models);
+  const vet2 = rows2.find((r) => r.model === 'veteran');
+  const sub2 = rows2.find((r) => r.model === 'latesub');
+  assert.ok(Math.abs(vet2.shrunkSkill - sub2.shrunkSkill) < 1e-9);
+});
+
+test('labLeaderboard: merges a lab across a substitution without double counting', () => {
+  const entrants = [
+    { id: 'lab/new', label: 'New', lab: 'lab', labLabel: 'Lab', icon: '/i.svg' },
+    { id: 'other/solo', label: 'Solo', lab: 'other', labLabel: 'Other' },
+    { id: 'lab/old', label: 'Old', lab: 'lab', labLabel: 'Lab', retired: true },
+  ];
+  const matches = [
+    { id: 'm1', outcome: 'home', shortName: 'A @ B' },
+    { id: 'm2', outcome: 'away', shortName: 'C @ D' },
+  ];
+  const predictions = {
+    // Old model alone priced m1; both generations priced m2 (the
+    // substitution match) — the active model's forecast must win.
+    m1: {
+      'lab/old': { probs: { home: 0.8, draw: 0.1, away: 0.1 }, eligible: true },
+      'other/solo': { probs: { home: 0.5, draw: 0.3, away: 0.2 }, eligible: true },
+    },
+    m2: {
+      'lab/old': { probs: { home: 0.9, draw: 0.05, away: 0.05 }, eligible: true },
+      'lab/new': { probs: { home: 0.1, draw: 0.1, away: 0.8 }, eligible: true },
+      'other/solo': { probs: { home: 0.3, draw: 0.3, away: 0.4 }, eligible: true },
+    },
+  };
+  const rows = labLeaderboard(matches, predictions, entrants);
+  const lab = rows.find((r) => r.model === 'lab');
+  assert.equal(lab.label, 'Lab');
+  assert.equal(lab.icon, '/i.svg');
+  assert.deepEqual(lab.members, ['lab/new', 'lab/old']);
+  assert.equal(lab.scored, 2, 'one continuous record, m2 counted once');
+  // m2 must have scored the ACTIVE model's forecast: .1²+.1²+.2² = 0.06
+  const m2 = lab.perMatch.find((p) => p.matchId === 'm2');
+  assert.ok(Math.abs(m2.brier - 0.06) < 1e-9, 'active member is the lab\'s official entry');
+  const other = rows.find((r) => r.model === 'other');
+  assert.equal(other.scored, 2);
+});
+
+test('labLeaderboard: a live-locked forecast beats the active member\'s retro backfill', () => {
+  const entrants = [
+    { id: 'lab/new', label: 'New', lab: 'lab', labLabel: 'Lab' },
+    { id: 'lab/old', label: 'Old', lab: 'lab', labLabel: 'Lab', retired: true },
+  ];
+  const matches = [{ id: 'm1', outcome: 'home', shortName: 'A @ B' }];
+  const predictions = {
+    // The retired model locked this match live; the promoted model only has
+    // a retro reconstruction of it. The locked record is the lab's entry.
+    m1: {
+      'lab/old': { probs: { home: 0.8, draw: 0.1, away: 0.1 }, eligible: true },
+      'lab/new': { probs: { home: 0.95, draw: 0.03, away: 0.02 }, eligible: true, retro: true },
+    },
+  };
+  const rows = labLeaderboard(matches, predictions, entrants);
+  const lab = rows.find((r) => r.model === 'lab');
+  assert.equal(lab.scored, 1);
+  // Scored the OLD model's locked forecast: .2²+.1²+.1² = 0.06
+  assert.ok(Math.abs(lab.perMatch[0].brier - 0.06) < 1e-9);
+  assert.equal(lab.retroScored, 0, 'the locked forecast, not the retro one, settles');
 });
 
 test('fetchMatches retries a transient ESPN failure then succeeds', async () => {

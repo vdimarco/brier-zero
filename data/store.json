@@ -8876,6 +8876,66 @@
         "latencyMs": 1346,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.42,
+          "away": 0.58
+        },
+        "market": "advance",
+        "fixture": "South Africa vs Canada",
+        "createdAt": "2026-07-18T18:15:10.842Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.42,
+          "away": 0.58
+        },
+        "market": "advance",
+        "fixture": "South Africa vs Canada",
+        "createdAt": "2026-07-18T18:15:11.037Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.38,
+          "away": 0.62
+        },
+        "market": "advance",
+        "fixture": "South Africa vs Canada",
+        "createdAt": "2026-07-18T18:15:11.181Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.38,
+          "away": 0.62
+        },
+        "market": "advance",
+        "fixture": "South Africa vs Canada",
+        "createdAt": "2026-07-18T18:15:11.442Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.38,
+          "away": 0.62
+        },
+        "market": "advance",
+        "fixture": "South Africa vs Canada",
+        "createdAt": "2026-07-18T18:15:11.590Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760487": {
@@ -8996,6 +9056,78 @@
         "latencyMs": 1313,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.85,
+          "away": 0.15
+        },
+        "market": "advance",
+        "fixture": "Brazil vs Japan",
+        "createdAt": "2026-07-18T18:15:10.870Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.78,
+          "away": 0.22
+        },
+        "market": "advance",
+        "fixture": "Brazil vs Japan",
+        "createdAt": "2026-07-18T18:15:11.042Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.72,
+          "away": 0.28
+        },
+        "market": "advance",
+        "fixture": "Brazil vs Japan",
+        "createdAt": "2026-07-18T18:15:11.186Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.72,
+          "away": 0.28
+        },
+        "market": "advance",
+        "fixture": "Brazil vs Japan",
+        "createdAt": "2026-07-18T18:15:11.331Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.72,
+          "away": 0.28
+        },
+        "market": "advance",
+        "fixture": "Brazil vs Japan",
+        "createdAt": "2026-07-18T18:15:11.448Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.66,
+          "away": 0.34
+        },
+        "market": "advance",
+        "fixture": "Brazil vs Japan",
+        "createdAt": "2026-07-18T18:15:11.594Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760488": {
@@ -9116,6 +9248,78 @@
         "latencyMs": 1902,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.62,
+          "away": 0.38
+        },
+        "market": "advance",
+        "fixture": "Netherlands vs Morocco",
+        "createdAt": "2026-07-18T18:15:10.880Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.62,
+          "away": 0.38
+        },
+        "market": "advance",
+        "fixture": "Netherlands vs Morocco",
+        "createdAt": "2026-07-18T18:15:11.046Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.62,
+          "away": 0.38
+        },
+        "market": "advance",
+        "fixture": "Netherlands vs Morocco",
+        "createdAt": "2026-07-18T18:15:11.191Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.6,
+          "away": 0.4
+        },
+        "market": "advance",
+        "fixture": "Netherlands vs Morocco",
+        "createdAt": "2026-07-18T18:15:11.335Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.62,
+          "away": 0.38
+        },
+        "market": "advance",
+        "fixture": "Netherlands vs Morocco",
+        "createdAt": "2026-07-18T18:15:11.453Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.58,
+          "away": 0.42
+        },
+        "market": "advance",
+        "fixture": "Netherlands vs Morocco",
+        "createdAt": "2026-07-18T18:15:11.599Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760489": {
@@ -9236,6 +9440,78 @@
         "latencyMs": 888,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.82,
+          "away": 0.18
+        },
+        "market": "advance",
+        "fixture": "Germany vs Paraguay",
+        "createdAt": "2026-07-18T18:15:10.885Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.78,
+          "away": 0.22
+        },
+        "market": "advance",
+        "fixture": "Germany vs Paraguay",
+        "createdAt": "2026-07-18T18:15:11.051Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.8,
+          "away": 0.2
+        },
+        "market": "advance",
+        "fixture": "Germany vs Paraguay",
+        "createdAt": "2026-07-18T18:15:11.196Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.76,
+          "away": 0.24
+        },
+        "market": "advance",
+        "fixture": "Germany vs Paraguay",
+        "createdAt": "2026-07-18T18:15:11.340Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.78,
+          "away": 0.22
+        },
+        "market": "advance",
+        "fixture": "Germany vs Paraguay",
+        "createdAt": "2026-07-18T18:15:11.457Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.67,
+          "away": 0.33
+        },
+        "market": "advance",
+        "fixture": "Germany vs Paraguay",
+        "createdAt": "2026-07-18T18:15:11.605Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760490": {
@@ -9356,6 +9632,66 @@
         "latencyMs": 872,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.42,
+          "away": 0.58
+        },
+        "market": "advance",
+        "fixture": "Ivory Coast vs Norway",
+        "createdAt": "2026-07-18T18:15:10.892Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.45,
+          "away": 0.55
+        },
+        "market": "advance",
+        "fixture": "Ivory Coast vs Norway",
+        "createdAt": "2026-07-18T18:15:11.056Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.35,
+          "away": 0.65
+        },
+        "market": "advance",
+        "fixture": "Ivory Coast vs Norway",
+        "createdAt": "2026-07-18T18:15:11.201Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.52,
+          "away": 0.48
+        },
+        "market": "advance",
+        "fixture": "Ivory Coast vs Norway",
+        "createdAt": "2026-07-18T18:15:11.462Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.53,
+          "away": 0.47
+        },
+        "market": "advance",
+        "fixture": "Ivory Coast vs Norway",
+        "createdAt": "2026-07-18T18:15:11.609Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760491": {
@@ -9476,6 +9812,78 @@
         "latencyMs": 965,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.58,
+          "away": 0.42
+        },
+        "market": "advance",
+        "fixture": "Mexico vs Ecuador",
+        "createdAt": "2026-07-18T18:15:10.897Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.58,
+          "away": 0.42
+        },
+        "market": "advance",
+        "fixture": "Mexico vs Ecuador",
+        "createdAt": "2026-07-18T18:15:11.061Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.48,
+          "away": 0.52
+        },
+        "market": "advance",
+        "fixture": "Mexico vs Ecuador",
+        "createdAt": "2026-07-18T18:15:11.206Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.55,
+          "away": 0.45
+        },
+        "market": "advance",
+        "fixture": "Mexico vs Ecuador",
+        "createdAt": "2026-07-18T18:15:11.344Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.58,
+          "away": 0.42
+        },
+        "market": "advance",
+        "fixture": "Mexico vs Ecuador",
+        "createdAt": "2026-07-18T18:15:11.467Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.53,
+          "away": 0.47
+        },
+        "market": "advance",
+        "fixture": "Mexico vs Ecuador",
+        "createdAt": "2026-07-18T18:15:11.618Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760492": {
@@ -9596,6 +10004,78 @@
         "latencyMs": 1426,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.82,
+          "away": 0.18
+        },
+        "market": "advance",
+        "fixture": "France vs Sweden",
+        "createdAt": "2026-07-18T18:15:10.904Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.78,
+          "away": 0.22
+        },
+        "market": "advance",
+        "fixture": "France vs Sweden",
+        "createdAt": "2026-07-18T18:15:11.065Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.82,
+          "away": 0.18
+        },
+        "market": "advance",
+        "fixture": "France vs Sweden",
+        "createdAt": "2026-07-18T18:15:11.212Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.71,
+          "away": 0.29
+        },
+        "market": "advance",
+        "fixture": "France vs Sweden",
+        "createdAt": "2026-07-18T18:15:11.350Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.78,
+          "away": 0.22
+        },
+        "market": "advance",
+        "fixture": "France vs Sweden",
+        "createdAt": "2026-07-18T18:15:11.472Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.72,
+          "away": 0.28
+        },
+        "market": "advance",
+        "fixture": "France vs Sweden",
+        "createdAt": "2026-07-18T18:15:11.627Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760493": {
@@ -9716,6 +10196,66 @@
         "latencyMs": 988,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.62,
+          "away": 0.38
+        },
+        "market": "advance",
+        "fixture": "Belgium vs Senegal",
+        "createdAt": "2026-07-18T18:15:10.909Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.61,
+          "away": 0.39
+        },
+        "market": "advance",
+        "fixture": "Belgium vs Senegal",
+        "createdAt": "2026-07-18T18:15:11.070Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.7,
+          "away": 0.3
+        },
+        "market": "advance",
+        "fixture": "Belgium vs Senegal",
+        "createdAt": "2026-07-18T18:15:11.217Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.62,
+          "away": 0.38
+        },
+        "market": "advance",
+        "fixture": "Belgium vs Senegal",
+        "createdAt": "2026-07-18T18:15:11.476Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.6,
+          "away": 0.4
+        },
+        "market": "advance",
+        "fixture": "Belgium vs Senegal",
+        "createdAt": "2026-07-18T18:15:11.642Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760494": {
@@ -9836,6 +10376,78 @@
         "latencyMs": 1113,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.68,
+          "away": 0.32
+        },
+        "market": "advance",
+        "fixture": "United States vs Bosnia-Herzegovina",
+        "createdAt": "2026-07-18T18:15:10.922Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.78,
+          "away": 0.22
+        },
+        "market": "advance",
+        "fixture": "United States vs Bosnia-Herzegovina",
+        "createdAt": "2026-07-18T18:15:11.076Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.8,
+          "away": 0.2
+        },
+        "market": "advance",
+        "fixture": "United States vs Bosnia-Herzegovina",
+        "createdAt": "2026-07-18T18:15:11.221Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.7,
+          "away": 0.3
+        },
+        "market": "advance",
+        "fixture": "United States vs Bosnia-Herzegovina",
+        "createdAt": "2026-07-18T18:15:11.355Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.78,
+          "away": 0.22
+        },
+        "market": "advance",
+        "fixture": "United States vs Bosnia-Herzegovina",
+        "createdAt": "2026-07-18T18:15:11.481Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.68,
+          "away": 0.32
+        },
+        "market": "advance",
+        "fixture": "United States vs Bosnia-Herzegovina",
+        "createdAt": "2026-07-18T18:15:11.647Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760495": {
@@ -9956,6 +10568,78 @@
         "latencyMs": 1231,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.9,
+          "away": 0.1
+        },
+        "market": "advance",
+        "fixture": "England vs Congo DR",
+        "createdAt": "2026-07-18T18:15:10.935Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.87,
+          "away": 0.13
+        },
+        "market": "advance",
+        "fixture": "England vs Congo DR",
+        "createdAt": "2026-07-18T18:15:11.080Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.96,
+          "away": 0.04
+        },
+        "market": "advance",
+        "fixture": "England vs Congo DR",
+        "createdAt": "2026-07-18T18:15:11.226Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.82,
+          "away": 0.18
+        },
+        "market": "advance",
+        "fixture": "England vs Congo DR",
+        "createdAt": "2026-07-18T18:15:11.359Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.88,
+          "away": 0.12
+        },
+        "market": "advance",
+        "fixture": "England vs Congo DR",
+        "createdAt": "2026-07-18T18:15:11.486Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.82,
+          "away": 0.18
+        },
+        "market": "advance",
+        "fixture": "England vs Congo DR",
+        "createdAt": "2026-07-18T18:15:11.652Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760496": {
@@ -10076,6 +10760,66 @@
         "latencyMs": 1631,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.62,
+          "away": 0.38
+        },
+        "market": "advance",
+        "fixture": "Portugal vs Croatia",
+        "createdAt": "2026-07-18T18:15:10.941Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.58,
+          "away": 0.42
+        },
+        "market": "advance",
+        "fixture": "Portugal vs Croatia",
+        "createdAt": "2026-07-18T18:15:11.085Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.65,
+          "away": 0.35
+        },
+        "market": "advance",
+        "fixture": "Portugal vs Croatia",
+        "createdAt": "2026-07-18T18:15:11.232Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.62,
+          "away": 0.38
+        },
+        "market": "advance",
+        "fixture": "Portugal vs Croatia",
+        "createdAt": "2026-07-18T18:15:11.491Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.6,
+          "away": 0.4
+        },
+        "market": "advance",
+        "fixture": "Portugal vs Croatia",
+        "createdAt": "2026-07-18T18:15:11.658Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760497": {
@@ -10196,6 +10940,78 @@
         "latencyMs": 1014,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.88,
+          "away": 0.12
+        },
+        "market": "advance",
+        "fixture": "Spain vs Austria",
+        "createdAt": "2026-07-18T18:15:10.945Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.78,
+          "away": 0.22
+        },
+        "market": "advance",
+        "fixture": "Spain vs Austria",
+        "createdAt": "2026-07-18T18:15:11.090Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.72,
+          "away": 0.28
+        },
+        "market": "advance",
+        "fixture": "Spain vs Austria",
+        "createdAt": "2026-07-18T18:15:11.236Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.78,
+          "away": 0.22
+        },
+        "market": "advance",
+        "fixture": "Spain vs Austria",
+        "createdAt": "2026-07-18T18:15:11.364Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.78,
+          "away": 0.22
+        },
+        "market": "advance",
+        "fixture": "Spain vs Austria",
+        "createdAt": "2026-07-18T18:15:11.496Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.72,
+          "away": 0.28
+        },
+        "market": "advance",
+        "fixture": "Spain vs Austria",
+        "createdAt": "2026-07-18T18:15:11.662Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760498": {
@@ -10316,6 +11132,66 @@
         "latencyMs": 1265,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.68,
+          "away": 0.32
+        },
+        "market": "advance",
+        "fixture": "Switzerland vs Algeria",
+        "createdAt": "2026-07-18T18:15:10.950Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.68,
+          "away": 0.32
+        },
+        "market": "advance",
+        "fixture": "Switzerland vs Algeria",
+        "createdAt": "2026-07-18T18:15:11.095Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.58,
+          "away": 0.42
+        },
+        "market": "advance",
+        "fixture": "Switzerland vs Algeria",
+        "createdAt": "2026-07-18T18:15:11.241Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.6,
+          "away": 0.4
+        },
+        "market": "advance",
+        "fixture": "Switzerland vs Algeria",
+        "createdAt": "2026-07-18T18:15:11.501Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.63,
+          "away": 0.37
+        },
+        "market": "advance",
+        "fixture": "Switzerland vs Algeria",
+        "createdAt": "2026-07-18T18:15:11.667Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760499": {
@@ -10436,6 +11312,66 @@
         "latencyMs": 797,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.42,
+          "away": 0.58
+        },
+        "market": "advance",
+        "fixture": "Australia vs Egypt",
+        "createdAt": "2026-07-18T18:15:10.954Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.56,
+          "away": 0.44
+        },
+        "market": "advance",
+        "fixture": "Australia vs Egypt",
+        "createdAt": "2026-07-18T18:15:11.099Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.55,
+          "away": 0.45
+        },
+        "market": "advance",
+        "fixture": "Australia vs Egypt",
+        "createdAt": "2026-07-18T18:15:11.246Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.45,
+          "away": 0.55
+        },
+        "market": "advance",
+        "fixture": "Australia vs Egypt",
+        "createdAt": "2026-07-18T18:15:11.506Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.55,
+          "away": 0.45
+        },
+        "market": "advance",
+        "fixture": "Australia vs Egypt",
+        "createdAt": "2026-07-18T18:15:11.673Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760500": {
@@ -10556,6 +11492,78 @@
         "latencyMs": 1200,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.97,
+          "away": 0.03
+        },
+        "market": "advance",
+        "fixture": "Argentina vs Cape Verde",
+        "createdAt": "2026-07-18T18:15:10.960Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.91,
+          "away": 0.09
+        },
+        "market": "advance",
+        "fixture": "Argentina vs Cape Verde",
+        "createdAt": "2026-07-18T18:15:11.104Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.97,
+          "away": 0.03
+        },
+        "market": "advance",
+        "fixture": "Argentina vs Cape Verde",
+        "createdAt": "2026-07-18T18:15:11.251Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.9,
+          "away": 0.1
+        },
+        "market": "advance",
+        "fixture": "Argentina vs Cape Verde",
+        "createdAt": "2026-07-18T18:15:11.369Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.96,
+          "away": 0.04
+        },
+        "market": "advance",
+        "fixture": "Argentina vs Cape Verde",
+        "createdAt": "2026-07-18T18:15:11.511Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.94,
+          "away": 0.06
+        },
+        "market": "advance",
+        "fixture": "Argentina vs Cape Verde",
+        "createdAt": "2026-07-18T18:15:11.678Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760501": {
@@ -10676,6 +11684,78 @@
         "latencyMs": 1060,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.78,
+          "away": 0.22
+        },
+        "market": "advance",
+        "fixture": "Colombia vs Ghana",
+        "createdAt": "2026-07-18T18:15:10.964Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.63,
+          "away": 0.37
+        },
+        "market": "advance",
+        "fixture": "Colombia vs Ghana",
+        "createdAt": "2026-07-18T18:15:11.109Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.8,
+          "away": 0.2
+        },
+        "market": "advance",
+        "fixture": "Colombia vs Ghana",
+        "createdAt": "2026-07-18T18:15:11.256Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.72,
+          "away": 0.28
+        },
+        "market": "advance",
+        "fixture": "Colombia vs Ghana",
+        "createdAt": "2026-07-18T18:15:11.374Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.71,
+          "away": 0.29
+        },
+        "market": "advance",
+        "fixture": "Colombia vs Ghana",
+        "createdAt": "2026-07-18T18:15:11.515Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.68,
+          "away": 0.32
+        },
+        "market": "advance",
+        "fixture": "Colombia vs Ghana",
+        "createdAt": "2026-07-18T18:15:11.683Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760502": {
@@ -10796,6 +11876,78 @@
         "latencyMs": 1118,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.32,
+          "away": 0.68
+        },
+        "market": "advance",
+        "fixture": "Canada vs Morocco",
+        "createdAt": "2026-07-18T18:15:10.969Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.38,
+          "away": 0.62
+        },
+        "market": "advance",
+        "fixture": "Canada vs Morocco",
+        "createdAt": "2026-07-18T18:15:11.114Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.33,
+          "away": 0.67
+        },
+        "market": "advance",
+        "fixture": "Canada vs Morocco",
+        "createdAt": "2026-07-18T18:15:11.260Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.37,
+          "away": 0.63
+        },
+        "market": "advance",
+        "fixture": "Canada vs Morocco",
+        "createdAt": "2026-07-18T18:15:11.379Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.38,
+          "away": 0.62
+        },
+        "market": "advance",
+        "fixture": "Canada vs Morocco",
+        "createdAt": "2026-07-18T18:15:11.520Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.38,
+          "away": 0.62
+        },
+        "market": "advance",
+        "fixture": "Canada vs Morocco",
+        "createdAt": "2026-07-18T18:15:11.689Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760503": {
@@ -10903,6 +12055,78 @@
         "latencyMs": 569,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.15,
+          "away": 0.85
+        },
+        "market": "advance",
+        "fixture": "Paraguay vs France",
+        "createdAt": "2026-07-18T18:15:10.974Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.23,
+          "away": 0.77
+        },
+        "market": "advance",
+        "fixture": "Paraguay vs France",
+        "createdAt": "2026-07-18T18:15:11.119Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.18,
+          "away": 0.82
+        },
+        "market": "advance",
+        "fixture": "Paraguay vs France",
+        "createdAt": "2026-07-18T18:15:11.265Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.24,
+          "away": 0.76
+        },
+        "market": "advance",
+        "fixture": "Paraguay vs France",
+        "createdAt": "2026-07-18T18:15:11.383Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.18,
+          "away": 0.82
+        },
+        "market": "advance",
+        "fixture": "Paraguay vs France",
+        "createdAt": "2026-07-18T18:15:11.526Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.23,
+          "away": 0.77
+        },
+        "market": "advance",
+        "fixture": "Paraguay vs France",
+        "createdAt": "2026-07-18T18:15:11.694Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760504": {
@@ -11016,6 +12240,78 @@
         "latencyMs": 416,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.72,
+          "away": 0.28
+        },
+        "market": "advance",
+        "fixture": "Brazil vs Norway",
+        "createdAt": "2026-07-18T18:15:10.980Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.78,
+          "away": 0.22
+        },
+        "market": "advance",
+        "fixture": "Brazil vs Norway",
+        "createdAt": "2026-07-18T18:15:11.123Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.85,
+          "away": 0.15
+        },
+        "market": "advance",
+        "fixture": "Brazil vs Norway",
+        "createdAt": "2026-07-18T18:15:11.271Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.65,
+          "away": 0.35
+        },
+        "market": "advance",
+        "fixture": "Brazil vs Norway",
+        "createdAt": "2026-07-18T18:15:11.389Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.75,
+          "away": 0.25
+        },
+        "market": "advance",
+        "fixture": "Brazil vs Norway",
+        "createdAt": "2026-07-18T18:15:11.530Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.73,
+          "away": 0.27
+        },
+        "market": "advance",
+        "fixture": "Brazil vs Norway",
+        "createdAt": "2026-07-18T18:15:11.699Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760505": {
@@ -11129,6 +12425,78 @@
         "latencyMs": 454,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.38,
+          "away": 0.62
+        },
+        "market": "advance",
+        "fixture": "Mexico vs England",
+        "createdAt": "2026-07-18T18:15:10.984Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.38,
+          "away": 0.62
+        },
+        "market": "advance",
+        "fixture": "Mexico vs England",
+        "createdAt": "2026-07-18T18:15:11.128Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.38,
+          "away": 0.62
+        },
+        "market": "advance",
+        "fixture": "Mexico vs England",
+        "createdAt": "2026-07-18T18:15:11.276Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.34,
+          "away": 0.66
+        },
+        "market": "advance",
+        "fixture": "Mexico vs England",
+        "createdAt": "2026-07-18T18:15:11.393Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.35,
+          "away": 0.65
+        },
+        "market": "advance",
+        "fixture": "Mexico vs England",
+        "createdAt": "2026-07-18T18:15:11.535Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.38,
+          "away": 0.62
+        },
+        "market": "advance",
+        "fixture": "Mexico vs England",
+        "createdAt": "2026-07-18T18:15:11.705Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760506": {
@@ -11242,6 +12610,78 @@
         "latencyMs": 583,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.42,
+          "away": 0.58
+        },
+        "market": "advance",
+        "fixture": "Portugal vs Spain",
+        "createdAt": "2026-07-18T18:15:10.989Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.47,
+          "away": 0.53
+        },
+        "market": "advance",
+        "fixture": "Portugal vs Spain",
+        "createdAt": "2026-07-18T18:15:11.133Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.42,
+          "away": 0.58
+        },
+        "market": "advance",
+        "fixture": "Portugal vs Spain",
+        "createdAt": "2026-07-18T18:15:11.280Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.45,
+          "away": 0.55
+        },
+        "market": "advance",
+        "fixture": "Portugal vs Spain",
+        "createdAt": "2026-07-18T18:15:11.398Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.45,
+          "away": 0.55
+        },
+        "market": "advance",
+        "fixture": "Portugal vs Spain",
+        "createdAt": "2026-07-18T18:15:11.540Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.45,
+          "away": 0.55
+        },
+        "market": "advance",
+        "fixture": "Portugal vs Spain",
+        "createdAt": "2026-07-18T18:15:11.709Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760507": {
@@ -11355,6 +12795,78 @@
         "latencyMs": 636,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.45,
+          "away": 0.55
+        },
+        "market": "advance",
+        "fixture": "United States vs Belgium",
+        "createdAt": "2026-07-18T18:15:10.994Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.43,
+          "away": 0.57
+        },
+        "market": "advance",
+        "fixture": "United States vs Belgium",
+        "createdAt": "2026-07-18T18:15:11.138Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.58,
+          "away": 0.42
+        },
+        "market": "advance",
+        "fixture": "United States vs Belgium",
+        "createdAt": "2026-07-18T18:15:11.285Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.44,
+          "away": 0.56
+        },
+        "market": "advance",
+        "fixture": "United States vs Belgium",
+        "createdAt": "2026-07-18T18:15:11.403Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.53,
+          "away": 0.47
+        },
+        "market": "advance",
+        "fixture": "United States vs Belgium",
+        "createdAt": "2026-07-18T18:15:11.545Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.55,
+          "away": 0.45
+        },
+        "market": "advance",
+        "fixture": "United States vs Belgium",
+        "createdAt": "2026-07-18T18:15:11.714Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760508": {
@@ -11468,6 +12980,78 @@
         "latencyMs": 474,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.38,
+          "away": 0.62
+        },
+        "market": "advance",
+        "fixture": "Switzerland vs Colombia",
+        "createdAt": "2026-07-18T18:15:11.000Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.53,
+          "away": 0.47
+        },
+        "market": "advance",
+        "fixture": "Switzerland vs Colombia",
+        "createdAt": "2026-07-18T18:15:11.142Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.42,
+          "away": 0.58
+        },
+        "market": "advance",
+        "fixture": "Switzerland vs Colombia",
+        "createdAt": "2026-07-18T18:15:11.291Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.46,
+          "away": 0.54
+        },
+        "market": "advance",
+        "fixture": "Switzerland vs Colombia",
+        "createdAt": "2026-07-18T18:15:11.408Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.52,
+          "away": 0.48
+        },
+        "market": "advance",
+        "fixture": "Switzerland vs Colombia",
+        "createdAt": "2026-07-18T18:15:11.550Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.46,
+          "away": 0.54
+        },
+        "market": "advance",
+        "fixture": "Switzerland vs Colombia",
+        "createdAt": "2026-07-18T18:15:11.719Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760509": {
@@ -11581,6 +13165,78 @@
         "latencyMs": 640,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.9,
+          "away": 0.1
+        },
+        "market": "advance",
+        "fixture": "Argentina vs Egypt",
+        "createdAt": "2026-07-18T18:15:11.004Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.78,
+          "away": 0.22
+        },
+        "market": "advance",
+        "fixture": "Argentina vs Egypt",
+        "createdAt": "2026-07-18T18:15:11.147Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.84,
+          "away": 0.16
+        },
+        "market": "advance",
+        "fixture": "Argentina vs Egypt",
+        "createdAt": "2026-07-18T18:15:11.296Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.84,
+          "away": 0.16
+        },
+        "market": "advance",
+        "fixture": "Argentina vs Egypt",
+        "createdAt": "2026-07-18T18:15:11.413Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.82,
+          "away": 0.18
+        },
+        "market": "advance",
+        "fixture": "Argentina vs Egypt",
+        "createdAt": "2026-07-18T18:15:11.554Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.83,
+          "away": 0.17
+        },
+        "market": "advance",
+        "fixture": "Argentina vs Egypt",
+        "createdAt": "2026-07-18T18:15:11.777Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760510": {
@@ -11694,6 +13350,78 @@
         "latencyMs": 596,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.72,
+          "away": 0.28
+        },
+        "market": "advance",
+        "fixture": "France vs Morocco",
+        "createdAt": "2026-07-18T18:15:11.008Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.68,
+          "away": 0.32
+        },
+        "market": "advance",
+        "fixture": "France vs Morocco",
+        "createdAt": "2026-07-18T18:15:11.152Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.7,
+          "away": 0.3
+        },
+        "market": "advance",
+        "fixture": "France vs Morocco",
+        "createdAt": "2026-07-18T18:15:11.300Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.72,
+          "away": 0.28
+        },
+        "market": "advance",
+        "fixture": "France vs Morocco",
+        "createdAt": "2026-07-18T18:15:11.418Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.65,
+          "away": 0.35
+        },
+        "market": "advance",
+        "fixture": "France vs Morocco",
+        "createdAt": "2026-07-18T18:15:11.559Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.67,
+          "away": 0.33
+        },
+        "market": "advance",
+        "fixture": "France vs Morocco",
+        "createdAt": "2026-07-18T18:15:11.783Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760511": {
@@ -11807,6 +13535,78 @@
         "latencyMs": 386,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.72,
+          "away": 0.28
+        },
+        "market": "advance",
+        "fixture": "Spain vs Belgium",
+        "createdAt": "2026-07-18T18:15:11.013Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.67,
+          "away": 0.33
+        },
+        "market": "advance",
+        "fixture": "Spain vs Belgium",
+        "createdAt": "2026-07-18T18:15:11.157Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.72,
+          "away": 0.28
+        },
+        "market": "advance",
+        "fixture": "Spain vs Belgium",
+        "createdAt": "2026-07-18T18:15:11.305Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.62,
+          "away": 0.38
+        },
+        "market": "advance",
+        "fixture": "Spain vs Belgium",
+        "createdAt": "2026-07-18T18:15:11.423Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.72,
+          "away": 0.28
+        },
+        "market": "advance",
+        "fixture": "Spain vs Belgium",
+        "createdAt": "2026-07-18T18:15:11.565Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.63,
+          "away": 0.37
+        },
+        "market": "advance",
+        "fixture": "Spain vs Belgium",
+        "createdAt": "2026-07-18T18:15:11.789Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760512": {
@@ -11920,6 +13720,78 @@
         "latencyMs": 570,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.36,
+          "away": 0.64
+        },
+        "market": "advance",
+        "fixture": "Norway vs England",
+        "createdAt": "2026-07-18T18:15:11.018Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.32,
+          "away": 0.68
+        },
+        "market": "advance",
+        "fixture": "Norway vs England",
+        "createdAt": "2026-07-18T18:15:11.161Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.32,
+          "away": 0.68
+        },
+        "market": "advance",
+        "fixture": "Norway vs England",
+        "createdAt": "2026-07-18T18:15:11.311Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.36,
+          "away": 0.64
+        },
+        "market": "advance",
+        "fixture": "Norway vs England",
+        "createdAt": "2026-07-18T18:15:11.428Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.27,
+          "away": 0.73
+        },
+        "market": "advance",
+        "fixture": "Norway vs England",
+        "createdAt": "2026-07-18T18:15:11.570Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.28,
+          "away": 0.72
+        },
+        "market": "advance",
+        "fixture": "Norway vs England",
+        "createdAt": "2026-07-18T18:15:11.795Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760513": {
@@ -12033,6 +13905,66 @@
         "latencyMs": 302,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.85,
+          "away": 0.15
+        },
+        "market": "advance",
+        "fixture": "Argentina vs Switzerland",
+        "createdAt": "2026-07-18T18:15:11.023Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.73,
+          "away": 0.27
+        },
+        "market": "advance",
+        "fixture": "Argentina vs Switzerland",
+        "createdAt": "2026-07-18T18:15:11.166Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.77,
+          "away": 0.23
+        },
+        "market": "advance",
+        "fixture": "Argentina vs Switzerland",
+        "createdAt": "2026-07-18T18:15:11.315Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.82,
+          "away": 0.18
+        },
+        "market": "advance",
+        "fixture": "Argentina vs Switzerland",
+        "createdAt": "2026-07-18T18:15:11.575Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.68,
+          "away": 0.32
+        },
+        "market": "advance",
+        "fixture": "Argentina vs Switzerland",
+        "createdAt": "2026-07-18T18:15:11.800Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760514": {
@@ -12153,6 +14085,78 @@
         "latencyMs": 622,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.45,
+          "away": 0.55
+        },
+        "market": "advance",
+        "fixture": "France vs Spain",
+        "createdAt": "2026-07-18T18:15:11.027Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.53,
+          "away": 0.47
+        },
+        "market": "advance",
+        "fixture": "France vs Spain",
+        "createdAt": "2026-07-18T18:15:11.171Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.48,
+          "away": 0.52
+        },
+        "market": "advance",
+        "fixture": "France vs Spain",
+        "createdAt": "2026-07-18T18:15:11.320Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.46,
+          "away": 0.54
+        },
+        "market": "advance",
+        "fixture": "France vs Spain",
+        "createdAt": "2026-07-18T18:15:11.433Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.5,
+          "away": 0.5
+        },
+        "market": "advance",
+        "fixture": "France vs Spain",
+        "createdAt": "2026-07-18T18:15:11.579Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.48,
+          "away": 0.52
+        },
+        "market": "advance",
+        "fixture": "France vs Spain",
+        "createdAt": "2026-07-18T18:15:11.805Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760515": {
@@ -12266,6 +14270,78 @@
         "latencyMs": 647,
         "eligible": true,
         "retro": true
+      },
+      "anthropic/claude-opus-4.7": {
+        "probs": {
+          "home": 0.42,
+          "away": 0.58
+        },
+        "market": "advance",
+        "fixture": "England vs Argentina",
+        "createdAt": "2026-07-18T18:15:11.032Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "x-ai/grok-4.5": {
+        "probs": {
+          "home": 0.47,
+          "away": 0.53
+        },
+        "market": "advance",
+        "fixture": "England vs Argentina",
+        "createdAt": "2026-07-18T18:15:11.176Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "deepseek/deepseek-v4-pro": {
+        "probs": {
+          "home": 0.48,
+          "away": 0.52
+        },
+        "market": "advance",
+        "fixture": "England vs Argentina",
+        "createdAt": "2026-07-18T18:15:11.325Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "moonshotai/kimi-k3": {
+        "probs": {
+          "home": 0.52,
+          "away": 0.48
+        },
+        "market": "advance",
+        "fixture": "England vs Argentina",
+        "createdAt": "2026-07-18T18:15:11.438Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "z-ai/glm-5.2": {
+        "probs": {
+          "home": 0.48,
+          "away": 0.52
+        },
+        "market": "advance",
+        "fixture": "England vs Argentina",
+        "createdAt": "2026-07-18T18:15:11.585Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
+      },
+      "qwen/qwen3.7-max": {
+        "probs": {
+          "home": 0.46,
+          "away": 0.54
+        },
+        "market": "advance",
+        "fixture": "England vs Argentina",
+        "createdAt": "2026-07-18T18:15:11.810Z",
+        "eligible": true,
+        "retro": true,
+        "backtest": true
       }
     },
     "760516": {
@@ -21464,6 +23540,1487 @@
               "away": 0.92
             },
             "rationale": "Argentina scored twice in the final 5 minutes (85' and 90'+2') to lead 2-1, and with only ~3 minutes of stoppage time remaining, England faces an extremely difficult task to equalize against a top defensive side."
+          }
+        }
+      }
+    ],
+    "760516": [
+      {
+        "at": "2026-07-18T21:04:24.273Z",
+        "detail": "3'",
+        "score": [
+          0,
+          1
+        ],
+        "events": 1,
+        "period": "STATUS_FIRST_HALF",
+        "market": "regulation",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.27,
+              "draw": 0.3,
+              "away": 0.43
+            },
+            "rationale": "England's very early goal gives them a lead with 87 minutes to defend, but France has ample time to respond in what projects as an evenly-matched fixture."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.29,
+              "draw": 0.24,
+              "away": 0.47
+            },
+            "rationale": "An early England lead shifts things in their favor, but with virtually the whole match left France still have a substantial chance to come back and a draw remains very plausible."
+          },
+          "moonshotai/kimi-k3": {
+            "probs": {
+              "home": 0.27,
+              "draw": 0.24,
+              "away": 0.49
+            },
+            "rationale": "England's 3rd-minute lead makes them clear favorites, but with 87 minutes left in a typically open, high-scoring 3rd-place match between evenly matched sides, France still has ample time to turn it around."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0.26,
+              "draw": 0.28,
+              "away": 0.46
+            },
+            "rationale": "England takes an early lead but with 87 minutes remaining, France retains significant chances to equalize or win, making England's victory far from guaranteed."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.35,
+              "draw": 0.27,
+              "away": 0.38
+            },
+            "rationale": "England's early goal gives them a meaningful advantage, but with 87 minutes remaining and France's elite attacking depth, the match is far from decided and England holds only a slight edge."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.36,
+              "draw": 0.18,
+              "away": 0.46
+            },
+            "rationale": "England leads 1-0 with 87 minutes left; France's attacking edge slightly boosts their comeback odds."
+          },
+          "google/gemini-3.1-pro-preview": {
+            "probs": {
+              "home": 0.21,
+              "draw": 0.23,
+              "away": 0.56
+            },
+            "rationale": "Although England has taken a very early lead, France has nearly the entire match to equalize in what is typically a high-scoring, open fixture between two evenly matched sides."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0.22,
+              "draw": 0.28,
+              "away": 0.5
+            },
+            "rationale": "England's 1-0 lead at just 3' confers a solid edge in a 3rd-place match between evenly matched sides, yet France's quality and 87+ minutes remaining keep a comeback or draw quite plausible."
+          }
+        }
+      },
+      {
+        "at": "2026-07-18T21:15:55.456Z",
+        "detail": "14'",
+        "score": [
+          0,
+          1
+        ],
+        "events": 1,
+        "period": "STATUS_FIRST_HALF",
+        "market": "regulation",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.24,
+              "draw": 0.28,
+              "away": 0.48
+            },
+            "rationale": "England's early goal gives them a significant lead with plenty of time left, but France's attacking quality keeps a comeback or equalizer plausible."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.33,
+              "draw": 0.23,
+              "away": 0.44
+            },
+            "rationale": "England’s early lead shifts things in their favor, but with over 75 minutes left France still has plenty of time to come back in what should be an open third-place match."
+          },
+          "deepseek/deepseek-v4-pro": {
+            "probs": {
+              "home": 0.18,
+              "draw": 0.27,
+              "away": 0.55
+            },
+            "rationale": "An early 1-0 lead gives England a clear advantage but France's quality and 76 minutes remaining make a draw or comeback very possible."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0.21,
+              "draw": 0.28,
+              "away": 0.51
+            },
+            "rationale": "England's early goal provides a strong advantage, but with 76 minutes remaining and extra time counting as a draw, France retains a realistic chance to level the score."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.3,
+              "draw": 0.27,
+              "away": 0.43
+            },
+            "rationale": "England's early goal gives them a meaningful advantage, but with 76 minutes remaining France's elite attacking talent makes an equalizer or comeback very plausible in what is often an open, lower-intensity 3rd place match."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.38,
+              "draw": 0.2,
+              "away": 0.42
+            },
+            "rationale": "England leads early but France has 76 minutes to equalize and both sides are capable of scoring, making this still very open despite the early deficit."
+          },
+          "google/gemini-3.1-pro-preview": {
+            "probs": {
+              "home": 0.18,
+              "draw": 0.24,
+              "away": 0.58
+            },
+            "rationale": "England's early goal gives them a strong advantage, but with over 75 minutes remaining, France's elite attacking talent keeps their chances of equalizing or mounting a comeback very much alive."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0.29,
+              "draw": 0.26,
+              "away": 0.45
+            },
+            "rationale": "England lead early via Rice but 76 minutes remain for strong France side to equalise or win, though hosts of momentum favour the away win most."
+          }
+        }
+      },
+      {
+        "at": "2026-07-18T21:20:21.990Z",
+        "detail": "19'",
+        "score": [
+          0,
+          2
+        ],
+        "events": 2,
+        "period": "STATUS_FIRST_HALF",
+        "market": "regulation",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.05,
+              "draw": 0.17,
+              "away": 0.78
+            },
+            "rationale": "England leads 2-0 with 71+ minutes remaining, giving them a strong likelihood of holding on, though France has enough time to mount a comeback for a draw or unlikely win."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.13,
+              "draw": 0.18,
+              "away": 0.69
+            },
+            "rationale": "England are two goals up inside 20 minutes and look strongly favored, though France still have ample time to recover some or all of the deficit."
+          },
+          "deepseek/deepseek-v4-pro": {
+            "probs": {
+              "home": 0.07,
+              "draw": 0.13,
+              "away": 0.8
+            },
+            "rationale": "England's early 2-0 lead gives them a dominant position, but France still has time to mount a comeback in this third-place match."
+          },
+          "moonshotai/kimi-k3": {
+            "probs": {
+              "home": 0.09,
+              "draw": 0.13,
+              "away": 0.78
+            },
+            "rationale": "England's two-goal cushion at 19' makes them heavy favorites historically (~75-80% win rate from this position), though France's elite attack and the typically open, high-scoring nature of 3rd-place matches leave a modest chance of a comeback or leveling with 70+ minutes remaining."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0.04,
+              "draw": 0.09,
+              "away": 0.87
+            },
+            "rationale": "England holds a commanding 2-0 lead early in the match, making a France comeback unlikely despite plenty of time remaining."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.15,
+              "draw": 0.22,
+              "away": 0.63
+            },
+            "rationale": "England's commanding 2-0 lead within the opening 18 minutes gives them a strong advantage, though France's elite attacking talent and 71 remaining minutes keep comeback and draw possibilities meaningfully alive."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.12,
+              "draw": 0.18,
+              "away": 0.7
+            },
+            "rationale": "England's early 2-0 lead after 19 minutes puts them in a commanding position, though France's quality means they're not completely out of it."
+          },
+          "google/gemini-3.1-pro-preview": {
+            "probs": {
+              "home": 0.09,
+              "draw": 0.16,
+              "away": 0.75
+            },
+            "rationale": "Although third-place matches are often open and high-scoring, overcoming a two-goal deficit with 70 minutes left against a defensively solid England side is highly improbable for France."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0.12,
+              "draw": 0.18,
+              "away": 0.7
+            },
+            "rationale": "England's early 2-0 lead after 19 minutes makes them strong favorites to hold on for the win in regulation, though France's quality gives them a realistic shot at a comeback or forcing a draw."
+          }
+        }
+      },
+      {
+        "at": "2026-07-18T21:30:50.124Z",
+        "detail": "30'",
+        "score": [
+          0,
+          2
+        ],
+        "events": 2,
+        "period": "STATUS_FIRST_HALF",
+        "market": "regulation",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.05,
+              "draw": 0.17,
+              "away": 0.78
+            },
+            "rationale": "England leads 2-0 with 60 minutes left against a strong France side, making a comeback possible but an England win most likely."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.13,
+              "draw": 0.19,
+              "away": 0.68
+            },
+            "rationale": "England are two goals up after 30 minutes with no red cards or anomalies, making them strong favorites while still allowing for a meaningful chance of a French comeback or draw."
+          },
+          "deepseek/deepseek-v4-pro": {
+            "probs": {
+              "home": 0.06,
+              "draw": 0.16,
+              "away": 0.78
+            },
+            "rationale": "France down 0-2 at 30 minutes face a steep uphill battle; England are strong favorites to hold on, but a draw is possible if France push hard in this 3rd place match."
+          },
+          "moonshotai/kimi-k3": {
+            "probs": {
+              "home": 0.08,
+              "draw": 0.12,
+              "away": 0.8
+            },
+            "rationale": "France trail 0-2 with ~60 minutes left; they're talented enough to make it interesting in an open 3rd-place game, but two-goal comebacks against elite defenses like England's are rare (roughly 1-in-12 to win, 1-in-8 to force a draw)."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0.04,
+              "draw": 0.08,
+              "away": 0.88
+            },
+            "rationale": "England's two-goal cushion at 30' is commanding, though France's attacking quality keeps a slim comeback and draw possibility alive."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.09,
+              "draw": 0.16,
+              "away": 0.75
+            },
+            "rationale": "England's commanding 2-0 lead at the 30-minute mark in a low-stakes third-place match makes a French comeback highly unlikely despite their elite attacking talent."
+          },
+          "google/gemini-3.1-pro-preview": {
+            "probs": {
+              "home": 0.08,
+              "draw": 0.16,
+              "away": 0.76
+            },
+            "rationale": "With a two-goal lead early in the first half, England is heavily favored to hold on, though France's attacking quality leaves room for a comeback in an often open third-place fixture."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0.08,
+              "draw": 0.17,
+              "away": 0.75
+            },
+            "rationale": "England lead 2-0 after 30 minutes so are strong favorites to hold on, though France remain capable of a comeback or forcing a draw over the remaining hour."
+          }
+        }
+      },
+      {
+        "at": "2026-07-18T21:34:21.704Z",
+        "detail": "34'",
+        "score": [
+          0,
+          2
+        ],
+        "events": 2,
+        "period": "STATUS_IN_PROGRESS",
+        "market": "regulation",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.04,
+              "draw": 0.14,
+              "away": 0.82
+            },
+            "rationale": "England leads 2-0 with 56 minutes remaining, and while France has quality to mount a comeback, historical base rates for overcoming a two-goal deficit this early are low."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.13,
+              "draw": 0.19,
+              "away": 0.68
+            },
+            "rationale": "England are two goals up inside 34 minutes with no red cards or injuries noted, making them strong favorites though France still have time to mount a comeback."
+          },
+          "deepseek/deepseek-v4-pro": {
+            "probs": {
+              "home": 0.03,
+              "draw": 0.09,
+              "away": 0.88
+            },
+            "rationale": "France faces a steep 2-0 deficit with 56 minutes left; England's early dominance and strong defense make an England win highly probable, though a draw remains possible if France rallies."
+          },
+          "moonshotai/kimi-k3": {
+            "probs": {
+              "home": 0.1,
+              "draw": 0.13,
+              "away": 0.77
+            },
+            "rationale": "England leads 2-0 at 34', and even with France's quality and 56+ minutes to play, teams trailing by two goals this early only come back to win or draw roughly a quarter of the time, with an open 3rd-place match slightly boosting France's comeback odds."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0.07,
+              "draw": 0.09,
+              "away": 0.84
+            },
+            "rationale": "England's two-goal cushion at 34' gives them a commanding position, though France's attacking quality keeps a small comeback chance alive in this third-place match."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.12,
+              "draw": 0.18,
+              "away": 0.7
+            },
+            "rationale": "England's commanding 2-0 lead at the 34-minute mark, built on early goals from Rice and Konsa, gives them a strong probability of holding on to win, though France's elite attacking talent keeps comeback and draw scenarios non-trivial with 56 minutes remaining."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.13,
+              "draw": 0.25,
+              "away": 0.62
+            },
+            "rationale": "England's 2-goal lead at the 34-minute mark gives them a strong advantage, though France has ample time to mount a comeback given their quality."
+          },
+          "google/gemini-3.1-pro-preview": {
+            "probs": {
+              "home": 0.08,
+              "draw": 0.18,
+              "away": 0.74
+            },
+            "rationale": "While France possesses the elite attacking talent to mount a comeback in a typically open third-place match, England's commanding two-goal lead with only 56 minutes remaining makes them heavy favorites to hold on for the win in regulation."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0.13,
+              "draw": 0.17,
+              "away": 0.7
+            },
+            "rationale": "England's 2-0 lead at 34 minutes gives them a strong position to close out the win, though France's quality keeps a comeback or draw possible over the remaining time."
+          }
+        }
+      },
+      {
+        "at": "2026-07-18T21:38:53.671Z",
+        "detail": "37'",
+        "score": [
+          0,
+          3
+        ],
+        "events": 3,
+        "period": "STATUS_FIRST_HALF",
+        "market": "regulation",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.01,
+              "draw": 0.03,
+              "away": 0.96
+            },
+            "rationale": "England lead 3-0 after 37 minutes, making a France comeback in regulation highly unlikely."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.06,
+              "draw": 0.08,
+              "away": 0.86
+            },
+            "rationale": "At 37 minutes with England leading 3–0, historical comeback rates from this deficit are extremely low, making an England win overwhelmingly likely and a late France comeback or draw only a small possibility."
+          },
+          "deepseek/deepseek-v4-pro": {
+            "probs": {
+              "home": 0.01,
+              "draw": 0.02,
+              "away": 0.97
+            },
+            "rationale": "With a 3-0 lead at 37 minutes, England has a historically insurmountable advantage, leaving France with only a remote chance of a draw or win."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0.001,
+              "draw": 0.009,
+              "away": 0.99
+            },
+            "rationale": "England holds a commanding 3-0 lead before halftime, making a France comeback in regulation extremely unlikely."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.01,
+              "draw": 0.03,
+              "away": 0.96
+            },
+            "rationale": "England's commanding 3-0 lead with over 50 minutes remaining makes a French comeback statistically near-impossible, as France would need to outscore England by at least three goals just to salvage a draw."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.01,
+              "draw": 0.02,
+              "away": 0.97
+            },
+            "rationale": "England's dominant 3-0 lead with 53 minutes remaining, combined with France needing at least 3 goals to force extra time, makes an England victory overwhelmingly likely despite France's historical quality."
+          },
+          "google/gemini-3.1-pro-preview": {
+            "probs": {
+              "home": 0.005,
+              "draw": 0.025,
+              "away": 0.97
+            },
+            "rationale": "Trailing 0-3 before halftime, France faces an almost insurmountable deficit against a strong English side, making an England victory overwhelmingly probable."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0.02,
+              "draw": 0.05,
+              "away": 0.93
+            },
+            "rationale": "England lead 3-0 with over half the match gone, making a French comeback to win or even draw extremely unlikely in 90 minutes."
+          }
+        }
+      },
+      {
+        "at": "2026-07-18T21:48:25.904Z",
+        "detail": "45'+2'",
+        "score": [
+          0,
+          4
+        ],
+        "events": 4,
+        "period": "STATUS_FIRST_HALF",
+        "market": "regulation",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.001,
+              "draw": 0.004,
+              "away": 0.995
+            },
+            "rationale": "England lead 4-0 at halftime with dominant momentum, making a France comeback virtually impossible."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.01,
+              "draw": 0.03,
+              "away": 0.96
+            },
+            "rationale": "With England 4–0 up at half-time, France coming back to win or even draw in 90 minutes is extremely unlikely, though not entirely impossible."
+          },
+          "deepseek/deepseek-v4-pro": {
+            "probs": {
+              "home": 0,
+              "draw": 0.01,
+              "away": 0.99
+            },
+            "rationale": "With England leading 4-0 at halftime and France showing no signs of a comeback in a low-stakes third-place match, an England win is virtually certain."
+          },
+          "moonshotai/kimi-k3": {
+            "probs": {
+              "home": 0.0005,
+              "draw": 0.0045,
+              "away": 0.995
+            },
+            "rationale": "A four-goal deficit at halftime is effectively decisive, with France needing an unprecedented second-half surge even to force a draw."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0,
+              "draw": 0.001,
+              "away": 0.999
+            },
+            "rationale": "England's commanding 4-0 lead at half-time makes their victory virtually certain."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.002,
+              "draw": 0.008,
+              "away": 0.99
+            },
+            "rationale": "England's commanding 4-0 halftime lead makes an England victory near-certain, as overcoming a four-goal deficit in 45 minutes is historically unprecedented at this level of international football."
+          },
+          "google/gemini-3.1-pro-preview": {
+            "probs": {
+              "home": 0.001,
+              "draw": 0.004,
+              "away": 0.995
+            },
+            "rationale": "With a massive 4-0 lead at halftime, England is overwhelmingly favored to secure the victory, as a four-goal comeback in 45 minutes between elite international teams is historically unprecedented."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0.002,
+              "draw": 0.008,
+              "away": 0.99
+            },
+            "rationale": "England lead 4-0 at half-time in a 3rd-place match, making any French comeback extraordinarily unlikely."
+          }
+        }
+      },
+      {
+        "at": "2026-07-18T21:50:59.135Z",
+        "detail": "HT",
+        "score": [
+          0,
+          4
+        ],
+        "events": 4,
+        "period": "STATUS_HALFTIME",
+        "market": "regulation",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.001,
+              "draw": 0.004,
+              "away": 0.995
+            },
+            "rationale": "England lead 4-0 at halftime with dominant momentum, making a France comeback virtually impossible."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.01,
+              "draw": 0.03,
+              "away": 0.96
+            },
+            "rationale": "England are 4–0 up at half-time with clear dominance, making a France comeback or even a draw extremely unlikely."
+          },
+          "deepseek/deepseek-v4-pro": {
+            "probs": {
+              "home": 0,
+              "draw": 0.01,
+              "away": 0.99
+            },
+            "rationale": "England's 4-0 half-time lead is virtually unassailable in a World Cup match, making a France win practically impossible and a draw extremely unlikely."
+          },
+          "moonshotai/kimi-k3": {
+            "probs": {
+              "home": 0.003,
+              "draw": 0.012,
+              "away": 0.985
+            },
+            "rationale": "Down 0-4 at halftime, France would need an unprecedented second-half collapse from England, so England winning is near-certain with only a miraculous four-goal comeback offering even a draw."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0.001,
+              "draw": 0.001,
+              "away": 0.998
+            },
+            "rationale": "England hold a commanding 4-0 lead at half-time, making a France comeback or draw in the second half virtually impossible."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.001,
+              "draw": 0.009,
+              "away": 0.99
+            },
+            "rationale": "England's commanding 4-0 halftime lead makes an England victory near-certain, as comebacks of this magnitude are virtually unprecedented in elite international football, especially in a lower-stakes 3rd place playoff where France's motivation to mount a historic rally is likely diminished."
+          },
+          "google/gemini-3.1-pro-preview": {
+            "probs": {
+              "home": 0.001,
+              "draw": 0.004,
+              "away": 0.995
+            },
+            "rationale": "With a massive 4-0 lead at half-time, England is virtually guaranteed to win, as overcoming a four-goal deficit in 45 minutes against a top-tier opponent is statistically highly improbable."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0.02,
+              "draw": 0.05,
+              "away": 0.93
+            },
+            "rationale": "England lead 4-0 at half-time making a France comeback to win or draw extraordinarily unlikely in the remaining 45 minutes."
+          }
+        }
+      },
+      {
+        "at": "2026-07-18T22:04:34.177Z",
+        "detail": "HT",
+        "score": [
+          0,
+          4
+        ],
+        "events": 4,
+        "period": "STATUS_HALFTIME",
+        "market": "regulation",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.001,
+              "draw": 0.004,
+              "away": 0.995
+            },
+            "rationale": "England lead 4-0 at halftime, making a France comeback virtually impossible."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.01,
+              "draw": 0.03,
+              "away": 0.96
+            },
+            "rationale": "At 0-4 down at half-time, France’s chances of even forcing a draw are extremely small given historical comeback rates and England’s clear dominance so far."
+          },
+          "deepseek/deepseek-v4-pro": {
+            "probs": {
+              "home": 0.001,
+              "draw": 0.004,
+              "away": 0.995
+            },
+            "rationale": "With a 4-0 lead at half-time and complete dominance, England is virtually certain to win in regulation; a France comeback is practically impossible."
+          },
+          "moonshotai/kimi-k3": {
+            "probs": {
+              "home": 0.002,
+              "draw": 0.006,
+              "away": 0.992
+            },
+            "rationale": "No team realistically overcomes a 4-0 halftime deficit in an international match, so England's victory is all but guaranteed barring a historically unprecedented collapse."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0.001,
+              "draw": 0.001,
+              "away": 0.998
+            },
+            "rationale": "England holds a commanding 4-0 lead at half-time, making an England victory virtually certain."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.002,
+              "draw": 0.008,
+              "away": 0.99
+            },
+            "rationale": "A 4-0 halftime deficit is virtually insurmountable in elite football; France would need to outscore England by at least 4 goals in the second half just to draw, which is historically near-impossible against a top-tier defense likely to sit deep and protect a commanding lead."
+          },
+          "google/gemini-3.1-pro-preview": {
+            "probs": {
+              "home": 0.001,
+              "draw": 0.005,
+              "away": 0.994
+            },
+            "rationale": "With England holding a massive 4-0 lead at half-time, a comeback from France is highly improbable even in a typically open third-place playoff."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0.02,
+              "draw": 0.05,
+              "away": 0.93
+            },
+            "rationale": "England's 4-0 halftime lead in a 3rd-place match makes an away win overwhelmingly likely, as France scoring 4+ unanswered goals in 45 minutes is exceptionally rare."
+          }
+        }
+      },
+      {
+        "at": "2026-07-18T22:10:08.744Z",
+        "detail": "46'",
+        "score": [
+          0,
+          4
+        ],
+        "events": 4,
+        "period": "STATUS_SECOND_HALF",
+        "market": "regulation",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.001,
+              "draw": 0.004,
+              "away": 0.995
+            },
+            "rationale": "England lead 4-0 at halftime with dominant momentum, making a France comeback virtually impossible."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.01,
+              "draw": 0.04,
+              "away": 0.95
+            },
+            "rationale": "England lead 4-0 just after halftime, making a France comeback or even a draw extremely unlikely given typical scoring rates and game state."
+          },
+          "deepseek/deepseek-v4-pro": {
+            "probs": {
+              "home": 0.0005,
+              "draw": 0.002,
+              "away": 0.9975
+            },
+            "rationale": "With a four-goal lead at halftime in a third-place match, England are overwhelmingly likely to win, leaving minimal chances for a draw or a France comeback."
+          },
+          "moonshotai/kimi-k3": {
+            "probs": {
+              "home": 0.004,
+              "draw": 0.014,
+              "away": 0.982
+            },
+            "rationale": "England lead 4-0 at the start of the second half, and comebacks of four goals in 45 minutes are historically almost nonexistent, so England win barring a miracle."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0.001,
+              "draw": 0.004,
+              "away": 0.995
+            },
+            "rationale": "England leads 4-0 at halftime, making an England victory in regulation a near-certainty with negligible chance of a France comeback or draw."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.01,
+              "draw": 0.03,
+              "away": 0.96
+            },
+            "rationale": "England's commanding 4-0 halftime lead in a 3rd-place match makes a French comeback virtually impossible, as no team in World Cup history has overturned a four-goal deficit at the break, and England's clinical finishing suggests they may extend the lead further on the counter."
+          },
+          "google/gemini-3.1-pro-preview": {
+            "probs": {
+              "home": 0.001,
+              "draw": 0.004,
+              "away": 0.995
+            },
+            "rationale": "With England holding a massive 4-0 lead at halftime, a comeback by France in the remaining 45 minutes is statistically highly improbable."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0.01,
+              "draw": 0.04,
+              "away": 0.95
+            },
+            "rationale": "England's 4-0 lead at the 46th minute makes an away win overwhelmingly probable with France needing a miraculous comeback."
+          }
+        }
+      },
+      {
+        "at": "2026-07-18T22:12:04.604Z",
+        "detail": "49'",
+        "score": [
+          1,
+          4
+        ],
+        "events": 5,
+        "period": "STATUS_SECOND_HALF",
+        "market": "regulation",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.01,
+              "draw": 0.02,
+              "away": 0.97
+            },
+            "rationale": "England lead 4-1 with only ~41 minutes plus stoppage remaining; France would need three goals just to draw, making an England win overwhelmingly likely."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.04,
+              "draw": 0.08,
+              "away": 0.88
+            },
+            "rationale": "England lead by three goals early in the second half, making a French comeback or draw possible but still quite unlikely given typical scoring rates."
+          },
+          "deepseek/deepseek-v4-pro": {
+            "probs": {
+              "home": 0.001,
+              "draw": 0.004,
+              "away": 0.995
+            },
+            "rationale": "England's three-goal lead with 41 minutes remaining is historically extremely secure, making a France comeback or draw highly improbable."
+          },
+          "moonshotai/kimi-k3": {
+            "probs": {
+              "home": 0.02,
+              "draw": 0.06,
+              "away": 0.92
+            },
+            "rationale": "England's three-goal cushion with ~41 minutes left is historically nearly insurmountable, and even with Mbappé's 48' goal giving France slight momentum, France would need at least three more unanswered goals against a strong England side just to force a draw."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0.03,
+              "draw": 0.04,
+              "away": 0.93
+            },
+            "rationale": "England holds a commanding 4-1 lead entering the second half, and while Mbappé's early goal gives France a flicker of momentum, overcoming a three-goal deficit in 40 minutes is highly improbable."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.01,
+              "draw": 0.03,
+              "away": 0.96
+            },
+            "rationale": "England's commanding 3-goal lead at the start of the second half makes an England win near-certain, as comebacks of this magnitude in ~41 minutes are historically extremely rare even for a team of France's caliber."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.02,
+              "draw": 0.04,
+              "away": 0.94
+            },
+            "rationale": "England's commanding 4-1 lead with over 40 minutes remaining makes a France comeback highly unlikely though not impossible."
+          },
+          "google/gemini-3.1-pro-preview": {
+            "probs": {
+              "home": 0.008,
+              "draw": 0.032,
+              "away": 0.96
+            },
+            "rationale": "Despite France's early second-half goal, overcoming a three-goal deficit in just over 40 minutes against a strong England side remains highly improbable."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0.04,
+              "draw": 0.12,
+              "away": 0.84
+            },
+            "rationale": "England's 3-goal lead with ~40 min left makes them heavy favorites; France comeback to win is rare while a draw requires net +3 unanswered."
+          }
+        }
+      },
+      {
+        "at": "2026-07-18T22:18:12.917Z",
+        "detail": "55'",
+        "score": [
+          2,
+          4
+        ],
+        "events": 6,
+        "period": "STATUS_SECOND_HALF",
+        "market": "regulation",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.04,
+              "draw": 0.09,
+              "away": 0.87
+            },
+            "rationale": "England leads by two goals with only ~35 minutes plus stoppage remaining, and although France has scored twice in six minutes to build momentum, England still has a comfortable buffer."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.09,
+              "draw": 0.16,
+              "away": 0.75
+            },
+            "rationale": "England still hold a two-goal lead with 35 minutes left, so a French comeback to win or even level is possible but remains significantly less likely than England seeing out the win."
+          },
+          "moonshotai/kimi-k3": {
+            "probs": {
+              "home": 0.06,
+              "draw": 0.16,
+              "away": 0.78
+            },
+            "rationale": "France's two quick goals give them momentum, but overturning a two-goal deficit in ~35 minutes to win outright requires outscoring England by three, so England remain heavy favorites to hold on for at least a draw, most likely the win."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0.13,
+              "draw": 0.15,
+              "away": 0.72
+            },
+            "rationale": "England holds a two-goal lead with 35 minutes remaining, though France's quick double has given them significant momentum to potentially mount a comeback."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.04,
+              "draw": 0.11,
+              "away": 0.85
+            },
+            "rationale": "England's commanding 4-2 lead with only 35 minutes remaining makes an England win highly probable, though France's rapid two-goal burst early in the second half suggests a slim but non-trivial chance of a comeback or draw."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.12,
+              "draw": 0.08,
+              "away": 0.8
+            },
+            "rationale": "England holds a commanding two-goal lead despite France's late rally, and has controlled most of the match while possessing the quality to see out the victory."
+          },
+          "google/gemini-3.1-pro-preview": {
+            "probs": {
+              "home": 0.09,
+              "draw": 0.21,
+              "away": 0.7
+            },
+            "rationale": "Despite France's sudden momentum with two quick second-half goals, England still holds a significant two-goal advantage with only 35 minutes remaining, making an England victory the most probable outcome."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0.09,
+              "draw": 0.17,
+              "away": 0.74
+            },
+            "rationale": "England's two-goal lead with ~35 minutes left makes them heavy favorites, though France's quick second-half goals give a slim chance of a comeback draw or win."
+          }
+        }
+      },
+      {
+        "at": "2026-07-18T22:28:23.381Z",
+        "detail": "64'",
+        "score": [
+          2,
+          4
+        ],
+        "events": 6,
+        "period": "STATUS_SECOND_HALF",
+        "market": "regulation",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.03,
+              "draw": 0.09,
+              "away": 0.88
+            },
+            "rationale": "England leads by two goals with under 30 minutes plus stoppage remaining; France would need at least two goals to draw and three to win, which is unlikely despite recent momentum."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.1,
+              "draw": 0.2,
+              "away": 0.7
+            },
+            "rationale": "England are two goals up with just over 25 minutes plus stoppage time left, making them strong favourites though France’s attack and remaining time leave some chance of a comeback or draw."
+          },
+          "deepseek/deepseek-v4-pro": {
+            "probs": {
+              "home": 0.02,
+              "draw": 0.08,
+              "away": 0.9
+            },
+            "rationale": "England firmly in control with a two-goal lead and ~30 minutes to play, but France's quickfire double gives them a slim chance of forcing a draw."
+          },
+          "moonshotai/kimi-k3": {
+            "probs": {
+              "home": 0.06,
+              "draw": 0.12,
+              "away": 0.82
+            },
+            "rationale": "England's two-goal cushion with ~26 minutes left is historically very secure, though France's quick second-half brace and this match's exceptionally high scoring rate keep a comeback or draw meaningfully alive."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0.05,
+              "draw": 0.1,
+              "away": 0.85
+            },
+            "rationale": "England holds a two-goal lead with 26 minutes remaining, and while France has shown recent attacking momentum, overcoming a two-goal deficit in the final stretch is highly improbable."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.03,
+              "draw": 0.1,
+              "away": 0.87
+            },
+            "rationale": "England holds a commanding two-goal lead with only 26 minutes remaining, and while France showed a brief scoring burst early in the second half, overturning a 4-2 deficit in regulation is historically very rare even for a team of France's caliber."
+          },
+          "google/gemini-3.1-pro-preview": {
+            "probs": {
+              "home": 0.05,
+              "draw": 0.14,
+              "away": 0.81
+            },
+            "rationale": "Despite France's strong second-half momentum with two quick goals, overcoming a two-goal deficit in the remaining 26 minutes plus stoppage time remains statistically improbable."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0.03,
+              "draw": 0.09,
+              "away": 0.88
+            },
+            "rationale": "England lead 4-2 with only ~26 min + stoppage left, so France need two unanswered goals for a draw or three to win, both low-probability outcomes."
+          }
+        }
+      },
+      {
+        "at": "2026-07-18T22:31:10.558Z",
+        "detail": "67'",
+        "score": [
+          3,
+          4
+        ],
+        "events": 7,
+        "period": "STATUS_SECOND_HALF",
+        "market": "regulation",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.28,
+              "draw": 0.34,
+              "away": 0.38
+            },
+            "rationale": "France has scored three unanswered goals and has clear momentum, but England still leads with 23 minutes to play, making a draw or narrow English win the most likely outcomes."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.26,
+              "draw": 0.29,
+              "away": 0.45
+            },
+            "rationale": "With England one goal up in the 68th minute but France in strong attacking momentum after three quick goals, England remain slight favorites while the chance of an equalizer and eventual draw is also substantial."
+          },
+          "deepseek/deepseek-v4-pro": {
+            "probs": {
+              "home": 0.25,
+              "draw": 0.3,
+              "away": 0.45
+            },
+            "rationale": "France has stormed back with three second-half goals and has momentum, but England still leads and can threaten on the counter, making an away win the most likely single outcome with a draw also probable."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0.15,
+              "draw": 0.35,
+              "away": 0.5
+            },
+            "rationale": "France has erased a four-goal deficit to within one with 23 minutes left, making an English collapse highly plausible but England still holding the lead."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.27,
+              "draw": 0.3,
+              "away": 0.43
+            },
+            "rationale": "France has overwhelming momentum with three second-half goals in 18 minutes, but England still holds a lead with 23 minutes remaining in an extraordinarily high-scoring, open third-place match where more goals seem likely."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.3,
+              "draw": 0.08,
+              "away": 0.62
+            },
+            "rationale": "England leads 4-3 with 24 minutes left, but France has momentum after scoring three goals in 18 minutes and needs just one equalizer."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0.18,
+              "draw": 0.32,
+              "away": 0.5
+            },
+            "rationale": "England leads 4-3 with ~23 min left but France's rapid second-half surge (3 goals) and open game raise comeback odds above typical late one-goal deficits."
+          }
+        }
+      },
+      {
+        "at": "2026-07-18T22:35:05.020Z",
+        "detail": "70'",
+        "score": [
+          3,
+          4
+        ],
+        "events": 7,
+        "period": "STATUS_SECOND_HALF",
+        "market": "regulation",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.18,
+              "draw": 0.34,
+              "away": 0.48
+            },
+            "rationale": "France has scored 3 goals in 18 minutes and has clear momentum, but England still leads by one with only 20 minutes plus stoppage remaining, making an England win most likely but a draw very plausible."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.27,
+              "draw": 0.33,
+              "away": 0.4
+            },
+            "rationale": "With England one goal up on 70' but momentum and recent scoring edge to France, the match is fairly open yet still slightly favors England holding on, with a substantial chance of an equalizer leading to a draw."
+          },
+          "deepseek/deepseek-v4-pro": {
+            "probs": {
+              "home": 0.25,
+              "draw": 0.3,
+              "away": 0.45
+            },
+            "rationale": "France has momentum after three second-half goals, but England still leads 4-3 with 20 minutes left in a high-scoring third-place match."
+          },
+          "moonshotai/kimi-k3": {
+            "probs": {
+              "home": 0.22,
+              "draw": 0.27,
+              "away": 0.51
+            },
+            "rationale": "England leads with ~20 minutes left and history favors the leader, but France's three-goal second-half surge and this game's extraordinary scoring rate (7 goals in 70') make a French equalizer — or more — a live possibility."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0.2,
+              "draw": 0.25,
+              "away": 0.55
+            },
+            "rationale": "England lead 4-3 with 20 minutes left but France have scored three times in 22 minutes and carry strong momentum, making an equalizer plausible while England remain favorites to hold on."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.23,
+              "draw": 0.33,
+              "away": 0.44
+            },
+            "rationale": "England holds a fragile one-goal lead with 20 minutes left in a wildly open 3rd-place match, but France's explosive second-half momentum (3 goals in 18 minutes) and Mbappé's form make an equalizer highly plausible while England's counter-attacking threat with Saka keeps them as favorites to hold on."
+          },
+          "google/gemini-3.1-pro-preview": {
+            "probs": {
+              "home": 0.18,
+              "draw": 0.32,
+              "away": 0.5
+            },
+            "rationale": "Despite France's massive second-half momentum with three unanswered goals, England still holds a one-goal lead with only 20 minutes plus stoppage time remaining, making them the favorites to hold on, though an equalizer is highly plausible given the game's open nature."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0.14,
+              "draw": 0.24,
+              "away": 0.62
+            },
+            "rationale": "England leads by 1 with ~20+ min left so they are strong favorites to hold on, though France's recent scoring surge gives them a realistic shot at equalizing or rarely overtaking."
+          }
+        }
+      },
+      {
+        "at": "2026-07-18T22:44:34.838Z",
+        "detail": "81'",
+        "score": [
+          3,
+          4
+        ],
+        "events": 7,
+        "period": "STATUS_SECOND_HALF",
+        "market": "regulation",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.05,
+              "draw": 0.22,
+              "away": 0.73
+            },
+            "rationale": "England leads by one with only ~9 minutes plus stoppage remaining, but France's three-goal comeback shows scoring momentum, making a draw plausible while a France win requires two more goals."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.19,
+              "draw": 0.36,
+              "away": 0.45
+            },
+            "rationale": "With England one goal ahead on 81' but France in strong attacking rhythm, England remain slight favorites while a late French equaliser is also quite likely, leaving a smaller but real chance of France finding two goals to win in regulation."
+          },
+          "moonshotai/kimi-k3": {
+            "probs": {
+              "home": 0.08,
+              "draw": 0.28,
+              "away": 0.64
+            },
+            "rationale": "England leads with only ~10-12 minutes plus stoppage left, but France's blistering second-half momentum (3 goals since 48') gives them a real chance to equalize, while needing two more goals to win outright is a long shot."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0.03,
+              "draw": 0.12,
+              "away": 0.85
+            },
+            "rationale": "England leads 4-3 with only 9 minutes remaining, making an England win highly likely despite France's strong second-half comeback."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.07,
+              "draw": 0.25,
+              "away": 0.68
+            },
+            "rationale": "England holds a one-goal lead with roughly 10 minutes of regulation remaining, which historically converts to a win about 70% of the time, though France's rapid second-half scoring momentum (3 goals in 18 minutes) gives them a realistic chance of finding an equalizer, while scoring twice in that window to win is highly unlikely."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.32,
+              "draw": 0.28,
+              "away": 0.4
+            },
+            "rationale": "England holds a narrow lead but France has dominated the second half with 3 goals in 18 minutes and momentum strongly favoring them, making either team likely to score in the final 10 minutes."
+          },
+          "google/gemini-3.1-pro-preview": {
+            "probs": {
+              "home": 0.04,
+              "draw": 0.21,
+              "away": 0.75
+            },
+            "rationale": "Although France has immense second-half momentum in this high-scoring third-place match, England's one-goal lead with less than fifteen minutes of total time remaining makes them strong favorites to hold on for the victory."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0.07,
+              "draw": 0.23,
+              "away": 0.7
+            },
+            "rationale": "England leads by one with only ~9+ minutes left, so they are strong favorites to hold on, while a France equalizer is plausible given their recent scoring but a full comeback win remains unlikely."
+          }
+        }
+      },
+      {
+        "at": "2026-07-18T22:51:07.448Z",
+        "detail": "87'",
+        "score": [
+          3,
+          5
+        ],
+        "events": 8,
+        "period": "STATUS_SECOND_HALF",
+        "market": "regulation",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.001,
+              "draw": 0.009,
+              "away": 0.99
+            },
+            "rationale": "England leads by two goals with only stoppage time remaining, making a comeback or draw extremely unlikely."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0,
+              "draw": 0.01,
+              "away": 0.99
+            },
+            "rationale": "At 87 minutes with England leading by two goals, only an extremely unlikely quick French double makes a draw plausible, and a France win in regulation is effectively impossible."
+          },
+          "deepseek/deepseek-v4-pro": {
+            "probs": {
+              "home": 0.001,
+              "draw": 0.005,
+              "away": 0.994
+            },
+            "rationale": "With only a few minutes left and a two-goal deficit, France's chances of scoring twice or more are extremely slim."
+          },
+          "moonshotai/kimi-k3": {
+            "probs": {
+              "home": 0.005,
+              "draw": 0.03,
+              "away": 0.965
+            },
+            "rationale": "With England up 5-3 at 87' plus stoppage time, France would need at least two goals in the dying minutes just to force a draw, making an England win near-certain."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0.003,
+              "draw": 0.007,
+              "away": 0.99
+            },
+            "rationale": "England leads 5-3 at 87' with a two-goal cushion and only minutes plus stoppage time remaining, making an England win virtually certain."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.002,
+              "draw": 0.013,
+              "away": 0.985
+            },
+            "rationale": "England leads 5-3 with only about 3 minutes plus stoppage time remaining, making a French comeback of 2+ goals virtually impossible and an England win near-certain."
+          },
+          "google/gemini-3.1-pro-preview": {
+            "probs": {
+              "home": 0.001,
+              "draw": 0.014,
+              "away": 0.985
+            },
+            "rationale": "With a two-goal deficit and only three minutes of regulation plus stoppage time remaining following Saka's 87th-minute penalty, France's chances of forcing a draw or winning are extremely slim."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0.02,
+              "draw": 0.03,
+              "away": 0.95
+            },
+            "rationale": "England lead by two goals with only a few minutes plus stoppage remaining, so an away win is overwhelmingly likely while France need two unanswered goals for a draw or three for a win."
+          }
+        }
+      },
+      {
+        "at": "2026-07-18T23:01:13.634Z",
+        "detail": "90'+6'",
+        "score": [
+          4,
+          5
+        ],
+        "events": 9,
+        "period": "STATUS_SECOND_HALF",
+        "market": "regulation",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.02,
+              "draw": 0.06,
+              "away": 0.92
+            },
+            "rationale": "England leads 5-4 deep into stoppage time; France just scored but would need another goal in seconds to draw."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.02,
+              "draw": 0.95,
+              "away": 0.03
+            },
+            "rationale": "At 90'+6' immediately after France's equalizer, there is almost no time left, making a full-time draw overwhelmingly likely with only a tiny chance of a late winner for either side."
+          },
+          "moonshotai/kimi-k3": {
+            "probs": {
+              "home": 0,
+              "draw": 0.06,
+              "away": 0.94
+            },
+            "rationale": "England leads 5-4 deep into stoppage time with only moments left, so France can at best hope for a last-gasp equalizer, which is unlikely even given their second-half surge."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0.01,
+              "draw": 0.02,
+              "away": 0.97
+            },
+            "rationale": "With the match at 90'+6' and England leading 5-4, only seconds remain and France has virtually no time to mount another equalizing attack."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.001,
+              "draw": 0.029,
+              "away": 0.97
+            },
+            "rationale": "At 90'+6' with England leading 5-4, the final whistle is imminent and France would need at least one more goal from the ensuing kickoff in the dying seconds to force a draw, making an England win overwhelmingly likely."
+          },
+          "google/gemini-3.1-pro-preview": {
+            "probs": {
+              "home": 0,
+              "draw": 0.02,
+              "away": 0.98
+            },
+            "rationale": "With England leading 5-4 at 90'+6' after a late French goal, there is scarcely enough time remaining for France to mount another attack and equalize."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0.01,
+              "draw": 0.04,
+              "away": 0.95
+            },
+            "rationale": "At 90'+6' with England leading 5-4 just after France's goal, virtually no time remains for further scores so England are overwhelming favorites to hold on for the win."
+          }
+        }
+      },
+      {
+        "at": "2026-07-18T23:01:50.854Z",
+        "detail": "90'+8'",
+        "score": [
+          4,
+          6
+        ],
+        "events": 10,
+        "period": "STATUS_SECOND_HALF",
+        "market": "regulation",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.01,
+              "draw": 0.01,
+              "away": 0.98
+            },
+            "rationale": "England leads 6-4 in stoppage time after just conceding and scoring; the match is essentially over."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0,
+              "draw": 0,
+              "away": 1
+            },
+            "rationale": "At 90'+8' with England leading by two goals, there is effectively no time left for France to equalize or win in regulation."
+          },
+          "deepseek/deepseek-v4-pro": {
+            "probs": {
+              "home": 0,
+              "draw": 0,
+              "away": 1
+            },
+            "rationale": "With the score 6-4 and the match at 90'+8', England's win is virtually certain as there is no time left for France to score twice."
+          },
+          "moonshotai/kimi-k3": {
+            "probs": {
+              "home": 0.001,
+              "draw": 0.004,
+              "away": 0.995
+            },
+            "rationale": "With the clock at 90'+8' and England leading 6-4 after Bellingham's goal, France would need at least two goals in the final seconds, making an England win virtually certain."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0.001,
+              "draw": 0.004,
+              "away": 0.995
+            },
+            "rationale": "England leads 6-4 at 90'+8' with a two-goal cushion and only seconds remaining before the final whistle, making an England victory virtually certain."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.0001,
+              "draw": 0.0009,
+              "away": 0.999
+            },
+            "rationale": "England leads by two goals deep into the eighth minute of stoppage time, making any French comeback virtually impossible before the imminent final whistle."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.001,
+              "draw": 0.009,
+              "away": 0.99
+            },
+            "rationale": "With only a minute of added time remaining and France needing at least two goals to draw, England are virtually assured of victory."
+          },
+          "google/gemini-3.1-pro-preview": {
+            "probs": {
+              "home": 0,
+              "draw": 0,
+              "away": 1
+            },
+            "rationale": "With England leading by two goals at 90'+8' and virtually no time remaining, an England victory is guaranteed."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0,
+              "draw": 0,
+              "away": 1
+            },
+            "rationale": "At 90'+8' with England leading 6-4 after the latest goal, the match is effectively over with no realistic time left for France to score twice."
           }
         }
       }

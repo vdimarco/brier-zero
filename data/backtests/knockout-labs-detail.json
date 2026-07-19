@@ -1,0 +1,3793 @@
+{
+  "method": "retro-backtest",
+  "note": "Top-tier models grouped by lab, run over the resolved knockout phase with the exact locked pre-kickoff advance-market prompt. Backtest only: no pre-kickoff timestamp proof, never enters the live leaderboard.",
+  "at": "2026-07-18T04:15:59.502Z",
+  "matchCount": 30,
+  "matchIds": [
+    "760486",
+    "760487",
+    "760488",
+    "760489",
+    "760490",
+    "760491",
+    "760492",
+    "760493",
+    "760494",
+    "760495",
+    "760496",
+    "760497",
+    "760498",
+    "760499",
+    "760500",
+    "760501",
+    "760502",
+    "760503",
+    "760504",
+    "760505",
+    "760506",
+    "760507",
+    "760508",
+    "760509",
+    "760510",
+    "760511",
+    "760512",
+    "760513",
+    "760514",
+    "760515"
+  ],
+  "stageCounts": {
+    "round of 32": 16,
+    "round of 16": 8,
+    "quarterfinals": 4,
+    "semifinals": 2
+  },
+  "coinFlip": 0.5,
+  "labs": {
+    "Anthropic": [
+      {
+        "lab": "Anthropic",
+        "id": "anthropic/claude-opus-4.7",
+        "label": "Opus 4.7",
+        "scored": 30,
+        "failed": 0,
+        "avgBrier": 0.3088933333333334,
+        "avgBaseline": 0.5,
+        "beatFieldMean": 27,
+        "perMatch": [
+          {
+            "matchId": "760486",
+            "shortName": "CAN @ RSA",
+            "stage": "round of 32",
+            "brier": 0.3528,
+            "error": null
+          },
+          {
+            "matchId": "760487",
+            "shortName": "JPN @ BRA",
+            "stage": "round of 32",
+            "brier": 0.045000000000000005,
+            "error": null
+          },
+          {
+            "matchId": "760488",
+            "shortName": "MAR @ NED",
+            "stage": "round of 32",
+            "brier": 0.7688,
+            "error": null
+          },
+          {
+            "matchId": "760489",
+            "shortName": "PAR @ GER",
+            "stage": "round of 32",
+            "brier": 1.3448,
+            "error": null
+          },
+          {
+            "matchId": "760490",
+            "shortName": "NOR @ CIV",
+            "stage": "round of 32",
+            "brier": 0.3528,
+            "error": null
+          },
+          {
+            "matchId": "760491",
+            "shortName": "ECU @ MEX",
+            "stage": "round of 32",
+            "brier": 0.3528,
+            "error": null
+          },
+          {
+            "matchId": "760492",
+            "shortName": "SWE @ FRA",
+            "stage": "round of 32",
+            "brier": 0.06480000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760493",
+            "shortName": "SEN @ BEL",
+            "stage": "round of 32",
+            "brier": 0.2888,
+            "error": null
+          },
+          {
+            "matchId": "760494",
+            "shortName": "BIH @ USA",
+            "stage": "round of 32",
+            "brier": 0.20479999999999998,
+            "error": null
+          },
+          {
+            "matchId": "760495",
+            "shortName": "COD @ ENG",
+            "stage": "round of 32",
+            "brier": 0.019999999999999997,
+            "error": null
+          },
+          {
+            "matchId": "760496",
+            "shortName": "CRO @ POR",
+            "stage": "round of 32",
+            "brier": 0.2888,
+            "error": null
+          },
+          {
+            "matchId": "760497",
+            "shortName": "AUT @ ESP",
+            "stage": "round of 32",
+            "brier": 0.0288,
+            "error": null
+          },
+          {
+            "matchId": "760498",
+            "shortName": "ALG @ SUI",
+            "stage": "round of 32",
+            "brier": 0.20479999999999998,
+            "error": null
+          },
+          {
+            "matchId": "760499",
+            "shortName": "EGY @ AUS",
+            "stage": "round of 32",
+            "brier": 0.3528,
+            "error": null
+          },
+          {
+            "matchId": "760500",
+            "shortName": "CPV @ ARG",
+            "stage": "round of 32",
+            "brier": 0.0018000000000000017,
+            "error": null
+          },
+          {
+            "matchId": "760501",
+            "shortName": "GHA @ COL",
+            "stage": "round of 32",
+            "brier": 0.0968,
+            "error": null
+          },
+          {
+            "matchId": "760502",
+            "shortName": "MAR @ CAN",
+            "stage": "round of 16",
+            "brier": 0.20479999999999998,
+            "error": null
+          },
+          {
+            "matchId": "760503",
+            "shortName": "FRA @ PAR",
+            "stage": "round of 16",
+            "brier": 0.045000000000000005,
+            "error": null
+          },
+          {
+            "matchId": "760504",
+            "shortName": "NOR @ BRA",
+            "stage": "round of 16",
+            "brier": 1.0368,
+            "error": null
+          },
+          {
+            "matchId": "760505",
+            "shortName": "ENG @ MEX",
+            "stage": "round of 16",
+            "brier": 0.2888,
+            "error": null
+          },
+          {
+            "matchId": "760506",
+            "shortName": "ESP @ POR",
+            "stage": "round of 16",
+            "brier": 0.3528,
+            "error": null
+          },
+          {
+            "matchId": "760507",
+            "shortName": "BEL @ USA",
+            "stage": "round of 16",
+            "brier": 0.40499999999999997,
+            "error": null
+          },
+          {
+            "matchId": "760508",
+            "shortName": "COL @ SUI",
+            "stage": "round of 16",
+            "brier": 0.7688,
+            "error": null
+          },
+          {
+            "matchId": "760509",
+            "shortName": "EGY @ ARG",
+            "stage": "round of 16",
+            "brier": 0.019999999999999997,
+            "error": null
+          },
+          {
+            "matchId": "760510",
+            "shortName": "MAR @ FRA",
+            "stage": "quarterfinals",
+            "brier": 0.15680000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760511",
+            "shortName": "BEL @ ESP",
+            "stage": "quarterfinals",
+            "brier": 0.15680000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760512",
+            "shortName": "ENG @ NOR",
+            "stage": "quarterfinals",
+            "brier": 0.2592,
+            "error": null
+          },
+          {
+            "matchId": "760513",
+            "shortName": "SUI @ ARG",
+            "stage": "quarterfinals",
+            "brier": 0.045000000000000005,
+            "error": null
+          },
+          {
+            "matchId": "760514",
+            "shortName": "ESP @ FRA",
+            "stage": "semifinals",
+            "brier": 0.40499999999999997,
+            "error": null
+          },
+          {
+            "matchId": "760515",
+            "shortName": "ARG @ ENG",
+            "stage": "semifinals",
+            "brier": 0.3528,
+            "error": null
+          }
+        ],
+        "overallRank": 1,
+        "labRank": 1,
+        "bestInLab": true
+      },
+      {
+        "lab": "Anthropic",
+        "id": "anthropic/claude-opus-4.8",
+        "label": "Opus 4.8",
+        "scored": 30,
+        "failed": 0,
+        "avgBrier": 0.3205333333333333,
+        "avgBaseline": 0.5,
+        "beatFieldMean": 25,
+        "perMatch": [
+          {
+            "matchId": "760486",
+            "shortName": "CAN @ RSA",
+            "stage": "round of 32",
+            "brier": 0.24499999999999997,
+            "error": null
+          },
+          {
+            "matchId": "760487",
+            "shortName": "JPN @ BRA",
+            "stage": "round of 32",
+            "brier": 0.0968,
+            "error": null
+          },
+          {
+            "matchId": "760488",
+            "shortName": "MAR @ NED",
+            "stage": "round of 32",
+            "brier": 0.7688,
+            "error": null
+          },
+          {
+            "matchId": "760489",
+            "shortName": "PAR @ GER",
+            "stage": "round of 32",
+            "brier": 1.125,
+            "error": null
+          },
+          {
+            "matchId": "760490",
+            "shortName": "NOR @ CIV",
+            "stage": "round of 32",
+            "brier": 0.2888,
+            "error": null
+          },
+          {
+            "matchId": "760491",
+            "shortName": "ECU @ MEX",
+            "stage": "round of 32",
+            "brier": 0.4608,
+            "error": null
+          },
+          {
+            "matchId": "760492",
+            "shortName": "SWE @ FRA",
+            "stage": "round of 32",
+            "brier": 0.0968,
+            "error": null
+          },
+          {
+            "matchId": "760493",
+            "shortName": "SEN @ BEL",
+            "stage": "round of 32",
+            "brier": 0.3528,
+            "error": null
+          },
+          {
+            "matchId": "760494",
+            "shortName": "BIH @ USA",
+            "stage": "round of 32",
+            "brier": 0.20479999999999998,
+            "error": null
+          },
+          {
+            "matchId": "760495",
+            "shortName": "COD @ ENG",
+            "stage": "round of 32",
+            "brier": 0.033800000000000004,
+            "error": null
+          },
+          {
+            "matchId": "760496",
+            "shortName": "CRO @ POR",
+            "stage": "round of 32",
+            "brier": 0.2888,
+            "error": null
+          },
+          {
+            "matchId": "760497",
+            "shortName": "AUT @ ESP",
+            "stage": "round of 32",
+            "brier": 0.06480000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760498",
+            "shortName": "ALG @ SUI",
+            "stage": "round of 32",
+            "brier": 0.2888,
+            "error": null
+          },
+          {
+            "matchId": "760499",
+            "shortName": "EGY @ AUS",
+            "stage": "round of 32",
+            "brier": 0.4608,
+            "error": null
+          },
+          {
+            "matchId": "760500",
+            "shortName": "CPV @ ARG",
+            "stage": "round of 32",
+            "brier": 0.0050000000000000044,
+            "error": null
+          },
+          {
+            "matchId": "760501",
+            "shortName": "GHA @ COL",
+            "stage": "round of 32",
+            "brier": 0.15680000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760502",
+            "shortName": "MAR @ CAN",
+            "stage": "round of 16",
+            "brier": 0.2888,
+            "error": null
+          },
+          {
+            "matchId": "760503",
+            "shortName": "FRA @ PAR",
+            "stage": "round of 16",
+            "brier": 0.045000000000000005,
+            "error": null
+          },
+          {
+            "matchId": "760504",
+            "shortName": "NOR @ BRA",
+            "stage": "round of 16",
+            "brier": 1.0368,
+            "error": null
+          },
+          {
+            "matchId": "760505",
+            "shortName": "ENG @ MEX",
+            "stage": "round of 16",
+            "brier": 0.23120000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760506",
+            "shortName": "ESP @ POR",
+            "stage": "round of 16",
+            "brier": 0.3872,
+            "error": null
+          },
+          {
+            "matchId": "760507",
+            "shortName": "BEL @ USA",
+            "stage": "round of 16",
+            "brier": 0.3528,
+            "error": null
+          },
+          {
+            "matchId": "760508",
+            "shortName": "COL @ SUI",
+            "stage": "round of 16",
+            "brier": 0.6728000000000001,
+            "error": null
+          },
+          {
+            "matchId": "760509",
+            "shortName": "EGY @ ARG",
+            "stage": "round of 16",
+            "brier": 0.019999999999999997,
+            "error": null
+          },
+          {
+            "matchId": "760510",
+            "shortName": "MAR @ FRA",
+            "stage": "quarterfinals",
+            "brier": 0.23120000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760511",
+            "shortName": "BEL @ ESP",
+            "stage": "quarterfinals",
+            "brier": 0.23120000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760512",
+            "shortName": "ENG @ NOR",
+            "stage": "quarterfinals",
+            "brier": 0.2888,
+            "error": null
+          },
+          {
+            "matchId": "760513",
+            "shortName": "SUI @ ARG",
+            "stage": "quarterfinals",
+            "brier": 0.045000000000000005,
+            "error": null
+          },
+          {
+            "matchId": "760514",
+            "shortName": "ESP @ FRA",
+            "stage": "semifinals",
+            "brier": 0.44179999999999997,
+            "error": null
+          },
+          {
+            "matchId": "760515",
+            "shortName": "ARG @ ENG",
+            "stage": "semifinals",
+            "brier": 0.40499999999999997,
+            "error": null
+          }
+        ],
+        "overallRank": 2,
+        "labRank": 2,
+        "bestInLab": false
+      },
+      {
+        "lab": "Anthropic",
+        "id": "anthropic/claude-sonnet-4.5",
+        "label": "Sonnet 4.5",
+        "scored": 30,
+        "failed": 0,
+        "avgBrier": 0.33232666666666677,
+        "avgBaseline": 0.5,
+        "beatFieldMean": 25,
+        "perMatch": [
+          {
+            "matchId": "760486",
+            "shortName": "CAN @ RSA",
+            "stage": "round of 32",
+            "brier": 0.24499999999999997,
+            "error": null
+          },
+          {
+            "matchId": "760487",
+            "shortName": "JPN @ BRA",
+            "stage": "round of 32",
+            "brier": 0.0968,
+            "error": null
+          },
+          {
+            "matchId": "760488",
+            "shortName": "MAR @ NED",
+            "stage": "round of 32",
+            "brier": 0.9248000000000001,
+            "error": null
+          },
+          {
+            "matchId": "760489",
+            "shortName": "PAR @ GER",
+            "stage": "round of 32",
+            "brier": 1.2168,
+            "error": null
+          },
+          {
+            "matchId": "760490",
+            "shortName": "NOR @ CIV",
+            "stage": "round of 32",
+            "brier": 0.4608,
+            "error": null
+          },
+          {
+            "matchId": "760491",
+            "shortName": "ECU @ MEX",
+            "stage": "round of 32",
+            "brier": 0.3528,
+            "error": null
+          },
+          {
+            "matchId": "760492",
+            "shortName": "SWE @ FRA",
+            "stage": "round of 32",
+            "brier": 0.0968,
+            "error": null
+          },
+          {
+            "matchId": "760493",
+            "shortName": "SEN @ BEL",
+            "stage": "round of 32",
+            "brier": 0.20479999999999998,
+            "error": null
+          },
+          {
+            "matchId": "760494",
+            "shortName": "BIH @ USA",
+            "stage": "round of 32",
+            "brier": 0.15680000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760495",
+            "shortName": "COD @ ENG",
+            "stage": "round of 32",
+            "brier": 0.012799999999999994,
+            "error": null
+          },
+          {
+            "matchId": "760496",
+            "shortName": "CRO @ POR",
+            "stage": "round of 32",
+            "brier": 0.20479999999999998,
+            "error": null
+          },
+          {
+            "matchId": "760497",
+            "shortName": "AUT @ ESP",
+            "stage": "round of 32",
+            "brier": 0.15680000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760498",
+            "shortName": "ALG @ SUI",
+            "stage": "round of 32",
+            "brier": 0.20479999999999998,
+            "error": null
+          },
+          {
+            "matchId": "760499",
+            "shortName": "EGY @ AUS",
+            "stage": "round of 32",
+            "brier": 0.6728000000000001,
+            "error": null
+          },
+          {
+            "matchId": "760500",
+            "shortName": "CPV @ ARG",
+            "stage": "round of 32",
+            "brier": 0.0018000000000000017,
+            "error": null
+          },
+          {
+            "matchId": "760501",
+            "shortName": "GHA @ COL",
+            "stage": "round of 32",
+            "brier": 0.20479999999999998,
+            "error": null
+          },
+          {
+            "matchId": "760502",
+            "shortName": "MAR @ CAN",
+            "stage": "round of 16",
+            "brier": 0.3528,
+            "error": null
+          },
+          {
+            "matchId": "760503",
+            "shortName": "FRA @ PAR",
+            "stage": "round of 16",
+            "brier": 0.045000000000000005,
+            "error": null
+          },
+          {
+            "matchId": "760504",
+            "shortName": "NOR @ BRA",
+            "stage": "round of 16",
+            "brier": 1.2168,
+            "error": null
+          },
+          {
+            "matchId": "760505",
+            "shortName": "ENG @ MEX",
+            "stage": "round of 16",
+            "brier": 0.125,
+            "error": null
+          },
+          {
+            "matchId": "760506",
+            "shortName": "ESP @ POR",
+            "stage": "round of 16",
+            "brier": 0.4608,
+            "error": null
+          },
+          {
+            "matchId": "760507",
+            "shortName": "BEL @ USA",
+            "stage": "round of 16",
+            "brier": 0.3528,
+            "error": null
+          },
+          {
+            "matchId": "760508",
+            "shortName": "COL @ SUI",
+            "stage": "round of 16",
+            "brier": 0.5408000000000001,
+            "error": null
+          },
+          {
+            "matchId": "760509",
+            "shortName": "EGY @ ARG",
+            "stage": "round of 16",
+            "brier": 0.0968,
+            "error": null
+          },
+          {
+            "matchId": "760510",
+            "shortName": "MAR @ FRA",
+            "stage": "quarterfinals",
+            "brier": 0.15680000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760511",
+            "shortName": "BEL @ ESP",
+            "stage": "quarterfinals",
+            "brier": 0.20479999999999998,
+            "error": null
+          },
+          {
+            "matchId": "760512",
+            "shortName": "ENG @ NOR",
+            "stage": "quarterfinals",
+            "brier": 0.125,
+            "error": null
+          },
+          {
+            "matchId": "760513",
+            "shortName": "SUI @ ARG",
+            "stage": "quarterfinals",
+            "brier": 0.15680000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760514",
+            "shortName": "ESP @ FRA",
+            "stage": "semifinals",
+            "brier": 0.4608,
+            "error": null
+          },
+          {
+            "matchId": "760515",
+            "shortName": "ARG @ ENG",
+            "stage": "semifinals",
+            "brier": 0.4608,
+            "error": null
+          }
+        ],
+        "overallRank": 5,
+        "labRank": 3,
+        "bestInLab": false
+      },
+      {
+        "lab": "Anthropic",
+        "id": "anthropic/claude-fable-5",
+        "label": "Fable 5",
+        "scored": 30,
+        "failed": 0,
+        "avgBrier": 0.3410399999999999,
+        "avgBaseline": 0.5,
+        "beatFieldMean": 23,
+        "perMatch": [
+          {
+            "matchId": "760486",
+            "shortName": "CAN @ RSA",
+            "stage": "round of 32",
+            "brier": 0.2592,
+            "error": null
+          },
+          {
+            "matchId": "760487",
+            "shortName": "JPN @ BRA",
+            "stage": "round of 32",
+            "brier": 0.15680000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760488",
+            "shortName": "MAR @ NED",
+            "stage": "round of 32",
+            "brier": 0.6272000000000001,
+            "error": null
+          },
+          {
+            "matchId": "760489",
+            "shortName": "PAR @ GER",
+            "stage": "round of 32",
+            "brier": 1.2168,
+            "error": null
+          },
+          {
+            "matchId": "760490",
+            "shortName": "NOR @ CIV",
+            "stage": "round of 32",
+            "brier": 0.3528,
+            "error": null
+          },
+          {
+            "matchId": "760491",
+            "shortName": "ECU @ MEX",
+            "stage": "round of 32",
+            "brier": 0.4608,
+            "error": null
+          },
+          {
+            "matchId": "760492",
+            "shortName": "SWE @ FRA",
+            "stage": "round of 32",
+            "brier": 0.0968,
+            "error": null
+          },
+          {
+            "matchId": "760493",
+            "shortName": "SEN @ BEL",
+            "stage": "round of 32",
+            "brier": 0.3528,
+            "error": null
+          },
+          {
+            "matchId": "760494",
+            "shortName": "BIH @ USA",
+            "stage": "round of 32",
+            "brier": 0.23120000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760495",
+            "shortName": "COD @ ENG",
+            "stage": "round of 32",
+            "brier": 0.009799999999999993,
+            "error": null
+          },
+          {
+            "matchId": "760496",
+            "shortName": "CRO @ POR",
+            "stage": "round of 32",
+            "brier": 0.3872,
+            "error": null
+          },
+          {
+            "matchId": "760497",
+            "shortName": "AUT @ ESP",
+            "stage": "round of 32",
+            "brier": 0.1152,
+            "error": null
+          },
+          {
+            "matchId": "760498",
+            "shortName": "ALG @ SUI",
+            "stage": "round of 32",
+            "brier": 0.32000000000000006,
+            "error": null
+          },
+          {
+            "matchId": "760499",
+            "shortName": "EGY @ AUS",
+            "stage": "round of 32",
+            "brier": 0.5618000000000001,
+            "error": null
+          },
+          {
+            "matchId": "760500",
+            "shortName": "CPV @ ARG",
+            "stage": "round of 32",
+            "brier": 0.0050000000000000044,
+            "error": null
+          },
+          {
+            "matchId": "760501",
+            "shortName": "GHA @ COL",
+            "stage": "round of 32",
+            "brier": 0.23120000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760502",
+            "shortName": "MAR @ CAN",
+            "stage": "round of 16",
+            "brier": 0.2592,
+            "error": null
+          },
+          {
+            "matchId": "760503",
+            "shortName": "FRA @ PAR",
+            "stage": "round of 16",
+            "brier": 0.05120000000000001,
+            "error": null
+          },
+          {
+            "matchId": "760504",
+            "shortName": "NOR @ BRA",
+            "stage": "round of 16",
+            "brier": 0.9799999999999999,
+            "error": null
+          },
+          {
+            "matchId": "760505",
+            "shortName": "ENG @ MEX",
+            "stage": "round of 16",
+            "brier": 0.2592,
+            "error": null
+          },
+          {
+            "matchId": "760506",
+            "shortName": "ESP @ POR",
+            "stage": "round of 16",
+            "brier": 0.3872,
+            "error": null
+          },
+          {
+            "matchId": "760507",
+            "shortName": "BEL @ USA",
+            "stage": "round of 16",
+            "brier": 0.40499999999999997,
+            "error": null
+          },
+          {
+            "matchId": "760508",
+            "shortName": "COL @ SUI",
+            "stage": "round of 16",
+            "brier": 0.6272000000000001,
+            "error": null
+          },
+          {
+            "matchId": "760509",
+            "shortName": "EGY @ ARG",
+            "stage": "round of 16",
+            "brier": 0.06480000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760510",
+            "shortName": "MAR @ FRA",
+            "stage": "quarterfinals",
+            "brier": 0.24499999999999997,
+            "error": null
+          },
+          {
+            "matchId": "760511",
+            "shortName": "BEL @ ESP",
+            "stage": "quarterfinals",
+            "brier": 0.24499999999999997,
+            "error": null
+          },
+          {
+            "matchId": "760512",
+            "shortName": "ENG @ NOR",
+            "stage": "quarterfinals",
+            "brier": 0.2592,
+            "error": null
+          },
+          {
+            "matchId": "760513",
+            "shortName": "SUI @ ARG",
+            "stage": "quarterfinals",
+            "brier": 0.18000000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760514",
+            "shortName": "ESP @ FRA",
+            "stage": "semifinals",
+            "brier": 0.44179999999999997,
+            "error": null
+          },
+          {
+            "matchId": "760515",
+            "shortName": "ARG @ ENG",
+            "stage": "semifinals",
+            "brier": 0.44179999999999997,
+            "error": null
+          }
+        ],
+        "overallRank": 9,
+        "labRank": 4,
+        "bestInLab": false
+      },
+      {
+        "lab": "Anthropic",
+        "id": "anthropic/claude-sonnet-5",
+        "label": "Sonnet 5",
+        "scored": 30,
+        "failed": 0,
+        "avgBrier": 0.34340666666666675,
+        "avgBaseline": 0.5,
+        "beatFieldMean": 22,
+        "perMatch": [
+          {
+            "matchId": "760486",
+            "shortName": "CAN @ RSA",
+            "stage": "round of 32",
+            "brier": 0.3528,
+            "error": null
+          },
+          {
+            "matchId": "760487",
+            "shortName": "JPN @ BRA",
+            "stage": "round of 32",
+            "brier": 0.07999999999999999,
+            "error": null
+          },
+          {
+            "matchId": "760488",
+            "shortName": "MAR @ NED",
+            "stage": "round of 32",
+            "brier": 0.6728000000000001,
+            "error": null
+          },
+          {
+            "matchId": "760489",
+            "shortName": "PAR @ GER",
+            "stage": "round of 32",
+            "brier": 1.3778,
+            "error": null
+          },
+          {
+            "matchId": "760490",
+            "shortName": "NOR @ CIV",
+            "stage": "round of 32",
+            "brier": 0.4608,
+            "error": null
+          },
+          {
+            "matchId": "760491",
+            "shortName": "ECU @ MEX",
+            "stage": "round of 32",
+            "brier": 0.4608,
+            "error": null
+          },
+          {
+            "matchId": "760492",
+            "shortName": "SWE @ FRA",
+            "stage": "round of 32",
+            "brier": 0.06480000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760493",
+            "shortName": "SEN @ BEL",
+            "stage": "round of 32",
+            "brier": 0.2888,
+            "error": null
+          },
+          {
+            "matchId": "760494",
+            "shortName": "BIH @ USA",
+            "stage": "round of 32",
+            "brier": 0.2888,
+            "error": null
+          },
+          {
+            "matchId": "760495",
+            "shortName": "COD @ ENG",
+            "stage": "round of 32",
+            "brier": 0.009799999999999993,
+            "error": null
+          },
+          {
+            "matchId": "760496",
+            "shortName": "CRO @ POR",
+            "stage": "round of 32",
+            "brier": 0.2888,
+            "error": null
+          },
+          {
+            "matchId": "760497",
+            "shortName": "AUT @ ESP",
+            "stage": "round of 32",
+            "brier": 0.06480000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760498",
+            "shortName": "ALG @ SUI",
+            "stage": "round of 32",
+            "brier": 0.2888,
+            "error": null
+          },
+          {
+            "matchId": "760499",
+            "shortName": "EGY @ AUS",
+            "stage": "round of 32",
+            "brier": 0.3528,
+            "error": null
+          },
+          {
+            "matchId": "760500",
+            "shortName": "CPV @ ARG",
+            "stage": "round of 32",
+            "brier": 0.009799999999999993,
+            "error": null
+          },
+          {
+            "matchId": "760501",
+            "shortName": "GHA @ COL",
+            "stage": "round of 32",
+            "brier": 0.20479999999999998,
+            "error": null
+          },
+          {
+            "matchId": "760502",
+            "shortName": "MAR @ CAN",
+            "stage": "round of 16",
+            "brier": 0.32000000000000006,
+            "error": null
+          },
+          {
+            "matchId": "760503",
+            "shortName": "FRA @ PAR",
+            "stage": "round of 16",
+            "brier": 0.019999999999999997,
+            "error": null
+          },
+          {
+            "matchId": "760504",
+            "shortName": "NOR @ BRA",
+            "stage": "round of 16",
+            "brier": 1.4449999999999998,
+            "error": null
+          },
+          {
+            "matchId": "760505",
+            "shortName": "ENG @ MEX",
+            "stage": "round of 16",
+            "brier": 0.20479999999999998,
+            "error": null
+          },
+          {
+            "matchId": "760506",
+            "shortName": "ESP @ POR",
+            "stage": "round of 16",
+            "brier": 0.32000000000000006,
+            "error": null
+          },
+          {
+            "matchId": "760507",
+            "shortName": "BEL @ USA",
+            "stage": "round of 16",
+            "brier": 0.3528,
+            "error": null
+          },
+          {
+            "matchId": "760508",
+            "shortName": "COL @ SUI",
+            "stage": "round of 16",
+            "brier": 0.6050000000000001,
+            "error": null
+          },
+          {
+            "matchId": "760509",
+            "shortName": "EGY @ ARG",
+            "stage": "round of 16",
+            "brier": 0.0288,
+            "error": null
+          },
+          {
+            "matchId": "760510",
+            "shortName": "MAR @ FRA",
+            "stage": "quarterfinals",
+            "brier": 0.2888,
+            "error": null
+          },
+          {
+            "matchId": "760511",
+            "shortName": "BEL @ ESP",
+            "stage": "quarterfinals",
+            "brier": 0.15680000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760512",
+            "shortName": "ENG @ NOR",
+            "stage": "quarterfinals",
+            "brier": 0.20479999999999998,
+            "error": null
+          },
+          {
+            "matchId": "760513",
+            "shortName": "SUI @ ARG",
+            "stage": "quarterfinals",
+            "brier": 0.20479999999999998,
+            "error": null
+          },
+          {
+            "matchId": "760514",
+            "shortName": "ESP @ FRA",
+            "stage": "semifinals",
+            "brier": 0.44179999999999997,
+            "error": null
+          },
+          {
+            "matchId": "760515",
+            "shortName": "ARG @ ENG",
+            "stage": "semifinals",
+            "brier": 0.44179999999999997,
+            "error": null
+          }
+        ],
+        "overallRank": 10,
+        "labRank": 5,
+        "bestInLab": false
+      }
+    ],
+    "OpenAI": [
+      {
+        "lab": "OpenAI",
+        "id": "openai/gpt-5.1",
+        "label": "GPT-5.1",
+        "scored": 30,
+        "failed": 0,
+        "avgBrier": 0.3346133333333332,
+        "avgBaseline": 0.5,
+        "beatFieldMean": 25,
+        "perMatch": [
+          {
+            "matchId": "760486",
+            "shortName": "CAN @ RSA",
+            "stage": "round of 32",
+            "brier": 0.3042,
+            "error": null
+          },
+          {
+            "matchId": "760487",
+            "shortName": "JPN @ BRA",
+            "stage": "round of 32",
+            "brier": 0.0968,
+            "error": null
+          },
+          {
+            "matchId": "760488",
+            "shortName": "MAR @ NED",
+            "stage": "round of 32",
+            "brier": 0.8192,
+            "error": null
+          },
+          {
+            "matchId": "760489",
+            "shortName": "PAR @ GER",
+            "stage": "round of 32",
+            "brier": 1.2168,
+            "error": null
+          },
+          {
+            "matchId": "760490",
+            "shortName": "NOR @ CIV",
+            "stage": "round of 32",
+            "brier": 0.6728000000000001,
+            "error": null
+          },
+          {
+            "matchId": "760491",
+            "shortName": "ECU @ MEX",
+            "stage": "round of 32",
+            "brier": 0.2738,
+            "error": null
+          },
+          {
+            "matchId": "760492",
+            "shortName": "SWE @ FRA",
+            "stage": "round of 32",
+            "brier": 0.10579999999999999,
+            "error": null
+          },
+          {
+            "matchId": "760493",
+            "shortName": "SEN @ BEL",
+            "stage": "round of 32",
+            "brier": 0.2738,
+            "error": null
+          },
+          {
+            "matchId": "760494",
+            "shortName": "BIH @ USA",
+            "stage": "round of 32",
+            "brier": 0.2592,
+            "error": null
+          },
+          {
+            "matchId": "760495",
+            "shortName": "COD @ ENG",
+            "stage": "round of 32",
+            "brier": 0.06480000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760496",
+            "shortName": "CRO @ POR",
+            "stage": "round of 32",
+            "brier": 0.2592,
+            "error": null
+          },
+          {
+            "matchId": "760497",
+            "shortName": "AUT @ ESP",
+            "stage": "round of 32",
+            "brier": 0.07219999999999999,
+            "error": null
+          },
+          {
+            "matchId": "760498",
+            "shortName": "ALG @ SUI",
+            "stage": "round of 32",
+            "brier": 0.19220000000000004,
+            "error": null
+          },
+          {
+            "matchId": "760499",
+            "shortName": "EGY @ AUS",
+            "stage": "round of 32",
+            "brier": 0.44179999999999997,
+            "error": null
+          },
+          {
+            "matchId": "760500",
+            "shortName": "CPV @ ARG",
+            "stage": "round of 32",
+            "brier": 0.0018000000000000017,
+            "error": null
+          },
+          {
+            "matchId": "760501",
+            "shortName": "GHA @ COL",
+            "stage": "round of 32",
+            "brier": 0.23120000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760502",
+            "shortName": "MAR @ CAN",
+            "stage": "round of 16",
+            "brier": 0.20479999999999998,
+            "error": null
+          },
+          {
+            "matchId": "760503",
+            "shortName": "FRA @ PAR",
+            "stage": "round of 16",
+            "brier": 0.06480000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760504",
+            "shortName": "NOR @ BRA",
+            "stage": "round of 16",
+            "brier": 1.2482000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760505",
+            "shortName": "ENG @ MEX",
+            "stage": "round of 16",
+            "brier": 0.3042,
+            "error": null
+          },
+          {
+            "matchId": "760506",
+            "shortName": "ESP @ POR",
+            "stage": "round of 16",
+            "brier": 0.42319999999999997,
+            "error": null
+          },
+          {
+            "matchId": "760507",
+            "shortName": "BEL @ USA",
+            "stage": "round of 16",
+            "brier": 0.3698,
+            "error": null
+          },
+          {
+            "matchId": "760508",
+            "shortName": "COL @ SUI",
+            "stage": "round of 16",
+            "brier": 0.40499999999999997,
+            "error": null
+          },
+          {
+            "matchId": "760509",
+            "shortName": "EGY @ ARG",
+            "stage": "round of 16",
+            "brier": 0.08819999999999997,
+            "error": null
+          },
+          {
+            "matchId": "760510",
+            "shortName": "MAR @ FRA",
+            "stage": "quarterfinals",
+            "brier": 0.0968,
+            "error": null
+          },
+          {
+            "matchId": "760511",
+            "shortName": "BEL @ ESP",
+            "stage": "quarterfinals",
+            "brier": 0.19220000000000004,
+            "error": null
+          },
+          {
+            "matchId": "760512",
+            "shortName": "ENG @ NOR",
+            "stage": "quarterfinals",
+            "brier": 0.18000000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760513",
+            "shortName": "SUI @ ARG",
+            "stage": "quarterfinals",
+            "brier": 0.13520000000000001,
+            "error": null
+          },
+          {
+            "matchId": "760514",
+            "shortName": "ESP @ FRA",
+            "stage": "semifinals",
+            "brier": 0.5202,
+            "error": null
+          },
+          {
+            "matchId": "760515",
+            "shortName": "ARG @ ENG",
+            "stage": "semifinals",
+            "brier": 0.5202,
+            "error": null
+          }
+        ],
+        "overallRank": 7,
+        "labRank": 1,
+        "bestInLab": true
+      },
+      {
+        "lab": "OpenAI",
+        "id": "openai/gpt-5.6-luna-pro",
+        "label": "GPT-5.6 Luna Pro",
+        "scored": 30,
+        "failed": 0,
+        "avgBrier": 0.33594000000000007,
+        "avgBaseline": 0.5,
+        "beatFieldMean": 24,
+        "perMatch": [
+          {
+            "matchId": "760486",
+            "shortName": "CAN @ RSA",
+            "stage": "round of 32",
+            "brier": 0.23120000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760487",
+            "shortName": "JPN @ BRA",
+            "stage": "round of 32",
+            "brier": 0.13520000000000001,
+            "error": null
+          },
+          {
+            "matchId": "760488",
+            "shortName": "MAR @ NED",
+            "stage": "round of 32",
+            "brier": 0.7688,
+            "error": null
+          },
+          {
+            "matchId": "760489",
+            "shortName": "PAR @ GER",
+            "stage": "round of 32",
+            "brier": 1.1552,
+            "error": null
+          },
+          {
+            "matchId": "760490",
+            "shortName": "NOR @ CIV",
+            "stage": "round of 32",
+            "brier": 0.3872,
+            "error": null
+          },
+          {
+            "matchId": "760491",
+            "shortName": "ECU @ MEX",
+            "stage": "round of 32",
+            "brier": 0.3872,
+            "error": null
+          },
+          {
+            "matchId": "760492",
+            "shortName": "SWE @ FRA",
+            "stage": "round of 32",
+            "brier": 0.08819999999999997,
+            "error": null
+          },
+          {
+            "matchId": "760493",
+            "shortName": "SEN @ BEL",
+            "stage": "round of 32",
+            "brier": 0.3872,
+            "error": null
+          },
+          {
+            "matchId": "760494",
+            "shortName": "BIH @ USA",
+            "stage": "round of 32",
+            "brier": 0.13520000000000001,
+            "error": null
+          },
+          {
+            "matchId": "760495",
+            "shortName": "COD @ ENG",
+            "stage": "round of 32",
+            "brier": 0.06480000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760496",
+            "shortName": "CRO @ POR",
+            "stage": "round of 32",
+            "brier": 0.2178,
+            "error": null
+          },
+          {
+            "matchId": "760497",
+            "shortName": "AUT @ ESP",
+            "stage": "round of 32",
+            "brier": 0.18000000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760498",
+            "shortName": "ALG @ SUI",
+            "stage": "round of 32",
+            "brier": 0.23120000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760499",
+            "shortName": "EGY @ AUS",
+            "stage": "round of 32",
+            "brier": 0.5832,
+            "error": null
+          },
+          {
+            "matchId": "760500",
+            "shortName": "CPV @ ARG",
+            "stage": "round of 32",
+            "brier": 0.009799999999999993,
+            "error": null
+          },
+          {
+            "matchId": "760501",
+            "shortName": "GHA @ COL",
+            "stage": "round of 32",
+            "brier": 0.18000000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760502",
+            "shortName": "MAR @ CAN",
+            "stage": "round of 16",
+            "brier": 0.3528,
+            "error": null
+          },
+          {
+            "matchId": "760503",
+            "shortName": "FRA @ PAR",
+            "stage": "round of 16",
+            "brier": 0.07219999999999999,
+            "error": null
+          },
+          {
+            "matchId": "760504",
+            "shortName": "NOR @ BRA",
+            "stage": "round of 16",
+            "brier": 0.8192,
+            "error": null
+          },
+          {
+            "matchId": "760505",
+            "shortName": "ENG @ MEX",
+            "stage": "round of 16",
+            "brier": 0.2888,
+            "error": null
+          },
+          {
+            "matchId": "760506",
+            "shortName": "ESP @ POR",
+            "stage": "round of 16",
+            "brier": 0.44179999999999997,
+            "error": null
+          },
+          {
+            "matchId": "760507",
+            "shortName": "BEL @ USA",
+            "stage": "round of 16",
+            "brier": 0.3872,
+            "error": null
+          },
+          {
+            "matchId": "760508",
+            "shortName": "COL @ SUI",
+            "stage": "round of 16",
+            "brier": 0.5832,
+            "error": null
+          },
+          {
+            "matchId": "760509",
+            "shortName": "EGY @ ARG",
+            "stage": "round of 16",
+            "brier": 0.05120000000000001,
+            "error": null
+          },
+          {
+            "matchId": "760510",
+            "shortName": "MAR @ FRA",
+            "stage": "quarterfinals",
+            "brier": 0.20479999999999998,
+            "error": null
+          },
+          {
+            "matchId": "760511",
+            "shortName": "BEL @ ESP",
+            "stage": "quarterfinals",
+            "brier": 0.2888,
+            "error": null
+          },
+          {
+            "matchId": "760512",
+            "shortName": "ENG @ NOR",
+            "stage": "quarterfinals",
+            "brier": 0.2888,
+            "error": null
+          },
+          {
+            "matchId": "760513",
+            "shortName": "SUI @ ARG",
+            "stage": "quarterfinals",
+            "brier": 0.15680000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760514",
+            "shortName": "ESP @ FRA",
+            "stage": "semifinals",
+            "brier": 0.48019999999999996,
+            "error": null
+          },
+          {
+            "matchId": "760515",
+            "shortName": "ARG @ ENG",
+            "stage": "semifinals",
+            "brier": 0.5202,
+            "error": null
+          }
+        ],
+        "overallRank": 8,
+        "labRank": 2,
+        "bestInLab": false
+      },
+      {
+        "lab": "OpenAI",
+        "id": "openai/gpt-5.5-pro",
+        "label": "GPT-5.5 Pro",
+        "scored": 24,
+        "failed": 6,
+        "avgBrier": 0.34393333333333326,
+        "avgBaseline": 0.5,
+        "beatFieldMean": 18,
+        "perMatch": [
+          {
+            "matchId": "760486",
+            "shortName": "CAN @ RSA",
+            "stage": "round of 32",
+            "brier": 0.2592,
+            "error": null
+          },
+          {
+            "matchId": "760487",
+            "shortName": "JPN @ BRA",
+            "stage": "round of 32",
+            "brier": 0.13520000000000001,
+            "error": null
+          },
+          {
+            "matchId": "760488",
+            "shortName": "MAR @ NED",
+            "stage": "round of 32",
+            "brier": 0.7938000000000001,
+            "error": null
+          },
+          {
+            "matchId": "760489",
+            "shortName": "PAR @ GER",
+            "stage": "round of 32",
+            "brier": 1.2482000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760490",
+            "shortName": "NOR @ CIV",
+            "stage": "round of 32",
+            "brier": 0.3872,
+            "error": null
+          },
+          {
+            "matchId": "760491",
+            "shortName": "ECU @ MEX",
+            "stage": "round of 32",
+            "brier": 0.40499999999999997,
+            "error": null
+          },
+          {
+            "matchId": "760492",
+            "shortName": "SWE @ FRA",
+            "stage": "round of 32",
+            "brier": 0.10579999999999999,
+            "error": null
+          },
+          {
+            "matchId": "760493",
+            "shortName": "SEN @ BEL",
+            "stage": "round of 32",
+            "brier": 0.2888,
+            "error": null
+          },
+          {
+            "matchId": "760494",
+            "shortName": "BIH @ USA",
+            "stage": "round of 32",
+            "brier": 0.07999999999999999,
+            "error": null
+          },
+          {
+            "matchId": "760495",
+            "shortName": "COD @ ENG",
+            "stage": "round of 32",
+            "brier": null,
+            "error": "unparseable response: "
+          },
+          {
+            "matchId": "760496",
+            "shortName": "CRO @ POR",
+            "stage": "round of 32",
+            "brier": 0.20479999999999998,
+            "error": null
+          },
+          {
+            "matchId": "760497",
+            "shortName": "AUT @ ESP",
+            "stage": "round of 32",
+            "brier": null,
+            "error": "unparseable response: "
+          },
+          {
+            "matchId": "760498",
+            "shortName": "ALG @ SUI",
+            "stage": "round of 32",
+            "brier": 0.2888,
+            "error": null
+          },
+          {
+            "matchId": "760499",
+            "shortName": "EGY @ AUS",
+            "stage": "round of 32",
+            "brier": null,
+            "error": "unparseable response: "
+          },
+          {
+            "matchId": "760500",
+            "shortName": "CPV @ ARG",
+            "stage": "round of 32",
+            "brier": null,
+            "error": "unparseable response: "
+          },
+          {
+            "matchId": "760501",
+            "shortName": "GHA @ COL",
+            "stage": "round of 32",
+            "brier": null,
+            "error": "unparseable response: "
+          },
+          {
+            "matchId": "760502",
+            "shortName": "MAR @ CAN",
+            "stage": "round of 16",
+            "brier": 0.3528,
+            "error": null
+          },
+          {
+            "matchId": "760503",
+            "shortName": "FRA @ PAR",
+            "stage": "round of 16",
+            "brier": 0.05120000000000001,
+            "error": null
+          },
+          {
+            "matchId": "760504",
+            "shortName": "NOR @ BRA",
+            "stage": "round of 16",
+            "brier": null,
+            "error": "unparseable response: "
+          },
+          {
+            "matchId": "760505",
+            "shortName": "ENG @ MEX",
+            "stage": "round of 16",
+            "brier": 0.24499999999999997,
+            "error": null
+          },
+          {
+            "matchId": "760506",
+            "shortName": "ESP @ POR",
+            "stage": "round of 16",
+            "brier": 0.42319999999999997,
+            "error": null
+          },
+          {
+            "matchId": "760507",
+            "shortName": "BEL @ USA",
+            "stage": "round of 16",
+            "brier": 0.44179999999999997,
+            "error": null
+          },
+          {
+            "matchId": "760508",
+            "shortName": "COL @ SUI",
+            "stage": "round of 16",
+            "brier": 0.6272000000000001,
+            "error": null
+          },
+          {
+            "matchId": "760509",
+            "shortName": "EGY @ ARG",
+            "stage": "round of 16",
+            "brier": 0.07219999999999999,
+            "error": null
+          },
+          {
+            "matchId": "760510",
+            "shortName": "MAR @ FRA",
+            "stage": "quarterfinals",
+            "brier": 0.15680000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760511",
+            "shortName": "BEL @ ESP",
+            "stage": "quarterfinals",
+            "brier": 0.2888,
+            "error": null
+          },
+          {
+            "matchId": "760512",
+            "shortName": "ENG @ NOR",
+            "stage": "quarterfinals",
+            "brier": 0.20479999999999998,
+            "error": null
+          },
+          {
+            "matchId": "760513",
+            "shortName": "SUI @ ARG",
+            "stage": "quarterfinals",
+            "brier": 0.19220000000000004,
+            "error": null
+          },
+          {
+            "matchId": "760514",
+            "shortName": "ESP @ FRA",
+            "stage": "semifinals",
+            "brier": 0.5408000000000001,
+            "error": null
+          },
+          {
+            "matchId": "760515",
+            "shortName": "ARG @ ENG",
+            "stage": "semifinals",
+            "brier": 0.4608,
+            "error": null
+          }
+        ],
+        "overallRank": 11,
+        "labRank": 3,
+        "bestInLab": false
+      }
+    ],
+    "Google": [
+      {
+        "lab": "Google",
+        "id": "google/gemini-3.1-pro-preview",
+        "label": "Gemini 3.1 Pro",
+        "scored": 30,
+        "failed": 0,
+        "avgBrier": 0.32765333333333335,
+        "avgBaseline": 0.5,
+        "beatFieldMean": 25,
+        "perMatch": [
+          {
+            "matchId": "760486",
+            "shortName": "CAN @ RSA",
+            "stage": "round of 32",
+            "brier": 0.16820000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760487",
+            "shortName": "JPN @ BRA",
+            "stage": "round of 32",
+            "brier": 0.06480000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760488",
+            "shortName": "MAR @ NED",
+            "stage": "round of 32",
+            "brier": 0.7688,
+            "error": null
+          },
+          {
+            "matchId": "760489",
+            "shortName": "PAR @ GER",
+            "stage": "round of 32",
+            "brier": 1.2168,
+            "error": null
+          },
+          {
+            "matchId": "760490",
+            "shortName": "NOR @ CIV",
+            "stage": "round of 32",
+            "brier": 0.4608,
+            "error": null
+          },
+          {
+            "matchId": "760491",
+            "shortName": "ECU @ MEX",
+            "stage": "round of 32",
+            "brier": 0.2888,
+            "error": null
+          },
+          {
+            "matchId": "760492",
+            "shortName": "SWE @ FRA",
+            "stage": "round of 32",
+            "brier": 0.07999999999999999,
+            "error": null
+          },
+          {
+            "matchId": "760493",
+            "shortName": "SEN @ BEL",
+            "stage": "round of 32",
+            "brier": 0.24499999999999997,
+            "error": null
+          },
+          {
+            "matchId": "760494",
+            "shortName": "BIH @ USA",
+            "stage": "round of 32",
+            "brier": 0.06480000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760495",
+            "shortName": "COD @ ENG",
+            "stage": "round of 32",
+            "brier": 0.0288,
+            "error": null
+          },
+          {
+            "matchId": "760496",
+            "shortName": "CRO @ POR",
+            "stage": "round of 32",
+            "brier": 0.2888,
+            "error": null
+          },
+          {
+            "matchId": "760497",
+            "shortName": "AUT @ ESP",
+            "stage": "round of 32",
+            "brier": 0.0968,
+            "error": null
+          },
+          {
+            "matchId": "760498",
+            "shortName": "ALG @ SUI",
+            "stage": "round of 32",
+            "brier": 0.20479999999999998,
+            "error": null
+          },
+          {
+            "matchId": "760499",
+            "shortName": "EGY @ AUS",
+            "stage": "round of 32",
+            "brier": 0.6272000000000001,
+            "error": null
+          },
+          {
+            "matchId": "760500",
+            "shortName": "CPV @ ARG",
+            "stage": "round of 32",
+            "brier": 0.009799999999999993,
+            "error": null
+          },
+          {
+            "matchId": "760501",
+            "shortName": "GHA @ COL",
+            "stage": "round of 32",
+            "brier": 0.06480000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760502",
+            "shortName": "MAR @ CAN",
+            "stage": "round of 16",
+            "brier": 0.2592,
+            "error": null
+          },
+          {
+            "matchId": "760503",
+            "shortName": "FRA @ PAR",
+            "stage": "round of 16",
+            "brier": 0.045000000000000005,
+            "error": null
+          },
+          {
+            "matchId": "760504",
+            "shortName": "NOR @ BRA",
+            "stage": "round of 16",
+            "brier": 1.3122000000000003,
+            "error": null
+          },
+          {
+            "matchId": "760505",
+            "shortName": "ENG @ MEX",
+            "stage": "round of 16",
+            "brier": 0.15680000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760506",
+            "shortName": "ESP @ POR",
+            "stage": "round of 16",
+            "brier": 0.3872,
+            "error": null
+          },
+          {
+            "matchId": "760507",
+            "shortName": "BEL @ USA",
+            "stage": "round of 16",
+            "brier": 0.4608,
+            "error": null
+          },
+          {
+            "matchId": "760508",
+            "shortName": "COL @ SUI",
+            "stage": "round of 16",
+            "brier": 0.7688,
+            "error": null
+          },
+          {
+            "matchId": "760509",
+            "shortName": "EGY @ ARG",
+            "stage": "round of 16",
+            "brier": 0.045000000000000005,
+            "error": null
+          },
+          {
+            "matchId": "760510",
+            "shortName": "MAR @ FRA",
+            "stage": "quarterfinals",
+            "brier": 0.1152,
+            "error": null
+          },
+          {
+            "matchId": "760511",
+            "shortName": "BEL @ ESP",
+            "stage": "quarterfinals",
+            "brier": 0.20479999999999998,
+            "error": null
+          },
+          {
+            "matchId": "760512",
+            "shortName": "ENG @ NOR",
+            "stage": "quarterfinals",
+            "brier": 0.15680000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760513",
+            "shortName": "SUI @ ARG",
+            "stage": "quarterfinals",
+            "brier": 0.15680000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760514",
+            "shortName": "ESP @ FRA",
+            "stage": "semifinals",
+            "brier": 0.5202,
+            "error": null
+          },
+          {
+            "matchId": "760515",
+            "shortName": "ARG @ ENG",
+            "stage": "semifinals",
+            "brier": 0.5618000000000001,
+            "error": null
+          }
+        ],
+        "overallRank": 3,
+        "labRank": 1,
+        "bestInLab": true
+      },
+      {
+        "lab": "Google",
+        "id": "google/gemini-3.5-flash",
+        "label": "Gemini 3.5 Flash",
+        "scored": 30,
+        "failed": 0,
+        "avgBrier": 0.3504933333333333,
+        "avgBaseline": 0.5,
+        "beatFieldMean": 23,
+        "perMatch": [
+          {
+            "matchId": "760486",
+            "shortName": "CAN @ RSA",
+            "stage": "round of 32",
+            "brier": 0.3528,
+            "error": null
+          },
+          {
+            "matchId": "760487",
+            "shortName": "JPN @ BRA",
+            "stage": "round of 32",
+            "brier": 0.13520000000000001,
+            "error": null
+          },
+          {
+            "matchId": "760488",
+            "shortName": "MAR @ NED",
+            "stage": "round of 32",
+            "brier": 0.6728000000000001,
+            "error": null
+          },
+          {
+            "matchId": "760489",
+            "shortName": "PAR @ GER",
+            "stage": "round of 32",
+            "brier": 1.2168,
+            "error": null
+          },
+          {
+            "matchId": "760490",
+            "shortName": "NOR @ CIV",
+            "stage": "round of 32",
+            "brier": 0.4608,
+            "error": null
+          },
+          {
+            "matchId": "760491",
+            "shortName": "ECU @ MEX",
+            "stage": "round of 32",
+            "brier": 0.4608,
+            "error": null
+          },
+          {
+            "matchId": "760492",
+            "shortName": "SWE @ FRA",
+            "stage": "round of 32",
+            "brier": 0.13520000000000001,
+            "error": null
+          },
+          {
+            "matchId": "760493",
+            "shortName": "SEN @ BEL",
+            "stage": "round of 32",
+            "brier": 0.2888,
+            "error": null
+          },
+          {
+            "matchId": "760494",
+            "shortName": "BIH @ USA",
+            "stage": "round of 32",
+            "brier": 0.15680000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760495",
+            "shortName": "COD @ ENG",
+            "stage": "round of 32",
+            "brier": 0.06480000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760496",
+            "shortName": "CRO @ POR",
+            "stage": "round of 32",
+            "brier": 0.2888,
+            "error": null
+          },
+          {
+            "matchId": "760497",
+            "shortName": "AUT @ ESP",
+            "stage": "round of 32",
+            "brier": 0.20479999999999998,
+            "error": null
+          },
+          {
+            "matchId": "760498",
+            "shortName": "ALG @ SUI",
+            "stage": "round of 32",
+            "brier": 0.2888,
+            "error": null
+          },
+          {
+            "matchId": "760499",
+            "shortName": "EGY @ AUS",
+            "stage": "round of 32",
+            "brier": 0.4608,
+            "error": null
+          },
+          {
+            "matchId": "760500",
+            "shortName": "CPV @ ARG",
+            "stage": "round of 32",
+            "brier": 0.0288,
+            "error": null
+          },
+          {
+            "matchId": "760501",
+            "shortName": "GHA @ COL",
+            "stage": "round of 32",
+            "brier": 0.20479999999999998,
+            "error": null
+          },
+          {
+            "matchId": "760502",
+            "shortName": "MAR @ CAN",
+            "stage": "round of 16",
+            "brier": 0.3872,
+            "error": null
+          },
+          {
+            "matchId": "760503",
+            "shortName": "FRA @ PAR",
+            "stage": "round of 16",
+            "brier": 0.0968,
+            "error": null
+          },
+          {
+            "matchId": "760504",
+            "shortName": "NOR @ BRA",
+            "stage": "round of 16",
+            "brier": 1.0952,
+            "error": null
+          },
+          {
+            "matchId": "760505",
+            "shortName": "ENG @ MEX",
+            "stage": "round of 16",
+            "brier": 0.20479999999999998,
+            "error": null
+          },
+          {
+            "matchId": "760506",
+            "shortName": "ESP @ POR",
+            "stage": "round of 16",
+            "brier": 0.42319999999999997,
+            "error": null
+          },
+          {
+            "matchId": "760507",
+            "shortName": "BEL @ USA",
+            "stage": "round of 16",
+            "brier": 0.4608,
+            "error": null
+          },
+          {
+            "matchId": "760508",
+            "shortName": "COL @ SUI",
+            "stage": "round of 16",
+            "brier": 0.5832,
+            "error": null
+          },
+          {
+            "matchId": "760509",
+            "shortName": "EGY @ ARG",
+            "stage": "round of 16",
+            "brier": 0.06480000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760510",
+            "shortName": "MAR @ FRA",
+            "stage": "quarterfinals",
+            "brier": 0.15680000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760511",
+            "shortName": "BEL @ ESP",
+            "stage": "quarterfinals",
+            "brier": 0.2888,
+            "error": null
+          },
+          {
+            "matchId": "760512",
+            "shortName": "ENG @ NOR",
+            "stage": "quarterfinals",
+            "brier": 0.20479999999999998,
+            "error": null
+          },
+          {
+            "matchId": "760513",
+            "shortName": "SUI @ ARG",
+            "stage": "quarterfinals",
+            "brier": 0.1458,
+            "error": null
+          },
+          {
+            "matchId": "760514",
+            "shortName": "ESP @ FRA",
+            "stage": "semifinals",
+            "brier": 0.5202,
+            "error": null
+          },
+          {
+            "matchId": "760515",
+            "shortName": "ARG @ ENG",
+            "stage": "semifinals",
+            "brier": 0.4608,
+            "error": null
+          }
+        ],
+        "overallRank": 15,
+        "labRank": 2,
+        "bestInLab": false
+      }
+    ],
+    "xAI": [
+      {
+        "lab": "xAI",
+        "id": "x-ai/grok-4.5",
+        "label": "Grok 4.5",
+        "scored": 30,
+        "failed": 0,
+        "avgBrier": 0.3441133333333334,
+        "avgBaseline": 0.5,
+        "beatFieldMean": 24,
+        "perMatch": [
+          {
+            "matchId": "760486",
+            "shortName": "CAN @ RSA",
+            "stage": "round of 32",
+            "brier": 0.3528,
+            "error": null
+          },
+          {
+            "matchId": "760487",
+            "shortName": "JPN @ BRA",
+            "stage": "round of 32",
+            "brier": 0.0968,
+            "error": null
+          },
+          {
+            "matchId": "760488",
+            "shortName": "MAR @ NED",
+            "stage": "round of 32",
+            "brier": 0.7688,
+            "error": null
+          },
+          {
+            "matchId": "760489",
+            "shortName": "PAR @ GER",
+            "stage": "round of 32",
+            "brier": 1.2168,
+            "error": null
+          },
+          {
+            "matchId": "760490",
+            "shortName": "NOR @ CIV",
+            "stage": "round of 32",
+            "brier": 0.40499999999999997,
+            "error": null
+          },
+          {
+            "matchId": "760491",
+            "shortName": "ECU @ MEX",
+            "stage": "round of 32",
+            "brier": 0.3528,
+            "error": null
+          },
+          {
+            "matchId": "760492",
+            "shortName": "SWE @ FRA",
+            "stage": "round of 32",
+            "brier": 0.0968,
+            "error": null
+          },
+          {
+            "matchId": "760493",
+            "shortName": "SEN @ BEL",
+            "stage": "round of 32",
+            "brier": 0.3042,
+            "error": null
+          },
+          {
+            "matchId": "760494",
+            "shortName": "BIH @ USA",
+            "stage": "round of 32",
+            "brier": 0.0968,
+            "error": null
+          },
+          {
+            "matchId": "760495",
+            "shortName": "COD @ ENG",
+            "stage": "round of 32",
+            "brier": 0.033800000000000004,
+            "error": null
+          },
+          {
+            "matchId": "760496",
+            "shortName": "CRO @ POR",
+            "stage": "round of 32",
+            "brier": 0.3528,
+            "error": null
+          },
+          {
+            "matchId": "760497",
+            "shortName": "AUT @ ESP",
+            "stage": "round of 32",
+            "brier": 0.0968,
+            "error": null
+          },
+          {
+            "matchId": "760498",
+            "shortName": "ALG @ SUI",
+            "stage": "round of 32",
+            "brier": 0.20479999999999998,
+            "error": null
+          },
+          {
+            "matchId": "760499",
+            "shortName": "EGY @ AUS",
+            "stage": "round of 32",
+            "brier": 0.6272000000000001,
+            "error": null
+          },
+          {
+            "matchId": "760500",
+            "shortName": "CPV @ ARG",
+            "stage": "round of 32",
+            "brier": 0.016199999999999992,
+            "error": null
+          },
+          {
+            "matchId": "760501",
+            "shortName": "GHA @ COL",
+            "stage": "round of 32",
+            "brier": 0.2738,
+            "error": null
+          },
+          {
+            "matchId": "760502",
+            "shortName": "MAR @ CAN",
+            "stage": "round of 16",
+            "brier": 0.2888,
+            "error": null
+          },
+          {
+            "matchId": "760503",
+            "shortName": "FRA @ PAR",
+            "stage": "round of 16",
+            "brier": 0.10579999999999999,
+            "error": null
+          },
+          {
+            "matchId": "760504",
+            "shortName": "NOR @ BRA",
+            "stage": "round of 16",
+            "brier": 1.2168,
+            "error": null
+          },
+          {
+            "matchId": "760505",
+            "shortName": "ENG @ MEX",
+            "stage": "round of 16",
+            "brier": 0.2888,
+            "error": null
+          },
+          {
+            "matchId": "760506",
+            "shortName": "ESP @ POR",
+            "stage": "round of 16",
+            "brier": 0.44179999999999997,
+            "error": null
+          },
+          {
+            "matchId": "760507",
+            "shortName": "BEL @ USA",
+            "stage": "round of 16",
+            "brier": 0.3698,
+            "error": null
+          },
+          {
+            "matchId": "760508",
+            "shortName": "COL @ SUI",
+            "stage": "round of 16",
+            "brier": 0.44179999999999997,
+            "error": null
+          },
+          {
+            "matchId": "760509",
+            "shortName": "EGY @ ARG",
+            "stage": "round of 16",
+            "brier": 0.0968,
+            "error": null
+          },
+          {
+            "matchId": "760510",
+            "shortName": "MAR @ FRA",
+            "stage": "quarterfinals",
+            "brier": 0.20479999999999998,
+            "error": null
+          },
+          {
+            "matchId": "760511",
+            "shortName": "BEL @ ESP",
+            "stage": "quarterfinals",
+            "brier": 0.2178,
+            "error": null
+          },
+          {
+            "matchId": "760512",
+            "shortName": "ENG @ NOR",
+            "stage": "quarterfinals",
+            "brier": 0.20479999999999998,
+            "error": null
+          },
+          {
+            "matchId": "760513",
+            "shortName": "SUI @ ARG",
+            "stage": "quarterfinals",
+            "brier": 0.1458,
+            "error": null
+          },
+          {
+            "matchId": "760514",
+            "shortName": "ESP @ FRA",
+            "stage": "semifinals",
+            "brier": 0.5618000000000001,
+            "error": null
+          },
+          {
+            "matchId": "760515",
+            "shortName": "ARG @ ENG",
+            "stage": "semifinals",
+            "brier": 0.44179999999999997,
+            "error": null
+          }
+        ],
+        "overallRank": 12,
+        "labRank": 1,
+        "bestInLab": true
+      },
+      {
+        "lab": "xAI",
+        "id": "x-ai/grok-4.3",
+        "label": "Grok 4.3",
+        "scored": 30,
+        "failed": 0,
+        "avgBrier": 0.34531333333333336,
+        "avgBaseline": 0.5,
+        "beatFieldMean": 22,
+        "perMatch": [
+          {
+            "matchId": "760486",
+            "shortName": "CAN @ RSA",
+            "stage": "round of 32",
+            "brier": 0.2888,
+            "error": null
+          },
+          {
+            "matchId": "760487",
+            "shortName": "JPN @ BRA",
+            "stage": "round of 32",
+            "brier": 0.08819999999999997,
+            "error": null
+          },
+          {
+            "matchId": "760488",
+            "shortName": "MAR @ NED",
+            "stage": "round of 32",
+            "brier": 0.8977999999999999,
+            "error": null
+          },
+          {
+            "matchId": "760489",
+            "shortName": "PAR @ GER",
+            "stage": "round of 32",
+            "brier": 1.3778,
+            "error": null
+          },
+          {
+            "matchId": "760490",
+            "shortName": "NOR @ CIV",
+            "stage": "round of 32",
+            "brier": 0.3698,
+            "error": null
+          },
+          {
+            "matchId": "760491",
+            "shortName": "ECU @ MEX",
+            "stage": "round of 32",
+            "brier": 0.3528,
+            "error": null
+          },
+          {
+            "matchId": "760492",
+            "shortName": "SWE @ FRA",
+            "stage": "round of 32",
+            "brier": 0.06480000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760493",
+            "shortName": "SEN @ BEL",
+            "stage": "round of 32",
+            "brier": 0.20479999999999998,
+            "error": null
+          },
+          {
+            "matchId": "760494",
+            "shortName": "BIH @ USA",
+            "stage": "round of 32",
+            "brier": 0.20479999999999998,
+            "error": null
+          },
+          {
+            "matchId": "760495",
+            "shortName": "COD @ ENG",
+            "stage": "round of 32",
+            "brier": 0.0242,
+            "error": null
+          },
+          {
+            "matchId": "760496",
+            "shortName": "CRO @ POR",
+            "stage": "round of 32",
+            "brier": 0.2178,
+            "error": null
+          },
+          {
+            "matchId": "760497",
+            "shortName": "AUT @ ESP",
+            "stage": "round of 32",
+            "brier": 0.1152,
+            "error": null
+          },
+          {
+            "matchId": "760498",
+            "shortName": "ALG @ SUI",
+            "stage": "round of 32",
+            "brier": 0.2592,
+            "error": null
+          },
+          {
+            "matchId": "760499",
+            "shortName": "EGY @ AUS",
+            "stage": "round of 32",
+            "brier": 0.6272000000000001,
+            "error": null
+          },
+          {
+            "matchId": "760500",
+            "shortName": "CPV @ ARG",
+            "stage": "round of 32",
+            "brier": 0.003200000000000003,
+            "error": null
+          },
+          {
+            "matchId": "760501",
+            "shortName": "GHA @ COL",
+            "stage": "round of 32",
+            "brier": 0.2178,
+            "error": null
+          },
+          {
+            "matchId": "760502",
+            "shortName": "MAR @ CAN",
+            "stage": "round of 16",
+            "brier": 0.3872,
+            "error": null
+          },
+          {
+            "matchId": "760503",
+            "shortName": "FRA @ PAR",
+            "stage": "round of 16",
+            "brier": 0.05780000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760504",
+            "shortName": "NOR @ BRA",
+            "stage": "round of 16",
+            "brier": 1.1552,
+            "error": null
+          },
+          {
+            "matchId": "760505",
+            "shortName": "ENG @ MEX",
+            "stage": "round of 16",
+            "brier": 0.2738,
+            "error": null
+          },
+          {
+            "matchId": "760506",
+            "shortName": "ESP @ POR",
+            "stage": "round of 16",
+            "brier": 0.44179999999999997,
+            "error": null
+          },
+          {
+            "matchId": "760507",
+            "shortName": "BEL @ USA",
+            "stage": "round of 16",
+            "brier": 0.44179999999999997,
+            "error": null
+          },
+          {
+            "matchId": "760508",
+            "shortName": "COL @ SUI",
+            "stage": "round of 16",
+            "brier": 0.48019999999999996,
+            "error": null
+          },
+          {
+            "matchId": "760509",
+            "shortName": "EGY @ ARG",
+            "stage": "round of 16",
+            "brier": 0.0288,
+            "error": null
+          },
+          {
+            "matchId": "760510",
+            "shortName": "MAR @ FRA",
+            "stage": "quarterfinals",
+            "brier": 0.1458,
+            "error": null
+          },
+          {
+            "matchId": "760511",
+            "shortName": "BEL @ ESP",
+            "stage": "quarterfinals",
+            "brier": 0.3698,
+            "error": null
+          },
+          {
+            "matchId": "760512",
+            "shortName": "ENG @ NOR",
+            "stage": "quarterfinals",
+            "brier": 0.16820000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760513",
+            "shortName": "SUI @ ARG",
+            "stage": "quarterfinals",
+            "brier": 0.07219999999999999,
+            "error": null
+          },
+          {
+            "matchId": "760514",
+            "shortName": "ESP @ FRA",
+            "stage": "semifinals",
+            "brier": 0.5618000000000001,
+            "error": null
+          },
+          {
+            "matchId": "760515",
+            "shortName": "ARG @ ENG",
+            "stage": "semifinals",
+            "brier": 0.4608,
+            "error": null
+          }
+        ],
+        "overallRank": 13,
+        "labRank": 2,
+        "bestInLab": false
+      }
+    ],
+    "DeepSeek": [
+      {
+        "lab": "DeepSeek",
+        "id": "deepseek/deepseek-v4-pro",
+        "label": "DeepSeek V4 Pro",
+        "scored": 30,
+        "failed": 0,
+        "avgBrier": 0.34615333333333353,
+        "avgBaseline": 0.5,
+        "beatFieldMean": 21,
+        "perMatch": [
+          {
+            "matchId": "760486",
+            "shortName": "CAN @ RSA",
+            "stage": "round of 32",
+            "brier": 0.2888,
+            "error": null
+          },
+          {
+            "matchId": "760487",
+            "shortName": "JPN @ BRA",
+            "stage": "round of 32",
+            "brier": 0.15680000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760488",
+            "shortName": "MAR @ NED",
+            "stage": "round of 32",
+            "brier": 0.7688,
+            "error": null
+          },
+          {
+            "matchId": "760489",
+            "shortName": "PAR @ GER",
+            "stage": "round of 32",
+            "brier": 1.2800000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760490",
+            "shortName": "NOR @ CIV",
+            "stage": "round of 32",
+            "brier": 0.24499999999999997,
+            "error": null
+          },
+          {
+            "matchId": "760491",
+            "shortName": "ECU @ MEX",
+            "stage": "round of 32",
+            "brier": 0.5408000000000001,
+            "error": null
+          },
+          {
+            "matchId": "760492",
+            "shortName": "SWE @ FRA",
+            "stage": "round of 32",
+            "brier": 0.06480000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760493",
+            "shortName": "SEN @ BEL",
+            "stage": "round of 32",
+            "brier": 0.18000000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760494",
+            "shortName": "BIH @ USA",
+            "stage": "round of 32",
+            "brier": 0.07999999999999999,
+            "error": null
+          },
+          {
+            "matchId": "760495",
+            "shortName": "COD @ ENG",
+            "stage": "round of 32",
+            "brier": 0.003200000000000003,
+            "error": null
+          },
+          {
+            "matchId": "760496",
+            "shortName": "CRO @ POR",
+            "stage": "round of 32",
+            "brier": 0.24499999999999997,
+            "error": null
+          },
+          {
+            "matchId": "760497",
+            "shortName": "AUT @ ESP",
+            "stage": "round of 32",
+            "brier": 0.15680000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760498",
+            "shortName": "ALG @ SUI",
+            "stage": "round of 32",
+            "brier": 0.3528,
+            "error": null
+          },
+          {
+            "matchId": "760499",
+            "shortName": "EGY @ AUS",
+            "stage": "round of 32",
+            "brier": 0.6050000000000001,
+            "error": null
+          },
+          {
+            "matchId": "760500",
+            "shortName": "CPV @ ARG",
+            "stage": "round of 32",
+            "brier": 0.0018000000000000017,
+            "error": null
+          },
+          {
+            "matchId": "760501",
+            "shortName": "GHA @ COL",
+            "stage": "round of 32",
+            "brier": 0.07999999999999999,
+            "error": null
+          },
+          {
+            "matchId": "760502",
+            "shortName": "MAR @ CAN",
+            "stage": "round of 16",
+            "brier": 0.2178,
+            "error": null
+          },
+          {
+            "matchId": "760503",
+            "shortName": "FRA @ PAR",
+            "stage": "round of 16",
+            "brier": 0.06480000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760504",
+            "shortName": "NOR @ BRA",
+            "stage": "round of 16",
+            "brier": 1.4449999999999998,
+            "error": null
+          },
+          {
+            "matchId": "760505",
+            "shortName": "ENG @ MEX",
+            "stage": "round of 16",
+            "brier": 0.2888,
+            "error": null
+          },
+          {
+            "matchId": "760506",
+            "shortName": "ESP @ POR",
+            "stage": "round of 16",
+            "brier": 0.3528,
+            "error": null
+          },
+          {
+            "matchId": "760507",
+            "shortName": "BEL @ USA",
+            "stage": "round of 16",
+            "brier": 0.6728000000000001,
+            "error": null
+          },
+          {
+            "matchId": "760508",
+            "shortName": "COL @ SUI",
+            "stage": "round of 16",
+            "brier": 0.6728000000000001,
+            "error": null
+          },
+          {
+            "matchId": "760509",
+            "shortName": "EGY @ ARG",
+            "stage": "round of 16",
+            "brier": 0.05120000000000001,
+            "error": null
+          },
+          {
+            "matchId": "760510",
+            "shortName": "MAR @ FRA",
+            "stage": "quarterfinals",
+            "brier": 0.18000000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760511",
+            "shortName": "BEL @ ESP",
+            "stage": "quarterfinals",
+            "brier": 0.15680000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760512",
+            "shortName": "ENG @ NOR",
+            "stage": "quarterfinals",
+            "brier": 0.20479999999999998,
+            "error": null
+          },
+          {
+            "matchId": "760513",
+            "shortName": "SUI @ ARG",
+            "stage": "quarterfinals",
+            "brier": 0.10579999999999999,
+            "error": null
+          },
+          {
+            "matchId": "760514",
+            "shortName": "ESP @ FRA",
+            "stage": "semifinals",
+            "brier": 0.4608,
+            "error": null
+          },
+          {
+            "matchId": "760515",
+            "shortName": "ARG @ ENG",
+            "stage": "semifinals",
+            "brier": 0.4608,
+            "error": null
+          }
+        ],
+        "overallRank": 14,
+        "labRank": 1,
+        "bestInLab": true
+      }
+    ],
+    "Moonshot": [
+      {
+        "lab": "Moonshot",
+        "id": "moonshotai/kimi-k3",
+        "label": "Kimi K3",
+        "scored": 23,
+        "failed": 7,
+        "avgBrier": 0.334095652173913,
+        "avgBaseline": 0.5,
+        "beatFieldMean": 19,
+        "perMatch": [
+          {
+            "matchId": "760486",
+            "shortName": "CAN @ RSA",
+            "stage": "round of 32",
+            "brier": null,
+            "error": "unparseable response: "
+          },
+          {
+            "matchId": "760487",
+            "shortName": "JPN @ BRA",
+            "stage": "round of 32",
+            "brier": 0.15680000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760488",
+            "shortName": "MAR @ NED",
+            "stage": "round of 32",
+            "brier": 0.72,
+            "error": null
+          },
+          {
+            "matchId": "760489",
+            "shortName": "PAR @ GER",
+            "stage": "round of 32",
+            "brier": 1.1552,
+            "error": null
+          },
+          {
+            "matchId": "760490",
+            "shortName": "NOR @ CIV",
+            "stage": "round of 32",
+            "brier": null,
+            "error": "unparseable response: "
+          },
+          {
+            "matchId": "760491",
+            "shortName": "ECU @ MEX",
+            "stage": "round of 32",
+            "brier": 0.40499999999999997,
+            "error": null
+          },
+          {
+            "matchId": "760492",
+            "shortName": "SWE @ FRA",
+            "stage": "round of 32",
+            "brier": 0.16820000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760493",
+            "shortName": "SEN @ BEL",
+            "stage": "round of 32",
+            "brier": null,
+            "error": "unparseable response: "
+          },
+          {
+            "matchId": "760494",
+            "shortName": "BIH @ USA",
+            "stage": "round of 32",
+            "brier": 0.18000000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760495",
+            "shortName": "COD @ ENG",
+            "stage": "round of 32",
+            "brier": 0.06480000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760496",
+            "shortName": "CRO @ POR",
+            "stage": "round of 32",
+            "brier": null,
+            "error": "unparseable response: "
+          },
+          {
+            "matchId": "760497",
+            "shortName": "AUT @ ESP",
+            "stage": "round of 32",
+            "brier": 0.0968,
+            "error": null
+          },
+          {
+            "matchId": "760498",
+            "shortName": "ALG @ SUI",
+            "stage": "round of 32",
+            "brier": null,
+            "error": "unparseable response: "
+          },
+          {
+            "matchId": "760499",
+            "shortName": "EGY @ AUS",
+            "stage": "round of 32",
+            "brier": null,
+            "error": "unparseable response: "
+          },
+          {
+            "matchId": "760500",
+            "shortName": "CPV @ ARG",
+            "stage": "round of 32",
+            "brier": 0.019999999999999997,
+            "error": null
+          },
+          {
+            "matchId": "760501",
+            "shortName": "GHA @ COL",
+            "stage": "round of 32",
+            "brier": 0.15680000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760502",
+            "shortName": "MAR @ CAN",
+            "stage": "round of 16",
+            "brier": 0.2738,
+            "error": null
+          },
+          {
+            "matchId": "760503",
+            "shortName": "FRA @ PAR",
+            "stage": "round of 16",
+            "brier": 0.1152,
+            "error": null
+          },
+          {
+            "matchId": "760504",
+            "shortName": "NOR @ BRA",
+            "stage": "round of 16",
+            "brier": 0.8450000000000001,
+            "error": null
+          },
+          {
+            "matchId": "760505",
+            "shortName": "ENG @ MEX",
+            "stage": "round of 16",
+            "brier": 0.23120000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760506",
+            "shortName": "ESP @ POR",
+            "stage": "round of 16",
+            "brier": 0.40499999999999997,
+            "error": null
+          },
+          {
+            "matchId": "760507",
+            "shortName": "BEL @ USA",
+            "stage": "round of 16",
+            "brier": 0.3872,
+            "error": null
+          },
+          {
+            "matchId": "760508",
+            "shortName": "COL @ SUI",
+            "stage": "round of 16",
+            "brier": 0.5832,
+            "error": null
+          },
+          {
+            "matchId": "760509",
+            "shortName": "EGY @ ARG",
+            "stage": "round of 16",
+            "brier": 0.05120000000000001,
+            "error": null
+          },
+          {
+            "matchId": "760510",
+            "shortName": "MAR @ FRA",
+            "stage": "quarterfinals",
+            "brier": 0.15680000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760511",
+            "shortName": "BEL @ ESP",
+            "stage": "quarterfinals",
+            "brier": 0.2888,
+            "error": null
+          },
+          {
+            "matchId": "760512",
+            "shortName": "ENG @ NOR",
+            "stage": "quarterfinals",
+            "brier": 0.2592,
+            "error": null
+          },
+          {
+            "matchId": "760513",
+            "shortName": "SUI @ ARG",
+            "stage": "quarterfinals",
+            "brier": null,
+            "error": "unparseable response: "
+          },
+          {
+            "matchId": "760514",
+            "shortName": "ESP @ FRA",
+            "stage": "semifinals",
+            "brier": 0.42319999999999997,
+            "error": null
+          },
+          {
+            "matchId": "760515",
+            "shortName": "ARG @ ENG",
+            "stage": "semifinals",
+            "brier": 0.5408000000000001,
+            "error": null
+          }
+        ],
+        "overallRank": 6,
+        "labRank": 1,
+        "bestInLab": true
+      }
+    ],
+    "Z.ai": [
+      {
+        "lab": "Z.ai",
+        "id": "z-ai/glm-5.2",
+        "label": "GLM 5.2",
+        "scored": 30,
+        "failed": 0,
+        "avgBrier": 0.33024,
+        "avgBaseline": 0.5,
+        "beatFieldMean": 25,
+        "perMatch": [
+          {
+            "matchId": "760486",
+            "shortName": "CAN @ RSA",
+            "stage": "round of 32",
+            "brier": 0.2888,
+            "error": null
+          },
+          {
+            "matchId": "760487",
+            "shortName": "JPN @ BRA",
+            "stage": "round of 32",
+            "brier": 0.15680000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760488",
+            "shortName": "MAR @ NED",
+            "stage": "round of 32",
+            "brier": 0.7688,
+            "error": null
+          },
+          {
+            "matchId": "760489",
+            "shortName": "PAR @ GER",
+            "stage": "round of 32",
+            "brier": 1.2168,
+            "error": null
+          },
+          {
+            "matchId": "760490",
+            "shortName": "NOR @ CIV",
+            "stage": "round of 32",
+            "brier": 0.5408000000000001,
+            "error": null
+          },
+          {
+            "matchId": "760491",
+            "shortName": "ECU @ MEX",
+            "stage": "round of 32",
+            "brier": 0.3528,
+            "error": null
+          },
+          {
+            "matchId": "760492",
+            "shortName": "SWE @ FRA",
+            "stage": "round of 32",
+            "brier": 0.0968,
+            "error": null
+          },
+          {
+            "matchId": "760493",
+            "shortName": "SEN @ BEL",
+            "stage": "round of 32",
+            "brier": 0.2888,
+            "error": null
+          },
+          {
+            "matchId": "760494",
+            "shortName": "BIH @ USA",
+            "stage": "round of 32",
+            "brier": 0.0968,
+            "error": null
+          },
+          {
+            "matchId": "760495",
+            "shortName": "COD @ ENG",
+            "stage": "round of 32",
+            "brier": 0.0288,
+            "error": null
+          },
+          {
+            "matchId": "760496",
+            "shortName": "CRO @ POR",
+            "stage": "round of 32",
+            "brier": 0.2888,
+            "error": null
+          },
+          {
+            "matchId": "760497",
+            "shortName": "AUT @ ESP",
+            "stage": "round of 32",
+            "brier": 0.0968,
+            "error": null
+          },
+          {
+            "matchId": "760498",
+            "shortName": "ALG @ SUI",
+            "stage": "round of 32",
+            "brier": 0.32000000000000006,
+            "error": null
+          },
+          {
+            "matchId": "760499",
+            "shortName": "EGY @ AUS",
+            "stage": "round of 32",
+            "brier": 0.40499999999999997,
+            "error": null
+          },
+          {
+            "matchId": "760500",
+            "shortName": "CPV @ ARG",
+            "stage": "round of 32",
+            "brier": 0.003200000000000003,
+            "error": null
+          },
+          {
+            "matchId": "760501",
+            "shortName": "GHA @ COL",
+            "stage": "round of 32",
+            "brier": 0.16820000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760502",
+            "shortName": "MAR @ CAN",
+            "stage": "round of 16",
+            "brier": 0.2888,
+            "error": null
+          },
+          {
+            "matchId": "760503",
+            "shortName": "FRA @ PAR",
+            "stage": "round of 16",
+            "brier": 0.06480000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760504",
+            "shortName": "NOR @ BRA",
+            "stage": "round of 16",
+            "brier": 1.125,
+            "error": null
+          },
+          {
+            "matchId": "760505",
+            "shortName": "ENG @ MEX",
+            "stage": "round of 16",
+            "brier": 0.24499999999999997,
+            "error": null
+          },
+          {
+            "matchId": "760506",
+            "shortName": "ESP @ POR",
+            "stage": "round of 16",
+            "brier": 0.40499999999999997,
+            "error": null
+          },
+          {
+            "matchId": "760507",
+            "shortName": "BEL @ USA",
+            "stage": "round of 16",
+            "brier": 0.5618000000000001,
+            "error": null
+          },
+          {
+            "matchId": "760508",
+            "shortName": "COL @ SUI",
+            "stage": "round of 16",
+            "brier": 0.4608,
+            "error": null
+          },
+          {
+            "matchId": "760509",
+            "shortName": "EGY @ ARG",
+            "stage": "round of 16",
+            "brier": 0.06480000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760510",
+            "shortName": "MAR @ FRA",
+            "stage": "quarterfinals",
+            "brier": 0.24499999999999997,
+            "error": null
+          },
+          {
+            "matchId": "760511",
+            "shortName": "BEL @ ESP",
+            "stage": "quarterfinals",
+            "brier": 0.15680000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760512",
+            "shortName": "ENG @ NOR",
+            "stage": "quarterfinals",
+            "brier": 0.1458,
+            "error": null
+          },
+          {
+            "matchId": "760513",
+            "shortName": "SUI @ ARG",
+            "stage": "quarterfinals",
+            "brier": 0.06480000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760514",
+            "shortName": "ESP @ FRA",
+            "stage": "semifinals",
+            "brier": 0.5,
+            "error": null
+          },
+          {
+            "matchId": "760515",
+            "shortName": "ARG @ ENG",
+            "stage": "semifinals",
+            "brier": 0.4608,
+            "error": null
+          }
+        ],
+        "overallRank": 4,
+        "labRank": 1,
+        "bestInLab": true
+      }
+    ],
+    "Qwen": [
+      {
+        "lab": "Qwen",
+        "id": "qwen/qwen3.7-max",
+        "label": "Qwen3.7 Max",
+        "scored": 30,
+        "failed": 0,
+        "avgBrier": 0.35152,
+        "avgBaseline": 0.5,
+        "beatFieldMean": 24,
+        "perMatch": [
+          {
+            "matchId": "760486",
+            "shortName": "CAN @ RSA",
+            "stage": "round of 32",
+            "brier": 0.2888,
+            "error": null
+          },
+          {
+            "matchId": "760487",
+            "shortName": "JPN @ BRA",
+            "stage": "round of 32",
+            "brier": 0.23120000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760488",
+            "shortName": "MAR @ NED",
+            "stage": "round of 32",
+            "brier": 0.6728000000000001,
+            "error": null
+          },
+          {
+            "matchId": "760489",
+            "shortName": "PAR @ GER",
+            "stage": "round of 32",
+            "brier": 0.8977999999999999,
+            "error": null
+          },
+          {
+            "matchId": "760490",
+            "shortName": "NOR @ CIV",
+            "stage": "round of 32",
+            "brier": 0.5618000000000001,
+            "error": null
+          },
+          {
+            "matchId": "760491",
+            "shortName": "ECU @ MEX",
+            "stage": "round of 32",
+            "brier": 0.44179999999999997,
+            "error": null
+          },
+          {
+            "matchId": "760492",
+            "shortName": "SWE @ FRA",
+            "stage": "round of 32",
+            "brier": 0.15680000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760493",
+            "shortName": "SEN @ BEL",
+            "stage": "round of 32",
+            "brier": 0.32000000000000006,
+            "error": null
+          },
+          {
+            "matchId": "760494",
+            "shortName": "BIH @ USA",
+            "stage": "round of 32",
+            "brier": 0.20479999999999998,
+            "error": null
+          },
+          {
+            "matchId": "760495",
+            "shortName": "COD @ ENG",
+            "stage": "round of 32",
+            "brier": 0.06480000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760496",
+            "shortName": "CRO @ POR",
+            "stage": "round of 32",
+            "brier": 0.32000000000000006,
+            "error": null
+          },
+          {
+            "matchId": "760497",
+            "shortName": "AUT @ ESP",
+            "stage": "round of 32",
+            "brier": 0.15680000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760498",
+            "shortName": "ALG @ SUI",
+            "stage": "round of 32",
+            "brier": 0.2738,
+            "error": null
+          },
+          {
+            "matchId": "760499",
+            "shortName": "EGY @ AUS",
+            "stage": "round of 32",
+            "brier": 0.6050000000000001,
+            "error": null
+          },
+          {
+            "matchId": "760500",
+            "shortName": "CPV @ ARG",
+            "stage": "round of 32",
+            "brier": 0.007200000000000007,
+            "error": null
+          },
+          {
+            "matchId": "760501",
+            "shortName": "GHA @ COL",
+            "stage": "round of 32",
+            "brier": 0.20479999999999998,
+            "error": null
+          },
+          {
+            "matchId": "760502",
+            "shortName": "MAR @ CAN",
+            "stage": "round of 16",
+            "brier": 0.2888,
+            "error": null
+          },
+          {
+            "matchId": "760503",
+            "shortName": "FRA @ PAR",
+            "stage": "round of 16",
+            "brier": 0.10579999999999999,
+            "error": null
+          },
+          {
+            "matchId": "760504",
+            "shortName": "NOR @ BRA",
+            "stage": "round of 16",
+            "brier": 1.0657999999999999,
+            "error": null
+          },
+          {
+            "matchId": "760505",
+            "shortName": "ENG @ MEX",
+            "stage": "round of 16",
+            "brier": 0.2888,
+            "error": null
+          },
+          {
+            "matchId": "760506",
+            "shortName": "ESP @ POR",
+            "stage": "round of 16",
+            "brier": 0.40499999999999997,
+            "error": null
+          },
+          {
+            "matchId": "760507",
+            "shortName": "BEL @ USA",
+            "stage": "round of 16",
+            "brier": 0.6050000000000001,
+            "error": null
+          },
+          {
+            "matchId": "760508",
+            "shortName": "COL @ SUI",
+            "stage": "round of 16",
+            "brier": 0.5832,
+            "error": null
+          },
+          {
+            "matchId": "760509",
+            "shortName": "EGY @ ARG",
+            "stage": "round of 16",
+            "brier": 0.05780000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760510",
+            "shortName": "MAR @ FRA",
+            "stage": "quarterfinals",
+            "brier": 0.2178,
+            "error": null
+          },
+          {
+            "matchId": "760511",
+            "shortName": "BEL @ ESP",
+            "stage": "quarterfinals",
+            "brier": 0.2738,
+            "error": null
+          },
+          {
+            "matchId": "760512",
+            "shortName": "ENG @ NOR",
+            "stage": "quarterfinals",
+            "brier": 0.15680000000000002,
+            "error": null
+          },
+          {
+            "matchId": "760513",
+            "shortName": "SUI @ ARG",
+            "stage": "quarterfinals",
+            "brier": 0.20479999999999998,
+            "error": null
+          },
+          {
+            "matchId": "760514",
+            "shortName": "ESP @ FRA",
+            "stage": "semifinals",
+            "brier": 0.4608,
+            "error": null
+          },
+          {
+            "matchId": "760515",
+            "shortName": "ARG @ ENG",
+            "stage": "semifinals",
+            "brier": 0.42319999999999997,
+            "error": null
+          }
+        ],
+        "overallRank": 16,
+        "labRank": 1,
+        "bestInLab": true
+      }
+    ]
+  },
+  "overall": [
+    {
+      "lab": "Anthropic",
+      "label": "Opus 4.7",
+      "id": "anthropic/claude-opus-4.7",
+      "avgBrier": 0.3088933333333334,
+      "overallRank": 1,
+      "bestInLab": true
+    },
+    {
+      "lab": "Anthropic",
+      "label": "Opus 4.8",
+      "id": "anthropic/claude-opus-4.8",
+      "avgBrier": 0.3205333333333333,
+      "overallRank": 2,
+      "bestInLab": false
+    },
+    {
+      "lab": "Google",
+      "label": "Gemini 3.1 Pro",
+      "id": "google/gemini-3.1-pro-preview",
+      "avgBrier": 0.32765333333333335,
+      "overallRank": 3,
+      "bestInLab": true
+    },
+    {
+      "lab": "Z.ai",
+      "label": "GLM 5.2",
+      "id": "z-ai/glm-5.2",
+      "avgBrier": 0.33024,
+      "overallRank": 4,
+      "bestInLab": true
+    },
+    {
+      "lab": "Anthropic",
+      "label": "Sonnet 4.5",
+      "id": "anthropic/claude-sonnet-4.5",
+      "avgBrier": 0.33232666666666677,
+      "overallRank": 5,
+      "bestInLab": false
+    },
+    {
+      "lab": "Moonshot",
+      "label": "Kimi K3",
+      "id": "moonshotai/kimi-k3",
+      "avgBrier": 0.334095652173913,
+      "overallRank": 6,
+      "bestInLab": true
+    },
+    {
+      "lab": "OpenAI",
+      "label": "GPT-5.1",
+      "id": "openai/gpt-5.1",
+      "avgBrier": 0.3346133333333332,
+      "overallRank": 7,
+      "bestInLab": true
+    },
+    {
+      "lab": "OpenAI",
+      "label": "GPT-5.6 Luna Pro",
+      "id": "openai/gpt-5.6-luna-pro",
+      "avgBrier": 0.33594000000000007,
+      "overallRank": 8,
+      "bestInLab": false
+    },
+    {
+      "lab": "Anthropic",
+      "label": "Fable 5",
+      "id": "anthropic/claude-fable-5",
+      "avgBrier": 0.3410399999999999,
+      "overallRank": 9,
+      "bestInLab": false
+    },
+    {
+      "lab": "Anthropic",
+      "label": "Sonnet 5",
+      "id": "anthropic/claude-sonnet-5",
+      "avgBrier": 0.34340666666666675,
+      "overallRank": 10,
+      "bestInLab": false
+    },
+    {
+      "lab": "OpenAI",
+      "label": "GPT-5.5 Pro",
+      "id": "openai/gpt-5.5-pro",
+      "avgBrier": 0.34393333333333326,
+      "overallRank": 11,
+      "bestInLab": false
+    },
+    {
+      "lab": "xAI",
+      "label": "Grok 4.5",
+      "id": "x-ai/grok-4.5",
+      "avgBrier": 0.3441133333333334,
+      "overallRank": 12,
+      "bestInLab": true
+    },
+    {
+      "lab": "xAI",
+      "label": "Grok 4.3",
+      "id": "x-ai/grok-4.3",
+      "avgBrier": 0.34531333333333336,
+      "overallRank": 13,
+      "bestInLab": false
+    },
+    {
+      "lab": "DeepSeek",
+      "label": "DeepSeek V4 Pro",
+      "id": "deepseek/deepseek-v4-pro",
+      "avgBrier": 0.34615333333333353,
+      "overallRank": 14,
+      "bestInLab": true
+    },
+    {
+      "lab": "Google",
+      "label": "Gemini 3.5 Flash",
+      "id": "google/gemini-3.5-flash",
+      "avgBrier": 0.3504933333333333,
+      "overallRank": 15,
+      "bestInLab": false
+    },
+    {
+      "lab": "Qwen",
+      "label": "Qwen3.7 Max",
+      "id": "qwen/qwen3.7-max",
+      "avgBrier": 0.35152,
+      "overallRank": 16,
+      "bestInLab": true
+    }
+  ]
+}

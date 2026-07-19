@@ -9,15 +9,17 @@ Use this file as the paste source for Superteam Earn (demo video, app link, tech
 
 ## Project name
 
-**The Brier Cup — eight AIs vs. the betting market**
+**The Brier Cup — the AI labs vs. the betting market**
 
 ## One-liner
 
-Eight frontier AI models forecast every FIFA World Cup 2026 match under one identical prompt — and compete head-to-head against TxODDS’s StablePrice consensus line, de-vigged and Brier-scored on the same leaderboard. Can any AI beat the market?
+Frontier AI models from nine labs forecast every FIFA World Cup 2026 match under one identical prompt — and compete head-to-head against TxODDS’s StablePrice consensus line, de-vigged and Brier-scored on the same leaderboard. Can any AI beat the market?
 
 ## Description (submission form)
 
-The Brier Cup is a live forecasting tournament that has run the whole World Cup. Before every match, eight models (Claude, GPT, DeepSeek, Kimi, GLM, Qwen, MiniMax, Gemini) receive the exact same prompt and commit probabilities: home/draw/away for the 90-minute result in the group stage, who advances in the knockouts. Forecasts lock at kickoff — the git history of the prediction ledger is a public audit trail that every forecast predates the whistle. As results arrive, every forecast is scored with the multi-category Brier score (0 = perfect, 0.667 = three-way coin flip, 2 = maximally wrong). Lowest average wins.
+The Brier Cup is a live forecasting tournament that has run the whole World Cup. Before every match, frontier models from eight AI labs (Claude, GPT, DeepSeek, Kimi, GLM, Qwen, MiniMax, Gemini) receive the exact same prompt and commit probabilities: home/draw/away for the 90-minute result in the group stage, who advances in the knockouts. Forecasts lock at kickoff — the git history of the prediction ledger is a public audit trail that every forecast predates the whistle. As results arrive, every forecast is scored with the multi-category Brier score (0 = perfect, 0.667 = three-way coin flip, 2 = maximally wrong). Lowest average wins.
+
+Before the final, each lab’s backtest-winning newest release was substituted into the live roster (and xAI’s Grok 4.5 joined as a ninth lab). The predecessors’ full-tournament records stay on the board as retired entrants — the default by-lab view folds them into one continuous record per lab — and the ranking metric keeps it honest: rows rank by **shrunken skill vs the coin flip** ((baseline − Brier)/baseline per match, with ten phantom coin-flip matches), so a newcomer starts neutral and earns rank with evidence instead of a lucky two-match sample leapfrogging a 100-match record. Average Brier stays the headline number.
 
 **The TxODDS integration seats a ninth competitor that never hallucinates: the market itself.** TxLINE’s StablePrice feed — consensus bookmaker odds aggregated by TxODDS and anchored on Solana — is fetched per fixture, stripped of its vig (proportional normalization; overround stored for transparency), locked at kickoff under identical rules, and Brier-scored on the same leaderboard. During matches, the live line can reprice on the card next to each model’s in-play re-forecasts.
 
@@ -60,7 +62,7 @@ That turns a fun AI benchmark into a market-efficiency experiment: the leaderboa
 ## Demo script (≤5 min video)
 
 1. **Open** https://worldcup.uptick.fyi — hero states the experiment: eight AIs + the market on Solana.
-2. **Leaderboard** — nine rows; point at **The Market #1** (avg Brier ~0.426) with slug *TxODDS StablePrice · TxLINE on Solana*; scan AI rows below.
+2. **Leaderboard** — point at **The Market** leading (avg Brier ~0.426, skill ~+32% vs the coin flip over 102 matches) with slug *TxODDS StablePrice · TxLINE on Solana*; scan the eight full-tournament lab records below it. Flip the **By lab / By model** toggle to show substitution lineage vs individual model records.
 3. **Expand a finished match** — locked forecasts vs outcome; show **Score verified on Solana ✓** and open the explorer PDA link.
 4. **Match card / live path** — if a match is upcoming or in-play and the API token is configured, show the **Live odds · TxODDS on Solana** strip next to model forecasts.
 5. **Audit trail** — mention forecasts committed to git before kickoff; odds/scores anchored via TxLINE; proofs recomputed client-side against the on-chain root.
