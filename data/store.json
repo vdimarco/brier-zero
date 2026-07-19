@@ -35034,6 +35034,89 @@
             "rationale": "Spain leads 1-0 with Argentina down to 10 men in extra time, making an Argentina comeback highly unlikely."
           }
         }
+      },
+      {
+        "at": "2026-07-19T21:54:25.524Z",
+        "detail": "117'",
+        "score": [
+          1,
+          0
+        ],
+        "events": 2,
+        "period": "STATUS_OVERTIME",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.98,
+              "away": 0.02
+            },
+            "rationale": "Spain leads 1-0 in the 117th minute of extra time with Argentina down to 10 men, leaving virtually no time to equalize."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.99,
+              "away": 0.01
+            },
+            "rationale": "Spain lead by one goal in the 117th minute against 10-man Argentina, leaving extremely little time for an equaliser before the final whistle."
+          },
+          "deepseek/deepseek-v4-pro": {
+            "probs": {
+              "home": 0.97,
+              "away": 0.03
+            },
+            "rationale": "Spain leads 1-0 up a man with only a few minutes left in extra time, making an Argentina equalizer highly improbable."
+          },
+          "moonshotai/kimi-k3": {
+            "probs": {
+              "home": 0.97,
+              "away": 0.03
+            },
+            "rationale": "With roughly three minutes plus stoppage time left in extra time, 10-man Argentina must score just to reach penalties, giving Spain an overwhelming chance of closing out the final."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0.99,
+              "away": 0.01
+            },
+            "rationale": "Spain leads 1-0 in the 117th minute against a 10-man Argentina side, leaving almost no time for an equalizer."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.95,
+              "away": 0.05
+            },
+            "rationale": "Spain leads 1-0 at 117' with Argentina down to 10 men since the 90th minute, leaving Argentina only a few desperate minutes to equalize and force penalties, making a Spanish victory nearly certain."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.9,
+              "away": 0.1
+            },
+            "rationale": "Spain leads 1-0 with only ~3 minutes left and Argentina are a man down due to a red card, making a comeback very unlikely."
+          },
+          "google/gemini-3.1-pro-preview": {
+            "probs": {
+              "home": 0.98,
+              "away": 0.02
+            },
+            "rationale": "Spain holds a 1-0 lead with only minutes remaining in extra time and a one-man advantage, making an Argentine equalizer and subsequent penalty shootout victory highly unlikely."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0.93,
+              "away": 0.07
+            },
+            "rationale": "Spain leads 1-0 with only ~3+ minutes left in ET and Argentina down to 10 men since the 90th, making an equalizer highly unlikely."
+          },
+          "mistralai/mistral-medium-3-5": {
+            "probs": {
+              "home": 0.99,
+              "away": 0.01
+            },
+            "rationale": "Spain leads 1-0 with Argentina down to 10 men in extra time, making an Argentina comeback extremely unlikely."
+          }
+        }
       }
     ]
   },
