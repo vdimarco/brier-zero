@@ -34550,6 +34550,89 @@
             "rationale": "Spain has a man advantage in stoppage time with Argentina down to 10 men, increasing their chance to score before penalties."
           }
         }
+      },
+      {
+        "at": "2026-07-19T21:17:57.530Z",
+        "detail": "ET",
+        "score": [
+          0,
+          0
+        ],
+        "events": 1,
+        "period": "STATUS_END_OF_REGULATION",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.72,
+              "away": 0.28
+            },
+            "rationale": "Spain enters extra time with a man advantage after Enzo Fernández's red card, giving them a significant edge in ET and any potential shootout."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.66,
+              "away": 0.34
+            },
+            "rationale": "With Argentina down to 10 men from the start of extra time, Spain should have a clear advantage in creating chances over 30 minutes plus a slight edge in penalties, though Argentina’s quality keeps it far from certain."
+          },
+          "deepseek/deepseek-v4-pro": {
+            "probs": {
+              "home": 0.72,
+              "away": 0.28
+            },
+            "rationale": "Spain has a one-man advantage for the entire 30 minutes of extra time, greatly increasing their probability of scoring and advancing, while Argentina must hold on to reach a penalty shootout where their chances would be roughly even."
+          },
+          "moonshotai/kimi-k3": {
+            "probs": {
+              "home": 0.65,
+              "away": 0.35
+            },
+            "rationale": "Argentina must survive all 30 minutes of extra time a man down after Enzo Fernández's stoppage-time red, giving Spain a strong edge to win in ET and a slight edge even if it reaches penalties."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0.62,
+              "away": 0.38
+            },
+            "rationale": "Argentina must survive all of extra time down to ten men against a possession-dominant Spain side, making a Spanish goal in ET or a penalty-shootout edge the most likely outcomes."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.7,
+              "away": 0.3
+            },
+            "rationale": "Argentina must play all of extra time with 10 men after Enzo Fernández's red card, giving Spain a major numerical advantage to dominate possession and create chances, though Argentina's defensive resilience and penalty shootout potential keep them in the contest."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.65,
+              "away": 0.35
+            },
+            "rationale": "Spain has a man advantage for the entirety of extra time, but Argentina has shown resilience in major tournament finals and could force penalties where they've historically performed well."
+          },
+          "google/gemini-3.1-pro-preview": {
+            "probs": {
+              "home": 0.68,
+              "away": 0.32
+            },
+            "rationale": "Spain has a significant advantage heading into the 30 minutes of extra time with an extra man against a fatigued Argentina, though Argentina's defensive resilience keeps them in contention to force a penalty shootout."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0.67,
+              "away": 0.33
+            },
+            "rationale": "Spain holds a clear edge playing 11v10 for the full 30 minutes of extra time after Argentina's late red card, though Argentina remain dangerous and penalties are still possible."
+          },
+          "mistralai/mistral-medium-3-5": {
+            "probs": {
+              "home": 0.65,
+              "away": 0.35
+            },
+            "rationale": "Spain has a man advantage in extra time, increasing their likelihood of scoring."
+          }
+        }
       }
     ]
   },
