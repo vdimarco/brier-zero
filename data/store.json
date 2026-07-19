@@ -34384,6 +34384,89 @@
             "rationale": "No goals scored and minimal events suggest an even match heading into stoppage time."
           }
         }
+      },
+      {
+        "at": "2026-07-19T21:10:57.076Z",
+        "detail": "90'+2'",
+        "score": [
+          0,
+          0
+        ],
+        "events": 1,
+        "period": "STATUS_SECOND_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.68,
+              "away": 0.32
+            },
+            "rationale": "With the match heading to extra time at 0-0 and Argentina reduced to 10 men after Enzo Fernández's red card, Spain gains a significant advantage over 30 minutes of extra time, though Argentina can still park the bus and reach penalties."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.72,
+              "away": 0.28
+            },
+            "rationale": "With Argentina down to 10 men in stoppage time and Spain likely to dominate in extra time, Spain’s win probability is significantly higher but penalties still leave Argentina a meaningful chance."
+          },
+          "deepseek/deepseek-v4-pro": {
+            "probs": {
+              "home": 0.78,
+              "away": 0.22
+            },
+            "rationale": "Argentina's red card just before extra time leaves them with 10 men, giving Spain a significant advantage to score in the additional 30 minutes."
+          },
+          "moonshotai/kimi-k3": {
+            "probs": {
+              "home": 0.59,
+              "away": 0.41
+            },
+            "rationale": "With 0-0 sending the final to extra time, Enzo Fernández's red card forces Argentina to play 30 minutes with 10 men, giving Spain a clear edge to win in extra time, though Argentina's elite penalty-shootout record (Martínez) keeps them live if it goes to spot kicks."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0.63,
+              "away": 0.37
+            },
+            "rationale": "Argentina must survive 30 minutes of extra time down a man after Enzo Fernández's red card, giving Spain a significant advantage even though penalties would remain roughly even."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.62,
+              "away": 0.38
+            },
+            "rationale": "Spain enters extra time with an 11-vs-10 advantage after Enzo Fernández's red card, giving them a meaningful edge in creating chances over 30 additional minutes, though Argentina's tournament resilience and penalty shootout potential keep them competitive."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.78,
+              "away": 0.22
+            },
+            "rationale": "Argentina playing 8+ minutes of stoppage time and potential extra time a man down in a final significantly disadvantages them despite their quality."
+          },
+          "google/gemini-3.1-pro-preview": {
+            "probs": {
+              "home": 0.68,
+              "away": 0.32
+            },
+            "rationale": "With the match heading into extra time, Spain gains a significant advantage playing 11 against 10 for the next 30 minutes following the late red card to Argentina."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0.63,
+              "away": 0.37
+            },
+            "rationale": "0-0 in final stoppage with Argentina reduced to 10 men means Spain enter extra time clearly favored to win in 120 or hold for better pen odds."
+          },
+          "mistralai/mistral-medium-3-5": {
+            "probs": {
+              "home": 0.75,
+              "away": 0.25
+            },
+            "rationale": "Argentina down to 10 men in stoppage time heavily favors Spain to score in extra time or win on penalties."
+          }
+        }
       }
     ]
   },
