@@ -52,17 +52,19 @@
   <main>
     <div id="banner"></div>
 
+    <section id="bankroll-section" aria-labelledby="bankroll-title" hidden>
+      <h2 id="bankroll-title">The Bankroll</h2>
+      <p class="explainer">Calibration as P&amp;L: every agent paper-trades its locked forecasts against the locked TxODDS StablePrice line. 1,000 <b>virtual units</b> at the start, at most one quarter-Kelly bet per match on its biggest edge — only when the edge clears 2% — settled by the same Merkle-verified scores as the leaderboard. No real money, ever.</p>
+      <p class="explainer bank-subnote">Substituted models run separate books — each new release started its own 1,000-unit bankroll when it joined at the roster change.</p>
+      <div id="bankchart"></div>
+      <div id="bankroll" aria-live="polite"></div>
+    </section>
+
     <section id="roster-section" aria-labelledby="roster-title">
       <h2 id="roster-title">The competitors</h2>
       <p class="explainer">One identical prompt per match — the same words, only the fixture changes — put to frontier models from nine AI labs (eight ran the whole tournament; each lab's newest release was subbed in for the final, and xAI joined then), plus <span class="market-tip" tabindex="0" role="button" aria-haspopup="dialog" aria-label="What is The Market and where do its numbers come from?"><strong>The Market</strong><span class="market-tip-mark" aria-hidden="true">?</span></span>: TxODDS StablePrice consensus odds via TxLINE on Solana, de-vigged and scored under the same Brier rules. Click a competitor for its record.</p>
       <div id="view-toggle"></div>
       <div id="roster" class="roster" aria-label="Model roster"></div>
-    </section>
-
-    <section id="bankchart-section" aria-labelledby="bankchart-title" hidden>
-      <h2 id="bankchart-title">The Bankroll race</h2>
-      <p class="explainer">Paper units per agent, match by match — quarter-Kelly bets against the locked TxODDS StablePrice line, settled by the same Merkle-verified scores as the leaderboard. No real money, ever.</p>
-      <div id="bankchart"></div>
     </section>
 
     <section id="trophy-section" aria-labelledby="trophy-title" hidden>
@@ -82,7 +84,7 @@
       <!-- div, not p: the tip's popover holds <p>/<ul> blocks, and a <p>
            container would be auto-closed by the parser, spilling the popover
            content into the page as visible text. -->
-      <div class="explainer"><span class="brier-tip brier-tip-static" tabindex="0" role="button" aria-label="What is a Brier score?">
+      <div class="explainer">Models are ranked by average <span class="brier-tip brier-tip-static" tabindex="0" role="button" aria-label="What is a Brier score?">
         <span class="brier-tip-label">Brier score<span class="brier-tip-mark" aria-hidden="true">?</span></span>
         <span class="brier-tip-pop" role="tooltip">
           <strong class="brier-tip-title">What is a Brier score?</strong>
@@ -97,12 +99,6 @@
         </span>
       </span> over each match's outcomes: 0 is a perfect forecast, a know-nothing coin flip scores 0.667 on a three-way group match and 0.5 on a two-way knockout tie, 2 is maximally wrong. Lower is better. Rank comes from <strong>shrunken skill vs the coin flip</strong> — each match scores (coin flip − Brier) ÷ coin flip, averaged with ten phantom coin-flip matches, so new entrants start neutral and earn rank as matches accumulate. <span class="market-tip" tabindex="0" role="button" aria-haspopup="dialog" aria-label="What is The Market and where do its numbers come from?"><strong>The Market</strong><span class="market-tip-mark" aria-hidden="true">?</span></span> is bookmaker consensus, not an LLM, scored under the same rules. Finished cards with a green badge mean the final score was Merkle-proved against TxODDS’s on-chain daily root on Solana. Click a competitor for its performance over time.</div>
       <div id="leaderboard" class="skeleton-block" aria-live="polite"></div>
-    </section>
-
-    <section id="bankroll-section" aria-labelledby="bankroll-title" hidden>
-      <h2 id="bankroll-title">The Bankroll</h2>
-      <p class="explainer">Calibration as P&amp;L: every agent paper-trades its locked forecasts against the locked TxODDS StablePrice line. 1,000 <b>virtual units</b> at the start, at most one quarter-Kelly bet per match on its biggest edge — only when the edge clears 2% — settled by the same Merkle-verified scores as the leaderboard. No real money, ever.</p>
-      <div id="bankroll" aria-live="polite"></div>
     </section>
 
     <section id="edge-section" aria-labelledby="edge-title" hidden>

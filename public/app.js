@@ -1104,14 +1104,41 @@ function renderBankroll(state) {
   section.hidden = false;
   rows.sort((a, b) => b.bankroll - a.bankroll);
   const start = bk.startingBankroll ?? 1000;
-  el.innerHTML = `<div class="bank-wrap">${rows.map((r, i) => {
+
+  // The site's best story, computed from live data so the final's
+  // settlement updates it: The Market wins calibration, yet the bankroll
+  // leader is nowhere near the top of the Brier board.
+  const board = (state.leaderboard ?? []).filter((r) => r.scored > 0);
+  const marketRow = board.find((r) => r.model === MARKET_ID);
+  const topBank = rows[0];
+  let storyCard = '';
+  if (marketRow && board.indexOf(marketRow) === 0 && topBank?.betsPlaced) {
+    const agents = board.filter((r) => r.model !== MARKET_ID);
+    const leadRow = agents.find((r) => r.model === topBank.model);
+    const calRank = leadRow ? agents.indexOf(leadRow) + 1 : 0;
+    const leadLabel = entrantById(state, topBank.model)?.label ?? topBank.model;
+    if (leadRow && calRank > 1) {
+      const ord = (n) => n + (n % 10 === 1 && n % 100 !== 11 ? 'st' : n % 10 === 2 && n % 100 !== 12 ? 'nd' : n % 10 === 3 && n % 100 !== 13 ? 'rd' : 'th');
+      const calDesc = calRank === agents.length
+        ? 'the worst-calibrated agent in the field'
+        : `an agent ranked ${ord(calRank)} of ${agents.length} on calibration`;
+      storyCard = `<div class="lb-miss bank-story">
+        <span class="lb-miss-tag bank-story-tag">The best forecaster isn't the richest agent</span>
+        <span class="lb-miss-body">The Market out-calibrates every model (<b>${fmtSkill(marketRow.avgSkill)}</b> vs the coin flip), and no agent beats its Brier score. But ${calDesc} — <b>${esc(leadLabel)}</b> — leads the bankroll at <b>${fmtUnits(topBank.bankroll)}</b>, hitting just <b>${topBank.wins} of ${topBank.betsPlaced}</b> longshot bets. Calibration wins the Brier Cup; variance wins the bankroll.</span>
+      </div>`;
+    }
+  }
+
+  el.innerHTML = `${storyCard}<div class="bank-wrap">${rows.map((r, i) => {
     const meta = entrantById(state, r.model);
+    let labLabel = meta?.labLabel ?? labsOf(state).find((l) => l.id === (meta?.lab ?? ''))?.label ?? null;
+    if (labLabel && labLabel === (meta?.label ?? r.model)) labLabel = null; // tag adds nothing when it repeats the name
     const hit = r.betsPlaced ? `${r.wins}/${r.betsPlaced}` : '—';
     const up = r.bankroll >= start;
     return `<div class="bank-row${i === 0 ? ' leader' : ''}" data-model="${esc(r.model)}" role="button" tabindex="0" aria-label="Open bet ledger for ${esc(meta?.label ?? r.model)}">
       <div class="bank-rank">${i + 1}</div>
       <div class="lb-id">${meta?.icon ? `<img class="crest" src="${esc(meta.icon)}" alt="" onerror="this.style.visibility='hidden'">` : ''}
-        <span class="bank-name">${esc(meta?.label ?? r.model)}</span></div>
+        <span class="bank-name">${esc(meta?.label ?? r.model)}${labLabel ? `<span class="bank-lab" title="${esc(labLabel)}'s entrant — substituted models run separate books">${esc(labLabel)}</span>` : ''}</span></div>
       ${bankSpark(r.series, start)}
       <div class="bank-cells">
         <span class="bank-units ${up ? 'lb-bank-up' : 'lb-bank-down'}">${fmtUnits(r.bankroll)}</span>
@@ -1206,7 +1233,10 @@ function smoothPath(pts) {
 }
 
 function renderBankrollChart(state) {
-  const section = document.getElementById('bankchart-section');
+  // Chart and table share one merged section (#bankroll-section); both
+  // renderers derive from the same state.bankroll, so their hidden
+  // toggles always agree.
+  const section = document.getElementById('bankroll-section');
   const el = document.getElementById('bankchart');
   if (!section || !el) return;
   const data = bankChartData(state);
@@ -1459,7 +1489,7 @@ function edgeMatchHtml(state, match) {
     const chips = r.edges
       .slice()
       .sort((a, b) => b.edge - a.edge)
-      .map((e) => `<span class="edge-chip ${e.edge > 0.02 ? 'edge-pos' : 'edge-neu'}" title="${esc(e.label)}: implied edge at ${r.odds?.toFixed(2)}${r.oddsType === 'fair' ? ' (fair, de-vigged)' : ''}">${esc(e.label)} ${fmtEdge(e.edge)}</span>`)
+      .map((e) => `<span class="edge-chip ${e.edge > 0.02 ? 'edge-pos' : 'edge-neu'}" title="${esc(e.label)}: ${fmtEdge(e.edge)} implied edge at ${r.odds?.toFixed(2)}${r.oddsType === 'fair' ? ' (fair, de-vigged)' : ''}">${esc(e.label)} ${fmtEdge(e.edge)}</span>`)
       .join('');
     return `<tr class="${r.div >= 0.0001 ? 'edge-row-pos' : ''}">
       <td class="edge-out">${esc(outcomeName(match, r.outcome))}</td>
