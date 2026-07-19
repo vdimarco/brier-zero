@@ -1884,3 +1884,7 @@ main section, #prompt-section { scroll-margin-top: 76px; }
 /* The whole consensus card toggles the agent breakdown */
 #hero-consensus { cursor: pointer; }
 #hero-consensus .hc-status, #hero-consensus .hc-model { cursor: pointer; }
+
+/* Country slides: the region's flag stands in the crest position */
+.podium-crest-flag { display: flex; align-items: center; justify-content: center; font-size: 30px; line-height: 1; }
+.podium-1 .podium-crest-flag { font-size: 37px; }

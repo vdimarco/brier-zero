@@ -2841,8 +2841,8 @@ function podiumSlides(state) {
       if (!bloc || bloc === 'market' || seen.has(bloc)) continue;
       seen.add(bloc);
       brierByCountry.push({
-        label: `${blocEmoji(bloc)} ${r.label}`,
-        icon: r.icon ?? entrantById(state, r.model)?.icon ?? null,
+        label: r.label,
+        flag: blocEmoji(bloc),
         value: r.avgBrier.toFixed(3),
         aria: `${r.label}, the region's best, average Brier ${r.avgBrier.toFixed(3)}`,
         model: r.model,
@@ -2864,8 +2864,8 @@ function podiumSlides(state) {
       .map(([bloc, m]) => {
         const meta = entrantById(state, m.model);
         return {
-          label: `${blocEmoji(bloc)} ${meta?.label ?? m.model}`,
-          icon: meta?.icon ?? null,
+          label: meta?.label ?? m.model,
+          flag: blocEmoji(bloc),
           value: fmtUnits(m.bankroll),
           valueClass: m.bankroll >= start ? 'up' : 'down',
           aria: `${meta?.label ?? m.model}, the region's best book, ${fmtUnits(m.bankroll)} paper units`,
@@ -2921,7 +2921,8 @@ function renderPodium(state) {
     const tag = r.model ? 'button' : 'div';
     return `<${tag} class="podium-slot podium-${place}${r.model ? '' : ' podium-static'}"${r.model ? ` data-model="${esc(r.model)}"` : ''}
       aria-label="${PLACE_WORD[place]} place: ${esc(r.label)}, ${esc(r.aria)}${r.model ? '. Open performance detail.' : ''}">
-      ${r.icon ? `<img class="podium-crest" src="${esc(r.icon)}" alt="" onerror="this.style.visibility='hidden'">` : ''}
+      ${r.flag ? `<span class="podium-crest podium-crest-flag" aria-hidden="true">${esc(r.flag)}</span>`
+        : (r.icon ? `<img class="podium-crest" src="${esc(r.icon)}" alt="" onerror="this.style.visibility='hidden'">` : '')}
       <span class="podium-name">${esc(r.label)}</span>
       <span class="podium-brier podium-v-${r.valueClass ?? 'brier'}">${esc(r.value)}</span>
       <span class="podium-step" aria-hidden="true">${place}${place === 1 ? '<span class="podium-step-cup">🏆</span>' : ''}</span>
