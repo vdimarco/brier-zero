@@ -41,7 +41,7 @@
       <div class="hero-copy">
         <h1>Who's winning the <span class="gold">World Cup</span>?<span class="hero-by">According to the machines.</span></h1>
         <p id="hero-hook" class="hero-hook" hidden></p>
-        <p class="hero-sub">One identical <a class="hero-sub-link" href="#prompt-section">prompt</a> per match, locked at kickoff. Paper bets settle against the real TxODDS line on Solana; Brier scores settle the argument.</p>
+        <p class="hero-sub">One identical <a class="hero-sub-link prompt-tip" href="#prompt-section" aria-haspopup="dialog">prompt</a> per match, locked at kickoff. Paper bets settle against the real TxODDS line on Solana; Brier scores settle the argument.</p>
         <a class="hero-read" href="/research">
           <span class="np">New</span>
           <span>How the models called France–Spain &amp; England–Argentina</span>
@@ -222,6 +222,16 @@ The two probabilities must sum to 1.</pre>
   <footer class="foot">
     <p>Scores from ESPN’s public feed; forecasts via OpenRouter, one identical prompt per model, pre-kickoff locks only. Market lines from <strong>TxODDS StablePrice</strong> over <strong>TxLINE</strong> on Solana — green badges mean the score Merkle-proved against the on-chain daily root. Paper trading only, no real money. Built for the Superteam × TxODDS World Cup hackathon — <strong>Trading Tools &amp; Agents</strong> track.</p>
   </footer>
+
+  <div id="prompt-modal" hidden>
+    <div class="mkt-scrim" data-prompt-close></div>
+    <section class="mkt-panel prompt-panel" role="dialog" aria-modal="true" aria-labelledby="prompt-modal-title">
+      <button class="mkt-close" data-prompt-close aria-label="Close">✕</button>
+      <h3 id="prompt-modal-title">The prompt</h3>
+      <p>Every model receives exactly the same words, with only the fixture filled in. No odds, no news, no hints.</p>
+      <div id="prompt-modal-body"></div>
+    </section>
+  </div>
 
   <div id="kelly-modal" hidden>
     <div class="mkt-scrim" data-kelly-close></div>

@@ -1406,11 +1406,11 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
 }
 .lb-name .market-tip, .detail-title .market-tip { border-bottom-width: 1px; }
 
-#market-modal .mkt-scrim, #kelly-modal .mkt-scrim {
+#market-modal .mkt-scrim, #kelly-modal .mkt-scrim, #prompt-modal .mkt-scrim {
   position: fixed; inset: 0; z-index: 60;
   background: rgba(12, 26, 14, 0.45);
 }
-#market-modal .mkt-panel, #kelly-modal .mkt-panel {
+#market-modal .mkt-panel, #kelly-modal .mkt-panel, #prompt-modal .mkt-panel {
   position: fixed; z-index: 61;
   top: 50%; left: 50%; transform: translate(-50%, -50%);
   width: min(460px, calc(100vw - 24px));
@@ -1420,20 +1420,20 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
   box-shadow: 0 12px 40px rgba(12, 26, 14, 0.25);
   padding: 22px 22px 18px;
 }
-#market-modal h3, #kelly-modal h3 { margin: 0 34px 10px 0; font-size: 17px; letter-spacing: -0.01em; }
-#market-modal p, #market-modal li, #kelly-modal p, #kelly-modal li { color: var(--ink-2); font-size: 14px; line-height: 1.55; }
-#market-modal p, #kelly-modal p { margin: 0 0 10px; }
-#market-modal ul, #kelly-modal ul { margin: 0 0 10px; padding-left: 20px; }
-#market-modal li, #kelly-modal li { margin-bottom: 8px; }
-#market-modal li b, #market-modal p strong, #kelly-modal li b, #kelly-modal p strong { color: var(--ink); }
-#market-modal .mkt-foot, #kelly-modal .mkt-foot { color: var(--ink-3); font-size: 12.5px; margin: 12px 0 0; border-top: 1px solid var(--hairline); padding-top: 12px; }
-#market-modal .mkt-close, #kelly-modal .mkt-close {
+#market-modal h3, #kelly-modal h3, #prompt-modal h3 { margin: 0 34px 10px 0; font-size: 17px; letter-spacing: -0.01em; }
+#market-modal p, #market-modal li, #kelly-modal p, #kelly-modal li, #prompt-modal p, #prompt-modal li { color: var(--ink-2); font-size: 14px; line-height: 1.55; }
+#market-modal p, #kelly-modal p, #prompt-modal p { margin: 0 0 10px; }
+#market-modal ul, #kelly-modal ul, #prompt-modal ul { margin: 0 0 10px; padding-left: 20px; }
+#market-modal li, #kelly-modal li, #prompt-modal li { margin-bottom: 8px; }
+#market-modal li b, #market-modal p strong, #kelly-modal li b, #kelly-modal p strong, #prompt-modal li b, #prompt-modal p strong { color: var(--ink); }
+#market-modal .mkt-foot, #kelly-modal .mkt-foot, #prompt-modal .mkt-foot { color: var(--ink-3); font-size: 12.5px; margin: 12px 0 0; border-top: 1px solid var(--hairline); padding-top: 12px; }
+#market-modal .mkt-close, #kelly-modal .mkt-close, #prompt-modal .mkt-close {
   position: absolute; top: 10px; right: 10px;
   width: 36px; height: 36px; border-radius: 50%;
   background: none; border: 0; cursor: pointer;
   color: var(--ink-3); font-size: 15px;
 }
-#market-modal .mkt-close:hover, #market-modal .mkt-close:focus-visible, #kelly-modal .mkt-close:hover, #kelly-modal .mkt-close:focus-visible { background: var(--surface-2); color: var(--ink); }
+#market-modal .mkt-close:hover, #market-modal .mkt-close:focus-visible, #kelly-modal .mkt-close:hover, #kelly-modal .mkt-close:focus-visible, #prompt-modal .mkt-close:hover, #prompt-modal .mkt-close:focus-visible { background: var(--surface-2); color: var(--ink); }
 body.mkt-open { overflow: hidden; }
 
 /* Settlement proof modal (reuses .mkt-scrim/.mkt-panel/.mkt-close scaffold). */
@@ -1753,4 +1753,19 @@ th.edge-num, td.edge-num { text-align: right; font-variant-numeric: tabular-nums
   font: 600 12.5px/1.5 var(--mono, ui-monospace, monospace);
   background: var(--surface-2); border-radius: 4px; padding: 1px 5px;
   white-space: nowrap;
+}
+
+/* Prompt modal: wider panel; cloned <details> reuse the section's look */
+#prompt-modal .prompt-panel { width: min(640px, calc(100vw - 24px)); }
+#prompt-modal details {
+  background: var(--surface-2); border: 1px solid var(--hairline);
+  border-radius: var(--radius-el); margin-top: 8px;
+}
+#prompt-modal summary { cursor: pointer; padding: 9px 12px; font-size: 13px; font-weight: 650; color: var(--ink-2); }
+#prompt-modal summary:hover { color: var(--pitch); }
+#prompt-modal details[open] summary { border-bottom: 1px solid var(--hairline); color: var(--ink); }
+#prompt-modal pre {
+  margin: 0; padding: 12px; overflow-x: auto;
+  font: 400 11.5px/1.6 ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  color: var(--ink-2); white-space: pre-wrap; word-break: break-word;
 }

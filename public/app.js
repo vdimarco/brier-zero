@@ -217,6 +217,26 @@ if (typeof document !== 'undefined') {
   const kellyModal = () => document.getElementById('kelly-modal');
   const openKellyModal = () => { const m = kellyModal(); if (m) { m.hidden = false; document.body.classList.add('mkt-open'); m.querySelector('.mkt-close')?.focus(); } };
   const closeKellyModal = () => { const m = kellyModal(); if (m && !m.hidden) { m.hidden = true; document.body.classList.remove('mkt-open'); } };
+  // Prompt modal: clones the live prompt section (the baked-and-refreshed
+  // <details> blocks) on open, so the modal can never drift from the page.
+  const promptModal = () => document.getElementById('prompt-modal');
+  const openPromptModal = () => {
+    const m = promptModal();
+    const body = document.getElementById('prompt-modal-body');
+    if (!m || !body) return;
+    body.innerHTML = '';
+    document.querySelectorAll('#prompt-section details').forEach((d, i) => {
+      const copy = d.cloneNode(true);
+      copy.open = i === 0;
+      // The originals' <pre> ids must stay unique to the section.
+      copy.querySelectorAll('[id]').forEach((el) => el.removeAttribute('id'));
+      body.appendChild(copy);
+    });
+    m.hidden = false;
+    document.body.classList.add('mkt-open');
+    m.querySelector('.mkt-close')?.focus();
+  };
+  const closePromptModal = () => { const m = promptModal(); if (m && !m.hidden) { m.hidden = true; document.body.classList.remove('mkt-open'); } };
   document.addEventListener('click', (e) => {
     const proofBtn = e.target.closest?.('.proof-badge[data-proof]');
     const copyBtn = e.target.closest?.('.proof-copy[data-copy]');
@@ -251,6 +271,14 @@ if (typeof document !== 'undefined') {
       e.preventDefault();
       e.stopPropagation();
       closeKellyModal();
+    } else if (e.target.closest?.('.prompt-tip')) {
+      e.preventDefault();
+      e.stopPropagation();
+      openPromptModal();
+    } else if (e.target.closest?.('[data-prompt-close]')) {
+      e.preventDefault();
+      e.stopPropagation();
+      closePromptModal();
     }
   }, true);
   document.addEventListener('keydown', (e) => {
@@ -277,6 +305,7 @@ if (typeof document !== 'undefined') {
     if (e.key === 'Escape') {
       closeMarketModal();
       closeKellyModal();
+      closePromptModal();
       closeProofModal();
       // Close tip popovers too, wherever focus is.
       document.querySelectorAll('.brier-tip.open').forEach((t) => t.classList.remove('open'));
