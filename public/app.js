@@ -1192,6 +1192,7 @@ const LAB_COLORS = {
   anthropic: '#2a78d6', openai: '#eb6834', deepseek: '#086b47',
   moonshotai: '#c94f80', 'z-ai': '#008300', qwen: '#e34948',
   minimax: '#0e8aa5', google: '#c78500', 'x-ai': '#4a3aa7',
+  mistralai: '#a4571b',
 };
 const labOf = (state, modelId) =>
   entrantById(state, modelId)?.lab ?? modelId.split('/')[0];
@@ -1219,10 +1220,22 @@ function bankChartData(state) {
     .filter((m) => m.series?.length && !entrantById(state, m.model)?.retired)
     .map((m) => {
       const meta = entrantById(state, m.model);
-      const pts = m.series
+      const sparse = m.series
         .filter((p) => matchIdx.has(p.matchId))
         .map((p) => ({ i: matchIdx.get(p.matchId), v: p.after }));
-      if (!pts.length) return null;
+      if (!sparse.length) return null;
+      // A model doesn't price every match, so its series skips indices —
+      // and a smoothed line drawn over the gaps renders long straight
+      // chords, as if the bankroll drifted between bets. It didn't: it
+      // held. Densify with hold values so the line only moves at matches
+      // the model actually settled.
+      const pts = [];
+      let k = 0;
+      let v = sparse[0].v;
+      for (let i = sparse[0].i; i <= sparse[sparse.length - 1].i; i++) {
+        if (k < sparse.length && sparse[k].i === i) { v = sparse[k].v; k++; }
+        pts.push({ i, v });
+      }
       pts.unshift({ i: pts[0].i - 1, v: start });
       return {
         id: m.model,
@@ -2727,14 +2740,95 @@ function renderTrophy(state) {
 /* Podium: the current top three, front and centre in the hero band. Same
    ranking rules as the leaderboard — shrunken skill, unscored rows
    don't medal. */
+/* Podium carousel: six top-three views rotating through Brier and
+   Bankroll, each at three granularities (country bloc / lab / model).
+   The slide index lives at module level so polling re-renders keep the
+   current slide; the timer advances it and re-renders just the podium. */
+const PODIUM_ROTATE_MS = 7000;
+let podiumSlideIdx = 0;
+let podiumTimer = null;
+let podiumPaused = false;
+
+function podiumSlides(state) {
+  const brierRows = (board, granularity) => (board ?? [])
+    .filter((r) => r.scored > 0)
+    .slice(0, 3)
+    .map((r) => ({
+      label: r.label,
+      icon: r.icon ?? entrantById(state, r.model)?.icon ?? null,
+      value: r.avgBrier.toFixed(3),
+      aria: `average Brier ${r.avgBrier.toFixed(3)}`,
+      // Only model rows resolve in every leaderboard view; group rows
+      // stay non-clickable rather than opening a mismatched detail.
+      model: granularity === 'model' ? r.model : null,
+    }));
+
+  const start = state.bankroll?.startingBankroll ?? 1000;
+  const books = state.bankroll
+    ? Object.values(state.bankroll.models).filter((m) => m.betsPlaced > 0)
+    : [];
+  const bankByModel = [...books]
+    .sort((a, b) => b.bankroll - a.bankroll)
+    .slice(0, 3)
+    .map((m) => {
+      const meta = entrantById(state, m.model);
+      return {
+        label: meta?.label ?? m.model,
+        icon: meta?.icon ?? null,
+        value: fmtUnits(m.bankroll),
+        valueClass: m.bankroll >= start ? 'up' : 'down',
+        aria: `${fmtUnits(m.bankroll)} paper units`,
+        model: m.model,
+      };
+    });
+  // Groups run separate 1,000-unit books (one per model), so the honest
+  // group number is summed net P&L, not a summed "bankroll".
+  const bankGroups = (keyOf, labelOf) => {
+    const groups = new Map();
+    for (const m of books) {
+      const key = keyOf(m.model);
+      if (!key) continue;
+      const g = groups.get(key) ?? { key, pnl: 0, books: 0 };
+      g.pnl += m.bankroll - start;
+      g.books += 1;
+      groups.set(key, g);
+    }
+    return [...groups.values()]
+      .sort((a, b) => b.pnl - a.pnl)
+      .slice(0, 3)
+      .map((g) => ({
+        label: labelOf(g.key),
+        icon: null,
+        value: `${g.pnl >= 0 ? '+' : '−'}${fmtUnits(Math.abs(g.pnl))}`,
+        valueClass: g.pnl >= 0 ? 'up' : 'down',
+        aria: `net ${g.pnl >= 0 ? 'profit' : 'loss'} of ${fmtUnits(Math.abs(g.pnl))} paper units over ${g.books} book${g.books === 1 ? '' : 's'}`,
+        model: null,
+      }));
+  };
+  const blocLabel = new Map((state.leaderboardByBloc ?? []).map((r) => [r.model, r.label]));
+  const labLabels = new Map(labsOf(state).map((l) => [l.id, l.label]));
+
+  return [
+    { key: 'brier-bloc', title: 'Brier · by country', note: 'consensus of each bloc\'s labs · lower is sharper', rows: brierRows(state.leaderboardByBloc, 'bloc') },
+    { key: 'brier-lab', title: 'Brier · by lab', note: 'one record per lab · lower is sharper', rows: brierRows(state.leaderboardByLab, 'lab') },
+    { key: 'brier-model', title: 'Brier · by model', note: 'every entrant separately · lower is sharper', rows: brierRows(state.leaderboard, 'model') },
+    { key: 'bank-bloc', title: 'Bankroll · by country', note: 'net paper P&L across the bloc\'s books', rows: bankGroups((id) => entrantById(state, id)?.bloc ?? null, (k) => blocLabel.get(k) ?? k.toUpperCase()) },
+    { key: 'bank-lab', title: 'Bankroll · by lab', note: 'net paper P&L across the lab\'s books', rows: bankGroups((id) => labOf(state, id), (k) => labLabels.get(k) ?? k) },
+    { key: 'bank-model', title: 'Bankroll · by model', note: 'paper units, from 1,000 at the start', rows: bankByModel },
+  ].filter((s) => s.rows.length >= 2);
+}
+
 function renderPodium(state) {
   const el = $('#podium');
   if (!el) return;
-  const scoredRows = boardOf(state).filter((r) => r.scored > 0);
-  const top = scoredRows.slice(0, 3);
-  if (top.length < 2) { el.innerHTML = ''; return; }
+  const slides = podiumSlides(state);
+  if (!slides.length) { el.innerHTML = ''; return; }
+  podiumSlideIdx %= slides.length;
+  const slide = slides[podiumSlideIdx];
+
   // The headline question is "does anything beat the bookies?" — say the
-  // market's relative standing plainly, right under the podium.
+  // market's relative standing plainly, beside the podium.
+  const scoredRows = boardOf(state).filter((r) => r.scored > 0);
   const mi = scoredRows.findIndex((r) => r.model === MARKET_ID);
   let marketStrip = '';
   if (mi >= 0) {
@@ -2748,35 +2842,81 @@ function renderPodium(state) {
       <span>${text} <span class="podium-market-src">TxODDS StablePrice · TxLINE on Solana</span></span>
     </button>`;
   }
+
   const PLACE_WORD = { 1: 'First', 2: 'Second', 3: 'Third' };
   const slot = (r, place) => {
     if (!r) {
-      // Fewer than three scored entrants: the step stands empty until the
-      // next match scores someone.
       return `<div class="podium-slot podium-${place} podium-vacant" aria-label="${PLACE_WORD[place]} place: vacant">
         <span class="podium-name">Up for grabs</span>
         <span class="podium-brier">in the final</span>
         <span class="podium-step" aria-hidden="true">${place}</span>
       </div>`;
     }
-    const icon = entrantById(state, r.model)?.icon ?? r.icon;
-    return `<button class="podium-slot podium-${place}" data-model="${esc(r.model)}"
-      aria-label="${PLACE_WORD[place]} place: ${esc(r.label)}, average Brier ${r.avgBrier.toFixed(3)}. Open performance detail.">
+    const tag = r.model ? 'button' : 'div';
+    return `<${tag} class="podium-slot podium-${place}${r.model ? '' : ' podium-static'}"${r.model ? ` data-model="${esc(r.model)}"` : ''}
+      aria-label="${PLACE_WORD[place]} place: ${esc(r.label)}, ${esc(r.aria)}${r.model ? '. Open performance detail.' : ''}">
       ${place === 1 ? '<span class="podium-crown" aria-hidden="true">🏆</span>' : ''}
-      ${icon ? `<img class="podium-crest" src="${esc(icon)}" alt="" onerror="this.style.visibility='hidden'">` : ''}
+      ${r.icon ? `<img class="podium-crest" src="${esc(r.icon)}" alt="" onerror="this.style.visibility='hidden'">` : ''}
       <span class="podium-name">${esc(r.label)}</span>
-      <span class="podium-brier">${r.avgBrier.toFixed(3)}</span>
+      <span class="podium-brier podium-v-${r.valueClass ?? 'brier'}">${esc(r.value)}</span>
       <span class="podium-step" aria-hidden="true">${place}</span>
-    </button>`;
+    </${tag}>`;
   };
-  el.innerHTML = `<div class="podium" role="group" aria-label="Current top three, by average Brier score">
-    ${slot(top[1], 2)}${slot(top[0], 1)}${slot(top[2], 3)}
+
+  el.innerHTML = `<div class="podium-stage">
+    <div class="podium-slide-head">
+      <span class="podium-slide-title">${esc(slide.title)}</span>
+      <span class="podium-nav">
+        <button class="podium-arrow" data-step="-1" aria-label="Previous podium view">‹</button>
+        <span class="podium-dots" role="tablist" aria-label="Podium views">
+          ${slides.map((s, i) => `<button class="podium-dot${i === podiumSlideIdx ? ' active' : ''}" role="tab" aria-selected="${i === podiumSlideIdx}" data-slide="${i}" title="${esc(s.title)}"></button>`).join('')}
+        </span>
+        <button class="podium-arrow" data-step="1" aria-label="Next podium view">›</button>
+      </span>
+    </div>
+    <div class="podium" role="group" aria-label="Top three, ${esc(slide.title)}">
+      ${slot(slide.rows[1], 2)}${slot(slide.rows[0], 1)}${slot(slide.rows[2], 3)}
+    </div>
+    <p class="podium-note">${esc(slide.note)}</p>
   </div>
-  <p class="podium-note">The leaderboard's top three · knockout phase · average Brier · lower is sharper</p>
   ${marketStrip}`;
+
   for (const s of el.querySelectorAll('[data-model]')) {
     s.addEventListener('click', () => { location.hash = `p/${encodeURIComponent(s.dataset.model)}`; });
   }
+  for (const d of el.querySelectorAll('.podium-dot')) {
+    d.addEventListener('click', (e) => {
+      e.stopPropagation();
+      podiumSlideIdx = Number(d.dataset.slide);
+      renderPodium(state);
+    });
+  }
+  for (const a of el.querySelectorAll('.podium-arrow')) {
+    a.addEventListener('click', (e) => {
+      e.stopPropagation();
+      podiumSlideIdx = (podiumSlideIdx + Number(a.dataset.step) + slides.length) % slides.length;
+      renderPodium(state);
+      // Keep keyboard focus on the equivalent arrow after the re-render.
+      el.querySelector(`.podium-arrow[data-step="${a.dataset.step}"]`)?.focus();
+    });
+  }
+  const stage = el.querySelector('.podium-stage');
+  stage.addEventListener('mouseenter', () => { podiumPaused = true; });
+  stage.addEventListener('mouseleave', () => { podiumPaused = false; });
+  stage.addEventListener('focusin', () => { podiumPaused = true; });
+  stage.addEventListener('focusout', () => { podiumPaused = false; });
+
+  clearTimeout(podiumTimer);
+  if (typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  podiumTimer = setTimeout(function advance() {
+    if (!podiumPaused && lastState) {
+      podiumSlideIdx = (podiumSlideIdx + 1) % slides.length;
+      renderPodium(lastState);
+    } else {
+      // Paused: keep ticking without advancing so rotation resumes.
+      podiumTimer = setTimeout(advance, PODIUM_ROTATE_MS);
+    }
+  }, PODIUM_ROTATE_MS);
 }
 
 /* Featured match: the live game, or the next kickoff, big and up front. */

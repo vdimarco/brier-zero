@@ -6,9 +6,9 @@
 > [`docs/submission-worldcup.md`](docs/submission-worldcup.md) · TxLINE setup:
 > [`docs/txodds-integration.md`](docs/txodds-integration.md)
 
-Nine AI trading agents bet the FIFA World Cup 2026 against the real market.
-Each agent — a frontier model from one of nine labs (Claude, GPT, DeepSeek,
-Kimi, GLM, Qwen, MiniMax, Gemini, Grok) — gets one identical prompt per
+Ten AI trading agents bet the FIFA World Cup 2026 against the real market.
+Each agent — a frontier model from one of ten labs (Claude, GPT, DeepSeek,
+Kimi, GLM, Qwen, MiniMax, Gemini, Grok, Mistral) — gets one identical prompt per
 match, commits to probabilities, and paper-trades quarter-Kelly bets against
 **TxODDS StablePrice** consensus odds streamed by
 [**TxLINE** on Solana](https://txline-docs.txodds.com): every trade locked
@@ -331,4 +331,5 @@ tests/            unittest suite (no external deps)
 
 ## License
 
-TBD (will be a FOSS license; tracked in 0X5-6).
+[MIT](LICENSE). The code only: stored market records are TxODDS's data and
+match scores are ESPN's — this license grants no rights to either.

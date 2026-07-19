@@ -1666,7 +1666,8 @@ th.edge-num, td.edge-num { text-align: right; font-variant-numeric: tabular-nums
 .bkc-svg[data-focus="qwen"] [data-lab="qwen"],
 .bkc-svg[data-focus="minimax"] [data-lab="minimax"],
 .bkc-svg[data-focus="google"] [data-lab="google"],
-.bkc-svg[data-focus="x-ai"] [data-lab="x-ai"] { opacity: 1; }
+.bkc-svg[data-focus="x-ai"] [data-lab="x-ai"],
+.bkc-svg[data-focus="mistralai"] [data-lab="mistralai"] { opacity: 1; }
 .bkc-svg[data-focus] [data-lab].bkc-line { stroke-width: 3; }
 .bkc-tip {
   position: absolute; top: 10px; pointer-events: none; z-index: 3;
@@ -1817,3 +1818,37 @@ main section, #prompt-section { scroll-margin-top: 76px; }
   color: #ffffff; background: var(--away); border-radius: 5px;
   padding: 1px 6px; font-size: 10px; letter-spacing: 0.05em;
 }
+
+/* Podium carousel: six rotating top-three views (Brier/Bankroll x
+   country/lab/model). Dots switch manually; hover/focus pauses. */
+.podium-slide-head {
+  display: flex; align-items: center; justify-content: space-between;
+  max-width: 560px; margin: 0 auto 10px; gap: 10px;
+}
+.podium-slide-title {
+  font: 800 10.5px/1.4 system-ui, sans-serif; letter-spacing: 0.07em;
+  text-transform: uppercase; color: rgba(255, 255, 255, 0.7);
+}
+.podium-dots { display: flex; gap: 6px; }
+.podium-dot {
+  width: 8px; height: 8px; border-radius: 50%; padding: 0; cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.5); background: transparent;
+}
+.podium-dot:hover { border-color: #ffffff; }
+.podium-dot.active { background: var(--kit-gold); border-color: var(--kit-gold); }
+.podium-dot:focus-visible { outline: 2px solid var(--kit-gold); outline-offset: 2px; }
+.podium-static { cursor: default; }
+.podium-v-up { color: #9fe3b4; }
+.podium-v-down { color: #ffb3a7; }
+.podium-1 .podium-brier.podium-v-up, .podium-1 .podium-brier.podium-v-down { color: var(--kit-gold); }
+
+/* Podium carousel arrows */
+.podium-nav { display: flex; align-items: center; gap: 8px; }
+.podium-arrow {
+  width: 22px; height: 22px; border-radius: 50%; padding: 0; cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.4); background: transparent;
+  color: rgba(255, 255, 255, 0.85); font: 700 14px/1 system-ui, sans-serif;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.podium-arrow:hover { border-color: #ffffff; color: #ffffff; background: rgba(255, 255, 255, 0.1); }
+.podium-arrow:focus-visible { outline: 2px solid var(--kit-gold); outline-offset: 2px; }
