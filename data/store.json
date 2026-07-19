@@ -35767,6 +35767,78 @@
           "rationale": "Spain's rapidly developing young core and recent Euro 2024 dominance give them a very slight edge over an elite but aging Argentine squad that may be transitioning away from its veteran stars by 2026."
         }
       }
+    },
+    {
+      "at": "2026-07-19T18:03:53.079Z",
+      "teams": [
+        "Spain",
+        "Argentina"
+      ],
+      "models": {
+        "anthropic/claude-opus-4.7": {
+          "probs": {
+            "Spain": 0.55,
+            "Argentina": 0.45
+          },
+          "rationale": "Spain has been the top-ranked side with dominant recent form, but defending champion Argentina with Messi and a proven core remains a serious threat."
+        },
+        "openai/gpt-5.1": {
+          "probs": {
+            "Spain": 0.52,
+            "Argentina": 0.48
+          },
+          "rationale": "Spain and Argentina are extremely closely matched, with Spain’s current depth and form giving them a very slight edge."
+        },
+        "deepseek/deepseek-v4-pro": {
+          "probs": {
+            "Spain": 0.52,
+            "Argentina": 0.48
+          },
+          "rationale": "Spain's deep squad and recent Euro 2024 triumph give them a slight edge over defending champions Argentina in a hypothetical final."
+        },
+        "moonshotai/kimi-k3": {
+          "probs": {
+            "Spain": 0.55,
+            "Argentina": 0.45
+          },
+          "rationale": "Spain's young, dominant squad (Euro 2024 champions with Yamal, Pedri, Rodri) gives them a slight edge over an aging Argentina side whose core, including a 39-year-old Messi, will be well past peak by 2026."
+        },
+        "z-ai/glm-5.2": {
+          "probs": {
+            "Spain": 0.55,
+            "Argentina": 0.45
+          },
+          "rationale": "Spain's youthful squad and recent European success give them a slight edge over an experienced but aging Argentine side."
+        },
+        "qwen/qwen3.7-max": {
+          "probs": {
+            "Spain": 0.5,
+            "Argentina": 0.5
+          },
+          "rationale": "With only two teams remaining in the tournament, an equal probability is assigned to each in the absence of specific matchup conditions."
+        },
+        "google/gemini-3.1-pro-preview": {
+          "probs": {
+            "Spain": 0.51,
+            "Argentina": 0.49
+          },
+          "rationale": "Spain's rising young core gives them a very slight edge over the defending champions whose key players will be aging by 2026."
+        },
+        "x-ai/grok-4.5": {
+          "probs": {
+            "Spain": 0.53,
+            "Argentina": 0.47
+          },
+          "rationale": "Spain edges Argentina slightly as current top-ranked side with strong recent form while both are elite contenders whose win probs are normalized to sum to 1."
+        },
+        "mistralai/mistral-medium-3-5": {
+          "probs": {
+            "Spain": 0.55,
+            "Argentina": 0.45
+          },
+          "rationale": "Spain has a slight edge due to recent form and squad depth, but Argentina's experience and Messi's leadership keep it close."
+        }
+      }
     }
   ],
   "proofs": {
