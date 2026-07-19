@@ -2565,12 +2565,16 @@ function heroConsensusSource(state) {
 // Collapsed by default: the team consensus is the headline; the per-agent
 // breakdown expands on demand. Survives the polling re-renders.
 let heroConsensusOpen = false;
+// When the hero card is showing the final as the featured fixture, the
+// separate NEXT/LIVE banner would duplicate it — renderFeatured checks
+// this and stands down.
+let heroFeaturedMatchId = null;
 
 function renderHeroConsensus(state) {
   const el = $('#hero-consensus');
   if (!el) return;
   const src = heroConsensusSource(state);
-  if (!src) { el.hidden = true; el.innerHTML = ''; return; }
+  if (!src) { el.hidden = true; el.innerHTML = ''; heroFeaturedMatchId = null; return; }
 
   const ranked = src.teams
     .map((t) => ({ team: t, p: src.consensus[t] ?? 0 }))
@@ -2593,9 +2597,33 @@ function renderHeroConsensus(state) {
     }))
     .sort((a, b) => b.p - a.p);
 
+  // It's the final: this card IS the next-game banner too. One header,
+  // the trophy consensus, and a live status line that walks through
+  // pre-kickoff -> live -> full time as today unfolds.
+  const finalMatch = (state.matches ?? []).find(
+    (m) => m.stage === 'final' && !m.teamsTbd
+  );
+  let headTag = 'Consensus to win it all';
+  let statusLine = '';
+  heroFeaturedMatchId = null;
+  if (finalMatch) {
+    heroFeaturedMatchId = finalMatch.id;
+    const st = finalMatch.status?.state;
+    const h = finalMatch.home, a = finalMatch.away;
+    if (st === 'in') {
+      headTag = `The final · <span class="hc-live">LIVE ${esc(finalMatch.status.detail ?? '')}</span>`;
+      statusLine = `${esc(h.name)} <b>${h.score ?? 0}–${a.score ?? 0}</b> ${esc(a.name)} · match detail →`;
+    } else if (st === 'post') {
+      headTag = 'The final · full time';
+      statusLine = `${esc(h.name)} <b>${h.score ?? 0}–${a.score ?? 0}</b> ${esc(a.name)} · how every agent called it →`;
+    } else {
+      headTag = 'The final · today';
+      statusLine = `Kicks off ${esc(countdown(finalMatch.kickoff))} · the machines' consensus to lift the trophy · match detail →`;
+    }
+  }
   el.hidden = false;
   el.classList.toggle('hc-collapsed', !heroConsensusOpen);
-  el.innerHTML = `<div class="hc-head">Consensus to win it all
+  el.innerHTML = `<div class="hc-head">${headTag}
       <button class="hc-toggle" aria-expanded="${heroConsensusOpen}">${heroConsensusOpen ? 'Hide each agent’s call ▴' : 'Show each agent’s call ▾'}</button>
     </div>
     <div class="hc-grid">
@@ -2615,7 +2643,8 @@ function renderHeroConsensus(state) {
               </button>`).join('')}
           </div>` : ''}
         </div>`).join('')}
-    </div>`;
+    </div>
+    ${statusLine ? `<a class="hc-status" href="#m/${esc(heroFeaturedMatchId)}">${statusLine}</a>` : ''}`;
   for (const btn of el.querySelectorAll('[data-model]')) {
     btn.addEventListener('click', () => { location.hash = `p/${encodeURIComponent(btn.dataset.model)}`; });
   }
@@ -2754,6 +2783,9 @@ function renderFeatured(state) {
     .sort((a, b) => new Date(a.kickoff) - new Date(b.kickoff))[0];
   const m = live ?? next;
   if (!m) { el.innerHTML = ''; return; }
+  // The hero consensus card already carries this fixture (the final) —
+  // a second NEXT/LIVE banner two blocks below would just repeat it.
+  if (m.id === heroFeaturedMatchId) { el.innerHTML = ''; return; }
   const feedPreds = entrantPredsOf(state, m);
   const market = displayMarketOf(feedPreds, m);
   const c = consensusOf(feedPreds, market);

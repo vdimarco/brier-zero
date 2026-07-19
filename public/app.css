@@ -1294,18 +1294,24 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
   .crest-lg { width: 24px; height: 28px; }
   .fbrier { min-width: 44px; font-size: 12.5px; }
 
-  /* Too narrow for four columns: the spark drops to its own row under the
-     name, with rank and score spanning both rows as before. */
-  .lb-row { grid-template-columns: 30px minmax(0, 1fr) auto; padding: 12px 14px; gap: 10px; }
-  .lb-rank, .lb-score { grid-row: 1 / span 2; }
-  .lb-spark { grid-column: 2; grid-row: 2; justify-content: flex-start; min-width: 0; }
+  /* Two tight rows. The meta line ("+39.1% vs coin flip · 32 forecasts")
+     used to live in the right-hand score column, whose max-content width
+     crushed the name column into "anthro…" and ballooned row height.
+     display:contents dissolves the score wrapper so the big Brier sits
+     on row one and the meta text gets the full width of row two. */
+  .lb-row { grid-template-columns: 26px minmax(0, 1fr) auto; padding: 10px 12px; gap: 3px 10px; }
+  .lb-rank { grid-row: 1 / span 2; align-self: center; }
+  .lb-score { display: contents; }
+  .lb-brier { grid-row: 1; grid-column: 3; text-align: right; align-self: center; }
+  .lb-meta { grid-row: 2; grid-column: 2; text-align: left; align-self: center; }
+  .lb-spark { grid-column: 3; grid-row: 2; justify-content: flex-end; min-width: 0; }
   .lb-spark:empty { display: none; }
   .lb-rank { font-size: 16px; }
   .lb-name { font-size: 14px; }
-  .lb-slug { font-size: 11.5px; }
+  .lb-slug { font-size: 11px; }
   .lb-brier { font-size: 18px; }
   .lb-meta { font-size: 11.5px; }
-  .spark-svg { width: 84px; height: 22px; }
+  .spark-svg { width: 72px; height: 20px; }
   .lb-trend { display: none; }
 
   .outcome-head { font-size: 11.5px; gap: 6px; }
@@ -1785,3 +1791,16 @@ th.edge-num, td.edge-num { text-align: right; font-variant-numeric: tabular-nums
 
 /* Anchored sections land below the fixed bar, not under it */
 main section, #prompt-section { scroll-margin-top: 76px; }
+
+/* Hero final card: status line folds the old NEXT banner into the card */
+.hc-status {
+  display: block; margin-top: 10px; padding-top: 9px;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.85); font-size: 12.5px; text-decoration: none;
+}
+.hc-status b { color: var(--kit-gold); }
+.hc-status:hover { color: #ffffff; }
+.hc-live {
+  color: #ffffff; background: var(--away); border-radius: 5px;
+  padding: 1px 6px; font-size: 10px; letter-spacing: 0.05em;
+}
