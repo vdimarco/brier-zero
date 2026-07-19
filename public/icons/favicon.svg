@@ -1,5 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 117" role="img">
-<path d="M50 5 L95 19 V60 C95 90 75 105 50 112 C25 105 5 90 5 60 V19 Z" fill="#0a7a33" stroke="#0a632b" stroke-width="4"/>
-<circle cx="50" cy="38" r="9" fill="none" stroke="#ffffff" stroke-width="4" opacity="0.9"/>
-<text x="50" y="88" text-anchor="middle" font-family="system-ui,sans-serif" font-size="34" font-weight="800" fill="#ffd75e">BC</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="The Brier Cup trophy">
+  <circle cx="50" cy="50" r="48" fill="#0a7a33"/>
+  <circle cx="50" cy="50" r="48" fill="none" stroke="#0a632b" stroke-width="3"/>
+  <!-- handles -->
+  <path d="M30 26 H18 v8 c0 10 6 17 15 19 M70 26 h12 v8 c0 10 -6 17 -15 19"
+    fill="none" stroke="#e3b341" stroke-width="6" stroke-linecap="round"/>
+  <!-- bowl -->
+  <path d="M30 20 h40 v16 c0 14 -8 24 -20 24 c-12 0 -20 -10 -20 -24 Z" fill="#ffd75e"/>
+  <!-- stem -->
+  <path d="M46 60 h8 v10 h-8 Z" fill="#ffd75e"/>
+  <path d="M40 70 h20 l4 10 h-28 Z" fill="#e3b341"/>
+  <!-- shine -->
+  <path d="M38 26 v10 c0 8 3 14 8 17" fill="none" stroke="#fff3c4" stroke-width="4" stroke-linecap="round" opacity="0.85"/>
 </svg>
