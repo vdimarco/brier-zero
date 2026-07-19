@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 117" role="img" aria-label="Gemini">
+<defs>
+<linearGradient id="gem" x1="29" y1="34" x2="71" y2="76" gradientUnits="userSpaceOnUse">
+<stop offset="0" stop-color="#4285F4"/>
+<stop offset=".52" stop-color="#9B72CB"/>
+<stop offset="1" stop-color="#D96570"/>
+</linearGradient>
+</defs>
+<path d="M50 5 L95 19 V60 C95 90 75 105 50 112 C25 105 5 90 5 60 V19 Z" fill="#ffffff" stroke="#d8d7ce" stroke-width="4"/>
+<path fill="url(#gem)" transform="translate(27 30) scale(1.9167)" d="M12 1 L14.9 9.1 L23 12 L14.9 14.9 L12 23 L9.1 14.9 L1 12 L9.1 9.1 Z"/>
+</svg>

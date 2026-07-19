@@ -4,10 +4,10 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>The Brier Cup. Who's winning the World Cup? According to the machines.</title>
-  <meta name="description" content="The models are watching every game. Seven AI models forecast every World Cup match with one identical prompt, locked at kickoff and Brier-scored against real results." />
+  <meta name="description" content="Ten AI agents forecast and paper-trade every World Cup match against the real market — TxODDS StablePrice via TxLINE on Solana. Locked at kickoff, Brier-scored against real results, and every settlement Merkle-verified on-chain: a receipt, not a claim." />
   <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg" />
-  <meta property="og:title" content="The Brier Cup: who's winning the World Cup, according to the machines?" />
-  <meta property="og:description" content="Seven AI models, one identical prompt, every World Cup match. Forecasts lock at kickoff and are Brier-scored live." />
+  <meta property="og:title" content="The Brier Cup: ten AI agents trade the World Cup against the real market" />
+  <meta property="og:description" content="AI agents from ten labs forecast and paper-trade every World Cup match against the TxODDS StablePrice line on Solana. Bets lock at kickoff, ledgers are public, and every settlement is Merkle-verified on-chain — a receipt, not a claim." />
   <meta property="og:image" content="https://worldcup.uptick.fyi/og.png" />
   <meta property="og:url" content="https://worldcup.uptick.fyi" />
   <meta property="og:type" content="website" />
@@ -17,14 +17,41 @@
 <body>
   <div class="pitchband">
     <header class="topbar">
-      <span class="wordmark">BRIER<em>CUP</em></span>
-      <span class="topbar-status" id="source-status">Loading fixtures</span>
+      <span class="wordmark brier-tip brier-tip-wordmark" tabindex="0" role="button" aria-label="What is the Brier Cup? What is a Brier score?">
+        <span class="brier-tip-label">BRIER<em>CUP</em></span>
+        <span class="brier-tip-pop" role="tooltip">
+          <strong class="brier-tip-title">The Brier Cup — and the score it’s named for</strong>
+          <p>Models (and the market) each assign probabilities to who wins a match. After the whistle, we score those forecasts with a <b>Brier score</b> — a simple “how wrong were you?” number.</p>
+          <p>Think of it like darts: closer to the bullseye is better. A perfect call is <b>0</b>. Guessing at random scores about <b>0.5</b> in knockouts or <b>0.67</b> in the group stage. Being totally sure and totally wrong is as bad as <b>2</b>.</p>
+          <p class="brier-tip-foot"><b>Lower average Brier wins the cup.</b> It’s not just who picked the winner — it’s who was confident when they should be, and humble when they shouldn’t.</p>
+        </span>
+      </span>
+      <nav class="topnav" aria-label="Page sections">
+        <a href="#bankroll-section">Bankroll</a>
+        <a href="#edge-section">Edge Board</a>
+        <a href="#roster-section">Competitors</a>
+        <a href="#matches-section">Matches</a>
+        <a href="#trophy-section">Bracket</a>
+        <a href="#leaderboard-section">Leaderboard</a>
+        <a href="#pipeline-section">How it settles</a>
+      </nav>
     </header>
 
     <section class="hero">
-      <h1>Who's winning the <span class="gold">World Cup</span>?<span class="hero-by">According to the machines.</span></h1>
-      <p class="hero-sub">The models are watching every game. Seven of them get one identical prompt before each match; forecasts lock at kickoff and are Brier-scored as results arrive.</p>
+      <div class="hero-copy">
+        <h1>Who's winning the <span class="gold">World Cup</span>?<span class="hero-by">According to the machines.</span></h1>
+        <p id="hero-hook" class="hero-hook" hidden></p>
+        <p class="hero-sub">One identical <a class="hero-sub-link prompt-tip" href="#prompt-section" aria-haspopup="dialog">prompt</a> per match, locked at kickoff. Paper bets settle against the real TxODDS line on Solana; Brier scores settle the argument.</p>
+        <a class="hero-read" href="/research">
+          <span class="np">New</span>
+          <span>How the models called France–Spain &amp; England–Argentina</span>
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+      <div id="hero-consensus" aria-label="AI consensus to win it all" hidden></div>
     </section>
+
+    <div id="podium" aria-label="Current top three models"></div>
 
     <div id="featured"></div>
   </div>
@@ -34,53 +61,208 @@
   <main>
     <div id="banner"></div>
 
-    <section id="trophy-section" aria-labelledby="trophy-title" hidden>
-      <h2 id="trophy-title">Who lifts the trophy?</h2>
-      <p class="explainer">Every model distributes probability across the remaining teams. The consensus is tracked over time as rounds are played.</p>
-      <div id="trophy"></div>
+    <section id="bankroll-section" aria-labelledby="bankroll-title" hidden>
+      <h2 id="bankroll-title">The Bankroll</h2>
+      <p class="explainer">Every agent starts with 1,000 <b>virtual units</b> and places at most one <span class="kelly-tip" tabindex="0" role="button" aria-haspopup="dialog" aria-label="What is a quarter-Kelly bet?"><strong>quarter-Kelly</strong><span class="market-tip-mark" aria-hidden="true">?</span></span> paper bet per match against the locked TxODDS line — only when its edge clears 2%. Settled by the same verified scores as the leaderboard.</p>
+      <p class="explainer bank-subnote">Substituted models run separate books — each new release started its own 1,000-unit bankroll when it joined at the roster change.</p>
+      <div id="bank-view"></div>
+      <div id="bankchart"></div>
+      <div id="bankroll" aria-live="polite"></div>
+    </section>
+
+    <section id="edge-section" aria-labelledby="edge-title" hidden>
+      <h2 id="edge-title">Edge Board</h2>
+      <p class="explainer">Where the machines disagree with the market right now. Consensus and per-agent edge vs the live TxODDS StablePrice line — the same signal the agents bet.</p>
+      <div id="edgeboard" aria-live="polite"></div>
+    </section>
+
+    <section id="roster-section" aria-labelledby="roster-title">
+      <h2 id="roster-title">The competitors</h2>
+      <p class="explainer">Agents from ten AI labs — eight ran the whole tournament; each lab's newest release, plus xAI and Mistral, joined for the final — plus <span class="market-tip" tabindex="0" role="button" aria-haspopup="dialog" aria-label="What is The Market and where do its numbers come from?"><strong>The Market</strong><span class="market-tip-mark" aria-hidden="true">?</span></span>: TxODDS StablePrice odds via TxLINE on Solana, de-vigged and scored under the same rules. Click a competitor for its record.</p>
+      <div id="view-toggle"></div>
+      <div id="roster" class="roster" aria-label="Model roster"></div>
     </section>
 
     <section id="matches-section" aria-labelledby="matches-title">
       <h2 id="matches-title">Matches</h2>
-      <p class="explainer">Group-stage probabilities are for the 90-minute result (extra time and penalties count as a draw). Knockout probabilities are simply who advances — no draw. Each card shows the consensus of all models, with team-by-team numbers above the bar.</p>
+      <p class="explainer">Group-stage cards price the 90-minute result (extra time and penalties count as a draw); knockout cards price who advances. Each card shows the consensus, with per-team numbers above the bar.</p>
       <div id="matches" class="skeleton-block"></div>
+    </section>
+
+    <section id="trophy-section" aria-labelledby="trophy-title" hidden>
+      <h2 id="trophy-title">Who lifts the trophy?</h2>
+      <p class="explainer">The knockout bracket from the round of 32 to the final — plus every model's consensus odds of lifting the trophy, tracked as the field narrows.</p>
+      <div id="trophy"></div>
     </section>
 
     <section id="leaderboard-section" aria-labelledby="lb-title">
       <h2 id="lb-title">Model leaderboard</h2>
-      <p class="explainer">Brier score over each match's outcomes: 0 is a perfect forecast, a know-nothing coin flip scores 0.667 on a three-way group match and 0.5 on a two-way knockout tie, 2 is maximally wrong. Lower is better. Click a model for its performance over time.</p>
+      <!-- div, not p: the tip's popover holds <p>/<ul> blocks, and a <p>
+           container would be auto-closed by the parser, spilling the popover
+           content into the page as visible text. -->
+      <div class="explainer">Models are ranked by average <span class="brier-tip brier-tip-static" tabindex="0" role="button" aria-label="What is a Brier score?">
+        <span class="brier-tip-label">Brier score<span class="brier-tip-mark" aria-hidden="true">?</span></span>
+        <span class="brier-tip-pop" role="tooltip">
+          <strong class="brier-tip-title">What is a Brier score?</strong>
+          <p>A Brier score measures how well a probability forecast matches the real outcome. For every possible result you square the gap between the probability you gave it and what actually happened (1 for the true result, 0 for the others), then sum those squares.</p>
+          <ul>
+            <li><b>0</b> — perfect forecast (you put 100% on the winner)</li>
+            <li><b>0.5</b> — two-way coin flip (knockout ties)</li>
+            <li><b>0.667</b> — three-way coin flip (group-stage 1X2)</li>
+            <li><b>2</b> — maximally wrong (100% on a result that didn't happen)</li>
+          </ul>
+          <p class="brier-tip-foot"><b>Lower is better.</b> Being right with the right amount of confidence beats loud conviction in the wrong direction — that calibration is what this cup ranks.</p>
+        </span>
+      </span> over each match's outcomes — lower is better. Rank uses <strong>shrunken skill vs the coin flip</strong>, so new entrants start neutral and earn rank as matches accumulate. <span class="market-tip" tabindex="0" role="button" aria-haspopup="dialog" aria-label="What is The Market and where do its numbers come from?"><strong>The Market</strong><span class="market-tip-mark" aria-hidden="true">?</span></span> is bookmaker consensus, not an LLM, scored under the same rules. Click a competitor for its performance over time.</div>
       <div id="leaderboard" class="skeleton-block" aria-live="polite"></div>
+    </section>
+
+    <section id="pipeline-section" aria-labelledby="pipeline-title">
+      <h2 id="pipeline-title">How an agent's bet settles</h2>
+      <ol class="pipeline">
+        <li class="pipe-step"><span class="pipe-n">1</span><b>Stream</b><span>TxLINE on Solana streams TxODDS StablePrice consensus odds for every fixture.</span></li>
+        <li class="pipe-step"><span class="pipe-n">2</span><b>De-vig</b><span>The bookmaker margin is stripped, leaving implied probabilities.</span></li>
+        <li class="pipe-step"><span class="pipe-n">3</span><b>Lock at kickoff</b><span>Forecasts, lines, and stakes frozen — nothing after counts.</span></li>
+        <li class="pipe-step"><span class="pipe-n">4</span><b>Result</b><span>The final score arrives from ESPN's public feed.</span></li>
+        <li class="pipe-step"><span class="pipe-n">5</span><b>Merkle proof</b><span>The score is verified against TxODDS's on-chain daily root — tap any green badge for the receipt.</span></li>
+        <li class="pipe-step"><span class="pipe-n">6</span><b>Settle</b><span><a href="#bankroll-section" class="pipe-link">Bet P&amp;L</a> and Brier score update from the verified result.</span></li>
+      </ol>
+    </section>
+
+    <section id="analysis-section" aria-labelledby="analysis-title">
+      <h2 id="analysis-title">Latest analysis</h2>
+      <a class="analysis-card" href="/research">
+        <span class="analysis-kicker">Knockout breakdown</span>
+        <h3>Two coin-flips, two upsets — and the one model that saw both</h3>
+        <p>How all seven models called France–Spain and England–Argentina before kickoff. One got both right, one got both wrong, everyone else hedged.</p>
+        <span class="analysis-cta">Read the breakdown →</span>
+      </a>
     </section>
   </main>
 
-  <div id="detail"></div>
+  <nav id="toc" class="toc" aria-label="Table of contents">
+    <a href="#bankroll-section"><span class="toc-dot"></span><span class="toc-label">The Bankroll</span></a>
+    <a href="#edge-section"><span class="toc-dot"></span><span class="toc-label">Edge Board</span></a>
+    <a href="#roster-section"><span class="toc-dot"></span><span class="toc-label">The competitors</span></a>
+    <a href="#matches-section"><span class="toc-dot"></span><span class="toc-label">Matches</span></a>
+    <a href="#trophy-section"><span class="toc-dot"></span><span class="toc-label">Who lifts the trophy?</span></a>
+    <a href="#leaderboard-section"><span class="toc-dot"></span><span class="toc-label">Model leaderboard</span></a>
+    <a href="#pipeline-section"><span class="toc-dot"></span><span class="toc-label">How an agent's bet settles</span></a>
+    <a href="#analysis-section"><span class="toc-dot"></span><span class="toc-label">Latest analysis</span></a>
+    <a href="#prompt-section"><span class="toc-dot"></span><span class="toc-label">The prompt</span></a>
+  </nav>
 
-  <section class="prompt-section" aria-labelledby="prompt-title">
+  <div id="detail"></div>
+  <div id="proof-modal" hidden></div>
+
+  <section id="prompt-section" class="prompt-section" aria-labelledby="prompt-title">
     <div class="prompt-inner">
       <h2 id="prompt-title">The prompt</h2>
       <p class="explainer">Every model receives exactly the same words, with only the fixture filled in. No odds, no news, no hints. Rendered live from the same code that builds the real prompts.</p>
       <details>
         <summary>Before kickoff, group stage: the scored forecast</summary>
-        <pre id="prompt-locked">Loading</pre>
+        <pre id="prompt-locked">You are entering a forecasting competition scored by Brier score (lower is better).
+Forecast the FIFA World Cup 2026 match below. Give your honest probabilities for the result after 90 minutes of regulation time (extra time and penalties count as a draw).
+
+Match: {HOME TEAM} vs {AWAY TEAM}
+Stage: {STAGE}
+Kickoff (UTC): {KICKOFF UTC}
+Venue: {VENUE}
+
+Respond with ONLY a JSON object, no markdown, in exactly this shape:
+{"home": &lt;P({HOME TEAM} wins in 90')&gt;, "draw": &lt;P(draw in 90')&gt;, "away": &lt;P({AWAY TEAM} wins in 90')&gt;, "rationale": "&lt;one sentence&gt;"}
+The three probabilities must sum to 1.</pre>
       </details>
       <details>
         <summary>Before kickoff, knockout: who advances</summary>
-        <pre id="prompt-locked-ko">Loading</pre>
+        <pre id="prompt-locked-ko">You are entering a forecasting competition scored by Brier score (lower is better).
+Forecast the FIFA World Cup 2026 knockout match below. Give your honest probabilities that each team advances, i.e. wins the tie, whether in 90 minutes, extra time, or on penalties.
+
+Match: {HOME TEAM} vs {AWAY TEAM}
+Stage: {STAGE}
+Kickoff (UTC): {KICKOFF UTC}
+Venue: {VENUE}
+
+Respond with ONLY a JSON object, no markdown, in exactly this shape:
+{"home": &lt;P({HOME TEAM} advances)&gt;, "away": &lt;P({AWAY TEAM} advances)&gt;, "rationale": "&lt;one sentence&gt;"}
+The two probabilities must sum to 1.</pre>
       </details>
       <details>
         <summary>In-play updates, group stage: exhibition only</summary>
-        <pre id="prompt-live">Loading</pre>
+        <pre id="prompt-live">You are giving a LIVE in-play forecast for a FIFA World Cup 2026 match, scored informally by Brier score (lower is better).
+Given the current state below, give your honest probabilities for the FINAL result after 90 minutes of regulation (extra time and penalties count as a draw).
+
+Match: {HOME TEAM} vs {AWAY TEAM}
+Stage: {STAGE}
+Current score: {HOME TEAM} {HOME GOALS} - {AWAY GOALS} {AWAY TEAM}
+Match clock: {MATCH CLOCK}
+Key events so far: {GOALS AND RED CARDS SO FAR}
+
+Respond with ONLY a JSON object, no markdown, in exactly this shape:
+{"home": &lt;P({HOME TEAM} wins in 90')&gt;, "draw": &lt;P(draw in 90')&gt;, "away": &lt;P({AWAY TEAM} wins in 90')&gt;, "rationale": "&lt;one sentence&gt;"}
+The three probabilities must sum to 1.</pre>
       </details>
       <details>
         <summary>In-play updates, knockout: exhibition only</summary>
-        <pre id="prompt-live-ko">Loading</pre>
+        <pre id="prompt-live-ko">You are giving a LIVE in-play forecast for a FIFA World Cup 2026 knockout match, scored informally by Brier score (lower is better).
+Given the current state below, give your honest probabilities that each team ultimately advances, i.e. wins the tie, whether in 90 minutes, extra time, or on penalties.
+
+Match: {HOME TEAM} vs {AWAY TEAM}
+Stage: {STAGE}
+Current score: {HOME TEAM} {HOME GOALS} - {AWAY GOALS} {AWAY TEAM}
+Match clock: {MATCH CLOCK}
+Key events so far: {GOALS AND RED CARDS SO FAR}
+
+Respond with ONLY a JSON object, no markdown, in exactly this shape:
+{"home": &lt;P({HOME TEAM} advances)&gt;, "away": &lt;P({AWAY TEAM} advances)&gt;, "rationale": "&lt;one sentence&gt;"}
+The two probabilities must sum to 1.</pre>
       </details>
     </div>
   </section>
 
   <footer class="foot">
-    <p>Scores from ESPN's public World Cup feed. Forecasts collected through OpenRouter with the same prompt for every model. Only forecasts stored before kickoff count.</p>
+    <p>Scores from ESPN’s public feed; forecasts via OpenRouter, one identical prompt per model, pre-kickoff locks only. Market lines from <strong>TxODDS StablePrice</strong> over <strong>TxLINE</strong> on Solana — green badges mean the score Merkle-proved against the on-chain daily root. Paper trading only, no real money. Built for the Superteam × TxODDS World Cup hackathon — <strong>Prediction Markets &amp; Settlement</strong> track.</p>
   </footer>
+
+  <div id="prompt-modal" hidden>
+    <div class="mkt-scrim" data-prompt-close></div>
+    <section class="mkt-panel prompt-panel" role="dialog" aria-modal="true" aria-labelledby="prompt-modal-title">
+      <button class="mkt-close" data-prompt-close aria-label="Close">✕</button>
+      <h3 id="prompt-modal-title">The prompt</h3>
+      <p>Every model receives exactly the same words, with only the fixture filled in. No odds, no news, no hints.</p>
+      <div id="prompt-modal-body"></div>
+    </section>
+  </div>
+
+  <div id="kelly-modal" hidden>
+    <div class="mkt-scrim" data-kelly-close></div>
+    <section class="mkt-panel" role="dialog" aria-modal="true" aria-labelledby="kelly-title">
+      <button class="mkt-close" data-kelly-close aria-label="Close">✕</button>
+      <h3 id="kelly-title">Quarter-Kelly — how stakes are sized</h3>
+      <p>The <strong>Kelly criterion</strong> is the classic answer to "how much of my bankroll should I stake when I think a price is wrong?" — bet more the bigger your edge, less the longer the odds.</p>
+      <ul>
+        <li><b>Edge:</b> <code>p·d − 1</code> — the agent's probability <code>p</code> times the decimal odds <code>d</code>, minus one. Positive means the agent thinks the price is too generous.</li>
+        <li><b>Full Kelly:</b> <code>f* = (p·d − 1) ÷ (d − 1)</code> — the bankroll fraction that maximizes long-run growth <em>if</em> <code>p</code> is right.</li>
+        <li><b>Quarter-Kelly:</b> each agent stakes <code>0.25 · f*</code> of its bankroll, capped at 10%; it sits out below a 2% edge, and stakes under half a unit round to no bet.</li>
+      </ul>
+      <p class="mkt-foot">Full Kelly is famously ruinous when your probabilities are even slightly off — and these are language models. Quartering trades a little growth for a lot of survival. The rule is identical for every agent, so the ledger isolates forecasting skill, not staking bravado.</p>
+    </section>
+  </div>
+
+  <div id="market-modal" hidden>
+    <div class="mkt-scrim" data-mkt-close></div>
+    <section class="mkt-panel" role="dialog" aria-modal="true" aria-labelledby="mkt-title">
+      <button class="mkt-close" data-mkt-close aria-label="Close">✕</button>
+      <h3 id="mkt-title">The Market — where its numbers come from</h3>
+      <p><strong>The Market</strong> is not an AI. It's the real betting market, entered as a competitor on the same scoreboard.</p>
+      <ul>
+        <li><b>Odds source:</b> <strong>TxODDS StablePrice</strong> — a stability-weighted consensus of bookmaker 1X2 prices across the market.</li>
+        <li><b>Delivery:</b> streamed by <strong>TxLINE on Solana</strong>. Settled match scores are verified against TxODDS's Merkle daily roots on-chain — that's the "Score verified on Solana" badge on finished cards.</li>
+        <li><b>Scoring:</b> we strip the bookmakers' margin (the vig) from the raw prices and Brier-score the implied probabilities under exactly the same rules as every model.</li>
+      </ul>
+      <p class="mkt-foot">Like the models, only its pre-kickoff line counts toward the leaderboard.</p>
+    </section>
+  </div>
 
   <script src="app.js"></script>
 </body>
