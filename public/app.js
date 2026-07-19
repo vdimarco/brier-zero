@@ -3108,6 +3108,27 @@ function renderPodium(state) {
   stage.addEventListener('focusin', () => { podiumPaused = true; });
   stage.addEventListener('focusout', () => { podiumPaused = false; });
 
+  // Swipe left/right anywhere on the podium to change views. Listeners stay
+  // passive and only fire on a clearly horizontal gesture, so vertical page
+  // scrolling over the podium is untouched.
+  let swipeFrom = null;
+  stage.addEventListener('touchstart', (e) => {
+    swipeFrom = e.touches.length === 1
+      ? { x: e.touches[0].clientX, y: e.touches[0].clientY }
+      : null;
+    podiumPaused = true;
+  }, { passive: true });
+  stage.addEventListener('touchend', (e) => {
+    podiumPaused = false;
+    if (!swipeFrom) return;
+    const dx = e.changedTouches[0].clientX - swipeFrom.x;
+    const dy = e.changedTouches[0].clientY - swipeFrom.y;
+    swipeFrom = null;
+    if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+    podiumGoTo(state, (podiumSlideIdx + (dx < 0 ? 1 : -1) + slides.length) % slides.length);
+  }, { passive: true });
+  stage.addEventListener('touchcancel', () => { swipeFrom = null; podiumPaused = false; }, { passive: true });
+
   clearTimeout(podiumTimer);
   if (typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   podiumTimer = setTimeout(function advance() {
