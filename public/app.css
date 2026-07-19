@@ -162,8 +162,20 @@ main { max-width: 1080px; margin: 0 auto; padding: 0 20px 64px; }
    right of the hero on desktop and stacks under the copy on mobile. */
 .hero { display: grid; gap: 28px; align-items: start; }
 @media (min-width: 900px) {
-  .hero { grid-template-columns: minmax(0, 1fr) minmax(300px, 380px); }
-  #hero-consensus { margin-top: 4px; }
+  /* Copy and card sit as one composed row: vertically centred against
+     each other, the card wide enough to feel like a co-star rather than
+     a sidebar widget. */
+  .hero { grid-template-columns: minmax(0, 1fr) minmax(330px, 430px); align-items: center; gap: 48px; }
+  #hero-consensus {
+    padding: 18px 20px;
+    background: rgba(6, 24, 10, 0.45);
+    box-shadow: 0 14px 38px rgba(3, 22, 9, 0.35);
+  }
+  .hc-head { margin-bottom: 12px; }
+  .hc-name { font-size: 15px; }
+  .hc-p { font-size: 17px; }
+  .hc-flag { width: 22px; height: 22px; }
+  .hc-status { font-size: 13px; margin-top: 12px; padding-top: 11px; }
 }
 #hero-consensus[hidden] { display: none; }
 #hero-consensus {
@@ -310,8 +322,9 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
    moves into a column of its own on the right, beside it. */
 @media (min-width: 900px) {
   #podium {
-    display: grid; column-gap: 28px; align-items: center;
-    grid-template-columns: minmax(0, 1fr) minmax(260px, 340px);
+    display: grid; column-gap: 48px; align-items: center;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 400px);
+    padding-top: 8px;
   }
   .podium { grid-column: 1; grid-row: 1; }
   .podium-note { grid-column: 1; grid-row: 2; }
