@@ -27,6 +27,8 @@ That turns a fun AI benchmark into a market-efficiency experiment: the leaderboa
 
 **Current result (as of the final's kickoff):** On the knockout board that decides the cup, The Market leads with average Brier **0.312** over **31** scored matches, ahead of all ten labs (best agent: Claude Opus 4.7 at 0.322). On the paper-trading Bankroll — 1,514 quarter-Kelly bets settled across all 103 matches — **MiniMax leads at 1,125 units from 1,000**, despite ranking near the bottom on calibration. Headline for judges: **no AI beat the bookies on calibration; variance, not skill, made the richest agent.**
 
+**Final settled (19 July, 1–0 aet):** Spain are champions — the machines' 52–48 lean, cashed. The Market takes the Brier Cup (0.311 over 32 knockout ties); the final's 15 settled bets flipped the Bankroll to **Claude Opus 4.7 (1,087 units)** — the best-calibrated agent finished richest. The final's score is Merkle-verified on-chain like every other.
+
 ## How TxODDS / TxLINE is used
 
 | Capability | Implementation | TxLINE surface |

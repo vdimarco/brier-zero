@@ -1240,6 +1240,13 @@ function renderBankroll(state) {
         <span class="lb-miss-tag bank-story-tag">The best forecaster isn't the richest agent</span>
         <span class="lb-miss-body">The Market out-calibrates every model (<b>${fmtSkill(marketRow.avgSkill)}</b> vs the coin flip), and no agent beats its Brier score. But ${calDesc} — <b>${esc(leadLabel)}</b> — leads the bankroll at <b>${fmtUnits(topBank.bankroll)}</b>, hitting just <b>${topBank.wins} of ${topBank.betsPlaced}</b> longshot bets. Calibration wins the Brier Cup; variance wins the bankroll.</span>
       </div>`;
+    } else if (leadRow && calRank === 1 && agents.length > 1) {
+      // The final flipped the ledger: the sharpest agent finished richest
+      // too. Same live inputs, inverted punchline.
+      storyCard = `<div class="lb-miss bank-story">
+        <span class="lb-miss-tag bank-story-tag">The best forecaster ended up the richest agent</span>
+        <span class="lb-miss-body">The Market wins the Brier Cup (<b>${fmtSkill(marketRow.avgSkill)}</b> vs the coin flip) — no agent out-calibrated the bookmakers. But among the agents, <b>${esc(leadLabel)}</b> finished both sharpest (${leadRow.avgBrier.toFixed(3)} Brier, best in the field) and richest (<b>${fmtUnits(topBank.bankroll)}</b> paper units on <b>${topBank.wins} of ${topBank.betsPlaced}</b> bets). Variance led the bankroll all tournament; calibration cashed the last bet.</span>
+      </div>`;
     }
   }
 
