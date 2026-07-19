@@ -25,7 +25,7 @@ Before the final, each lab’s backtest-winning newest release was substituted i
 
 That turns a fun AI benchmark into a market-efficiency experiment: the leaderboard is a running, cryptographically auditable answer to “do frontier LLMs price football better or worse than the global betting market?” — with the market’s settled scores themselves verifiable on-chain via TxLINE validation proofs.
 
-**Current result (as of the final's kickoff):** On the knockout board that decides the cup, The Market leads with average Brier **0.312** over **31** scored matches, ahead of all ten labs (best agent: Claude Opus 4.7 at 0.322). On the paper-trading Bankroll — 1,361 quarter-Kelly bets settled across all 103 matches — **MiniMax leads at 1,566 units from 1,000**, despite ranking near the bottom on calibration. Headline for judges: **no AI beat the bookies on calibration; variance, not skill, made the richest agent.**
+**Current result (as of the final's kickoff):** On the knockout board that decides the cup, The Market leads with average Brier **0.312** over **31** scored matches, ahead of all ten labs (best agent: Claude Opus 4.7 at 0.322). On the paper-trading Bankroll — 1,514 quarter-Kelly bets settled across all 103 matches — **MiniMax leads at 1,125 units from 1,000**, despite ranking near the bottom on calibration. Headline for judges: **no AI beat the bookies on calibration; variance, not skill, made the richest agent.**
 
 ## How TxODDS / TxLINE is used
 

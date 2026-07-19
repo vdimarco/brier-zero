@@ -80,8 +80,10 @@ function viewToggleHtml(state) {
 }
 if (typeof document !== 'undefined') {
   document.addEventListener('click', (e) => {
+    // dataset.view only: the bankroll's view buttons share this class for
+    // styling but carry data-bankview and their own handler.
     const btn = e.target.closest?.('.lb-view-btn');
-    if (btn) {
+    if (btn && btn.dataset.view) {
       e.preventDefault();
       e.stopPropagation();
       setViewMode(btn.dataset.view);
@@ -1086,6 +1088,34 @@ function renderHeroHook(state) {
 // The Bankroll: paper-trading ledger computed server-side (lib/bankroll.js).
 // Virtual units only, never money.
 
+/* Bankroll view: per-model books (default), or grouped by lab / country
+   bloc. Groups can't share a "bankroll" — each book started at 1,000 on
+   its own clock — so grouped views show summed NET P&L from a zero
+   baseline, in the table and the race chart alike. */
+let bankView = 'model';
+function bankViewToggleHtml() {
+  const opts = [['model', 'By model'], ['lab', 'By lab'], ['bloc', 'By country']];
+  return `<div class="lb-view" role="group" aria-label="Bankroll view">
+    ${opts.map(([v, l]) => `<button class="lb-view-btn bank-view-btn${bankView === v ? ' active' : ''}" data-bankview="${v}" aria-pressed="${bankView === v}">${l}</button>`).join('')}
+    <span class="lb-view-hint">${bankView === 'model'
+    ? 'Every book separately: 1,000 units each at its first priced match.'
+    : 'Grouped books: summed net paper P&L from a zero baseline — books started at different times, so totals, not "bankrolls."'}</span>
+  </div>`;
+}
+if (typeof document !== 'undefined') {
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest?.('.bank-view-btn');
+    if (!btn) return;
+    e.preventDefault();
+    e.stopPropagation();
+    if (btn.dataset.bankview !== bankView && lastState) {
+      bankView = btn.dataset.bankview;
+      renderBankroll(lastState);
+      renderBankrollChart(lastState);
+    }
+  }, true);
+}
+
 const BANK_TIP = '1,000 paper units at tournament start. Quarter-Kelly bets on its biggest edge vs the TxODDS StablePrice line, only when edge > 2%. Settled by the same Merkle-verified scores as the Brier board. Virtual units — no real money.';
 const fmtUnits = (n) => Math.round(n).toLocaleString('en-US');
 
@@ -1118,6 +1148,30 @@ function bankSpark(series, starting = 1000) {
   </svg>`;
 }
 
+// Grouped bankroll rows (lab / bloc): summed net P&L across the group's
+// books, with aggregate hit rate and the group's best single book.
+function bankGroupRowsData(state, keyOf, metaOf) {
+  const bk = state.bankroll;
+  const start = bk?.startingBankroll ?? 1000;
+  const groups = new Map();
+  for (const m of Object.values(bk?.models ?? {})) {
+    if (!(m.betsPlaced > 0 || m.noBets > 0)) continue;
+    const key = keyOf(m.model);
+    if (!key) continue;
+    const g = groups.get(key) ?? { key, pnl: 0, books: 0, bets: 0, wins: 0, noBets: 0, best: null };
+    g.pnl += m.bankroll - start;
+    g.books += 1;
+    g.bets += m.betsPlaced;
+    g.wins += m.wins;
+    g.noBets += m.noBets;
+    if (!g.best || m.bankroll > g.best.bankroll) g.best = m;
+    groups.set(key, g);
+  }
+  return [...groups.values()]
+    .sort((a, b) => b.pnl - a.pnl)
+    .map((g) => ({ ...g, ...metaOf(g.key) }));
+}
+
 function renderBankroll(state) {
   const section = document.getElementById('bankroll-section');
   const el = document.getElementById('bankroll');
@@ -1126,8 +1180,36 @@ function renderBankroll(state) {
   const rows = bk ? Object.values(bk.models).filter((m) => m.betsPlaced > 0 || m.noBets > 0) : [];
   if (!rows.length) { section.hidden = true; return; }
   section.hidden = false;
+  const viewEl = document.getElementById('bank-view');
+  if (viewEl) viewEl.innerHTML = bankViewToggleHtml();
   rows.sort((a, b) => b.bankroll - a.bankroll);
   const start = bk.startingBankroll ?? 1000;
+
+  if (bankView !== 'model') {
+    const blocLabels = new Map((state.leaderboardByBloc ?? []).map((r) => [r.model, r.label]));
+    const labMeta = new Map(labsOf(state).map((l) => [l.id, l]));
+    const groups = bankView === 'lab'
+      ? bankGroupRowsData(state, (id) => labOf(state, id), (k) => ({ label: labMeta.get(k)?.label ?? k, icon: labMeta.get(k)?.icon ?? null }))
+      : bankGroupRowsData(state,
+        (id) => { const b = entrantById(state, id)?.bloc; return b && b !== 'market' ? b : null; },
+        (k) => ({ label: (blocLabels.get(k) ?? k.toUpperCase()).replace(/^\S+\s/, ''), flag: (blocLabels.get(k) ?? '').split(' ')[0] || null, icon: null }));
+    el.innerHTML = `<div class="bank-wrap">${groups.map((g, i) => {
+      const bestMeta = g.best ? entrantById(state, g.best.model) : null;
+      return `<div class="bank-row bank-row-static${i === 0 ? ' leader' : ''}">
+        <div class="bank-rank">${i + 1}</div>
+        <div class="lb-id">${g.flag ? `<span class="bank-flag" aria-hidden="true">${esc(g.flag)}</span>` : (g.icon ? `<img class="crest" src="${esc(g.icon)}" alt="" onerror="this.style.visibility='hidden'">` : '')}
+          <span class="bank-name">${esc(g.label)}</span></div>
+        <div class="bank-spark-slot"></div>
+        <div class="bank-cells">
+          <span class="bank-units ${g.pnl >= 0 ? 'lb-bank-up' : 'lb-bank-down'}">${g.pnl >= 0 ? '+' : '−'}${fmtUnits(Math.abs(g.pnl))}</span>
+          <span class="bank-meta">net P&amp;L over ${g.books} book${g.books === 1 ? '' : 's'} · ${g.bets} bets · hit ${g.wins}/${g.bets}${g.noBets ? ` · sat out ${g.noBets}` : ''}</span>
+          <span class="bank-meta">${g.best ? `best book: ${esc(bestMeta?.label ?? g.best.model)} at ${fmtUnits(g.best.bankroll)}` : ''}</span>
+        </div>
+      </div>`;
+    }).join('')}</div>
+    <p class="footnote">Each book started at 1,000 units on its own clock, so grouped views total <b>net paper P&amp;L</b>, never summed "bankrolls". The Market doesn't get a book — it can't bet against itself. Switch to By model for ledgers.</p>`;
+    return;
+  }
 
   // The site's best story, computed from live data so the final's
   // settlement updates it: The Market wins calibration, yet the bankroll
@@ -1197,7 +1279,7 @@ const LAB_COLORS = {
 const labOf = (state, modelId) =>
   entrantById(state, modelId)?.lab ?? modelId.split('/')[0];
 
-function bankChartData(state) {
+function bankChartData(state, mode = 'model') {
   const bk = state.bankroll;
   if (!bk?.bets?.length) return null;
   // Global x axis: settled matches in the order the fold settled them.
@@ -1248,6 +1330,49 @@ function bankChartData(state) {
     })
     .filter(Boolean);
   if (!lines.length) return null;
+
+  // Grouped views: one line per lab / bloc = summed NET P&L across the
+  // group's books at each match (0 before a book starts; its final P&L
+  // held after it ends). Books start at different times, so a summed
+  // "bankroll" would be meaningless — P&L from a zero baseline is not.
+  if (mode !== 'model') {
+    const n = matchName.length;
+    const blocLabels = new Map((state.leaderboardByBloc ?? []).map((r) => [r.model, r.label]));
+    const BLOC_COLORS = { us: '#2a78d6', cn: '#e34948', eu: '#c78500' };
+    const groups = new Map();
+    for (const m of Object.values(bk.models)) {
+      const sparse = (m.series ?? [])
+        .filter((p) => matchIdx.has(p.matchId))
+        .map((p) => ({ i: matchIdx.get(p.matchId), v: p.after - start }));
+      if (!sparse.length) continue;
+      const key = mode === 'lab'
+        ? labOf(state, m.model)
+        : (() => { const b = entrantById(state, m.model)?.bloc; return b && b !== 'market' ? b : null; })();
+      if (!key) continue;
+      const dense = new Array(n).fill(0);
+      let k = 0;
+      let v = 0;
+      for (let i = 0; i < n; i++) {
+        if (i >= sparse[0].i) {
+          if (k < sparse.length && sparse[k].i === i) { v = sparse[k].v; k++; }
+          dense[i] = v;
+        }
+      }
+      const g = groups.get(key) ?? { key, sum: new Array(n).fill(0) };
+      for (let i = 0; i < n; i++) g.sum[i] += dense[i];
+      groups.set(key, g);
+    }
+    const labMeta = new Map(labsOf(state).map((l) => [l.id, l]));
+    const glines = [...groups.values()].map((g) => ({
+      id: g.key,
+      label: mode === 'lab' ? (labMeta.get(g.key)?.label ?? g.key) : (blocLabels.get(g.key) ?? g.key.toUpperCase()),
+      lab: g.key,
+      color: (mode === 'lab' ? LAB_COLORS[g.key] : BLOC_COLORS[g.key]) ?? '#52514e',
+      final: g.sum[n - 1],
+      pts: [{ i: -1, v: 0 }, ...g.sum.map((v, i) => ({ i, v }))],
+    }));
+    return { lines: glines, matchName, start: 0, n };
+  }
   return { lines, matchName, start, n: matchName.length };
 }
 
@@ -1276,7 +1401,7 @@ function renderBankrollChart(state) {
   const section = document.getElementById('bankroll-section');
   const el = document.getElementById('bankchart');
   if (!section || !el) return;
-  const data = bankChartData(state);
+  const data = bankChartData(state, bankView);
   if (!data) { section.hidden = true; return; }
   section.hidden = false;
 
@@ -1296,7 +1421,9 @@ function renderBankrollChart(state) {
   let lo = start, hi = start;
   for (const l of lines) for (const p of l.pts) { lo = Math.min(lo, p.v); hi = Math.max(hi, p.v); }
   const pad = (hi - lo) * 0.08 || 50;
-  lo = Math.max(0, lo - pad); hi += pad;
+  // Grouped P&L runs negative; only the units view clamps at zero.
+  lo = start === 0 ? lo - pad : Math.max(0, lo - pad);
+  hi += pad;
   const y = (v) => MT + (1 - (v - lo) / (hi - lo)) * (H - MT - MB);
 
   // ~5 recessive gridlines on round numbers.
@@ -1364,7 +1491,7 @@ function renderBankrollChart(state) {
         ${ticks.map((v) => `<g><line class="bkc-grid" x1="${ML}" y1="${y(v).toFixed(1)}" x2="${W - MR}" y2="${y(v).toFixed(1)}"/>
           <text class="bkc-tick" x="${ML - 8}" y="${(y(v) + 3.5).toFixed(1)}" text-anchor="end">${fmtUnits(v)}</text></g>`).join('')}
         <line class="bkc-base" x1="${ML}" y1="${y(start).toFixed(1)}" x2="${W - MR}" y2="${y(start).toFixed(1)}"/>
-        <text class="bkc-tick bkc-base-label" x="${ML - 8}" y="${(y(start) + 3.5).toFixed(1)}" text-anchor="end">${compact ? fmtUnits(start) : `${fmtUnits(start)} start`}</text>
+        <text class="bkc-tick bkc-base-label" x="${ML - 8}" y="${(y(start) + 3.5).toFixed(1)}" text-anchor="end">${start === 0 ? (compact ? '±0' : 'break even') : (compact ? fmtUnits(start) : `${fmtUnits(start)} start`)}</text>
         ${leaderFill}
         ${paths}
         ${joinMarkers}
@@ -1386,7 +1513,8 @@ function renderBankrollChart(state) {
   // the same agent and highlight/open together.
   const svg = el.querySelector('.bkc-svg');
   const focus = (lab) => { if (lab) svg.setAttribute('data-focus', lab); else svg.removeAttribute('data-focus'); };
-  const openLedger = (id) => { location.hash = `p/${encodeURIComponent(id)}`; };
+  // Detail panels exist per model; grouped lines/chips don't navigate.
+  const openLedger = (id) => { if (bankView !== 'model') return; location.hash = `p/${encodeURIComponent(id)}`; };
   for (const node of el.querySelectorAll('[data-model]')) {
     node.addEventListener('mouseenter', () => focus(node.dataset.lab));
     node.addEventListener('mouseleave', () => focus(null));

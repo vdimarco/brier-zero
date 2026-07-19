@@ -1888,3 +1888,9 @@ main section, #prompt-section { scroll-margin-top: 76px; }
 /* Country slides: the region's flag stands in the crest position */
 .podium-crest-flag { display: flex; align-items: center; justify-content: center; font-size: 30px; line-height: 1; }
 .podium-1 .podium-crest-flag { font-size: 37px; }
+
+/* Bankroll grouped views */
+.bank-row-static { cursor: default; }
+.bank-row-static:hover { background: none; }
+.bank-flag { font-size: 24px; line-height: 1; }
+.bank-spark-slot { min-width: 0; }
