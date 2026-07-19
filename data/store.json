@@ -33243,6 +33243,89 @@
             "rationale": "No meaningful action yet, teams evenly matched on paper."
           }
         }
+      },
+      {
+        "at": "2026-07-19T19:17:32.899Z",
+        "detail": "10'",
+        "score": [
+          0,
+          0
+        ],
+        "events": 0,
+        "period": "STATUS_FIRST_HALF",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.55,
+              "away": 0.45
+            },
+            "rationale": "Spain enters as a slight favorite based on recent form and squad depth, with the early goalless scoreline barely shifting pre-match expectations."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.56,
+              "away": 0.44
+            },
+            "rationale": "With the match still level and very early, pre-game estimates slightly favor Spain, so the probabilities remain close to those priors."
+          },
+          "deepseek/deepseek-v4-pro": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "Spain's dominant Euro 2024 form and deep young squad give them a slight edge, but Argentina's recent World Cup success keeps the match nearly a toss-up at 0-0 early on."
+          },
+          "moonshotai/kimi-k3": {
+            "probs": {
+              "home": 0.53,
+              "away": 0.47
+            },
+            "rationale": "Still 0-0 early on so this is essentially the pre-match read: Spain's superior current form and squad depth make them slight favorites, but Argentina's tournament pedigree and knockout experience keep it near a coin flip."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "With no key events in the first ten minutes, the match remains a coin flip between two evenly matched world-class sides."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "With 80 minutes remaining and no key events, the match is essentially at pre-match priors where Spain holds a slight edge due to superior recent form and squad depth, but Argentina's tournament pedigree keeps this near a coin flip."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.53,
+              "away": 0.47
+            },
+            "rationale": "The match is early and even, but Spain edges slightly as the home side."
+          },
+          "google/gemini-3.1-pro-preview": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "With the match still in its opening stages and no score, Spain holds a very slight edge due to their younger core peaking for the 2026 tournament, though it remains a highly balanced final against the defending champions."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0.48,
+              "away": 0.52
+            },
+            "rationale": "Early 0-0 in a final between two elite sides leaves pre-match balance essentially intact, with Argentina a slight favorite on recent major-tournament pedigree."
+          },
+          "mistralai/mistral-medium-3-5": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "No score or key events yet, so teams are evenly matched at this early stage."
+          }
+        }
       }
     ]
   },
