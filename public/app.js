@@ -1385,6 +1385,27 @@ function renderBankrollChart(state) {
   wrap.addEventListener('mouseleave', () => { cursor.hidden = true; tip.hidden = true; });
 }
 
+// Sticky topbar: once the reader scrolls past the hero band, the section
+// menu pins to the top of the screen. Class-toggle on rAF-throttled
+// scroll; sticky positioning can't do this because the bar must outlive
+// its pitchband parent.
+function wireStickyTopbar() {
+  if (typeof window === 'undefined') return;
+  const bar = document.querySelector('.topbar');
+  const band = document.querySelector('.pitchband');
+  if (!bar || !band) return;
+  let ticking = false;
+  const update = () => {
+    ticking = false;
+    bar.classList.toggle('topbar-stuck', window.scrollY > band.offsetHeight - 64);
+  };
+  window.addEventListener('scroll', () => {
+    if (!ticking) { ticking = true; requestAnimationFrame(update); }
+  }, { passive: true });
+  update();
+}
+wireStickyTopbar();
+
 // Crossing the 640px compact threshold needs a re-render, not just CSS —
 // the geometry and label style change. Debounced; wired once.
 let bkcResizeWired = false;

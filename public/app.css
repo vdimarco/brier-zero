@@ -1264,8 +1264,13 @@ h2 { font-size: 20px; letter-spacing: -0.01em; margin: 44px 0 6px; }
   main { padding: 0 16px 48px; }
   .topbar { padding: 0 16px; }
   .topbar-status { display: none; }
-  .hero { padding: 24px 16px 34px; }
-  .hero-sub { font-size: 15px; }
+  /* Small screens: the whole hero (headline, hook, one-liner, research
+     link, consensus card) should fit one ~667px viewport under the bar. */
+  .hero { padding: 16px 16px 22px; gap: 18px; }
+  .hero h1 { margin-bottom: 10px; }
+  .hero-hook { font-size: 14.5px; margin-bottom: 10px; }
+  .hero-sub { font-size: 14.5px; }
+  .hero-read { margin-top: 14px; }
   .pitchband::before { right: -140px; width: 260px; height: 260px; }
   .pitchband::after { right: 40px; }
 
@@ -1721,3 +1726,24 @@ th.edge-num, td.edge-num { text-align: right; font-variant-numeric: tabular-nums
 @media (max-width: 899px) {
   #hero-consensus { max-width: 560px; }
 }
+
+/* Sticky topbar: pins once scrolled past the hero band (class toggled in
+   app.js). Full-width deep-green bar; content keeps the page's max width. */
+.topbar.topbar-stuck {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 90;
+  max-width: none; margin: 0; padding: 0 20px;
+  background: var(--pitch-deep);
+  box-shadow: 0 2px 14px rgba(4, 30, 12, 0.35);
+  animation: topbar-drop 0.18s ease;
+}
+.topbar.topbar-stuck > * { max-width: 1080px; }
+@keyframes topbar-drop { from { transform: translateY(-100%); } to { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .topbar.topbar-stuck { animation: none; } }
+
+/* "prompt" in the hero one-liner links to the prompt section */
+.hero-sub-link {
+  color: inherit; font-weight: 650;
+  text-decoration: underline dotted rgba(255, 255, 255, 0.6);
+  text-underline-offset: 3px;
+}
+.hero-sub-link:hover { text-decoration-color: var(--kit-gold); color: #ffffff; }
