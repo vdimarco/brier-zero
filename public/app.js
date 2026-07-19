@@ -1006,6 +1006,129 @@ function koFormCardHtml(state) {
   </div>`;
 }
 
+// Hero hook: the machines-vs-market standing in one live sentence, computed
+// from the same leaderboard rows the table renders. Nothing new is fetched.
+function renderHeroHook(state) {
+  const el = document.getElementById('hero-hook');
+  if (!el) return;
+  const board = (state.leaderboard ?? []).filter((r) => r.scored > 0);
+  const market = board.find((r) => r.model === MARKET_ID);
+  if (!board.length || !market) { el.hidden = true; return; }
+  const marketPos = board.indexOf(market);
+  const machinesAhead = board.slice(0, marketPos).filter((r) => r.model !== MARKET_ID);
+  const aiCount = (state.models ?? []).filter((m) => m.id !== MARKET_ID).length || 9;
+  let line;
+  if (machinesAhead.length) {
+    const bestM = machinesAhead[0];
+    line = `Right now, <b>${machinesAhead.length} of ${aiCount} machines</b> are beating the market — best: <b>${esc(bestM.label)}</b>, ${bestM.avgBrier.toFixed(3)} Brier vs the market's ${market.avgBrier.toFixed(3)}.`;
+  } else {
+    line = `Right now, <b>the market is beating every machine</b> — ${market.avgBrier.toFixed(3)} Brier vs the best AI's ${board.find((r) => r.model !== MARKET_ID)?.avgBrier?.toFixed(3) ?? '—'}.`;
+  }
+  const banks = state.bankroll ? Object.values(state.bankroll.models).filter((m) => m.betsPlaced > 0) : [];
+  if (banks.length) {
+    const top = banks.reduce((a, b) => (b.bankroll > a.bankroll ? b : a));
+    const label = entrantById(state, top.model)?.label ?? top.model;
+    line += ` <b>${esc(label)}</b> has turned 1,000 paper units into <b>${fmtUnits(top.bankroll)}</b>.`;
+  }
+  el.innerHTML = line;
+  el.hidden = false;
+}
+
+// ------------------------------------------------------------ bankroll ----
+// The Bankroll: paper-trading ledger computed server-side (lib/bankroll.js).
+// Virtual units only, never money.
+
+const BANK_TIP = '1,000 paper units at tournament start. Quarter-Kelly bets on its biggest edge vs the TxODDS StablePrice line, only when edge > 2%. Settled by the same Merkle-verified scores as the Brier board. Virtual units — no real money.';
+const fmtUnits = (n) => Math.round(n).toLocaleString('en-US');
+
+function bankChip(state, modelId) {
+  const b = state.bankroll?.models?.[modelId];
+  if (!b || !b.betsPlaced) return '';
+  const up = b.bankroll >= (state.bankroll.startingBankroll ?? 1000);
+  return ` · <span class="lb-bank ${up ? 'lb-bank-up' : 'lb-bank-down'}" title="${esc(BANK_TIP)}">${fmtUnits(b.bankroll)}u</span>`;
+}
+
+// Tiny inline SVG polyline of a bankroll series (paper units over matches).
+function bankSpark(series, starting = 1000) {
+  if (!series || series.length < 2) return '';
+  const vals = [starting, ...series.map((p) => p.after)];
+  const min = Math.min(...vals);
+  const max = Math.max(...vals);
+  const span = max - min || 1;
+  const W = 96, H = 26, P = 2;
+  const pts = vals.map((v, i) => {
+    const x = P + (i / (vals.length - 1)) * (W - 2 * P);
+    const y = H - P - ((v - min) / span) * (H - 2 * P);
+    return `${x.toFixed(1)},${y.toFixed(1)}`;
+  }).join(' ');
+  // Baseline at the starting bankroll, when it sits inside the range.
+  const by = H - P - ((starting - min) / span) * (H - 2 * P);
+  const up = vals[vals.length - 1] >= starting;
+  return `<svg class="bank-spark" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" aria-hidden="true">
+    ${starting >= min && starting <= max ? `<line x1="0" y1="${by.toFixed(1)}" x2="${W}" y2="${by.toFixed(1)}" class="bank-base"/>` : ''}
+    <polyline points="${pts}" class="${up ? 'bank-line-up' : 'bank-line-down'}"/>
+  </svg>`;
+}
+
+function renderBankroll(state) {
+  const section = document.getElementById('bankroll-section');
+  const el = document.getElementById('bankroll');
+  if (!section || !el) return;
+  const bk = state.bankroll;
+  const rows = bk ? Object.values(bk.models).filter((m) => m.betsPlaced > 0 || m.noBets > 0) : [];
+  if (!rows.length) { section.hidden = true; return; }
+  section.hidden = false;
+  rows.sort((a, b) => b.bankroll - a.bankroll);
+  const start = bk.startingBankroll ?? 1000;
+  el.innerHTML = `<div class="bank-wrap">${rows.map((r, i) => {
+    const meta = entrantById(state, r.model);
+    const hit = r.betsPlaced ? `${r.wins}/${r.betsPlaced}` : '—';
+    const up = r.bankroll >= start;
+    return `<div class="bank-row${i === 0 ? ' leader' : ''}" data-model="${esc(r.model)}" role="button" tabindex="0" aria-label="Open bet ledger for ${esc(meta?.label ?? r.model)}">
+      <div class="bank-rank">${i + 1}</div>
+      <div class="lb-id">${meta?.icon ? `<img class="crest" src="${esc(meta.icon)}" alt="" onerror="this.style.visibility='hidden'">` : ''}
+        <span class="bank-name">${esc(meta?.label ?? r.model)}</span></div>
+      ${bankSpark(r.series, start)}
+      <div class="bank-cells">
+        <span class="bank-units ${up ? 'lb-bank-up' : 'lb-bank-down'}">${fmtUnits(r.bankroll)}</span>
+        <span class="bank-meta">${r.betsPlaced} bets · hit ${hit}${r.noBets ? ` · sat out ${r.noBets}` : ''}</span>
+        <span class="bank-meta">${r.biggestWin ? `best +${fmtUnits(r.biggestWin.pnl)} (${esc(r.biggestWin.shortName)})` : ''}${r.biggestWin && r.biggestLoss ? ' · ' : ''}${r.biggestLoss ? `worst −${fmtUnits(-r.biggestLoss.pnl)} (${esc(r.biggestLoss.shortName)})` : ''}</span>
+      </div>
+    </div>`;
+  }).join('')}</div>
+  <p class="footnote">Paper trading with <b>virtual units</b> — no real money anywhere. Each model starts with 1,000 units and places at most one bet per match: quarter-Kelly on its biggest edge against the locked TxODDS StablePrice line, only when the edge clears 2%; otherwise it sits out. Group-stage bets settle at the raw bookmaker line (vig included); knockout bets settle at fair (de-vigged) odds, since no single "advances" price is quoted. Settled by the same Merkle-verified scores as the leaderboard. The Market doesn't get a bankroll: it can't bet against itself. Tap a row for the full bet ledger.</p>`;
+  for (const row of el.querySelectorAll('[data-model]')) {
+    const open = () => { location.hash = `p/${encodeURIComponent(row.dataset.model)}`; };
+    row.addEventListener('click', open);
+    row.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+  }
+}
+
+// The bet ledger for one model, rendered inside the model detail panel.
+function betLedgerHtml(state, modelId) {
+  const bets = state.bankroll?.bets?.filter((b) => b.modelId === modelId);
+  if (!bets?.length) return '';
+  const rows = [...bets].reverse().map((b) => {
+    if (b.result === 'no_bet') {
+      return `<tr class="bet-nobet"><td>${esc(b.shortName)}</td><td colspan="3">no bet — no edge over 2%</td><td class="bet-num">${fmtUnits(b.bankrollAfter)}</td></tr>`;
+    }
+    const sideName = b.outcome === 'draw' ? 'Draw' : (b.outcome === 'home' ? esc(b.shortName.split(' @ ')[1] ?? 'home') : esc(b.shortName.split(' @ ')[0] ?? 'away'));
+    return `<tr class="bet-${b.result}">
+      <td>${esc(b.shortName)}</td>
+      <td>${sideName} @ ${b.odds.toFixed(2)}${b.oddsType === 'fair' ? '<span class="bet-fair" title="No raw advances price is quoted; settled at fair (de-vigged) odds">f</span>' : ''}</td>
+      <td class="bet-num">${b.stake.toFixed(1)}</td>
+      <td class="bet-num bet-pnl">${b.pnl >= 0 ? '+' : '−'}${Math.abs(b.pnl).toFixed(1)}</td>
+      <td class="bet-num">${fmtUnits(b.bankrollAfter)}</td>
+    </tr>`;
+  }).join('');
+  return `<h3>Bet ledger <span class="bet-paper">paper units</span></h3>
+  <p class="fnote">Quarter-Kelly vs the locked TxODDS line, newest first. Sitting out is a decision too, so no-bets are shown. <b>f</b> marks knockout bets settled at fair (de-vigged) odds.</p>
+  <div class="bet-scroll"><table class="bet-table">
+    <thead><tr><th>Match</th><th>Backed</th><th class="bet-num">Stake</th><th class="bet-num">P&amp;L</th><th class="bet-num">Bank</th></tr></thead>
+    <tbody>${rows}</tbody>
+  </table></div>`;
+}
+
 function renderLeaderboard(state) {
   const el = $('#leaderboard');
   const board = boardOf(state);
@@ -1044,7 +1167,7 @@ function renderLeaderboard(state) {
         ${sparkline(r.perMatch) ? `<div class="lb-spark">${sparkline(r.perMatch)}${trendBadge}</div>` : '<div class="lb-spark"></div>'}
         <div class="lb-score">
           <div class="lb-brier" title="Average Brier score — lower is better">${r.avgBrier == null ? '-' : r.avgBrier.toFixed(3)}</div>
-          <div class="lb-meta" title="${esc(skillTip)}">${r.avgSkill == null ? '' : `<b>${fmtSkill(r.avgSkill)}</b> vs coin flip · `}${r.predicted} forecast${r.predicted === 1 ? '' : 's'}</div>
+          <div class="lb-meta" title="${esc(skillTip)}">${r.avgSkill == null ? '' : `<b>${fmtSkill(r.avgSkill)}</b> vs coin flip · `}${r.predicted} forecast${r.predicted === 1 ? '' : 's'}${bankChip(state, r.model)}</div>
         </div>
       </div>`;
     }).join('');
@@ -1350,6 +1473,7 @@ function renderModelDetail(state, modelId) {
     <p class="fnote">W beats the know-nothing baseline for its market (0.667 three-way group match, 0.5 two-way knockout), L does not.</p>
     ${best ? `<p class="fnote">Best call: ${esc(best.shortName)} at ${best.brier.toFixed(3)}. Roughest: ${esc(worst.shortName)} at ${worst.brier.toFixed(3)}.</p>` : ''}
     ` : '<p class="fnote">No scored forecasts yet.</p>'}
+    ${betLedgerHtml(state, modelId)}
   </section>`;
   document.body.style.overflow = 'hidden';
   wireBrierTips(el);
@@ -2190,6 +2314,7 @@ async function collect(matchId) {
    by-lab/by-model view toggle both go through here. */
 function renderAll(state) {
   renderPodium(state);
+  renderHeroHook(state);
   renderHeroConsensus(state);
   renderFeatured(state);
   renderTicker(state);
@@ -2198,6 +2323,7 @@ function renderAll(state) {
   renderViewToggle(state);
   renderRoster(state);
   renderLeaderboard(state);
+  renderBankroll(state);
   renderMatches(state);
   renderDetail(state);
   // Static tips in index.html (leaderboard explainer) + any re-rendered ones.

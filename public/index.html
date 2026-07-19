@@ -4,10 +4,10 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>The Brier Cup. Who's winning the World Cup? According to the machines.</title>
-  <meta name="description" content="Frontier AI models from nine labs forecast every World Cup match with one identical prompt — and the betting market itself, via TxODDS on Solana, trades against them. Locked at kickoff, Brier-scored against real results." />
+  <meta name="description" content="Frontier AI models from nine labs forecast every World Cup match with one identical prompt — and the betting market itself (TxODDS StablePrice via TxLINE on Solana) trades against them. Locked at kickoff, Brier-scored against real results, every settlement Merkle-verified on-chain, and every model paper-trades its edge against the line." />
   <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg" />
   <meta property="og:title" content="The Brier Cup: who's winning the World Cup, according to the machines?" />
-  <meta property="og:description" content="Frontier AI models, one identical prompt, every World Cup match. Forecasts lock at kickoff and are Brier-scored live." />
+  <meta property="og:description" content="Frontier AI models vs the betting market, every World Cup match. Forecasts lock at kickoff, results are Merkle-verified on Solana, and every model paper-trades its edge against the TxODDS line." />
   <meta property="og:image" content="https://worldcup.uptick.fyi/og.png" />
   <meta property="og:url" content="https://worldcup.uptick.fyi" />
   <meta property="og:type" content="website" />
@@ -31,6 +31,7 @@
     <section class="hero">
       <div class="hero-copy">
         <h1>Who's winning the <span class="gold">World Cup</span>?<span class="hero-by">According to the machines.</span></h1>
+        <p id="hero-hook" class="hero-hook" hidden></p>
         <p class="hero-sub">The machines are watching every game. Frontier models from nine AI labs get one identical prompt before each match — and the betting market itself (TxODDS StablePrice, de-vigged, on Solana) trades against them. Forecasts lock at kickoff and are Brier-scored as results arrive.</p>
         <a class="hero-read" href="/research">
           <span class="np">New</span>
@@ -90,6 +91,24 @@
         </span>
       </span> over each match's outcomes: 0 is a perfect forecast, a know-nothing coin flip scores 0.667 on a three-way group match and 0.5 on a two-way knockout tie, 2 is maximally wrong. Lower is better. Rank comes from <strong>shrunken skill vs the coin flip</strong> — each match scores (coin flip − Brier) ÷ coin flip, averaged with ten phantom coin-flip matches, so new entrants start neutral and earn rank as matches accumulate. <span class="market-tip" tabindex="0" role="button" aria-haspopup="dialog" aria-label="What is The Market and where do its numbers come from?"><strong>The Market</strong><span class="market-tip-mark" aria-hidden="true">?</span></span> is bookmaker consensus, not an LLM, scored under the same rules. Finished cards with a green badge mean the final score was Merkle-proved against TxODDS’s on-chain daily root on Solana. Click a competitor for its performance over time.</div>
       <div id="leaderboard" class="skeleton-block" aria-live="polite"></div>
+    </section>
+
+    <section id="bankroll-section" aria-labelledby="bankroll-title" hidden>
+      <h2 id="bankroll-title">The Bankroll</h2>
+      <p class="explainer">Calibration as P&amp;L: every model paper-trades its locked forecasts against the locked TxODDS StablePrice line. 1,000 <b>virtual units</b> at the start, at most one quarter-Kelly bet per match on its biggest edge — only when the edge clears 2% — settled by the same Merkle-verified scores as the leaderboard. No real money, ever.</p>
+      <div id="bankroll" aria-live="polite"></div>
+    </section>
+
+    <section id="pipeline-section" aria-labelledby="pipeline-title">
+      <h2 id="pipeline-title">How a match gets settled</h2>
+      <ol class="pipeline">
+        <li class="pipe-step"><span class="pipe-n">1</span><b>Stream</b><span>TxLINE on Solana streams TxODDS StablePrice consensus odds for every fixture.</span></li>
+        <li class="pipe-step"><span class="pipe-n">2</span><b>De-vig</b><span>The bookmaker margin is stripped, leaving implied probabilities.</span></li>
+        <li class="pipe-step"><span class="pipe-n">3</span><b>Lock</b><span>At kickoff, every model and the market are frozen — nothing after counts.</span></li>
+        <li class="pipe-step"><span class="pipe-n">4</span><b>Result</b><span>The final score arrives from ESPN's public feed.</span></li>
+        <li class="pipe-step"><span class="pipe-n">5</span><b>Merkle proof</b><span>The score is verified against TxODDS's on-chain daily root — tap any green badge for the receipt.</span></li>
+        <li class="pipe-step"><span class="pipe-n">6</span><b>Score &amp; settle</b><span>Brier scores update the board; <a href="#bankroll-section" class="pipe-link">paper bets</a> settle at the locked line.</span></li>
+      </ol>
     </section>
 
     <section id="analysis-section" aria-labelledby="analysis-title">
@@ -172,7 +191,7 @@ The two probabilities must sum to 1.</pre>
   </section>
 
   <footer class="foot">
-    <p>Match scores from ESPN’s public World Cup feed. AI forecasts via OpenRouter with one identical prompt per model — only pre-kickoff locks count. Market lines from <strong>TxODDS StablePrice</strong> over <strong>TxLINE</strong> on Solana; settled scores can show a “Score verified on Solana” badge when the Merkle proof matches the on-chain daily root. Built for the Superteam × TxODDS World Cup hackathon.</p>
+    <p>Match scores from ESPN’s public World Cup feed. AI forecasts via OpenRouter with one identical prompt per model — only pre-kickoff locks count. Market lines from <strong>TxODDS StablePrice</strong> over <strong>TxLINE</strong> on Solana; settled scores can show a “Score verified on Solana” badge when the Merkle proof matches the on-chain daily root. The Bankroll is paper trading with virtual units — no real money. Built for the Superteam × TxODDS World Cup hackathon — <strong>Prediction Markets &amp; Settlement</strong> track.</p>
   </footer>
 
   <div id="market-modal" hidden>
