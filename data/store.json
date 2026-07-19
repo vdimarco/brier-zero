@@ -33824,6 +33824,82 @@
             "rationale": "No score at halftime in a balanced final, so equal chances for both teams."
           }
         }
+      },
+      {
+        "at": "2026-07-19T20:18:06.570Z",
+        "detail": "HT",
+        "score": [
+          0,
+          0
+        ],
+        "events": 0,
+        "period": "STATUS_HALFTIME",
+        "market": "advance",
+        "models": {
+          "anthropic/claude-opus-4.7": {
+            "probs": {
+              "home": 0.55,
+              "away": 0.45
+            },
+            "rationale": "Spain enters as slight favorite based on squad depth and form, and a scoreless first half preserves their pre-match edge with no events shifting the balance."
+          },
+          "openai/gpt-5.1": {
+            "probs": {
+              "home": 0.52,
+              "away": 0.48
+            },
+            "rationale": "Spain have a very slight edge in overall quality and control profiles, but with the match still 0-0 at half-time this remains close to a coin flip."
+          },
+          "deepseek/deepseek-v4-pro": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "The match is evenly poised at 0-0 at half-time between two top teams, making it a coin toss."
+          },
+          "z-ai/glm-5.2": {
+            "probs": {
+              "home": 0.51,
+              "away": 0.49
+            },
+            "rationale": "A deadlocked final between two in-form giants at HT; Spain's possession control and Euro 2024 pedigree give a marginal edge, but Argentina's big-match experience as defending champions keeps it nearly even."
+          },
+          "qwen/qwen3.7-max": {
+            "probs": {
+              "home": 0.53,
+              "away": 0.47
+            },
+            "rationale": "At 0-0 at halftime in a tight final, the match is highly likely to go to extra time or penalties; Spain holds a slight edge due to their younger core entering its prime by 2026, while Argentina may be navigating a post-peak transition, but both teams' elite defensive organization keeps this very close to a coin flip."
+          },
+          "minimax/minimax-m2": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "With no scoring and no major events at halftime, both teams appear evenly matched, making the advance probabilities essentially 50/50."
+          },
+          "google/gemini-3.1-pro-preview": {
+            "probs": {
+              "home": 0.49,
+              "away": 0.51
+            },
+            "rationale": "With the score tied at half-time and no major events, the match remains a toss-up between two elite sides, with Argentina holding a negligible edge due to their recent pedigree in global finals."
+          },
+          "x-ai/grok-4.5": {
+            "probs": {
+              "home": 0.53,
+              "away": 0.47
+            },
+            "rationale": "At 0-0 HT in a final between two elite sides with no events, Spain holds a slight edge on squad depth and form but Argentina's experience keeps it nearly even."
+          },
+          "mistralai/mistral-medium-3-5": {
+            "probs": {
+              "home": 0.5,
+              "away": 0.5
+            },
+            "rationale": "No score at halftime in a balanced final, so equal chances for both teams."
+          }
+        }
       }
     ]
   },
