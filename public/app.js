@@ -1439,7 +1439,17 @@ function wireStickyTopbar() {
     const nav = bar.querySelector('.topnav');
     const link = active && nav?.querySelector(`a[href="#${active}"]`);
     if (link && nav.scrollWidth > nav.clientWidth) {
-      nav.scrollTo({ left: link.offsetLeft - nav.clientWidth / 2 + link.offsetWidth / 2, behavior: 'smooth' });
+      // Center the active link, but never let it park inside the edge
+      // fade masks (18px) where it renders half-cut against the wordmark.
+      // Positions via rects: when the bar is position:fixed it becomes
+      // the offsetParent, so offsetLeft would wrongly include the
+      // wordmark's width.
+      const EDGE = 18;
+      const linkLeft = link.getBoundingClientRect().left - nav.getBoundingClientRect().left + nav.scrollLeft;
+      const center = linkLeft - nav.clientWidth / 2 + link.offsetWidth / 2;
+      const minLeft = linkLeft + link.offsetWidth + EDGE - nav.clientWidth;
+      const maxLeft = linkLeft - EDGE;
+      nav.scrollTo({ left: Math.max(minLeft, Math.min(center, maxLeft)), behavior: 'smooth' });
     }
   };
   window.addEventListener('scroll', () => {

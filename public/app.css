@@ -144,7 +144,9 @@ main { max-width: 1080px; margin: 0 auto; padding: 0 20px 64px; }
   border-bottom-color: var(--surface);
 }
 
-.hero { padding: 34px 20px 42px; max-width: 1080px; margin: 0 auto; }
+/* Tight enough vertically that the podium's crowns break the fold on a
+   typical ~800px-tall laptop viewport. */
+.hero { padding: 22px 20px 28px; max-width: 1080px; margin: 0 auto; }
 .hero h1 {
   font-size: clamp(30px, 5vw, 46px);
   line-height: 1.08; letter-spacing: -0.02em; margin: 0 0 14px;
@@ -1780,3 +1782,6 @@ th.edge-num, td.edge-num { text-align: right; font-variant-numeric: tabular-nums
 .topnav a.active { color: #ffffff; background: rgba(255, 255, 255, 0.16); }
 .toc a.active .toc-dot { background: var(--pitch); opacity: 1; transform: scale(1.35); }
 .toc a.active .toc-label { border-color: var(--pitch); color: var(--ink); font-weight: 700; }
+
+/* Anchored sections land below the fixed bar, not under it */
+main section, #prompt-section { scroll-margin-top: 76px; }
