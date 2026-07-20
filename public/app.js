@@ -3108,9 +3108,9 @@ function podiumSlides(state) {
       icon: r.icon ?? entrantById(state, r.model)?.icon ?? null,
       value: r.avgBrier.toFixed(3),
       aria: `average Brier ${r.avgBrier.toFixed(3)}`,
-      // Only model rows resolve in every leaderboard view; group rows
-      // stay non-clickable rather than opening a mismatched detail.
-      model: granularity === 'model' ? r.model : null,
+      // Model, lab, and bloc ids all open a detail panel —
+      // renderModelDetail resolves each against its own board.
+      model: r.model,
     }));
 
   const start = state.bankroll?.startingBankroll ?? 1000;
