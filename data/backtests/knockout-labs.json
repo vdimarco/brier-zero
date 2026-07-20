@@ -1,9 +1,9 @@
 {
   "method": "ledger + retro-backtest",
   "scope": "knockout",
-  "matchCount": 30,
+  "matchCount": 31,
   "note": "Advance-market Brier only (two-way coin flip = 0.500). Roster models scored from the live prediction ledger; backtest-only candidate models keep their original lab-backtest numbers. Long-running models priced early knockout rounds under the old 90-minute market, so they show fewer scored ties.",
-  "updatedAt": "2026-07-19T17:24:37.950Z",
+  "updatedAt": "2026-07-19T22:06:45.169Z",
   "status": "partial",
   "labs": [
     {
@@ -15,9 +15,10 @@
         {
           "id": "anthropic/claude-opus-4.7",
           "label": "Opus 4.7",
-          "avgBrier": 0.309,
-          "scored": 30,
-          "requested": 30
+          "avgBrier": 0.31,
+          "scored": 31,
+          "requested": 31,
+          "bestInLab": true
         },
         {
           "id": "anthropic/claude-opus-4.8",
@@ -29,10 +30,9 @@
         {
           "id": "anthropic/claude-sonnet-4.5",
           "label": "Sonnet 4.5",
-          "avgBrier": 0.299,
-          "scored": 10,
-          "requested": 30,
-          "bestInLab": true
+          "avgBrier": 0.321,
+          "scored": 11,
+          "requested": 31
         },
         {
           "id": "anthropic/claude-fable-5",
@@ -54,14 +54,14 @@
       "id": "google",
       "label": "Google",
       "icon": "/icons/gemini.svg",
-      "status": "complete",
+      "status": "partial",
       "models": [
         {
           "id": "google/gemini-3.1-pro-preview",
           "label": "Gemini 3.1 Pro",
-          "avgBrier": 0.331,
-          "scored": 30,
-          "requested": 30,
+          "avgBrier": 0.335,
+          "scored": 31,
+          "requested": 31,
           "bestInLab": true
         },
         {
@@ -82,17 +82,17 @@
         {
           "id": "z-ai/glm-5.2",
           "label": "GLM 5.2",
-          "avgBrier": 0.33,
-          "scored": 30,
-          "requested": 30,
+          "avgBrier": 0.334,
+          "scored": 31,
+          "requested": 31,
           "bestInLab": true
         },
         {
           "id": "z-ai/glm-4.6",
           "label": "4.6",
-          "avgBrier": 0.357,
-          "scored": 10,
-          "requested": 30
+          "avgBrier": 0.376,
+          "scored": 11,
+          "requested": 31
         }
       ]
     },
@@ -105,17 +105,17 @@
         {
           "id": "moonshotai/kimi-k3",
           "label": "Kimi K3",
-          "avgBrier": 0.328,
-          "scored": 30,
-          "requested": 30,
+          "avgBrier": 0.331,
+          "scored": 31,
+          "requested": 31,
           "bestInLab": true
         },
         {
           "id": "moonshotai/kimi-k2-0905",
           "label": "K2",
-          "avgBrier": 0.329,
-          "scored": 10,
-          "requested": 30
+          "avgBrier": 0.351,
+          "scored": 11,
+          "requested": 31
         }
       ]
     },
@@ -128,9 +128,9 @@
         {
           "id": "openai/gpt-5.1",
           "label": "GPT-5.1",
-          "avgBrier": 0.302,
-          "scored": 10,
-          "requested": 30,
+          "avgBrier": 0.324,
+          "scored": 11,
+          "requested": 31,
           "bestInLab": true
         },
         {
@@ -153,22 +153,22 @@
       "id": "x-ai",
       "label": "xAI",
       "icon": "/icons/grok.svg",
-      "status": "complete",
+      "status": "partial",
       "models": [
         {
           "id": "x-ai/grok-4.5",
           "label": "Grok 4.5",
-          "avgBrier": 0.344,
-          "scored": 30,
-          "requested": 30,
-          "bestInLab": true
+          "avgBrier": 0.35,
+          "scored": 31,
+          "requested": 31
         },
         {
           "id": "x-ai/grok-4.3",
           "label": "Grok 4.3",
           "avgBrier": 0.345,
           "scored": 30,
-          "requested": 30
+          "requested": 30,
+          "bestInLab": true
         }
       ]
     },
@@ -181,17 +181,17 @@
         {
           "id": "deepseek/deepseek-v4-pro",
           "label": "DeepSeek V4 Pro",
-          "avgBrier": 0.346,
-          "scored": 30,
-          "requested": 30
+          "avgBrier": 0.352,
+          "scored": 31,
+          "requested": 31,
+          "bestInLab": true
         },
         {
           "id": "deepseek/deepseek-chat-v3.1",
           "label": "V3.1",
-          "avgBrier": 0.332,
-          "scored": 10,
-          "requested": 30,
-          "bestInLab": true
+          "avgBrier": 0.356,
+          "scored": 11,
+          "requested": 31
         }
       ]
     },
@@ -204,17 +204,17 @@
         {
           "id": "qwen/qwen3.7-max",
           "label": "Qwen3.7 Max",
-          "avgBrier": 0.352,
-          "scored": 30,
-          "requested": 30,
+          "avgBrier": 0.353,
+          "scored": 31,
+          "requested": 31,
           "bestInLab": true
         },
         {
           "id": "qwen/qwen3-max",
           "label": "Qwen3 Max",
-          "avgBrier": 0.362,
-          "scored": 10,
-          "requested": 30
+          "avgBrier": 0.384,
+          "scored": 11,
+          "requested": 31
         }
       ]
     },
@@ -227,9 +227,9 @@
         {
           "id": "minimax/minimax-m2",
           "label": "MiniMax",
-          "avgBrier": 0.315,
-          "scored": 11,
-          "requested": 30,
+          "avgBrier": 0.339,
+          "scored": 12,
+          "requested": 31,
           "bestInLab": true
         }
       ]
@@ -243,9 +243,9 @@
         {
           "id": "mistralai/mistral-medium-3-5",
           "label": "Mistral",
-          "avgBrier": 0.364,
-          "scored": 30,
-          "requested": 30,
+          "avgBrier": 0.372,
+          "scored": 31,
+          "requested": 31,
           "bestInLab": true
         }
       ]

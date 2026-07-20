@@ -1203,7 +1203,7 @@ function renderBankroll(state) {
         (k) => ({ label: (blocLabels.get(k) ?? k.toUpperCase()).replace(/^\S+\s/, ''), flag: (blocLabels.get(k) ?? '').split(' ')[0] || null, icon: null }));
     el.innerHTML = `<div class="bank-wrap">${groups.map((g, i) => {
       const bestMeta = g.best ? entrantById(state, g.best.model) : null;
-      return `<div class="bank-row bank-row-static${i === 0 ? ' leader' : ''}">
+      return `<div class="bank-row${i === 0 ? ' leader' : ''}" data-model="${esc(g.key)}" role="button" tabindex="0" aria-label="Open detail for ${esc(g.label)}">
         <div class="bank-rank">${i + 1}</div>
         <div class="lb-id">${g.flag ? `<span class="bank-flag" aria-hidden="true">${esc(g.flag)}</span>` : (g.icon ? `<img class="crest" src="${esc(g.icon)}" alt="" onerror="this.style.visibility='hidden'">` : '')}
           <span class="bank-name">${esc(g.label)}</span></div>
@@ -1215,7 +1215,12 @@ function renderBankroll(state) {
         </div>
       </div>`;
     }).join('')}</div>
-    <p class="footnote">Each book started at 1,000 units on its own clock, so grouped views total <b>net paper P&amp;L</b>, never summed "bankrolls". The Market doesn't get a book — it can't bet against itself. Switch to By model for ledgers.</p>`;
+    <p class="footnote">Each book started at 1,000 units on its own clock, so grouped views total <b>net paper P&amp;L</b>, never summed "bankrolls". The Market doesn't get a book — it can't bet against itself. Switch to By model for ledgers. Tap a row for the group's record.</p>`;
+    for (const grow of el.querySelectorAll('[data-model]')) {
+      const open = () => { location.hash = `p/${encodeURIComponent(grow.dataset.model)}`; };
+      grow.addEventListener('click', open);
+      grow.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+    }
     return;
   }
 
@@ -1239,6 +1244,13 @@ function renderBankroll(state) {
       storyCard = `<div class="lb-miss bank-story">
         <span class="lb-miss-tag bank-story-tag">The best forecaster isn't the richest agent</span>
         <span class="lb-miss-body">The Market out-calibrates every model (<b>${fmtSkill(marketRow.avgSkill)}</b> vs the coin flip), and no agent beats its Brier score. But ${calDesc} — <b>${esc(leadLabel)}</b> — leads the bankroll at <b>${fmtUnits(topBank.bankroll)}</b>, hitting just <b>${topBank.wins} of ${topBank.betsPlaced}</b> longshot bets. Calibration wins the Brier Cup; variance wins the bankroll.</span>
+      </div>`;
+    } else if (leadRow && calRank === 1 && agents.length > 1) {
+      // The final flipped the ledger: the sharpest agent finished richest
+      // too. Same live inputs, inverted punchline.
+      storyCard = `<div class="lb-miss bank-story">
+        <span class="lb-miss-tag bank-story-tag">The best forecaster ended up the richest agent</span>
+        <span class="lb-miss-body">The Market wins the Brier Cup (<b>${fmtSkill(marketRow.avgSkill)}</b> vs the coin flip) — no agent out-calibrated the bookmakers. But among the agents, <b>${esc(leadLabel)}</b> finished both sharpest (${leadRow.avgBrier.toFixed(3)} Brier, best in the field) and richest (<b>${fmtUnits(topBank.bankroll)}</b> paper units on <b>${topBank.wins} of ${topBank.betsPlaced}</b> bets). Variance led the bankroll all tournament; calibration cashed the last bet.</span>
       </div>`;
     }
   }
@@ -1521,8 +1533,8 @@ function renderBankrollChart(state) {
   // the same agent and highlight/open together.
   const svg = el.querySelector('.bkc-svg');
   const focus = (lab) => { if (lab) svg.setAttribute('data-focus', lab); else svg.removeAttribute('data-focus'); };
-  // Detail panels exist per model; grouped lines/chips don't navigate.
-  const openLedger = (id) => { if (bankView !== 'model') return; location.hash = `p/${encodeURIComponent(id)}`; };
+  // Model, lab, and bloc ids all resolve to a detail panel.
+  const openLedger = (id) => { location.hash = `p/${encodeURIComponent(id)}`; };
   for (const node of el.querySelectorAll('[data-model]')) {
     node.addEventListener('mouseenter', () => focus(node.dataset.lab));
     node.addEventListener('mouseleave', () => focus(null));
@@ -2056,13 +2068,23 @@ function timelineRows(match, points, market) {
 
 /* Model detail: performance over time. Running-average Brier vs the
    field, per-match dots, the coin-flip baseline, and a form strip. */
-function modelChart(points, fieldPoints) {
-  const W = 660, H = 240, padL = 40, padR = 20, padT = 12, padB = 26;
+function modelChart(points, fieldPoints, pnlByMatch) {
   const n = points.length;
+  const hasPnl = pnlByMatch && pnlByMatch.size > 0;
+  // Main running-average plot on top; below it, per-match bar lanes:
+  // Brier delta vs the coin flip, and (for models with a book) bet P&L.
+  const W = 660, padL = 40, padR = 20, padT = 12;
+  const MAIN_B = 178;              // bottom of the main plot
+  const LANE_H = 24;               // half-height of a bar lane
+  const skill0 = MAIN_B + 36 + LANE_H; // clears the kickoff-order caption
+  const pnl0 = skill0 + LANE_H + 26 + LANE_H;
+  const H = (hasPnl ? pnl0 + LANE_H : skill0 + LANE_H) + 18;
   const yMax = Math.max(1, Math.ceil(Math.max(...points.map((p) => p.brier), 0.7) * 4) / 4);
   const x = (i) => (n === 1 ? W / 2 : padL + (i * (W - padL - padR)) / (n - 1));
-  const y = (v) => padT + (1 - Math.min(v, yMax) / yMax) * (H - padT - padB);
-  let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Running average Brier score over the tournament">`;
+  const y = (v) => padT + (1 - Math.min(v, yMax) / yMax) * (MAIN_B - padT);
+  const step = n > 1 ? (W - padL - padR) / (n - 1) : W;
+  const bw = Math.max(1.5, Math.min(6, step * 0.66));
+  let svg = `<svg class="mc-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Running average Brier, per-match Brier deltas, and per-bet paper P&L over the tournament">`;
   for (const g of [0, 0.5, 1].filter((v) => v <= yMax)) {
     svg += `<line x1="${padL}" y1="${y(g)}" x2="${W - padR}" y2="${y(g)}" stroke="var(--hairline)" stroke-width="1"/>`;
     svg += `<text x="${padL - 6}" y="${y(g) + 4}" text-anchor="end" font-size="10" fill="var(--ink-3)">${g}</text>`;
@@ -2087,9 +2109,109 @@ function modelChart(points, fieldPoints) {
       `<title>After ${esc(p.shortName)}: average ${p.cum.toFixed(3)}</title></circle>`;
   });
   svg += `<text x="${x(n - 1) - 8}" y="${y(points[n - 1].cum) + 16}" text-anchor="end" font-size="10.5" font-weight="700" fill="var(--pitch)">running avg</text>`;
-  svg += `<text x="${padL}" y="${H - 6}" font-size="10" fill="var(--ink-3)">matches in kickoff order, dots are single-match scores</text>`;
+  svg += `<text x="${padL}" y="${MAIN_B + 12}" font-size="10" fill="var(--ink-3)">matches in kickoff order, dots are single-match scores</text>`;
+
+  // Lane 1: per-match Brier delta vs the coin flip (up = beat it).
+  const deltas = points.map((p) => (p.baseline ?? 2 / 3) - p.brier);
+  const dMax = Math.max(...deltas.map(Math.abs), 0.01);
+  svg += `<line x1="${padL}" y1="${skill0}" x2="${W - padR}" y2="${skill0}" stroke="var(--hairline)" stroke-width="1"/>`;
+  svg += `<text x="${padL}" y="${skill0 - LANE_H - 4}" font-size="10" font-weight="650" fill="var(--ink-3)">per-match Brier vs the coin flip · above the line = beat it</text>`;
+  points.forEach((p, i) => {
+    const d = deltas[i];
+    const h = Math.abs(d) / dMax * (LANE_H - 2);
+    svg += `<rect x="${(x(i) - bw / 2).toFixed(1)}" y="${(d >= 0 ? skill0 - h : skill0).toFixed(1)}" width="${bw.toFixed(1)}" height="${Math.max(h, 0.75).toFixed(1)}" fill="${d >= 0 ? 'var(--pitch)' : 'var(--away)'}" opacity="0.85">` +
+      `<title>${esc(p.shortName)}: ${d >= 0 ? '+' : '−'}${Math.abs(d).toFixed(3)} vs coin flip (Brier ${p.brier.toFixed(3)})</title></rect>`;
+  });
+
+  // Lane 2: per-bet paper P&L, only for entrants with their own book.
+  if (hasPnl) {
+    const pnls = points.map((p) => pnlByMatch.get(p.matchId) ?? null);
+    const pMax = Math.max(...pnls.filter((v) => v != null).map(Math.abs), 1);
+    svg += `<line x1="${padL}" y1="${pnl0}" x2="${W - padR}" y2="${pnl0}" stroke="var(--hairline)" stroke-width="1"/>`;
+    svg += `<text x="${padL}" y="${pnl0 - LANE_H - 4}" font-size="10" font-weight="650" fill="var(--ink-3)">per-bet P&amp;L, paper units · no bar = sat out</text>`;
+    points.forEach((p, i) => {
+      const v = pnls[i];
+      if (v == null) return;
+      const h = Math.abs(v) / pMax * (LANE_H - 2);
+      svg += `<rect x="${(x(i) - bw / 2).toFixed(1)}" y="${(v >= 0 ? pnl0 - h : pnl0).toFixed(1)}" width="${bw.toFixed(1)}" height="${Math.max(h, 0.75).toFixed(1)}" fill="${v >= 0 ? 'var(--pitch)' : 'var(--away)'}" opacity="0.85">` +
+        `<title>${esc(p.shortName)}: ${v >= 0 ? '+' : '−'}${Math.abs(v).toFixed(1)} units</title></rect>`;
+    });
+  }
+  svg += `<line class="mc-cross" x1="0" y1="${padT}" x2="0" y2="${H - 14}" stroke="var(--pitch)" stroke-width="1.25" stroke-dasharray="3 4" opacity="0"/>`;
   svg += '</svg>';
   return svg;
+}
+
+/* Hover/tap on the detail chart: a crosshair snaps to the nearest match
+   and the tooltip carries that data point's full context — the match's
+   Brier vs its coin flip, the running average, the field, and the bet
+   that settled there (side, odds, stake, P&L, or sat out). Mirrors the
+   trophy and calibration chart interaction, touch included. */
+let mcDismiss = null;
+// Detail-view stage filter: knockouts-to-final by default, Groups
+// toggleable. Session-persistent across panel opens.
+let detailStages = new Set(['r32', 'r16', 'qf', 'sf', 'finals']);
+const coinFlipOf = (mkt) => (mkt === 'advance' ? 0.5 : 2 / 3);
+
+function attachModelChartHover(wrap, points, fieldPoints, betByMatch) {
+  const svg = wrap.querySelector('.mc-svg');
+  const cross = svg && svg.querySelector('.mc-cross');
+  const n = points.length;
+  if (!svg || !cross || n < 2) return;
+  const W = 660, padL = 40, padR = 20;
+  const plotW = W - padL - padR;
+  const xAt = (i) => padL + (i * plotW) / (n - 1);
+
+  const tip = document.createElement('div');
+  tip.className = 'chart-tip';
+  tip.hidden = true;
+  wrap.appendChild(tip);
+
+  const indexFromClientX = (clientX) => {
+    const pt = svg.createSVGPoint();
+    pt.x = clientX; pt.y = 0;
+    const sx = pt.matrixTransform(svg.getScreenCTM().inverse()).x;
+    return Math.max(0, Math.min(n - 1, Math.round((sx - padL) / (plotW / (n - 1)))));
+  };
+  const show = (clientX) => {
+    const i = indexFromClientX(clientX);
+    const p = points[i];
+    const gx = xAt(i);
+    cross.setAttribute('x1', gx); cross.setAttribute('x2', gx); cross.setAttribute('opacity', '1');
+    const base = p.baseline ?? 2 / 3;
+    const d = base - p.brier;
+    const bet = betByMatch?.get(p.matchId);
+    let betRow;
+    if (!bet) betRow = '';
+    else if (bet.result === 'no_bet') betRow = `<div class="tt-row"><span class="tt-team">bet</span><b>sat out — no edge</b></div>`;
+    else {
+      const side = bet.outcome === 'draw' ? 'Draw' : (bet.outcome === 'home' ? (bet.shortName.split(' @ ')[1] ?? 'home') : (bet.shortName.split(' @ ')[0] ?? 'away'));
+      betRow = `<div class="tt-row"><span class="tt-team">bet ${esc(side)} @ ${bet.odds.toFixed(2)}</span><b>stake ${bet.stake.toFixed(1)}</b></div>
+        <div class="tt-row"><span class="tt-team">P&amp;L</span><b class="${bet.pnl >= 0 ? 'tt-up' : 'tt-down'}">${bet.pnl >= 0 ? '+' : '−'}${Math.abs(bet.pnl).toFixed(1)} · ${fmtUnits(bet.bankrollAfter)} after</b></div>`;
+    }
+    tip.innerHTML = `<div class="tt-head">${esc(p.shortName)} · match ${i + 1} of ${n}</div>
+      <div class="tt-row"><span class="tt-team">Brier</span><b>${p.brier.toFixed(3)} <span class="${d >= 0 ? 'tt-up' : 'tt-down'}">(${d >= 0 ? '+' : '−'}${Math.abs(d).toFixed(3)} vs flip)</span></b></div>
+      <div class="tt-row"><span class="tt-team">running avg</span><b>${p.cum.toFixed(3)}</b></div>
+      ${fieldPoints?.[i] != null ? `<div class="tt-row"><span class="tt-team">field avg</span><b>${fieldPoints[i].toFixed(3)}</b></div>` : ''}
+      ${betRow}`;
+    tip.hidden = false;
+    const wrapRect = wrap.getBoundingClientRect();
+    const svgRect = svg.getBoundingClientRect();
+    const colX = svgRect.left - wrapRect.left + (gx / W) * svgRect.width;
+    let left = colX + 14;
+    if (left + tip.offsetWidth > wrapRect.width - 4) left = colX - tip.offsetWidth - 14;
+    tip.style.left = `${Math.max(4, Math.min(left, wrapRect.width - tip.offsetWidth - 4))}px`;
+  };
+  const hide = () => { tip.hidden = true; cross.setAttribute('opacity', '0'); };
+
+  svg.style.touchAction = 'pan-y';
+  svg.addEventListener('mousemove', (e) => show(e.clientX));
+  svg.addEventListener('mouseleave', hide);
+  svg.addEventListener('touchstart', (e) => { if (e.touches[0]) show(e.touches[0].clientX); }, { passive: true });
+  svg.addEventListener('touchmove', (e) => { if (e.touches[0]) show(e.touches[0].clientX); }, { passive: true });
+  if (mcDismiss) document.removeEventListener('pointerdown', mcDismiss);
+  mcDismiss = (e) => { if (!wrap.contains(e.target)) hide(); };
+  document.addEventListener('pointerdown', mcDismiss);
 }
 
 function renderModelDetail(state, modelId) {
@@ -2107,28 +2229,81 @@ function renderModelDetail(state, modelId) {
   const rankedRows = rows.filter((r) => r.scored > 0);
   const rank = rankedRows.findIndex((r) => r.model === modelId) + 1;
 
+  // Stage filter for the detail view. The official board scores the
+  // knockout phase, so knockouts-to-final is the default selection —
+  // but every entrant has full-tournament records, so Groups can be
+  // toggled in. Selection persists across panel opens.
+  const mcStageOf = (stage) => {
+    if (stage === 'group stage') return 'groups';
+    if (stage === 'round of 32') return 'r32';
+    if (stage === 'round of 16') return 'r16';
+    if (stage === 'quarterfinals') return 'qf';
+    if (stage === 'semifinals') return 'sf';
+    return 'finals'; // final + 3rd place match
+  };
+  const labMeta2 = labsOf(state).find((l) => l.id === modelId);
+  let fullPerMatch;
+  if ((state.matches ?? []).some((m) => m.predictions?.[modelId]) || labMeta2) {
+    // Model or lab id: score every match it priced, straight from the
+    // ledger, with each record's own market and baseline.
+    fullPerMatch = [];
+    const sorted = [...state.matches].sort((a, b) => new Date(a.kickoff) - new Date(b.kickoff));
+    for (const match of sorted) {
+      const p = match.predictions?.[modelId] ?? (labMeta2 ? predOf(match, labMeta2) : null);
+      if (!p) continue;
+      const b = predBrier(p, match);
+      if (b == null) continue;
+      const mkt = predMarket(p);
+      fullPerMatch.push({
+        matchId: match.id, shortName: match.shortName, brier: b,
+        market: mkt, baseline: coinFlipOf(mkt), stageKey: mcStageOf(match.stage),
+      });
+    }
+  } else {
+    // Bloc consensus rows only exist on the knockout board.
+    const stageById = new Map(state.matches.map((m) => [m.id, mcStageOf(m.stage)]));
+    fullPerMatch = row.perMatch.map((p) => ({
+      ...p, baseline: p.baseline ?? 2 / 3, stageKey: stageById.get(p.matchId) ?? 'r32',
+    }));
+  }
+  const availStages = new Set(fullPerMatch.map((p) => p.stageKey));
+  const activeSel = [...detailStages].filter((k) => availStages.has(k));
+  const shown = activeSel.length ? new Set(activeSel) : availStages;
   let cum = 0;
-  const points = row.perMatch.map((p, i) => {
-    cum += p.brier;
-    return { ...p, cum: cum / (i + 1) };
-  });
-  // Field: mean per-match Brier across all models, accumulated in the
-  // same match order this model was scored in.
-  const fieldByMatch = {};
-  for (const r of rows)
-    for (const p of r.perMatch) (fieldByMatch[p.matchId] ??= []).push(p.brier);
+  const points = fullPerMatch
+    .filter((p) => shown.has(p.stageKey))
+    .map((p, i) => {
+      cum += p.brier;
+      return { ...p, cum: cum / (i + 1) };
+    });
+  // Field: mean per-match Brier across the display roster, over the same
+  // filtered matches in the same order.
+  const matchById = new Map(state.matches.map((m) => [m.id, m]));
   let fcum = 0;
   const fieldPoints = points.map((p, i) => {
-    const list = fieldByMatch[p.matchId] ?? [p.brier];
-    fcum += list.reduce((a, b) => a + b, 0) / list.length;
+    const match = matchById.get(p.matchId);
+    const briers = match
+      ? Object.values(entrantPredsOf(state, match)).map((pr) => predBrier(pr, match)).filter((v) => v != null)
+      : [];
+    fcum += briers.length ? briers.reduce((a, b) => a + b, 0) / briers.length : p.brier;
     return fcum / (i + 1);
   });
 
   const best = points.length ? points.reduce((a, b) => (b.brier < a.brier ? b : a)) : null;
   const worst = points.length ? points.reduce((a, b) => (b.brier > a.brier ? b : a)) : null;
   const beats = (p) => p.brier < (p.baseline ?? 2 / 3);
-  const form = points.slice(-10).map((p) =>
-    `<span class="form-chip ${beats(p) ? 'form-good' : 'form-poor'}" title="${esc(p.shortName)}: ${p.brier.toFixed(3)}">${beats(p) ? 'W' : 'L'}</span>`
+  // This entrant's bet rows (no-bets included, so the tooltip can say
+  // "sat out"); the chart's P&L lane only wants the settled numbers.
+  const mcBets = new Map((state.bankroll?.bets ?? [])
+    .filter((b) => b.modelId === modelId)
+    .map((b) => [b.matchId, b]));
+  const mcPnl = new Map([...mcBets.values()]
+    .filter((b) => b.result !== 'no_bet')
+    .map((b) => [b.matchId, b.pnl]));
+  // Every selected-stage match as a W/L tile, oldest to newest, filling
+  // the panel's width — no truncation.
+  const form = points.map((p) =>
+    `<span class="form-chip ${beats(p) ? 'form-good' : 'form-poor'}" title="${esc(p.shortName)}: ${p.brier.toFixed(3)} (coin flip ${p.baseline.toFixed(3)})">${beats(p) ? 'W' : 'L'}</span>`
   ).join('');
 
   el.innerHTML = `<div class="detail-scrim" data-close></div>
@@ -2144,23 +2319,42 @@ function renderModelDetail(state, modelId) {
       <button class="detail-close" data-close aria-label="Close">✕</button>
     </div>
     <div class="stat-row">
-      <div class="stat"><div class="stat-v">${row.avgBrier == null ? '-' : row.avgBrier.toFixed(3)}</div><div class="stat-l">avg ${brierTip('Brier', { compact: true })}</div></div>
-      <div class="stat"><div class="stat-v">${fmtSkill(row.avgSkill)}</div><div class="stat-l" title="Average of (coin flip − Brier) ÷ coin flip per match. 0% matches guessing; ranking shrinks this toward zero with ten phantom coin-flip matches.">skill vs coin flip</div></div>
-      <div class="stat"><div class="stat-v">${row.scored}</div><div class="stat-l">scored</div></div>
+      <div class="stat"><div class="stat-v">${points.length ? (points[points.length - 1].cum).toFixed(3) : '-'}</div><div class="stat-l">avg ${brierTip('Brier', { compact: true })}</div></div>
+      <div class="stat"><div class="stat-v">${points.length ? fmtSkill(points.reduce((s, p) => s + (p.baseline - p.brier) / p.baseline, 0) / points.length) : '-'}</div><div class="stat-l" title="Average of (coin flip − Brier) ÷ coin flip per match over the stages selected below. The leaderboard shrinks this toward zero with ten phantom coin-flip matches.">skill vs coin flip</div></div>
+      <div class="stat"><div class="stat-v">${points.length}</div><div class="stat-l">scored</div></div>
       <div class="stat"><div class="stat-v">${points.filter(beats).length}</div><div class="stat-l">beat the coin flip</div></div>
+    </div>
+    <div class="mc-stages" role="group" aria-label="Stages shown">
+      ${[['groups', 'Groups'], ['r32', 'R32'], ['r16', 'R16'], ['qf', 'QF'], ['sf', 'SF'], ['finals', 'Finals']]
+        .filter(([k]) => availStages.has(k))
+        .map(([k, l]) => `<button class="lb-view-btn mc-stage-btn${shown.has(k) ? ' active' : ''}" data-stage="${k}" aria-pressed="${shown.has(k)}">${l}</button>`).join('')}
+      <span class="lb-view-hint">Stats and chart cover the selected stages; the leaderboard itself scores knockouts onward.</span>
     </div>
     ${points.length ? `
     <h3>Average over the tournament</h3>
-    <div class="chart">${modelChart(points, fieldPoints)}</div>
-    <h3>Form, last ${Math.min(10, points.length)}</h3>
+    <div class="chart mc-wrap">${modelChart(points, fieldPoints, mcPnl)}</div>
+    <h3>Beat the coin flip? All ${points.length} matches, oldest → newest</h3>
     <div class="form-strip">${form}</div>
-    <p class="fnote">W beats the know-nothing baseline for its market (0.667 three-way group match, 0.5 two-way knockout), L does not.</p>
+    <p class="fnote"><b>W</b> = this forecast beat a know-nothing coin flip for its market (0.667 three-way group match, 0.5 two-way knockout); <b>L</b> = it didn't. Hover a tile for the match and score. Follows the stage filter above.</p>
     ${best ? `<p class="fnote">Best call: ${esc(best.shortName)} at ${best.brier.toFixed(3)}. Roughest: ${esc(worst.shortName)} at ${worst.brier.toFixed(3)}.</p>` : ''}
     ` : '<p class="fnote">No scored forecasts yet.</p>'}
     ${betLedgerHtml(state, modelId)}
   </section>`;
   document.body.style.overflow = 'hidden';
   wireBrierTips(el);
+  const mcWrap = el.querySelector('.mc-wrap');
+  if (mcWrap) attachModelChartHover(mcWrap, points, fieldPoints, mcBets);
+  for (const sb of el.querySelectorAll('.mc-stage-btn')) {
+    sb.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const k = sb.dataset.stage;
+      const next = new Set(shown);
+      if (next.has(k)) next.delete(k); else next.add(k);
+      if (!next.size) return; // at least one stage stays on
+      detailStages = next;
+      renderModelDetail(state, modelId);
+    });
+  }
   for (const c of el.querySelectorAll('[data-close]')) {
     c.addEventListener('click', closeDetail);
   }
@@ -2914,9 +3108,9 @@ function podiumSlides(state) {
       icon: r.icon ?? entrantById(state, r.model)?.icon ?? null,
       value: r.avgBrier.toFixed(3),
       aria: `average Brier ${r.avgBrier.toFixed(3)}`,
-      // Only model rows resolve in every leaderboard view; group rows
-      // stay non-clickable rather than opening a mismatched detail.
-      model: granularity === 'model' ? r.model : null,
+      // Model, lab, and bloc ids all open a detail panel —
+      // renderModelDetail resolves each against its own board.
+      model: r.model,
     }));
 
   const start = state.bankroll?.startingBankroll ?? 1000;
@@ -2958,7 +3152,9 @@ function podiumSlides(state) {
         value: `${g.pnl >= 0 ? '+' : '−'}${fmtUnits(Math.abs(g.pnl))}`,
         valueClass: g.pnl >= 0 ? 'up' : 'down',
         aria: `net ${g.pnl >= 0 ? 'profit' : 'loss'} of ${fmtUnits(Math.abs(g.pnl))} paper units over ${g.books} book${g.books === 1 ? '' : 's'}`,
-        model: null,
+        // Lab/bloc ids open their group detail panel (renderModelDetail
+        // resolves them via the by-lab / by-country boards).
+        model: g.key,
       }));
   };
   const blocLabel = new Map((state.leaderboardByBloc ?? []).map((r) => [r.model, r.label]));

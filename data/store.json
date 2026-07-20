@@ -38970,6 +38970,122 @@
       "explorerUrl": "https://explorer.solana.com/address/HJ6nSVkUs4VG9JQ5sEUq3VbmyUSBf76ePXUCATLtRYTX?cluster=devnet",
       "at": "2026-07-18T04:14:56.595Z",
       "method": "validateStat.view"
+    },
+    "760516": {
+      "matchId": "760516",
+      "fixtureId": "18257865",
+      "seq": 1195,
+      "statKey": 1002,
+      "root": "a6738af547fe151fc40be96e0d4d0b195bc4c50510def41763b801ebce823368",
+      "onchainRoot": "a6738af547fe151fc40be96e0d4d0b195bc4c50510def41763b801ebce823368",
+      "verified": true,
+      "epochDay": 20652,
+      "pda": "C9vY83pzub2a4d3Qve5NuR4cuXc8Yq68fKRRad4xR4bi",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/C9vY83pzub2a4d3Qve5NuR4cuXc8Yq68fKRRad4xR4bi?cluster=devnet",
+      "statToProve": {
+        "key": 1002,
+        "value": 4,
+        "period": 100
+      },
+      "eventRoot": "1e82c848e37efc8f5f793ccbc8851f4f6ff309e8b5db5919523e27c5e384cf7a",
+      "subRoot": "d9a1d9f81de03d2f8a15b614c2481d4f24c63469c49ad1ffa8af949d48455f29",
+      "merklePath": [
+        {
+          "hash": "2d158a2b270afea3e8fd7b836e5d1854ffb6586f9e47337c52f878a6c2c9ed48",
+          "side": "right"
+        },
+        {
+          "hash": "e1b5adf18e0fb7c2825c414bff03ea2adae27746bd5cbe2a64d1e9dd12115ee2",
+          "side": "right"
+        },
+        {
+          "hash": "e3d70ce2d53714a68270dda6129de9c18cb6549c3c4e40c946acf720c5e99eba",
+          "side": "left"
+        },
+        {
+          "hash": "f10f0e5f48943450a25629cf2c1a76b8ebe4f58a864a2b8787f62b509cbdb06d",
+          "side": "right"
+        },
+        {
+          "hash": "9145c1b99194c116d6a45942a113e437aa55d3c003b0bb12c1a5e406fdbf9e58",
+          "side": "left"
+        },
+        {
+          "hash": "7519736255a624d52c4d403bdf566af24d1a4159430ec0691ab689fe77e6c892",
+          "side": "right"
+        },
+        {
+          "hash": "ce20a7cf3d9c1882f258bafa6093f89fb06870071f6a13f65a63bfa100a4d281",
+          "side": "left"
+        }
+      ],
+      "at": "2026-07-19T22:05:27.515Z",
+      "method": "validateStat.view"
+    },
+    "760517": {
+      "matchId": "760517",
+      "fixtureId": "18257739",
+      "seq": 1358,
+      "statKey": 1002,
+      "root": "96674da8e9c356b50b3f31d3cc60990e2609505e85eada8ca5b0ba3437df06ed",
+      "onchainRoot": "96674da8e9c356b50b3f31d3cc60990e2609505e85eada8ca5b0ba3437df06ed",
+      "verified": true,
+      "epochDay": 20653,
+      "pda": "9yjDecy1xmHSuP3fq4isJxLNrJjk7bigBySxPoYsox8c",
+      "cluster": "devnet",
+      "explorerUrl": "https://explorer.solana.com/address/9yjDecy1xmHSuP3fq4isJxLNrJjk7bigBySxPoYsox8c?cluster=devnet",
+      "statToProve": {
+        "key": 1002,
+        "value": 0,
+        "period": 9
+      },
+      "eventRoot": "019240bba8e0ba61f4da16048546c643045e7e092efb79b4e492f4da451f0298",
+      "subRoot": "2085435940fa8fd5023b827cb0f5874bd43548bf8d38111ee963855aafb0b3dc",
+      "merklePath": [
+        {
+          "hash": "01ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "side": "left"
+        },
+        {
+          "hash": "16b7b717ff76ff76000000000000000000000000000000000000000000000000",
+          "side": "left"
+        },
+        {
+          "hash": "6f73b838cfdc17d74733c14ba03811eb526f58e768d7be168e3b62bc87249730",
+          "side": "left"
+        },
+        {
+          "hash": "69cf820504dbdc0e8ad7a47668b6fdd8e470a82a48015bd29e4eb83c122b36e8",
+          "side": "right"
+        },
+        {
+          "hash": "bb5d6b377b51ffbd308cea63fc62ba85b36f4f09f9e7349ec8c09215ee4642d8",
+          "side": "right"
+        },
+        {
+          "hash": "a665ae3146c28e2dcc5d29e79a8b2269b72ed763f2a27f3703bbfb20fcd9437a",
+          "side": "right"
+        },
+        {
+          "hash": "b27752c552f38297062f80dfccfe720365ca2207db04c52d87be0cf9f4946b7b",
+          "side": "right"
+        },
+        {
+          "hash": "ac9039ac93be718040f21dd1f5a21ad0670059627a0271663cc74d02704fb70d",
+          "side": "left"
+        },
+        {
+          "hash": "d8af6849c93c2943e8daf38fdcbed37d2583eaca5e6777628cf8e2c79c8da4a6",
+          "side": "left"
+        },
+        {
+          "hash": "ccbb482fd5f2e3ee9003390d18b6c80a95b034d3ec4c5f3359db9f10b3b19437",
+          "side": "left"
+        }
+      ],
+      "at": "2026-07-19T22:05:27.947Z",
+      "method": "validateStat.view"
     }
   }
 }
