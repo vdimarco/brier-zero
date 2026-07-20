@@ -2084,7 +2084,7 @@ function modelChart(points, fieldPoints, pnlByMatch) {
   const y = (v) => padT + (1 - Math.min(v, yMax) / yMax) * (MAIN_B - padT);
   const step = n > 1 ? (W - padL - padR) / (n - 1) : W;
   const bw = Math.max(1.5, Math.min(6, step * 0.66));
-  let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Running average Brier, per-match Brier deltas, and per-bet paper P&L over the tournament">`;
+  let svg = `<svg class="mc-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Running average Brier, per-match Brier deltas, and per-bet paper P&L over the tournament">`;
   for (const g of [0, 0.5, 1].filter((v) => v <= yMax)) {
     svg += `<line x1="${padL}" y1="${y(g)}" x2="${W - padR}" y2="${y(g)}" stroke="var(--hairline)" stroke-width="1"/>`;
     svg += `<text x="${padL - 6}" y="${y(g) + 4}" text-anchor="end" font-size="10" fill="var(--ink-3)">${g}</text>`;
@@ -2137,8 +2137,76 @@ function modelChart(points, fieldPoints, pnlByMatch) {
         `<title>${esc(p.shortName)}: ${v >= 0 ? '+' : '−'}${Math.abs(v).toFixed(1)} units</title></rect>`;
     });
   }
+  svg += `<line class="mc-cross" x1="0" y1="${padT}" x2="0" y2="${H - 14}" stroke="var(--pitch)" stroke-width="1.25" stroke-dasharray="3 4" opacity="0"/>`;
   svg += '</svg>';
   return svg;
+}
+
+/* Hover/tap on the detail chart: a crosshair snaps to the nearest match
+   and the tooltip carries that data point's full context — the match's
+   Brier vs its coin flip, the running average, the field, and the bet
+   that settled there (side, odds, stake, P&L, or sat out). Mirrors the
+   trophy and calibration chart interaction, touch included. */
+let mcDismiss = null;
+function attachModelChartHover(wrap, points, fieldPoints, betByMatch) {
+  const svg = wrap.querySelector('.mc-svg');
+  const cross = svg && svg.querySelector('.mc-cross');
+  const n = points.length;
+  if (!svg || !cross || n < 2) return;
+  const W = 660, padL = 40, padR = 20;
+  const plotW = W - padL - padR;
+  const xAt = (i) => padL + (i * plotW) / (n - 1);
+
+  const tip = document.createElement('div');
+  tip.className = 'chart-tip';
+  tip.hidden = true;
+  wrap.appendChild(tip);
+
+  const indexFromClientX = (clientX) => {
+    const pt = svg.createSVGPoint();
+    pt.x = clientX; pt.y = 0;
+    const sx = pt.matrixTransform(svg.getScreenCTM().inverse()).x;
+    return Math.max(0, Math.min(n - 1, Math.round((sx - padL) / (plotW / (n - 1)))));
+  };
+  const show = (clientX) => {
+    const i = indexFromClientX(clientX);
+    const p = points[i];
+    const gx = xAt(i);
+    cross.setAttribute('x1', gx); cross.setAttribute('x2', gx); cross.setAttribute('opacity', '1');
+    const base = p.baseline ?? 2 / 3;
+    const d = base - p.brier;
+    const bet = betByMatch?.get(p.matchId);
+    let betRow;
+    if (!bet) betRow = '';
+    else if (bet.result === 'no_bet') betRow = `<div class="tt-row"><span class="tt-team">bet</span><b>sat out — no edge</b></div>`;
+    else {
+      const side = bet.outcome === 'draw' ? 'Draw' : (bet.outcome === 'home' ? (bet.shortName.split(' @ ')[1] ?? 'home') : (bet.shortName.split(' @ ')[0] ?? 'away'));
+      betRow = `<div class="tt-row"><span class="tt-team">bet ${esc(side)} @ ${bet.odds.toFixed(2)}</span><b>stake ${bet.stake.toFixed(1)}</b></div>
+        <div class="tt-row"><span class="tt-team">P&amp;L</span><b class="${bet.pnl >= 0 ? 'tt-up' : 'tt-down'}">${bet.pnl >= 0 ? '+' : '−'}${Math.abs(bet.pnl).toFixed(1)} · ${fmtUnits(bet.bankrollAfter)} after</b></div>`;
+    }
+    tip.innerHTML = `<div class="tt-head">${esc(p.shortName)} · match ${i + 1} of ${n}</div>
+      <div class="tt-row"><span class="tt-team">Brier</span><b>${p.brier.toFixed(3)} <span class="${d >= 0 ? 'tt-up' : 'tt-down'}">(${d >= 0 ? '+' : '−'}${Math.abs(d).toFixed(3)} vs flip)</span></b></div>
+      <div class="tt-row"><span class="tt-team">running avg</span><b>${p.cum.toFixed(3)}</b></div>
+      ${fieldPoints?.[i] != null ? `<div class="tt-row"><span class="tt-team">field avg</span><b>${fieldPoints[i].toFixed(3)}</b></div>` : ''}
+      ${betRow}`;
+    tip.hidden = false;
+    const wrapRect = wrap.getBoundingClientRect();
+    const svgRect = svg.getBoundingClientRect();
+    const colX = svgRect.left - wrapRect.left + (gx / W) * svgRect.width;
+    let left = colX + 14;
+    if (left + tip.offsetWidth > wrapRect.width - 4) left = colX - tip.offsetWidth - 14;
+    tip.style.left = `${Math.max(4, Math.min(left, wrapRect.width - tip.offsetWidth - 4))}px`;
+  };
+  const hide = () => { tip.hidden = true; cross.setAttribute('opacity', '0'); };
+
+  svg.style.touchAction = 'pan-y';
+  svg.addEventListener('mousemove', (e) => show(e.clientX));
+  svg.addEventListener('mouseleave', hide);
+  svg.addEventListener('touchstart', (e) => { if (e.touches[0]) show(e.touches[0].clientX); }, { passive: true });
+  svg.addEventListener('touchmove', (e) => { if (e.touches[0]) show(e.touches[0].clientX); }, { passive: true });
+  if (mcDismiss) document.removeEventListener('pointerdown', mcDismiss);
+  mcDismiss = (e) => { if (!wrap.contains(e.target)) hide(); };
+  document.addEventListener('pointerdown', mcDismiss);
 }
 
 function renderModelDetail(state, modelId) {
@@ -2176,6 +2244,14 @@ function renderModelDetail(state, modelId) {
   const best = points.length ? points.reduce((a, b) => (b.brier < a.brier ? b : a)) : null;
   const worst = points.length ? points.reduce((a, b) => (b.brier > a.brier ? b : a)) : null;
   const beats = (p) => p.brier < (p.baseline ?? 2 / 3);
+  // This entrant's bet rows (no-bets included, so the tooltip can say
+  // "sat out"); the chart's P&L lane only wants the settled numbers.
+  const mcBets = new Map((state.bankroll?.bets ?? [])
+    .filter((b) => b.modelId === modelId)
+    .map((b) => [b.matchId, b]));
+  const mcPnl = new Map([...mcBets.values()]
+    .filter((b) => b.result !== 'no_bet')
+    .map((b) => [b.matchId, b.pnl]));
   const form = points.slice(-10).map((p) =>
     `<span class="form-chip ${beats(p) ? 'form-good' : 'form-poor'}" title="${esc(p.shortName)}: ${p.brier.toFixed(3)}">${beats(p) ? 'W' : 'L'}</span>`
   ).join('');
@@ -2200,9 +2276,7 @@ function renderModelDetail(state, modelId) {
     </div>
     ${points.length ? `
     <h3>Average over the tournament</h3>
-    <div class="chart">${modelChart(points, fieldPoints, new Map((state.bankroll?.bets ?? [])
-      .filter((b) => b.modelId === modelId && b.result !== 'no_bet')
-      .map((b) => [b.matchId, b.pnl])))}</div>
+    <div class="chart mc-wrap">${modelChart(points, fieldPoints, mcPnl)}</div>
     <h3>Form, last ${Math.min(10, points.length)}</h3>
     <div class="form-strip">${form}</div>
     <p class="fnote">W beats the know-nothing baseline for its market (0.667 three-way group match, 0.5 two-way knockout), L does not.</p>
@@ -2212,6 +2286,8 @@ function renderModelDetail(state, modelId) {
   </section>`;
   document.body.style.overflow = 'hidden';
   wireBrierTips(el);
+  const mcWrap = el.querySelector('.mc-wrap');
+  if (mcWrap) attachModelChartHover(mcWrap, points, fieldPoints, mcBets);
   for (const c of el.querySelectorAll('[data-close]')) {
     c.addEventListener('click', closeDetail);
   }

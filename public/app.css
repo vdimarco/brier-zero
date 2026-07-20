@@ -1911,3 +1911,8 @@ main section, #prompt-section { scroll-margin-top: 76px; }
     max-height: calc(100dvh - 20px);
   }
 }
+
+/* Detail-chart crosshair tooltip */
+.mc-wrap { position: relative; }
+.chart-tip .tt-up { color: var(--pitch-deep); }
+.chart-tip .tt-down { color: var(--away); }
