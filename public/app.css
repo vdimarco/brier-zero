@@ -1916,3 +1916,7 @@ main section, #prompt-section { scroll-margin-top: 76px; }
 .mc-wrap { position: relative; }
 .chart-tip .tt-up { color: var(--pitch-deep); }
 .chart-tip .tt-down { color: var(--away); }
+
+/* Detail-view stage filter chips */
+.mc-stages { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; margin: 14px 0 2px; }
+.mc-stages .lb-view-hint { flex-basis: 100%; }

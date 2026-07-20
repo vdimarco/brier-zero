@@ -2148,6 +2148,11 @@ function modelChart(points, fieldPoints, pnlByMatch) {
    that settled there (side, odds, stake, P&L, or sat out). Mirrors the
    trophy and calibration chart interaction, touch included. */
 let mcDismiss = null;
+// Detail-view stage filter: knockouts-to-final by default, Groups
+// toggleable. Session-persistent across panel opens.
+let detailStages = new Set(['r32', 'r16', 'qf', 'sf', 'finals']);
+const coinFlipOf = (mkt) => (mkt === 'advance' ? 0.5 : 2 / 3);
+
 function attachModelChartHover(wrap, points, fieldPoints, betByMatch) {
   const svg = wrap.querySelector('.mc-svg');
   const cross = svg && svg.querySelector('.mc-cross');
@@ -2224,20 +2229,63 @@ function renderModelDetail(state, modelId) {
   const rankedRows = rows.filter((r) => r.scored > 0);
   const rank = rankedRows.findIndex((r) => r.model === modelId) + 1;
 
+  // Stage filter for the detail view. The official board scores the
+  // knockout phase, so knockouts-to-final is the default selection —
+  // but every entrant has full-tournament records, so Groups can be
+  // toggled in. Selection persists across panel opens.
+  const mcStageOf = (stage) => {
+    if (stage === 'group stage') return 'groups';
+    if (stage === 'round of 32') return 'r32';
+    if (stage === 'round of 16') return 'r16';
+    if (stage === 'quarterfinals') return 'qf';
+    if (stage === 'semifinals') return 'sf';
+    return 'finals'; // final + 3rd place match
+  };
+  const labMeta2 = labsOf(state).find((l) => l.id === modelId);
+  let fullPerMatch;
+  if ((state.matches ?? []).some((m) => m.predictions?.[modelId]) || labMeta2) {
+    // Model or lab id: score every match it priced, straight from the
+    // ledger, with each record's own market and baseline.
+    fullPerMatch = [];
+    const sorted = [...state.matches].sort((a, b) => new Date(a.kickoff) - new Date(b.kickoff));
+    for (const match of sorted) {
+      const p = match.predictions?.[modelId] ?? (labMeta2 ? predOf(match, labMeta2) : null);
+      if (!p) continue;
+      const b = predBrier(p, match);
+      if (b == null) continue;
+      const mkt = predMarket(p);
+      fullPerMatch.push({
+        matchId: match.id, shortName: match.shortName, brier: b,
+        market: mkt, baseline: coinFlipOf(mkt), stageKey: mcStageOf(match.stage),
+      });
+    }
+  } else {
+    // Bloc consensus rows only exist on the knockout board.
+    const stageById = new Map(state.matches.map((m) => [m.id, mcStageOf(m.stage)]));
+    fullPerMatch = row.perMatch.map((p) => ({
+      ...p, baseline: p.baseline ?? 2 / 3, stageKey: stageById.get(p.matchId) ?? 'r32',
+    }));
+  }
+  const availStages = new Set(fullPerMatch.map((p) => p.stageKey));
+  const activeSel = [...detailStages].filter((k) => availStages.has(k));
+  const shown = activeSel.length ? new Set(activeSel) : availStages;
   let cum = 0;
-  const points = row.perMatch.map((p, i) => {
-    cum += p.brier;
-    return { ...p, cum: cum / (i + 1) };
-  });
-  // Field: mean per-match Brier across all models, accumulated in the
-  // same match order this model was scored in.
-  const fieldByMatch = {};
-  for (const r of rows)
-    for (const p of r.perMatch) (fieldByMatch[p.matchId] ??= []).push(p.brier);
+  const points = fullPerMatch
+    .filter((p) => shown.has(p.stageKey))
+    .map((p, i) => {
+      cum += p.brier;
+      return { ...p, cum: cum / (i + 1) };
+    });
+  // Field: mean per-match Brier across the display roster, over the same
+  // filtered matches in the same order.
+  const matchById = new Map(state.matches.map((m) => [m.id, m]));
   let fcum = 0;
   const fieldPoints = points.map((p, i) => {
-    const list = fieldByMatch[p.matchId] ?? [p.brier];
-    fcum += list.reduce((a, b) => a + b, 0) / list.length;
+    const match = matchById.get(p.matchId);
+    const briers = match
+      ? Object.values(entrantPredsOf(state, match)).map((pr) => predBrier(pr, match)).filter((v) => v != null)
+      : [];
+    fcum += briers.length ? briers.reduce((a, b) => a + b, 0) / briers.length : p.brier;
     return fcum / (i + 1);
   });
 
@@ -2269,10 +2317,16 @@ function renderModelDetail(state, modelId) {
       <button class="detail-close" data-close aria-label="Close">✕</button>
     </div>
     <div class="stat-row">
-      <div class="stat"><div class="stat-v">${row.avgBrier == null ? '-' : row.avgBrier.toFixed(3)}</div><div class="stat-l">avg ${brierTip('Brier', { compact: true })}</div></div>
-      <div class="stat"><div class="stat-v">${fmtSkill(row.avgSkill)}</div><div class="stat-l" title="Average of (coin flip − Brier) ÷ coin flip per match. 0% matches guessing; ranking shrinks this toward zero with ten phantom coin-flip matches.">skill vs coin flip</div></div>
-      <div class="stat"><div class="stat-v">${row.scored}</div><div class="stat-l">scored</div></div>
+      <div class="stat"><div class="stat-v">${points.length ? (points[points.length - 1].cum).toFixed(3) : '-'}</div><div class="stat-l">avg ${brierTip('Brier', { compact: true })}</div></div>
+      <div class="stat"><div class="stat-v">${points.length ? fmtSkill(points.reduce((s, p) => s + (p.baseline - p.brier) / p.baseline, 0) / points.length) : '-'}</div><div class="stat-l" title="Average of (coin flip − Brier) ÷ coin flip per match over the stages selected below. The leaderboard shrinks this toward zero with ten phantom coin-flip matches.">skill vs coin flip</div></div>
+      <div class="stat"><div class="stat-v">${points.length}</div><div class="stat-l">scored</div></div>
       <div class="stat"><div class="stat-v">${points.filter(beats).length}</div><div class="stat-l">beat the coin flip</div></div>
+    </div>
+    <div class="mc-stages" role="group" aria-label="Stages shown">
+      ${[['groups', 'Groups'], ['r32', 'R32'], ['r16', 'R16'], ['qf', 'QF'], ['sf', 'SF'], ['finals', 'Finals']]
+        .filter(([k]) => availStages.has(k))
+        .map(([k, l]) => `<button class="lb-view-btn mc-stage-btn${shown.has(k) ? ' active' : ''}" data-stage="${k}" aria-pressed="${shown.has(k)}">${l}</button>`).join('')}
+      <span class="lb-view-hint">Stats and chart cover the selected stages; the leaderboard itself scores knockouts onward.</span>
     </div>
     ${points.length ? `
     <h3>Average over the tournament</h3>
@@ -2288,6 +2342,17 @@ function renderModelDetail(state, modelId) {
   wireBrierTips(el);
   const mcWrap = el.querySelector('.mc-wrap');
   if (mcWrap) attachModelChartHover(mcWrap, points, fieldPoints, mcBets);
+  for (const sb of el.querySelectorAll('.mc-stage-btn')) {
+    sb.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const k = sb.dataset.stage;
+      const next = new Set(shown);
+      if (next.has(k)) next.delete(k); else next.add(k);
+      if (!next.size) return; // at least one stage stays on
+      detailStages = next;
+      renderModelDetail(state, modelId);
+    });
+  }
   for (const c of el.querySelectorAll('[data-close]')) {
     c.addEventListener('click', closeDetail);
   }
