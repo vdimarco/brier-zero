@@ -2300,8 +2300,10 @@ function renderModelDetail(state, modelId) {
   const mcPnl = new Map([...mcBets.values()]
     .filter((b) => b.result !== 'no_bet')
     .map((b) => [b.matchId, b.pnl]));
-  const form = points.slice(-10).map((p) =>
-    `<span class="form-chip ${beats(p) ? 'form-good' : 'form-poor'}" title="${esc(p.shortName)}: ${p.brier.toFixed(3)}">${beats(p) ? 'W' : 'L'}</span>`
+  // Every selected-stage match as a W/L tile, oldest to newest, filling
+  // the panel's width — no truncation.
+  const form = points.map((p) =>
+    `<span class="form-chip ${beats(p) ? 'form-good' : 'form-poor'}" title="${esc(p.shortName)}: ${p.brier.toFixed(3)} (coin flip ${p.baseline.toFixed(3)})">${beats(p) ? 'W' : 'L'}</span>`
   ).join('');
 
   el.innerHTML = `<div class="detail-scrim" data-close></div>
@@ -2331,9 +2333,9 @@ function renderModelDetail(state, modelId) {
     ${points.length ? `
     <h3>Average over the tournament</h3>
     <div class="chart mc-wrap">${modelChart(points, fieldPoints, mcPnl)}</div>
-    <h3>Form, last ${Math.min(10, points.length)}</h3>
+    <h3>Beat the coin flip? All ${points.length} matches, oldest → newest</h3>
     <div class="form-strip">${form}</div>
-    <p class="fnote">W beats the know-nothing baseline for its market (0.667 three-way group match, 0.5 two-way knockout), L does not.</p>
+    <p class="fnote"><b>W</b> = this forecast beat a know-nothing coin flip for its market (0.667 three-way group match, 0.5 two-way knockout); <b>L</b> = it didn't. Hover a tile for the match and score. Follows the stage filter above.</p>
     ${best ? `<p class="fnote">Best call: ${esc(best.shortName)} at ${best.brier.toFixed(3)}. Roughest: ${esc(worst.shortName)} at ${worst.brier.toFixed(3)}.</p>` : ''}
     ` : '<p class="fnote">No scored forecasts yet.</p>'}
     ${betLedgerHtml(state, modelId)}
