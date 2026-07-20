@@ -1203,7 +1203,7 @@ function renderBankroll(state) {
         (k) => ({ label: (blocLabels.get(k) ?? k.toUpperCase()).replace(/^\S+\s/, ''), flag: (blocLabels.get(k) ?? '').split(' ')[0] || null, icon: null }));
     el.innerHTML = `<div class="bank-wrap">${groups.map((g, i) => {
       const bestMeta = g.best ? entrantById(state, g.best.model) : null;
-      return `<div class="bank-row bank-row-static${i === 0 ? ' leader' : ''}">
+      return `<div class="bank-row${i === 0 ? ' leader' : ''}" data-model="${esc(g.key)}" role="button" tabindex="0" aria-label="Open detail for ${esc(g.label)}">
         <div class="bank-rank">${i + 1}</div>
         <div class="lb-id">${g.flag ? `<span class="bank-flag" aria-hidden="true">${esc(g.flag)}</span>` : (g.icon ? `<img class="crest" src="${esc(g.icon)}" alt="" onerror="this.style.visibility='hidden'">` : '')}
           <span class="bank-name">${esc(g.label)}</span></div>
@@ -1215,7 +1215,12 @@ function renderBankroll(state) {
         </div>
       </div>`;
     }).join('')}</div>
-    <p class="footnote">Each book started at 1,000 units on its own clock, so grouped views total <b>net paper P&amp;L</b>, never summed "bankrolls". The Market doesn't get a book — it can't bet against itself. Switch to By model for ledgers.</p>`;
+    <p class="footnote">Each book started at 1,000 units on its own clock, so grouped views total <b>net paper P&amp;L</b>, never summed "bankrolls". The Market doesn't get a book — it can't bet against itself. Switch to By model for ledgers. Tap a row for the group's record.</p>`;
+    for (const grow of el.querySelectorAll('[data-model]')) {
+      const open = () => { location.hash = `p/${encodeURIComponent(grow.dataset.model)}`; };
+      grow.addEventListener('click', open);
+      grow.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+    }
     return;
   }
 
@@ -1528,8 +1533,8 @@ function renderBankrollChart(state) {
   // the same agent and highlight/open together.
   const svg = el.querySelector('.bkc-svg');
   const focus = (lab) => { if (lab) svg.setAttribute('data-focus', lab); else svg.removeAttribute('data-focus'); };
-  // Detail panels exist per model; grouped lines/chips don't navigate.
-  const openLedger = (id) => { if (bankView !== 'model') return; location.hash = `p/${encodeURIComponent(id)}`; };
+  // Model, lab, and bloc ids all resolve to a detail panel.
+  const openLedger = (id) => { location.hash = `p/${encodeURIComponent(id)}`; };
   for (const node of el.querySelectorAll('[data-model]')) {
     node.addEventListener('mouseenter', () => focus(node.dataset.lab));
     node.addEventListener('mouseleave', () => focus(null));
@@ -2063,13 +2068,23 @@ function timelineRows(match, points, market) {
 
 /* Model detail: performance over time. Running-average Brier vs the
    field, per-match dots, the coin-flip baseline, and a form strip. */
-function modelChart(points, fieldPoints) {
-  const W = 660, H = 240, padL = 40, padR = 20, padT = 12, padB = 26;
+function modelChart(points, fieldPoints, pnlByMatch) {
   const n = points.length;
+  const hasPnl = pnlByMatch && pnlByMatch.size > 0;
+  // Main running-average plot on top; below it, per-match bar lanes:
+  // Brier delta vs the coin flip, and (for models with a book) bet P&L.
+  const W = 660, padL = 40, padR = 20, padT = 12;
+  const MAIN_B = 178;              // bottom of the main plot
+  const LANE_H = 24;               // half-height of a bar lane
+  const skill0 = MAIN_B + 36 + LANE_H; // clears the kickoff-order caption
+  const pnl0 = skill0 + LANE_H + 26 + LANE_H;
+  const H = (hasPnl ? pnl0 + LANE_H : skill0 + LANE_H) + 18;
   const yMax = Math.max(1, Math.ceil(Math.max(...points.map((p) => p.brier), 0.7) * 4) / 4);
   const x = (i) => (n === 1 ? W / 2 : padL + (i * (W - padL - padR)) / (n - 1));
-  const y = (v) => padT + (1 - Math.min(v, yMax) / yMax) * (H - padT - padB);
-  let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Running average Brier score over the tournament">`;
+  const y = (v) => padT + (1 - Math.min(v, yMax) / yMax) * (MAIN_B - padT);
+  const step = n > 1 ? (W - padL - padR) / (n - 1) : W;
+  const bw = Math.max(1.5, Math.min(6, step * 0.66));
+  let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Running average Brier, per-match Brier deltas, and per-bet paper P&L over the tournament">`;
   for (const g of [0, 0.5, 1].filter((v) => v <= yMax)) {
     svg += `<line x1="${padL}" y1="${y(g)}" x2="${W - padR}" y2="${y(g)}" stroke="var(--hairline)" stroke-width="1"/>`;
     svg += `<text x="${padL - 6}" y="${y(g) + 4}" text-anchor="end" font-size="10" fill="var(--ink-3)">${g}</text>`;
@@ -2094,7 +2109,34 @@ function modelChart(points, fieldPoints) {
       `<title>After ${esc(p.shortName)}: average ${p.cum.toFixed(3)}</title></circle>`;
   });
   svg += `<text x="${x(n - 1) - 8}" y="${y(points[n - 1].cum) + 16}" text-anchor="end" font-size="10.5" font-weight="700" fill="var(--pitch)">running avg</text>`;
-  svg += `<text x="${padL}" y="${H - 6}" font-size="10" fill="var(--ink-3)">matches in kickoff order, dots are single-match scores</text>`;
+  svg += `<text x="${padL}" y="${MAIN_B + 12}" font-size="10" fill="var(--ink-3)">matches in kickoff order, dots are single-match scores</text>`;
+
+  // Lane 1: per-match Brier delta vs the coin flip (up = beat it).
+  const deltas = points.map((p) => (p.baseline ?? 2 / 3) - p.brier);
+  const dMax = Math.max(...deltas.map(Math.abs), 0.01);
+  svg += `<line x1="${padL}" y1="${skill0}" x2="${W - padR}" y2="${skill0}" stroke="var(--hairline)" stroke-width="1"/>`;
+  svg += `<text x="${padL}" y="${skill0 - LANE_H - 4}" font-size="10" font-weight="650" fill="var(--ink-3)">per-match Brier vs the coin flip · above the line = beat it</text>`;
+  points.forEach((p, i) => {
+    const d = deltas[i];
+    const h = Math.abs(d) / dMax * (LANE_H - 2);
+    svg += `<rect x="${(x(i) - bw / 2).toFixed(1)}" y="${(d >= 0 ? skill0 - h : skill0).toFixed(1)}" width="${bw.toFixed(1)}" height="${Math.max(h, 0.75).toFixed(1)}" fill="${d >= 0 ? 'var(--pitch)' : 'var(--away)'}" opacity="0.85">` +
+      `<title>${esc(p.shortName)}: ${d >= 0 ? '+' : '−'}${Math.abs(d).toFixed(3)} vs coin flip (Brier ${p.brier.toFixed(3)})</title></rect>`;
+  });
+
+  // Lane 2: per-bet paper P&L, only for entrants with their own book.
+  if (hasPnl) {
+    const pnls = points.map((p) => pnlByMatch.get(p.matchId) ?? null);
+    const pMax = Math.max(...pnls.filter((v) => v != null).map(Math.abs), 1);
+    svg += `<line x1="${padL}" y1="${pnl0}" x2="${W - padR}" y2="${pnl0}" stroke="var(--hairline)" stroke-width="1"/>`;
+    svg += `<text x="${padL}" y="${pnl0 - LANE_H - 4}" font-size="10" font-weight="650" fill="var(--ink-3)">per-bet P&amp;L, paper units · no bar = sat out</text>`;
+    points.forEach((p, i) => {
+      const v = pnls[i];
+      if (v == null) return;
+      const h = Math.abs(v) / pMax * (LANE_H - 2);
+      svg += `<rect x="${(x(i) - bw / 2).toFixed(1)}" y="${(v >= 0 ? pnl0 - h : pnl0).toFixed(1)}" width="${bw.toFixed(1)}" height="${Math.max(h, 0.75).toFixed(1)}" fill="${v >= 0 ? 'var(--pitch)' : 'var(--away)'}" opacity="0.85">` +
+        `<title>${esc(p.shortName)}: ${v >= 0 ? '+' : '−'}${Math.abs(v).toFixed(1)} units</title></rect>`;
+    });
+  }
   svg += '</svg>';
   return svg;
 }
@@ -2158,7 +2200,9 @@ function renderModelDetail(state, modelId) {
     </div>
     ${points.length ? `
     <h3>Average over the tournament</h3>
-    <div class="chart">${modelChart(points, fieldPoints)}</div>
+    <div class="chart">${modelChart(points, fieldPoints, new Map((state.bankroll?.bets ?? [])
+      .filter((b) => b.modelId === modelId && b.result !== 'no_bet')
+      .map((b) => [b.matchId, b.pnl])))}</div>
     <h3>Form, last ${Math.min(10, points.length)}</h3>
     <div class="form-strip">${form}</div>
     <p class="fnote">W beats the know-nothing baseline for its market (0.667 three-way group match, 0.5 two-way knockout), L does not.</p>
@@ -2965,7 +3009,9 @@ function podiumSlides(state) {
         value: `${g.pnl >= 0 ? '+' : '−'}${fmtUnits(Math.abs(g.pnl))}`,
         valueClass: g.pnl >= 0 ? 'up' : 'down',
         aria: `net ${g.pnl >= 0 ? 'profit' : 'loss'} of ${fmtUnits(Math.abs(g.pnl))} paper units over ${g.books} book${g.books === 1 ? '' : 's'}`,
-        model: null,
+        // Lab/bloc ids open their group detail panel (renderModelDetail
+        // resolves them via the by-lab / by-country boards).
+        model: g.key,
       }));
   };
   const blocLabel = new Map((state.leaderboardByBloc ?? []).map((r) => [r.model, r.label]));

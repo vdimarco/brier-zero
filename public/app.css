@@ -1761,7 +1761,10 @@ th.edge-num, td.edge-num { text-align: right; font-variant-numeric: tabular-nums
 /* Sticky topbar: pins once scrolled past the hero band (class toggled in
    app.js). Full-width deep-green bar; content keeps the page's max width. */
 .topbar.topbar-stuck {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 90;
+  /* Above page content, BELOW every overlay (detail scrim 40, panel 41,
+     modals 60/61) — a pinned nav must never cover a dialog's header,
+     which is exactly what happened in short in-app viewports. */
+  position: fixed; top: 0; left: 0; right: 0; z-index: 35;
   max-width: none; margin: 0; padding: 0 20px;
   background: var(--pitch-deep);
   box-shadow: 0 2px 14px rgba(4, 30, 12, 0.35);
@@ -1897,3 +1900,14 @@ main section, #prompt-section { scroll-margin-top: 76px; }
 .bank-row-static:hover { background: none; }
 .bank-flag { font-size: 24px; line-height: 1; }
 .bank-spark-slot { min-width: 0; }
+
+/* Short / condensed viewports (in-app browsers like Twitter's): pin the
+   detail panel to the viewport instead of centering, so its header and
+   close button are always on screen; dvh tracks the collapsing chrome. */
+@media (max-width: 700px), (max-height: 720px) {
+  .detail-panel {
+    top: 10px; bottom: 10px; transform: translateX(-50%);
+    max-height: none; height: auto;
+    max-height: calc(100dvh - 20px);
+  }
+}
