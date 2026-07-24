@@ -50,21 +50,21 @@
           <div class="lang-menu" id="lang-menu" role="menu" aria-label="Translate this page" hidden>
             <p class="lang-menu-head">Translate this page</p>
             <a role="menuitem" data-tl="en" href="#" hreflang="en">English <span class="lang-en">· original</span></a>
-            <a role="menuitem" data-tl="es" href="#" hreflang="es" target="_blank" rel="noopener noreferrer">Español</a>
-            <a role="menuitem" data-tl="pt" href="#" hreflang="pt" target="_blank" rel="noopener noreferrer">Português</a>
-            <a role="menuitem" data-tl="fr" href="#" hreflang="fr" target="_blank" rel="noopener noreferrer">Français</a>
-            <a role="menuitem" data-tl="de" href="#" hreflang="de" target="_blank" rel="noopener noreferrer">Deutsch</a>
-            <a role="menuitem" data-tl="it" href="#" hreflang="it" target="_blank" rel="noopener noreferrer">Italiano</a>
-            <a role="menuitem" data-tl="nl" href="#" hreflang="nl" target="_blank" rel="noopener noreferrer">Nederlands</a>
-            <a role="menuitem" data-tl="ar" href="#" hreflang="ar" dir="rtl" target="_blank" rel="noopener noreferrer">العربية</a>
-            <a role="menuitem" data-tl="hi" href="#" hreflang="hi" target="_blank" rel="noopener noreferrer">हिन्दी</a>
-            <a role="menuitem" data-tl="zh-CN" href="#" hreflang="zh" target="_blank" rel="noopener noreferrer">中文（简体）</a>
-            <a role="menuitem" data-tl="ja" href="#" hreflang="ja" target="_blank" rel="noopener noreferrer">日本語</a>
-            <a role="menuitem" data-tl="ko" href="#" hreflang="ko" target="_blank" rel="noopener noreferrer">한국어</a>
-            <a role="menuitem" data-tl="ru" href="#" hreflang="ru" target="_blank" rel="noopener noreferrer">Русский</a>
-            <a role="menuitem" data-tl="tr" href="#" hreflang="tr" target="_blank" rel="noopener noreferrer">Türkçe</a>
-            <a role="menuitem" data-tl="id" href="#" hreflang="id" target="_blank" rel="noopener noreferrer">Bahasa Indonesia</a>
-            <a role="menuitem" data-tl="vi" href="#" hreflang="vi" target="_blank" rel="noopener noreferrer">Tiếng Việt</a>
+            <a role="menuitem" data-tl="es" href="#" hreflang="es">Español</a>
+            <a role="menuitem" data-tl="pt" href="#" hreflang="pt">Português</a>
+            <a role="menuitem" data-tl="fr" href="#" hreflang="fr">Français</a>
+            <a role="menuitem" data-tl="de" href="#" hreflang="de">Deutsch</a>
+            <a role="menuitem" data-tl="it" href="#" hreflang="it">Italiano</a>
+            <a role="menuitem" data-tl="nl" href="#" hreflang="nl">Nederlands</a>
+            <a role="menuitem" data-tl="ar" href="#" hreflang="ar" dir="rtl">العربية</a>
+            <a role="menuitem" data-tl="hi" href="#" hreflang="hi">हिन्दी</a>
+            <a role="menuitem" data-tl="zh-CN" href="#" hreflang="zh">中文（简体）</a>
+            <a role="menuitem" data-tl="ja" href="#" hreflang="ja">日本語</a>
+            <a role="menuitem" data-tl="ko" href="#" hreflang="ko">한국어</a>
+            <a role="menuitem" data-tl="ru" href="#" hreflang="ru">Русский</a>
+            <a role="menuitem" data-tl="tr" href="#" hreflang="tr">Türkçe</a>
+            <a role="menuitem" data-tl="id" href="#" hreflang="id">Bahasa Indonesia</a>
+            <a role="menuitem" data-tl="vi" href="#" hreflang="vi">Tiếng Việt</a>
             <p class="lang-menu-foot">Opens via Google Translate ↗</p>
           </div>
         </div>
@@ -306,30 +306,57 @@ The two probabilities must sum to 1.</pre>
   </div>
 
   <script src="app.js"></script>
+
+  <!-- In-page translation: the page stays on its own domain (so /api/state
+       and every live update keep loading); the widget translates the rendered
+       DOM in place, including content the app injects after each poll. Its own
+       banner/tooltip chrome is suppressed in app.css so the topbar is safe. -->
+  <div id="google_translate_element" aria-hidden="true"></div>
   <script>
-  /* Language menu: translate the live page via Google Translate's proxy in a
-     new tab. Self-contained — no third-party script on the page, so it can't
-     shift the layout or the sticky topbar. */
+  function googleTranslateElementInit() {
+    /* eslint-disable no-undef */
+    new google.translate.TranslateElement({
+      pageLanguage: 'en',
+      includedLanguages: 'es,pt,fr,de,it,nl,ar,hi,zh-CN,ja,ko,ru,tr,id,vi',
+      autoDisplay: false,
+    }, 'google_translate_element');
+  }
   (function () {
     var pick = document.getElementById('langpick');
     if (!pick) return;
     var btn = document.getElementById('lang-btn');
     var menu = document.getElementById('lang-menu');
-    var base = location.origin + location.pathname; // drop hash/query
-    menu.querySelectorAll('a[data-tl]').forEach(function (a) {
-      var tl = a.getAttribute('data-tl');
-      a.href = tl === 'en'
-        ? base
-        : 'https://translate.google.com/translate?sl=auto&tl=' + encodeURIComponent(tl) +
-          '&u=' + encodeURIComponent(base);
-    });
     function close() { menu.hidden = true; btn.setAttribute('aria-expanded', 'false'); pick.classList.remove('open'); }
     function open() { menu.hidden = false; btn.setAttribute('aria-expanded', 'true'); pick.classList.add('open'); }
     btn.addEventListener('click', function (e) { e.stopPropagation(); menu.hidden ? open() : close(); });
     document.addEventListener('click', function (e) { if (!pick.contains(e.target)) close(); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
-    menu.addEventListener('click', function (e) { if (e.target.closest('a')) close(); });
+
+    var host = location.hostname;
+    function clearCookie() {
+      ['', '; domain=' + host, '; domain=.' + host].forEach(function (d) {
+        document.cookie = 'googtrans=; path=/' + d + '; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+      });
+    }
+    function setCookie(lang) {
+      var v = '/en/' + lang;
+      document.cookie = 'googtrans=' + v + '; path=/';
+      document.cookie = 'googtrans=' + v + '; path=/; domain=.' + host;
+    }
+    // Drive the (hidden) Google widget from our own menu. Prefer the live
+    // combo (no reload); fall back to the cookie + reload if it isn't ready.
+    function translateTo(lang) {
+      if (lang === 'en') { clearCookie(); location.reload(); return; }
+      var combo = document.querySelector('.goog-te-combo');
+      if (combo) { combo.value = lang; combo.dispatchEvent(new Event('change')); }
+      else { setCookie(lang); location.reload(); }
+    }
+    menu.querySelectorAll('a[data-tl]').forEach(function (a) {
+      a.setAttribute('href', '#');
+      a.addEventListener('click', function (e) { e.preventDefault(); translateTo(a.getAttribute('data-tl')); close(); });
+    });
   })();
   </script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>

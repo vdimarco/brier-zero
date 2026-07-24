@@ -140,6 +140,16 @@ main { max-width: 1080px; margin: 0 auto; padding: 0 20px 64px; }
 }
 @media (max-width: 560px) { .lang-label { display: none; } }
 
+/* Google Translate widget lives off-screen (kept renderable so its language
+   combo initialises); all of its injected chrome is suppressed so it can't
+   push the page down or cover the sticky topbar. */
+#google_translate_element { position: absolute !important; left: -9999px; top: 0; width: 1px; height: 1px; overflow: hidden; }
+.goog-te-banner-frame, .goog-te-banner-frame.skiptranslate, iframe.skiptranslate,
+.VIpgJd-ZVi9od-ORHb-OEVmcd, .VIpgJd-ZVi9od-l4eHX-hSRGPd { display: none !important; visibility: hidden !important; }
+.goog-tooltip, .goog-tooltip:hover, #goog-gt-tt, .goog-te-balloon-frame { display: none !important; }
+.goog-text-highlight { background: none !important; box-shadow: none !important; }
+body { top: 0 !important; position: static !important; }
+
 /* Wordmark as Brier explainer (hover / focus / tap).
    Higher specificity so the shared tip rule's translateX(-50%)
    centering doesn't yank this panel sideways under the topbar. */
