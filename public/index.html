@@ -31,15 +31,44 @@
           <p class="brier-tip-foot"><b>Lower average Brier wins the cup.</b> It’s not just who picked the winner — it’s who was confident when they should be, and humble when they shouldn’t.</p>
         </span>
       </span>
-      <nav class="topnav" aria-label="Page sections">
-        <a href="#bankroll-section">Bankroll</a>
-        <a href="#edge-section">Edge Board</a>
-        <a href="#roster-section">Competitors</a>
-        <a href="#matches-section">Matches</a>
-        <a href="#trophy-section">Bracket</a>
-        <a href="#leaderboard-section">Leaderboard</a>
-        <a href="#pipeline-section">How it settles</a>
-      </nav>
+      <div class="topbar-right">
+        <nav class="topnav" aria-label="Page sections">
+          <a href="#bankroll-section">Bankroll</a>
+          <a href="#edge-section">Edge Board</a>
+          <a href="#roster-section">Competitors</a>
+          <a href="#matches-section">Matches</a>
+          <a href="#trophy-section">Bracket</a>
+          <a href="#leaderboard-section">Leaderboard</a>
+          <a href="#pipeline-section">How it settles</a>
+        </nav>
+        <div class="langpick" id="langpick">
+          <button type="button" class="lang-btn" id="lang-btn" aria-haspopup="true" aria-expanded="false" aria-controls="lang-menu" title="Translate this page">
+            <svg class="lang-glyph" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.4 4 5.6 4 9s-1.5 6.6-4 9c-2.5-2.4-4-5.6-4-9s1.5-6.6 4-9Z"/></svg>
+            <span class="lang-label">Language</span>
+            <span class="lang-caret" aria-hidden="true">▾</span>
+          </button>
+          <div class="lang-menu" id="lang-menu" role="menu" aria-label="Translate this page" hidden>
+            <p class="lang-menu-head">Translate this page</p>
+            <a role="menuitem" data-tl="en" href="#" hreflang="en">English <span class="lang-en">· original</span></a>
+            <a role="menuitem" data-tl="es" href="#" hreflang="es" target="_blank" rel="noopener noreferrer">Español</a>
+            <a role="menuitem" data-tl="pt" href="#" hreflang="pt" target="_blank" rel="noopener noreferrer">Português</a>
+            <a role="menuitem" data-tl="fr" href="#" hreflang="fr" target="_blank" rel="noopener noreferrer">Français</a>
+            <a role="menuitem" data-tl="de" href="#" hreflang="de" target="_blank" rel="noopener noreferrer">Deutsch</a>
+            <a role="menuitem" data-tl="it" href="#" hreflang="it" target="_blank" rel="noopener noreferrer">Italiano</a>
+            <a role="menuitem" data-tl="nl" href="#" hreflang="nl" target="_blank" rel="noopener noreferrer">Nederlands</a>
+            <a role="menuitem" data-tl="ar" href="#" hreflang="ar" dir="rtl" target="_blank" rel="noopener noreferrer">العربية</a>
+            <a role="menuitem" data-tl="hi" href="#" hreflang="hi" target="_blank" rel="noopener noreferrer">हिन्दी</a>
+            <a role="menuitem" data-tl="zh-CN" href="#" hreflang="zh" target="_blank" rel="noopener noreferrer">中文（简体）</a>
+            <a role="menuitem" data-tl="ja" href="#" hreflang="ja" target="_blank" rel="noopener noreferrer">日本語</a>
+            <a role="menuitem" data-tl="ko" href="#" hreflang="ko" target="_blank" rel="noopener noreferrer">한국어</a>
+            <a role="menuitem" data-tl="ru" href="#" hreflang="ru" target="_blank" rel="noopener noreferrer">Русский</a>
+            <a role="menuitem" data-tl="tr" href="#" hreflang="tr" target="_blank" rel="noopener noreferrer">Türkçe</a>
+            <a role="menuitem" data-tl="id" href="#" hreflang="id" target="_blank" rel="noopener noreferrer">Bahasa Indonesia</a>
+            <a role="menuitem" data-tl="vi" href="#" hreflang="vi" target="_blank" rel="noopener noreferrer">Tiếng Việt</a>
+            <p class="lang-menu-foot">Opens via Google Translate ↗</p>
+          </div>
+        </div>
+      </div>
     </header>
 
     <section class="hero">
@@ -277,5 +306,30 @@ The two probabilities must sum to 1.</pre>
   </div>
 
   <script src="app.js"></script>
+  <script>
+  /* Language menu: translate the live page via Google Translate's proxy in a
+     new tab. Self-contained — no third-party script on the page, so it can't
+     shift the layout or the sticky topbar. */
+  (function () {
+    var pick = document.getElementById('langpick');
+    if (!pick) return;
+    var btn = document.getElementById('lang-btn');
+    var menu = document.getElementById('lang-menu');
+    var base = location.origin + location.pathname; // drop hash/query
+    menu.querySelectorAll('a[data-tl]').forEach(function (a) {
+      var tl = a.getAttribute('data-tl');
+      a.href = tl === 'en'
+        ? base
+        : 'https://translate.google.com/translate?sl=auto&tl=' + encodeURIComponent(tl) +
+          '&u=' + encodeURIComponent(base);
+    });
+    function close() { menu.hidden = true; btn.setAttribute('aria-expanded', 'false'); pick.classList.remove('open'); }
+    function open() { menu.hidden = false; btn.setAttribute('aria-expanded', 'true'); pick.classList.add('open'); }
+    btn.addEventListener('click', function (e) { e.stopPropagation(); menu.hidden ? open() : close(); });
+    document.addEventListener('click', function (e) { if (!pick.contains(e.target)) close(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+    menu.addEventListener('click', function (e) { if (e.target.closest('a')) close(); });
+  })();
+  </script>
 </body>
 </html>
