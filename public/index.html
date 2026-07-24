@@ -31,15 +31,44 @@
           <p class="brier-tip-foot"><b>Lower average Brier wins the cup.</b> It’s not just who picked the winner — it’s who was confident when they should be, and humble when they shouldn’t.</p>
         </span>
       </span>
-      <nav class="topnav" aria-label="Page sections">
-        <a href="#bankroll-section">Bankroll</a>
-        <a href="#edge-section">Edge Board</a>
-        <a href="#roster-section">Competitors</a>
-        <a href="#matches-section">Matches</a>
-        <a href="#trophy-section">Bracket</a>
-        <a href="#leaderboard-section">Leaderboard</a>
-        <a href="#pipeline-section">How it settles</a>
-      </nav>
+      <div class="topbar-right">
+        <nav class="topnav" aria-label="Page sections">
+          <a href="#bankroll-section">Bankroll</a>
+          <a href="#edge-section">Edge Board</a>
+          <a href="#roster-section">Competitors</a>
+          <a href="#matches-section">Matches</a>
+          <a href="#trophy-section">Bracket</a>
+          <a href="#leaderboard-section">Leaderboard</a>
+          <a href="#pipeline-section">How it settles</a>
+        </nav>
+        <div class="langpick" id="langpick">
+          <button type="button" class="lang-btn" id="lang-btn" aria-haspopup="true" aria-expanded="false" aria-controls="lang-menu" title="Translate this page">
+            <svg class="lang-glyph" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.4 4 5.6 4 9s-1.5 6.6-4 9c-2.5-2.4-4-5.6-4-9s1.5-6.6 4-9Z"/></svg>
+            <span class="lang-label">Language</span>
+            <span class="lang-caret" aria-hidden="true">▾</span>
+          </button>
+          <div class="lang-menu" id="lang-menu" role="menu" aria-label="Translate this page" hidden>
+            <p class="lang-menu-head">Translate this page</p>
+            <a role="menuitem" data-tl="en" href="#" hreflang="en">English <span class="lang-en">· original</span></a>
+            <a role="menuitem" data-tl="es" href="#" hreflang="es">Español</a>
+            <a role="menuitem" data-tl="pt" href="#" hreflang="pt">Português</a>
+            <a role="menuitem" data-tl="fr" href="#" hreflang="fr">Français</a>
+            <a role="menuitem" data-tl="de" href="#" hreflang="de">Deutsch</a>
+            <a role="menuitem" data-tl="it" href="#" hreflang="it">Italiano</a>
+            <a role="menuitem" data-tl="nl" href="#" hreflang="nl">Nederlands</a>
+            <a role="menuitem" data-tl="ar" href="#" hreflang="ar" dir="rtl">العربية</a>
+            <a role="menuitem" data-tl="hi" href="#" hreflang="hi">हिन्दी</a>
+            <a role="menuitem" data-tl="zh-CN" href="#" hreflang="zh">中文（简体）</a>
+            <a role="menuitem" data-tl="ja" href="#" hreflang="ja">日本語</a>
+            <a role="menuitem" data-tl="ko" href="#" hreflang="ko">한국어</a>
+            <a role="menuitem" data-tl="ru" href="#" hreflang="ru">Русский</a>
+            <a role="menuitem" data-tl="tr" href="#" hreflang="tr">Türkçe</a>
+            <a role="menuitem" data-tl="id" href="#" hreflang="id">Bahasa Indonesia</a>
+            <a role="menuitem" data-tl="vi" href="#" hreflang="vi">Tiếng Việt</a>
+            <p class="lang-menu-foot">Opens via Google Translate ↗</p>
+          </div>
+        </div>
+      </div>
     </header>
 
     <section class="hero">
@@ -277,5 +306,57 @@ The two probabilities must sum to 1.</pre>
   </div>
 
   <script src="app.js"></script>
+
+  <!-- In-page translation: the page stays on its own domain (so /api/state
+       and every live update keep loading); the widget translates the rendered
+       DOM in place, including content the app injects after each poll. Its own
+       banner/tooltip chrome is suppressed in app.css so the topbar is safe. -->
+  <div id="google_translate_element" aria-hidden="true"></div>
+  <script>
+  function googleTranslateElementInit() {
+    /* eslint-disable no-undef */
+    new google.translate.TranslateElement({
+      pageLanguage: 'en',
+      includedLanguages: 'es,pt,fr,de,it,nl,ar,hi,zh-CN,ja,ko,ru,tr,id,vi',
+      autoDisplay: false,
+    }, 'google_translate_element');
+  }
+  (function () {
+    var pick = document.getElementById('langpick');
+    if (!pick) return;
+    var btn = document.getElementById('lang-btn');
+    var menu = document.getElementById('lang-menu');
+    function close() { menu.hidden = true; btn.setAttribute('aria-expanded', 'false'); pick.classList.remove('open'); }
+    function open() { menu.hidden = false; btn.setAttribute('aria-expanded', 'true'); pick.classList.add('open'); }
+    btn.addEventListener('click', function (e) { e.stopPropagation(); menu.hidden ? open() : close(); });
+    document.addEventListener('click', function (e) { if (!pick.contains(e.target)) close(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+
+    var host = location.hostname;
+    function clearCookie() {
+      ['', '; domain=' + host, '; domain=.' + host].forEach(function (d) {
+        document.cookie = 'googtrans=; path=/' + d + '; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+      });
+    }
+    function setCookie(lang) {
+      var v = '/en/' + lang;
+      document.cookie = 'googtrans=' + v + '; path=/';
+      document.cookie = 'googtrans=' + v + '; path=/; domain=.' + host;
+    }
+    // Drive the (hidden) Google widget from our own menu. Prefer the live
+    // combo (no reload); fall back to the cookie + reload if it isn't ready.
+    function translateTo(lang) {
+      if (lang === 'en') { clearCookie(); location.reload(); return; }
+      var combo = document.querySelector('.goog-te-combo');
+      if (combo) { combo.value = lang; combo.dispatchEvent(new Event('change')); }
+      else { setCookie(lang); location.reload(); }
+    }
+    menu.querySelectorAll('a[data-tl]').forEach(function (a) {
+      a.setAttribute('href', '#');
+      a.addEventListener('click', function (e) { e.preventDefault(); translateTo(a.getAttribute('data-tl')); close(); });
+    });
+  })();
+  </script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>

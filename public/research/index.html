@@ -189,10 +189,67 @@ p{max-width:64ch}
   .lab-sum{grid-template-columns:22px 24px 1fr 64px 22px;gap:8px}
   .lab-winner{display:none}
 }
+
+/* Floating language menu (top-right); in-page translation so the page stays
+   on its own domain and the lab-standings fetch keeps working. */
+.langpick{position:fixed;top:12px;right:14px;z-index:50}
+.lang-btn{display:inline-flex;align-items:center;gap:6px;cursor:pointer;
+  background:var(--surface);border:1px solid var(--hairline);color:var(--ink);
+  border-radius:999px;padding:6px 11px;white-space:nowrap;
+  box-shadow:0 1px 3px rgba(20,20,15,.08);font:600 12.5px/1.4 var(--sans)}
+.lang-btn:hover,.lang-btn:focus-visible,.langpick.open .lang-btn{border-color:var(--pitch);color:var(--pitch-deep)}
+.lang-glyph{flex:none}
+.lang-caret{font-size:10px;opacity:.7}
+.lang-menu{position:absolute;right:0;top:calc(100% + 8px);
+  background:var(--surface);color:var(--ink);border:1px solid var(--hairline);
+  border-radius:12px;box-shadow:0 12px 32px rgba(20,20,15,.18);
+  padding:6px;min-width:200px;max-width:calc(100vw - 24px);max-height:min(72vh,440px);overflow-y:auto}
+.lang-menu-head{font:700 10.5px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--faint);margin:0;padding:8px 10px 6px}
+.lang-menu a{display:block;padding:8px 10px;border-radius:8px;color:var(--ink);text-decoration:none;font:600 13.5px/1.3 var(--sans)}
+.lang-menu a:hover,.lang-menu a:focus-visible{background:var(--page);outline:none}
+.lang-en{color:var(--faint);font-weight:500;font-size:12px}
+.lang-menu-foot{font:500 11px/1.3 var(--mono);color:var(--faint);margin:4px 0 0;padding:7px 10px 3px;border-top:1px solid var(--hairline)}
+@media(max-width:560px){.lang-label{display:none}}
+/* Suppress Google Translate's injected chrome so it can't shift the page. */
+#google_translate_element{position:absolute !important;left:-9999px;top:0;width:1px;height:1px;overflow:hidden}
+.goog-te-banner-frame,.goog-te-banner-frame.skiptranslate,iframe.skiptranslate,
+.VIpgJd-ZVi9od-ORHb-OEVmcd,.VIpgJd-ZVi9od-l4eHX-hSRGPd{display:none !important;visibility:hidden !important}
+.goog-tooltip,.goog-tooltip:hover,#goog-gt-tt,.goog-te-balloon-frame{display:none !important}
+.goog-text-highlight{background:none !important;box-shadow:none !important}
+body{top:0 !important;position:static !important}
 </style>
 </head>
 <body>
 
+
+<div class="langpick" id="langpick">
+  <button type="button" class="lang-btn" id="lang-btn" aria-haspopup="true" aria-expanded="false" aria-controls="lang-menu" title="Translate this page">
+    <svg class="lang-glyph" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.4 4 5.6 4 9s-1.5 6.6-4 9c-2.5-2.4-4-5.6-4-9s1.5-6.6 4-9Z"/></svg>
+    <span class="lang-label">Language</span>
+    <span class="lang-caret" aria-hidden="true">▾</span>
+  </button>
+  <div class="lang-menu" id="lang-menu" role="menu" aria-label="Translate this page" hidden>
+    <p class="lang-menu-head">Translate this page</p>
+    <a role="menuitem" data-tl="en" href="#" hreflang="en">English <span class="lang-en">· original</span></a>
+    <a role="menuitem" data-tl="es" href="#" hreflang="es">Español</a>
+    <a role="menuitem" data-tl="pt" href="#" hreflang="pt">Português</a>
+    <a role="menuitem" data-tl="fr" href="#" hreflang="fr">Français</a>
+    <a role="menuitem" data-tl="de" href="#" hreflang="de">Deutsch</a>
+    <a role="menuitem" data-tl="it" href="#" hreflang="it">Italiano</a>
+    <a role="menuitem" data-tl="nl" href="#" hreflang="nl">Nederlands</a>
+    <a role="menuitem" data-tl="ar" href="#" hreflang="ar" dir="rtl">العربية</a>
+    <a role="menuitem" data-tl="hi" href="#" hreflang="hi">हिन्दी</a>
+    <a role="menuitem" data-tl="zh-CN" href="#" hreflang="zh">中文（简体）</a>
+    <a role="menuitem" data-tl="ja" href="#" hreflang="ja">日本語</a>
+    <a role="menuitem" data-tl="ko" href="#" hreflang="ko">한국어</a>
+    <a role="menuitem" data-tl="ru" href="#" hreflang="ru">Русский</a>
+    <a role="menuitem" data-tl="tr" href="#" hreflang="tr">Türkçe</a>
+    <a role="menuitem" data-tl="id" href="#" hreflang="id">Bahasa Indonesia</a>
+    <a role="menuitem" data-tl="vi" href="#" hreflang="vi">Tiếng Việt</a>
+    <p class="lang-menu-foot">In-page · Google Translate</p>
+  </div>
+</div>
+<div id="google_translate_element" aria-hidden="true"></div>
 
 <div class="wrap">
   <a class="backlink" href="/">← The Brier Cup</a>
@@ -574,6 +631,49 @@ p{max-width:64ch}
   }).join('');
 })();
 </script>
+
+<script>
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    includedLanguages: 'es,pt,fr,de,it,nl,ar,hi,zh-CN,ja,ko,ru,tr,id,vi',
+    autoDisplay: false,
+  }, 'google_translate_element');
+}
+(function () {
+  var pick = document.getElementById('langpick');
+  if (!pick) return;
+  var btn = document.getElementById('lang-btn');
+  var menu = document.getElementById('lang-menu');
+  function close() { menu.hidden = true; btn.setAttribute('aria-expanded', 'false'); pick.classList.remove('open'); }
+  function open() { menu.hidden = false; btn.setAttribute('aria-expanded', 'true'); pick.classList.add('open'); }
+  btn.addEventListener('click', function (e) { e.stopPropagation(); menu.hidden ? open() : close(); });
+  document.addEventListener('click', function (e) { if (!pick.contains(e.target)) close(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+  var host = location.hostname;
+  function clearCookie() {
+    ['', '; domain=' + host, '; domain=.' + host].forEach(function (d) {
+      document.cookie = 'googtrans=; path=/' + d + '; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+    });
+  }
+  function setCookie(lang) {
+    var v = '/en/' + lang;
+    document.cookie = 'googtrans=' + v + '; path=/';
+    document.cookie = 'googtrans=' + v + '; path=/; domain=.' + host;
+  }
+  function translateTo(lang) {
+    if (lang === 'en') { clearCookie(); location.reload(); return; }
+    var combo = document.querySelector('.goog-te-combo');
+    if (combo) { combo.value = lang; combo.dispatchEvent(new Event('change')); }
+    else { setCookie(lang); location.reload(); }
+  }
+  menu.querySelectorAll('a[data-tl]').forEach(function (a) {
+    a.setAttribute('href', '#');
+    a.addEventListener('click', function (e) { e.preventDefault(); translateTo(a.getAttribute('data-tl')); close(); });
+  });
+})();
+</script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 </body>
 </html>
