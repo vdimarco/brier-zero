@@ -68,7 +68,8 @@ makes the Iteration 1 emails answerable.
 
 ### Next Action
 
-1. Install PostHog on `worldcup.uptick.fyi` (5 min). Non-negotiable prerequisite.
+1. ~~Install PostHog on `worldcup.uptick.fyi`.~~ **Done 2026-08-01** (commit
+   `3b08c65`). The prerequisite is cleared.
 2. Ship Iteration 2's post + report (below).
 3. Name the ten recipients in `outreach-drafts.md`, then send all ten inside one
    week, leading with the $1,500 Calibration Audit for warm targets and the $299

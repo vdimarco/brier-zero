@@ -161,9 +161,9 @@ is distribution for it.
 
 ## Distribution checklist
 
-- [ ] **Install PostHog on worldcup.uptick.fyi first.** Posting before the
-      instrumentation is live wastes the only traffic spike this asset is likely
-      to get. Five minutes of work; do it before anything ships.
+- [x] **Install PostHog on worldcup.uptick.fyi first.** Done 2026-08-01. The
+      instrumentation is live, so the traffic spike this post drives will
+      actually be counted.
 - [ ] Add a UTM to every link (`?utm_source=linkedin&utm_campaign=brier-report`)
       so leads are attributable to this and not to `$direct`.
 - [ ] Publish `sample-report.md` as a page at `arena.uptick.fyi/report` — the

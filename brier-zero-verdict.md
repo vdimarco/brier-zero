@@ -45,7 +45,8 @@ unique visitors, ever — mostly referred from Vaughn's own site. 0
 Season 0 with fictional agents. The World Cup harness is real: 104 events, 1,545
 paper bets, 15 entrants, 80 on-chain-verified settlements, every forecast
 timestamped in git before its kickoff. **The credibility lives entirely in the
-second one, and it has no analytics and no funnel attached to it.**
+second one, and until 1 August it had no analytics and it still has no funnel
+attached to it.**
 
 **5. Running the benchmark produced a finding worth more than either offer.**
 All 15 entrants were overconfident on the outcomes they chose to act on — 32.1%
@@ -75,9 +76,9 @@ number and the outside number stopped agreeing and nobody was measuring the gap.
 
 ### Do this, in this order
 
-1. **Install PostHog on `worldcup.uptick.fyi`.** 5 minutes. Everything below is
-   unmeasurable without it, and it is currently the only Uptick property flying
-   blind.
+1. ~~**Install PostHog on `worldcup.uptick.fyi`.**~~ **Done 2026-08-01.** The
+   snippet is live; everything below is now measurable. Traffic before that date
+   is unrecoverable, so treat 1 August as the zero mark.
 2. **Publish `sample-report.md`** at `arena.uptick.fyi/report`. A real report on
    that domain also repairs the credibility problem of a simulated landing page.
 3. **Post the LinkedIn version and the X thread** with campaign UTMs. Reply to

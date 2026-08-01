@@ -17,12 +17,13 @@ project *Uptick HQ* (id 500056); leaderboard and P&L numbers are recomputed from
 | Asset | What it is | Data | Status |
 |---|---|---|---|
 | **arena.uptick.fyi** | Leaderboard landing page — agents ranked by Brier score across N=1 / N=1,000 / N=1,000,000 questions | **Simulated.** "Season 0 · SIMULATED · SEEDED · REPRODUCIBLE". Agents are fictional (KESTREL, BASILISK, CASSANDRA-2). Human crowd baseline finishes 9th. | Live, honest about being simulated, ~zero traffic |
-| **worldcup.uptick.fyi** (this repo) | 10 frontier models + the betting market forecast real World Cup matches; Brier-scored, paper-traded quarter-Kelly, settlement Merkle-proved on Solana | **Real.** 104 matches priced, 1,545 paper bets, 15 entrants, 80 on-chain-verified settlements, full git audit trail | Live, working, **not instrumented** (no analytics at all) |
+| **worldcup.uptick.fyi** (this repo) | 10 frontier models + the betting market forecast real World Cup matches; Brier-scored, paper-traded quarter-Kelly, settlement Merkle-proved on Solana | **Real.** 104 matches priced, 1,545 paper bets, 15 entrants, 80 on-chain-verified settlements, full git audit trail | Live, working, instrumented as of 2026-08-01 (nothing before that) |
 | **`src/brier_zero/`** (Python) | Map/territory detection engine — restatement gate, employee whisper proxy, Map Fidelity Score, skill audit | Library sketch + PRD v2.0 in Linear | Not shipped as a product |
 
 **The strategic fact this snapshot exists to surface:** the page with the traffic
 funnel (arena) runs on simulated data, and the system with real, verifiable,
-differentiated results (the World Cup harness) has no funnel and no analytics.
+differentiated results (the World Cup harness) has no funnel, and had no
+analytics either until 1 August.
 Every revenue path below is an argument about closing that gap.
 
 ### Traffic — arena.uptick.fyi
@@ -50,10 +51,11 @@ seen, most of them arriving from Vaughn. There is no inbound to convert. Any
 revenue in the next 60 days has to come from **outbound**, and the page's job is
 to make the outbound credible — not to acquire.
 
-`worldcup.uptick.fyi` sends no events to PostHog at all, so its traffic is
-genuinely unknown. **First action regardless of iteration outcome:** add the
-PostHog snippet to `public/index.html`. Cost: 5 minutes. Without it we are
-running a 60-day test half blind.
+`worldcup.uptick.fyi` sent no events to PostHog at all, so its traffic to date
+is genuinely unknown and unrecoverable. **Fixed 2026-08-01** — the snippet is
+now in `public/index.html`, so the 60-day test runs instrumented from here.
+Historical traffic remains a blank; the first useful reading is whatever the
+Iteration 2 post drives.
 
 ### Who uses it
 
@@ -227,6 +229,7 @@ thing to find out in the same test.
 | arena.uptick.fyi unique visitors, all time | **10** |
 | Uptick leads attributable to Brier Zero | **0** |
 | `book_call_click` from arena | **0** |
-| worldcup.uptick.fyi traffic | **unmeasured** — no analytics installed |
+| worldcup.uptick.fyi traffic to 2026-07-31 | **unmeasured** — no analytics until 2026-08-01; that history is gone |
+| worldcup.uptick.fyi traffic from 2026-08-01 | instrumented, counting from zero |
 
 Anything above zero is a signal. Zero across both iterations is the kill.
