@@ -76,9 +76,10 @@ number and the outside number stopped agreeing and nobody was measuring the gap.
 
 ### Do this, in this order
 
-1. ~~**Install PostHog on `worldcup.uptick.fyi`.**~~ **Done 2026-08-01.** The
-   snippet is live; everything below is now measurable. Traffic before that date
-   is unrecoverable, so treat 1 August as the zero mark.
+1. **Install PostHog on `worldcup.uptick.fyi`. Written, not shipped.** The
+   snippet was committed 2026-08-01, but PR #55 is still an unmerged draft, so
+   production has sent zero events as of 2026-08-29. **Merging the PR is the
+   whole remaining step.** All traffic to date is unrecoverable.
 2. **Publish `sample-report.md`** at `arena.uptick.fyi/report`. A real report on
    that domain also repairs the credibility problem of a simulated landing page.
 3. **Post the LinkedIn version and the X thread** with campaign UTMs. Reply to

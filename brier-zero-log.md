@@ -68,8 +68,9 @@ makes the Iteration 1 emails answerable.
 
 ### Next Action
 
-1. ~~Install PostHog on `worldcup.uptick.fyi`.~~ **Done 2026-08-01** (commit
-   `3b08c65`). The prerequisite is cleared.
+1. Install PostHog on `worldcup.uptick.fyi` — **written 2026-08-01** (commit
+   `3b08c65`), **not shipped**. PR #55 is still an unmerged draft; production has
+   sent zero events as of 2026-08-29. The prerequisite is NOT cleared.
 2. Ship Iteration 2's post + report (below).
 3. Name the ten recipients in `outreach-drafts.md`, then send all ten inside one
    week, leading with the $1,500 Calibration Audit for warm targets and the $299
@@ -152,3 +153,52 @@ costs one afternoon to publish and it makes Iteration 1's outreach answerable.
 4. Judge on 2026-08-14 against the thresholds in `public-post.md`:
    20+ reactions / 5+ substantive comments / 1+ qualified DM / 1 assessment
    booked. **Zero engagement AND zero leads → the asset is not a lead magnet.**
+
+---
+
+## Status check — 2026-08-29 (decision date +15 days)
+
+The 2026-08-14 decision date passed with no action taken. Measured today from
+PostHog:
+
+| Signal | Reading |
+|---|---|
+| worldcup.uptick.fyi events, all time | **0** — snippet written 2026-08-01, PR #55 never merged |
+| arena.uptick.fyi, August | 23 pageviews / 11 visitors, all 12–16 Aug, silent since |
+| `book_call_click` from arena | **0** |
+| `ask_submitted` from arena | 1 (16 Aug) |
+| Outreach sent | **0 of 10** |
+| Post published | **No** |
+| Payments | **$0** |
+| Qualified Uptick leads attributable to Brier Zero | **0** |
+
+For contrast, `www.uptick.systems` did 1,574 pageviews / 207 visitors in the
+same month, with 1 `book_call_click` and 1 `contact_form_submit`.
+
+### Does the kill note fire?
+
+**No — and this is the distinction that matters.** The decision rule was written
+to judge a test that ran. This test never ran: no email was sent and no post was
+published, so "0 payments, 0 leads, 0 engagement" is not evidence against the
+hypothesis. Firing the kill note here would record a falsification that never
+happened, which is exactly the error the rest of this log was careful to avoid.
+
+The arena traffic (11 visitors, 12–16 Aug, source unexamined) is the only new
+data, and it is too small to mean anything.
+
+### What the four weeks *do* say
+
+The verdict budgeted one weekend. Four weeks passed and none of the six steps
+happened — including the five-minute one, merging PR #55. That is a real signal
+about priority, and it is Vaughn's to read, not this log's. But it is a signal
+about **attention**, not about whether anyone would have bought.
+
+### Next action
+
+One of three, and it needs a human decision:
+
+1. **Merge #55 and set a new date.** Minimum: production starts counting.
+2. **Run the test properly** — one weekend, new 14-day clock.
+3. **Kill on revealed preference** — four weeks of not sending ten emails is its
+   own answer. If so, use the kill note in `brier-zero-verdict.md`, but amend it:
+   the hypothesis was abandoned, not falsified.
