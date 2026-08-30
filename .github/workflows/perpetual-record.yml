@@ -1,0 +1,87 @@
+# The cron behind the perpetual record.
+#
+# Settlement runs daily and costs nothing but a Kalshi read. Collection runs
+# on Mondays and is the only step that spends money, so it is deliberately
+# the rarer of the two.
+#
+# The commit at the end is not bookkeeping — it is the product. A forecast is
+# only worth reading if you can show it predates the resolution, and a commit
+# in a public repo is the cheapest proof of that there is.
+#
+# One prerequisite this file cannot satisfy itself: GitHub fires `schedule`
+# only on a repository's DEFAULT branch. Until this workflow and lib/kalshi.js
+# are on the default branch, the cron never runs on its own. `workflow_dispatch`
+# works from any branch in the meantime.
+
+name: Perpetual record
+
+on:
+  schedule:
+    - cron: '17 6 * * *'   # settle whatever resolved overnight
+    - cron: '43 7 * * 1'   # Mondays: enter the week's new questions
+  workflow_dispatch:
+    inputs:
+      collect:
+        description: Also enter new questions (this is the step that spends)
+        type: boolean
+        default: false
+      limit:
+        description: How many new questions to enter
+        type: string
+        default: '30'
+
+permissions:
+  contents: write
+
+# Two runs must never touch data/store.json at once — the loser's write would
+# silently drop the winner's forecasts.
+concurrency:
+  group: perpetual-record
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - run: npm ci
+
+      # Free, and idempotent: a question already settled is skipped, so a
+      # second run on a Monday costs nothing.
+      - name: Settle what resolved
+        env:
+          KALSHI_API: ${{ vars.KALSHI_API }}
+        run: node scripts/settle-questions.js
+
+      - name: Enter new questions
+        if: github.event.schedule == '43 7 * * 1' || inputs.collect
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          KALSHI_API: ${{ vars.KALSHI_API }}
+          LIMIT: ${{ inputs.limit || '30' }}
+        run: |
+          if [ -z "$OPENROUTER_API_KEY" ]; then
+            echo "::error::OPENROUTER_API_KEY is not set. Without it every forecast fails and the run commits an empty week, which is worse than not running at all."
+            exit 1
+          fi
+          node scripts/collect-questions.js --limit "$LIMIT"
+
+      - name: Commit the record
+        run: |
+          if git diff --quiet -- data/store.json; then
+            echo "Nothing settled and nothing entered. No commit."
+            exit 0
+          fi
+          git config user.name  'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/store.json
+          git commit \
+            -m "record: $(date -u '+%Y-%m-%d') settlement and forecasts" \
+            -m "Written by the perpetual-record workflow. The timestamp on this commit is the lock: every forecast inside it was produced before its question resolved."
+          git push origin "HEAD:${GITHUB_REF_NAME}"

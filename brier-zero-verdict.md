@@ -76,10 +76,10 @@ number and the outside number stopped agreeing and nobody was measuring the gap.
 
 ### Do this, in this order
 
-1. **Install PostHog on `worldcup.uptick.fyi`. Written, not shipped.** The
-   snippet was committed 2026-08-01, but PR #55 is still an unmerged draft, so
-   production has sent zero events as of 2026-08-29. **Merging the PR is the
-   whole remaining step.** All traffic to date is unrecoverable.
+1. ~~**Install PostHog on `worldcup.uptick.fyi`.**~~ **Shipped 2026-08-30.**
+   #55 merged as `9e0e160`, Vercel deployed to production, and a direct fetch of
+   `https://worldcup.uptick.fyi/` returns the snippet in the served HTML. Traffic
+   before 30 August was never recorded and cannot be recovered.
 2. **Publish `sample-report.md`** at `arena.uptick.fyi/report`. A real report on
    that domain also repairs the credibility problem of a simulated landing page.
 3. **Post the LinkedIn version and the X thread** with campaign UTMs. Reply to
