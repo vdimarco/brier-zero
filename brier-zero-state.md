@@ -17,7 +17,7 @@ project *Uptick HQ* (id 500056); leaderboard and P&L numbers are recomputed from
 | Asset | What it is | Data | Status |
 |---|---|---|---|
 | **arena.uptick.fyi** | Leaderboard landing page — agents ranked by Brier score across N=1 / N=1,000 / N=1,000,000 questions | **Simulated.** "Season 0 · SIMULATED · SEEDED · REPRODUCIBLE". Agents are fictional (KESTREL, BASILISK, CASSANDRA-2). Human crowd baseline finishes 9th. | Live, honest about being simulated, ~zero traffic |
-| **worldcup.uptick.fyi** (this repo) | 10 frontier models + the betting market forecast real World Cup matches; Brier-scored, paper-traded quarter-Kelly, settlement Merkle-proved on Solana | **Real.** 104 matches priced, 1,545 paper bets, 15 entrants, 80 on-chain-verified settlements, full git audit trail | Live, working, **still uninstrumented in production** — the snippet is committed but sits in unmerged PR #55 |
+| **worldcup.uptick.fyi** (this repo) | 10 frontier models + the betting market forecast real World Cup matches; Brier-scored, paper-traded quarter-Kelly, settlement Merkle-proved on Solana | **Real.** 104 matches priced, 1,545 paper bets, 15 entrants, 80 on-chain-verified settlements, full git audit trail | Live, working, **instrumented in production since 2026-08-30** (PR #55 merged as `9e0e160`) |
 | **`src/brier_zero/`** (Python) | Map/territory detection engine — restatement gate, employee whisper proxy, Map Fidelity Score, skill audit | Library sketch + PRD v2.0 in Linear | Not shipped as a product |
 
 **The strategic fact this snapshot exists to surface:** the page with the traffic
@@ -52,11 +52,11 @@ revenue in the next 60 days has to come from **outbound**, and the page's job is
 to make the outbound credible — not to acquire.
 
 `worldcup.uptick.fyi` sent no events to PostHog at all, so its traffic to date
-is genuinely unknown and unrecoverable. The snippet was written on 2026-08-01
-and sits in `public/index.html` on branch `claude/brier-zero-revenue-iou56m` —
-but **PR #55 was never merged, so production still sends nothing.** Confirmed
-2026-08-29: zero events of any type have ever arrived from this host. The fix is
-one merge away; until then the 60-day test is still running blind.
+is genuinely unknown and unrecoverable. The snippet was written 2026-08-01,
+sat in an unmerged PR for four weeks, and shipped 2026-08-30 when #55 merged.
+Verified by fetching `https://worldcup.uptick.fyi/` directly: HTTP 200, snippet
+present in the served HTML. **Nothing before 30 August exists and never will.**
+The first reading will be whatever the Iteration 2 post drives.
 
 ### Who uses it
 
@@ -231,6 +231,6 @@ thing to find out in the same test.
 | Uptick leads attributable to Brier Zero | **0** |
 | `book_call_click` from arena | **0** |
 | worldcup.uptick.fyi traffic to 2026-07-31 | **unmeasured** — no analytics until 2026-08-01; that history is gone |
-| worldcup.uptick.fyi traffic, checked 2026-08-29 | **still zero events, ever** — snippet written but PR unmerged |
+| worldcup.uptick.fyi traffic before 2026-08-30 | **zero, permanently** — uninstrumented until #55 merged |
 
 Anything above zero is a signal. Zero across both iterations is the kill.

@@ -68,9 +68,9 @@ makes the Iteration 1 emails answerable.
 
 ### Next Action
 
-1. Install PostHog on `worldcup.uptick.fyi` — **written 2026-08-01** (commit
-   `3b08c65`), **not shipped**. PR #55 is still an unmerged draft; production has
-   sent zero events as of 2026-08-29. The prerequisite is NOT cleared.
+1. ~~Install PostHog on `worldcup.uptick.fyi`.~~ **Shipped 2026-08-30.**
+   Written 2026-08-01 (`3b08c65`), merged 2026-08-30 (`9e0e160`), verified by
+   fetching the live domain. The prerequisite is cleared.
 2. Ship Iteration 2's post + report (below).
 3. Name the ten recipients in `outreach-drafts.md`, then send all ten inside one
    week, leading with the $1,500 Calibration Audit for warm targets and the $299
@@ -202,3 +202,27 @@ One of three, and it needs a human decision:
 3. **Kill on revealed preference** — four weeks of not sending ten emails is its
    own answer. If so, use the kill note in `brier-zero-verdict.md`, but amend it:
    the hypothesis was abandoned, not falsified.
+
+---
+
+## Analytics shipped — 2026-08-30
+
+Vaughn said merge. PR #55 merged as `9e0e160` into
+`claude/linear-access-n858ne`; Vercel deployed it to production
+(`dpl_BTgLyXpmLztrRTJoy65ERHvQrWeQ`, READY).
+
+**Verified the way I should have the first time.** Fetched
+`https://worldcup.uptick.fyi/` directly: HTTP 200, and the served HTML carries
+the PostHog loader with project token `phc_uueVktK2gaALRxPpXzdM…`. On 1 August I
+checked a local file and a preview deploy, then wrote "live". Those confirmed the
+code was correct, not that anyone could reach it.
+
+One thing still cannot be verified from here: no event has arrived yet, because
+nobody has loaded the page since the deploy. The snippet is served; ingestion
+proves itself on the first real visit.
+
+### What is still open
+
+The other five steps in the verdict have not moved. No outreach sent, no post
+published, no Stripe links. The 14 August decision date remains unanswered:
+run the test, or kill it on revealed preference.
