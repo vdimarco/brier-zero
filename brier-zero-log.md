@@ -226,3 +226,45 @@ proves itself on the first real visit.
 The other five steps in the verdict have not moved. No outreach sent, no post
 published, no Stripe links. The 14 August decision date remains unanswered:
 run the test, or kill it on revealed preference.
+
+---
+
+## The cron — 2026-08-30
+
+`.github/workflows/perpetual-record.yml` schedules the perpetual record:
+settlement daily, collection on Mondays, and the job commits
+`data/store.json` itself because the commit timestamp is what makes a locked
+forecast provable. Verified as far as this machine allows — YAML parses, the
+suite is 64/64, the settle path exits clean on an empty record, and the
+missing-key guard fails fast instead of committing an empty week.
+
+**It will not fire yet, and the reason is structural.** GitHub runs `schedule`
+only on a repository's default branch. This repo's default is `main`, and
+`main` is five commits behind: it has no `lib/kalshi.js`, no workflow, and no
+PostHog snippet. Vercel deploys production from `claude/linear-access-n858ne`
+instead, which is why the live site is current while `main` is not. Until the
+code reaches `main` the cron is manual-only via `workflow_dispatch`.
+
+### Measured today
+
+| Signal | Reading |
+|---|---|
+| `worldcup.uptick.fyi` events, last 7 days | **0** |
+| `www.uptick.systems`, same window | 3,388 events / 97 people |
+| Live page serves the PostHog loader | **Yes** — HTTP 200, verified 22:52 UTC |
+| Outreach sent | **0 of 10** |
+| Post published | **No** |
+| Payments | **$0** |
+
+The snippet is served and nobody has loaded the page. Ingestion is the one
+link in that chain still unproven, and it proves itself on the first real
+visit. It could not be forced from here: the agent proxy answers `403` to the
+`CONNECT` for `worldcup.uptick.fyi:443`, so no browser in this environment can
+reach the page — the same wall that blocks `api.elections.kalshi.com` and the
+Kalshi probe.
+
+### Still open
+
+The 14 August decision on the tournament outreach, now sixteen days past. The
+Kalshi probe. And `public-post.md`, which still carries drafts written before
+PolyBench and should not go out unedited.

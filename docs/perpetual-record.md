@@ -100,6 +100,31 @@ DEMO_MODE=1 npm run collect -- --fixture test/fixtures/kalshi-markets.json
 
 Then commit `data/store.json`. The commit is the lock.
 
+## Scheduling it
+
+`.github/workflows/perpetual-record.yml` is the unattended version. Settlement
+runs daily and costs nothing but a Kalshi read; collection runs Mondays and is
+the only step that spends. The job commits `data/store.json` itself, because
+the commit timestamp is the whole proof — a record you have to remember to
+push is not a record.
+
+Two things it needs that the file cannot give itself:
+
+1. **An `OPENROUTER_API_KEY` repository secret.** The collect step checks for
+   it and fails loudly rather than committing a week of empty forecasts.
+2. **The code has to be on the default branch.** GitHub fires `schedule` only
+   there. Until this workflow and `lib/kalshi.js` reach the default branch,
+   the cron will not run on its own — `workflow_dispatch` still works from any
+   branch, so you can drive it by hand in the meantime.
+
+Optionally set a `KALSHI_API` repository variable to point the adapter at a
+different host; unset, it uses the default.
+
+One consequence worth knowing: questions live inside `data/store.json`
+alongside the World Cup ledger, so each weekly run rewrites a 1.5 MB file.
+Git deltas it well, but if the record runs for years, splitting the questions
+into their own file is the cheap fix.
+
 ## What costs what
 
 Upper bound, charging all 12 entrants at Claude Opus 5 list rates
@@ -123,3 +148,9 @@ adapter is defensive (missing fields return null rather than throw) and every
 pure function is fixture-tested, but field names need one real check before
 the cron is trusted. `npm run probe:kalshi` does exactly that and names any
 field the adapter expects and does not find.
+
+Retried 2026-08-30 and still blocked, this time with the reason visible: the
+agent proxy answers `403` to the `CONNECT` for `api.elections.kalshi.com:443`,
+so the request never reaches Kalshi at all. That is a network policy on this
+machine, not a fault in the adapter and not a signal about the API. It still
+has to be run somewhere with real egress before the cron is trusted.
