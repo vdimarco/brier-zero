@@ -7,7 +7,10 @@
   "scripts": {
     "start": "node server.js",
     "predict": "node scripts/predict.js",
-    "test": "node --test test/*.test.js"
+    "test": "node --test test/*.test.js",
+    "collect": "node scripts/collect-questions.js",
+    "settle": "node scripts/settle-questions.js",
+    "probe:kalshi": "node scripts/kalshi-probe.mjs"
   },
   "engines": {
     "node": ">=18"
