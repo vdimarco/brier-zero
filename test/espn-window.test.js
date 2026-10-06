@@ -2,11 +2,12 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { windowKey } from '../lib/espn.js';
 
-test('window runs 30 days ahead during the tournament', () => {
-  assert.equal(windowKey(new Date('2026-06-20T12:00:00Z')), '20260611-20260720');
-});
-
-test('window end is capped at the tournament close', () => {
-  assert.equal(windowKey(new Date('2026-07-15T12:00:00Z')), '20260611-20260731');
-  assert.equal(windowKey(new Date('2026-10-06T12:00:00Z')), '20260611-20260731');
+// ESPN answers HTTP 400 for any YYYYMMDD-YYYYMMDD range; only a bare
+// year (or month, or single day) is accepted.
+test('scoreboard window is the tournament year, never a date range', () => {
+  for (const now of ['2026-06-20T12:00:00Z', '2026-10-06T12:00:00Z']) {
+    const key = windowKey(new Date(now));
+    assert.equal(key, '2026');
+    assert.doesNotMatch(key, /-/);
+  }
 });
