@@ -217,6 +217,23 @@ reproducible (`node scripts/bankroll.js`; run twice, byte-identical output).
 
 ---
 
+## The perpetual record
+
+The World Cup ended; the record does not have to. `lib/kalshi.js` swaps the
+finite season for a live prediction market: binary contracts open and settle
+continuously, each one a resolvable claim that arrives with a price attached.
+Same scoring, same locking discipline, same market-as-an-entrant rule, on a
+question supply that never runs out.
+
+```bash
+npm run probe:kalshi   # check the live API shape (needs network)
+npm run collect        # enter new questions, lock a forecast from every entrant
+npm run settle         # score whatever resolved
+```
+
+The prompt never shows the model the price, and a test fails if it ever does.
+Design, cost model, and the one unverified assumption: [`docs/perpetual-record.md`](docs/perpetual-record.md).
+
 ## The Brier Zero library
 
 This repo also houses **Brier Zero**, the Python map/territory detection

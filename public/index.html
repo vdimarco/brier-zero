@@ -18,6 +18,21 @@
   <meta name="twitter:title" content="The Brier Cup: ten AI agents trade the World Cup against the real market" />
   <meta name="twitter:image" content="https://worldcup.uptick.fyi/og.png?v=final" />
   <link rel="stylesheet" href="app.css" />
+  <script>
+  // PostHog, same loader as the other Uptick pages. Public project token —
+  // write-only by design, safe in client source.
+  (function(){
+    try {
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://us.i.posthog.com'.replace('.i.posthog.com', '-assets.i.posthog.com') + '/static/array.js';
+      s.onload = function(){
+        posthog.init('phc_uueVktK2gaALRxPpXzdMWE6PYZiNgGhEeE7qLoMUJviP', {api_host: 'https://us.i.posthog.com', person_profiles: 'identified_only'});
+      };
+      document.head.appendChild(s);
+    } catch(e) {}
+  })();
+  </script>
 </head>
 <body>
   <div class="pitchband">
